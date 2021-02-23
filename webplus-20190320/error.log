@@ -1,0 +1,19 @@
+- PublishError: 36a927f2-d1f8-48a4-b1b0-06266d6b3e47 python2-tea pypi:
+
+[message] Command failed: python setup.py sdist bdist_wheel
+Traceback (most recent call last):
+  File "setup.py", line 22, in <module>
+    from setuptools import setup, find_packages
+ImportError: No module named setuptools
+
+
+[stdout] 
+
+[stderr] Traceback (most recent call last):
+  File "setup.py", line 22, in <module>
+    from setuptools import setup, find_packages
+ImportError: No module named setuptools
+
+
+-----------------
+
