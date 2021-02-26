@@ -140,24 +140,26 @@ class Client(OpenApiClient):
     def aggregate_search_yuqing_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.search_condition):
-            query['searchCondition'] = request.search_condition
-        if not UtilClient.is_unset(request.aggregate_function):
-            query['aggregateFunction'] = request.aggregate_function
-        if not UtilClient.is_unset(request.group_by_key):
-            query['groupByKey'] = request.group_by_key
-        if not UtilClient.is_unset(request.group_limits):
-            query['groupLimits'] = request.group_limits
         if not UtilClient.is_unset(request.team_hash_id):
             query['teamHashId'] = request.team_hash_id
         if not UtilClient.is_unset(request.request_id):
             query['requestId'] = request.request_id
+        body = {}
+        if not UtilClient.is_unset(request.search_condition):
+            body['searchCondition'] = request.search_condition
+        if not UtilClient.is_unset(request.aggregate_function):
+            body['aggregateFunction'] = request.aggregate_function
+        if not UtilClient.is_unset(request.group_by_key):
+            body['groupByKey'] = request.group_by_key
+        if not UtilClient.is_unset(request.group_limits):
+            body['groupLimits'] = request.group_limits
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         return yuqing_20210126_models.AggregateSearchYuqingResponse().from_map(
-            self.do_roarequest('AggregateSearchYuqing', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/aggSearch.json', 'json', req, runtime)
+            self.do_roarequest_with_form('AggregateSearchYuqing', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/aggSearch.json', 'json', req, runtime)
         )
 
     def get_analysis_component_result(self, request):
@@ -190,20 +192,22 @@ class Client(OpenApiClient):
     def query_analysis_component_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.analyse_type):
-            query['analyseType'] = request.analyse_type
-        if not UtilClient.is_unset(request.search_condition):
-            query['searchCondition'] = request.search_condition
         if not UtilClient.is_unset(request.team_hash_id):
             query['teamHashId'] = request.team_hash_id
         if not UtilClient.is_unset(request.request_id):
             query['requestId'] = request.request_id
+        body = {}
+        if not UtilClient.is_unset(request.analyse_type):
+            body['analyseType'] = request.analyse_type
+        if not UtilClient.is_unset(request.search_condition):
+            body['searchCondition'] = request.search_condition
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         return yuqing_20210126_models.QueryAnalysisComponentResponse().from_map(
-            self.do_roarequest('QueryAnalysisComponent', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/queryAnalysisComponent.json', 'json', req, runtime)
+            self.do_roarequest_with_form('QueryAnalysisComponent', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/queryAnalysisComponent.json', 'json', req, runtime)
         )
 
     def update_propagation(self, request):
@@ -214,18 +218,20 @@ class Client(OpenApiClient):
     def update_propagation_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.weibo_urls):
-            query['weiboUrls'] = request.weibo_urls
         if not UtilClient.is_unset(request.team_hash_id):
             query['teamHashId'] = request.team_hash_id
         if not UtilClient.is_unset(request.request_id):
             query['requestId'] = request.request_id
+        body = {}
+        if not UtilClient.is_unset(request.weibo_urls):
+            body['weiboUrls'] = request.weibo_urls
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         return yuqing_20210126_models.UpdatePropagationResponse().from_map(
-            self.do_roarequest('UpdatePropagation', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/updatePropagation.json', 'json', req, runtime)
+            self.do_roarequest_with_form('UpdatePropagation', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/updatePropagation.json', 'json', req, runtime)
         )
 
     def get_message_detail(self, request):
@@ -258,18 +264,20 @@ class Client(OpenApiClient):
     def list_yuqing_messages_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.search_condition):
-            query['searchCondition'] = request.search_condition
         if not UtilClient.is_unset(request.team_hash_id):
             query['teamHashId'] = request.team_hash_id
         if not UtilClient.is_unset(request.request_id):
             query['requestId'] = request.request_id
+        body = {}
+        if not UtilClient.is_unset(request.search_condition):
+            body['searchCondition'] = request.search_condition
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         return yuqing_20210126_models.ListYuqingMessagesResponse().from_map(
-            self.do_roarequest('ListYuqingMessages', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/searchMessages.json', 'json', req, runtime)
+            self.do_roarequest_with_form('ListYuqingMessages', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/searchMessages.json', 'json', req, runtime)
         )
 
     def query_project_list(self, request):
