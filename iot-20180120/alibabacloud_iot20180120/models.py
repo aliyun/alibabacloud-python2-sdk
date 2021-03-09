@@ -30,15 +30,15 @@ class BatchAddDeviceGroupRelationsRequestDevice(TeaModel):
 
 
 class BatchAddDeviceGroupRelationsRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, group_id=None,
-                 real_tenant_id=None, real_tripartite_key=None, device=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, group_id=None, device=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+        self.device = device  # type: list[BatchAddDeviceGroupRelationsRequestDevice]
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.device = device  # type: list[BatchAddDeviceGroupRelationsRequestDevice]
 
     def validate(self):
         if self.device:
@@ -56,14 +56,14 @@ class BatchAddDeviceGroupRelationsRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.real_tenant_id is not None:
-            result['RealTenantId'] = self.real_tenant_id
-        if self.real_tripartite_key is not None:
-            result['RealTripartiteKey'] = self.real_tripartite_key
         result['Device'] = []
         if self.device is not None:
             for k in self.device:
                 result['Device'].append(k.to_map() if k else None)
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -76,71 +76,72 @@ class BatchAddDeviceGroupRelationsRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('RealTenantId') is not None:
-            self.real_tenant_id = m.get('RealTenantId')
-        if m.get('RealTripartiteKey') is not None:
-            self.real_tripartite_key = m.get('RealTripartiteKey')
         self.device = []
         if m.get('Device') is not None:
             for k in m.get('Device'):
                 temp_model = BatchAddDeviceGroupRelationsRequestDevice()
                 self.device.append(temp_model.from_map(k))
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class BatchAddDeviceGroupRelationsResponseBody(TeaModel):
-    def __init__(self, valid_device_count=None, success_added_device_count=None, request_id=None,
-                 exceed_ten_group_device_count=None, error_message=None, already_related_group_device_count=None, code=None, success=None):
-        self.valid_device_count = valid_device_count  # type: int
-        self.success_added_device_count = success_added_device_count  # type: int
+    def __init__(self, request_id=None, success=None, code=None, valid_device_count=None,
+                 exceed_ten_group_device_count=None, already_related_group_device_count=None, success_added_device_count=None,
+                 error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.exceed_ten_group_device_count = exceed_ten_group_device_count  # type: int
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.already_related_group_device_count = already_related_group_device_count  # type: int
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.valid_device_count = valid_device_count  # type: int
+        self.exceed_ten_group_device_count = exceed_ten_group_device_count  # type: int
+        self.already_related_group_device_count = already_related_group_device_count  # type: int
+        self.success_added_device_count = success_added_device_count  # type: int
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.valid_device_count is not None:
-            result['ValidDeviceCount'] = self.valid_device_count
-        if self.success_added_device_count is not None:
-            result['SuccessAddedDeviceCount'] = self.success_added_device_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.exceed_ten_group_device_count is not None:
-            result['ExceedTenGroupDeviceCount'] = self.exceed_ten_group_device_count
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.already_related_group_device_count is not None:
-            result['AlreadyRelatedGroupDeviceCount'] = self.already_related_group_device_count
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.valid_device_count is not None:
+            result['ValidDeviceCount'] = self.valid_device_count
+        if self.exceed_ten_group_device_count is not None:
+            result['ExceedTenGroupDeviceCount'] = self.exceed_ten_group_device_count
+        if self.already_related_group_device_count is not None:
+            result['AlreadyRelatedGroupDeviceCount'] = self.already_related_group_device_count
+        if self.success_added_device_count is not None:
+            result['SuccessAddedDeviceCount'] = self.success_added_device_count
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ValidDeviceCount') is not None:
-            self.valid_device_count = m.get('ValidDeviceCount')
-        if m.get('SuccessAddedDeviceCount') is not None:
-            self.success_added_device_count = m.get('SuccessAddedDeviceCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ExceedTenGroupDeviceCount') is not None:
-            self.exceed_ten_group_device_count = m.get('ExceedTenGroupDeviceCount')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('AlreadyRelatedGroupDeviceCount') is not None:
-            self.already_related_group_device_count = m.get('AlreadyRelatedGroupDeviceCount')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ValidDeviceCount') is not None:
+            self.valid_device_count = m.get('ValidDeviceCount')
+        if m.get('ExceedTenGroupDeviceCount') is not None:
+            self.exceed_ten_group_device_count = m.get('ExceedTenGroupDeviceCount')
+        if m.get('AlreadyRelatedGroupDeviceCount') is not None:
+            self.already_related_group_device_count = m.get('AlreadyRelatedGroupDeviceCount')
+        if m.get('SuccessAddedDeviceCount') is not None:
+            self.success_added_device_count = m.get('SuccessAddedDeviceCount')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -174,13 +175,13 @@ class BatchAddDeviceGroupRelationsResponse(TeaModel):
 
 
 class BatchAddThingTopoRequestTopoAddItem(TeaModel):
-    def __init__(self, product_key=None, device_name=None, sign=None, timestamp=None, sign_method=None,
+    def __init__(self, product_key=None, device_name=None, sign=None, sign_method=None, timestamp=None,
                  client_id=None):
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
         self.sign = TeaConverter.to_unicode(sign)  # type: unicode
-        self.timestamp = TeaConverter.to_unicode(timestamp)  # type: unicode
         self.sign_method = TeaConverter.to_unicode(sign_method)  # type: unicode
+        self.timestamp = TeaConverter.to_unicode(timestamp)  # type: unicode
         self.client_id = TeaConverter.to_unicode(client_id)  # type: unicode
 
     def validate(self):
@@ -194,10 +195,10 @@ class BatchAddThingTopoRequestTopoAddItem(TeaModel):
             result['DeviceName'] = self.device_name
         if self.sign is not None:
             result['Sign'] = self.sign
-        if self.timestamp is not None:
-            result['Timestamp'] = self.timestamp
         if self.sign_method is not None:
             result['SignMethod'] = self.sign_method
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
         if self.client_id is not None:
             result['ClientId'] = self.client_id
         return result
@@ -210,25 +211,25 @@ class BatchAddThingTopoRequestTopoAddItem(TeaModel):
             self.device_name = m.get('DeviceName')
         if m.get('Sign') is not None:
             self.sign = m.get('Sign')
-        if m.get('Timestamp') is not None:
-            self.timestamp = m.get('Timestamp')
         if m.get('SignMethod') is not None:
             self.sign_method = m.get('SignMethod')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
         if m.get('ClientId') is not None:
             self.client_id = m.get('ClientId')
         return self
 
 
 class BatchAddThingTopoRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, gw_product_key=None, ext=None,
-                 gw_device_name=None, topo_add_item=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, topo_add_item=None,
+                 gw_product_key=None, ext=None, gw_device_name=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.gw_product_key = TeaConverter.to_unicode(gw_product_key)  # type: unicode
-        self.ext = ext  # type: dict[unicode, any]
-        self.gw_device_name = TeaConverter.to_unicode(gw_device_name)  # type: unicode
         self.topo_add_item = topo_add_item  # type: list[BatchAddThingTopoRequestTopoAddItem]
+        self.gw_product_key = TeaConverter.to_unicode(gw_product_key)  # type: unicode
+        self.ext = TeaConverter.to_unicode(ext)  # type: unicode
+        self.gw_device_name = TeaConverter.to_unicode(gw_device_name)  # type: unicode
 
     def validate(self):
         if self.topo_add_item:
@@ -244,16 +245,16 @@ class BatchAddThingTopoRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
+        result['TopoAddItem'] = []
+        if self.topo_add_item is not None:
+            for k in self.topo_add_item:
+                result['TopoAddItem'].append(k.to_map() if k else None)
         if self.gw_product_key is not None:
             result['GwProductKey'] = self.gw_product_key
         if self.ext is not None:
             result['Ext'] = self.ext
         if self.gw_device_name is not None:
             result['GwDeviceName'] = self.gw_device_name
-        result['TopoAddItem'] = []
-        if self.topo_add_item is not None:
-            for k in self.topo_add_item:
-                result['TopoAddItem'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -264,131 +265,26 @@ class BatchAddThingTopoRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
+        self.topo_add_item = []
+        if m.get('TopoAddItem') is not None:
+            for k in m.get('TopoAddItem'):
+                temp_model = BatchAddThingTopoRequestTopoAddItem()
+                self.topo_add_item.append(temp_model.from_map(k))
         if m.get('GwProductKey') is not None:
             self.gw_product_key = m.get('GwProductKey')
         if m.get('Ext') is not None:
             self.ext = m.get('Ext')
         if m.get('GwDeviceName') is not None:
             self.gw_device_name = m.get('GwDeviceName')
-        self.topo_add_item = []
-        if m.get('TopoAddItem') is not None:
-            for k in m.get('TopoAddItem'):
-                temp_model = BatchAddThingTopoRequestTopoAddItem()
-                self.topo_add_item.append(temp_model.from_map(k))
-        return self
-
-
-class BatchAddThingTopoShrinkRequestTopoAddItem(TeaModel):
-    def __init__(self, product_key=None, device_name=None, sign=None, timestamp=None, sign_method=None,
-                 client_id=None):
-        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
-        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
-        self.sign = TeaConverter.to_unicode(sign)  # type: unicode
-        self.timestamp = TeaConverter.to_unicode(timestamp)  # type: unicode
-        self.sign_method = TeaConverter.to_unicode(sign_method)  # type: unicode
-        self.client_id = TeaConverter.to_unicode(client_id)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
-        if self.sign is not None:
-            result['Sign'] = self.sign
-        if self.timestamp is not None:
-            result['Timestamp'] = self.timestamp
-        if self.sign_method is not None:
-            result['SignMethod'] = self.sign_method
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
-        if m.get('Sign') is not None:
-            self.sign = m.get('Sign')
-        if m.get('Timestamp') is not None:
-            self.timestamp = m.get('Timestamp')
-        if m.get('SignMethod') is not None:
-            self.sign_method = m.get('SignMethod')
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        return self
-
-
-class BatchAddThingTopoShrinkRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, gw_product_key=None,
-                 ext_shrink=None, gw_device_name=None, topo_add_item=None):
-        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
-        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.gw_product_key = TeaConverter.to_unicode(gw_product_key)  # type: unicode
-        self.ext_shrink = TeaConverter.to_unicode(ext_shrink)  # type: unicode
-        self.gw_device_name = TeaConverter.to_unicode(gw_device_name)  # type: unicode
-        self.topo_add_item = topo_add_item  # type: list[BatchAddThingTopoShrinkRequestTopoAddItem]
-
-    def validate(self):
-        if self.topo_add_item:
-            for k in self.topo_add_item:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.api_product is not None:
-            result['ApiProduct'] = self.api_product
-        if self.api_revision is not None:
-            result['ApiRevision'] = self.api_revision
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.gw_product_key is not None:
-            result['GwProductKey'] = self.gw_product_key
-        if self.ext_shrink is not None:
-            result['Ext'] = self.ext_shrink
-        if self.gw_device_name is not None:
-            result['GwDeviceName'] = self.gw_device_name
-        result['TopoAddItem'] = []
-        if self.topo_add_item is not None:
-            for k in self.topo_add_item:
-                result['TopoAddItem'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiProduct') is not None:
-            self.api_product = m.get('ApiProduct')
-        if m.get('ApiRevision') is not None:
-            self.api_revision = m.get('ApiRevision')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('GwProductKey') is not None:
-            self.gw_product_key = m.get('GwProductKey')
-        if m.get('Ext') is not None:
-            self.ext_shrink = m.get('Ext')
-        if m.get('GwDeviceName') is not None:
-            self.gw_device_name = m.get('GwDeviceName')
-        self.topo_add_item = []
-        if m.get('TopoAddItem') is not None:
-            for k in m.get('TopoAddItem'):
-                temp_model = BatchAddThingTopoShrinkRequestTopoAddItem()
-                self.topo_add_item.append(temp_model.from_map(k))
         return self
 
 
 class BatchAddThingTopoResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -397,24 +293,24 @@ class BatchAddThingTopoResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -494,11 +390,11 @@ class BatchBindDeviceToEdgeInstanceWithDriverRequest(TeaModel):
 
 
 class BatchBindDeviceToEdgeInstanceWithDriverResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -507,24 +403,24 @@ class BatchBindDeviceToEdgeInstanceWithDriverResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -558,39 +454,41 @@ class BatchBindDeviceToEdgeInstanceWithDriverResponse(TeaModel):
 
 
 class BatchCheckDeviceNamesRequestDeviceNameList(TeaModel):
-    def __init__(self, device_nickname=None, device_name=None):
-        self.device_nickname = TeaConverter.to_unicode(device_nickname)  # type: unicode
+    def __init__(self, device_name=None, device_nickname=None):
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.device_nickname = TeaConverter.to_unicode(device_nickname)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.device_nickname is not None:
-            result['DeviceNickname'] = self.device_nickname
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
+        if self.device_nickname is not None:
+            result['DeviceNickname'] = self.device_nickname
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DeviceNickname') is not None:
-            self.device_nickname = m.get('DeviceNickname')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
+        if m.get('DeviceNickname') is not None:
+            self.device_nickname = m.get('DeviceNickname')
         return self
 
 
 class BatchCheckDeviceNamesRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None, device_name_list=None):
+                 device_name=None, device_name_list=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = device_name  # type: list[unicode]
         self.device_name_list = device_name_list  # type: list[BatchCheckDeviceNamesRequestDeviceNameList]
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         if self.device_name_list:
@@ -614,6 +512,10 @@ class BatchCheckDeviceNamesRequest(TeaModel):
         if self.device_name_list is not None:
             for k in self.device_name_list:
                 result['DeviceNameList'].append(k.to_map() if k else None)
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -633,6 +535,10 @@ class BatchCheckDeviceNamesRequest(TeaModel):
             for k in m.get('DeviceNameList'):
                 temp_model = BatchCheckDeviceNamesRequestDeviceNameList()
                 self.device_name_list.append(temp_model.from_map(k))
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -712,12 +618,12 @@ class BatchCheckDeviceNamesResponseBodyData(TeaModel):
 
 
 class BatchCheckDeviceNamesResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: BatchCheckDeviceNamesResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: BatchCheckDeviceNamesResponseBodyData
 
     def validate(self):
         if self.data:
@@ -727,29 +633,29 @@ class BatchCheckDeviceNamesResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = BatchCheckDeviceNamesResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -823,11 +729,11 @@ class BatchClearEdgeInstanceDeviceConfigRequest(TeaModel):
 
 
 class BatchClearEdgeInstanceDeviceConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -836,24 +742,24 @@ class BatchClearEdgeInstanceDeviceConfigResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -912,15 +818,15 @@ class BatchDeleteDeviceGroupRelationsRequestDevice(TeaModel):
 
 
 class BatchDeleteDeviceGroupRelationsRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, group_id=None,
-                 real_tenant_id=None, real_tripartite_key=None, device=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, group_id=None, device=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+        self.device = device  # type: list[BatchDeleteDeviceGroupRelationsRequestDevice]
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.device = device  # type: list[BatchDeleteDeviceGroupRelationsRequestDevice]
 
     def validate(self):
         if self.device:
@@ -938,14 +844,14 @@ class BatchDeleteDeviceGroupRelationsRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.real_tenant_id is not None:
-            result['RealTenantId'] = self.real_tenant_id
-        if self.real_tripartite_key is not None:
-            result['RealTripartiteKey'] = self.real_tripartite_key
         result['Device'] = []
         if self.device is not None:
             for k in self.device:
                 result['Device'].append(k.to_map() if k else None)
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -958,66 +864,66 @@ class BatchDeleteDeviceGroupRelationsRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('RealTenantId') is not None:
-            self.real_tenant_id = m.get('RealTenantId')
-        if m.get('RealTripartiteKey') is not None:
-            self.real_tripartite_key = m.get('RealTripartiteKey')
         self.device = []
         if m.get('Device') is not None:
             for k in m.get('Device'):
                 temp_model = BatchDeleteDeviceGroupRelationsRequestDevice()
                 self.device.append(temp_model.from_map(k))
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class BatchDeleteDeviceGroupRelationsResponseBody(TeaModel):
-    def __init__(self, valid_device_count=None, request_id=None, success_device_count=None, error_message=None,
-                 already_related_group_device_count=None, code=None, success=None):
-        self.valid_device_count = valid_device_count  # type: int
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, valid_device_count=None,
+                 already_related_group_device_count=None, success_device_count=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.success_device_count = success_device_count  # type: int
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.already_related_group_device_count = already_related_group_device_count  # type: int
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.valid_device_count = valid_device_count  # type: int
+        self.already_related_group_device_count = already_related_group_device_count  # type: int
+        self.success_device_count = success_device_count  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.valid_device_count is not None:
-            result['ValidDeviceCount'] = self.valid_device_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success_device_count is not None:
-            result['SuccessDeviceCount'] = self.success_device_count
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.already_related_group_device_count is not None:
-            result['AlreadyRelatedGroupDeviceCount'] = self.already_related_group_device_count
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.valid_device_count is not None:
+            result['ValidDeviceCount'] = self.valid_device_count
+        if self.already_related_group_device_count is not None:
+            result['AlreadyRelatedGroupDeviceCount'] = self.already_related_group_device_count
+        if self.success_device_count is not None:
+            result['SuccessDeviceCount'] = self.success_device_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ValidDeviceCount') is not None:
-            self.valid_device_count = m.get('ValidDeviceCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('SuccessDeviceCount') is not None:
-            self.success_device_count = m.get('SuccessDeviceCount')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('AlreadyRelatedGroupDeviceCount') is not None:
-            self.already_related_group_device_count = m.get('AlreadyRelatedGroupDeviceCount')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ValidDeviceCount') is not None:
+            self.valid_device_count = m.get('ValidDeviceCount')
+        if m.get('AlreadyRelatedGroupDeviceCount') is not None:
+            self.already_related_group_device_count = m.get('AlreadyRelatedGroupDeviceCount')
+        if m.get('SuccessDeviceCount') is not None:
+            self.success_device_count = m.get('SuccessDeviceCount')
         return self
 
 
@@ -1097,11 +1003,11 @@ class BatchDeleteEdgeInstanceChannelRequest(TeaModel):
 
 
 class BatchDeleteEdgeInstanceChannelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -1110,24 +1016,24 @@ class BatchDeleteEdgeInstanceChannelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -1196,37 +1102,37 @@ class BatchGetDeviceBindStatusRequest(TeaModel):
 
 
 class BatchGetDeviceBindStatusResponseBodyData(TeaModel):
-    def __init__(self, bind_status=None, iot_id=None):
-        self.bind_status = bind_status  # type: int
+    def __init__(self, iot_id=None, bind_status=None):
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.bind_status = bind_status  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.bind_status is not None:
-            result['BindStatus'] = self.bind_status
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.bind_status is not None:
+            result['BindStatus'] = self.bind_status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BindStatus') is not None:
-            self.bind_status = m.get('BindStatus')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
+        if m.get('BindStatus') is not None:
+            self.bind_status = m.get('BindStatus')
         return self
 
 
 class BatchGetDeviceBindStatusResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: list[BatchGetDeviceBindStatusResponseBodyData]
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: list[BatchGetDeviceBindStatusResponseBodyData]
 
     def validate(self):
         if self.data:
@@ -1238,33 +1144,33 @@ class BatchGetDeviceBindStatusResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         result['Data'] = []
         if self.data is not None:
             for k in self.data:
                 result['Data'].append(k.to_map() if k else None)
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         self.data = []
         if m.get('Data') is not None:
             for k in m.get('Data'):
                 temp_model = BatchGetDeviceBindStatusResponseBodyData()
                 self.data.append(temp_model.from_map(k))
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1298,13 +1204,13 @@ class BatchGetDeviceBindStatusResponse(TeaModel):
 
 
 class BatchGetDeviceStateRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None, iot_id=None):
+    def __init__(self, api_product=None, api_revision=None, device_name=None, iot_instance_id=None,
+                 product_key=None, iot_id=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.device_name = device_name  # type: list[unicode]
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
-        self.device_name = device_name  # type: list[unicode]
         self.iot_id = iot_id  # type: list[unicode]
 
     def validate(self):
@@ -1316,12 +1222,12 @@ class BatchGetDeviceStateRequest(TeaModel):
             result['ApiProduct'] = self.api_product
         if self.api_revision is not None:
             result['ApiRevision'] = self.api_revision
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
         return result
@@ -1332,25 +1238,25 @@ class BatchGetDeviceStateRequest(TeaModel):
             self.api_product = m.get('ApiProduct')
         if m.get('ApiRevision') is not None:
             self.api_revision = m.get('ApiRevision')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
         return self
 
 
 class BatchGetDeviceStateResponseBodyDeviceStatusListDeviceStatus(TeaModel):
-    def __init__(self, status=None, last_online_time=None, device_name=None, device_id=None, as_address=None,
+    def __init__(self, device_id=None, device_name=None, status=None, as_address=None, last_online_time=None,
                  iot_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.last_online_time = TeaConverter.to_unicode(last_online_time)  # type: unicode
-        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
         self.device_id = TeaConverter.to_unicode(device_id)  # type: unicode
+        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.status = TeaConverter.to_unicode(status)  # type: unicode
         self.as_address = TeaConverter.to_unicode(as_address)  # type: unicode
+        self.last_online_time = TeaConverter.to_unicode(last_online_time)  # type: unicode
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
 
     def validate(self):
@@ -1358,32 +1264,32 @@ class BatchGetDeviceStateResponseBodyDeviceStatusListDeviceStatus(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.last_online_time is not None:
-            result['LastOnlineTime'] = self.last_online_time
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.status is not None:
+            result['Status'] = self.status
         if self.as_address is not None:
             result['AsAddress'] = self.as_address
+        if self.last_online_time is not None:
+            result['LastOnlineTime'] = self.last_online_time
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('LastOnlineTime') is not None:
-            self.last_online_time = m.get('LastOnlineTime')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('AsAddress') is not None:
             self.as_address = m.get('AsAddress')
+        if m.get('LastOnlineTime') is not None:
+            self.last_online_time = m.get('LastOnlineTime')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
         return self
@@ -1418,12 +1324,12 @@ class BatchGetDeviceStateResponseBodyDeviceStatusList(TeaModel):
 
 
 class BatchGetDeviceStateResponseBody(TeaModel):
-    def __init__(self, request_id=None, device_status_list=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, device_status_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.device_status_list = device_status_list  # type: BatchGetDeviceStateResponseBodyDeviceStatusList
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.device_status_list = device_status_list  # type: BatchGetDeviceStateResponseBodyDeviceStatusList
 
     def validate(self):
         if self.device_status_list:
@@ -1433,29 +1339,29 @@ class BatchGetDeviceStateResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.device_status_list is not None:
-            result['DeviceStatusList'] = self.device_status_list.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.device_status_list is not None:
+            result['DeviceStatusList'] = self.device_status_list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('DeviceStatusList') is not None:
             temp_model = BatchGetDeviceStateResponseBodyDeviceStatusList()
             self.device_status_list = temp_model.from_map(m['DeviceStatusList'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1524,73 +1430,73 @@ class BatchGetEdgeDriverRequest(TeaModel):
 
 
 class BatchGetEdgeDriverResponseBodyDriverList(TeaModel):
-    def __init__(self, gmt_create_timestamp=None, type=None, cpu_arch=None, driver_id=None, is_built_in=None,
-                 gmt_modified_timestamp=None, runtime=None, driver_name=None, driver_protocol=None):
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.type = type  # type: int
-        self.cpu_arch = TeaConverter.to_unicode(cpu_arch)  # type: unicode
+    def __init__(self, driver_id=None, driver_name=None, driver_protocol=None, runtime=None, cpu_arch=None,
+                 type=None, is_built_in=None, gmt_create_timestamp=None, gmt_modified_timestamp=None):
         self.driver_id = TeaConverter.to_unicode(driver_id)  # type: unicode
-        self.is_built_in = is_built_in  # type: bool
-        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
         self.driver_name = TeaConverter.to_unicode(driver_name)  # type: unicode
         self.driver_protocol = TeaConverter.to_unicode(driver_protocol)  # type: unicode
+        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
+        self.cpu_arch = TeaConverter.to_unicode(cpu_arch)  # type: unicode
+        self.type = type  # type: int
+        self.is_built_in = is_built_in  # type: bool
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
+        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.cpu_arch is not None:
-            result['CpuArch'] = self.cpu_arch
         if self.driver_id is not None:
             result['DriverId'] = self.driver_id
-        if self.is_built_in is not None:
-            result['IsBuiltIn'] = self.is_built_in
-        if self.gmt_modified_timestamp is not None:
-            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
-        if self.runtime is not None:
-            result['Runtime'] = self.runtime
         if self.driver_name is not None:
             result['DriverName'] = self.driver_name
         if self.driver_protocol is not None:
             result['DriverProtocol'] = self.driver_protocol
+        if self.runtime is not None:
+            result['Runtime'] = self.runtime
+        if self.cpu_arch is not None:
+            result['CpuArch'] = self.cpu_arch
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.is_built_in is not None:
+            result['IsBuiltIn'] = self.is_built_in
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_modified_timestamp is not None:
+            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('CpuArch') is not None:
-            self.cpu_arch = m.get('CpuArch')
         if m.get('DriverId') is not None:
             self.driver_id = m.get('DriverId')
-        if m.get('IsBuiltIn') is not None:
-            self.is_built_in = m.get('IsBuiltIn')
-        if m.get('GmtModifiedTimestamp') is not None:
-            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
-        if m.get('Runtime') is not None:
-            self.runtime = m.get('Runtime')
         if m.get('DriverName') is not None:
             self.driver_name = m.get('DriverName')
         if m.get('DriverProtocol') is not None:
             self.driver_protocol = m.get('DriverProtocol')
+        if m.get('Runtime') is not None:
+            self.runtime = m.get('Runtime')
+        if m.get('CpuArch') is not None:
+            self.cpu_arch = m.get('CpuArch')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('IsBuiltIn') is not None:
+            self.is_built_in = m.get('IsBuiltIn')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtModifiedTimestamp') is not None:
+            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
         return self
 
 
 class BatchGetEdgeDriverResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, driver_list=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, driver_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.driver_list = driver_list  # type: list[BatchGetEdgeDriverResponseBodyDriverList]
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         if self.driver_list:
@@ -1602,22 +1508,26 @@ class BatchGetEdgeDriverResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         result['DriverList'] = []
         if self.driver_list is not None:
             for k in self.driver_list:
                 result['DriverList'].append(k.to_map() if k else None)
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         self.driver_list = []
@@ -1625,10 +1535,6 @@ class BatchGetEdgeDriverResponseBody(TeaModel):
             for k in m.get('DriverList'):
                 temp_model = BatchGetEdgeDriverResponseBodyDriverList()
                 self.driver_list.append(temp_model.from_map(k))
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1708,37 +1614,37 @@ class BatchGetEdgeInstanceChannelRequest(TeaModel):
 
 
 class BatchGetEdgeInstanceChannelResponseBodyDataChannelConfigListConfig(TeaModel):
-    def __init__(self, key=None, config_id=None, format=None, content=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+    def __init__(self, config_id=None, format=None, content=None, key=None):
         self.config_id = TeaConverter.to_unicode(config_id)  # type: unicode
         self.format = TeaConverter.to_unicode(format)  # type: unicode
         self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.key = TeaConverter.to_unicode(key)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.key is not None:
-            result['Key'] = self.key
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
         if self.format is not None:
             result['Format'] = self.format
         if self.content is not None:
             result['Content'] = self.content
+        if self.key is not None:
+            result['Key'] = self.key
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Key') is not None:
-            self.key = m.get('Key')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
         if m.get('Format') is not None:
             self.format = m.get('Format')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         return self
 
 
@@ -1771,9 +1677,9 @@ class BatchGetEdgeInstanceChannelResponseBodyDataChannelConfigList(TeaModel):
 
 
 class BatchGetEdgeInstanceChannelResponseBodyDataChannel(TeaModel):
-    def __init__(self, channel_name=None, channel_id=None, config_list=None):
-        self.channel_name = TeaConverter.to_unicode(channel_name)  # type: unicode
+    def __init__(self, channel_id=None, channel_name=None, config_list=None):
         self.channel_id = TeaConverter.to_unicode(channel_id)  # type: unicode
+        self.channel_name = TeaConverter.to_unicode(channel_name)  # type: unicode
         self.config_list = config_list  # type: BatchGetEdgeInstanceChannelResponseBodyDataChannelConfigList
 
     def validate(self):
@@ -1782,20 +1688,20 @@ class BatchGetEdgeInstanceChannelResponseBodyDataChannel(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.channel_name is not None:
-            result['ChannelName'] = self.channel_name
         if self.channel_id is not None:
             result['ChannelId'] = self.channel_id
+        if self.channel_name is not None:
+            result['ChannelName'] = self.channel_name
         if self.config_list is not None:
             result['ConfigList'] = self.config_list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChannelName') is not None:
-            self.channel_name = m.get('ChannelName')
         if m.get('ChannelId') is not None:
             self.channel_id = m.get('ChannelId')
+        if m.get('ChannelName') is not None:
+            self.channel_name = m.get('ChannelName')
         if m.get('ConfigList') is not None:
             temp_model = BatchGetEdgeInstanceChannelResponseBodyDataChannelConfigList()
             self.config_list = temp_model.from_map(m['ConfigList'])
@@ -1831,12 +1737,12 @@ class BatchGetEdgeInstanceChannelResponseBodyData(TeaModel):
 
 
 class BatchGetEdgeInstanceChannelResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: BatchGetEdgeInstanceChannelResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: BatchGetEdgeInstanceChannelResponseBodyData
 
     def validate(self):
         if self.data:
@@ -1846,29 +1752,29 @@ class BatchGetEdgeInstanceChannelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = BatchGetEdgeInstanceChannelResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1948,9 +1854,9 @@ class BatchGetEdgeInstanceDeviceChannelRequest(TeaModel):
 
 
 class BatchGetEdgeInstanceDeviceChannelResponseBodyDeviceChannelList(TeaModel):
-    def __init__(self, channel_name=None, channel_id=None, iot_id=None):
-        self.channel_name = TeaConverter.to_unicode(channel_name)  # type: unicode
+    def __init__(self, channel_id=None, channel_name=None, iot_id=None):
         self.channel_id = TeaConverter.to_unicode(channel_id)  # type: unicode
+        self.channel_name = TeaConverter.to_unicode(channel_name)  # type: unicode
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
 
     def validate(self):
@@ -1958,31 +1864,31 @@ class BatchGetEdgeInstanceDeviceChannelResponseBodyDeviceChannelList(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.channel_name is not None:
-            result['ChannelName'] = self.channel_name
         if self.channel_id is not None:
             result['ChannelId'] = self.channel_id
+        if self.channel_name is not None:
+            result['ChannelName'] = self.channel_name
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ChannelName') is not None:
-            self.channel_name = m.get('ChannelName')
         if m.get('ChannelId') is not None:
             self.channel_id = m.get('ChannelId')
+        if m.get('ChannelName') is not None:
+            self.channel_name = m.get('ChannelName')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
         return self
 
 
 class BatchGetEdgeInstanceDeviceChannelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None, device_channel_list=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, device_channel_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.device_channel_list = device_channel_list  # type: list[BatchGetEdgeInstanceDeviceChannelResponseBodyDeviceChannelList]
 
     def validate(self):
@@ -1995,12 +1901,12 @@ class BatchGetEdgeInstanceDeviceChannelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         result['DeviceChannelList'] = []
         if self.device_channel_list is not None:
             for k in self.device_channel_list:
@@ -2011,12 +1917,12 @@ class BatchGetEdgeInstanceDeviceChannelResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         self.device_channel_list = []
         if m.get('DeviceChannelList') is not None:
             for k in m.get('DeviceChannelList'):
@@ -2095,34 +2001,34 @@ class BatchGetEdgeInstanceDeviceConfigRequest(TeaModel):
 
 
 class BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigListConfig(TeaModel):
-    def __init__(self, content=None, format=None):
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+    def __init__(self, format=None, content=None):
         self.format = TeaConverter.to_unicode(format)  # type: unicode
+        self.content = TeaConverter.to_unicode(content)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.content is not None:
-            result['Content'] = self.content
         if self.format is not None:
             result['Format'] = self.format
+        if self.content is not None:
+            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         if m.get('Format') is not None:
             self.format = m.get('Format')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         return self
 
 
 class BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigList(TeaModel):
-    def __init__(self, config=None, iot_id=None):
-        self.config = config  # type: BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigListConfig
+    def __init__(self, iot_id=None, config=None):
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.config = config  # type: BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigListConfig
 
     def validate(self):
         if self.config:
@@ -2130,29 +2036,29 @@ class BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigList(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.config is not None:
-            result['Config'] = self.config.to_map()
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.config is not None:
+            result['Config'] = self.config.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
         if m.get('Config') is not None:
             temp_model = BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigListConfig()
             self.config = temp_model.from_map(m['Config'])
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
         return self
 
 
 class BatchGetEdgeInstanceDeviceConfigResponseBody(TeaModel):
-    def __init__(self, device_config_list=None, request_id=None, error_message=None, code=None, success=None):
-        self.device_config_list = device_config_list  # type: list[BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigList]
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, device_config_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.device_config_list = device_config_list  # type: list[BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigList]
 
     def validate(self):
         if self.device_config_list:
@@ -2162,35 +2068,35 @@ class BatchGetEdgeInstanceDeviceConfigResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         result['DeviceConfigList'] = []
         if self.device_config_list is not None:
             for k in self.device_config_list:
                 result['DeviceConfigList'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         self.device_config_list = []
         if m.get('DeviceConfigList') is not None:
             for k in m.get('DeviceConfigList'):
                 temp_model = BatchGetEdgeInstanceDeviceConfigResponseBodyDeviceConfigList()
                 self.device_config_list.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2289,12 +2195,12 @@ class BatchGetEdgeInstanceDeviceDriverResponseBodyDeviceDriverList(TeaModel):
 
 
 class BatchGetEdgeInstanceDeviceDriverResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, device_driver_list=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, device_driver_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.device_driver_list = device_driver_list  # type: list[BatchGetEdgeInstanceDeviceDriverResponseBodyDeviceDriverList]
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         if self.device_driver_list:
@@ -2306,22 +2212,26 @@ class BatchGetEdgeInstanceDeviceDriverResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         result['DeviceDriverList'] = []
         if self.device_driver_list is not None:
             for k in self.device_driver_list:
                 result['DeviceDriverList'].append(k.to_map() if k else None)
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         self.device_driver_list = []
@@ -2329,10 +2239,6 @@ class BatchGetEdgeInstanceDeviceDriverResponseBody(TeaModel):
             for k in m.get('DeviceDriverList'):
                 temp_model = BatchGetEdgeInstanceDeviceDriverResponseBodyDeviceDriverList()
                 self.device_driver_list.append(temp_model.from_map(k))
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2406,37 +2312,37 @@ class BatchGetEdgeInstanceDriverConfigsRequest(TeaModel):
 
 
 class BatchGetEdgeInstanceDriverConfigsResponseBodyDriverConfigListConfigList(TeaModel):
-    def __init__(self, key=None, config_id=None, format=None, content=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+    def __init__(self, config_id=None, format=None, content=None, key=None):
         self.config_id = TeaConverter.to_unicode(config_id)  # type: unicode
         self.format = TeaConverter.to_unicode(format)  # type: unicode
         self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.key = TeaConverter.to_unicode(key)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.key is not None:
-            result['Key'] = self.key
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
         if self.format is not None:
             result['Format'] = self.format
         if self.content is not None:
             result['Content'] = self.content
+        if self.key is not None:
+            result['Key'] = self.key
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Key') is not None:
-            self.key = m.get('Key')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
         if m.get('Format') is not None:
             self.format = m.get('Format')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         return self
 
 
@@ -2474,12 +2380,12 @@ class BatchGetEdgeInstanceDriverConfigsResponseBodyDriverConfigList(TeaModel):
 
 
 class BatchGetEdgeInstanceDriverConfigsResponseBody(TeaModel):
-    def __init__(self, request_id=None, driver_config_list=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, driver_config_list=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.driver_config_list = driver_config_list  # type: list[BatchGetEdgeInstanceDriverConfigsResponseBodyDriverConfigList]
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.driver_config_list = driver_config_list  # type: list[BatchGetEdgeInstanceDriverConfigsResponseBodyDriverConfigList]
 
     def validate(self):
         if self.driver_config_list:
@@ -2491,33 +2397,33 @@ class BatchGetEdgeInstanceDriverConfigsResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         result['DriverConfigList'] = []
         if self.driver_config_list is not None:
             for k in self.driver_config_list:
                 result['DriverConfigList'].append(k.to_map() if k else None)
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         self.driver_config_list = []
         if m.get('DriverConfigList') is not None:
             for k in m.get('DriverConfigList'):
                 temp_model = BatchGetEdgeInstanceDriverConfigsResponseBodyDriverConfigList()
                 self.driver_config_list.append(temp_model.from_map(k))
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2551,16 +2457,16 @@ class BatchGetEdgeInstanceDriverConfigsResponse(TeaModel):
 
 
 class BatchPubRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, qos=None,
-                 topic_short_name=None, message_content=None, device_name=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, device_name=None,
+                 product_key=None, qos=None, topic_short_name=None, message_content=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
+        self.device_name = device_name  # type: list[unicode]
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.qos = qos  # type: int
         self.topic_short_name = TeaConverter.to_unicode(topic_short_name)  # type: unicode
         self.message_content = TeaConverter.to_unicode(message_content)  # type: unicode
-        self.device_name = device_name  # type: list[unicode]
 
     def validate(self):
         pass
@@ -2573,6 +2479,8 @@ class BatchPubRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.qos is not None:
@@ -2581,8 +2489,6 @@ class BatchPubRequest(TeaModel):
             result['TopicShortName'] = self.topic_short_name
         if self.message_content is not None:
             result['MessageContent'] = self.message_content
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
         return result
 
     def from_map(self, m=None):
@@ -2593,6 +2499,8 @@ class BatchPubRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('Qos') is not None:
@@ -2601,17 +2509,15 @@ class BatchPubRequest(TeaModel):
             self.topic_short_name = m.get('TopicShortName')
         if m.get('MessageContent') is not None:
             self.message_content = m.get('MessageContent')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
         return self
 
 
 class BatchPubResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -2620,24 +2526,24 @@ class BatchPubResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -2671,15 +2577,15 @@ class BatchPubResponse(TeaModel):
 
 
 class BatchQueryDeviceDetailRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, product_key=None, iot_instance_id=None,
-                 real_tenant_id=None, real_tripartite_key=None, device_name=None):
+    def __init__(self, api_product=None, api_revision=None, device_name=None, product_key=None,
+                 iot_instance_id=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.device_name = device_name  # type: list[unicode]
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.device_name = device_name  # type: list[unicode]
 
     def validate(self):
         pass
@@ -2690,6 +2596,8 @@ class BatchQueryDeviceDetailRequest(TeaModel):
             result['ApiProduct'] = self.api_product
         if self.api_revision is not None:
             result['ApiRevision'] = self.api_revision
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.iot_instance_id is not None:
@@ -2698,8 +2606,6 @@ class BatchQueryDeviceDetailRequest(TeaModel):
             result['RealTenantId'] = self.real_tenant_id
         if self.real_tripartite_key is not None:
             result['RealTripartiteKey'] = self.real_tripartite_key
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
         return result
 
     def from_map(self, m=None):
@@ -2708,6 +2614,8 @@ class BatchQueryDeviceDetailRequest(TeaModel):
             self.api_product = m.get('ApiProduct')
         if m.get('ApiRevision') is not None:
             self.api_revision = m.get('ApiRevision')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('IotInstanceId') is not None:
@@ -2716,95 +2624,93 @@ class BatchQueryDeviceDetailRequest(TeaModel):
             self.real_tenant_id = m.get('RealTenantId')
         if m.get('RealTripartiteKey') is not None:
             self.real_tripartite_key = m.get('RealTripartiteKey')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
         return self
 
 
 class BatchQueryDeviceDetailResponseBodyDataData(TeaModel):
-    def __init__(self, status=None, utc_active=None, product_name=None, device_name=None, firmware_version=None,
-                 utc_create=None, product_key=None, node_type=None, region=None, device_secret=None, gmt_active=None,
-                 gmt_create=None, nickname=None, iot_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.utc_active = TeaConverter.to_unicode(utc_active)  # type: unicode
+    def __init__(self, product_key=None, product_name=None, device_name=None, nickname=None, device_secret=None,
+                 iot_id=None, utc_create=None, gmt_create=None, utc_active=None, gmt_active=None, status=None,
+                 firmware_version=None, node_type=None, region=None):
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
-        self.firmware_version = TeaConverter.to_unicode(firmware_version)  # type: unicode
+        self.nickname = TeaConverter.to_unicode(nickname)  # type: unicode
+        self.device_secret = TeaConverter.to_unicode(device_secret)  # type: unicode
+        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
         self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
-        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
+        self.utc_active = TeaConverter.to_unicode(utc_active)  # type: unicode
+        self.gmt_active = TeaConverter.to_unicode(gmt_active)  # type: unicode
+        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.firmware_version = TeaConverter.to_unicode(firmware_version)  # type: unicode
         self.node_type = node_type  # type: int
         self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.device_secret = TeaConverter.to_unicode(device_secret)  # type: unicode
-        self.gmt_active = TeaConverter.to_unicode(gmt_active)  # type: unicode
-        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.nickname = TeaConverter.to_unicode(nickname)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.utc_active is not None:
-            result['UtcActive'] = self.utc_active
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
         if self.product_name is not None:
             result['ProductName'] = self.product_name
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
-        if self.firmware_version is not None:
-            result['FirmwareVersion'] = self.firmware_version
+        if self.nickname is not None:
+            result['Nickname'] = self.nickname
+        if self.device_secret is not None:
+            result['DeviceSecret'] = self.device_secret
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
         if self.utc_create is not None:
             result['UtcCreate'] = self.utc_create
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.utc_active is not None:
+            result['UtcActive'] = self.utc_active
+        if self.gmt_active is not None:
+            result['GmtActive'] = self.gmt_active
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.firmware_version is not None:
+            result['FirmwareVersion'] = self.firmware_version
         if self.node_type is not None:
             result['NodeType'] = self.node_type
         if self.region is not None:
             result['Region'] = self.region
-        if self.device_secret is not None:
-            result['DeviceSecret'] = self.device_secret
-        if self.gmt_active is not None:
-            result['GmtActive'] = self.gmt_active
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.nickname is not None:
-            result['Nickname'] = self.nickname
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('UtcActive') is not None:
-            self.utc_active = m.get('UtcActive')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
         if m.get('ProductName') is not None:
             self.product_name = m.get('ProductName')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
-        if m.get('FirmwareVersion') is not None:
-            self.firmware_version = m.get('FirmwareVersion')
+        if m.get('Nickname') is not None:
+            self.nickname = m.get('Nickname')
+        if m.get('DeviceSecret') is not None:
+            self.device_secret = m.get('DeviceSecret')
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
         if m.get('UtcCreate') is not None:
             self.utc_create = m.get('UtcCreate')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('UtcActive') is not None:
+            self.utc_active = m.get('UtcActive')
+        if m.get('GmtActive') is not None:
+            self.gmt_active = m.get('GmtActive')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('FirmwareVersion') is not None:
+            self.firmware_version = m.get('FirmwareVersion')
         if m.get('NodeType') is not None:
             self.node_type = m.get('NodeType')
         if m.get('Region') is not None:
             self.region = m.get('Region')
-        if m.get('DeviceSecret') is not None:
-            self.device_secret = m.get('DeviceSecret')
-        if m.get('GmtActive') is not None:
-            self.gmt_active = m.get('GmtActive')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('Nickname') is not None:
-            self.nickname = m.get('Nickname')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
         return self
 
 
@@ -2837,12 +2743,12 @@ class BatchQueryDeviceDetailResponseBodyData(TeaModel):
 
 
 class BatchQueryDeviceDetailResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: BatchQueryDeviceDetailResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: BatchQueryDeviceDetailResponseBodyData
 
     def validate(self):
         if self.data:
@@ -2852,29 +2758,29 @@ class BatchQueryDeviceDetailResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = BatchQueryDeviceDetailResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -2908,12 +2814,15 @@ class BatchQueryDeviceDetailResponse(TeaModel):
 
 
 class BatchRegisterDeviceRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, count=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, count=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.count = count  # type: int
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -2930,6 +2839,10 @@ class BatchRegisterDeviceRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.count is not None:
             result['Count'] = self.count
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -2944,6 +2857,10 @@ class BatchRegisterDeviceRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('Count') is not None:
             self.count = m.get('Count')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -2968,12 +2885,12 @@ class BatchRegisterDeviceResponseBodyData(TeaModel):
 
 
 class BatchRegisterDeviceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: BatchRegisterDeviceResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: BatchRegisterDeviceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -2983,29 +2900,29 @@ class BatchRegisterDeviceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = BatchRegisterDeviceResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -3039,12 +2956,15 @@ class BatchRegisterDeviceResponse(TeaModel):
 
 
 class BatchRegisterDeviceWithApplyIdRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, apply_id=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, apply_id=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.apply_id = apply_id  # type: long
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -3061,6 +2981,10 @@ class BatchRegisterDeviceWithApplyIdRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.apply_id is not None:
             result['ApplyId'] = self.apply_id
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -3075,6 +2999,10 @@ class BatchRegisterDeviceWithApplyIdRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('ApplyId') is not None:
             self.apply_id = m.get('ApplyId')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -3099,12 +3027,12 @@ class BatchRegisterDeviceWithApplyIdResponseBodyData(TeaModel):
 
 
 class BatchRegisterDeviceWithApplyIdResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: BatchRegisterDeviceWithApplyIdResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: BatchRegisterDeviceWithApplyIdResponseBodyData
 
     def validate(self):
         if self.data:
@@ -3114,29 +3042,29 @@ class BatchRegisterDeviceWithApplyIdResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = BatchRegisterDeviceWithApplyIdResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -3221,11 +3149,11 @@ class BatchSetEdgeInstanceDeviceChannelRequest(TeaModel):
 
 
 class BatchSetEdgeInstanceDeviceChannelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3234,24 +3162,24 @@ class BatchSetEdgeInstanceDeviceChannelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3285,27 +3213,27 @@ class BatchSetEdgeInstanceDeviceChannelResponse(TeaModel):
 
 
 class BatchSetEdgeInstanceDeviceConfigRequestDeviceConfigs(TeaModel):
-    def __init__(self, content=None, iot_id=None):
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+    def __init__(self, iot_id=None, content=None):
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.content = TeaConverter.to_unicode(content)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.content is not None:
-            result['Content'] = self.content
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.content is not None:
+            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         return self
 
 
@@ -3359,11 +3287,11 @@ class BatchSetEdgeInstanceDeviceConfigRequest(TeaModel):
 
 
 class BatchSetEdgeInstanceDeviceConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3372,24 +3300,24 @@ class BatchSetEdgeInstanceDeviceConfigResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3463,11 +3391,11 @@ class BatchUnbindDeviceFromEdgeInstanceRequest(TeaModel):
 
 
 class BatchUnbindDeviceFromEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3476,24 +3404,24 @@ class BatchUnbindDeviceFromEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3562,14 +3490,14 @@ class BatchUpdateDeviceNicknameRequestDeviceNicknameInfo(TeaModel):
 
 
 class BatchUpdateDeviceNicknameRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, real_tenant_id=None,
-                 real_tripartite_key=None, device_nickname_info=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, device_nickname_info=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
+        self.device_nickname_info = device_nickname_info  # type: list[BatchUpdateDeviceNicknameRequestDeviceNicknameInfo]
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.device_nickname_info = device_nickname_info  # type: list[BatchUpdateDeviceNicknameRequestDeviceNicknameInfo]
 
     def validate(self):
         if self.device_nickname_info:
@@ -3585,14 +3513,14 @@ class BatchUpdateDeviceNicknameRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
-        if self.real_tenant_id is not None:
-            result['RealTenantId'] = self.real_tenant_id
-        if self.real_tripartite_key is not None:
-            result['RealTripartiteKey'] = self.real_tripartite_key
         result['DeviceNicknameInfo'] = []
         if self.device_nickname_info is not None:
             for k in self.device_nickname_info:
                 result['DeviceNicknameInfo'].append(k.to_map() if k else None)
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -3603,24 +3531,24 @@ class BatchUpdateDeviceNicknameRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('RealTenantId') is not None:
-            self.real_tenant_id = m.get('RealTenantId')
-        if m.get('RealTripartiteKey') is not None:
-            self.real_tripartite_key = m.get('RealTripartiteKey')
         self.device_nickname_info = []
         if m.get('DeviceNicknameInfo') is not None:
             for k in m.get('DeviceNicknameInfo'):
                 temp_model = BatchUpdateDeviceNicknameRequestDeviceNicknameInfo()
                 self.device_nickname_info.append(temp_model.from_map(k))
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class BatchUpdateDeviceNicknameResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3629,24 +3557,24 @@ class BatchUpdateDeviceNicknameResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3726,11 +3654,11 @@ class BindApplicationToEdgeInstanceRequest(TeaModel):
 
 
 class BindApplicationToEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3739,24 +3667,24 @@ class BindApplicationToEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3841,11 +3769,11 @@ class BindDriverToEdgeInstanceRequest(TeaModel):
 
 
 class BindDriverToEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3854,24 +3782,24 @@ class BindDriverToEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -3956,11 +3884,11 @@ class BindGatewayToEdgeInstanceRequest(TeaModel):
 
 
 class BindGatewayToEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -3969,24 +3897,24 @@ class BindGatewayToEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4066,11 +3994,11 @@ class BindRoleToEdgeInstanceRequest(TeaModel):
 
 
 class BindRoleToEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4079,24 +4007,24 @@ class BindRoleToEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4170,11 +4098,11 @@ class BindSceneRuleToEdgeInstanceRequest(TeaModel):
 
 
 class BindSceneRuleToEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -4183,24 +4111,24 @@ class BindSceneRuleToEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -4269,11 +4197,11 @@ class CancelJobRequest(TeaModel):
 
 
 class CancelJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4282,24 +4210,24 @@ class CancelJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4368,11 +4296,11 @@ class CancelOTAStrategyByJobRequest(TeaModel):
 
 
 class CancelOTAStrategyByJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4381,24 +4309,24 @@ class CancelOTAStrategyByJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4433,14 +4361,14 @@ class CancelOTAStrategyByJobResponse(TeaModel):
 
 class CancelOTATaskByDeviceRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, firmware_id=None,
-                 product_key=None, job_id=None, device_name=None):
+                 product_key=None, device_name=None, job_id=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.firmware_id = TeaConverter.to_unicode(firmware_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
-        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
         self.device_name = device_name  # type: list[unicode]
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
 
     def validate(self):
         pass
@@ -4457,10 +4385,10 @@ class CancelOTATaskByDeviceRequest(TeaModel):
             result['FirmwareId'] = self.firmware_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
-        if self.job_id is not None:
-            result['JobId'] = self.job_id
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
         return result
 
     def from_map(self, m=None):
@@ -4475,19 +4403,19 @@ class CancelOTATaskByDeviceRequest(TeaModel):
             self.firmware_id = m.get('FirmwareId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
-        if m.get('JobId') is not None:
-            self.job_id = m.get('JobId')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
         return self
 
 
 class CancelOTATaskByDeviceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4496,24 +4424,24 @@ class CancelOTATaskByDeviceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4603,11 +4531,11 @@ class CancelOTATaskByJobRequest(TeaModel):
 
 
 class CancelOTATaskByJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4616,24 +4544,24 @@ class CancelOTATaskByJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4707,11 +4635,11 @@ class ClearEdgeInstanceDriverConfigsRequest(TeaModel):
 
 
 class ClearEdgeInstanceDriverConfigsResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4720,24 +4648,24 @@ class ClearEdgeInstanceDriverConfigsResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4806,11 +4734,11 @@ class CloseEdgeInstanceDeploymentRequest(TeaModel):
 
 
 class CloseEdgeInstanceDeploymentResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4819,24 +4747,24 @@ class CloseEdgeInstanceDeploymentResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -4932,11 +4860,11 @@ class CopyThingModelRequest(TeaModel):
 
 
 class CopyThingModelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -4945,24 +4873,24 @@ class CopyThingModelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -5031,12 +4959,12 @@ class CreateConsumerGroupRequest(TeaModel):
 
 
 class CreateConsumerGroupResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None, group_id=None):
+    def __init__(self, request_id=None, success=None, error_message=None, group_id=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
 
     def validate(self):
         pass
@@ -5045,28 +4973,28 @@ class CreateConsumerGroupResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.code is not None:
+            result['Code'] = self.code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         return self
 
 
@@ -5141,11 +5069,11 @@ class CreateConsumerGroupSubscribeRelationRequest(TeaModel):
 
 
 class CreateConsumerGroupSubscribeRelationResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -5154,24 +5082,24 @@ class CreateConsumerGroupSubscribeRelationResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -5205,98 +5133,98 @@ class CreateConsumerGroupSubscribeRelationResponse(TeaModel):
 
 
 class CreateDataAPIServiceRequestRequestParam(TeaModel):
-    def __init__(self, type=None, required=None, example=None, name=None, desc=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.required = required  # type: bool
-        self.example = TeaConverter.to_unicode(example)  # type: unicode
+    def __init__(self, name=None, type=None, desc=None, example=None, required=None):
         self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
         self.desc = TeaConverter.to_unicode(desc)  # type: unicode
+        self.example = TeaConverter.to_unicode(example)  # type: unicode
+        self.required = required  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.required is not None:
-            result['Required'] = self.required
-        if self.example is not None:
-            result['Example'] = self.example
         if self.name is not None:
             result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
         if self.desc is not None:
             result['Desc'] = self.desc
+        if self.example is not None:
+            result['Example'] = self.example
+        if self.required is not None:
+            result['Required'] = self.required
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Required') is not None:
-            self.required = m.get('Required')
-        if m.get('Example') is not None:
-            self.example = m.get('Example')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        if m.get('Example') is not None:
+            self.example = m.get('Example')
+        if m.get('Required') is not None:
+            self.required = m.get('Required')
         return self
 
 
 class CreateDataAPIServiceRequestResponseParam(TeaModel):
-    def __init__(self, type=None, required=None, example=None, name=None, desc=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.required = required  # type: bool
-        self.example = TeaConverter.to_unicode(example)  # type: unicode
+    def __init__(self, name=None, type=None, desc=None, example=None, required=None):
         self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
         self.desc = TeaConverter.to_unicode(desc)  # type: unicode
+        self.example = TeaConverter.to_unicode(example)  # type: unicode
+        self.required = required  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.required is not None:
-            result['Required'] = self.required
-        if self.example is not None:
-            result['Example'] = self.example
         if self.name is not None:
             result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
         if self.desc is not None:
             result['Desc'] = self.desc
+        if self.example is not None:
+            result['Example'] = self.example
+        if self.required is not None:
+            result['Required'] = self.required
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Required') is not None:
-            self.required = m.get('Required')
-        if m.get('Example') is not None:
-            self.example = m.get('Example')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        if m.get('Example') is not None:
+            self.example = m.get('Example')
+        if m.get('Required') is not None:
+            self.required = m.get('Required')
         return self
 
 
 class CreateDataAPIServiceRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, display_name=None, origin_sql=None, desc=None,
-                 template_sql=None, api_path=None, iot_instance_id=None, request_param=None, response_param=None):
+    def __init__(self, api_product=None, api_revision=None, display_name=None, origin_sql=None, request_param=None,
+                 desc=None, response_param=None, template_sql=None, api_path=None, iot_instance_id=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.display_name = TeaConverter.to_unicode(display_name)  # type: unicode
         self.origin_sql = TeaConverter.to_unicode(origin_sql)  # type: unicode
+        self.request_param = request_param  # type: list[CreateDataAPIServiceRequestRequestParam]
         self.desc = TeaConverter.to_unicode(desc)  # type: unicode
+        self.response_param = response_param  # type: list[CreateDataAPIServiceRequestResponseParam]
         self.template_sql = TeaConverter.to_unicode(template_sql)  # type: unicode
         self.api_path = TeaConverter.to_unicode(api_path)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.request_param = request_param  # type: list[CreateDataAPIServiceRequestRequestParam]
-        self.response_param = response_param  # type: list[CreateDataAPIServiceRequestResponseParam]
 
     def validate(self):
         if self.request_param:
@@ -5318,22 +5246,22 @@ class CreateDataAPIServiceRequest(TeaModel):
             result['DisplayName'] = self.display_name
         if self.origin_sql is not None:
             result['OriginSql'] = self.origin_sql
+        result['RequestParam'] = []
+        if self.request_param is not None:
+            for k in self.request_param:
+                result['RequestParam'].append(k.to_map() if k else None)
         if self.desc is not None:
             result['Desc'] = self.desc
+        result['ResponseParam'] = []
+        if self.response_param is not None:
+            for k in self.response_param:
+                result['ResponseParam'].append(k.to_map() if k else None)
         if self.template_sql is not None:
             result['TemplateSql'] = self.template_sql
         if self.api_path is not None:
             result['ApiPath'] = self.api_path
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
-        result['RequestParam'] = []
-        if self.request_param is not None:
-            for k in self.request_param:
-                result['RequestParam'].append(k.to_map() if k else None)
-        result['ResponseParam'] = []
-        if self.response_param is not None:
-            for k in self.response_param:
-                result['ResponseParam'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -5346,24 +5274,24 @@ class CreateDataAPIServiceRequest(TeaModel):
             self.display_name = m.get('DisplayName')
         if m.get('OriginSql') is not None:
             self.origin_sql = m.get('OriginSql')
+        self.request_param = []
+        if m.get('RequestParam') is not None:
+            for k in m.get('RequestParam'):
+                temp_model = CreateDataAPIServiceRequestRequestParam()
+                self.request_param.append(temp_model.from_map(k))
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        self.response_param = []
+        if m.get('ResponseParam') is not None:
+            for k in m.get('ResponseParam'):
+                temp_model = CreateDataAPIServiceRequestResponseParam()
+                self.response_param.append(temp_model.from_map(k))
         if m.get('TemplateSql') is not None:
             self.template_sql = m.get('TemplateSql')
         if m.get('ApiPath') is not None:
             self.api_path = m.get('ApiPath')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
-        self.request_param = []
-        if m.get('RequestParam') is not None:
-            for k in m.get('RequestParam'):
-                temp_model = CreateDataAPIServiceRequestRequestParam()
-                self.request_param.append(temp_model.from_map(k))
-        self.response_param = []
-        if m.get('ResponseParam') is not None:
-            for k in m.get('ResponseParam'):
-                temp_model = CreateDataAPIServiceRequestResponseParam()
-                self.response_param.append(temp_model.from_map(k))
         return self
 
 
@@ -5398,12 +5326,12 @@ class CreateDataAPIServiceResponseBodyData(TeaModel):
 
 
 class CreateDataAPIServiceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateDataAPIServiceResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateDataAPIServiceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -5413,29 +5341,29 @@ class CreateDataAPIServiceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateDataAPIServiceResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -5464,6 +5392,170 @@ class CreateDataAPIServiceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateDataAPIServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDeviceDistributeJobRequestTargetInstanceConfig(TeaModel):
+    def __init__(self, target_instance_id=None):
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class CreateDeviceDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, device_name=None, source_instance_id=None,
+                 product_key=None, target_uid=None, target_aliyun_id=None, captcha=None, target_instance_config=None,
+                 strategy=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.device_name = device_name  # type: list[unicode]
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.target_aliyun_id = TeaConverter.to_unicode(target_aliyun_id)  # type: unicode
+        self.captcha = TeaConverter.to_unicode(captcha)  # type: unicode
+        self.target_instance_config = target_instance_config  # type: list[CreateDeviceDistributeJobRequestTargetInstanceConfig]
+        self.strategy = strategy  # type: int
+
+    def validate(self):
+        if self.target_instance_config:
+            for k in self.target_instance_config:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.target_aliyun_id is not None:
+            result['TargetAliyunId'] = self.target_aliyun_id
+        if self.captcha is not None:
+            result['Captcha'] = self.captcha
+        result['TargetInstanceConfig'] = []
+        if self.target_instance_config is not None:
+            for k in self.target_instance_config:
+                result['TargetInstanceConfig'].append(k.to_map() if k else None)
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('TargetAliyunId') is not None:
+            self.target_aliyun_id = m.get('TargetAliyunId')
+        if m.get('Captcha') is not None:
+            self.captcha = m.get('Captcha')
+        self.target_instance_config = []
+        if m.get('TargetInstanceConfig') is not None:
+            for k in m.get('TargetInstanceConfig'):
+                temp_model = CreateDeviceDistributeJobRequestTargetInstanceConfig()
+                self.target_instance_config.append(temp_model.from_map(k))
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        return self
+
+
+class CreateDeviceDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, job_id=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class CreateDeviceDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: CreateDeviceDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDeviceDistributeJobResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5525,10 +5617,10 @@ class CreateDeviceGroupRequest(TeaModel):
 
 
 class CreateDeviceGroupResponseBodyData(TeaModel):
-    def __init__(self, group_id=None, group_name=None, utc_create=None, group_desc=None):
+    def __init__(self, group_id=None, utc_create=None, group_name=None, group_desc=None):
         self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.group_name = TeaConverter.to_unicode(group_name)  # type: unicode
         self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
+        self.group_name = TeaConverter.to_unicode(group_name)  # type: unicode
         self.group_desc = TeaConverter.to_unicode(group_desc)  # type: unicode
 
     def validate(self):
@@ -5538,10 +5630,10 @@ class CreateDeviceGroupResponseBodyData(TeaModel):
         result = dict()
         if self.group_id is not None:
             result['GroupId'] = self.group_id
-        if self.group_name is not None:
-            result['GroupName'] = self.group_name
         if self.utc_create is not None:
             result['UtcCreate'] = self.utc_create
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
         if self.group_desc is not None:
             result['GroupDesc'] = self.group_desc
         return result
@@ -5550,22 +5642,22 @@ class CreateDeviceGroupResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
-        if m.get('GroupName') is not None:
-            self.group_name = m.get('GroupName')
         if m.get('UtcCreate') is not None:
             self.utc_create = m.get('UtcCreate')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
         if m.get('GroupDesc') is not None:
             self.group_desc = m.get('GroupDesc')
         return self
 
 
 class CreateDeviceGroupResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateDeviceGroupResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateDeviceGroupResponseBodyData
 
     def validate(self):
         if self.data:
@@ -5575,29 +5667,29 @@ class CreateDeviceGroupResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateDeviceGroupResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -5687,42 +5779,42 @@ class CreateEdgeDriverRequest(TeaModel):
 
 
 class CreateEdgeDriverResponseBody(TeaModel):
-    def __init__(self, driver_id=None, request_id=None, error_message=None, code=None, success=None):
-        self.driver_id = TeaConverter.to_unicode(driver_id)  # type: unicode
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, driver_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.driver_id = TeaConverter.to_unicode(driver_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.driver_id is not None:
-            result['DriverId'] = self.driver_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.driver_id is not None:
+            result['DriverId'] = self.driver_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DriverId') is not None:
-            self.driver_id = m.get('DriverId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('DriverId') is not None:
+            self.driver_id = m.get('DriverId')
         return self
 
 
@@ -5833,11 +5925,11 @@ class CreateEdgeDriverVersionRequest(TeaModel):
 
 
 class CreateEdgeDriverVersionResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -5846,24 +5938,24 @@ class CreateEdgeDriverVersionResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -5942,12 +6034,12 @@ class CreateEdgeInstanceRequest(TeaModel):
 
 
 class CreateEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, instance_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None, instance_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
+        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
 
     def validate(self):
         pass
@@ -5956,28 +6048,28 @@ class CreateEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         return self
 
 
@@ -6011,32 +6103,32 @@ class CreateEdgeInstanceResponse(TeaModel):
 
 
 class CreateEdgeInstanceChannelRequestConfigs(TeaModel):
-    def __init__(self, key=None, content=None, format=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+    def __init__(self, format=None, content=None, key=None):
         self.format = TeaConverter.to_unicode(format)  # type: unicode
+        self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.key = TeaConverter.to_unicode(key)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.key is not None:
-            result['Key'] = self.key
-        if self.content is not None:
-            result['Content'] = self.content
         if self.format is not None:
             result['Format'] = self.format
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.key is not None:
+            result['Key'] = self.key
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Key') is not None:
-            self.key = m.get('Key')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         if m.get('Format') is not None:
             self.format = m.get('Format')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         return self
 
 
@@ -6100,12 +6192,12 @@ class CreateEdgeInstanceChannelRequest(TeaModel):
 
 
 class CreateEdgeInstanceChannelResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = TeaConverter.to_unicode(data)  # type: unicode
 
     def validate(self):
         pass
@@ -6114,28 +6206,28 @@ class CreateEdgeInstanceChannelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
         return self
 
 
@@ -6209,42 +6301,42 @@ class CreateEdgeInstanceDeploymentRequest(TeaModel):
 
 
 class CreateEdgeInstanceDeploymentResponseBody(TeaModel):
-    def __init__(self, deployment_id=None, request_id=None, error_message=None, code=None, success=None):
-        self.deployment_id = TeaConverter.to_unicode(deployment_id)  # type: unicode
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, deployment_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.deployment_id = TeaConverter.to_unicode(deployment_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.deployment_id is not None:
-            result['DeploymentId'] = self.deployment_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.deployment_id is not None:
+            result['DeploymentId'] = self.deployment_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DeploymentId') is not None:
-            self.deployment_id = m.get('DeploymentId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('DeploymentId') is not None:
+            self.deployment_id = m.get('DeploymentId')
         return self
 
 
@@ -6334,37 +6426,37 @@ class CreateEdgeOssPreSignedAddressRequest(TeaModel):
 
 
 class CreateEdgeOssPreSignedAddressResponseBodyData(TeaModel):
-    def __init__(self, oss_address=None, oss_pre_signed_address=None):
-        self.oss_address = TeaConverter.to_unicode(oss_address)  # type: unicode
+    def __init__(self, oss_pre_signed_address=None, oss_address=None):
         self.oss_pre_signed_address = TeaConverter.to_unicode(oss_pre_signed_address)  # type: unicode
+        self.oss_address = TeaConverter.to_unicode(oss_address)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.oss_address is not None:
-            result['OssAddress'] = self.oss_address
         if self.oss_pre_signed_address is not None:
             result['OssPreSignedAddress'] = self.oss_pre_signed_address
+        if self.oss_address is not None:
+            result['OssAddress'] = self.oss_address
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OssAddress') is not None:
-            self.oss_address = m.get('OssAddress')
         if m.get('OssPreSignedAddress') is not None:
             self.oss_pre_signed_address = m.get('OssPreSignedAddress')
+        if m.get('OssAddress') is not None:
+            self.oss_address = m.get('OssAddress')
         return self
 
 
 class CreateEdgeOssPreSignedAddressResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateEdgeOssPreSignedAddressResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateEdgeOssPreSignedAddressResponseBodyData
 
     def validate(self):
         if self.data:
@@ -6374,29 +6466,29 @@ class CreateEdgeOssPreSignedAddressResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateEdgeOssPreSignedAddressResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -6439,11 +6531,11 @@ class CreateJobRequest(TeaModel):
         self.description = TeaConverter.to_unicode(description)  # type: unicode
         self.job_document = TeaConverter.to_unicode(job_document)  # type: unicode
         self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.job_file = job_file  # type: dict[unicode, any]
+        self.job_file = TeaConverter.to_unicode(job_file)  # type: unicode
         self.job_name = TeaConverter.to_unicode(job_name)  # type: unicode
-        self.timeout_config = timeout_config  # type: dict[unicode, any]
-        self.rollout_config = rollout_config  # type: dict[unicode, any]
-        self.target_config = target_config  # type: dict[unicode, any]
+        self.timeout_config = TeaConverter.to_unicode(timeout_config)  # type: unicode
+        self.rollout_config = TeaConverter.to_unicode(rollout_config)  # type: unicode
+        self.target_config = TeaConverter.to_unicode(target_config)  # type: unicode
 
     def validate(self):
         pass
@@ -6501,84 +6593,12 @@ class CreateJobRequest(TeaModel):
         return self
 
 
-class CreateJobShrinkRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, description=None,
-                 job_document=None, type=None, job_file_shrink=None, job_name=None, timeout_config_shrink=None,
-                 rollout_config_shrink=None, target_config_shrink=None):
-        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
-        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.job_document = TeaConverter.to_unicode(job_document)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.job_file_shrink = TeaConverter.to_unicode(job_file_shrink)  # type: unicode
-        self.job_name = TeaConverter.to_unicode(job_name)  # type: unicode
-        self.timeout_config_shrink = TeaConverter.to_unicode(timeout_config_shrink)  # type: unicode
-        self.rollout_config_shrink = TeaConverter.to_unicode(rollout_config_shrink)  # type: unicode
-        self.target_config_shrink = TeaConverter.to_unicode(target_config_shrink)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.api_product is not None:
-            result['ApiProduct'] = self.api_product
-        if self.api_revision is not None:
-            result['ApiRevision'] = self.api_revision
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.job_document is not None:
-            result['JobDocument'] = self.job_document
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.job_file_shrink is not None:
-            result['JobFile'] = self.job_file_shrink
-        if self.job_name is not None:
-            result['JobName'] = self.job_name
-        if self.timeout_config_shrink is not None:
-            result['TimeoutConfig'] = self.timeout_config_shrink
-        if self.rollout_config_shrink is not None:
-            result['RolloutConfig'] = self.rollout_config_shrink
-        if self.target_config_shrink is not None:
-            result['TargetConfig'] = self.target_config_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiProduct') is not None:
-            self.api_product = m.get('ApiProduct')
-        if m.get('ApiRevision') is not None:
-            self.api_revision = m.get('ApiRevision')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('JobDocument') is not None:
-            self.job_document = m.get('JobDocument')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('JobFile') is not None:
-            self.job_file_shrink = m.get('JobFile')
-        if m.get('JobName') is not None:
-            self.job_name = m.get('JobName')
-        if m.get('TimeoutConfig') is not None:
-            self.timeout_config_shrink = m.get('TimeoutConfig')
-        if m.get('RolloutConfig') is not None:
-            self.rollout_config_shrink = m.get('RolloutConfig')
-        if m.get('TargetConfig') is not None:
-            self.target_config_shrink = m.get('TargetConfig')
-        return self
-
-
 class CreateJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None, job_id=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, job_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
 
     def validate(self):
@@ -6588,12 +6608,12 @@ class CreateJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.job_id is not None:
             result['JobId'] = self.job_id
         return result
@@ -6602,12 +6622,12 @@ class CreateJobResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
         return self
@@ -6717,42 +6737,42 @@ class CreateLoRaNodesTaskRequest(TeaModel):
 
 
 class CreateLoRaNodesTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, error_message=None, code=None, success=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, task_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
@@ -6812,20 +6832,20 @@ class CreateOTADynamicUpgradeJobRequestTag(TeaModel):
 
 class CreateOTADynamicUpgradeJobRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, firmware_id=None,
-                 product_key=None, retry_interval=None, retry_count=None, timeout_in_minutes=None, maximum_per_minute=None,
-                 overwrite_mode=None, dynamic_mode=None, src_version=None, tag=None):
+                 product_key=None, src_version=None, retry_interval=None, retry_count=None, timeout_in_minutes=None,
+                 maximum_per_minute=None, overwrite_mode=None, dynamic_mode=None, tag=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.firmware_id = TeaConverter.to_unicode(firmware_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.src_version = src_version  # type: list[unicode]
         self.retry_interval = retry_interval  # type: int
         self.retry_count = retry_count  # type: int
         self.timeout_in_minutes = timeout_in_minutes  # type: int
         self.maximum_per_minute = maximum_per_minute  # type: int
         self.overwrite_mode = overwrite_mode  # type: int
         self.dynamic_mode = dynamic_mode  # type: int
-        self.src_version = src_version  # type: list[unicode]
         self.tag = tag  # type: list[CreateOTADynamicUpgradeJobRequestTag]
 
     def validate(self):
@@ -6846,6 +6866,8 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
             result['FirmwareId'] = self.firmware_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        if self.src_version is not None:
+            result['SrcVersion'] = self.src_version
         if self.retry_interval is not None:
             result['RetryInterval'] = self.retry_interval
         if self.retry_count is not None:
@@ -6858,8 +6880,6 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
             result['OverwriteMode'] = self.overwrite_mode
         if self.dynamic_mode is not None:
             result['DynamicMode'] = self.dynamic_mode
-        if self.src_version is not None:
-            result['SrcVersion'] = self.src_version
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -6878,6 +6898,8 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
             self.firmware_id = m.get('FirmwareId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        if m.get('SrcVersion') is not None:
+            self.src_version = m.get('SrcVersion')
         if m.get('RetryInterval') is not None:
             self.retry_interval = m.get('RetryInterval')
         if m.get('RetryCount') is not None:
@@ -6890,8 +6912,6 @@ class CreateOTADynamicUpgradeJobRequest(TeaModel):
             self.overwrite_mode = m.get('OverwriteMode')
         if m.get('DynamicMode') is not None:
             self.dynamic_mode = m.get('DynamicMode')
-        if m.get('SrcVersion') is not None:
-            self.src_version = m.get('SrcVersion')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -6926,12 +6946,12 @@ class CreateOTADynamicUpgradeJobResponseBodyData(TeaModel):
 
 
 class CreateOTADynamicUpgradeJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateOTADynamicUpgradeJobResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateOTADynamicUpgradeJobResponseBodyData
 
     def validate(self):
         if self.data:
@@ -6941,29 +6961,29 @@ class CreateOTADynamicUpgradeJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateOTADynamicUpgradeJobResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -7089,37 +7109,37 @@ class CreateOTAFirmwareRequest(TeaModel):
 
 
 class CreateOTAFirmwareResponseBodyData(TeaModel):
-    def __init__(self, utc_create=None, firmware_id=None):
-        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
+    def __init__(self, firmware_id=None, utc_create=None):
         self.firmware_id = TeaConverter.to_unicode(firmware_id)  # type: unicode
+        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.utc_create is not None:
-            result['UtcCreate'] = self.utc_create
         if self.firmware_id is not None:
             result['FirmwareId'] = self.firmware_id
+        if self.utc_create is not None:
+            result['UtcCreate'] = self.utc_create
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('UtcCreate') is not None:
-            self.utc_create = m.get('UtcCreate')
         if m.get('FirmwareId') is not None:
             self.firmware_id = m.get('FirmwareId')
+        if m.get('UtcCreate') is not None:
+            self.utc_create = m.get('UtcCreate')
         return self
 
 
 class CreateOTAFirmwareResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateOTAFirmwareResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateOTAFirmwareResponseBodyData
 
     def validate(self):
         if self.data:
@@ -7129,29 +7149,29 @@ class CreateOTAFirmwareResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateOTAFirmwareResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -7236,11 +7256,11 @@ class CreateOTAModuleRequest(TeaModel):
 
 
 class CreateOTAModuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -7249,24 +7269,24 @@ class CreateOTAModuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -7326,27 +7346,27 @@ class CreateOTAStaticUpgradeJobRequestTag(TeaModel):
 
 class CreateOTAStaticUpgradeJobRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, firmware_id=None,
-                 product_key=None, target_selection=None, schedule_time=None, retry_interval=None, retry_count=None,
-                 timeout_in_minutes=None, maximum_per_minute=None, gray_percent=None, schedule_finish_time=None, overwrite_mode=None,
-                 dn_list_file_url=None, src_version=None, target_device_name=None, tag=None):
+                 product_key=None, target_selection=None, src_version=None, schedule_time=None, retry_interval=None,
+                 retry_count=None, timeout_in_minutes=None, maximum_per_minute=None, gray_percent=None,
+                 target_device_name=None, schedule_finish_time=None, overwrite_mode=None, tag=None, dn_list_file_url=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.firmware_id = TeaConverter.to_unicode(firmware_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.target_selection = TeaConverter.to_unicode(target_selection)  # type: unicode
+        self.src_version = src_version  # type: list[unicode]
         self.schedule_time = schedule_time  # type: long
         self.retry_interval = retry_interval  # type: int
         self.retry_count = retry_count  # type: int
         self.timeout_in_minutes = timeout_in_minutes  # type: int
         self.maximum_per_minute = maximum_per_minute  # type: int
         self.gray_percent = TeaConverter.to_unicode(gray_percent)  # type: unicode
+        self.target_device_name = target_device_name  # type: list[unicode]
         self.schedule_finish_time = schedule_finish_time  # type: long
         self.overwrite_mode = overwrite_mode  # type: int
-        self.dn_list_file_url = TeaConverter.to_unicode(dn_list_file_url)  # type: unicode
-        self.src_version = src_version  # type: list[unicode]
-        self.target_device_name = target_device_name  # type: list[unicode]
         self.tag = tag  # type: list[CreateOTAStaticUpgradeJobRequestTag]
+        self.dn_list_file_url = TeaConverter.to_unicode(dn_list_file_url)  # type: unicode
 
     def validate(self):
         if self.tag:
@@ -7368,6 +7388,8 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.target_selection is not None:
             result['TargetSelection'] = self.target_selection
+        if self.src_version is not None:
+            result['SrcVersion'] = self.src_version
         if self.schedule_time is not None:
             result['ScheduleTime'] = self.schedule_time
         if self.retry_interval is not None:
@@ -7380,20 +7402,18 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
             result['MaximumPerMinute'] = self.maximum_per_minute
         if self.gray_percent is not None:
             result['GrayPercent'] = self.gray_percent
+        if self.target_device_name is not None:
+            result['TargetDeviceName'] = self.target_device_name
         if self.schedule_finish_time is not None:
             result['ScheduleFinishTime'] = self.schedule_finish_time
         if self.overwrite_mode is not None:
             result['OverwriteMode'] = self.overwrite_mode
-        if self.dn_list_file_url is not None:
-            result['DnListFileUrl'] = self.dn_list_file_url
-        if self.src_version is not None:
-            result['SrcVersion'] = self.src_version
-        if self.target_device_name is not None:
-            result['TargetDeviceName'] = self.target_device_name
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.dn_list_file_url is not None:
+            result['DnListFileUrl'] = self.dn_list_file_url
         return result
 
     def from_map(self, m=None):
@@ -7410,6 +7430,8 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('TargetSelection') is not None:
             self.target_selection = m.get('TargetSelection')
+        if m.get('SrcVersion') is not None:
+            self.src_version = m.get('SrcVersion')
         if m.get('ScheduleTime') is not None:
             self.schedule_time = m.get('ScheduleTime')
         if m.get('RetryInterval') is not None:
@@ -7422,21 +7444,19 @@ class CreateOTAStaticUpgradeJobRequest(TeaModel):
             self.maximum_per_minute = m.get('MaximumPerMinute')
         if m.get('GrayPercent') is not None:
             self.gray_percent = m.get('GrayPercent')
+        if m.get('TargetDeviceName') is not None:
+            self.target_device_name = m.get('TargetDeviceName')
         if m.get('ScheduleFinishTime') is not None:
             self.schedule_finish_time = m.get('ScheduleFinishTime')
         if m.get('OverwriteMode') is not None:
             self.overwrite_mode = m.get('OverwriteMode')
-        if m.get('DnListFileUrl') is not None:
-            self.dn_list_file_url = m.get('DnListFileUrl')
-        if m.get('SrcVersion') is not None:
-            self.src_version = m.get('SrcVersion')
-        if m.get('TargetDeviceName') is not None:
-            self.target_device_name = m.get('TargetDeviceName')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
                 temp_model = CreateOTAStaticUpgradeJobRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('DnListFileUrl') is not None:
+            self.dn_list_file_url = m.get('DnListFileUrl')
         return self
 
 
@@ -7466,12 +7486,12 @@ class CreateOTAStaticUpgradeJobResponseBodyData(TeaModel):
 
 
 class CreateOTAStaticUpgradeJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateOTAStaticUpgradeJobResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateOTAStaticUpgradeJobResponseBodyData
 
     def validate(self):
         if self.data:
@@ -7481,29 +7501,29 @@ class CreateOTAStaticUpgradeJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateOTAStaticUpgradeJobResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -7613,12 +7633,12 @@ class CreateOTAVerifyJobResponseBodyData(TeaModel):
 
 
 class CreateOTAVerifyJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateOTAVerifyJobResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: CreateOTAVerifyJobResponseBodyData
 
     def validate(self):
         if self.data:
@@ -7628,29 +7648,29 @@ class CreateOTAVerifyJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = CreateOTAVerifyJobResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -7802,79 +7822,79 @@ class CreateProductRequest(TeaModel):
 
 
 class CreateProductResponseBodyData(TeaModel):
-    def __init__(self, auth_type=None, product_key=None, product_name=None, node_type=None, description=None,
-                 id_2=None, product_secret=None, protocol_type=None, data_format=None, aliyun_commodity_code=None):
-        self.auth_type = TeaConverter.to_unicode(auth_type)  # type: unicode
+    def __init__(self, data_format=None, description=None, node_type=None, product_key=None, product_name=None,
+                 aliyun_commodity_code=None, id_2=None, protocol_type=None, auth_type=None, product_secret=None):
+        self.data_format = data_format  # type: int
+        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.node_type = node_type  # type: int
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.node_type = node_type  # type: int
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.id_2 = id_2  # type: bool
-        self.product_secret = TeaConverter.to_unicode(product_secret)  # type: unicode
-        self.protocol_type = TeaConverter.to_unicode(protocol_type)  # type: unicode
-        self.data_format = data_format  # type: int
         self.aliyun_commodity_code = TeaConverter.to_unicode(aliyun_commodity_code)  # type: unicode
+        self.id_2 = id_2  # type: bool
+        self.protocol_type = TeaConverter.to_unicode(protocol_type)  # type: unicode
+        self.auth_type = TeaConverter.to_unicode(auth_type)  # type: unicode
+        self.product_secret = TeaConverter.to_unicode(product_secret)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.auth_type is not None:
-            result['AuthType'] = self.auth_type
+        if self.data_format is not None:
+            result['DataFormat'] = self.data_format
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.product_name is not None:
             result['ProductName'] = self.product_name
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.id_2 is not None:
-            result['Id2'] = self.id_2
-        if self.product_secret is not None:
-            result['ProductSecret'] = self.product_secret
-        if self.protocol_type is not None:
-            result['ProtocolType'] = self.protocol_type
-        if self.data_format is not None:
-            result['DataFormat'] = self.data_format
         if self.aliyun_commodity_code is not None:
             result['AliyunCommodityCode'] = self.aliyun_commodity_code
+        if self.id_2 is not None:
+            result['Id2'] = self.id_2
+        if self.protocol_type is not None:
+            result['ProtocolType'] = self.protocol_type
+        if self.auth_type is not None:
+            result['AuthType'] = self.auth_type
+        if self.product_secret is not None:
+            result['ProductSecret'] = self.product_secret
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AuthType') is not None:
-            self.auth_type = m.get('AuthType')
+        if m.get('DataFormat') is not None:
+            self.data_format = m.get('DataFormat')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('ProductName') is not None:
             self.product_name = m.get('ProductName')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('Id2') is not None:
-            self.id_2 = m.get('Id2')
-        if m.get('ProductSecret') is not None:
-            self.product_secret = m.get('ProductSecret')
-        if m.get('ProtocolType') is not None:
-            self.protocol_type = m.get('ProtocolType')
-        if m.get('DataFormat') is not None:
-            self.data_format = m.get('DataFormat')
         if m.get('AliyunCommodityCode') is not None:
             self.aliyun_commodity_code = m.get('AliyunCommodityCode')
+        if m.get('Id2') is not None:
+            self.id_2 = m.get('Id2')
+        if m.get('ProtocolType') is not None:
+            self.protocol_type = m.get('ProtocolType')
+        if m.get('AuthType') is not None:
+            self.auth_type = m.get('AuthType')
+        if m.get('ProductSecret') is not None:
+            self.product_secret = m.get('ProductSecret')
         return self
 
 
 class CreateProductResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, product_key=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, product_key=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: CreateProductResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.data = data  # type: CreateProductResponseBodyData
 
     def validate(self):
         if self.data:
@@ -7884,33 +7904,33 @@ class CreateProductResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
         if m.get('Data') is not None:
             temp_model = CreateProductResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -7943,41 +7963,166 @@ class CreateProductResponse(TeaModel):
         return self
 
 
-class CreateProductTagsRequestProductTag(TeaModel):
-    def __init__(self, tag_value=None, tag_key=None):
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+class CreateProductDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, source_instance_id=None, product_key=None,
+                 target_instance_id=None, target_uid=None, captcha=None, target_aliyun_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.captcha = TeaConverter.to_unicode(captcha)  # type: unicode
+        self.target_aliyun_id = TeaConverter.to_unicode(target_aliyun_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
-        if self.tag_key is not None:
-            result['TagKey'] = self.tag_key
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.captcha is not None:
+            result['Captcha'] = self.captcha
+        if self.target_aliyun_id is not None:
+            result['TargetAliyunId'] = self.target_aliyun_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('Captcha') is not None:
+            self.captcha = m.get('Captcha')
+        if m.get('TargetAliyunId') is not None:
+            self.target_aliyun_id = m.get('TargetAliyunId')
+        return self
+
+
+class CreateProductDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, job_id=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class CreateProductDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: CreateProductDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateProductDistributeJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateProductTagsRequestProductTag(TeaModel):
+    def __init__(self, tag_key=None, tag_value=None):
+        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
         return self
 
 
 class CreateProductTagsRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 real_tenant_id=None, real_tripartite_key=None, product_tag=None):
+                 product_tag=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.product_tag = product_tag  # type: list[CreateProductTagsRequestProductTag]
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.product_tag = product_tag  # type: list[CreateProductTagsRequestProductTag]
 
     def validate(self):
         if self.product_tag:
@@ -7995,14 +8140,14 @@ class CreateProductTagsRequest(TeaModel):
             result['IotInstanceId'] = self.iot_instance_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
-        if self.real_tenant_id is not None:
-            result['RealTenantId'] = self.real_tenant_id
-        if self.real_tripartite_key is not None:
-            result['RealTripartiteKey'] = self.real_tripartite_key
         result['ProductTag'] = []
         if self.product_tag is not None:
             for k in self.product_tag:
                 result['ProductTag'].append(k.to_map() if k else None)
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -8015,40 +8160,40 @@ class CreateProductTagsRequest(TeaModel):
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
-        if m.get('RealTenantId') is not None:
-            self.real_tenant_id = m.get('RealTenantId')
-        if m.get('RealTripartiteKey') is not None:
-            self.real_tripartite_key = m.get('RealTripartiteKey')
         self.product_tag = []
         if m.get('ProductTag') is not None:
             for k in m.get('ProductTag'):
                 temp_model = CreateProductTagsRequestProductTag()
                 self.product_tag.append(temp_model.from_map(k))
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class CreateProductTagsResponseBodyInvalidProductTagsProductTag(TeaModel):
-    def __init__(self, tag_value=None, tag_key=None):
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
+    def __init__(self, tag_key=None, tag_value=None):
         self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
         return self
 
 
@@ -8081,12 +8226,12 @@ class CreateProductTagsResponseBodyInvalidProductTags(TeaModel):
 
 
 class CreateProductTagsResponseBody(TeaModel):
-    def __init__(self, request_id=None, invalid_product_tags=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None, invalid_product_tags=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.invalid_product_tags = invalid_product_tags  # type: CreateProductTagsResponseBodyInvalidProductTags
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
+        self.invalid_product_tags = invalid_product_tags  # type: CreateProductTagsResponseBodyInvalidProductTags
 
     def validate(self):
         if self.invalid_product_tags:
@@ -8096,29 +8241,29 @@ class CreateProductTagsResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.invalid_product_tags is not None:
-            result['InvalidProductTags'] = self.invalid_product_tags.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.invalid_product_tags is not None:
+            result['InvalidProductTags'] = self.invalid_product_tags.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InvalidProductTags') is not None:
-            temp_model = CreateProductTagsResponseBodyInvalidProductTags()
-            self.invalid_product_tags = temp_model.from_map(m['InvalidProductTags'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('InvalidProductTags') is not None:
+            temp_model = CreateProductTagsResponseBodyInvalidProductTags()
+            self.invalid_product_tags = temp_model.from_map(m['InvalidProductTags'])
         return self
 
 
@@ -8203,12 +8348,12 @@ class CreateProductTopicRequest(TeaModel):
 
 
 class CreateProductTopicResponseBody(TeaModel):
-    def __init__(self, request_id=None, topic_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, topic_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.topic_id = topic_id  # type: long
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.topic_id = topic_id  # type: long
 
     def validate(self):
         pass
@@ -8217,28 +8362,28 @@ class CreateProductTopicResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.topic_id is not None:
-            result['TopicId'] = self.topic_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.topic_id is not None:
+            result['TopicId'] = self.topic_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('TopicId') is not None:
-            self.topic_id = m.get('TopicId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('TopicId') is not None:
+            self.topic_id = m.get('TopicId')
         return self
 
 
@@ -8354,12 +8499,12 @@ class CreateRuleRequest(TeaModel):
 
 
 class CreateRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, rule_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, rule_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.rule_id = rule_id  # type: long
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.rule_id = rule_id  # type: long
 
     def validate(self):
         pass
@@ -8368,28 +8513,28 @@ class CreateRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.rule_id is not None:
-            result['RuleId'] = self.rule_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('RuleId') is not None:
-            self.rule_id = m.get('RuleId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
         return self
 
 
@@ -8474,42 +8619,42 @@ class CreateRuleActionRequest(TeaModel):
 
 
 class CreateRuleActionResponseBody(TeaModel):
-    def __init__(self, action_id=None, request_id=None, error_message=None, code=None, success=None):
-        self.action_id = action_id  # type: long
+    def __init__(self, request_id=None, code=None, success=None, error_message=None, action_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.action_id = action_id  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.action_id is not None:
-            result['ActionId'] = self.action_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.action_id is not None:
+            result['ActionId'] = self.action_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ActionId') is not None:
-            self.action_id = m.get('ActionId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ActionId') is not None:
+            self.action_id = m.get('ActionId')
         return self
 
 
@@ -8538,6 +8683,111 @@ class CreateRuleActionResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateRuleActionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateRulengDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, product_key=None, source_instance_id=None,
+                 target_instance_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class CreateRulengDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        return self
+
+
+class CreateRulengDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: CreateRulengDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateRulengDistributeJobResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8589,12 +8839,12 @@ class CreateSceneRuleRequest(TeaModel):
 
 
 class CreateSceneRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, rule_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, rule_id=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.rule_id = TeaConverter.to_unicode(rule_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.rule_id = TeaConverter.to_unicode(rule_id)  # type: unicode
 
     def validate(self):
         pass
@@ -8603,28 +8853,28 @@ class CreateSceneRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.rule_id is not None:
-            result['RuleId'] = self.rule_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('RuleId') is not None:
-            self.rule_id = m.get('RuleId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
         return self
 
 
@@ -8660,8 +8910,8 @@ class CreateSceneRuleResponse(TeaModel):
 class CreateSubscribeRelationRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
                  device_data_flag=None, device_life_cycle_flag=None, device_status_change_flag=None,
-                 device_topo_life_cycle_flag=None, found_device_list_flag=None, mns_configuration=None, type=None, ota_event_flag=None,
-                 thing_history_flag=None, device_tag_flag=None, ota_version_flag=None, ota_job_flag=None, consumer_group_ids=None):
+                 device_topo_life_cycle_flag=None, found_device_list_flag=None, mns_configuration=None, type=None, consumer_group_ids=None,
+                 ota_event_flag=None, thing_history_flag=None, device_tag_flag=None, ota_version_flag=None, ota_job_flag=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
@@ -8673,12 +8923,12 @@ class CreateSubscribeRelationRequest(TeaModel):
         self.found_device_list_flag = found_device_list_flag  # type: bool
         self.mns_configuration = TeaConverter.to_unicode(mns_configuration)  # type: unicode
         self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.consumer_group_ids = consumer_group_ids  # type: list[unicode]
         self.ota_event_flag = ota_event_flag  # type: bool
         self.thing_history_flag = thing_history_flag  # type: bool
         self.device_tag_flag = device_tag_flag  # type: bool
         self.ota_version_flag = ota_version_flag  # type: bool
         self.ota_job_flag = ota_job_flag  # type: bool
-        self.consumer_group_ids = consumer_group_ids  # type: list[unicode]
 
     def validate(self):
         pass
@@ -8707,6 +8957,8 @@ class CreateSubscribeRelationRequest(TeaModel):
             result['MnsConfiguration'] = self.mns_configuration
         if self.type is not None:
             result['Type'] = self.type
+        if self.consumer_group_ids is not None:
+            result['ConsumerGroupIds'] = self.consumer_group_ids
         if self.ota_event_flag is not None:
             result['OtaEventFlag'] = self.ota_event_flag
         if self.thing_history_flag is not None:
@@ -8717,8 +8969,6 @@ class CreateSubscribeRelationRequest(TeaModel):
             result['OtaVersionFlag'] = self.ota_version_flag
         if self.ota_job_flag is not None:
             result['OtaJobFlag'] = self.ota_job_flag
-        if self.consumer_group_ids is not None:
-            result['ConsumerGroupIds'] = self.consumer_group_ids
         return result
 
     def from_map(self, m=None):
@@ -8745,6 +8995,8 @@ class CreateSubscribeRelationRequest(TeaModel):
             self.mns_configuration = m.get('MnsConfiguration')
         if m.get('Type') is not None:
             self.type = m.get('Type')
+        if m.get('ConsumerGroupIds') is not None:
+            self.consumer_group_ids = m.get('ConsumerGroupIds')
         if m.get('OtaEventFlag') is not None:
             self.ota_event_flag = m.get('OtaEventFlag')
         if m.get('ThingHistoryFlag') is not None:
@@ -8755,17 +9007,15 @@ class CreateSubscribeRelationRequest(TeaModel):
             self.ota_version_flag = m.get('OtaVersionFlag')
         if m.get('OtaJobFlag') is not None:
             self.ota_job_flag = m.get('OtaJobFlag')
-        if m.get('ConsumerGroupIds') is not None:
-            self.consumer_group_ids = m.get('ConsumerGroupIds')
         return self
 
 
 class CreateSubscribeRelationResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -8774,24 +9024,24 @@ class CreateSubscribeRelationResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -8887,11 +9137,11 @@ class CreateThingModelRequest(TeaModel):
 
 
 class CreateThingModelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -8900,24 +9150,24 @@ class CreateThingModelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -8997,11 +9247,11 @@ class CreateThingScriptRequest(TeaModel):
 
 
 class CreateThingScriptResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9010,24 +9260,24 @@ class CreateThingScriptResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -9061,12 +9311,12 @@ class CreateThingScriptResponse(TeaModel):
 
 
 class CreateTopicRouteTableRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, src_topic=None, dst_topic=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, dst_topic=None, src_topic=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.src_topic = TeaConverter.to_unicode(src_topic)  # type: unicode
         self.dst_topic = dst_topic  # type: list[unicode]
+        self.src_topic = TeaConverter.to_unicode(src_topic)  # type: unicode
 
     def validate(self):
         pass
@@ -9079,10 +9329,10 @@ class CreateTopicRouteTableRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
-        if self.src_topic is not None:
-            result['SrcTopic'] = self.src_topic
         if self.dst_topic is not None:
             result['DstTopic'] = self.dst_topic
+        if self.src_topic is not None:
+            result['SrcTopic'] = self.src_topic
         return result
 
     def from_map(self, m=None):
@@ -9093,16 +9343,16 @@ class CreateTopicRouteTableRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('SrcTopic') is not None:
-            self.src_topic = m.get('SrcTopic')
         if m.get('DstTopic') is not None:
             self.dst_topic = m.get('DstTopic')
+        if m.get('SrcTopic') is not None:
+            self.src_topic = m.get('SrcTopic')
         return self
 
 
 class CreateTopicRouteTableResponseBodyFailureTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[unicode, any]]
+        self.topic = topic  # type: list[dict[unicode, unicode]]
 
     def validate(self):
         pass
@@ -9121,14 +9371,14 @@ class CreateTopicRouteTableResponseBodyFailureTopics(TeaModel):
 
 
 class CreateTopicRouteTableResponseBody(TeaModel):
-    def __init__(self, request_id=None, failure_topics=None, error_message=None, code=None, is_all_succeed=None,
-                 success=None):
+    def __init__(self, request_id=None, success=None, code=None, is_all_succeed=None, error_message=None,
+                 failure_topics=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.failure_topics = failure_topics  # type: CreateTopicRouteTableResponseBodyFailureTopics
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.success = success  # type: bool
         self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.is_all_succeed = is_all_succeed  # type: bool
-        self.success = success  # type: bool
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.failure_topics = failure_topics  # type: CreateTopicRouteTableResponseBodyFailureTopics
 
     def validate(self):
         if self.failure_topics:
@@ -9138,33 +9388,33 @@ class CreateTopicRouteTableResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.failure_topics is not None:
-            result['FailureTopics'] = self.failure_topics.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
+        if self.success is not None:
+            result['Success'] = self.success
         if self.code is not None:
             result['Code'] = self.code
         if self.is_all_succeed is not None:
             result['IsAllSucceed'] = self.is_all_succeed
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.failure_topics is not None:
+            result['FailureTopics'] = self.failure_topics.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('FailureTopics') is not None:
-            temp_model = CreateTopicRouteTableResponseBodyFailureTopics()
-            self.failure_topics = temp_model.from_map(m['FailureTopics'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('IsAllSucceed') is not None:
             self.is_all_succeed = m.get('IsAllSucceed')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('FailureTopics') is not None:
+            temp_model = CreateTopicRouteTableResponseBodyFailureTopics()
+            self.failure_topics = temp_model.from_map(m['FailureTopics'])
         return self
 
 
@@ -9193,110 +9443,6 @@ class CreateTopicRouteTableResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateTopicRouteTableResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DeleteClientIdsRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_id=None, iot_instance_id=None, auth_config=None):
-        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
-        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.auth_config = TeaConverter.to_unicode(auth_config)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.api_product is not None:
-            result['ApiProduct'] = self.api_product
-        if self.api_revision is not None:
-            result['ApiRevision'] = self.api_revision
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.auth_config is not None:
-            result['AuthConfig'] = self.auth_config
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiProduct') is not None:
-            self.api_product = m.get('ApiProduct')
-        if m.get('ApiRevision') is not None:
-            self.api_revision = m.get('ApiRevision')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('AuthConfig') is not None:
-            self.auth_config = m.get('AuthConfig')
-        return self
-
-
-class DeleteClientIdsResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class DeleteClientIdsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = body  # type: DeleteClientIdsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DeleteClientIdsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9337,11 +9483,11 @@ class DeleteConsumerGroupRequest(TeaModel):
 
 
 class DeleteConsumerGroupResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -9350,24 +9496,24 @@ class DeleteConsumerGroupResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -9442,11 +9588,11 @@ class DeleteConsumerGroupSubscribeRelationRequest(TeaModel):
 
 
 class DeleteConsumerGroupSubscribeRelationResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9455,24 +9601,24 @@ class DeleteConsumerGroupSubscribeRelationResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -9562,11 +9708,11 @@ class DeleteDeviceRequest(TeaModel):
 
 
 class DeleteDeviceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9575,24 +9721,24 @@ class DeleteDeviceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -9621,6 +9767,100 @@ class DeleteDeviceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDeviceDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, job_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class DeleteDeviceDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        return self
+
+
+class DeleteDeviceDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: DeleteDeviceDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDeviceDistributeJobResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9677,11 +9917,11 @@ class DeleteDeviceFileRequest(TeaModel):
 
 
 class DeleteDeviceFileResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9690,24 +9930,24 @@ class DeleteDeviceFileResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -9787,11 +10027,11 @@ class DeleteDeviceGroupRequest(TeaModel):
 
 
 class DeleteDeviceGroupResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9800,24 +10040,24 @@ class DeleteDeviceGroupResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -9902,11 +10142,11 @@ class DeleteDevicePropRequest(TeaModel):
 
 
 class DeleteDevicePropResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -9915,24 +10155,24 @@ class DeleteDevicePropResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10001,11 +10241,11 @@ class DeleteEdgeDriverRequest(TeaModel):
 
 
 class DeleteEdgeDriverResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10014,24 +10254,24 @@ class DeleteEdgeDriverResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10106,11 +10346,11 @@ class DeleteEdgeDriverVersionRequest(TeaModel):
 
 
 class DeleteEdgeDriverVersionResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10119,24 +10359,24 @@ class DeleteEdgeDriverVersionResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10205,11 +10445,11 @@ class DeleteEdgeInstanceRequest(TeaModel):
 
 
 class DeleteEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10218,24 +10458,24 @@ class DeleteEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10304,11 +10544,11 @@ class DeleteJobRequest(TeaModel):
 
 
 class DeleteJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10317,24 +10557,24 @@ class DeleteJobResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10403,11 +10643,11 @@ class DeleteOTAFirmwareRequest(TeaModel):
 
 
 class DeleteOTAFirmwareResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10416,24 +10656,24 @@ class DeleteOTAFirmwareResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10513,11 +10753,11 @@ class DeleteOTAModuleRequest(TeaModel):
 
 
 class DeleteOTAModuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10526,24 +10766,24 @@ class DeleteOTAModuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10623,11 +10863,11 @@ class DeleteProductRequest(TeaModel):
 
 
 class DeleteProductResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10636,24 +10876,24 @@ class DeleteProductResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10687,15 +10927,15 @@ class DeleteProductResponse(TeaModel):
 
 
 class DeleteProductTagsRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 real_tenant_id=None, real_tripartite_key=None, product_tag_key=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_tag_key=None,
+                 product_key=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
+        self.product_tag_key = product_tag_key  # type: list[unicode]
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.product_tag_key = product_tag_key  # type: list[unicode]
 
     def validate(self):
         pass
@@ -10708,14 +10948,14 @@ class DeleteProductTagsRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
+        if self.product_tag_key is not None:
+            result['ProductTagKey'] = self.product_tag_key
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.real_tenant_id is not None:
             result['RealTenantId'] = self.real_tenant_id
         if self.real_tripartite_key is not None:
             result['RealTripartiteKey'] = self.real_tripartite_key
-        if self.product_tag_key is not None:
-            result['ProductTagKey'] = self.product_tag_key
         return result
 
     def from_map(self, m=None):
@@ -10726,23 +10966,23 @@ class DeleteProductTagsRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
+        if m.get('ProductTagKey') is not None:
+            self.product_tag_key = m.get('ProductTagKey')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('RealTenantId') is not None:
             self.real_tenant_id = m.get('RealTenantId')
         if m.get('RealTripartiteKey') is not None:
             self.real_tripartite_key = m.get('RealTripartiteKey')
-        if m.get('ProductTagKey') is not None:
-            self.product_tag_key = m.get('ProductTagKey')
         return self
 
 
 class DeleteProductTagsResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -10751,24 +10991,24 @@ class DeleteProductTagsResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -10837,11 +11077,11 @@ class DeleteProductTopicRequest(TeaModel):
 
 
 class DeleteProductTopicResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10850,24 +11090,24 @@ class DeleteProductTopicResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -10936,11 +11176,11 @@ class DeleteRuleRequest(TeaModel):
 
 
 class DeleteRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -10949,24 +11189,24 @@ class DeleteRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -11035,11 +11275,11 @@ class DeleteRuleActionRequest(TeaModel):
 
 
 class DeleteRuleActionResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -11048,24 +11288,24 @@ class DeleteRuleActionResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -11134,11 +11374,11 @@ class DeleteSceneRuleRequest(TeaModel):
 
 
 class DeleteSceneRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -11147,24 +11387,24 @@ class DeleteSceneRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -11238,11 +11478,11 @@ class DeleteSubscribeRelationRequest(TeaModel):
 
 
 class DeleteSubscribeRelationResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -11251,24 +11491,24 @@ class DeleteSubscribeRelationResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -11303,20 +11543,20 @@ class DeleteSubscribeRelationResponse(TeaModel):
 
 class DeleteThingModelRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, resource_group_id=None,
-                 product_key=None, function_block_id=None, is_clear_all_function=None, real_tenant_id=None,
-                 real_tripartite_key=None, property_identifier=None, service_identifier=None, event_identifier=None):
+                 product_key=None, property_identifier=None, service_identifier=None, event_identifier=None,
+                 function_block_id=None, is_clear_all_function=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.property_identifier = property_identifier  # type: list[unicode]
+        self.service_identifier = service_identifier  # type: list[unicode]
+        self.event_identifier = event_identifier  # type: list[unicode]
         self.function_block_id = TeaConverter.to_unicode(function_block_id)  # type: unicode
         self.is_clear_all_function = is_clear_all_function  # type: bool
         self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
         self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
-        self.property_identifier = property_identifier  # type: list[unicode]
-        self.service_identifier = service_identifier  # type: list[unicode]
-        self.event_identifier = event_identifier  # type: list[unicode]
 
     def validate(self):
         pass
@@ -11333,6 +11573,12 @@ class DeleteThingModelRequest(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        if self.property_identifier is not None:
+            result['PropertyIdentifier'] = self.property_identifier
+        if self.service_identifier is not None:
+            result['ServiceIdentifier'] = self.service_identifier
+        if self.event_identifier is not None:
+            result['EventIdentifier'] = self.event_identifier
         if self.function_block_id is not None:
             result['FunctionBlockId'] = self.function_block_id
         if self.is_clear_all_function is not None:
@@ -11341,12 +11587,6 @@ class DeleteThingModelRequest(TeaModel):
             result['RealTenantId'] = self.real_tenant_id
         if self.real_tripartite_key is not None:
             result['RealTripartiteKey'] = self.real_tripartite_key
-        if self.property_identifier is not None:
-            result['PropertyIdentifier'] = self.property_identifier
-        if self.service_identifier is not None:
-            result['ServiceIdentifier'] = self.service_identifier
-        if self.event_identifier is not None:
-            result['EventIdentifier'] = self.event_identifier
         return result
 
     def from_map(self, m=None):
@@ -11361,6 +11601,12 @@ class DeleteThingModelRequest(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        if m.get('PropertyIdentifier') is not None:
+            self.property_identifier = m.get('PropertyIdentifier')
+        if m.get('ServiceIdentifier') is not None:
+            self.service_identifier = m.get('ServiceIdentifier')
+        if m.get('EventIdentifier') is not None:
+            self.event_identifier = m.get('EventIdentifier')
         if m.get('FunctionBlockId') is not None:
             self.function_block_id = m.get('FunctionBlockId')
         if m.get('IsClearAllFunction') is not None:
@@ -11369,21 +11615,15 @@ class DeleteThingModelRequest(TeaModel):
             self.real_tenant_id = m.get('RealTenantId')
         if m.get('RealTripartiteKey') is not None:
             self.real_tripartite_key = m.get('RealTripartiteKey')
-        if m.get('PropertyIdentifier') is not None:
-            self.property_identifier = m.get('PropertyIdentifier')
-        if m.get('ServiceIdentifier') is not None:
-            self.service_identifier = m.get('ServiceIdentifier')
-        if m.get('EventIdentifier') is not None:
-            self.event_identifier = m.get('EventIdentifier')
         return self
 
 
 class DeleteThingModelResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -11392,24 +11632,24 @@ class DeleteThingModelResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -11443,12 +11683,12 @@ class DeleteThingModelResponse(TeaModel):
 
 
 class DeleteTopicRouteTableRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, src_topic=None, dst_topic=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, dst_topic=None, src_topic=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.src_topic = TeaConverter.to_unicode(src_topic)  # type: unicode
         self.dst_topic = dst_topic  # type: list[unicode]
+        self.src_topic = TeaConverter.to_unicode(src_topic)  # type: unicode
 
     def validate(self):
         pass
@@ -11461,10 +11701,10 @@ class DeleteTopicRouteTableRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
-        if self.src_topic is not None:
-            result['SrcTopic'] = self.src_topic
         if self.dst_topic is not None:
             result['DstTopic'] = self.dst_topic
+        if self.src_topic is not None:
+            result['SrcTopic'] = self.src_topic
         return result
 
     def from_map(self, m=None):
@@ -11475,16 +11715,16 @@ class DeleteTopicRouteTableRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('SrcTopic') is not None:
-            self.src_topic = m.get('SrcTopic')
         if m.get('DstTopic') is not None:
             self.dst_topic = m.get('DstTopic')
+        if m.get('SrcTopic') is not None:
+            self.src_topic = m.get('SrcTopic')
         return self
 
 
 class DeleteTopicRouteTableResponseBodyFailureTopics(TeaModel):
     def __init__(self, topic=None):
-        self.topic = topic  # type: list[dict[unicode, any]]
+        self.topic = topic  # type: list[dict[unicode, unicode]]
 
     def validate(self):
         pass
@@ -11503,14 +11743,14 @@ class DeleteTopicRouteTableResponseBodyFailureTopics(TeaModel):
 
 
 class DeleteTopicRouteTableResponseBody(TeaModel):
-    def __init__(self, request_id=None, failure_topics=None, error_message=None, code=None, is_all_succeed=None,
-                 success=None):
+    def __init__(self, request_id=None, success=None, code=None, is_all_succeed=None, error_message=None,
+                 failure_topics=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.failure_topics = failure_topics  # type: DeleteTopicRouteTableResponseBodyFailureTopics
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.success = success  # type: bool
         self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.is_all_succeed = is_all_succeed  # type: bool
-        self.success = success  # type: bool
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.failure_topics = failure_topics  # type: DeleteTopicRouteTableResponseBodyFailureTopics
 
     def validate(self):
         if self.failure_topics:
@@ -11520,33 +11760,33 @@ class DeleteTopicRouteTableResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.failure_topics is not None:
-            result['FailureTopics'] = self.failure_topics.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
+        if self.success is not None:
+            result['Success'] = self.success
         if self.code is not None:
             result['Code'] = self.code
         if self.is_all_succeed is not None:
             result['IsAllSucceed'] = self.is_all_succeed
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.failure_topics is not None:
+            result['FailureTopics'] = self.failure_topics.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('FailureTopics') is not None:
-            temp_model = DeleteTopicRouteTableResponseBodyFailureTopics()
-            self.failure_topics = temp_model.from_map(m['FailureTopics'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('IsAllSucceed') is not None:
             self.is_all_succeed = m.get('IsAllSucceed')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('FailureTopics') is not None:
+            temp_model = DeleteTopicRouteTableResponseBodyFailureTopics()
+            self.failure_topics = temp_model.from_map(m['FailureTopics'])
         return self
 
 
@@ -11615,11 +11855,11 @@ class DisableSceneRuleRequest(TeaModel):
 
 
 class DisableSceneRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -11628,24 +11868,24 @@ class DisableSceneRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -11680,13 +11920,15 @@ class DisableSceneRuleResponse(TeaModel):
 
 class DisableThingRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None, iot_id=None):
+                 device_name=None, iot_id=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -11705,6 +11947,10 @@ class DisableThingRequest(TeaModel):
             result['DeviceName'] = self.device_name
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -11721,15 +11967,19 @@ class DisableThingRequest(TeaModel):
             self.device_name = m.get('DeviceName')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class DisableThingResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -11738,24 +11988,24 @@ class DisableThingResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -11824,11 +12074,11 @@ class EnableSceneRuleRequest(TeaModel):
 
 
 class EnableSceneRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -11837,24 +12087,24 @@ class EnableSceneRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -11889,13 +12139,15 @@ class EnableSceneRuleResponse(TeaModel):
 
 class EnableThingRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None, iot_id=None):
+                 device_name=None, iot_id=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -11914,6 +12166,10 @@ class EnableThingRequest(TeaModel):
             result['DeviceName'] = self.device_name
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -11930,15 +12186,19 @@ class EnableThingRequest(TeaModel):
             self.device_name = m.get('DeviceName')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class EnableThingResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -11947,24 +12207,24 @@ class EnableThingResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -12028,16 +12288,16 @@ class GenerateDeviceNameListURLRequest(TeaModel):
 
 
 class GenerateDeviceNameListURLResponseBodyData(TeaModel):
-    def __init__(self, key=None, signature=None, host=None, file_url=None, policy=None, object_storage=None,
-                 utc_create=None, access_key_id=None):
+    def __init__(self, key=None, host=None, policy=None, access_key_id=None, signature=None, file_url=None,
+                 utc_create=None, object_storage=None):
         self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
         self.host = TeaConverter.to_unicode(host)  # type: unicode
-        self.file_url = TeaConverter.to_unicode(file_url)  # type: unicode
         self.policy = TeaConverter.to_unicode(policy)  # type: unicode
-        self.object_storage = TeaConverter.to_unicode(object_storage)  # type: unicode
-        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
         self.access_key_id = TeaConverter.to_unicode(access_key_id)  # type: unicode
+        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
+        self.file_url = TeaConverter.to_unicode(file_url)  # type: unicode
+        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
+        self.object_storage = TeaConverter.to_unicode(object_storage)  # type: unicode
 
     def validate(self):
         pass
@@ -12046,50 +12306,50 @@ class GenerateDeviceNameListURLResponseBodyData(TeaModel):
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
-        if self.signature is not None:
-            result['Signature'] = self.signature
         if self.host is not None:
             result['Host'] = self.host
-        if self.file_url is not None:
-            result['FileUrl'] = self.file_url
         if self.policy is not None:
             result['Policy'] = self.policy
-        if self.object_storage is not None:
-            result['ObjectStorage'] = self.object_storage
-        if self.utc_create is not None:
-            result['UtcCreate'] = self.utc_create
         if self.access_key_id is not None:
             result['AccessKeyId'] = self.access_key_id
+        if self.signature is not None:
+            result['Signature'] = self.signature
+        if self.file_url is not None:
+            result['FileUrl'] = self.file_url
+        if self.utc_create is not None:
+            result['UtcCreate'] = self.utc_create
+        if self.object_storage is not None:
+            result['ObjectStorage'] = self.object_storage
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Key') is not None:
             self.key = m.get('Key')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
         if m.get('Host') is not None:
             self.host = m.get('Host')
-        if m.get('FileUrl') is not None:
-            self.file_url = m.get('FileUrl')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
-        if m.get('ObjectStorage') is not None:
-            self.object_storage = m.get('ObjectStorage')
-        if m.get('UtcCreate') is not None:
-            self.utc_create = m.get('UtcCreate')
         if m.get('AccessKeyId') is not None:
             self.access_key_id = m.get('AccessKeyId')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
+        if m.get('FileUrl') is not None:
+            self.file_url = m.get('FileUrl')
+        if m.get('UtcCreate') is not None:
+            self.utc_create = m.get('UtcCreate')
+        if m.get('ObjectStorage') is not None:
+            self.object_storage = m.get('ObjectStorage')
         return self
 
 
 class GenerateDeviceNameListURLResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GenerateDeviceNameListURLResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GenerateDeviceNameListURLResponseBodyData
 
     def validate(self):
         if self.data:
@@ -12099,29 +12359,29 @@ class GenerateDeviceNameListURLResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GenerateDeviceNameListURLResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12195,12 +12455,12 @@ class GenerateFileUploadURLRequest(TeaModel):
 
 
 class GenerateFileUploadURLResponseBodyData(TeaModel):
-    def __init__(self, key=None, oss_access_key_id=None, signature=None, host=None, policy=None, object_storage=None):
+    def __init__(self, key=None, host=None, policy=None, oss_access_key_id=None, signature=None, object_storage=None):
         self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.oss_access_key_id = TeaConverter.to_unicode(oss_access_key_id)  # type: unicode
-        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
         self.host = TeaConverter.to_unicode(host)  # type: unicode
         self.policy = TeaConverter.to_unicode(policy)  # type: unicode
+        self.oss_access_key_id = TeaConverter.to_unicode(oss_access_key_id)  # type: unicode
+        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
         self.object_storage = TeaConverter.to_unicode(object_storage)  # type: unicode
 
     def validate(self):
@@ -12210,14 +12470,14 @@ class GenerateFileUploadURLResponseBodyData(TeaModel):
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
-        if self.oss_access_key_id is not None:
-            result['OssAccessKeyId'] = self.oss_access_key_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
         if self.host is not None:
             result['Host'] = self.host
         if self.policy is not None:
             result['Policy'] = self.policy
+        if self.oss_access_key_id is not None:
+            result['OssAccessKeyId'] = self.oss_access_key_id
+        if self.signature is not None:
+            result['Signature'] = self.signature
         if self.object_storage is not None:
             result['ObjectStorage'] = self.object_storage
         return result
@@ -12226,26 +12486,26 @@ class GenerateFileUploadURLResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('Key') is not None:
             self.key = m.get('Key')
-        if m.get('OssAccessKeyId') is not None:
-            self.oss_access_key_id = m.get('OssAccessKeyId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
         if m.get('Host') is not None:
             self.host = m.get('Host')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
+        if m.get('OssAccessKeyId') is not None:
+            self.oss_access_key_id = m.get('OssAccessKeyId')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
         if m.get('ObjectStorage') is not None:
             self.object_storage = m.get('ObjectStorage')
         return self
 
 
 class GenerateFileUploadURLResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GenerateFileUploadURLResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GenerateFileUploadURLResponseBodyData
 
     def validate(self):
         if self.data:
@@ -12255,29 +12515,29 @@ class GenerateFileUploadURLResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GenerateFileUploadURLResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12346,16 +12606,16 @@ class GenerateOTAUploadURLRequest(TeaModel):
 
 
 class GenerateOTAUploadURLResponseBodyData(TeaModel):
-    def __init__(self, key=None, ossaccess_key_id=None, signature=None, host=None, policy=None, object_storage=None,
-                 firmware_url=None, utc_create=None):
+    def __init__(self, key=None, host=None, policy=None, ossaccess_key_id=None, signature=None, firmware_url=None,
+                 utc_create=None, object_storage=None):
         self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.ossaccess_key_id = TeaConverter.to_unicode(ossaccess_key_id)  # type: unicode
-        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
         self.host = TeaConverter.to_unicode(host)  # type: unicode
         self.policy = TeaConverter.to_unicode(policy)  # type: unicode
-        self.object_storage = TeaConverter.to_unicode(object_storage)  # type: unicode
+        self.ossaccess_key_id = TeaConverter.to_unicode(ossaccess_key_id)  # type: unicode
+        self.signature = TeaConverter.to_unicode(signature)  # type: unicode
         self.firmware_url = TeaConverter.to_unicode(firmware_url)  # type: unicode
         self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
+        self.object_storage = TeaConverter.to_unicode(object_storage)  # type: unicode
 
     def validate(self):
         pass
@@ -12364,50 +12624,50 @@ class GenerateOTAUploadURLResponseBodyData(TeaModel):
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
-        if self.ossaccess_key_id is not None:
-            result['OSSAccessKeyId'] = self.ossaccess_key_id
-        if self.signature is not None:
-            result['Signature'] = self.signature
         if self.host is not None:
             result['Host'] = self.host
         if self.policy is not None:
             result['Policy'] = self.policy
-        if self.object_storage is not None:
-            result['ObjectStorage'] = self.object_storage
+        if self.ossaccess_key_id is not None:
+            result['OSSAccessKeyId'] = self.ossaccess_key_id
+        if self.signature is not None:
+            result['Signature'] = self.signature
         if self.firmware_url is not None:
             result['FirmwareUrl'] = self.firmware_url
         if self.utc_create is not None:
             result['UtcCreate'] = self.utc_create
+        if self.object_storage is not None:
+            result['ObjectStorage'] = self.object_storage
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Key') is not None:
             self.key = m.get('Key')
-        if m.get('OSSAccessKeyId') is not None:
-            self.ossaccess_key_id = m.get('OSSAccessKeyId')
-        if m.get('Signature') is not None:
-            self.signature = m.get('Signature')
         if m.get('Host') is not None:
             self.host = m.get('Host')
         if m.get('Policy') is not None:
             self.policy = m.get('Policy')
-        if m.get('ObjectStorage') is not None:
-            self.object_storage = m.get('ObjectStorage')
+        if m.get('OSSAccessKeyId') is not None:
+            self.ossaccess_key_id = m.get('OSSAccessKeyId')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
         if m.get('FirmwareUrl') is not None:
             self.firmware_url = m.get('FirmwareUrl')
         if m.get('UtcCreate') is not None:
             self.utc_create = m.get('UtcCreate')
+        if m.get('ObjectStorage') is not None:
+            self.object_storage = m.get('ObjectStorage')
         return self
 
 
 class GenerateOTAUploadURLResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GenerateOTAUploadURLResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GenerateOTAUploadURLResponseBodyData
 
     def validate(self):
         if self.data:
@@ -12417,29 +12677,29 @@ class GenerateOTAUploadURLResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GenerateOTAUploadURLResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12508,42 +12768,42 @@ class GetDataAPIServiceDetailRequest(TeaModel):
 
 
 class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTORequestParamsRequestParams(TeaModel):
-    def __init__(self, type=None, required=None, example=None, name=None, desc=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.required = required  # type: bool
-        self.example = TeaConverter.to_unicode(example)  # type: unicode
+    def __init__(self, name=None, type=None, desc=None, example=None, required=None):
         self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
         self.desc = TeaConverter.to_unicode(desc)  # type: unicode
+        self.example = TeaConverter.to_unicode(example)  # type: unicode
+        self.required = required  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.required is not None:
-            result['Required'] = self.required
-        if self.example is not None:
-            result['Example'] = self.example
         if self.name is not None:
             result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
         if self.desc is not None:
             result['Desc'] = self.desc
+        if self.example is not None:
+            result['Example'] = self.example
+        if self.required is not None:
+            result['Required'] = self.required
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Required') is not None:
-            self.required = m.get('Required')
-        if m.get('Example') is not None:
-            self.example = m.get('Example')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        if m.get('Example') is not None:
+            self.example = m.get('Example')
+        if m.get('Required') is not None:
+            self.required = m.get('Required')
         return self
 
 
@@ -12576,42 +12836,42 @@ class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTORequestParams(TeaMode
 
 
 class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTOResponseParamsResponseParams(TeaModel):
-    def __init__(self, type=None, required=None, example=None, name=None, desc=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.required = required  # type: bool
-        self.example = TeaConverter.to_unicode(example)  # type: unicode
+    def __init__(self, name=None, type=None, desc=None, example=None, required=None):
         self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
         self.desc = TeaConverter.to_unicode(desc)  # type: unicode
+        self.example = TeaConverter.to_unicode(example)  # type: unicode
+        self.required = required  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.required is not None:
-            result['Required'] = self.required
-        if self.example is not None:
-            result['Example'] = self.example
         if self.name is not None:
             result['Name'] = self.name
+        if self.type is not None:
+            result['Type'] = self.type
         if self.desc is not None:
             result['Desc'] = self.desc
+        if self.example is not None:
+            result['Example'] = self.example
+        if self.required is not None:
+            result['Required'] = self.required
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Required') is not None:
-            self.required = m.get('Required')
-        if m.get('Example') is not None:
-            self.example = m.get('Example')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('Desc') is not None:
             self.desc = m.get('Desc')
+        if m.get('Example') is not None:
+            self.example = m.get('Example')
+        if m.get('Required') is not None:
+            self.required = m.get('Required')
         return self
 
 
@@ -12644,11 +12904,11 @@ class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTOResponseParams(TeaMod
 
 
 class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO(TeaModel):
-    def __init__(self, request_params=None, origin_sql=None, response_params=None, template_sql=None):
-        self.request_params = request_params  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTORequestParams
+    def __init__(self, origin_sql=None, template_sql=None, request_params=None, response_params=None):
         self.origin_sql = TeaConverter.to_unicode(origin_sql)  # type: unicode
-        self.response_params = response_params  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTOResponseParams
         self.template_sql = TeaConverter.to_unicode(template_sql)  # type: unicode
+        self.request_params = request_params  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTORequestParams
+        self.response_params = response_params  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTOResponseParams
 
     def validate(self):
         if self.request_params:
@@ -12658,46 +12918,46 @@ class GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.request_params is not None:
-            result['RequestParams'] = self.request_params.to_map()
         if self.origin_sql is not None:
             result['OriginSql'] = self.origin_sql
-        if self.response_params is not None:
-            result['ResponseParams'] = self.response_params.to_map()
         if self.template_sql is not None:
             result['TemplateSql'] = self.template_sql
+        if self.request_params is not None:
+            result['RequestParams'] = self.request_params.to_map()
+        if self.response_params is not None:
+            result['ResponseParams'] = self.response_params.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('OriginSql') is not None:
+            self.origin_sql = m.get('OriginSql')
+        if m.get('TemplateSql') is not None:
+            self.template_sql = m.get('TemplateSql')
         if m.get('RequestParams') is not None:
             temp_model = GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTORequestParams()
             self.request_params = temp_model.from_map(m['RequestParams'])
-        if m.get('OriginSql') is not None:
-            self.origin_sql = m.get('OriginSql')
         if m.get('ResponseParams') is not None:
             temp_model = GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTOResponseParams()
             self.response_params = temp_model.from_map(m['ResponseParams'])
-        if m.get('TemplateSql') is not None:
-            self.template_sql = m.get('TemplateSql')
         return self
 
 
 class GetDataAPIServiceDetailResponseBodyData(TeaModel):
-    def __init__(self, display_name=None, status=None, api_srn=None, sql_template_dto=None, description=None,
-                 create_time=None, last_update_time=None, request_method=None, date_format=None, request_protocol=None,
-                 api_path=None):
-        self.display_name = TeaConverter.to_unicode(display_name)  # type: unicode
-        self.status = status  # type: int
+    def __init__(self, api_srn=None, status=None, display_name=None, api_path=None, create_time=None,
+                 last_update_time=None, date_format=None, request_method=None, request_protocol=None, description=None,
+                 sql_template_dto=None):
         self.api_srn = TeaConverter.to_unicode(api_srn)  # type: unicode
-        self.sql_template_dto = sql_template_dto  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.status = status  # type: int
+        self.display_name = TeaConverter.to_unicode(display_name)  # type: unicode
+        self.api_path = TeaConverter.to_unicode(api_path)  # type: unicode
         self.create_time = create_time  # type: long
         self.last_update_time = last_update_time  # type: long
-        self.request_method = TeaConverter.to_unicode(request_method)  # type: unicode
         self.date_format = TeaConverter.to_unicode(date_format)  # type: unicode
+        self.request_method = TeaConverter.to_unicode(request_method)  # type: unicode
         self.request_protocol = TeaConverter.to_unicode(request_protocol)  # type: unicode
-        self.api_path = TeaConverter.to_unicode(api_path)  # type: unicode
+        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.sql_template_dto = sql_template_dto  # type: GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO
 
     def validate(self):
         if self.sql_template_dto:
@@ -12705,65 +12965,65 @@ class GetDataAPIServiceDetailResponseBodyData(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.status is not None:
-            result['Status'] = self.status
         if self.api_srn is not None:
             result['ApiSrn'] = self.api_srn
-        if self.sql_template_dto is not None:
-            result['SqlTemplateDTO'] = self.sql_template_dto.to_map()
-        if self.description is not None:
-            result['Description'] = self.description
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
+        if self.api_path is not None:
+            result['ApiPath'] = self.api_path
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.last_update_time is not None:
             result['LastUpdateTime'] = self.last_update_time
-        if self.request_method is not None:
-            result['RequestMethod'] = self.request_method
         if self.date_format is not None:
             result['DateFormat'] = self.date_format
+        if self.request_method is not None:
+            result['RequestMethod'] = self.request_method
         if self.request_protocol is not None:
             result['RequestProtocol'] = self.request_protocol
-        if self.api_path is not None:
-            result['ApiPath'] = self.api_path
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.sql_template_dto is not None:
+            result['SqlTemplateDTO'] = self.sql_template_dto.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DisplayName') is not None:
-            self.display_name = m.get('DisplayName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ApiSrn') is not None:
             self.api_srn = m.get('ApiSrn')
-        if m.get('SqlTemplateDTO') is not None:
-            temp_model = GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO()
-            self.sql_template_dto = temp_model.from_map(m['SqlTemplateDTO'])
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
+        if m.get('ApiPath') is not None:
+            self.api_path = m.get('ApiPath')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('LastUpdateTime') is not None:
             self.last_update_time = m.get('LastUpdateTime')
-        if m.get('RequestMethod') is not None:
-            self.request_method = m.get('RequestMethod')
         if m.get('DateFormat') is not None:
             self.date_format = m.get('DateFormat')
+        if m.get('RequestMethod') is not None:
+            self.request_method = m.get('RequestMethod')
         if m.get('RequestProtocol') is not None:
             self.request_protocol = m.get('RequestProtocol')
-        if m.get('ApiPath') is not None:
-            self.api_path = m.get('ApiPath')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('SqlTemplateDTO') is not None:
+            temp_model = GetDataAPIServiceDetailResponseBodyDataSqlTemplateDTO()
+            self.sql_template_dto = temp_model.from_map(m['SqlTemplateDTO'])
         return self
 
 
 class GetDataAPIServiceDetailResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetDataAPIServiceDetailResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetDataAPIServiceDetailResponseBodyData
 
     def validate(self):
         if self.data:
@@ -12773,29 +13033,29 @@ class GetDataAPIServiceDetailResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetDataAPIServiceDetailResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -12870,12 +13130,12 @@ class GetDeviceShadowRequest(TeaModel):
 
 
 class GetDeviceShadowResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, shadow_message=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, shadow_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.shadow_message = TeaConverter.to_unicode(shadow_message)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.shadow_message = TeaConverter.to_unicode(shadow_message)  # type: unicode
 
     def validate(self):
         pass
@@ -12884,28 +13144,28 @@ class GetDeviceShadowResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.shadow_message is not None:
-            result['ShadowMessage'] = self.shadow_message
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.shadow_message is not None:
+            result['ShadowMessage'] = self.shadow_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ShadowMessage') is not None:
-            self.shadow_message = m.get('ShadowMessage')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ShadowMessage') is not None:
+            self.shadow_message = m.get('ShadowMessage')
         return self
 
 
@@ -13005,12 +13265,12 @@ class GetDeviceStatusResponseBodyData(TeaModel):
 
 
 class GetDeviceStatusResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetDeviceStatusResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetDeviceStatusResponseBodyData
 
     def validate(self):
         if self.data:
@@ -13020,29 +13280,29 @@ class GetDeviceStatusResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetDeviceStatusResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13117,89 +13377,89 @@ class GetEdgeDriverVersionRequest(TeaModel):
 
 
 class GetEdgeDriverVersionResponseBodyData(TeaModel):
-    def __init__(self, gmt_create_timestamp=None, config_check_rule=None, edge_version=None, driver_id=None,
-                 gmt_modified_timestamp=None, version_state=None, container_config=None, description=None, driver_config=None,
-                 argument=None, driver_version=None, source_config=None):
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.config_check_rule = TeaConverter.to_unicode(config_check_rule)  # type: unicode
-        self.edge_version = TeaConverter.to_unicode(edge_version)  # type: unicode
+    def __init__(self, driver_id=None, driver_version=None, version_state=None, edge_version=None, description=None,
+                 source_config=None, driver_config=None, container_config=None, config_check_rule=None,
+                 gmt_create_timestamp=None, gmt_modified_timestamp=None, argument=None):
         self.driver_id = TeaConverter.to_unicode(driver_id)  # type: unicode
-        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.version_state = TeaConverter.to_unicode(version_state)  # type: unicode
-        self.container_config = TeaConverter.to_unicode(container_config)  # type: unicode
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.driver_config = TeaConverter.to_unicode(driver_config)  # type: unicode
-        self.argument = TeaConverter.to_unicode(argument)  # type: unicode
         self.driver_version = TeaConverter.to_unicode(driver_version)  # type: unicode
+        self.version_state = TeaConverter.to_unicode(version_state)  # type: unicode
+        self.edge_version = TeaConverter.to_unicode(edge_version)  # type: unicode
+        self.description = TeaConverter.to_unicode(description)  # type: unicode
         self.source_config = TeaConverter.to_unicode(source_config)  # type: unicode
+        self.driver_config = TeaConverter.to_unicode(driver_config)  # type: unicode
+        self.container_config = TeaConverter.to_unicode(container_config)  # type: unicode
+        self.config_check_rule = TeaConverter.to_unicode(config_check_rule)  # type: unicode
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
+        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
+        self.argument = TeaConverter.to_unicode(argument)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
-        if self.config_check_rule is not None:
-            result['ConfigCheckRule'] = self.config_check_rule
-        if self.edge_version is not None:
-            result['EdgeVersion'] = self.edge_version
         if self.driver_id is not None:
             result['DriverId'] = self.driver_id
-        if self.gmt_modified_timestamp is not None:
-            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
-        if self.version_state is not None:
-            result['VersionState'] = self.version_state
-        if self.container_config is not None:
-            result['ContainerConfig'] = self.container_config
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.driver_config is not None:
-            result['DriverConfig'] = self.driver_config
-        if self.argument is not None:
-            result['Argument'] = self.argument
         if self.driver_version is not None:
             result['DriverVersion'] = self.driver_version
+        if self.version_state is not None:
+            result['VersionState'] = self.version_state
+        if self.edge_version is not None:
+            result['EdgeVersion'] = self.edge_version
+        if self.description is not None:
+            result['Description'] = self.description
         if self.source_config is not None:
             result['SourceConfig'] = self.source_config
+        if self.driver_config is not None:
+            result['DriverConfig'] = self.driver_config
+        if self.container_config is not None:
+            result['ContainerConfig'] = self.container_config
+        if self.config_check_rule is not None:
+            result['ConfigCheckRule'] = self.config_check_rule
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_modified_timestamp is not None:
+            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.argument is not None:
+            result['Argument'] = self.argument
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
-        if m.get('ConfigCheckRule') is not None:
-            self.config_check_rule = m.get('ConfigCheckRule')
-        if m.get('EdgeVersion') is not None:
-            self.edge_version = m.get('EdgeVersion')
         if m.get('DriverId') is not None:
             self.driver_id = m.get('DriverId')
-        if m.get('GmtModifiedTimestamp') is not None:
-            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
-        if m.get('VersionState') is not None:
-            self.version_state = m.get('VersionState')
-        if m.get('ContainerConfig') is not None:
-            self.container_config = m.get('ContainerConfig')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('DriverConfig') is not None:
-            self.driver_config = m.get('DriverConfig')
-        if m.get('Argument') is not None:
-            self.argument = m.get('Argument')
         if m.get('DriverVersion') is not None:
             self.driver_version = m.get('DriverVersion')
+        if m.get('VersionState') is not None:
+            self.version_state = m.get('VersionState')
+        if m.get('EdgeVersion') is not None:
+            self.edge_version = m.get('EdgeVersion')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('SourceConfig') is not None:
             self.source_config = m.get('SourceConfig')
+        if m.get('DriverConfig') is not None:
+            self.driver_config = m.get('DriverConfig')
+        if m.get('ContainerConfig') is not None:
+            self.container_config = m.get('ContainerConfig')
+        if m.get('ConfigCheckRule') is not None:
+            self.config_check_rule = m.get('ConfigCheckRule')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtModifiedTimestamp') is not None:
+            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('Argument') is not None:
+            self.argument = m.get('Argument')
         return self
 
 
 class GetEdgeDriverVersionResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetEdgeDriverVersionResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetEdgeDriverVersionResponseBodyData
 
     def validate(self):
         if self.data:
@@ -13209,29 +13469,29 @@ class GetEdgeDriverVersionResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetEdgeDriverVersionResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13300,109 +13560,109 @@ class GetEdgeInstanceRequest(TeaModel):
 
 
 class GetEdgeInstanceResponseBodyData(TeaModel):
-    def __init__(self, type=None, gmt_create_timestamp=None, role_arn=None, role_attach_time=None, spec=None,
-                 gmt_modified_timestamp=None, tags=None, role_name=None, instance_id=None, gmt_modified=None, role_attach_timestamp=None,
-                 latest_deployment_type=None, latest_deployment_status=None, biz_enable=None, gmt_create=None, name=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.role_arn = TeaConverter.to_unicode(role_arn)  # type: unicode
-        self.role_attach_time = TeaConverter.to_unicode(role_attach_time)  # type: unicode
-        self.spec = spec  # type: int
-        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
-        self.role_name = TeaConverter.to_unicode(role_name)  # type: unicode
+    def __init__(self, instance_id=None, name=None, tags=None, type=None, spec=None, biz_enable=None, gmt_create=None,
+                 gmt_modified=None, role_arn=None, role_name=None, role_attach_time=None, latest_deployment_status=None,
+                 latest_deployment_type=None, gmt_create_timestamp=None, gmt_modified_timestamp=None, role_attach_timestamp=None):
         self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
-        self.role_attach_timestamp = role_attach_timestamp  # type: long
-        self.latest_deployment_type = TeaConverter.to_unicode(latest_deployment_type)  # type: unicode
-        self.latest_deployment_status = latest_deployment_status  # type: int
+        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.spec = spec  # type: int
         self.biz_enable = biz_enable  # type: bool
         self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.role_arn = TeaConverter.to_unicode(role_arn)  # type: unicode
+        self.role_name = TeaConverter.to_unicode(role_name)  # type: unicode
+        self.role_attach_time = TeaConverter.to_unicode(role_attach_time)  # type: unicode
+        self.latest_deployment_status = latest_deployment_status  # type: int
+        self.latest_deployment_type = TeaConverter.to_unicode(latest_deployment_type)  # type: unicode
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
+        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
+        self.role_attach_timestamp = role_attach_timestamp  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
-        if self.role_arn is not None:
-            result['RoleArn'] = self.role_arn
-        if self.role_attach_time is not None:
-            result['RoleAttachTime'] = self.role_attach_time
-        if self.spec is not None:
-            result['Spec'] = self.spec
-        if self.gmt_modified_timestamp is not None:
-            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
-        if self.tags is not None:
-            result['Tags'] = self.tags
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.role_attach_timestamp is not None:
-            result['RoleAttachTimestamp'] = self.role_attach_timestamp
-        if self.latest_deployment_type is not None:
-            result['LatestDeploymentType'] = self.latest_deployment_type
-        if self.latest_deployment_status is not None:
-            result['LatestDeploymentStatus'] = self.latest_deployment_status
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.spec is not None:
+            result['Spec'] = self.spec
         if self.biz_enable is not None:
             result['BizEnable'] = self.biz_enable
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
-        if self.name is not None:
-            result['Name'] = self.name
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.role_arn is not None:
+            result['RoleArn'] = self.role_arn
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        if self.role_attach_time is not None:
+            result['RoleAttachTime'] = self.role_attach_time
+        if self.latest_deployment_status is not None:
+            result['LatestDeploymentStatus'] = self.latest_deployment_status
+        if self.latest_deployment_type is not None:
+            result['LatestDeploymentType'] = self.latest_deployment_type
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_modified_timestamp is not None:
+            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.role_attach_timestamp is not None:
+            result['RoleAttachTimestamp'] = self.role_attach_timestamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
-        if m.get('RoleArn') is not None:
-            self.role_arn = m.get('RoleArn')
-        if m.get('RoleAttachTime') is not None:
-            self.role_attach_time = m.get('RoleAttachTime')
-        if m.get('Spec') is not None:
-            self.spec = m.get('Spec')
-        if m.get('GmtModifiedTimestamp') is not None:
-            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
-        if m.get('Tags') is not None:
-            self.tags = m.get('Tags')
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('RoleAttachTimestamp') is not None:
-            self.role_attach_timestamp = m.get('RoleAttachTimestamp')
-        if m.get('LatestDeploymentType') is not None:
-            self.latest_deployment_type = m.get('LatestDeploymentType')
-        if m.get('LatestDeploymentStatus') is not None:
-            self.latest_deployment_status = m.get('LatestDeploymentStatus')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Spec') is not None:
+            self.spec = m.get('Spec')
         if m.get('BizEnable') is not None:
             self.biz_enable = m.get('BizEnable')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('RoleArn') is not None:
+            self.role_arn = m.get('RoleArn')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        if m.get('RoleAttachTime') is not None:
+            self.role_attach_time = m.get('RoleAttachTime')
+        if m.get('LatestDeploymentStatus') is not None:
+            self.latest_deployment_status = m.get('LatestDeploymentStatus')
+        if m.get('LatestDeploymentType') is not None:
+            self.latest_deployment_type = m.get('LatestDeploymentType')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtModifiedTimestamp') is not None:
+            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('RoleAttachTimestamp') is not None:
+            self.role_attach_timestamp = m.get('RoleAttachTimestamp')
         return self
 
 
 class GetEdgeInstanceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetEdgeInstanceResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetEdgeInstanceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -13412,29 +13672,29 @@ class GetEdgeInstanceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetEdgeInstanceResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13509,107 +13769,107 @@ class GetEdgeInstanceDeploymentRequest(TeaModel):
 
 
 class GetEdgeInstanceDeploymentResponseBodyDataTaskListResourceSnapshotList(TeaModel):
-    def __init__(self, gmt_create_timestamp=None, status=None, stage=None, gmt_modified_timestamp=None, log=None,
-                 gmt_modified=None, operate_type=None, resource_type=None, snapshot_id=None, gmt_completed=None, gmt_create=None,
-                 gmt_completed_timestamp=None, resource_id=None, resource_name=None):
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.status = status  # type: int
-        self.stage = stage  # type: int
-        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.log = TeaConverter.to_unicode(log)  # type: unicode
-        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
-        self.operate_type = operate_type  # type: int
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.snapshot_id = TeaConverter.to_unicode(snapshot_id)  # type: unicode
-        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
+    def __init__(self, gmt_create=None, gmt_modified=None, gmt_completed=None, snapshot_id=None, resource_type=None,
+                 resource_id=None, resource_name=None, operate_type=None, stage=None, status=None, log=None,
+                 gmt_create_timestamp=None, gmt_modified_timestamp=None, gmt_completed_timestamp=None):
         self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.gmt_completed_timestamp = gmt_completed_timestamp  # type: long
+        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
+        self.snapshot_id = TeaConverter.to_unicode(snapshot_id)  # type: unicode
+        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
         self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
         self.resource_name = TeaConverter.to_unicode(resource_name)  # type: unicode
+        self.operate_type = operate_type  # type: int
+        self.stage = stage  # type: int
+        self.status = status  # type: int
+        self.log = TeaConverter.to_unicode(log)  # type: unicode
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
+        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
+        self.gmt_completed_timestamp = gmt_completed_timestamp  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.stage is not None:
-            result['Stage'] = self.stage
-        if self.gmt_modified_timestamp is not None:
-            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
-        if self.log is not None:
-            result['Log'] = self.log
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.operate_type is not None:
-            result['OperateType'] = self.operate_type
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.snapshot_id is not None:
-            result['SnapshotId'] = self.snapshot_id
-        if self.gmt_completed is not None:
-            result['GmtCompleted'] = self.gmt_completed
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
-        if self.gmt_completed_timestamp is not None:
-            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.gmt_completed is not None:
+            result['GmtCompleted'] = self.gmt_completed
+        if self.snapshot_id is not None:
+            result['SnapshotId'] = self.snapshot_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_name is not None:
             result['ResourceName'] = self.resource_name
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
+        if self.stage is not None:
+            result['Stage'] = self.stage
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.log is not None:
+            result['Log'] = self.log
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_modified_timestamp is not None:
+            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.gmt_completed_timestamp is not None:
+            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Stage') is not None:
-            self.stage = m.get('Stage')
-        if m.get('GmtModifiedTimestamp') is not None:
-            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
-        if m.get('Log') is not None:
-            self.log = m.get('Log')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('OperateType') is not None:
-            self.operate_type = m.get('OperateType')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('SnapshotId') is not None:
-            self.snapshot_id = m.get('SnapshotId')
-        if m.get('GmtCompleted') is not None:
-            self.gmt_completed = m.get('GmtCompleted')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtCompletedTimestamp') is not None:
-            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('GmtCompleted') is not None:
+            self.gmt_completed = m.get('GmtCompleted')
+        if m.get('SnapshotId') is not None:
+            self.snapshot_id = m.get('SnapshotId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceName') is not None:
             self.resource_name = m.get('ResourceName')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
+        if m.get('Stage') is not None:
+            self.stage = m.get('Stage')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Log') is not None:
+            self.log = m.get('Log')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtModifiedTimestamp') is not None:
+            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('GmtCompletedTimestamp') is not None:
+            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
         return self
 
 
 class GetEdgeInstanceDeploymentResponseBodyDataTaskList(TeaModel):
-    def __init__(self, gmt_create_timestamp=None, status=None, resource_snapshot_list=None, stage=None,
-                 gateway_id=None, gmt_modified_timestamp=None, gmt_completed=None, gmt_create=None,
-                 gmt_completed_timestamp=None, gmt_modified=None, task_id=None):
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.status = status  # type: int
-        self.resource_snapshot_list = resource_snapshot_list  # type: list[GetEdgeInstanceDeploymentResponseBodyDataTaskListResourceSnapshotList]
-        self.stage = stage  # type: int
-        self.gateway_id = TeaConverter.to_unicode(gateway_id)  # type: unicode
-        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
+    def __init__(self, gmt_create=None, gmt_modified=None, gmt_completed=None, gateway_id=None, task_id=None,
+                 stage=None, status=None, gmt_create_timestamp=None, gmt_modified_timestamp=None,
+                 gmt_completed_timestamp=None, resource_snapshot_list=None):
         self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.gmt_completed_timestamp = gmt_completed_timestamp  # type: long
         self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
+        self.gateway_id = TeaConverter.to_unicode(gateway_id)  # type: unicode
         self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.stage = stage  # type: int
+        self.status = status  # type: int
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
+        self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
+        self.gmt_completed_timestamp = gmt_completed_timestamp  # type: long
+        self.resource_snapshot_list = resource_snapshot_list  # type: list[GetEdgeInstanceDeploymentResponseBodyDataTaskListResourceSnapshotList]
 
     def validate(self):
         if self.resource_snapshot_list:
@@ -13619,77 +13879,77 @@ class GetEdgeInstanceDeploymentResponseBodyDataTaskList(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.gmt_completed is not None:
+            result['GmtCompleted'] = self.gmt_completed
+        if self.gateway_id is not None:
+            result['GatewayId'] = self.gateway_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.stage is not None:
+            result['Stage'] = self.stage
         if self.status is not None:
             result['Status'] = self.status
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
+        if self.gmt_modified_timestamp is not None:
+            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.gmt_completed_timestamp is not None:
+            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
         result['ResourceSnapshotList'] = []
         if self.resource_snapshot_list is not None:
             for k in self.resource_snapshot_list:
                 result['ResourceSnapshotList'].append(k.to_map() if k else None)
-        if self.stage is not None:
-            result['Stage'] = self.stage
-        if self.gateway_id is not None:
-            result['GatewayId'] = self.gateway_id
-        if self.gmt_modified_timestamp is not None:
-            result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
-        if self.gmt_completed is not None:
-            result['GmtCompleted'] = self.gmt_completed
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_completed_timestamp is not None:
-            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('GmtCompleted') is not None:
+            self.gmt_completed = m.get('GmtCompleted')
+        if m.get('GatewayId') is not None:
+            self.gateway_id = m.get('GatewayId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('Stage') is not None:
+            self.stage = m.get('Stage')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
+        if m.get('GmtModifiedTimestamp') is not None:
+            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('GmtCompletedTimestamp') is not None:
+            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
         self.resource_snapshot_list = []
         if m.get('ResourceSnapshotList') is not None:
             for k in m.get('ResourceSnapshotList'):
                 temp_model = GetEdgeInstanceDeploymentResponseBodyDataTaskListResourceSnapshotList()
                 self.resource_snapshot_list.append(temp_model.from_map(k))
-        if m.get('Stage') is not None:
-            self.stage = m.get('Stage')
-        if m.get('GatewayId') is not None:
-            self.gateway_id = m.get('GatewayId')
-        if m.get('GmtModifiedTimestamp') is not None:
-            self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
-        if m.get('GmtCompleted') is not None:
-            self.gmt_completed = m.get('GmtCompleted')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtCompletedTimestamp') is not None:
-            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         return self
 
 
 class GetEdgeInstanceDeploymentResponseBodyData(TeaModel):
-    def __init__(self, gmt_create_timestamp=None, type=None, status=None, deployment_id=None, description=None,
-                 gmt_modified_timestamp=None, task_list=None, gmt_completed=None, gmt_create=None, gmt_completed_timestamp=None,
-                 gmt_modified=None):
-        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.status = status  # type: int
+    def __init__(self, gmt_create=None, gmt_modified=None, gmt_completed=None, deployment_id=None, description=None,
+                 status=None, type=None, gmt_create_timestamp=None, gmt_modified_timestamp=None,
+                 gmt_completed_timestamp=None, task_list=None):
+        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
+        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
         self.deployment_id = TeaConverter.to_unicode(deployment_id)  # type: unicode
         self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.status = status  # type: int
+        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.gmt_create_timestamp = gmt_create_timestamp  # type: long
         self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
-        self.task_list = task_list  # type: list[GetEdgeInstanceDeploymentResponseBodyDataTaskList]
-        self.gmt_completed = TeaConverter.to_unicode(gmt_completed)  # type: unicode
-        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
         self.gmt_completed_timestamp = gmt_completed_timestamp  # type: long
-        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.task_list = task_list  # type: list[GetEdgeInstanceDeploymentResponseBodyDataTaskList]
 
     def validate(self):
         if self.task_list:
@@ -13699,69 +13959,69 @@ class GetEdgeInstanceDeploymentResponseBodyData(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.gmt_create_timestamp is not None:
-            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.status is not None:
-            result['Status'] = self.status
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.gmt_completed is not None:
+            result['GmtCompleted'] = self.gmt_completed
         if self.deployment_id is not None:
             result['DeploymentId'] = self.deployment_id
         if self.description is not None:
             result['Description'] = self.description
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.gmt_create_timestamp is not None:
+            result['GmtCreateTimestamp'] = self.gmt_create_timestamp
         if self.gmt_modified_timestamp is not None:
             result['GmtModifiedTimestamp'] = self.gmt_modified_timestamp
+        if self.gmt_completed_timestamp is not None:
+            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
         result['TaskList'] = []
         if self.task_list is not None:
             for k in self.task_list:
                 result['TaskList'].append(k.to_map() if k else None)
-        if self.gmt_completed is not None:
-            result['GmtCompleted'] = self.gmt_completed
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_completed_timestamp is not None:
-            result['GmtCompletedTimestamp'] = self.gmt_completed_timestamp
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreateTimestamp') is not None:
-            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('GmtCompleted') is not None:
+            self.gmt_completed = m.get('GmtCompleted')
         if m.get('DeploymentId') is not None:
             self.deployment_id = m.get('DeploymentId')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('GmtCreateTimestamp') is not None:
+            self.gmt_create_timestamp = m.get('GmtCreateTimestamp')
         if m.get('GmtModifiedTimestamp') is not None:
             self.gmt_modified_timestamp = m.get('GmtModifiedTimestamp')
+        if m.get('GmtCompletedTimestamp') is not None:
+            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
         self.task_list = []
         if m.get('TaskList') is not None:
             for k in m.get('TaskList'):
                 temp_model = GetEdgeInstanceDeploymentResponseBodyDataTaskList()
                 self.task_list.append(temp_model.from_map(k))
-        if m.get('GmtCompleted') is not None:
-            self.gmt_completed = m.get('GmtCompleted')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtCompletedTimestamp') is not None:
-            self.gmt_completed_timestamp = m.get('GmtCompletedTimestamp')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
         return self
 
 
 class GetEdgeInstanceDeploymentResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetEdgeInstanceDeploymentResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetEdgeInstanceDeploymentResponseBodyData
 
     def validate(self):
         if self.data:
@@ -13771,29 +14031,29 @@ class GetEdgeInstanceDeploymentResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetEdgeInstanceDeploymentResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -13873,109 +14133,109 @@ class GetGatewayBySubDeviceRequest(TeaModel):
 
 
 class GetGatewayBySubDeviceResponseBodyData(TeaModel):
-    def __init__(self, status=None, utc_active=None, product_name=None, device_name=None, utc_create=None,
-                 firmware_version=None, gmt_online=None, region=None, iot_id=None, utc_online=None, product_key=None, ip_address=None,
-                 node_type=None, device_secret=None, gmt_create=None, gmt_active=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.utc_active = TeaConverter.to_unicode(utc_active)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
-        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
-        self.firmware_version = TeaConverter.to_unicode(firmware_version)  # type: unicode
-        self.gmt_online = TeaConverter.to_unicode(gmt_online)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
-        self.utc_online = TeaConverter.to_unicode(utc_online)  # type: unicode
+    def __init__(self, product_key=None, product_name=None, device_secret=None, device_name=None,
+                 firmware_version=None, gmt_create=None, utc_create=None, gmt_active=None, utc_active=None, gmt_online=None,
+                 utc_online=None, status=None, ip_address=None, node_type=None, region=None, iot_id=None):
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
+        self.device_secret = TeaConverter.to_unicode(device_secret)  # type: unicode
+        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.firmware_version = TeaConverter.to_unicode(firmware_version)  # type: unicode
+        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
+        self.utc_create = TeaConverter.to_unicode(utc_create)  # type: unicode
+        self.gmt_active = TeaConverter.to_unicode(gmt_active)  # type: unicode
+        self.utc_active = TeaConverter.to_unicode(utc_active)  # type: unicode
+        self.gmt_online = TeaConverter.to_unicode(gmt_online)  # type: unicode
+        self.utc_online = TeaConverter.to_unicode(utc_online)  # type: unicode
+        self.status = TeaConverter.to_unicode(status)  # type: unicode
         self.ip_address = TeaConverter.to_unicode(ip_address)  # type: unicode
         self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.device_secret = TeaConverter.to_unicode(device_secret)  # type: unicode
-        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.gmt_active = TeaConverter.to_unicode(gmt_active)  # type: unicode
+        self.region = TeaConverter.to_unicode(region)  # type: unicode
+        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.utc_active is not None:
-            result['UtcActive'] = self.utc_active
-        if self.product_name is not None:
-            result['ProductName'] = self.product_name
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
-        if self.utc_create is not None:
-            result['UtcCreate'] = self.utc_create
-        if self.firmware_version is not None:
-            result['FirmwareVersion'] = self.firmware_version
-        if self.gmt_online is not None:
-            result['GmtOnline'] = self.gmt_online
-        if self.region is not None:
-            result['region'] = self.region
-        if self.iot_id is not None:
-            result['iotId'] = self.iot_id
-        if self.utc_online is not None:
-            result['UtcOnline'] = self.utc_online
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.device_secret is not None:
+            result['DeviceSecret'] = self.device_secret
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.firmware_version is not None:
+            result['FirmwareVersion'] = self.firmware_version
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.utc_create is not None:
+            result['UtcCreate'] = self.utc_create
+        if self.gmt_active is not None:
+            result['GmtActive'] = self.gmt_active
+        if self.utc_active is not None:
+            result['UtcActive'] = self.utc_active
+        if self.gmt_online is not None:
+            result['GmtOnline'] = self.gmt_online
+        if self.utc_online is not None:
+            result['UtcOnline'] = self.utc_online
+        if self.status is not None:
+            result['Status'] = self.status
         if self.ip_address is not None:
             result['IpAddress'] = self.ip_address
         if self.node_type is not None:
             result['NodeType'] = self.node_type
-        if self.device_secret is not None:
-            result['DeviceSecret'] = self.device_secret
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_active is not None:
-            result['GmtActive'] = self.gmt_active
+        if self.region is not None:
+            result['region'] = self.region
+        if self.iot_id is not None:
+            result['iotId'] = self.iot_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('UtcActive') is not None:
-            self.utc_active = m.get('UtcActive')
-        if m.get('ProductName') is not None:
-            self.product_name = m.get('ProductName')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
-        if m.get('UtcCreate') is not None:
-            self.utc_create = m.get('UtcCreate')
-        if m.get('FirmwareVersion') is not None:
-            self.firmware_version = m.get('FirmwareVersion')
-        if m.get('GmtOnline') is not None:
-            self.gmt_online = m.get('GmtOnline')
-        if m.get('region') is not None:
-            self.region = m.get('region')
-        if m.get('iotId') is not None:
-            self.iot_id = m.get('iotId')
-        if m.get('UtcOnline') is not None:
-            self.utc_online = m.get('UtcOnline')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('DeviceSecret') is not None:
+            self.device_secret = m.get('DeviceSecret')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('FirmwareVersion') is not None:
+            self.firmware_version = m.get('FirmwareVersion')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('UtcCreate') is not None:
+            self.utc_create = m.get('UtcCreate')
+        if m.get('GmtActive') is not None:
+            self.gmt_active = m.get('GmtActive')
+        if m.get('UtcActive') is not None:
+            self.utc_active = m.get('UtcActive')
+        if m.get('GmtOnline') is not None:
+            self.gmt_online = m.get('GmtOnline')
+        if m.get('UtcOnline') is not None:
+            self.utc_online = m.get('UtcOnline')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('IpAddress') is not None:
             self.ip_address = m.get('IpAddress')
         if m.get('NodeType') is not None:
             self.node_type = m.get('NodeType')
-        if m.get('DeviceSecret') is not None:
-            self.device_secret = m.get('DeviceSecret')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtActive') is not None:
-            self.gmt_active = m.get('GmtActive')
+        if m.get('region') is not None:
+            self.region = m.get('region')
+        if m.get('iotId') is not None:
+            self.iot_id = m.get('iotId')
         return self
 
 
 class GetGatewayBySubDeviceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetGatewayBySubDeviceResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetGatewayBySubDeviceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -13985,29 +14245,29 @@ class GetGatewayBySubDeviceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetGatewayBySubDeviceResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14096,17 +14356,17 @@ class GetLoraNodesTaskResponseBodySuccessDevEuis(TeaModel):
 
 
 class GetLoraNodesTaskResponseBody(TeaModel):
-    def __init__(self, total_count=None, success_dev_euis=None, task_id=None, request_id=None, error_message=None,
-                 success_count=None, task_state=None, code=None, success=None):
-        self.total_count = total_count  # type: long
-        self.success_dev_euis = success_dev_euis  # type: GetLoraNodesTaskResponseBodySuccessDevEuis
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, task_id=None, task_state=None,
+                 total_count=None, success_count=None, success_dev_euis=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.success_count = success_count  # type: long
-        self.task_state = TeaConverter.to_unicode(task_state)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_state = TeaConverter.to_unicode(task_state)  # type: unicode
+        self.total_count = total_count  # type: long
+        self.success_count = success_count  # type: long
+        self.success_dev_euis = success_dev_euis  # type: GetLoraNodesTaskResponseBodySuccessDevEuis
 
     def validate(self):
         if self.success_dev_euis:
@@ -14114,47 +14374,47 @@ class GetLoraNodesTaskResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.success_dev_euis is not None:
-            result['SuccessDevEuis'] = self.success_dev_euis.to_map()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.success_count is not None:
-            result['SuccessCount'] = self.success_count
-        if self.task_state is not None:
-            result['TaskState'] = self.task_state
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_state is not None:
+            result['TaskState'] = self.task_state
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.success_count is not None:
+            result['SuccessCount'] = self.success_count
+        if self.success_dev_euis is not None:
+            result['SuccessDevEuis'] = self.success_dev_euis.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskState') is not None:
+            self.task_state = m.get('TaskState')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
+        if m.get('SuccessCount') is not None:
+            self.success_count = m.get('SuccessCount')
         if m.get('SuccessDevEuis') is not None:
             temp_model = GetLoraNodesTaskResponseBodySuccessDevEuis()
             self.success_dev_euis = temp_model.from_map(m['SuccessDevEuis'])
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('SuccessCount') is not None:
-            self.success_count = m.get('SuccessCount')
-        if m.get('TaskState') is not None:
-            self.task_state = m.get('TaskState')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14243,17 +14503,17 @@ class GetNodesAddingTaskResponseBodySuccessDevEuis(TeaModel):
 
 
 class GetNodesAddingTaskResponseBody(TeaModel):
-    def __init__(self, total_count=None, success_dev_euis=None, task_id=None, request_id=None, error_message=None,
-                 success_count=None, task_state=None, code=None, success=None):
-        self.total_count = total_count  # type: long
-        self.success_dev_euis = success_dev_euis  # type: GetNodesAddingTaskResponseBodySuccessDevEuis
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, task_id=None, task_state=None,
+                 total_count=None, success_count=None, success_dev_euis=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.success_count = success_count  # type: long
-        self.task_state = TeaConverter.to_unicode(task_state)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_state = TeaConverter.to_unicode(task_state)  # type: unicode
+        self.total_count = total_count  # type: long
+        self.success_count = success_count  # type: long
+        self.success_dev_euis = success_dev_euis  # type: GetNodesAddingTaskResponseBodySuccessDevEuis
 
     def validate(self):
         if self.success_dev_euis:
@@ -14261,47 +14521,47 @@ class GetNodesAddingTaskResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.success_dev_euis is not None:
-            result['SuccessDevEuis'] = self.success_dev_euis.to_map()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.success_count is not None:
-            result['SuccessCount'] = self.success_count
-        if self.task_state is not None:
-            result['TaskState'] = self.task_state
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_state is not None:
+            result['TaskState'] = self.task_state
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.success_count is not None:
+            result['SuccessCount'] = self.success_count
+        if self.success_dev_euis is not None:
+            result['SuccessDevEuis'] = self.success_dev_euis.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskState') is not None:
+            self.task_state = m.get('TaskState')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
+        if m.get('SuccessCount') is not None:
+            self.success_count = m.get('SuccessCount')
         if m.get('SuccessDevEuis') is not None:
             temp_model = GetNodesAddingTaskResponseBodySuccessDevEuis()
             self.success_dev_euis = temp_model.from_map(m['SuccessDevEuis'])
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('SuccessCount') is not None:
-            self.success_count = m.get('SuccessCount')
-        if m.get('TaskState') is not None:
-            self.task_state = m.get('TaskState')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14370,109 +14630,109 @@ class GetRuleRequest(TeaModel):
 
 
 class GetRuleResponseBodyRuleInfo(TeaModel):
-    def __init__(self, status=None, modified=None, data_type=None, select=None, utc_created=None,
-                 create_user_id=None, topic_type=None, where=None, product_key=None, utc_modified=None, topic=None,
-                 short_topic=None, rule_desc=None, name=None, created=None, id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.modified = TeaConverter.to_unicode(modified)  # type: unicode
-        self.data_type = TeaConverter.to_unicode(data_type)  # type: unicode
+    def __init__(self, id=None, select=None, topic=None, short_topic=None, where=None, status=None,
+                 create_user_id=None, product_key=None, name=None, rule_desc=None, data_type=None, created=None, utc_created=None,
+                 modified=None, utc_modified=None, topic_type=None):
+        self.id = id  # type: long
         self.select = TeaConverter.to_unicode(select)  # type: unicode
-        self.utc_created = TeaConverter.to_unicode(utc_created)  # type: unicode
-        self.create_user_id = create_user_id  # type: long
-        self.topic_type = topic_type  # type: int
-        self.where = TeaConverter.to_unicode(where)  # type: unicode
-        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
-        self.utc_modified = TeaConverter.to_unicode(utc_modified)  # type: unicode
         self.topic = TeaConverter.to_unicode(topic)  # type: unicode
         self.short_topic = TeaConverter.to_unicode(short_topic)  # type: unicode
-        self.rule_desc = TeaConverter.to_unicode(rule_desc)  # type: unicode
+        self.where = TeaConverter.to_unicode(where)  # type: unicode
+        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.create_user_id = create_user_id  # type: long
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.rule_desc = TeaConverter.to_unicode(rule_desc)  # type: unicode
+        self.data_type = TeaConverter.to_unicode(data_type)  # type: unicode
         self.created = TeaConverter.to_unicode(created)  # type: unicode
-        self.id = id  # type: long
+        self.utc_created = TeaConverter.to_unicode(utc_created)  # type: unicode
+        self.modified = TeaConverter.to_unicode(modified)  # type: unicode
+        self.utc_modified = TeaConverter.to_unicode(utc_modified)  # type: unicode
+        self.topic_type = topic_type  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.modified is not None:
-            result['Modified'] = self.modified
-        if self.data_type is not None:
-            result['DataType'] = self.data_type
+        if self.id is not None:
+            result['Id'] = self.id
         if self.select is not None:
             result['Select'] = self.select
-        if self.utc_created is not None:
-            result['UtcCreated'] = self.utc_created
-        if self.create_user_id is not None:
-            result['CreateUserId'] = self.create_user_id
-        if self.topic_type is not None:
-            result['TopicType'] = self.topic_type
-        if self.where is not None:
-            result['Where'] = self.where
-        if self.product_key is not None:
-            result['ProductKey'] = self.product_key
-        if self.utc_modified is not None:
-            result['UtcModified'] = self.utc_modified
         if self.topic is not None:
             result['Topic'] = self.topic
         if self.short_topic is not None:
             result['ShortTopic'] = self.short_topic
-        if self.rule_desc is not None:
-            result['RuleDesc'] = self.rule_desc
+        if self.where is not None:
+            result['Where'] = self.where
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.create_user_id is not None:
+            result['CreateUserId'] = self.create_user_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
         if self.name is not None:
             result['Name'] = self.name
+        if self.rule_desc is not None:
+            result['RuleDesc'] = self.rule_desc
+        if self.data_type is not None:
+            result['DataType'] = self.data_type
         if self.created is not None:
             result['Created'] = self.created
-        if self.id is not None:
-            result['Id'] = self.id
+        if self.utc_created is not None:
+            result['UtcCreated'] = self.utc_created
+        if self.modified is not None:
+            result['Modified'] = self.modified
+        if self.utc_modified is not None:
+            result['UtcModified'] = self.utc_modified
+        if self.topic_type is not None:
+            result['TopicType'] = self.topic_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Modified') is not None:
-            self.modified = m.get('Modified')
-        if m.get('DataType') is not None:
-            self.data_type = m.get('DataType')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
         if m.get('Select') is not None:
             self.select = m.get('Select')
-        if m.get('UtcCreated') is not None:
-            self.utc_created = m.get('UtcCreated')
-        if m.get('CreateUserId') is not None:
-            self.create_user_id = m.get('CreateUserId')
-        if m.get('TopicType') is not None:
-            self.topic_type = m.get('TopicType')
-        if m.get('Where') is not None:
-            self.where = m.get('Where')
-        if m.get('ProductKey') is not None:
-            self.product_key = m.get('ProductKey')
-        if m.get('UtcModified') is not None:
-            self.utc_modified = m.get('UtcModified')
         if m.get('Topic') is not None:
             self.topic = m.get('Topic')
         if m.get('ShortTopic') is not None:
             self.short_topic = m.get('ShortTopic')
-        if m.get('RuleDesc') is not None:
-            self.rule_desc = m.get('RuleDesc')
+        if m.get('Where') is not None:
+            self.where = m.get('Where')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('CreateUserId') is not None:
+            self.create_user_id = m.get('CreateUserId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('RuleDesc') is not None:
+            self.rule_desc = m.get('RuleDesc')
+        if m.get('DataType') is not None:
+            self.data_type = m.get('DataType')
         if m.get('Created') is not None:
             self.created = m.get('Created')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('UtcCreated') is not None:
+            self.utc_created = m.get('UtcCreated')
+        if m.get('Modified') is not None:
+            self.modified = m.get('Modified')
+        if m.get('UtcModified') is not None:
+            self.utc_modified = m.get('UtcModified')
+        if m.get('TopicType') is not None:
+            self.topic_type = m.get('TopicType')
         return self
 
 
 class GetRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, rule_info=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, rule_info=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.rule_info = rule_info  # type: GetRuleResponseBodyRuleInfo
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         if self.rule_info:
@@ -14482,29 +14742,29 @@ class GetRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.rule_info is not None:
             result['RuleInfo'] = self.rule_info.to_map()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('RuleInfo') is not None:
             temp_model = GetRuleResponseBodyRuleInfo()
             self.rule_info = temp_model.from_map(m['RuleInfo'])
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14573,52 +14833,52 @@ class GetRuleActionRequest(TeaModel):
 
 
 class GetRuleActionResponseBodyRuleActionInfo(TeaModel):
-    def __init__(self, type=None, configuration=None, error_action_flag=None, id=None, rule_id=None):
+    def __init__(self, id=None, rule_id=None, type=None, configuration=None, error_action_flag=None):
+        self.id = id  # type: long
+        self.rule_id = rule_id  # type: long
         self.type = TeaConverter.to_unicode(type)  # type: unicode
         self.configuration = TeaConverter.to_unicode(configuration)  # type: unicode
         self.error_action_flag = error_action_flag  # type: bool
-        self.id = id  # type: long
-        self.rule_id = rule_id  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
         if self.type is not None:
             result['Type'] = self.type
         if self.configuration is not None:
             result['Configuration'] = self.configuration
         if self.error_action_flag is not None:
             result['ErrorActionFlag'] = self.error_action_flag
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.rule_id is not None:
-            result['RuleId'] = self.rule_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Configuration') is not None:
             self.configuration = m.get('Configuration')
         if m.get('ErrorActionFlag') is not None:
             self.error_action_flag = m.get('ErrorActionFlag')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('RuleId') is not None:
-            self.rule_id = m.get('RuleId')
         return self
 
 
 class GetRuleActionResponseBody(TeaModel):
-    def __init__(self, request_id=None, rule_action_info=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, rule_action_info=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.rule_action_info = rule_action_info  # type: GetRuleActionResponseBodyRuleActionInfo
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.rule_action_info = rule_action_info  # type: GetRuleActionResponseBodyRuleActionInfo
 
     def validate(self):
         if self.rule_action_info:
@@ -14628,29 +14888,29 @@ class GetRuleActionResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.rule_action_info is not None:
-            result['RuleActionInfo'] = self.rule_action_info.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.rule_action_info is not None:
+            result['RuleActionInfo'] = self.rule_action_info.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('RuleActionInfo') is not None:
             temp_model = GetRuleActionResponseBodyRuleActionInfo()
             self.rule_action_info = temp_model.from_map(m['RuleActionInfo'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -14719,58 +14979,58 @@ class GetSceneRuleRequest(TeaModel):
 
 
 class GetSceneRuleResponseBodyData(TeaModel):
-    def __init__(self, rule_status=None, rule_content=None, gmt_create=None, gmt_modified=None,
-                 rule_description=None, rule_name=None):
-        self.rule_status = rule_status  # type: int
-        self.rule_content = TeaConverter.to_unicode(rule_content)  # type: unicode
+    def __init__(self, gmt_create=None, gmt_modified=None, rule_name=None, rule_content=None, rule_description=None,
+                 rule_status=None):
         self.gmt_create = gmt_create  # type: long
         self.gmt_modified = gmt_modified  # type: long
-        self.rule_description = TeaConverter.to_unicode(rule_description)  # type: unicode
         self.rule_name = TeaConverter.to_unicode(rule_name)  # type: unicode
+        self.rule_content = TeaConverter.to_unicode(rule_content)  # type: unicode
+        self.rule_description = TeaConverter.to_unicode(rule_description)  # type: unicode
+        self.rule_status = rule_status  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.rule_status is not None:
-            result['RuleStatus'] = self.rule_status
-        if self.rule_content is not None:
-            result['RuleContent'] = self.rule_content
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
-        if self.rule_description is not None:
-            result['RuleDescription'] = self.rule_description
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
+        if self.rule_content is not None:
+            result['RuleContent'] = self.rule_content
+        if self.rule_description is not None:
+            result['RuleDescription'] = self.rule_description
+        if self.rule_status is not None:
+            result['RuleStatus'] = self.rule_status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RuleStatus') is not None:
-            self.rule_status = m.get('RuleStatus')
-        if m.get('RuleContent') is not None:
-            self.rule_content = m.get('RuleContent')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
-        if m.get('RuleDescription') is not None:
-            self.rule_description = m.get('RuleDescription')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
+        if m.get('RuleContent') is not None:
+            self.rule_content = m.get('RuleContent')
+        if m.get('RuleDescription') is not None:
+            self.rule_description = m.get('RuleDescription')
+        if m.get('RuleStatus') is not None:
+            self.rule_status = m.get('RuleStatus')
         return self
 
 
 class GetSceneRuleResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetSceneRuleResponseBodyData
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
+        self.data = data  # type: GetSceneRuleResponseBodyData
 
     def validate(self):
         if self.data:
@@ -14780,29 +15040,29 @@ class GetSceneRuleResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Data') is not None:
-            temp_model = GetSceneRuleResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('Data') is not None:
+            temp_model = GetSceneRuleResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         return self
 
 
@@ -14928,12 +15188,12 @@ class GetThingModelTslResponseBodyData(TeaModel):
 
 
 class GetThingModelTslResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetThingModelTslResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetThingModelTslResponseBodyData
 
     def validate(self):
         if self.data:
@@ -14943,29 +15203,29 @@ class GetThingModelTslResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetThingModelTslResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -15091,12 +15351,12 @@ class GetThingModelTslPublishedResponseBodyData(TeaModel):
 
 
 class GetThingModelTslPublishedResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetThingModelTslPublishedResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetThingModelTslPublishedResponseBodyData
 
     def validate(self):
         if self.data:
@@ -15106,29 +15366,29 @@ class GetThingModelTslPublishedResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetThingModelTslPublishedResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -15222,12 +15482,12 @@ class GetThingScriptResponseBodyData(TeaModel):
 
 
 class GetThingScriptResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetThingScriptResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetThingScriptResponseBodyData
 
     def validate(self):
         if self.data:
@@ -15237,29 +15497,29 @@ class GetThingScriptResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetThingScriptResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -15334,12 +15594,12 @@ class GetThingTemplateRequest(TeaModel):
 
 
 class GetThingTemplateResponseBody(TeaModel):
-    def __init__(self, request_id=None, thing_model_json=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, thing_model_json=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.thing_model_json = TeaConverter.to_unicode(thing_model_json)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.thing_model_json = TeaConverter.to_unicode(thing_model_json)  # type: unicode
 
     def validate(self):
         pass
@@ -15348,28 +15608,28 @@ class GetThingTemplateResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.thing_model_json is not None:
-            result['ThingModelJSON'] = self.thing_model_json
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.thing_model_json is not None:
+            result['ThingModelJSON'] = self.thing_model_json
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ThingModelJSON') is not None:
-            self.thing_model_json = m.get('ThingModelJSON')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('ThingModelJSON') is not None:
+            self.thing_model_json = m.get('ThingModelJSON')
         return self
 
 
@@ -15459,32 +15719,32 @@ class GetThingTopoRequest(TeaModel):
 
 
 class GetThingTopoResponseBodyDataListDeviceInfo(TeaModel):
-    def __init__(self, product_key=None, device_name=None, iot_id=None):
+    def __init__(self, iot_id=None, product_key=None, device_name=None):
+        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
+        if self.iot_id is not None:
+            result['IotId'] = self.iot_id
         if self.product_key is not None:
             result['ProductKey'] = self.product_key
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IotId') is not None:
+            self.iot_id = m.get('IotId')
         if m.get('ProductKey') is not None:
             self.product_key = m.get('ProductKey')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
         return self
 
 
@@ -15517,12 +15777,12 @@ class GetThingTopoResponseBodyDataList(TeaModel):
 
 
 class GetThingTopoResponseBodyData(TeaModel):
-    def __init__(self, current_page=None, list=None, page_size=None, page_count=None, total=None):
+    def __init__(self, total=None, current_page=None, page_size=None, page_count=None, list=None):
+        self.total = total  # type: long
         self.current_page = current_page  # type: int
-        self.list = list  # type: GetThingTopoResponseBodyDataList
         self.page_size = page_size  # type: int
         self.page_count = page_count  # type: long
-        self.total = total  # type: long
+        self.list = list  # type: GetThingTopoResponseBodyDataList
 
     def validate(self):
         if self.list:
@@ -15530,41 +15790,41 @@ class GetThingTopoResponseBodyData(TeaModel):
 
     def to_map(self):
         result = dict()
+        if self.total is not None:
+            result['Total'] = self.total
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
-        if self.list is not None:
-            result['List'] = self.list.to_map()
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.page_count is not None:
             result['PageCount'] = self.page_count
-        if self.total is not None:
-            result['Total'] = self.total
+        if self.list is not None:
+            result['List'] = self.list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
-        if m.get('List') is not None:
-            temp_model = GetThingTopoResponseBodyDataList()
-            self.list = temp_model.from_map(m['List'])
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('PageCount') is not None:
             self.page_count = m.get('PageCount')
-        if m.get('Total') is not None:
-            self.total = m.get('Total')
+        if m.get('List') is not None:
+            temp_model = GetThingTopoResponseBodyDataList()
+            self.list = temp_model.from_map(m['List'])
         return self
 
 
 class GetThingTopoResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: GetThingTopoResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: GetThingTopoResponseBodyData
 
     def validate(self):
         if self.data:
@@ -15574,29 +15834,29 @@ class GetThingTopoResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = GetThingTopoResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -15702,11 +15962,11 @@ class ImportThingModelTslRequest(TeaModel):
 
 
 class ImportThingModelTslResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
 
     def validate(self):
         pass
@@ -15715,24 +15975,24 @@ class ImportThingModelTslResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         return self
 
 
@@ -15766,53 +16026,53 @@ class ImportThingModelTslResponse(TeaModel):
 
 
 class InvokeDataAPIServiceRequestParam(TeaModel):
-    def __init__(self, param_name=None, param_type=None, param_value=None, list_param_type=None,
-                 list_param_value=None):
-        self.param_name = TeaConverter.to_unicode(param_name)  # type: unicode
+    def __init__(self, param_type=None, list_param_value=None, list_param_type=None, param_name=None,
+                 param_value=None):
         self.param_type = TeaConverter.to_unicode(param_type)  # type: unicode
-        self.param_value = TeaConverter.to_unicode(param_value)  # type: unicode
-        self.list_param_type = TeaConverter.to_unicode(list_param_type)  # type: unicode
         self.list_param_value = list_param_value  # type: list[unicode]
+        self.list_param_type = TeaConverter.to_unicode(list_param_type)  # type: unicode
+        self.param_name = TeaConverter.to_unicode(param_name)  # type: unicode
+        self.param_value = TeaConverter.to_unicode(param_value)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.param_name is not None:
-            result['ParamName'] = self.param_name
         if self.param_type is not None:
             result['ParamType'] = self.param_type
-        if self.param_value is not None:
-            result['ParamValue'] = self.param_value
-        if self.list_param_type is not None:
-            result['ListParamType'] = self.list_param_type
         if self.list_param_value is not None:
             result['ListParamValue'] = self.list_param_value
+        if self.list_param_type is not None:
+            result['ListParamType'] = self.list_param_type
+        if self.param_name is not None:
+            result['ParamName'] = self.param_name
+        if self.param_value is not None:
+            result['ParamValue'] = self.param_value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ParamName') is not None:
-            self.param_name = m.get('ParamName')
         if m.get('ParamType') is not None:
             self.param_type = m.get('ParamType')
-        if m.get('ParamValue') is not None:
-            self.param_value = m.get('ParamValue')
-        if m.get('ListParamType') is not None:
-            self.list_param_type = m.get('ListParamType')
         if m.get('ListParamValue') is not None:
             self.list_param_value = m.get('ListParamValue')
+        if m.get('ListParamType') is not None:
+            self.list_param_type = m.get('ListParamType')
+        if m.get('ParamName') is not None:
+            self.param_name = m.get('ParamName')
+        if m.get('ParamValue') is not None:
+            self.param_value = m.get('ParamValue')
         return self
 
 
 class InvokeDataAPIServiceRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, api_srn=None, iot_instance_id=None, param=None):
+    def __init__(self, api_product=None, api_revision=None, api_srn=None, param=None, iot_instance_id=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.api_srn = TeaConverter.to_unicode(api_srn)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.param = param  # type: list[InvokeDataAPIServiceRequestParam]
+        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
 
     def validate(self):
         if self.param:
@@ -15828,12 +16088,12 @@ class InvokeDataAPIServiceRequest(TeaModel):
             result['ApiRevision'] = self.api_revision
         if self.api_srn is not None:
             result['ApiSrn'] = self.api_srn
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
         result['Param'] = []
         if self.param is not None:
             for k in self.param:
                 result['Param'].append(k.to_map() if k else None)
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
         return result
 
     def from_map(self, m=None):
@@ -15844,33 +16104,13 @@ class InvokeDataAPIServiceRequest(TeaModel):
             self.api_revision = m.get('ApiRevision')
         if m.get('ApiSrn') is not None:
             self.api_srn = m.get('ApiSrn')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
         self.param = []
         if m.get('Param') is not None:
             for k in m.get('Param'):
                 temp_model = InvokeDataAPIServiceRequestParam()
                 self.param.append(temp_model.from_map(k))
-        return self
-
-
-class InvokeDataAPIServiceResponseBodyDataResultList(TeaModel):
-    def __init__(self, result_list=None):
-        self.result_list = result_list  # type: list[dict[unicode, any]]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.result_list is not None:
-            result['ResultList'] = self.result_list
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ResultList') is not None:
-            self.result_list = m.get('ResultList')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
         return self
 
 
@@ -15894,58 +16134,78 @@ class InvokeDataAPIServiceResponseBodyDataFieldNameList(TeaModel):
         return self
 
 
-class InvokeDataAPIServiceResponseBodyData(TeaModel):
-    def __init__(self, result_list=None, api_srn=None, field_name_list=None, page_no=None, page_size=None):
-        self.result_list = result_list  # type: InvokeDataAPIServiceResponseBodyDataResultList
-        self.api_srn = TeaConverter.to_unicode(api_srn)  # type: unicode
-        self.field_name_list = field_name_list  # type: InvokeDataAPIServiceResponseBodyDataFieldNameList
-        self.page_no = page_no  # type: int
-        self.page_size = page_size  # type: int
+class InvokeDataAPIServiceResponseBodyDataResultList(TeaModel):
+    def __init__(self, result_list=None):
+        self.result_list = result_list  # type: list[dict[unicode, unicode]]
 
     def validate(self):
-        if self.result_list:
-            self.result_list.validate()
-        if self.field_name_list:
-            self.field_name_list.validate()
+        pass
 
     def to_map(self):
         result = dict()
         if self.result_list is not None:
-            result['ResultList'] = self.result_list.to_map()
-        if self.api_srn is not None:
-            result['ApiSrn'] = self.api_srn
-        if self.field_name_list is not None:
-            result['FieldNameList'] = self.field_name_list.to_map()
-        if self.page_no is not None:
-            result['PageNo'] = self.page_no
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
+            result['ResultList'] = self.result_list
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ResultList') is not None:
-            temp_model = InvokeDataAPIServiceResponseBodyDataResultList()
-            self.result_list = temp_model.from_map(m['ResultList'])
+            self.result_list = m.get('ResultList')
+        return self
+
+
+class InvokeDataAPIServiceResponseBodyData(TeaModel):
+    def __init__(self, page_no=None, page_size=None, api_srn=None, field_name_list=None, result_list=None):
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.api_srn = TeaConverter.to_unicode(api_srn)  # type: unicode
+        self.field_name_list = field_name_list  # type: InvokeDataAPIServiceResponseBodyDataFieldNameList
+        self.result_list = result_list  # type: InvokeDataAPIServiceResponseBodyDataResultList
+
+    def validate(self):
+        if self.field_name_list:
+            self.field_name_list.validate()
+        if self.result_list:
+            self.result_list.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.api_srn is not None:
+            result['ApiSrn'] = self.api_srn
+        if self.field_name_list is not None:
+            result['FieldNameList'] = self.field_name_list.to_map()
+        if self.result_list is not None:
+            result['ResultList'] = self.result_list.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('ApiSrn') is not None:
             self.api_srn = m.get('ApiSrn')
         if m.get('FieldNameList') is not None:
             temp_model = InvokeDataAPIServiceResponseBodyDataFieldNameList()
             self.field_name_list = temp_model.from_map(m['FieldNameList'])
-        if m.get('PageNo') is not None:
-            self.page_no = m.get('PageNo')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
+        if m.get('ResultList') is not None:
+            temp_model = InvokeDataAPIServiceResponseBodyDataResultList()
+            self.result_list = temp_model.from_map(m['ResultList'])
         return self
 
 
 class InvokeDataAPIServiceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: InvokeDataAPIServiceResponseBodyData
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
         self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: InvokeDataAPIServiceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -15955,29 +16215,29 @@ class InvokeDataAPIServiceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.code is not None:
-            result['Code'] = self.code
         if self.success is not None:
             result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Data') is not None:
             temp_model = InvokeDataAPIServiceResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -16012,7 +16272,7 @@ class InvokeDataAPIServiceResponse(TeaModel):
 
 class InvokeThingServiceRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None, identifier=None, args=None, iot_id=None):
+                 device_name=None, identifier=None, args=None, iot_id=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
@@ -16021,6 +16281,8 @@ class InvokeThingServiceRequest(TeaModel):
         self.identifier = TeaConverter.to_unicode(identifier)  # type: unicode
         self.args = TeaConverter.to_unicode(args)  # type: unicode
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -16043,6 +16305,10 @@ class InvokeThingServiceRequest(TeaModel):
             result['Args'] = self.args
         if self.iot_id is not None:
             result['IotId'] = self.iot_id
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -16063,41 +16329,45 @@ class InvokeThingServiceRequest(TeaModel):
             self.args = m.get('Args')
         if m.get('IotId') is not None:
             self.iot_id = m.get('IotId')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
 class InvokeThingServiceResponseBodyData(TeaModel):
-    def __init__(self, message_id=None, result=None):
-        self.message_id = TeaConverter.to_unicode(message_id)  # type: unicode
+    def __init__(self, result=None, message_id=None):
         self.result = TeaConverter.to_unicode(result)  # type: unicode
+        self.message_id = TeaConverter.to_unicode(message_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.message_id is not None:
-            result['MessageId'] = self.message_id
         if self.result is not None:
             result['Result'] = self.result
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('MessageId') is not None:
-            self.message_id = m.get('MessageId')
         if m.get('Result') is not None:
             self.result = m.get('Result')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
         return self
 
 
 class InvokeThingServiceResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None, data=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.data = data  # type: InvokeThingServiceResponseBodyData
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
+        self.data = data  # type: InvokeThingServiceResponseBodyData
 
     def validate(self):
         if self.data:
@@ -16107,29 +16377,29 @@ class InvokeThingServiceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Data') is not None:
-            temp_model = InvokeThingServiceResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
+        if m.get('Data') is not None:
+            temp_model = InvokeThingServiceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         return self
 
 
@@ -16163,15 +16433,15 @@ class InvokeThingServiceResponse(TeaModel):
 
 
 class InvokeThingsServiceRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, identifier=None,
-                 args=None, device_name=None):
+    def __init__(self, api_product=None, api_revision=None, device_name=None, iot_instance_id=None,
+                 product_key=None, identifier=None, args=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.device_name = device_name  # type: list[unicode]
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.identifier = TeaConverter.to_unicode(identifier)  # type: unicode
         self.args = TeaConverter.to_unicode(args)  # type: unicode
-        self.device_name = device_name  # type: list[unicode]
 
     def validate(self):
         pass
@@ -16182,6 +16452,8 @@ class InvokeThingsServiceRequest(TeaModel):
             result['ApiProduct'] = self.api_product
         if self.api_revision is not None:
             result['ApiRevision'] = self.api_revision
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
         if self.iot_instance_id is not None:
             result['IotInstanceId'] = self.iot_instance_id
         if self.product_key is not None:
@@ -16190,8 +16462,6 @@ class InvokeThingsServiceRequest(TeaModel):
             result['Identifier'] = self.identifier
         if self.args is not None:
             result['Args'] = self.args
-        if self.device_name is not None:
-            result['DeviceName'] = self.device_name
         return result
 
     def from_map(self, m=None):
@@ -16200,6 +16470,8 @@ class InvokeThingsServiceRequest(TeaModel):
             self.api_product = m.get('ApiProduct')
         if m.get('ApiRevision') is not None:
             self.api_revision = m.get('ApiRevision')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
         if m.get('IotInstanceId') is not None:
             self.iot_instance_id = m.get('IotInstanceId')
         if m.get('ProductKey') is not None:
@@ -16208,17 +16480,15 @@ class InvokeThingsServiceRequest(TeaModel):
             self.identifier = m.get('Identifier')
         if m.get('Args') is not None:
             self.args = m.get('Args')
-        if m.get('DeviceName') is not None:
-            self.device_name = m.get('DeviceName')
         return self
 
 
 class InvokeThingsServiceResponseBody(TeaModel):
-    def __init__(self, request_id=None, error_message=None, code=None, success=None):
+    def __init__(self, request_id=None, success=None, error_message=None, code=None):
         self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
         self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
         self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -16227,24 +16497,24 @@ class InvokeThingsServiceResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
         if self.code is not None:
             result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         if m.get('ErrorMessage') is not None:
             self.error_message = m.get('ErrorMessage')
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -16273,6 +16543,817 @@ class InvokeThingsServiceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = InvokeThingsServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeviceDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, target_uid=None, current_page=None, page_size=None,
+                 status=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigsTargetInstanceConfigs(TeaModel):
+    def __init__(self, target_instance_id=None):
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigs(TeaModel):
+    def __init__(self, target_instance_configs=None):
+        self.target_instance_configs = target_instance_configs  # type: list[ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigsTargetInstanceConfigs]
+
+    def validate(self):
+        if self.target_instance_configs:
+            for k in self.target_instance_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['targetInstanceConfigs'] = []
+        if self.target_instance_configs is not None:
+            for k in self.target_instance_configs:
+                result['targetInstanceConfigs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.target_instance_configs = []
+        if m.get('targetInstanceConfigs') is not None:
+            for k in m.get('targetInstanceConfigs'):
+                temp_model = ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigsTargetInstanceConfigs()
+                self.target_instance_configs.append(temp_model.from_map(k))
+        return self
+
+
+class ListDeviceDistributeJobResponseBodyDataJobInfoItems(TeaModel):
+    def __init__(self, gmt_create=None, source_uid=None, target_uid=None, job_id=None, source_instance_id=None,
+                 product_key=None, total=None, status=None, strategy=None, target_instance_configs=None):
+        self.gmt_create = gmt_create  # type: long
+        self.source_uid = TeaConverter.to_unicode(source_uid)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.total = total  # type: int
+        self.status = status  # type: int
+        self.strategy = strategy  # type: int
+        self.target_instance_configs = target_instance_configs  # type: ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigs
+
+    def validate(self):
+        if self.target_instance_configs:
+            self.target_instance_configs.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.source_uid is not None:
+            result['SourceUid'] = self.source_uid
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.target_instance_configs is not None:
+            result['TargetInstanceConfigs'] = self.target_instance_configs.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('SourceUid') is not None:
+            self.source_uid = m.get('SourceUid')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TargetInstanceConfigs') is not None:
+            temp_model = ListDeviceDistributeJobResponseBodyDataJobInfoItemsTargetInstanceConfigs()
+            self.target_instance_configs = temp_model.from_map(m['TargetInstanceConfigs'])
+        return self
+
+
+class ListDeviceDistributeJobResponseBodyDataJobInfo(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[ListDeviceDistributeJobResponseBodyDataJobInfoItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = ListDeviceDistributeJobResponseBodyDataJobInfoItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class ListDeviceDistributeJobResponseBodyData(TeaModel):
+    def __init__(self, total=None, job_info=None):
+        self.total = total  # type: int
+        self.job_info = job_info  # type: ListDeviceDistributeJobResponseBodyDataJobInfo
+
+    def validate(self):
+        if self.job_info:
+            self.job_info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.job_info is not None:
+            result['JobInfo'] = self.job_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('JobInfo') is not None:
+            temp_model = ListDeviceDistributeJobResponseBodyDataJobInfo()
+            self.job_info = temp_model.from_map(m['JobInfo'])
+        return self
+
+
+class ListDeviceDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: ListDeviceDistributeJobResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Data') is not None:
+            temp_model = ListDeviceDistributeJobResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class ListDeviceDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: ListDeviceDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDeviceDistributeJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDistributedDeviceRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, page_size=None, product_key=None, device_name=None,
+                 current_page=None, target_uid=None, source_instance_id=None, target_instance_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.page_size = page_size  # type: int
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.current_page = current_page  # type: int
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class ListDistributedDeviceResponseBodyDataInfoItems(TeaModel):
+    def __init__(self, source_uid=None, target_uid=None, product_key=None, device_name=None,
+                 source_instance_id=None, target_instance_id=None, gmt_create=None, target_aliyun_id=None, source_region=None,
+                 target_region=None, source_instance_name=None, target_instance_name=None, gmt_modified=None):
+        self.source_uid = TeaConverter.to_unicode(source_uid)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+        self.gmt_create = gmt_create  # type: long
+        self.target_aliyun_id = TeaConverter.to_unicode(target_aliyun_id)  # type: unicode
+        self.source_region = TeaConverter.to_unicode(source_region)  # type: unicode
+        self.target_region = TeaConverter.to_unicode(target_region)  # type: unicode
+        self.source_instance_name = TeaConverter.to_unicode(source_instance_name)  # type: unicode
+        self.target_instance_name = TeaConverter.to_unicode(target_instance_name)  # type: unicode
+        self.gmt_modified = gmt_modified  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.source_uid is not None:
+            result['SourceUid'] = self.source_uid
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.device_name is not None:
+            result['DeviceName'] = self.device_name
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.target_aliyun_id is not None:
+            result['TargetAliyunId'] = self.target_aliyun_id
+        if self.source_region is not None:
+            result['SourceRegion'] = self.source_region
+        if self.target_region is not None:
+            result['TargetRegion'] = self.target_region
+        if self.source_instance_name is not None:
+            result['SourceInstanceName'] = self.source_instance_name
+        if self.target_instance_name is not None:
+            result['TargetInstanceName'] = self.target_instance_name
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SourceUid') is not None:
+            self.source_uid = m.get('SourceUid')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('DeviceName') is not None:
+            self.device_name = m.get('DeviceName')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('TargetAliyunId') is not None:
+            self.target_aliyun_id = m.get('TargetAliyunId')
+        if m.get('SourceRegion') is not None:
+            self.source_region = m.get('SourceRegion')
+        if m.get('TargetRegion') is not None:
+            self.target_region = m.get('TargetRegion')
+        if m.get('SourceInstanceName') is not None:
+            self.source_instance_name = m.get('SourceInstanceName')
+        if m.get('TargetInstanceName') is not None:
+            self.target_instance_name = m.get('TargetInstanceName')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        return self
+
+
+class ListDistributedDeviceResponseBodyDataInfo(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[ListDistributedDeviceResponseBodyDataInfoItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = ListDistributedDeviceResponseBodyDataInfoItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class ListDistributedDeviceResponseBodyData(TeaModel):
+    def __init__(self, total=None, info=None):
+        self.total = total  # type: int
+        self.info = info  # type: ListDistributedDeviceResponseBodyDataInfo
+
+    def validate(self):
+        if self.info:
+            self.info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.info is not None:
+            result['Info'] = self.info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('Info') is not None:
+            temp_model = ListDistributedDeviceResponseBodyDataInfo()
+            self.info = temp_model.from_map(m['Info'])
+        return self
+
+
+class ListDistributedDeviceResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: ListDistributedDeviceResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Data') is not None:
+            temp_model = ListDistributedDeviceResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class ListDistributedDeviceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: ListDistributedDeviceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDistributedDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDistributedProductRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, page_size=None, source_instance_id=None,
+                 product_key=None, target_instance_id=None, target_uid=None, current_page=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.page_size = page_size  # type: int
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.current_page = current_page  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        return self
+
+
+class ListDistributedProductResponseBodyDataInfoItems(TeaModel):
+    def __init__(self, source_uid=None, target_uid=None, product_key=None, source_instance_id=None,
+                 target_instance_id=None, gmt_create=None, target_aliyun_id=None, source_region=None, target_region=None,
+                 source_instance_name=None, target_instance_name=None):
+        self.source_uid = TeaConverter.to_unicode(source_uid)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+        self.gmt_create = gmt_create  # type: int
+        self.target_aliyun_id = TeaConverter.to_unicode(target_aliyun_id)  # type: unicode
+        self.source_region = TeaConverter.to_unicode(source_region)  # type: unicode
+        self.target_region = TeaConverter.to_unicode(target_region)  # type: unicode
+        self.source_instance_name = TeaConverter.to_unicode(source_instance_name)  # type: unicode
+        self.target_instance_name = TeaConverter.to_unicode(target_instance_name)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.source_uid is not None:
+            result['SourceUid'] = self.source_uid
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.target_aliyun_id is not None:
+            result['TargetAliyunId'] = self.target_aliyun_id
+        if self.source_region is not None:
+            result['SourceRegion'] = self.source_region
+        if self.target_region is not None:
+            result['TargetRegion'] = self.target_region
+        if self.source_instance_name is not None:
+            result['SourceInstanceName'] = self.source_instance_name
+        if self.target_instance_name is not None:
+            result['TargetInstanceName'] = self.target_instance_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SourceUid') is not None:
+            self.source_uid = m.get('SourceUid')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('TargetAliyunId') is not None:
+            self.target_aliyun_id = m.get('TargetAliyunId')
+        if m.get('SourceRegion') is not None:
+            self.source_region = m.get('SourceRegion')
+        if m.get('TargetRegion') is not None:
+            self.target_region = m.get('TargetRegion')
+        if m.get('SourceInstanceName') is not None:
+            self.source_instance_name = m.get('SourceInstanceName')
+        if m.get('TargetInstanceName') is not None:
+            self.target_instance_name = m.get('TargetInstanceName')
+        return self
+
+
+class ListDistributedProductResponseBodyDataInfo(TeaModel):
+    def __init__(self, items=None):
+        self.items = items  # type: list[ListDistributedProductResponseBodyDataInfoItems]
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['items'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('items') is not None:
+            for k in m.get('items'):
+                temp_model = ListDistributedProductResponseBodyDataInfoItems()
+                self.items.append(temp_model.from_map(k))
+        return self
+
+
+class ListDistributedProductResponseBodyData(TeaModel):
+    def __init__(self, total=None, info=None):
+        self.total = total  # type: int
+        self.info = info  # type: ListDistributedProductResponseBodyDataInfo
+
+    def validate(self):
+        if self.info:
+            self.info.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.info is not None:
+            result['Info'] = self.info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('Info') is not None:
+            temp_model = ListDistributedProductResponseBodyDataInfo()
+            self.info = temp_model.from_map(m['Info'])
+        return self
+
+
+class ListDistributedProductResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: ListDistributedProductResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Data') is not None:
+            temp_model = ListDistributedProductResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class ListDistributedProductResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: ListDistributedProductResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDistributedProductResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -19763,6 +20844,80 @@ class NotifyAddThingTopoResponse(TeaModel):
         return self
 
 
+class OpenIotServiceRequest(TeaModel):
+    def __init__(self, owner_id=None):
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class OpenIotServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None, order_id=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        return self
+
+
+class OpenIotServiceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: OpenIotServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = OpenIotServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class PubRequestUserProp(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = TeaConverter.to_unicode(key)  # type: unicode
@@ -20463,12 +21618,15 @@ class QueryAppDeviceListResponse(TeaModel):
 
 
 class QueryBatchRegisterDeviceStatusRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, apply_id=None):
+    def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None, apply_id=None,
+                 real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.apply_id = apply_id  # type: long
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -20485,6 +21643,10 @@ class QueryBatchRegisterDeviceStatusRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.apply_id is not None:
             result['ApplyId'] = self.apply_id
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -20499,6 +21661,10 @@ class QueryBatchRegisterDeviceStatusRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('ApplyId') is not None:
             self.apply_id = m.get('ApplyId')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -20748,175 +21914,6 @@ class QueryCertUrlByApplyIdResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = QueryCertUrlByApplyIdResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class QueryClientIdsRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_id=None, iot_instance_id=None, auth_config=None):
-        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
-        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.auth_config = TeaConverter.to_unicode(auth_config)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.api_product is not None:
-            result['ApiProduct'] = self.api_product
-        if self.api_revision is not None:
-            result['ApiRevision'] = self.api_revision
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.auth_config is not None:
-            result['AuthConfig'] = self.auth_config
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiProduct') is not None:
-            self.api_product = m.get('ApiProduct')
-        if m.get('ApiRevision') is not None:
-            self.api_revision = m.get('ApiRevision')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('AuthConfig') is not None:
-            self.auth_config = m.get('AuthConfig')
-        return self
-
-
-class QueryClientIdsResponseBodyDataDynamicRegClientIds(TeaModel):
-    def __init__(self, client_id=None, create_time=None):
-        self.client_id = TeaConverter.to_unicode(client_id)  # type: unicode
-        self.create_time = create_time  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        return self
-
-
-class QueryClientIdsResponseBodyData(TeaModel):
-    def __init__(self, iot_id=None, dynamic_reg_client_ids=None):
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
-        self.dynamic_reg_client_ids = dynamic_reg_client_ids  # type: list[QueryClientIdsResponseBodyDataDynamicRegClientIds]
-
-    def validate(self):
-        if self.dynamic_reg_client_ids:
-            for k in self.dynamic_reg_client_ids:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
-        result['DynamicRegClientIds'] = []
-        if self.dynamic_reg_client_ids is not None:
-            for k in self.dynamic_reg_client_ids:
-                result['DynamicRegClientIds'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
-        self.dynamic_reg_client_ids = []
-        if m.get('DynamicRegClientIds') is not None:
-            for k in m.get('DynamicRegClientIds'):
-                temp_model = QueryClientIdsResponseBodyDataDynamicRegClientIds()
-                self.dynamic_reg_client_ids.append(temp_model.from_map(k))
-        return self
-
-
-class QueryClientIdsResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.success = success  # type: bool
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.data = data  # type: QueryClientIdsResponseBodyData
-
-    def validate(self):
-        if self.data:
-            self.data.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.data is not None:
-            result['Data'] = self.data.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('Data') is not None:
-            temp_model = QueryClientIdsResponseBodyData()
-            self.data = temp_model.from_map(m['Data'])
-        return self
-
-
-class QueryClientIdsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = body  # type: QueryClientIdsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = QueryClientIdsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -21645,13 +22642,15 @@ class QueryDetailSceneRuleLogResponse(TeaModel):
 
 class QueryDeviceRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, page_size=None, product_key=None,
-                 current_page=None):
+                 current_page=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.page_size = page_size  # type: int
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.current_page = current_page  # type: int
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -21670,6 +22669,10 @@ class QueryDeviceRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -21686,6 +22689,10 @@ class QueryDeviceRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -23281,6 +24288,322 @@ class QueryDeviceDetailResponse(TeaModel):
         return self
 
 
+class QueryDeviceDistributeDetailRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, job_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class QueryDeviceDistributeDetailResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, file=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.file = TeaConverter.to_unicode(file)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.file is not None:
+            result['File'] = self.file
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('File') is not None:
+            self.file = m.get('File')
+        return self
+
+
+class QueryDeviceDistributeDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: QueryDeviceDistributeDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceDistributeDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDeviceDistributeJobRequest(TeaModel):
+    def __init__(self, api_product=None, api_revision=None, job_id=None):
+        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
+        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.api_revision is not None:
+            result['ApiRevision'] = self.api_revision
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('ApiRevision') is not None:
+            self.api_revision = m.get('ApiRevision')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigsTargetInstanceConfigs(TeaModel):
+    def __init__(self, target_instance_id=None):
+        self.target_instance_id = TeaConverter.to_unicode(target_instance_id)  # type: unicode
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.target_instance_id is not None:
+            result['TargetInstanceId'] = self.target_instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TargetInstanceId') is not None:
+            self.target_instance_id = m.get('TargetInstanceId')
+        return self
+
+
+class QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigs(TeaModel):
+    def __init__(self, target_instance_configs=None):
+        self.target_instance_configs = target_instance_configs  # type: list[QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigsTargetInstanceConfigs]
+
+    def validate(self):
+        if self.target_instance_configs:
+            for k in self.target_instance_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['targetInstanceConfigs'] = []
+        if self.target_instance_configs is not None:
+            for k in self.target_instance_configs:
+                result['targetInstanceConfigs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.target_instance_configs = []
+        if m.get('targetInstanceConfigs') is not None:
+            for k in m.get('targetInstanceConfigs'):
+                temp_model = QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigsTargetInstanceConfigs()
+                self.target_instance_configs.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDeviceDistributeJobResponseBodyData(TeaModel):
+    def __init__(self, source_uid=None, target_uid=None, source_instance_id=None, job_id=None, product_key=None,
+                 total=None, status=None, gmt_create=None, strategy=None, target_instance_configs=None):
+        self.source_uid = TeaConverter.to_unicode(source_uid)  # type: unicode
+        self.target_uid = TeaConverter.to_unicode(target_uid)  # type: unicode
+        self.source_instance_id = TeaConverter.to_unicode(source_instance_id)  # type: unicode
+        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+        self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
+        self.total = total  # type: int
+        self.status = status  # type: int
+        self.gmt_create = gmt_create  # type: long
+        self.strategy = strategy  # type: int
+        self.target_instance_configs = target_instance_configs  # type: QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigs
+
+    def validate(self):
+        if self.target_instance_configs:
+            self.target_instance_configs.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.source_uid is not None:
+            result['SourceUid'] = self.source_uid
+        if self.target_uid is not None:
+            result['TargetUid'] = self.target_uid
+        if self.source_instance_id is not None:
+            result['SourceInstanceId'] = self.source_instance_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.product_key is not None:
+            result['ProductKey'] = self.product_key
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy
+        if self.target_instance_configs is not None:
+            result['TargetInstanceConfigs'] = self.target_instance_configs.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SourceUid') is not None:
+            self.source_uid = m.get('SourceUid')
+        if m.get('TargetUid') is not None:
+            self.target_uid = m.get('TargetUid')
+        if m.get('SourceInstanceId') is not None:
+            self.source_instance_id = m.get('SourceInstanceId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('ProductKey') is not None:
+            self.product_key = m.get('ProductKey')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('Strategy') is not None:
+            self.strategy = m.get('Strategy')
+        if m.get('TargetInstanceConfigs') is not None:
+            temp_model = QueryDeviceDistributeJobResponseBodyDataTargetInstanceConfigs()
+            self.target_instance_configs = temp_model.from_map(m['TargetInstanceConfigs'])
+        return self
+
+
+class QueryDeviceDistributeJobResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None, code=None, error_message=None, data=None):
+        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.success = success  # type: bool
+        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.data = data  # type: QueryDeviceDistributeJobResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('Data') is not None:
+            temp_model = QueryDeviceDistributeJobResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class QueryDeviceDistributeJobResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[unicode, unicode]
+        self.body = body  # type: QueryDeviceDistributeJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceDistributeJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryDeviceEventDataRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, page_size=None, product_key=None,
                  device_name=None, start_time=None, identifier=None, event_type=None, asc=None, iot_id=None, end_time=None,
@@ -23914,12 +25237,14 @@ class QueryDeviceFileListResponse(TeaModel):
 
 class QueryDeviceGroupByDeviceRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, product_key=None,
-                 device_name=None):
+                 device_name=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -23936,6 +25261,10 @@ class QueryDeviceGroupByDeviceRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -23950,6 +25279,10 @@ class QueryDeviceGroupByDeviceRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -30708,13 +32041,15 @@ class QueryOTAJobResponse(TeaModel):
 
 class QueryPageByApplyIdRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, page_size=None, apply_id=None,
-                 current_page=None):
+                 current_page=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.page_size = page_size  # type: int
         self.apply_id = apply_id  # type: long
         self.current_page = current_page  # type: int
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -30733,6 +32068,10 @@ class QueryPageByApplyIdRequest(TeaModel):
             result['ApplyId'] = self.apply_id
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -30749,6 +32088,10 @@ class QueryPageByApplyIdRequest(TeaModel):
             self.apply_id = m.get('ApplyId')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -31260,7 +32603,8 @@ class QueryProductCertInfoResponse(TeaModel):
 
 class QueryProductListRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, page_size=None,
-                 resource_group_id=None, aliyun_commodity_code=None, current_page=None):
+                 resource_group_id=None, aliyun_commodity_code=None, current_page=None, real_tenant_id=None,
+                 real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
@@ -31268,6 +32612,8 @@ class QueryProductListRequest(TeaModel):
         self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
         self.aliyun_commodity_code = TeaConverter.to_unicode(aliyun_commodity_code)  # type: unicode
         self.current_page = current_page  # type: int
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -31288,6 +32634,10 @@ class QueryProductListRequest(TeaModel):
             result['AliyunCommodityCode'] = self.aliyun_commodity_code
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -31306,6 +32656,10 @@ class QueryProductListRequest(TeaModel):
             self.aliyun_commodity_code = m.get('AliyunCommodityCode')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 
@@ -32489,7 +33843,7 @@ class QueryTaskRequest(TeaModel):
         return self
 
 
-class QueryTaskResponseBodyDataData(TeaModel):
+class QueryTaskResponseBodyData(TeaModel):
     def __init__(self, job_id=None, job_name=None, task_id=None, product_key=None, device_name=None, iot_id=None,
                  progress=None, utc_queue_time=None, utc_modified=None, status_detail=None, status=None, message=None):
         self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
@@ -32562,34 +33916,6 @@ class QueryTaskResponseBodyDataData(TeaModel):
             self.status = m.get('Status')
         if m.get('Message') is not None:
             self.message = m.get('Message')
-        return self
-
-
-class QueryTaskResponseBodyData(TeaModel):
-    def __init__(self, data=None):
-        self.data = data  # type: list[QueryTaskResponseBodyDataData]
-
-    def validate(self):
-        if self.data:
-            for k in self.data:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['data'] = []
-        if self.data is not None:
-            for k in self.data:
-                result['data'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.data = []
-        if m.get('data') is not None:
-            for k in m.get('data'):
-                temp_model = QueryTaskResponseBodyDataData()
-                self.data.append(temp_model.from_map(k))
         return self
 
 
@@ -35301,13 +36627,14 @@ class SetProductCertInfoResponse(TeaModel):
 
 class SpeechByCombinationRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, combination_list=None, iot_id=None, product_key=None,
-                 device_name=None):
+                 device_name=None, iot_instance_id=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.combination_list = combination_list  # type: list[unicode]
         self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.device_name = TeaConverter.to_unicode(device_name)  # type: unicode
+        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
 
     def validate(self):
         pass
@@ -35326,6 +36653,8 @@ class SpeechByCombinationRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.device_name is not None:
             result['DeviceName'] = self.device_name
+        if self.iot_instance_id is not None:
+            result['IotInstanceId'] = self.iot_instance_id
         return result
 
     def from_map(self, m=None):
@@ -35342,6 +36671,8 @@ class SpeechByCombinationRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('DeviceName') is not None:
             self.device_name = m.get('DeviceName')
+        if m.get('IotInstanceId') is not None:
+            self.iot_instance_id = m.get('IotInstanceId')
         return self
 
 
@@ -35749,116 +37080,6 @@ class StopRuleResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = StopRuleResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class TransformClientIdRequest(TeaModel):
-    def __init__(self, api_product=None, api_revision=None, iot_id=None, client_id=None, iot_instance_id=None,
-                 auth_config=None):
-        self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
-        self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
-        self.iot_id = TeaConverter.to_unicode(iot_id)  # type: unicode
-        self.client_id = TeaConverter.to_unicode(client_id)  # type: unicode
-        self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
-        self.auth_config = TeaConverter.to_unicode(auth_config)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.api_product is not None:
-            result['ApiProduct'] = self.api_product
-        if self.api_revision is not None:
-            result['ApiRevision'] = self.api_revision
-        if self.iot_id is not None:
-            result['IotId'] = self.iot_id
-        if self.client_id is not None:
-            result['ClientId'] = self.client_id
-        if self.iot_instance_id is not None:
-            result['IotInstanceId'] = self.iot_instance_id
-        if self.auth_config is not None:
-            result['AuthConfig'] = self.auth_config
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiProduct') is not None:
-            self.api_product = m.get('ApiProduct')
-        if m.get('ApiRevision') is not None:
-            self.api_revision = m.get('ApiRevision')
-        if m.get('IotId') is not None:
-            self.iot_id = m.get('IotId')
-        if m.get('ClientId') is not None:
-            self.client_id = m.get('ClientId')
-        if m.get('IotInstanceId') is not None:
-            self.iot_instance_id = m.get('IotInstanceId')
-        if m.get('AuthConfig') is not None:
-            self.auth_config = m.get('AuthConfig')
-        return self
-
-
-class TransformClientIdResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, code=None, error_message=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.success = success  # type: bool
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        return self
-
-
-class TransformClientIdResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = body  # type: TransformClientIdResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = TransformClientIdResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -37354,13 +38575,15 @@ class UpdateOTAModuleResponse(TeaModel):
 
 class UpdateProductRequest(TeaModel):
     def __init__(self, api_product=None, api_revision=None, iot_instance_id=None, description=None,
-                 product_key=None, product_name=None):
+                 product_key=None, product_name=None, real_tenant_id=None, real_tripartite_key=None):
         self.api_product = TeaConverter.to_unicode(api_product)  # type: unicode
         self.api_revision = TeaConverter.to_unicode(api_revision)  # type: unicode
         self.iot_instance_id = TeaConverter.to_unicode(iot_instance_id)  # type: unicode
         self.description = TeaConverter.to_unicode(description)  # type: unicode
         self.product_key = TeaConverter.to_unicode(product_key)  # type: unicode
         self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
+        self.real_tenant_id = TeaConverter.to_unicode(real_tenant_id)  # type: unicode
+        self.real_tripartite_key = TeaConverter.to_unicode(real_tripartite_key)  # type: unicode
 
     def validate(self):
         pass
@@ -37379,6 +38602,10 @@ class UpdateProductRequest(TeaModel):
             result['ProductKey'] = self.product_key
         if self.product_name is not None:
             result['ProductName'] = self.product_name
+        if self.real_tenant_id is not None:
+            result['RealTenantId'] = self.real_tenant_id
+        if self.real_tripartite_key is not None:
+            result['RealTripartiteKey'] = self.real_tripartite_key
         return result
 
     def from_map(self, m=None):
@@ -37395,6 +38622,10 @@ class UpdateProductRequest(TeaModel):
             self.product_key = m.get('ProductKey')
         if m.get('ProductName') is not None:
             self.product_name = m.get('ProductName')
+        if m.get('RealTenantId') is not None:
+            self.real_tenant_id = m.get('RealTenantId')
+        if m.get('RealTripartiteKey') is not None:
+            self.real_tripartite_key = m.get('RealTripartiteKey')
         return self
 
 

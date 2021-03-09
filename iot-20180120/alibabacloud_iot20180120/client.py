@@ -90,12 +90,8 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_add_device_group_relations_with_options(request, runtime)
 
-    def batch_add_thing_topo_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = iot_20180120_models.BatchAddThingTopoShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.ext):
-            request.ext_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ext, 'Ext', 'json')
+    def batch_add_thing_topo_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
@@ -575,6 +571,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_data_apiservice_with_options(request, runtime)
 
+    def create_device_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.CreateDeviceDistributeJobResponse().from_map(
+            self.do_rpcrequest('CreateDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_device_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_device_distribute_job_with_options(request, runtime)
+
     def create_device_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -666,18 +675,8 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_edge_oss_pre_signed_address_with_options(request, runtime)
 
-    def create_job_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = iot_20180120_models.CreateJobShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.job_file):
-            request.job_file_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_file, 'JobFile', 'json')
-        if not UtilClient.is_unset(tmp_req.timeout_config):
-            request.timeout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.timeout_config, 'TimeoutConfig', 'json')
-        if not UtilClient.is_unset(tmp_req.rollout_config):
-            request.rollout_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rollout_config, 'RolloutConfig', 'json')
-        if not UtilClient.is_unset(tmp_req.target_config):
-            request.target_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target_config, 'TargetConfig', 'json')
+    def create_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
@@ -780,6 +779,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_product_with_options(request, runtime)
 
+    def create_product_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.CreateProductDistributeJobResponse().from_map(
+            self.do_rpcrequest('CreateProductDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_product_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_product_distribute_job_with_options(request, runtime)
+
     def create_product_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -831,6 +843,19 @@ class Client(OpenApiClient):
     def create_rule_action(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_rule_action_with_options(request, runtime)
+
+    def create_ruleng_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.CreateRulengDistributeJobResponse().from_map(
+            self.do_rpcrequest('CreateRulengDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_ruleng_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_ruleng_distribute_job_with_options(request, runtime)
 
     def create_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -897,19 +922,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_topic_route_table_with_options(request, runtime)
 
-    def delete_client_ids_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return iot_20180120_models.DeleteClientIdsResponse().from_map(
-            self.do_rpcrequest('DeleteClientIds', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_client_ids(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_client_ids_with_options(request, runtime)
-
     def delete_consumer_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -948,6 +960,19 @@ class Client(OpenApiClient):
     def delete_device(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_device_with_options(request, runtime)
+
+    def delete_device_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.DeleteDeviceDistributeJobResponse().from_map(
+            self.do_rpcrequest('DeleteDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_device_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_device_distribute_job_with_options(request, runtime)
 
     def delete_device_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1547,6 +1572,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.invoke_things_service_with_options(request, runtime)
 
+    def list_device_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.ListDeviceDistributeJobResponse().from_map(
+            self.do_rpcrequest('ListDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_device_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_device_distribute_job_with_options(request, runtime)
+
+    def list_distributed_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.ListDistributedDeviceResponse().from_map(
+            self.do_rpcrequest('ListDistributedDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_distributed_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_distributed_device_with_options(request, runtime)
+
+    def list_distributed_product_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.ListDistributedProductResponse().from_map(
+            self.do_rpcrequest('ListDistributedProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_distributed_product(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_distributed_product_with_options(request, runtime)
+
     def list_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1756,6 +1820,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.notify_add_thing_topo_with_options(request, runtime)
 
+    def open_iot_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.OpenIotServiceResponse().from_map(
+            self.do_rpcrequest('OpenIotService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def open_iot_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.open_iot_service_with_options(request, runtime)
+
     def pub_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1833,19 +1910,6 @@ class Client(OpenApiClient):
     def query_cert_url_by_apply_id(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_cert_url_by_apply_id_with_options(request, runtime)
-
-    def query_client_ids_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return iot_20180120_models.QueryClientIdsResponse().from_map(
-            self.do_rpcrequest('QueryClientIds', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def query_client_ids(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_client_ids_with_options(request, runtime)
 
     def query_consumer_group_by_group_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1989,6 +2053,32 @@ class Client(OpenApiClient):
     def query_device_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_device_detail_with_options(request, runtime)
+
+    def query_device_distribute_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.QueryDeviceDistributeDetailResponse().from_map(
+            self.do_rpcrequest('QueryDeviceDistributeDetail', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_device_distribute_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_distribute_detail_with_options(request, runtime)
+
+    def query_device_distribute_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return iot_20180120_models.QueryDeviceDistributeJobResponse().from_map(
+            self.do_rpcrequest('QueryDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_device_distribute_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_distribute_job_with_options(request, runtime)
 
     def query_device_event_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2874,19 +2964,6 @@ class Client(OpenApiClient):
     def stop_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_rule_with_options(request, runtime)
-
-    def transform_client_id_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return iot_20180120_models.TransformClientIdResponse().from_map(
-            self.do_rpcrequest('TransformClientId', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def transform_client_id(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.transform_client_id_with_options(request, runtime)
 
     def trigger_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
