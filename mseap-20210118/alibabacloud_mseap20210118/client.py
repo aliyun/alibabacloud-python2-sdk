@@ -39,3 +39,68 @@ class Client(OpenApiClient):
     def activate_license(self, request):
         runtime = util_models.RuntimeOptions()
         return self.activate_license_with_options(request, runtime)
+
+    def business_license_ocr_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return mseap_20210118_models.BusinessLicenseOcrResponse().from_map(
+            self.do_rpcrequest('BusinessLicenseOcr', '2021-01-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def business_license_ocr(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.business_license_ocr_with_options(request, runtime)
+
+    def certificate_quality_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return mseap_20210118_models.CertificateQualityResponse().from_map(
+            self.do_rpcrequest('CertificateQuality', '2021-01-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def certificate_quality(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.certificate_quality_with_options(request, runtime)
+
+    def describe_agreement_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return mseap_20210118_models.DescribeAgreementStatusResponse().from_map(
+            self.do_rpcrequest('DescribeAgreementStatus', '2021-01-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_agreement_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_agreement_status_with_options(request, runtime)
+
+    def identity_card_ocr_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return mseap_20210118_models.IdentityCardOcrResponse().from_map(
+            self.do_rpcrequest('IdentityCardOcr', '2021-01-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def identity_card_ocr(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.identity_card_ocr_with_options(request, runtime)
+
+    def update_agreement_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return mseap_20210118_models.UpdateAgreementStatusResponse().from_map(
+            self.do_rpcrequest('UpdateAgreementStatus', '2021-01-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_agreement_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_agreement_status_with_options(request, runtime)
