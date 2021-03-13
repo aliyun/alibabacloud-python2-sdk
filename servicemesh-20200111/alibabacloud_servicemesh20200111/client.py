@@ -28,18 +28,70 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def run_diagnosis_with_options(self, request, runtime):
+    def add_cluster_into_service_mesh_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return servicemesh_20200111_models.RunDiagnosisResponse().from_map(
-            self.do_rpcrequest('RunDiagnosis', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        return servicemesh_20200111_models.AddClusterIntoServiceMeshResponse().from_map(
+            self.do_rpcrequest('AddClusterIntoServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def run_diagnosis(self, request):
+    def add_cluster_into_service_mesh(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.run_diagnosis_with_options(request, runtime)
+        return self.add_cluster_into_service_mesh_with_options(request, runtime)
+
+    def add_vm_app_to_mesh_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.AddVmAppToMeshResponse().from_map(
+            self.do_rpcrequest('AddVmAppToMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def add_vm_app_to_mesh(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_vm_app_to_mesh_with_options(request, runtime)
+
+    def create_service_mesh_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.CreateServiceMeshResponse().from_map(
+            self.do_rpcrequest('CreateServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_service_mesh(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_service_mesh_with_options(request, runtime)
+
+    def delete_service_mesh_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.DeleteServiceMeshResponse().from_map(
+            self.do_rpcrequest('DeleteServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_service_mesh(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_service_mesh_with_options(request, runtime)
+
+    def describe_cens_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.DescribeCensResponse().from_map(
+            self.do_rpcrequest('DescribeCens', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_cens(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cens_with_options(request, runtime)
 
     def describe_cluster_grafana_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -54,6 +106,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cluster_grafana_with_options(request, runtime)
 
+    def describe_cluster_prometheus_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.DescribeClusterPrometheusResponse().from_map(
+            self.do_rpcrequest('DescribeClusterPrometheus', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_cluster_prometheus(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cluster_prometheus_with_options(request, runtime)
+
+    def describe_clusters_in_service_mesh_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.DescribeClustersInServiceMeshResponse().from_map(
+            self.do_rpcrequest('DescribeClustersInServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_clusters_in_service_mesh(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_clusters_in_service_mesh_with_options(request, runtime)
+
     def describe_guest_cluster_access_log_dashboards_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -66,42 +144,6 @@ class Client(OpenApiClient):
     def describe_guest_cluster_access_log_dashboards(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_guest_cluster_access_log_dashboards_with_options(request, runtime)
-
-    def describe_service_meshes_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        return servicemesh_20200111_models.DescribeServiceMeshesResponse().from_map(
-            self.do_rpcrequest('DescribeServiceMeshes', '2020-01-11', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def describe_service_meshes(self):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_service_meshes_with_options(runtime)
-
-    def get_diagnosis_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetDiagnosisResponse().from_map(
-            self.do_rpcrequest('GetDiagnosis', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_diagnosis(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_diagnosis_with_options(request, runtime)
-
-    def get_registered_services_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetRegisteredServicesResponse().from_map(
-            self.do_rpcrequest('GetRegisteredServices', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_registered_services(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_registered_services_with_options(request, runtime)
 
     def describe_ingress_gateways_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -130,44 +172,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_service_mesh_detail_with_options(request, runtime)
 
-    def describe_cens_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.DescribeCensResponse().from_map(
-            self.do_rpcrequest('DescribeCens', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+    def describe_service_meshes_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        return servicemesh_20200111_models.DescribeServiceMeshesResponse().from_map(
+            self.do_rpcrequest('DescribeServiceMeshes', '2020-01-11', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
         )
 
-    def describe_cens(self, request):
+    def describe_service_meshes(self):
         runtime = util_models.RuntimeOptions()
-        return self.describe_cens_with_options(request, runtime)
-
-    def delete_service_mesh_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.DeleteServiceMeshResponse().from_map(
-            self.do_rpcrequest('DeleteServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_service_mesh(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_service_mesh_with_options(request, runtime)
-
-    def upgrade_mesh_version_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.UpgradeMeshVersionResponse().from_map(
-            self.do_rpcrequest('UpgradeMeshVersion', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def upgrade_mesh_version(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.upgrade_mesh_version_with_options(request, runtime)
+        return self.describe_service_meshes_with_options(runtime)
 
     def describe_service_mesh_kubeconfig_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -181,6 +194,110 @@ class Client(OpenApiClient):
     def describe_service_mesh_kubeconfig(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_service_mesh_kubeconfig_with_options(request, runtime)
+
+    def describe_upgrade_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.DescribeUpgradeVersionResponse().from_map(
+            self.do_rpcrequest('DescribeUpgradeVersion', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_upgrade_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_upgrade_version_with_options(request, runtime)
+
+    def get_auto_injection_label_sync_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetAutoInjectionLabelSyncStatusResponse().from_map(
+            self.do_rpcrequest('GetAutoInjectionLabelSyncStatus', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_auto_injection_label_sync_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_auto_injection_label_sync_status_with_options(request, runtime)
+
+    def get_diagnosis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetDiagnosisResponse().from_map(
+            self.do_rpcrequest('GetDiagnosis', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_diagnosis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_diagnosis_with_options(request, runtime)
+
+    def get_registered_service_endpoints_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetRegisteredServiceEndpointsResponse().from_map(
+            self.do_rpcrequest('GetRegisteredServiceEndpoints', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_registered_service_endpoints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_registered_service_endpoints_with_options(request, runtime)
+
+    def get_registered_service_namespaces_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetRegisteredServiceNamespacesResponse().from_map(
+            self.do_rpcrequest('GetRegisteredServiceNamespaces', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_registered_service_namespaces(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_registered_service_namespaces_with_options(request, runtime)
+
+    def get_registered_services_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetRegisteredServicesResponse().from_map(
+            self.do_rpcrequest('GetRegisteredServices', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_registered_services(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_registered_services_with_options(request, runtime)
+
+    def get_service_mesh_slb_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetServiceMeshSlbResponse().from_map(
+            self.do_rpcrequest('GetServiceMeshSlb', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_service_mesh_slb(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_mesh_slb_with_options(request, runtime)
+
+    def get_service_registry_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.GetServiceRegistrySourceResponse().from_map(
+            self.do_rpcrequest('GetServiceRegistrySource', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_service_registry_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_registry_source_with_options(request, runtime)
 
     def get_vm_app_mesh_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -196,6 +313,30 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_vm_app_mesh_info_with_options(request, runtime)
 
+    def get_vm_meta_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return servicemesh_20200111_models.GetVmMetaResponse().from_map(
+            self.do_rpcrequest('GetVmMeta', '2020-01-11', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def get_vm_meta(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_vm_meta_with_options(request, runtime)
+
+    def initialize_asmrole_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        return servicemesh_20200111_models.InitializeASMRoleResponse().from_map(
+            self.do_rpcrequest('InitializeASMRole', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def initialize_asmrole(self):
+        runtime = util_models.RuntimeOptions()
+        return self.initialize_asmrole_with_options(runtime)
+
     def remove_cluster_from_service_mesh_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -208,6 +349,32 @@ class Client(OpenApiClient):
     def remove_cluster_from_service_mesh(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_cluster_from_service_mesh_with_options(request, runtime)
+
+    def remove_vm_app_from_mesh_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.RemoveVmAppFromMeshResponse().from_map(
+            self.do_rpcrequest('RemoveVmAppFromMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def remove_vm_app_from_mesh(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_vm_app_from_mesh_with_options(request, runtime)
+
+    def run_diagnosis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return servicemesh_20200111_models.RunDiagnosisResponse().from_map(
+            self.do_rpcrequest('RunDiagnosis', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def run_diagnosis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.run_diagnosis_with_options(request, runtime)
 
     def set_service_registry_source_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -226,44 +393,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_service_registry_source_with_options(request, runtime)
 
-    def add_cluster_into_service_mesh_with_options(self, request, runtime):
+    def update_istio_injection_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return servicemesh_20200111_models.AddClusterIntoServiceMeshResponse().from_map(
-            self.do_rpcrequest('AddClusterIntoServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        return servicemesh_20200111_models.UpdateIstioInjectionConfigResponse().from_map(
+            self.do_rpcrequest('UpdateIstioInjectionConfig', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def add_cluster_into_service_mesh(self, request):
+    def update_istio_injection_config(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.add_cluster_into_service_mesh_with_options(request, runtime)
-
-    def get_service_mesh_slb_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetServiceMeshSlbResponse().from_map(
-            self.do_rpcrequest('GetServiceMeshSlb', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_service_mesh_slb(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_service_mesh_slb_with_options(request, runtime)
-
-    def get_registered_service_endpoints_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetRegisteredServiceEndpointsResponse().from_map(
-            self.do_rpcrequest('GetRegisteredServiceEndpoints', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_registered_service_endpoints(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_registered_service_endpoints_with_options(request, runtime)
+        return self.update_istio_injection_config_with_options(request, runtime)
 
     def update_mesh_feature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -278,156 +419,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_mesh_feature_with_options(request, runtime)
 
-    def add_vm_app_to_mesh_with_options(self, request, runtime):
+    def upgrade_mesh_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return servicemesh_20200111_models.AddVmAppToMeshResponse().from_map(
-            self.do_rpcrequest('AddVmAppToMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        return servicemesh_20200111_models.UpgradeMeshVersionResponse().from_map(
+            self.do_rpcrequest('UpgradeMeshVersion', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def add_vm_app_to_mesh(self, request):
+    def upgrade_mesh_version(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.add_vm_app_to_mesh_with_options(request, runtime)
-
-    def create_service_mesh_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.CreateServiceMeshResponse().from_map(
-            self.do_rpcrequest('CreateServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_service_mesh(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_service_mesh_with_options(request, runtime)
-
-    def get_auto_injection_label_sync_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetAutoInjectionLabelSyncStatusResponse().from_map(
-            self.do_rpcrequest('GetAutoInjectionLabelSyncStatus', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_auto_injection_label_sync_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_auto_injection_label_sync_status_with_options(request, runtime)
-
-    def get_service_registry_source_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetServiceRegistrySourceResponse().from_map(
-            self.do_rpcrequest('GetServiceRegistrySource', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_service_registry_source(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_service_registry_source_with_options(request, runtime)
-
-    def get_registered_service_namespaces_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.GetRegisteredServiceNamespacesResponse().from_map(
-            self.do_rpcrequest('GetRegisteredServiceNamespaces', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_registered_service_namespaces(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_registered_service_namespaces_with_options(request, runtime)
-
-    def initialize_asmrole_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        return servicemesh_20200111_models.InitializeASMRoleResponse().from_map(
-            self.do_rpcrequest('InitializeASMRole', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def initialize_asmrole(self):
-        runtime = util_models.RuntimeOptions()
-        return self.initialize_asmrole_with_options(runtime)
-
-    def remove_vm_app_from_mesh_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.RemoveVmAppFromMeshResponse().from_map(
-            self.do_rpcrequest('RemoveVmAppFromMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def remove_vm_app_from_mesh(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.remove_vm_app_from_mesh_with_options(request, runtime)
-
-    def describe_cluster_prometheus_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.DescribeClusterPrometheusResponse().from_map(
-            self.do_rpcrequest('DescribeClusterPrometheus', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_cluster_prometheus(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_cluster_prometheus_with_options(request, runtime)
-
-    def update_istio_injection_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.UpdateIstioInjectionConfigResponse().from_map(
-            self.do_rpcrequest('UpdateIstioInjectionConfig', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_istio_injection_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_istio_injection_config_with_options(request, runtime)
-
-    def get_vm_meta_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return servicemesh_20200111_models.GetVmMetaResponse().from_map(
-            self.do_rpcrequest('GetVmMeta', '2020-01-11', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def get_vm_meta(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_vm_meta_with_options(request, runtime)
-
-    def describe_upgrade_version_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.DescribeUpgradeVersionResponse().from_map(
-            self.do_rpcrequest('DescribeUpgradeVersion', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_upgrade_version(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_upgrade_version_with_options(request, runtime)
-
-    def describe_clusters_in_service_mesh_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return servicemesh_20200111_models.DescribeClustersInServiceMeshResponse().from_map(
-            self.do_rpcrequest('DescribeClustersInServiceMesh', '2020-01-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_clusters_in_service_mesh(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_clusters_in_service_mesh_with_options(request, runtime)
+        return self.upgrade_mesh_version_with_options(request, runtime)
