@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class ActivateLicenseRequest(TeaModel):
     def __init__(self, biz_type=None, license_publisher=None, license_code=None):
-        self.biz_type = TeaConverter.to_unicode(biz_type)  # type: unicode
-        self.license_publisher = TeaConverter.to_unicode(license_publisher)  # type: unicode
-        self.license_code = TeaConverter.to_unicode(license_code)  # type: unicode
+        self.biz_type = biz_type  # type: str
+        self.license_publisher = license_publisher  # type: str
+        self.license_code = license_code  # type: str
 
     def validate(self):
         pass
@@ -36,7 +35,7 @@ class ActivateLicenseRequest(TeaModel):
 
 class ActivateLicenseResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: bool
 
     def validate(self):
@@ -61,7 +60,7 @@ class ActivateLicenseResponseBody(TeaModel):
 
 class ActivateLicenseResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ActivateLicenseResponseBody
 
     def validate(self):
@@ -90,10 +89,10 @@ class ActivateLicenseResponse(TeaModel):
 
 class BusinessLicenseOcrRequest(TeaModel):
     def __init__(self, lang=None, biz_code=None, file_info=None, file_store_type=None):
-        self.lang = TeaConverter.to_unicode(lang)  # type: unicode
-        self.biz_code = TeaConverter.to_unicode(biz_code)  # type: unicode
-        self.file_info = TeaConverter.to_unicode(file_info)  # type: unicode
-        self.file_store_type = TeaConverter.to_unicode(file_store_type)  # type: unicode
+        self.lang = lang  # type: str
+        self.biz_code = biz_code  # type: str
+        self.file_info = file_info  # type: str
+        self.file_store_type = file_store_type  # type: str
 
     def validate(self):
         pass
@@ -127,18 +126,18 @@ class BusinessLicenseOcrResponseBody(TeaModel):
     def __init__(self, register_number=None, type=None, valid_period=None, request_id=None, address=None,
                  capital=None, legal_person=None, establish_date=None, nationality=None, name=None, business=None,
                  track_id=None):
-        self.register_number = TeaConverter.to_unicode(register_number)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.valid_period = TeaConverter.to_unicode(valid_period)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.address = TeaConverter.to_unicode(address)  # type: unicode
-        self.capital = TeaConverter.to_unicode(capital)  # type: unicode
-        self.legal_person = TeaConverter.to_unicode(legal_person)  # type: unicode
-        self.establish_date = TeaConverter.to_unicode(establish_date)  # type: unicode
-        self.nationality = TeaConverter.to_unicode(nationality)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-        self.business = TeaConverter.to_unicode(business)  # type: unicode
-        self.track_id = TeaConverter.to_unicode(track_id)  # type: unicode
+        self.register_number = register_number  # type: str
+        self.type = type  # type: str
+        self.valid_period = valid_period  # type: str
+        self.request_id = request_id  # type: str
+        self.address = address  # type: str
+        self.capital = capital  # type: str
+        self.legal_person = legal_person  # type: str
+        self.establish_date = establish_date  # type: str
+        self.nationality = nationality  # type: str
+        self.name = name  # type: str
+        self.business = business  # type: str
+        self.track_id = track_id  # type: str
 
     def validate(self):
         pass
@@ -202,7 +201,7 @@ class BusinessLicenseOcrResponseBody(TeaModel):
 
 class BusinessLicenseOcrResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: BusinessLicenseOcrResponseBody
 
     def validate(self):
@@ -231,11 +230,11 @@ class BusinessLicenseOcrResponse(TeaModel):
 
 class CertificateQualityRequest(TeaModel):
     def __init__(self, lang=None, biz_code=None, file_info=None, file_store_type=None, certificate_type=None):
-        self.lang = TeaConverter.to_unicode(lang)  # type: unicode
-        self.biz_code = TeaConverter.to_unicode(biz_code)  # type: unicode
-        self.file_info = TeaConverter.to_unicode(file_info)  # type: unicode
-        self.file_store_type = TeaConverter.to_unicode(file_store_type)  # type: unicode
-        self.certificate_type = TeaConverter.to_unicode(certificate_type)  # type: unicode
+        self.lang = lang  # type: str
+        self.biz_code = biz_code  # type: str
+        self.file_info = file_info  # type: str
+        self.file_store_type = file_store_type  # type: str
+        self.certificate_type = certificate_type  # type: str
 
     def validate(self):
         pass
@@ -272,17 +271,17 @@ class CertificateQualityRequest(TeaModel):
 class CertificateQualityResponseBody(TeaModel):
     def __init__(self, contain_seal=None, contain_watermark=None, request_id=None, copy=None, complete=None,
                  national_emblem=None, target_type=None, reflection=None, electronic=None, contain_front=None, text_clarity=None):
-        self.contain_seal = TeaConverter.to_unicode(contain_seal)  # type: unicode
-        self.contain_watermark = TeaConverter.to_unicode(contain_watermark)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.copy = TeaConverter.to_unicode(copy)  # type: unicode
-        self.complete = TeaConverter.to_unicode(complete)  # type: unicode
-        self.national_emblem = TeaConverter.to_unicode(national_emblem)  # type: unicode
-        self.target_type = TeaConverter.to_unicode(target_type)  # type: unicode
-        self.reflection = TeaConverter.to_unicode(reflection)  # type: unicode
-        self.electronic = TeaConverter.to_unicode(electronic)  # type: unicode
-        self.contain_front = TeaConverter.to_unicode(contain_front)  # type: unicode
-        self.text_clarity = TeaConverter.to_unicode(text_clarity)  # type: unicode
+        self.contain_seal = contain_seal  # type: str
+        self.contain_watermark = contain_watermark  # type: str
+        self.request_id = request_id  # type: str
+        self.copy = copy  # type: str
+        self.complete = complete  # type: str
+        self.national_emblem = national_emblem  # type: str
+        self.target_type = target_type  # type: str
+        self.reflection = reflection  # type: str
+        self.electronic = electronic  # type: str
+        self.contain_front = contain_front  # type: str
+        self.text_clarity = text_clarity  # type: str
 
     def validate(self):
         pass
@@ -342,7 +341,7 @@ class CertificateQualityResponseBody(TeaModel):
 
 class CertificateQualityResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CertificateQualityResponseBody
 
     def validate(self):
@@ -371,7 +370,7 @@ class CertificateQualityResponse(TeaModel):
 
 class DescribeAgreementStatusRequest(TeaModel):
     def __init__(self, agreement_code=None):
-        self.agreement_code = TeaConverter.to_unicode(agreement_code)  # type: unicode
+        self.agreement_code = agreement_code  # type: str
 
     def validate(self):
         pass
@@ -392,9 +391,9 @@ class DescribeAgreementStatusRequest(TeaModel):
 class DescribeAgreementStatusResponseBody(TeaModel):
     def __init__(self, status=None, request_id=None, user_id=None, agreement_code=None):
         self.status = status  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.user_id = TeaConverter.to_unicode(user_id)  # type: unicode
-        self.agreement_code = TeaConverter.to_unicode(agreement_code)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.user_id = user_id  # type: str
+        self.agreement_code = agreement_code  # type: str
 
     def validate(self):
         pass
@@ -426,7 +425,7 @@ class DescribeAgreementStatusResponseBody(TeaModel):
 
 class DescribeAgreementStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAgreementStatusResponseBody
 
     def validate(self):
@@ -455,10 +454,10 @@ class DescribeAgreementStatusResponse(TeaModel):
 
 class IdentityCardOcrRequest(TeaModel):
     def __init__(self, lang=None, biz_code=None, file_info=None, file_store_type=None):
-        self.lang = TeaConverter.to_unicode(lang)  # type: unicode
-        self.biz_code = TeaConverter.to_unicode(biz_code)  # type: unicode
-        self.file_info = TeaConverter.to_unicode(file_info)  # type: unicode
-        self.file_store_type = TeaConverter.to_unicode(file_store_type)  # type: unicode
+        self.lang = lang  # type: str
+        self.biz_code = biz_code  # type: str
+        self.file_info = file_info  # type: str
+        self.file_store_type = file_store_type  # type: str
 
     def validate(self):
         pass
@@ -491,16 +490,16 @@ class IdentityCardOcrRequest(TeaModel):
 class IdentityCardOcrResponseBody(TeaModel):
     def __init__(self, issue=None, valid_date=None, request_id=None, address=None, id_number=None, gender=None,
                  nationality=None, birth_date=None, track_id=None, name=None):
-        self.issue = TeaConverter.to_unicode(issue)  # type: unicode
-        self.valid_date = TeaConverter.to_unicode(valid_date)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.address = TeaConverter.to_unicode(address)  # type: unicode
-        self.id_number = TeaConverter.to_unicode(id_number)  # type: unicode
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.nationality = TeaConverter.to_unicode(nationality)  # type: unicode
-        self.birth_date = TeaConverter.to_unicode(birth_date)  # type: unicode
-        self.track_id = TeaConverter.to_unicode(track_id)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.issue = issue  # type: str
+        self.valid_date = valid_date  # type: str
+        self.request_id = request_id  # type: str
+        self.address = address  # type: str
+        self.id_number = id_number  # type: str
+        self.gender = gender  # type: str
+        self.nationality = nationality  # type: str
+        self.birth_date = birth_date  # type: str
+        self.track_id = track_id  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -556,7 +555,7 @@ class IdentityCardOcrResponseBody(TeaModel):
 
 class IdentityCardOcrResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: IdentityCardOcrResponseBody
 
     def validate(self):
@@ -585,7 +584,7 @@ class IdentityCardOcrResponse(TeaModel):
 
 class UpdateAgreementStatusRequest(TeaModel):
     def __init__(self, agreement_code=None):
-        self.agreement_code = TeaConverter.to_unicode(agreement_code)  # type: unicode
+        self.agreement_code = agreement_code  # type: str
 
     def validate(self):
         pass
@@ -605,7 +604,7 @@ class UpdateAgreementStatusRequest(TeaModel):
 
 class UpdateAgreementStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -625,7 +624,7 @@ class UpdateAgreementStatusResponseBody(TeaModel):
 
 class UpdateAgreementStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateAgreementStatusResponseBody
 
     def validate(self):
