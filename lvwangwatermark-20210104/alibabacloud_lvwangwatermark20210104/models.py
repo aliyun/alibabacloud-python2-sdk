@@ -360,9 +360,10 @@ class AddImageSyncResponse(TeaModel):
 
 
 class AddVideoAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, watermark_id=None, url_list=None):
+    def __init__(self, source_ip=None, watermark_id=None, vm_type=None, url_list=None):
         self.source_ip = source_ip  # type: str
         self.watermark_id = watermark_id  # type: str
+        self.vm_type = vm_type  # type: str
         self.url_list = url_list  # type: str
 
     def validate(self):
@@ -374,6 +375,8 @@ class AddVideoAsyncRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.watermark_id is not None:
             result['WatermarkId'] = self.watermark_id
+        if self.vm_type is not None:
+            result['VmType'] = self.vm_type
         if self.url_list is not None:
             result['urlList'] = self.url_list
         return result
@@ -384,6 +387,8 @@ class AddVideoAsyncRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('WatermarkId') is not None:
             self.watermark_id = m.get('WatermarkId')
+        if m.get('VmType') is not None:
+            self.vm_type = m.get('VmType')
         if m.get('urlList') is not None:
             self.url_list = m.get('urlList')
         return self
@@ -787,11 +792,12 @@ class GetAudioExtractRequest(TeaModel):
 
 
 class GetAudioExtractResponseBodyData(TeaModel):
-    def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
-                 media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
-                 id=None):
+    def __init__(self, status=None, source_url=None, water_mark_id=None, result_url=None, data_id=None,
+                 gmt_modified=None, media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None,
+                 finished_time=None, id=None):
         self.status = status  # type: str
         self.source_url = source_url  # type: str
+        self.water_mark_id = water_mark_id  # type: str
         self.result_url = result_url  # type: str
         self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
@@ -813,6 +819,8 @@ class GetAudioExtractResponseBodyData(TeaModel):
             result['Status'] = self.status
         if self.source_url is not None:
             result['SourceUrl'] = self.source_url
+        if self.water_mark_id is not None:
+            result['WaterMarkId'] = self.water_mark_id
         if self.result_url is not None:
             result['ResultUrl'] = self.result_url
         if self.data_id is not None:
@@ -843,6 +851,8 @@ class GetAudioExtractResponseBodyData(TeaModel):
             self.status = m.get('Status')
         if m.get('SourceUrl') is not None:
             self.source_url = m.get('SourceUrl')
+        if m.get('WaterMarkId') is not None:
+            self.water_mark_id = m.get('WaterMarkId')
         if m.get('ResultUrl') is not None:
             self.result_url = m.get('ResultUrl')
         if m.get('DataId') is not None:
@@ -1449,11 +1459,12 @@ class GetVideoAddResponse(TeaModel):
 
 
 class GetVideoAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None):
+    def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None, vm_type=None):
         self.source_ip = source_ip  # type: str
         self.app_name = app_name  # type: str
         self.url_list = url_list  # type: str
         self.water_mark_type = water_mark_type  # type: str
+        self.vm_type = vm_type  # type: str
 
     def validate(self):
         pass
@@ -1468,6 +1479,8 @@ class GetVideoAsyncRequest(TeaModel):
             result['urlList'] = self.url_list
         if self.water_mark_type is not None:
             result['WaterMarkType'] = self.water_mark_type
+        if self.vm_type is not None:
+            result['VmType'] = self.vm_type
         return result
 
     def from_map(self, m=None):
@@ -1480,6 +1493,8 @@ class GetVideoAsyncRequest(TeaModel):
             self.url_list = m.get('urlList')
         if m.get('WaterMarkType') is not None:
             self.water_mark_type = m.get('WaterMarkType')
+        if m.get('VmType') is not None:
+            self.vm_type = m.get('VmType')
         return self
 
 
@@ -1596,11 +1611,12 @@ class GetVideoExtractRequest(TeaModel):
 
 
 class GetVideoExtractResponseBodyData(TeaModel):
-    def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
-                 media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
-                 id=None):
+    def __init__(self, status=None, source_url=None, water_mark_id=None, result_url=None, data_id=None,
+                 gmt_modified=None, media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None,
+                 finished_time=None, id=None):
         self.status = status  # type: str
         self.source_url = source_url  # type: str
+        self.water_mark_id = water_mark_id  # type: str
         self.result_url = result_url  # type: str
         self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
@@ -1622,6 +1638,8 @@ class GetVideoExtractResponseBodyData(TeaModel):
             result['Status'] = self.status
         if self.source_url is not None:
             result['SourceUrl'] = self.source_url
+        if self.water_mark_id is not None:
+            result['WaterMarkId'] = self.water_mark_id
         if self.result_url is not None:
             result['ResultUrl'] = self.result_url
         if self.data_id is not None:
@@ -1652,6 +1670,8 @@ class GetVideoExtractResponseBodyData(TeaModel):
             self.status = m.get('Status')
         if m.get('SourceUrl') is not None:
             self.source_url = m.get('SourceUrl')
+        if m.get('WaterMarkId') is not None:
+            self.water_mark_id = m.get('WaterMarkId')
         if m.get('ResultUrl') is not None:
             self.result_url = m.get('ResultUrl')
         if m.get('DataId') is not None:
