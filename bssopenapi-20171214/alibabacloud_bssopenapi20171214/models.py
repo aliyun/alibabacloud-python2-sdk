@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class AllocateCostUnitResourceRequestResourceInstanceList(TeaModel):
     def __init__(self, apportion_code=None, commodity_code=None, resource_id=None, resource_user_id=None):
-        self.apportion_code = TeaConverter.to_unicode(apportion_code)  # type: unicode
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
+        self.apportion_code = apportion_code  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.resource_id = resource_id  # type: str
         self.resource_user_id = resource_user_id  # type: long
 
     def validate(self):
@@ -120,10 +119,10 @@ class AllocateCostUnitResourceResponseBodyData(TeaModel):
 
 class AllocateCostUnitResourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: AllocateCostUnitResourceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -162,7 +161,7 @@ class AllocateCostUnitResourceResponseBody(TeaModel):
 
 class AllocateCostUnitResourceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AllocateCostUnitResourceResponseBody
 
     def validate(self):
@@ -198,7 +197,7 @@ class ApplyInvoiceRequest(TeaModel):
         self.address_id = address_id  # type: long
         self.invoicing_type = invoicing_type  # type: int
         self.process_way = process_way  # type: int
-        self.apply_user_nick = TeaConverter.to_unicode(apply_user_nick)  # type: unicode
+        self.apply_user_nick = apply_user_nick  # type: str
         self.invoice_by_amount = invoice_by_amount  # type: bool
         self.selected_ids = selected_ids  # type: list[int]
 
@@ -272,10 +271,10 @@ class ApplyInvoiceResponseBodyData(TeaModel):
 
 class ApplyInvoiceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: ApplyInvoiceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -314,7 +313,7 @@ class ApplyInvoiceResponseBody(TeaModel):
 
 class ApplyInvoiceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ApplyInvoiceResponseBody
 
     def validate(self):
@@ -343,7 +342,7 @@ class ApplyInvoiceResponse(TeaModel):
 
 class CancelOrderRequest(TeaModel):
     def __init__(self, order_id=None, owner_id=None):
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.order_id = order_id  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
@@ -368,7 +367,7 @@ class CancelOrderRequest(TeaModel):
 
 class CancelOrderResponseBodyData(TeaModel):
     def __init__(self, host_id=None):
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
+        self.host_id = host_id  # type: str
 
     def validate(self):
         pass
@@ -388,10 +387,10 @@ class CancelOrderResponseBodyData(TeaModel):
 
 class CancelOrderResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: CancelOrderResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -430,7 +429,7 @@ class CancelOrderResponseBody(TeaModel):
 
 class CancelOrderResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CancelOrderResponseBody
 
     def validate(self):
@@ -461,13 +460,13 @@ class ChangeResellerConsumeAmountRequest(TeaModel):
     def __init__(self, owner_id=None, adjust_type=None, amount=None, currency=None, business_type=None, source=None,
                  out_biz_id=None, extend_map=None):
         self.owner_id = owner_id  # type: long
-        self.adjust_type = TeaConverter.to_unicode(adjust_type)  # type: unicode
-        self.amount = TeaConverter.to_unicode(amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.business_type = TeaConverter.to_unicode(business_type)  # type: unicode
-        self.source = TeaConverter.to_unicode(source)  # type: unicode
-        self.out_biz_id = TeaConverter.to_unicode(out_biz_id)  # type: unicode
-        self.extend_map = TeaConverter.to_unicode(extend_map)  # type: unicode
+        self.adjust_type = adjust_type  # type: str
+        self.amount = amount  # type: str
+        self.currency = currency  # type: str
+        self.business_type = business_type  # type: str
+        self.source = source  # type: str
+        self.out_biz_id = out_biz_id  # type: str
+        self.extend_map = extend_map  # type: str
 
     def validate(self):
         pass
@@ -515,10 +514,10 @@ class ChangeResellerConsumeAmountRequest(TeaModel):
 
 class ChangeResellerConsumeAmountResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -555,7 +554,7 @@ class ChangeResellerConsumeAmountResponseBody(TeaModel):
 
 class ChangeResellerConsumeAmountResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ChangeResellerConsumeAmountResponseBody
 
     def validate(self):
@@ -586,11 +585,11 @@ class ConvertChargeTypeRequest(TeaModel):
     def __init__(self, owner_id=None, product_type=None, subscription_type=None, period=None, product_code=None,
                  instance_id=None):
         self.owner_id = owner_id  # type: long
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.period = period  # type: int
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -630,7 +629,7 @@ class ConvertChargeTypeRequest(TeaModel):
 
 class ConvertChargeTypeResponseBodyData(TeaModel):
     def __init__(self, order_id=None):
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -650,10 +649,10 @@ class ConvertChargeTypeResponseBodyData(TeaModel):
 
 class ConvertChargeTypeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: ConvertChargeTypeResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -692,7 +691,7 @@ class ConvertChargeTypeResponseBody(TeaModel):
 
 class ConvertChargeTypeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ConvertChargeTypeResponseBody
 
     def validate(self):
@@ -722,15 +721,15 @@ class ConvertChargeTypeResponse(TeaModel):
 class CreateAgAccountRequest(TeaModel):
     def __init__(self, login_email=None, account_attr=None, enterprise_name=None, first_name=None, last_name=None,
                  nation_code=None, province_name=None, city_name=None, postcode=None):
-        self.login_email = TeaConverter.to_unicode(login_email)  # type: unicode
-        self.account_attr = TeaConverter.to_unicode(account_attr)  # type: unicode
-        self.enterprise_name = TeaConverter.to_unicode(enterprise_name)  # type: unicode
-        self.first_name = TeaConverter.to_unicode(first_name)  # type: unicode
-        self.last_name = TeaConverter.to_unicode(last_name)  # type: unicode
-        self.nation_code = TeaConverter.to_unicode(nation_code)  # type: unicode
-        self.province_name = TeaConverter.to_unicode(province_name)  # type: unicode
-        self.city_name = TeaConverter.to_unicode(city_name)  # type: unicode
-        self.postcode = TeaConverter.to_unicode(postcode)  # type: unicode
+        self.login_email = login_email  # type: str
+        self.account_attr = account_attr  # type: str
+        self.enterprise_name = enterprise_name  # type: str
+        self.first_name = first_name  # type: str
+        self.last_name = last_name  # type: str
+        self.nation_code = nation_code  # type: str
+        self.province_name = province_name  # type: str
+        self.city_name = city_name  # type: str
+        self.postcode = postcode  # type: str
 
     def validate(self):
         pass
@@ -782,10 +781,10 @@ class CreateAgAccountRequest(TeaModel):
 
 class CreateAgAccountResponseBodyAgRelationDto(TeaModel):
     def __init__(self, mpk=None, pk=None, ram_admin_role_name=None, type=None):
-        self.mpk = TeaConverter.to_unicode(mpk)  # type: unicode
-        self.pk = TeaConverter.to_unicode(pk)  # type: unicode
-        self.ram_admin_role_name = TeaConverter.to_unicode(ram_admin_role_name)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.mpk = mpk  # type: str
+        self.pk = pk  # type: str
+        self.ram_admin_role_name = ram_admin_role_name  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -818,9 +817,9 @@ class CreateAgAccountResponseBodyAgRelationDto(TeaModel):
 class CreateAgAccountResponseBody(TeaModel):
     def __init__(self, ag_relation_dto=None, code=None, message=None, request_id=None, success=None):
         self.ag_relation_dto = ag_relation_dto  # type: CreateAgAccountResponseBodyAgRelationDto
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -859,7 +858,7 @@ class CreateAgAccountResponseBody(TeaModel):
 
 class CreateAgAccountResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateAgAccountResponseBody
 
     def validate(self):
@@ -890,7 +889,7 @@ class CreateCostUnitRequestUnitEntityList(TeaModel):
     def __init__(self, owner_uid=None, parent_unit_id=None, unit_name=None):
         self.owner_uid = owner_uid  # type: long
         self.parent_unit_id = parent_unit_id  # type: long
-        self.unit_name = TeaConverter.to_unicode(unit_name)  # type: unicode
+        self.unit_name = unit_name  # type: str
 
     def validate(self):
         pass
@@ -949,7 +948,7 @@ class CreateCostUnitResponseBodyDataCostUnitDtoList(TeaModel):
         self.owner_uid = owner_uid  # type: long
         self.parent_unit_id = parent_unit_id  # type: long
         self.unit_id = unit_id  # type: long
-        self.unit_name = TeaConverter.to_unicode(unit_name)  # type: unicode
+        self.unit_name = unit_name  # type: str
 
     def validate(self):
         pass
@@ -1009,10 +1008,10 @@ class CreateCostUnitResponseBodyData(TeaModel):
 
 class CreateCostUnitResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: CreateCostUnitResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -1051,7 +1050,7 @@ class CreateCostUnitResponseBody(TeaModel):
 
 class CreateCostUnitResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateCostUnitResponseBody
 
     def validate(self):
@@ -1080,8 +1079,8 @@ class CreateCostUnitResponse(TeaModel):
 
 class CreateInstanceRequestParameter(TeaModel):
     def __init__(self, code=None, value=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.code = code  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -1106,14 +1105,14 @@ class CreateInstanceRequestParameter(TeaModel):
 class CreateInstanceRequest(TeaModel):
     def __init__(self, product_code=None, owner_id=None, product_type=None, subscription_type=None, period=None,
                  renewal_status=None, renew_period=None, client_token=None, parameter=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
         self.owner_id = owner_id  # type: long
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.period = period  # type: int
-        self.renewal_status = TeaConverter.to_unicode(renewal_status)  # type: unicode
+        self.renewal_status = renewal_status  # type: str
         self.renew_period = renew_period  # type: int
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.client_token = client_token  # type: str
         self.parameter = parameter  # type: list[CreateInstanceRequestParameter]
 
     def validate(self):
@@ -1174,8 +1173,8 @@ class CreateInstanceRequest(TeaModel):
 
 class CreateInstanceResponseBodyData(TeaModel):
     def __init__(self, instance_id=None, order_id=None):
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -1199,10 +1198,10 @@ class CreateInstanceResponseBodyData(TeaModel):
 
 class CreateInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: CreateInstanceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -1241,7 +1240,7 @@ class CreateInstanceResponseBody(TeaModel):
 
 class CreateInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
@@ -1271,9 +1270,9 @@ class CreateInstanceResponse(TeaModel):
 class CreateResellerUserQuotaRequest(TeaModel):
     def __init__(self, owner_id=None, amount=None, currency=None, out_biz_id=None):
         self.owner_id = owner_id  # type: long
-        self.amount = TeaConverter.to_unicode(amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.out_biz_id = TeaConverter.to_unicode(out_biz_id)  # type: unicode
+        self.amount = amount  # type: str
+        self.currency = currency  # type: str
+        self.out_biz_id = out_biz_id  # type: str
 
     def validate(self):
         pass
@@ -1305,10 +1304,10 @@ class CreateResellerUserQuotaRequest(TeaModel):
 
 class CreateResellerUserQuotaResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: bool
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -1345,7 +1344,7 @@ class CreateResellerUserQuotaResponseBody(TeaModel):
 
 class CreateResellerUserQuotaResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateResellerUserQuotaResponseBody
 
     def validate(self):
@@ -1376,12 +1375,12 @@ class CreateResourcePackageRequest(TeaModel):
     def __init__(self, owner_id=None, product_code=None, package_type=None, effective_date=None, specification=None,
                  duration=None, pricing_cycle=None):
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.package_type = TeaConverter.to_unicode(package_type)  # type: unicode
-        self.effective_date = TeaConverter.to_unicode(effective_date)  # type: unicode
-        self.specification = TeaConverter.to_unicode(specification)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.package_type = package_type  # type: str
+        self.effective_date = effective_date  # type: str
+        self.specification = specification  # type: str
         self.duration = duration  # type: int
-        self.pricing_cycle = TeaConverter.to_unicode(pricing_cycle)  # type: unicode
+        self.pricing_cycle = pricing_cycle  # type: str
 
     def validate(self):
         pass
@@ -1425,7 +1424,7 @@ class CreateResourcePackageRequest(TeaModel):
 
 class CreateResourcePackageResponseBodyData(TeaModel):
     def __init__(self, instance_id=None, order_id=None):
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -1450,11 +1449,11 @@ class CreateResourcePackageResponseBodyData(TeaModel):
 
 class CreateResourcePackageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, order_id=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: CreateResourcePackageResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
         self.order_id = order_id  # type: long
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -1497,7 +1496,7 @@ class CreateResourcePackageResponseBody(TeaModel):
 
 class CreateResourcePackageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateResourcePackageResponseBody
 
     def validate(self):
@@ -1581,10 +1580,10 @@ class DeleteCostUnitResponseBodyData(TeaModel):
 
 class DeleteCostUnitResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: DeleteCostUnitResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -1623,7 +1622,7 @@ class DeleteCostUnitResponseBody(TeaModel):
 
 class DeleteCostUnitResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteCostUnitResponseBody
 
     def validate(self):
@@ -1652,7 +1651,7 @@ class DeleteCostUnitResponse(TeaModel):
 
 class DescribeResourcePackageProductRequest(TeaModel):
     def __init__(self, product_code=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
 
     def validate(self):
         pass
@@ -1672,8 +1671,8 @@ class DescribeResourcePackageProductRequest(TeaModel):
 
 class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypePropertiesProperty(TeaModel):
     def __init__(self, name=None, value=None):
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.name = name  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -1725,8 +1724,8 @@ class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePack
 
 class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypeSpecificationsSpecificationAvailableDurationsAvailableDuration(TeaModel):
     def __init__(self, name=None, unit=None, value=None):
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-        self.unit = TeaConverter.to_unicode(unit)  # type: unicode
+        self.name = name  # type: str
+        self.unit = unit  # type: str
         self.value = value  # type: int
 
     def validate(self):
@@ -1784,8 +1783,8 @@ class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePack
 class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypeSpecificationsSpecification(TeaModel):
     def __init__(self, available_durations=None, name=None, value=None):
         self.available_durations = available_durations  # type: DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypeSpecificationsSpecificationAvailableDurations
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.name = name  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         if self.available_durations:
@@ -1843,8 +1842,8 @@ class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePack
 
 class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageType(TeaModel):
     def __init__(self, code=None, name=None, properties=None, specifications=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.code = code  # type: str
+        self.name = name  # type: str
         self.properties = properties  # type: DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypeProperties
         self.specifications = specifications  # type: DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypesPackageTypeSpecifications
 
@@ -1911,10 +1910,10 @@ class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePack
 
 class DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackage(TeaModel):
     def __init__(self, name=None, package_types=None, product_code=None, product_type=None):
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         self.package_types = package_types  # type: DescribeResourcePackageProductResponseBodyDataResourcePackagesResourcePackagePackageTypes
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
 
     def validate(self):
         if self.package_types:
@@ -1998,11 +1997,11 @@ class DescribeResourcePackageProductResponseBodyData(TeaModel):
 
 class DescribeResourcePackageProductResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, order_id=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: DescribeResourcePackageProductResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
         self.order_id = order_id  # type: long
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -2045,7 +2044,7 @@ class DescribeResourcePackageProductResponseBody(TeaModel):
 
 class DescribeResourcePackageProductResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeResourcePackageProductResponseBody
 
     def validate(self):
@@ -2072,9 +2071,498 @@ class DescribeResourcePackageProductResponse(TeaModel):
         return self
 
 
+class DescribeSplitItemBillRequestTagFilter(TeaModel):
+    def __init__(self, tag_values=None, tag_key=None):
+        self.tag_values = tag_values  # type: list[str]
+        self.tag_key = tag_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.tag_values is not None:
+            result['TagValues'] = self.tag_values
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagValues') is not None:
+            self.tag_values = m.get('TagValues')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        return self
+
+
+class DescribeSplitItemBillRequest(TeaModel):
+    def __init__(self, billing_cycle=None, product_code=None, product_type=None, subscription_type=None,
+                 owner_id=None, next_token=None, max_results=None, bill_owner_id=None, instance_id=None, split_item_id=None,
+                 tag_filter=None):
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.next_token = next_token  # type: str
+        self.max_results = max_results  # type: int
+        self.bill_owner_id = bill_owner_id  # type: long
+        self.instance_id = instance_id  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.tag_filter = tag_filter  # type: list[DescribeSplitItemBillRequestTagFilter]
+
+    def validate(self):
+        if self.tag_filter:
+            for k in self.tag_filter:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.bill_owner_id is not None:
+            result['BillOwnerId'] = self.bill_owner_id
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
+        if self.split_item_id is not None:
+            result['SplitItemID'] = self.split_item_id
+        result['TagFilter'] = []
+        if self.tag_filter is not None:
+            for k in self.tag_filter:
+                result['TagFilter'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('BillOwnerId') is not None:
+            self.bill_owner_id = m.get('BillOwnerId')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
+        if m.get('SplitItemID') is not None:
+            self.split_item_id = m.get('SplitItemID')
+        self.tag_filter = []
+        if m.get('TagFilter') is not None:
+            for k in m.get('TagFilter'):
+                temp_model = DescribeSplitItemBillRequestTagFilter()
+                self.tag_filter.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeSplitItemBillResponseBodyDataItems(TeaModel):
+    def __init__(self, billing_date=None, instance_config=None, internet_ip=None, split_item_id=None, item=None,
+                 split_account_id=None, tag=None, instance_id=None, currency=None, deducted_by_cash_coupons=None,
+                 subscription_type=None, instance_spec=None, billing_item=None, deducted_by_coupons=None, region=None,
+                 outstanding_amount=None, cost_unit=None, list_price_unit=None, resource_group=None, pip_code=None, pretax_amount=None,
+                 service_period_unit=None, product_name=None, commodity_code=None, split_product_detail=None, nick_name=None,
+                 product_detail=None, usage=None, intranet_ip=None, owner_id=None, split_commodity_code=None,
+                 deducted_by_prepaid_card=None, usage_unit=None, payment_amount=None, invoice_discount=None,
+                 deducted_by_resource_package=None, product_type=None, split_billing_cycle=None, service_period=None, split_item_name=None,
+                 zone=None, list_price=None, pretax_gross_amount=None, split_account_name=None, product_code=None,
+                 billing_type=None):
+        self.billing_date = billing_date  # type: str
+        self.instance_config = instance_config  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.item = item  # type: str
+        self.split_account_id = split_account_id  # type: str
+        self.tag = tag  # type: str
+        self.instance_id = instance_id  # type: str
+        self.currency = currency  # type: str
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.subscription_type = subscription_type  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.billing_item = billing_item  # type: str
+        self.deducted_by_coupons = deducted_by_coupons  # type: float
+        self.region = region  # type: str
+        self.outstanding_amount = outstanding_amount  # type: float
+        self.cost_unit = cost_unit  # type: str
+        self.list_price_unit = list_price_unit  # type: str
+        self.resource_group = resource_group  # type: str
+        self.pip_code = pip_code  # type: str
+        self.pretax_amount = pretax_amount  # type: float
+        self.service_period_unit = service_period_unit  # type: str
+        self.product_name = product_name  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.split_product_detail = split_product_detail  # type: str
+        self.nick_name = nick_name  # type: str
+        self.product_detail = product_detail  # type: str
+        self.usage = usage  # type: str
+        self.intranet_ip = intranet_ip  # type: str
+        self.owner_id = owner_id  # type: str
+        self.split_commodity_code = split_commodity_code  # type: str
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.usage_unit = usage_unit  # type: str
+        self.payment_amount = payment_amount  # type: float
+        self.invoice_discount = invoice_discount  # type: float
+        self.deducted_by_resource_package = deducted_by_resource_package  # type: str
+        self.product_type = product_type  # type: str
+        self.split_billing_cycle = split_billing_cycle  # type: str
+        self.service_period = service_period  # type: str
+        self.split_item_name = split_item_name  # type: str
+        self.zone = zone  # type: str
+        self.list_price = list_price  # type: str
+        self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.split_account_name = split_account_name  # type: str
+        self.product_code = product_code  # type: str
+        self.billing_type = billing_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.billing_date is not None:
+            result['BillingDate'] = self.billing_date
+        if self.instance_config is not None:
+            result['InstanceConfig'] = self.instance_config
+        if self.internet_ip is not None:
+            result['InternetIP'] = self.internet_ip
+        if self.split_item_id is not None:
+            result['SplitItemID'] = self.split_item_id
+        if self.item is not None:
+            result['Item'] = self.item
+        if self.split_account_id is not None:
+            result['SplitAccountID'] = self.split_account_id
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.subscription_type is not None:
+            result['SubscriptionType'] = self.subscription_type
+        if self.instance_spec is not None:
+            result['InstanceSpec'] = self.instance_spec
+        if self.billing_item is not None:
+            result['BillingItem'] = self.billing_item
+        if self.deducted_by_coupons is not None:
+            result['DeductedByCoupons'] = self.deducted_by_coupons
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.outstanding_amount is not None:
+            result['OutstandingAmount'] = self.outstanding_amount
+        if self.cost_unit is not None:
+            result['CostUnit'] = self.cost_unit
+        if self.list_price_unit is not None:
+            result['ListPriceUnit'] = self.list_price_unit
+        if self.resource_group is not None:
+            result['ResourceGroup'] = self.resource_group
+        if self.pip_code is not None:
+            result['PipCode'] = self.pip_code
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.service_period_unit is not None:
+            result['ServicePeriodUnit'] = self.service_period_unit
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.split_product_detail is not None:
+            result['SplitProductDetail'] = self.split_product_detail
+        if self.nick_name is not None:
+            result['NickName'] = self.nick_name
+        if self.product_detail is not None:
+            result['ProductDetail'] = self.product_detail
+        if self.usage is not None:
+            result['Usage'] = self.usage
+        if self.intranet_ip is not None:
+            result['IntranetIP'] = self.intranet_ip
+        if self.owner_id is not None:
+            result['OwnerID'] = self.owner_id
+        if self.split_commodity_code is not None:
+            result['SplitCommodityCode'] = self.split_commodity_code
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.usage_unit is not None:
+            result['UsageUnit'] = self.usage_unit
+        if self.payment_amount is not None:
+            result['PaymentAmount'] = self.payment_amount
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
+        if self.deducted_by_resource_package is not None:
+            result['DeductedByResourcePackage'] = self.deducted_by_resource_package
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        if self.split_billing_cycle is not None:
+            result['SplitBillingCycle'] = self.split_billing_cycle
+        if self.service_period is not None:
+            result['ServicePeriod'] = self.service_period
+        if self.split_item_name is not None:
+            result['SplitItemName'] = self.split_item_name
+        if self.zone is not None:
+            result['Zone'] = self.zone
+        if self.list_price is not None:
+            result['ListPrice'] = self.list_price
+        if self.pretax_gross_amount is not None:
+            result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.split_account_name is not None:
+            result['SplitAccountName'] = self.split_account_name
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.billing_type is not None:
+            result['BillingType'] = self.billing_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BillingDate') is not None:
+            self.billing_date = m.get('BillingDate')
+        if m.get('InstanceConfig') is not None:
+            self.instance_config = m.get('InstanceConfig')
+        if m.get('InternetIP') is not None:
+            self.internet_ip = m.get('InternetIP')
+        if m.get('SplitItemID') is not None:
+            self.split_item_id = m.get('SplitItemID')
+        if m.get('Item') is not None:
+            self.item = m.get('Item')
+        if m.get('SplitAccountID') is not None:
+            self.split_account_id = m.get('SplitAccountID')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('SubscriptionType') is not None:
+            self.subscription_type = m.get('SubscriptionType')
+        if m.get('InstanceSpec') is not None:
+            self.instance_spec = m.get('InstanceSpec')
+        if m.get('BillingItem') is not None:
+            self.billing_item = m.get('BillingItem')
+        if m.get('DeductedByCoupons') is not None:
+            self.deducted_by_coupons = m.get('DeductedByCoupons')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('OutstandingAmount') is not None:
+            self.outstanding_amount = m.get('OutstandingAmount')
+        if m.get('CostUnit') is not None:
+            self.cost_unit = m.get('CostUnit')
+        if m.get('ListPriceUnit') is not None:
+            self.list_price_unit = m.get('ListPriceUnit')
+        if m.get('ResourceGroup') is not None:
+            self.resource_group = m.get('ResourceGroup')
+        if m.get('PipCode') is not None:
+            self.pip_code = m.get('PipCode')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('ServicePeriodUnit') is not None:
+            self.service_period_unit = m.get('ServicePeriodUnit')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('SplitProductDetail') is not None:
+            self.split_product_detail = m.get('SplitProductDetail')
+        if m.get('NickName') is not None:
+            self.nick_name = m.get('NickName')
+        if m.get('ProductDetail') is not None:
+            self.product_detail = m.get('ProductDetail')
+        if m.get('Usage') is not None:
+            self.usage = m.get('Usage')
+        if m.get('IntranetIP') is not None:
+            self.intranet_ip = m.get('IntranetIP')
+        if m.get('OwnerID') is not None:
+            self.owner_id = m.get('OwnerID')
+        if m.get('SplitCommodityCode') is not None:
+            self.split_commodity_code = m.get('SplitCommodityCode')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('UsageUnit') is not None:
+            self.usage_unit = m.get('UsageUnit')
+        if m.get('PaymentAmount') is not None:
+            self.payment_amount = m.get('PaymentAmount')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
+        if m.get('DeductedByResourcePackage') is not None:
+            self.deducted_by_resource_package = m.get('DeductedByResourcePackage')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        if m.get('SplitBillingCycle') is not None:
+            self.split_billing_cycle = m.get('SplitBillingCycle')
+        if m.get('ServicePeriod') is not None:
+            self.service_period = m.get('ServicePeriod')
+        if m.get('SplitItemName') is not None:
+            self.split_item_name = m.get('SplitItemName')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
+        if m.get('ListPrice') is not None:
+            self.list_price = m.get('ListPrice')
+        if m.get('PretaxGrossAmount') is not None:
+            self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('SplitAccountName') is not None:
+            self.split_account_name = m.get('SplitAccountName')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('BillingType') is not None:
+            self.billing_type = m.get('BillingType')
+        return self
+
+
+class DescribeSplitItemBillResponseBodyData(TeaModel):
+    def __init__(self, items=None, next_token=None, billing_cycle=None, max_results=None, account_id=None,
+                 total_count=None, account_name=None):
+        self.items = items  # type: list[DescribeSplitItemBillResponseBodyDataItems]
+        self.next_token = next_token  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.max_results = max_results  # type: int
+        self.account_id = account_id  # type: str
+        self.total_count = total_count  # type: int
+        self.account_name = account_name  # type: str
+
+    def validate(self):
+        if self.items:
+            for k in self.items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['Items'] = []
+        if self.items is not None:
+            for k in self.items:
+                result['Items'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.account_id is not None:
+            result['AccountID'] = self.account_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.items = []
+        if m.get('Items') is not None:
+            for k in m.get('Items'):
+                temp_model = DescribeSplitItemBillResponseBodyDataItems()
+                self.items.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('AccountID') is not None:
+            self.account_id = m.get('AccountID')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
+        return self
+
+
+class DescribeSplitItemBillResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.data = data  # type: DescribeSplitItemBillResponseBodyData
+        self.code = code  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            temp_model = DescribeSplitItemBillResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DescribeSplitItemBillResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeSplitItemBillResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeSplitItemBillResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class EnableBillGenerationRequest(TeaModel):
     def __init__(self, product_code=None, owner_id=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
@@ -2119,10 +2607,10 @@ class EnableBillGenerationResponseBodyData(TeaModel):
 
 class EnableBillGenerationResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: EnableBillGenerationResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -2161,7 +2649,7 @@ class EnableBillGenerationResponseBody(TeaModel):
 
 class EnableBillGenerationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: EnableBillGenerationResponseBody
 
     def validate(self):
@@ -2211,11 +2699,11 @@ class GetCustomerAccountInfoRequest(TeaModel):
 class GetCustomerAccountInfoResponseBodyData(TeaModel):
     def __init__(self, account_type=None, credit_limit_status=None, hosting_status=None, is_certified=None,
                  login_email=None, mpk=None):
-        self.account_type = TeaConverter.to_unicode(account_type)  # type: unicode
-        self.credit_limit_status = TeaConverter.to_unicode(credit_limit_status)  # type: unicode
-        self.hosting_status = TeaConverter.to_unicode(hosting_status)  # type: unicode
+        self.account_type = account_type  # type: str
+        self.credit_limit_status = credit_limit_status  # type: str
+        self.hosting_status = hosting_status  # type: str
         self.is_certified = is_certified  # type: bool
-        self.login_email = TeaConverter.to_unicode(login_email)  # type: unicode
+        self.login_email = login_email  # type: str
         self.mpk = mpk  # type: long
 
     def validate(self):
@@ -2256,10 +2744,10 @@ class GetCustomerAccountInfoResponseBodyData(TeaModel):
 
 class GetCustomerAccountInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetCustomerAccountInfoResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -2298,7 +2786,7 @@ class GetCustomerAccountInfoResponseBody(TeaModel):
 
 class GetCustomerAccountInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetCustomerAccountInfoResponseBody
 
     def validate(self):
@@ -2327,7 +2815,7 @@ class GetCustomerAccountInfoResponse(TeaModel):
 
 class GetCustomerListResponseBodyData(TeaModel):
     def __init__(self, uid_list=None):
-        self.uid_list = uid_list  # type: list[unicode]
+        self.uid_list = uid_list  # type: list[str]
 
     def validate(self):
         pass
@@ -2347,10 +2835,10 @@ class GetCustomerListResponseBodyData(TeaModel):
 
 class GetCustomerListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetCustomerListResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -2389,7 +2877,7 @@ class GetCustomerListResponseBody(TeaModel):
 
 class GetCustomerListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetCustomerListResponseBody
 
     def validate(self):
@@ -2418,7 +2906,7 @@ class GetCustomerListResponse(TeaModel):
 
 class GetOrderDetailRequest(TeaModel):
     def __init__(self, order_id=None, owner_id=None):
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.order_id = order_id  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
@@ -2447,32 +2935,32 @@ class GetOrderDetailResponseBodyDataOrderListOrder(TeaModel):
                  payment_currency=None, payment_status=None, payment_time=None, pretax_amount=None, pretax_amount_local=None,
                  pretax_gross_amount=None, product_code=None, product_type=None, quantity=None, region=None, related_order_id=None,
                  sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None, usage_start_time=None):
-        self.after_tax_amount = TeaConverter.to_unicode(after_tax_amount)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
-        self.operator = TeaConverter.to_unicode(operator)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
-        self.order_sub_type = TeaConverter.to_unicode(order_sub_type)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.original_config = TeaConverter.to_unicode(original_config)  # type: unicode
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.payment_status = TeaConverter.to_unicode(payment_status)  # type: unicode
-        self.payment_time = TeaConverter.to_unicode(payment_time)  # type: unicode
-        self.pretax_amount = TeaConverter.to_unicode(pretax_amount)  # type: unicode
-        self.pretax_amount_local = TeaConverter.to_unicode(pretax_amount_local)  # type: unicode
-        self.pretax_gross_amount = TeaConverter.to_unicode(pretax_gross_amount)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.quantity = TeaConverter.to_unicode(quantity)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.related_order_id = TeaConverter.to_unicode(related_order_id)  # type: unicode
-        self.sub_order_id = TeaConverter.to_unicode(sub_order_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tax = TeaConverter.to_unicode(tax)  # type: unicode
-        self.usage_end_time = TeaConverter.to_unicode(usage_end_time)  # type: unicode
-        self.usage_start_time = TeaConverter.to_unicode(usage_start_time)  # type: unicode
+        self.after_tax_amount = after_tax_amount  # type: str
+        self.config = config  # type: str
+        self.create_time = create_time  # type: str
+        self.currency = currency  # type: str
+        self.instance_ids = instance_ids  # type: str
+        self.operator = operator  # type: str
+        self.order_id = order_id  # type: str
+        self.order_sub_type = order_sub_type  # type: str
+        self.order_type = order_type  # type: str
+        self.original_config = original_config  # type: str
+        self.payment_currency = payment_currency  # type: str
+        self.payment_status = payment_status  # type: str
+        self.payment_time = payment_time  # type: str
+        self.pretax_amount = pretax_amount  # type: str
+        self.pretax_amount_local = pretax_amount_local  # type: str
+        self.pretax_gross_amount = pretax_gross_amount  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.quantity = quantity  # type: str
+        self.region = region  # type: str
+        self.related_order_id = related_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tax = tax  # type: str
+        self.usage_end_time = usage_end_time  # type: str
+        self.usage_start_time = usage_start_time  # type: str
 
     def validate(self):
         pass
@@ -2620,7 +3108,7 @@ class GetOrderDetailResponseBodyDataOrderList(TeaModel):
 
 class GetOrderDetailResponseBodyData(TeaModel):
     def __init__(self, host_name=None, order_list=None, page_num=None, page_size=None, total_count=None):
-        self.host_name = TeaConverter.to_unicode(host_name)  # type: unicode
+        self.host_name = host_name  # type: str
         self.order_list = order_list  # type: GetOrderDetailResponseBodyDataOrderList
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -2662,10 +3150,10 @@ class GetOrderDetailResponseBodyData(TeaModel):
 
 class GetOrderDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetOrderDetailResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -2704,7 +3192,7 @@ class GetOrderDetailResponseBody(TeaModel):
 
 class GetOrderDetailResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetOrderDetailResponseBody
 
     def validate(self):
@@ -2733,9 +3221,9 @@ class GetOrderDetailResponse(TeaModel):
 
 class GetPayAsYouGoPriceRequestModuleList(TeaModel):
     def __init__(self, config=None, module_code=None, price_type=None):
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.module_code = TeaConverter.to_unicode(module_code)  # type: unicode
-        self.price_type = TeaConverter.to_unicode(price_type)  # type: unicode
+        self.config = config  # type: str
+        self.module_code = module_code  # type: str
+        self.price_type = price_type  # type: str
 
     def validate(self):
         pass
@@ -2765,10 +3253,10 @@ class GetPayAsYouGoPriceRequest(TeaModel):
     def __init__(self, owner_id=None, product_code=None, product_type=None, subscription_type=None, region=None,
                  module_list=None):
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.region = region  # type: str
         self.module_list = module_list  # type: list[GetPayAsYouGoPriceRequestModuleList]
 
     def validate(self):
@@ -2820,7 +3308,7 @@ class GetPayAsYouGoPriceResponseBodyDataModuleDetailsModuleDetail(TeaModel):
                  unit_price=None):
         self.cost_after_discount = cost_after_discount  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.module_code = TeaConverter.to_unicode(module_code)  # type: unicode
+        self.module_code = module_code  # type: str
         self.original_cost = original_cost  # type: float
         self.unit_price = unit_price  # type: float
 
@@ -2886,9 +3374,9 @@ class GetPayAsYouGoPriceResponseBodyDataModuleDetails(TeaModel):
 
 class GetPayAsYouGoPriceResponseBodyDataPromotionDetailsPromotionDetail(TeaModel):
     def __init__(self, promotion_desc=None, promotion_id=None, promotion_name=None):
-        self.promotion_desc = TeaConverter.to_unicode(promotion_desc)  # type: unicode
+        self.promotion_desc = promotion_desc  # type: str
         self.promotion_id = promotion_id  # type: long
-        self.promotion_name = TeaConverter.to_unicode(promotion_name)  # type: unicode
+        self.promotion_name = promotion_name  # type: str
 
     def validate(self):
         pass
@@ -2944,7 +3432,7 @@ class GetPayAsYouGoPriceResponseBodyDataPromotionDetails(TeaModel):
 
 class GetPayAsYouGoPriceResponseBodyData(TeaModel):
     def __init__(self, currency=None, module_details=None, promotion_details=None):
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.currency = currency  # type: str
         self.module_details = module_details  # type: GetPayAsYouGoPriceResponseBodyDataModuleDetails
         self.promotion_details = promotion_details  # type: GetPayAsYouGoPriceResponseBodyDataPromotionDetails
 
@@ -2979,10 +3467,10 @@ class GetPayAsYouGoPriceResponseBodyData(TeaModel):
 
 class GetPayAsYouGoPriceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetPayAsYouGoPriceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -3021,7 +3509,7 @@ class GetPayAsYouGoPriceResponseBody(TeaModel):
 
 class GetPayAsYouGoPriceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetPayAsYouGoPriceResponseBody
 
     def validate(self):
@@ -3052,14 +3540,14 @@ class GetResourcePackagePriceRequest(TeaModel):
     def __init__(self, owner_id=None, product_code=None, package_type=None, effective_date=None, specification=None,
                  duration=None, pricing_cycle=None, order_type=None, instance_id=None):
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.package_type = TeaConverter.to_unicode(package_type)  # type: unicode
-        self.effective_date = TeaConverter.to_unicode(effective_date)  # type: unicode
-        self.specification = TeaConverter.to_unicode(specification)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.package_type = package_type  # type: str
+        self.effective_date = effective_date  # type: str
+        self.specification = specification  # type: str
         self.duration = duration  # type: int
-        self.pricing_cycle = TeaConverter.to_unicode(pricing_cycle)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.pricing_cycle = pricing_cycle  # type: str
+        self.order_type = order_type  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -3112,7 +3600,7 @@ class GetResourcePackagePriceRequest(TeaModel):
 class GetResourcePackagePriceResponseBodyDataPromotionsPromotion(TeaModel):
     def __init__(self, id=None, name=None):
         self.id = id  # type: long
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -3164,7 +3652,7 @@ class GetResourcePackagePriceResponseBodyDataPromotions(TeaModel):
 
 class GetResourcePackagePriceResponseBodyData(TeaModel):
     def __init__(self, currency=None, discount_price=None, original_price=None, promotions=None, trade_price=None):
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.currency = currency  # type: str
         self.discount_price = discount_price  # type: float
         self.original_price = original_price  # type: float
         self.promotions = promotions  # type: GetResourcePackagePriceResponseBodyDataPromotions
@@ -3206,10 +3694,10 @@ class GetResourcePackagePriceResponseBodyData(TeaModel):
 
 class GetResourcePackagePriceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetResourcePackagePriceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -3248,7 +3736,7 @@ class GetResourcePackagePriceResponseBody(TeaModel):
 
 class GetResourcePackagePriceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetResourcePackagePriceResponseBody
 
     def validate(self):
@@ -3277,10 +3765,10 @@ class GetResourcePackagePriceResponse(TeaModel):
 
 class GetSubscriptionPriceRequestModuleList(TeaModel):
     def __init__(self, config=None, module_code=None, module_status=None, tag=None):
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.module_code = TeaConverter.to_unicode(module_code)  # type: unicode
+        self.config = config  # type: str
+        self.module_code = module_code  # type: str
         self.module_status = module_status  # type: int
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
+        self.tag = tag  # type: str
 
     def validate(self):
         pass
@@ -3314,15 +3802,15 @@ class GetSubscriptionPriceRequest(TeaModel):
     def __init__(self, service_period_unit=None, subscription_type=None, owner_id=None, product_code=None,
                  order_type=None, service_period_quantity=None, product_type=None, region=None, instance_id=None,
                  quantity=None, module_list=None):
-        self.service_period_unit = TeaConverter.to_unicode(service_period_unit)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.service_period_unit = service_period_unit  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.order_type = order_type  # type: str
         self.service_period_quantity = service_period_quantity  # type: int
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.instance_id = instance_id  # type: str
         self.quantity = quantity  # type: int
         self.module_list = module_list  # type: list[GetSubscriptionPriceRequestModuleList]
 
@@ -3395,7 +3883,7 @@ class GetSubscriptionPriceResponseBodyDataModuleDetailsModuleDetail(TeaModel):
                  unit_price=None):
         self.cost_after_discount = cost_after_discount  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.module_code = TeaConverter.to_unicode(module_code)  # type: unicode
+        self.module_code = module_code  # type: str
         self.original_cost = original_cost  # type: float
         self.unit_price = unit_price  # type: float
 
@@ -3461,9 +3949,9 @@ class GetSubscriptionPriceResponseBodyDataModuleDetails(TeaModel):
 
 class GetSubscriptionPriceResponseBodyDataPromotionDetailsPromotionDetail(TeaModel):
     def __init__(self, promotion_desc=None, promotion_id=None, promotion_name=None):
-        self.promotion_desc = TeaConverter.to_unicode(promotion_desc)  # type: unicode
+        self.promotion_desc = promotion_desc  # type: str
         self.promotion_id = promotion_id  # type: long
-        self.promotion_name = TeaConverter.to_unicode(promotion_name)  # type: unicode
+        self.promotion_name = promotion_name  # type: str
 
     def validate(self):
         pass
@@ -3520,7 +4008,7 @@ class GetSubscriptionPriceResponseBodyDataPromotionDetails(TeaModel):
 class GetSubscriptionPriceResponseBodyData(TeaModel):
     def __init__(self, currency=None, discount_price=None, module_details=None, original_price=None,
                  promotion_details=None, quantity=None, trade_price=None):
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.currency = currency  # type: str
         self.discount_price = discount_price  # type: float
         self.module_details = module_details  # type: GetSubscriptionPriceResponseBodyDataModuleDetails
         self.original_price = original_price  # type: float
@@ -3575,10 +4063,10 @@ class GetSubscriptionPriceResponseBodyData(TeaModel):
 
 class GetSubscriptionPriceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: GetSubscriptionPriceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -3617,7 +4105,7 @@ class GetSubscriptionPriceResponseBody(TeaModel):
 
 class GetSubscriptionPriceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetSubscriptionPriceResponseBody
 
     def validate(self):
@@ -3646,7 +4134,7 @@ class GetSubscriptionPriceResponse(TeaModel):
 
 class ModifyCostUnitRequestUnitEntityList(TeaModel):
     def __init__(self, new_unit_name=None, owner_uid=None, unit_id=None):
-        self.new_unit_name = TeaConverter.to_unicode(new_unit_name)  # type: unicode
+        self.new_unit_name = new_unit_name  # type: str
         self.owner_uid = owner_uid  # type: long
         self.unit_id = unit_id  # type: long
 
@@ -3734,10 +4222,10 @@ class ModifyCostUnitResponseBodyData(TeaModel):
 
 class ModifyCostUnitResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: list[ModifyCostUnitResponseBodyData]
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -3782,7 +4270,7 @@ class ModifyCostUnitResponseBody(TeaModel):
 
 class ModifyCostUnitResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyCostUnitResponseBody
 
     def validate(self):
@@ -3811,8 +4299,8 @@ class ModifyCostUnitResponse(TeaModel):
 
 class ModifyInstanceRequestParameter(TeaModel):
     def __init__(self, code=None, value=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.code = code  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -3837,13 +4325,13 @@ class ModifyInstanceRequestParameter(TeaModel):
 class ModifyInstanceRequest(TeaModel):
     def __init__(self, product_code=None, owner_id=None, product_type=None, subscription_type=None,
                  modify_type=None, instance_id=None, client_token=None, parameter=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
         self.owner_id = owner_id  # type: long
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.modify_type = TeaConverter.to_unicode(modify_type)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.modify_type = modify_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.client_token = client_token  # type: str
         self.parameter = parameter  # type: list[ModifyInstanceRequestParameter]
 
     def validate(self):
@@ -3900,8 +4388,8 @@ class ModifyInstanceRequest(TeaModel):
 
 class ModifyInstanceResponseBodyData(TeaModel):
     def __init__(self, host_id=None, order_id=None):
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.host_id = host_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -3925,10 +4413,10 @@ class ModifyInstanceResponseBodyData(TeaModel):
 
 class ModifyInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: ModifyInstanceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -3967,7 +4455,7 @@ class ModifyInstanceResponseBody(TeaModel):
 
 class ModifyInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceResponseBody
 
     def validate(self):
@@ -3997,11 +4485,11 @@ class ModifyInstanceResponse(TeaModel):
 class QueryAccountBalanceResponseBodyData(TeaModel):
     def __init__(self, available_amount=None, available_cash_amount=None, credit_amount=None, currency=None,
                  mybank_credit_amount=None):
-        self.available_amount = TeaConverter.to_unicode(available_amount)  # type: unicode
-        self.available_cash_amount = TeaConverter.to_unicode(available_cash_amount)  # type: unicode
-        self.credit_amount = TeaConverter.to_unicode(credit_amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.mybank_credit_amount = TeaConverter.to_unicode(mybank_credit_amount)  # type: unicode
+        self.available_amount = available_amount  # type: str
+        self.available_cash_amount = available_cash_amount  # type: str
+        self.credit_amount = credit_amount  # type: str
+        self.currency = currency  # type: str
+        self.mybank_credit_amount = mybank_credit_amount  # type: str
 
     def validate(self):
         pass
@@ -4037,10 +4525,10 @@ class QueryAccountBalanceResponseBodyData(TeaModel):
 
 class QueryAccountBalanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryAccountBalanceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -4079,7 +4567,7 @@ class QueryAccountBalanceResponseBody(TeaModel):
 
 class QueryAccountBalanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAccountBalanceResponseBody
 
     def validate(self):
@@ -4109,12 +4597,12 @@ class QueryAccountBalanceResponse(TeaModel):
 class QueryAccountBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, page_num=None, page_size=None, owner_id=None, is_group_by_product=None,
                  product_code=None, bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.owner_id = owner_id  # type: long
         self.is_group_by_product = is_group_by_product  # type: bool
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
         self.bill_owner_id = bill_owner_id  # type: long
 
     def validate(self):
@@ -4162,22 +4650,22 @@ class QueryAccountBillResponseBodyDataItemsItem(TeaModel):
                  deducted_by_prepaid_card=None, invoice_discount=None, outstanding_amount=None, owner_id=None, owner_name=None,
                  payment_amount=None, pip_code=None, pretax_amount=None, pretax_gross_amount=None, product_code=None,
                  product_name=None, subscription_type=None):
-        self.cost_unit = TeaConverter.to_unicode(cost_unit)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.cost_unit = cost_unit  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.invoice_discount = invoice_discount  # type: float
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
-        self.owner_name = TeaConverter.to_unicode(owner_name)  # type: unicode
+        self.owner_id = owner_id  # type: str
+        self.owner_name = owner_name  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_name = product_name  # type: str
+        self.subscription_type = subscription_type  # type: str
 
     def validate(self):
         pass
@@ -4286,9 +4774,9 @@ class QueryAccountBillResponseBodyDataItems(TeaModel):
 class QueryAccountBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, page_num=None,
                  page_size=None, total_count=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryAccountBillResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -4338,10 +4826,10 @@ class QueryAccountBillResponseBodyData(TeaModel):
 
 class QueryAccountBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryAccountBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -4380,7 +4868,7 @@ class QueryAccountBillResponseBody(TeaModel):
 
 class QueryAccountBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAccountBillResponseBody
 
     def validate(self):
@@ -4411,14 +4899,14 @@ class QueryAccountTransactionDetailsRequest(TeaModel):
     def __init__(self, transaction_number=None, record_id=None, transaction_channel_sn=None,
                  create_time_start=None, create_time_end=None, transaction_type=None, transaction_channel=None, next_token=None,
                  max_results=None):
-        self.transaction_number = TeaConverter.to_unicode(transaction_number)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.transaction_channel_sn = TeaConverter.to_unicode(transaction_channel_sn)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
-        self.create_time_end = TeaConverter.to_unicode(create_time_end)  # type: unicode
-        self.transaction_type = TeaConverter.to_unicode(transaction_type)  # type: unicode
-        self.transaction_channel = TeaConverter.to_unicode(transaction_channel)  # type: unicode
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.transaction_number = transaction_number  # type: str
+        self.record_id = record_id  # type: str
+        self.transaction_channel_sn = transaction_channel_sn  # type: str
+        self.create_time_start = create_time_start  # type: str
+        self.create_time_end = create_time_end  # type: str
+        self.transaction_type = transaction_type  # type: str
+        self.transaction_channel = transaction_channel  # type: str
+        self.next_token = next_token  # type: str
         self.max_results = max_results  # type: int
 
     def validate(self):
@@ -4473,19 +4961,19 @@ class QueryAccountTransactionDetailsResponseBodyDataAccountTransactionsListAccou
     def __init__(self, amount=None, balance=None, billing_cycle=None, fund_type=None, record_id=None, remarks=None,
                  transaction_account=None, transaction_channel=None, transaction_channel_sn=None, transaction_flow=None,
                  transaction_number=None, transaction_time=None, transaction_type=None):
-        self.amount = TeaConverter.to_unicode(amount)  # type: unicode
-        self.balance = TeaConverter.to_unicode(balance)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.fund_type = TeaConverter.to_unicode(fund_type)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.remarks = TeaConverter.to_unicode(remarks)  # type: unicode
-        self.transaction_account = TeaConverter.to_unicode(transaction_account)  # type: unicode
-        self.transaction_channel = TeaConverter.to_unicode(transaction_channel)  # type: unicode
-        self.transaction_channel_sn = TeaConverter.to_unicode(transaction_channel_sn)  # type: unicode
-        self.transaction_flow = TeaConverter.to_unicode(transaction_flow)  # type: unicode
-        self.transaction_number = TeaConverter.to_unicode(transaction_number)  # type: unicode
-        self.transaction_time = TeaConverter.to_unicode(transaction_time)  # type: unicode
-        self.transaction_type = TeaConverter.to_unicode(transaction_type)  # type: unicode
+        self.amount = amount  # type: str
+        self.balance = balance  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.fund_type = fund_type  # type: str
+        self.record_id = record_id  # type: str
+        self.remarks = remarks  # type: str
+        self.transaction_account = transaction_account  # type: str
+        self.transaction_channel = transaction_channel  # type: str
+        self.transaction_channel_sn = transaction_channel_sn  # type: str
+        self.transaction_flow = transaction_flow  # type: str
+        self.transaction_number = transaction_number  # type: str
+        self.transaction_time = transaction_time  # type: str
+        self.transaction_type = transaction_type  # type: str
 
     def validate(self):
         pass
@@ -4582,10 +5070,10 @@ class QueryAccountTransactionDetailsResponseBodyDataAccountTransactionsList(TeaM
 class QueryAccountTransactionDetailsResponseBodyData(TeaModel):
     def __init__(self, account_name=None, account_transactions_list=None, max_results=None, next_token=None,
                  total_count=None):
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.account_name = account_name  # type: str
         self.account_transactions_list = account_transactions_list  # type: QueryAccountTransactionDetailsResponseBodyDataAccountTransactionsList
         self.max_results = max_results  # type: int
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -4624,10 +5112,10 @@ class QueryAccountTransactionDetailsResponseBodyData(TeaModel):
 
 class QueryAccountTransactionDetailsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryAccountTransactionDetailsResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -4666,7 +5154,7 @@ class QueryAccountTransactionDetailsResponseBody(TeaModel):
 
 class QueryAccountTransactionDetailsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAccountTransactionDetailsResponseBody
 
     def validate(self):
@@ -4696,11 +5184,11 @@ class QueryAccountTransactionDetailsResponse(TeaModel):
 class QueryAccountTransactionsRequest(TeaModel):
     def __init__(self, transaction_number=None, record_id=None, transaction_channel_sn=None,
                  create_time_start=None, create_time_end=None, page_num=None, page_size=None):
-        self.transaction_number = TeaConverter.to_unicode(transaction_number)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.transaction_channel_sn = TeaConverter.to_unicode(transaction_channel_sn)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
-        self.create_time_end = TeaConverter.to_unicode(create_time_end)  # type: unicode
+        self.transaction_number = transaction_number  # type: str
+        self.record_id = record_id  # type: str
+        self.transaction_channel_sn = transaction_channel_sn  # type: str
+        self.create_time_start = create_time_start  # type: str
+        self.create_time_end = create_time_end  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
 
@@ -4748,19 +5236,19 @@ class QueryAccountTransactionsResponseBodyDataAccountTransactionsListAccountTran
     def __init__(self, amount=None, balance=None, billing_cycle=None, fund_type=None, record_id=None, remarks=None,
                  transaction_account=None, transaction_channel=None, transaction_channel_sn=None, transaction_flow=None,
                  transaction_number=None, transaction_time=None, transaction_type=None):
-        self.amount = TeaConverter.to_unicode(amount)  # type: unicode
-        self.balance = TeaConverter.to_unicode(balance)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.fund_type = TeaConverter.to_unicode(fund_type)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.remarks = TeaConverter.to_unicode(remarks)  # type: unicode
-        self.transaction_account = TeaConverter.to_unicode(transaction_account)  # type: unicode
-        self.transaction_channel = TeaConverter.to_unicode(transaction_channel)  # type: unicode
-        self.transaction_channel_sn = TeaConverter.to_unicode(transaction_channel_sn)  # type: unicode
-        self.transaction_flow = TeaConverter.to_unicode(transaction_flow)  # type: unicode
-        self.transaction_number = TeaConverter.to_unicode(transaction_number)  # type: unicode
-        self.transaction_time = TeaConverter.to_unicode(transaction_time)  # type: unicode
-        self.transaction_type = TeaConverter.to_unicode(transaction_type)  # type: unicode
+        self.amount = amount  # type: str
+        self.balance = balance  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.fund_type = fund_type  # type: str
+        self.record_id = record_id  # type: str
+        self.remarks = remarks  # type: str
+        self.transaction_account = transaction_account  # type: str
+        self.transaction_channel = transaction_channel  # type: str
+        self.transaction_channel_sn = transaction_channel_sn  # type: str
+        self.transaction_flow = transaction_flow  # type: str
+        self.transaction_number = transaction_number  # type: str
+        self.transaction_time = transaction_time  # type: str
+        self.transaction_type = transaction_type  # type: str
 
     def validate(self):
         pass
@@ -4857,7 +5345,7 @@ class QueryAccountTransactionsResponseBodyDataAccountTransactionsList(TeaModel):
 class QueryAccountTransactionsResponseBodyData(TeaModel):
     def __init__(self, account_name=None, account_transactions_list=None, page_num=None, page_size=None,
                  total_count=None):
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.account_name = account_name  # type: str
         self.account_transactions_list = account_transactions_list  # type: QueryAccountTransactionsResponseBodyDataAccountTransactionsList
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -4899,10 +5387,10 @@ class QueryAccountTransactionsResponseBodyData(TeaModel):
 
 class QueryAccountTransactionsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryAccountTransactionsResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -4941,7 +5429,7 @@ class QueryAccountTransactionsResponseBody(TeaModel):
 
 class QueryAccountTransactionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAccountTransactionsResponseBody
 
     def validate(self):
@@ -4972,19 +5460,19 @@ class QueryAvailableInstancesRequest(TeaModel):
     def __init__(self, region=None, owner_id=None, page_num=None, page_size=None, product_code=None,
                  product_type=None, subscription_type=None, instance_ids=None, end_time_start=None, end_time_end=None,
                  create_time_start=None, create_time_end=None, renew_status=None):
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
+        self.region = region  # type: str
         self.owner_id = owner_id  # type: long
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
-        self.end_time_start = TeaConverter.to_unicode(end_time_start)  # type: unicode
-        self.end_time_end = TeaConverter.to_unicode(end_time_end)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
-        self.create_time_end = TeaConverter.to_unicode(create_time_end)  # type: unicode
-        self.renew_status = TeaConverter.to_unicode(renew_status)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.instance_ids = instance_ids  # type: str
+        self.end_time_start = end_time_start  # type: str
+        self.end_time_end = end_time_end  # type: str
+        self.create_time_start = create_time_start  # type: str
+        self.create_time_end = create_time_end  # type: str
+        self.renew_status = renew_status  # type: str
 
     def validate(self):
         pass
@@ -5055,24 +5543,24 @@ class QueryAvailableInstancesResponseBodyDataInstanceList(TeaModel):
                  product_code=None, product_type=None, region=None, release_time=None, renew_status=None, renewal_duration=None,
                  renewal_duration_unit=None, seller=None, seller_id=None, status=None, stop_time=None, sub_status=None,
                  subscription_type=None):
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.expected_release_time = TeaConverter.to_unicode(expected_release_time)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.end_time = end_time  # type: str
+        self.expected_release_time = expected_release_time  # type: str
+        self.instance_id = instance_id  # type: str
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.release_time = TeaConverter.to_unicode(release_time)  # type: unicode
-        self.renew_status = TeaConverter.to_unicode(renew_status)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.release_time = release_time  # type: str
+        self.renew_status = renew_status  # type: str
         self.renewal_duration = renewal_duration  # type: int
-        self.renewal_duration_unit = TeaConverter.to_unicode(renewal_duration_unit)  # type: unicode
-        self.seller = TeaConverter.to_unicode(seller)  # type: unicode
+        self.renewal_duration_unit = renewal_duration_unit  # type: str
+        self.seller = seller  # type: str
         self.seller_id = seller_id  # type: long
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.stop_time = TeaConverter.to_unicode(stop_time)  # type: unicode
-        self.sub_status = TeaConverter.to_unicode(sub_status)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.status = status  # type: str
+        self.stop_time = stop_time  # type: str
+        self.sub_status = sub_status  # type: str
+        self.subscription_type = subscription_type  # type: str
 
     def validate(self):
         pass
@@ -5203,10 +5691,10 @@ class QueryAvailableInstancesResponseBodyData(TeaModel):
 
 class QueryAvailableInstancesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryAvailableInstancesResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -5245,7 +5733,7 @@ class QueryAvailableInstancesResponseBody(TeaModel):
 
 class QueryAvailableInstancesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAvailableInstancesResponseBody
 
     def validate(self):
@@ -5276,11 +5764,11 @@ class QueryBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, type=None, product_code=None, product_type=None, subscription_type=None,
                  is_hide_zero_charge=None, is_display_local_currency=None, owner_id=None, page_num=None, page_size=None,
                  bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.type = type  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
         self.is_display_local_currency = is_display_local_currency  # type: bool
         self.owner_id = owner_id  # type: long
@@ -5352,35 +5840,35 @@ class QueryBillResponseBodyDataItemsItem(TeaModel):
                  product_detail=None, product_name=None, product_type=None, record_id=None, round_down_discount=None, status=None,
                  sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None, usage_start_time=None):
         self.after_tax_amount = after_tax_amount  # type: float
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.commodity_code = commodity_code  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
+        self.item = item  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
+        self.owner_id = owner_id  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.payment_time = TeaConverter.to_unicode(payment_time)  # type: unicode
-        self.payment_transaction_id = TeaConverter.to_unicode(payment_transaction_id)  # type: unicode
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.payment_currency = payment_currency  # type: str
+        self.payment_time = payment_time  # type: str
+        self.payment_transaction_id = payment_transaction_id  # type: str
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_detail = TeaConverter.to_unicode(product_detail)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.round_down_discount = TeaConverter.to_unicode(round_down_discount)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.sub_order_id = TeaConverter.to_unicode(sub_order_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.record_id = record_id  # type: str
+        self.round_down_discount = round_down_discount  # type: str
+        self.status = status  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.tax = tax  # type: float
-        self.usage_end_time = TeaConverter.to_unicode(usage_end_time)  # type: unicode
-        self.usage_start_time = TeaConverter.to_unicode(usage_start_time)  # type: unicode
+        self.usage_end_time = usage_end_time  # type: str
+        self.usage_start_time = usage_start_time  # type: str
 
     def validate(self):
         pass
@@ -5545,9 +6033,9 @@ class QueryBillResponseBodyDataItems(TeaModel):
 class QueryBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, page_num=None,
                  page_size=None, total_count=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryBillResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -5597,10 +6085,10 @@ class QueryBillResponseBodyData(TeaModel):
 
 class QueryBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -5639,7 +6127,7 @@ class QueryBillResponseBody(TeaModel):
 
 class QueryBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryBillResponseBody
 
     def validate(self):
@@ -5669,10 +6157,10 @@ class QueryBillResponse(TeaModel):
 class QueryBillOverviewRequest(TeaModel):
     def __init__(self, billing_cycle=None, product_code=None, product_type=None, subscription_type=None,
                  bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.bill_owner_id = bill_owner_id  # type: long
 
     def validate(self):
@@ -5714,26 +6202,26 @@ class QueryBillOverviewResponseBodyDataItemsItem(TeaModel):
                  pretax_gross_amount=None, product_code=None, product_detail=None, product_name=None, product_type=None,
                  round_down_discount=None, subscription_type=None, tax=None):
         self.after_tax_amount = after_tax_amount  # type: float
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.commodity_code = commodity_code  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
+        self.item = item  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
         self.payment_amount = payment_amount  # type: float
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.payment_currency = payment_currency  # type: str
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_detail = TeaConverter.to_unicode(product_detail)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.round_down_discount = TeaConverter.to_unicode(round_down_discount)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.round_down_discount = round_down_discount  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.tax = tax  # type: float
 
     def validate(self):
@@ -5866,9 +6354,9 @@ class QueryBillOverviewResponseBodyDataItems(TeaModel):
 
 class QueryBillOverviewResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryBillOverviewResponseBodyDataItems
 
     def validate(self):
@@ -5903,10 +6391,10 @@ class QueryBillOverviewResponseBodyData(TeaModel):
 
 class QueryBillOverviewResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryBillOverviewResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -5945,7 +6433,7 @@ class QueryBillOverviewResponseBody(TeaModel):
 
 class QueryBillOverviewResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryBillOverviewResponseBody
 
     def validate(self):
@@ -5976,10 +6464,10 @@ class QueryBillToOSSSubscriptionResponseBodyDataItemsItem(TeaModel):
     def __init__(self, bucket_owner_id=None, subscribe_bucket=None, subscribe_language=None, subscribe_time=None,
                  subscribe_type=None):
         self.bucket_owner_id = bucket_owner_id  # type: long
-        self.subscribe_bucket = TeaConverter.to_unicode(subscribe_bucket)  # type: unicode
-        self.subscribe_language = TeaConverter.to_unicode(subscribe_language)  # type: unicode
-        self.subscribe_time = TeaConverter.to_unicode(subscribe_time)  # type: unicode
-        self.subscribe_type = TeaConverter.to_unicode(subscribe_type)  # type: unicode
+        self.subscribe_bucket = subscribe_bucket  # type: str
+        self.subscribe_language = subscribe_language  # type: str
+        self.subscribe_time = subscribe_time  # type: str
+        self.subscribe_type = subscribe_type  # type: str
 
     def validate(self):
         pass
@@ -6043,8 +6531,8 @@ class QueryBillToOSSSubscriptionResponseBodyDataItems(TeaModel):
 
 class QueryBillToOSSSubscriptionResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, items=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.items = items  # type: QueryBillToOSSSubscriptionResponseBodyDataItems
 
     def validate(self):
@@ -6075,10 +6563,10 @@ class QueryBillToOSSSubscriptionResponseBodyData(TeaModel):
 
 class QueryBillToOSSSubscriptionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryBillToOSSSubscriptionResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -6117,7 +6605,7 @@ class QueryBillToOSSSubscriptionResponseBody(TeaModel):
 
 class QueryBillToOSSSubscriptionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryBillToOSSSubscriptionResponseBody
 
     def validate(self):
@@ -6146,8 +6634,8 @@ class QueryBillToOSSSubscriptionResponse(TeaModel):
 
 class QueryCashCouponsRequest(TeaModel):
     def __init__(self, expiry_time_end=None, expiry_time_start=None, effective_or_not=None):
-        self.expiry_time_end = TeaConverter.to_unicode(expiry_time_end)  # type: unicode
-        self.expiry_time_start = TeaConverter.to_unicode(expiry_time_start)  # type: unicode
+        self.expiry_time_end = expiry_time_end  # type: str
+        self.expiry_time_start = expiry_time_start  # type: str
         self.effective_or_not = effective_or_not  # type: bool
 
     def validate(self):
@@ -6177,16 +6665,16 @@ class QueryCashCouponsRequest(TeaModel):
 class QueryCashCouponsResponseBodyDataCashCoupon(TeaModel):
     def __init__(self, applicable_products=None, applicable_scenarios=None, balance=None, cash_coupon_id=None,
                  cash_coupon_no=None, effective_time=None, expiry_time=None, granted_time=None, nominal_value=None, status=None):
-        self.applicable_products = TeaConverter.to_unicode(applicable_products)  # type: unicode
-        self.applicable_scenarios = TeaConverter.to_unicode(applicable_scenarios)  # type: unicode
-        self.balance = TeaConverter.to_unicode(balance)  # type: unicode
+        self.applicable_products = applicable_products  # type: str
+        self.applicable_scenarios = applicable_scenarios  # type: str
+        self.balance = balance  # type: str
         self.cash_coupon_id = cash_coupon_id  # type: long
-        self.cash_coupon_no = TeaConverter.to_unicode(cash_coupon_no)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
-        self.expiry_time = TeaConverter.to_unicode(expiry_time)  # type: unicode
-        self.granted_time = TeaConverter.to_unicode(granted_time)  # type: unicode
-        self.nominal_value = TeaConverter.to_unicode(nominal_value)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.cash_coupon_no = cash_coupon_no  # type: str
+        self.effective_time = effective_time  # type: str
+        self.expiry_time = expiry_time  # type: str
+        self.granted_time = granted_time  # type: str
+        self.nominal_value = nominal_value  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -6270,10 +6758,10 @@ class QueryCashCouponsResponseBodyData(TeaModel):
 
 class QueryCashCouponsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryCashCouponsResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -6312,7 +6800,7 @@ class QueryCashCouponsResponseBody(TeaModel):
 
 class QueryCashCouponsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryCashCouponsResponseBody
 
     def validate(self):
@@ -6379,7 +6867,7 @@ class QueryCostUnitResponseBodyDataCostUnitDtoList(TeaModel):
         self.owner_uid = owner_uid  # type: long
         self.parent_unit_id = parent_unit_id  # type: long
         self.unit_id = unit_id  # type: long
-        self.unit_name = TeaConverter.to_unicode(unit_name)  # type: unicode
+        self.unit_name = unit_name  # type: str
 
     def validate(self):
         pass
@@ -6454,10 +6942,10 @@ class QueryCostUnitResponseBodyData(TeaModel):
 
 class QueryCostUnitResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryCostUnitResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -6496,7 +6984,7 @@ class QueryCostUnitResponseBody(TeaModel):
 
 class QueryCostUnitResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryCostUnitResponseBody
 
     def validate(self):
@@ -6563,7 +7051,7 @@ class QueryCostUnitResourceResponseBodyDataCostUnit(TeaModel):
         self.owner_uid = owner_uid  # type: long
         self.parent_unit_id = parent_unit_id  # type: long
         self.unit_id = unit_id  # type: long
-        self.unit_name = TeaConverter.to_unicode(unit_name)  # type: unicode
+        self.unit_name = unit_name  # type: str
 
     def validate(self):
         pass
@@ -6648,19 +7136,19 @@ class QueryCostUnitResourceResponseBodyDataResourceInstanceDtoList(TeaModel):
     def __init__(self, apportion_code=None, apportion_name=None, commodity_code=None, commodity_name=None,
                  related_resources=None, resource_group=None, resource_id=None, resource_nick=None, resource_status=None,
                  resource_tag=None, resource_type=None, resource_user_id=None, resource_user_name=None):
-        self.apportion_code = TeaConverter.to_unicode(apportion_code)  # type: unicode
-        self.apportion_name = TeaConverter.to_unicode(apportion_name)  # type: unicode
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.commodity_name = TeaConverter.to_unicode(commodity_name)  # type: unicode
-        self.related_resources = TeaConverter.to_unicode(related_resources)  # type: unicode
-        self.resource_group = TeaConverter.to_unicode(resource_group)  # type: unicode
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
-        self.resource_nick = TeaConverter.to_unicode(resource_nick)  # type: unicode
-        self.resource_status = TeaConverter.to_unicode(resource_status)  # type: unicode
-        self.resource_tag = TeaConverter.to_unicode(resource_tag)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.apportion_code = apportion_code  # type: str
+        self.apportion_name = apportion_name  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.commodity_name = commodity_name  # type: str
+        self.related_resources = related_resources  # type: str
+        self.resource_group = resource_group  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_nick = resource_nick  # type: str
+        self.resource_status = resource_status  # type: str
+        self.resource_tag = resource_tag  # type: str
+        self.resource_type = resource_type  # type: str
         self.resource_user_id = resource_user_id  # type: long
-        self.resource_user_name = TeaConverter.to_unicode(resource_user_name)  # type: unicode
+        self.resource_user_name = resource_user_name  # type: str
 
     def validate(self):
         pass
@@ -6788,10 +7276,10 @@ class QueryCostUnitResourceResponseBodyData(TeaModel):
 
 class QueryCostUnitResourceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryCostUnitResourceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -6830,7 +7318,7 @@ class QueryCostUnitResourceResponseBody(TeaModel):
 
 class QueryCostUnitResourceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryCostUnitResourceResponseBody
 
     def validate(self):
@@ -6880,18 +7368,18 @@ class QueryCustomerAddressListRequest(TeaModel):
 class QueryCustomerAddressListResponseBodyDataCustomerInvoiceAddressListCustomerInvoiceAddress(TeaModel):
     def __init__(self, addressee=None, biz_type=None, city=None, county=None, delivery_address=None, id=None,
                  phone=None, postal_code=None, province=None, street=None, user_id=None, user_nick=None):
-        self.addressee = TeaConverter.to_unicode(addressee)  # type: unicode
-        self.biz_type = TeaConverter.to_unicode(biz_type)  # type: unicode
-        self.city = TeaConverter.to_unicode(city)  # type: unicode
-        self.county = TeaConverter.to_unicode(county)  # type: unicode
-        self.delivery_address = TeaConverter.to_unicode(delivery_address)  # type: unicode
+        self.addressee = addressee  # type: str
+        self.biz_type = biz_type  # type: str
+        self.city = city  # type: str
+        self.county = county  # type: str
+        self.delivery_address = delivery_address  # type: str
         self.id = id  # type: long
-        self.phone = TeaConverter.to_unicode(phone)  # type: unicode
-        self.postal_code = TeaConverter.to_unicode(postal_code)  # type: unicode
-        self.province = TeaConverter.to_unicode(province)  # type: unicode
-        self.street = TeaConverter.to_unicode(street)  # type: unicode
+        self.phone = phone  # type: str
+        self.postal_code = postal_code  # type: str
+        self.province = province  # type: str
+        self.street = street  # type: str
         self.user_id = user_id  # type: long
-        self.user_nick = TeaConverter.to_unicode(user_nick)  # type: unicode
+        self.user_nick = user_nick  # type: str
 
     def validate(self):
         pass
@@ -7005,10 +7493,10 @@ class QueryCustomerAddressListResponseBodyData(TeaModel):
 
 class QueryCustomerAddressListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryCustomerAddressListResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -7047,7 +7535,7 @@ class QueryCustomerAddressListResponseBody(TeaModel):
 
 class QueryCustomerAddressListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryCustomerAddressListResponseBody
 
     def validate(self):
@@ -7079,19 +7567,19 @@ class QueryEvaluateListRequest(TeaModel):
                  end_amount=None, start_biz_time=None, end_biz_time=None, sort_type=None, start_search_time=None,
                  end_search_time=None, bill_cycle=None, biz_type_list=None):
         self.type = type  # type: int
-        self.out_biz_id = TeaConverter.to_unicode(out_biz_id)  # type: unicode
+        self.out_biz_id = out_biz_id  # type: str
         self.owner_id = owner_id  # type: long
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.start_amount = start_amount  # type: long
         self.end_amount = end_amount  # type: long
-        self.start_biz_time = TeaConverter.to_unicode(start_biz_time)  # type: unicode
-        self.end_biz_time = TeaConverter.to_unicode(end_biz_time)  # type: unicode
+        self.start_biz_time = start_biz_time  # type: str
+        self.end_biz_time = end_biz_time  # type: str
         self.sort_type = sort_type  # type: int
-        self.start_search_time = TeaConverter.to_unicode(start_search_time)  # type: unicode
-        self.end_search_time = TeaConverter.to_unicode(end_search_time)  # type: unicode
-        self.bill_cycle = TeaConverter.to_unicode(bill_cycle)  # type: unicode
-        self.biz_type_list = biz_type_list  # type: list[unicode]
+        self.start_search_time = start_search_time  # type: str
+        self.end_search_time = end_search_time  # type: str
+        self.bill_cycle = bill_cycle  # type: str
+        self.biz_type_list = biz_type_list  # type: list[str]
 
     def validate(self):
         pass
@@ -7166,27 +7654,27 @@ class QueryEvaluateListResponseBodyDataEvaluateListEvaluate(TeaModel):
                  gmt_create=None, gmt_modified=None, id=None, invoiced_amount=None, item_id=None, name=None,
                  offset_accept_amount=None, offset_cost_amount=None, op_id=None, original_amount=None, out_biz_id=None,
                  present_amount=None, status=None, type=None, user_id=None, user_nick=None):
-        self.bill_cycle = TeaConverter.to_unicode(bill_cycle)  # type: unicode
+        self.bill_cycle = bill_cycle  # type: str
         self.bill_id = bill_id  # type: long
-        self.biz_time = TeaConverter.to_unicode(biz_time)  # type: unicode
-        self.biz_type = TeaConverter.to_unicode(biz_type)  # type: unicode
+        self.biz_time = biz_time  # type: str
+        self.biz_type = biz_type  # type: str
         self.can_invoice_amount = can_invoice_amount  # type: long
-        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
-        self.gmt_modified = TeaConverter.to_unicode(gmt_modified)  # type: unicode
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_modified = gmt_modified  # type: str
         self.id = id  # type: long
         self.invoiced_amount = invoiced_amount  # type: long
         self.item_id = item_id  # type: long
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         self.offset_accept_amount = offset_accept_amount  # type: long
         self.offset_cost_amount = offset_cost_amount  # type: long
-        self.op_id = TeaConverter.to_unicode(op_id)  # type: unicode
+        self.op_id = op_id  # type: str
         self.original_amount = original_amount  # type: long
-        self.out_biz_id = TeaConverter.to_unicode(out_biz_id)  # type: unicode
+        self.out_biz_id = out_biz_id  # type: str
         self.present_amount = present_amount  # type: long
         self.status = status  # type: int
         self.type = type  # type: int
         self.user_id = user_id  # type: long
-        self.user_nick = TeaConverter.to_unicode(user_nick)  # type: unicode
+        self.user_nick = user_nick  # type: str
 
     def validate(self):
         pass
@@ -7316,7 +7804,7 @@ class QueryEvaluateListResponseBodyData(TeaModel):
     def __init__(self, evaluate_list=None, host_id=None, page_num=None, page_size=None, total_count=None,
                  total_invoice_amount=None, total_un_applied_invoice_amount=None):
         self.evaluate_list = evaluate_list  # type: QueryEvaluateListResponseBodyDataEvaluateList
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
+        self.host_id = host_id  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.total_count = total_count  # type: int
@@ -7367,10 +7855,10 @@ class QueryEvaluateListResponseBodyData(TeaModel):
 
 class QueryEvaluateListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryEvaluateListResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -7409,7 +7897,7 @@ class QueryEvaluateListResponseBody(TeaModel):
 
 class QueryEvaluateListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryEvaluateListResponseBody
 
     def validate(self):
@@ -7459,11 +7947,11 @@ class QueryFinancialAccountInfoRequest(TeaModel):
 class QueryFinancialAccountInfoResponseBodyData(TeaModel):
     def __init__(self, member_nick_name=None, is_financial_account=None, member_group_name=None, user_name=None,
                  account_type=None, member_group_id=None):
-        self.member_nick_name = TeaConverter.to_unicode(member_nick_name)  # type: unicode
+        self.member_nick_name = member_nick_name  # type: str
         self.is_financial_account = is_financial_account  # type: bool
-        self.member_group_name = TeaConverter.to_unicode(member_group_name)  # type: unicode
-        self.user_name = TeaConverter.to_unicode(user_name)  # type: unicode
-        self.account_type = TeaConverter.to_unicode(account_type)  # type: unicode
+        self.member_group_name = member_group_name  # type: str
+        self.user_name = user_name  # type: str
+        self.account_type = account_type  # type: str
         self.member_group_id = member_group_id  # type: long
 
     def validate(self):
@@ -7504,10 +7992,10 @@ class QueryFinancialAccountInfoResponseBodyData(TeaModel):
 
 class QueryFinancialAccountInfoResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: QueryFinancialAccountInfoResponseBodyData
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -7546,7 +8034,7 @@ class QueryFinancialAccountInfoResponseBody(TeaModel):
 
 class QueryFinancialAccountInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryFinancialAccountInfoResponseBody
 
     def validate(self):
@@ -7577,17 +8065,17 @@ class QueryInstanceBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, product_code=None, product_type=None, subscription_type=None,
                  owner_id=None, is_billing_item=None, page_num=None, page_size=None, is_hide_zero_charge=None,
                  billing_date=None, granularity=None, bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.owner_id = owner_id  # type: long
         self.is_billing_item = is_billing_item  # type: bool
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
-        self.billing_date = TeaConverter.to_unicode(billing_date)  # type: unicode
-        self.granularity = TeaConverter.to_unicode(granularity)  # type: unicode
+        self.billing_date = billing_date  # type: str
+        self.granularity = granularity  # type: str
         self.bill_owner_id = bill_owner_id  # type: long
 
     def validate(self):
@@ -7659,45 +8147,45 @@ class QueryInstanceBillResponseBodyDataItemsItem(TeaModel):
                  pretax_gross_amount=None, product_code=None, product_detail=None, product_name=None, product_type=None, region=None,
                  resource_group=None, service_period=None, service_period_unit=None, subscription_type=None, tag=None, usage=None,
                  usage_unit=None, zone=None):
-        self.billing_date = TeaConverter.to_unicode(billing_date)  # type: unicode
-        self.billing_item = TeaConverter.to_unicode(billing_item)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.cost_unit = TeaConverter.to_unicode(cost_unit)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.billing_date = billing_date  # type: str
+        self.billing_item = billing_item  # type: str
+        self.billing_type = billing_type  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.cost_unit = cost_unit  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
-        self.deducted_by_resource_package = TeaConverter.to_unicode(deducted_by_resource_package)  # type: unicode
-        self.instance_config = TeaConverter.to_unicode(instance_config)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_spec = TeaConverter.to_unicode(instance_spec)  # type: unicode
-        self.internet_ip = TeaConverter.to_unicode(internet_ip)  # type: unicode
-        self.intranet_ip = TeaConverter.to_unicode(intranet_ip)  # type: unicode
+        self.deducted_by_resource_package = deducted_by_resource_package  # type: str
+        self.instance_config = instance_config  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
-        self.list_price = TeaConverter.to_unicode(list_price)  # type: unicode
-        self.list_price_unit = TeaConverter.to_unicode(list_price_unit)  # type: unicode
-        self.nick_name = TeaConverter.to_unicode(nick_name)  # type: unicode
+        self.item = item  # type: str
+        self.list_price = list_price  # type: str
+        self.list_price_unit = list_price_unit  # type: str
+        self.nick_name = nick_name  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
+        self.owner_id = owner_id  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_detail = TeaConverter.to_unicode(product_detail)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.resource_group = TeaConverter.to_unicode(resource_group)  # type: unicode
-        self.service_period = TeaConverter.to_unicode(service_period)  # type: unicode
-        self.service_period_unit = TeaConverter.to_unicode(service_period_unit)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
-        self.usage = TeaConverter.to_unicode(usage)  # type: unicode
-        self.usage_unit = TeaConverter.to_unicode(usage_unit)  # type: unicode
-        self.zone = TeaConverter.to_unicode(zone)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.resource_group = resource_group  # type: str
+        self.service_period = service_period  # type: str
+        self.service_period_unit = service_period_unit  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
+        self.usage = usage  # type: str
+        self.usage_unit = usage_unit  # type: str
+        self.zone = zone  # type: str
 
     def validate(self):
         pass
@@ -7898,9 +8386,9 @@ class QueryInstanceBillResponseBodyDataItems(TeaModel):
 class QueryInstanceBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, page_num=None,
                  page_size=None, total_count=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryInstanceBillResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -7950,10 +8438,10 @@ class QueryInstanceBillResponseBodyData(TeaModel):
 
 class QueryInstanceBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryInstanceBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -7992,7 +8480,7 @@ class QueryInstanceBillResponseBody(TeaModel):
 
 class QueryInstanceBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryInstanceBillResponseBody
 
     def validate(self):
@@ -8019,15 +8507,223 @@ class QueryInstanceBillResponse(TeaModel):
         return self
 
 
+class QueryInstanceByTagRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class QueryInstanceByTagRequest(TeaModel):
+    def __init__(self, resource_type=None, resource_id=None, tag=None):
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.tag = tag  # type: list[QueryInstanceByTagRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = QueryInstanceByTagRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class QueryInstanceByTagResponseBodyTagResourceTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class QueryInstanceByTagResponseBodyTagResource(TeaModel):
+    def __init__(self, resource_type=None, tag=None, resource_id=None):
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[QueryInstanceByTagResponseBodyTagResourceTag]
+        self.resource_id = resource_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = QueryInstanceByTagResponseBodyTagResourceTag()
+                self.tag.append(temp_model.from_map(k))
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        return self
+
+
+class QueryInstanceByTagResponseBody(TeaModel):
+    def __init__(self, message=None, next_token=None, request_id=None, tag_resource=None, code=None, success=None):
+        self.message = message  # type: str
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.tag_resource = tag_resource  # type: list[QueryInstanceByTagResponseBodyTagResource]
+        self.code = code  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.tag_resource:
+            for k in self.tag_resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['TagResource'] = []
+        if self.tag_resource is not None:
+            for k in self.tag_resource:
+                result['TagResource'].append(k.to_map() if k else None)
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.tag_resource = []
+        if m.get('TagResource') is not None:
+            for k in m.get('TagResource'):
+                temp_model = QueryInstanceByTagResponseBodyTagResource()
+                self.tag_resource.append(temp_model.from_map(k))
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryInstanceByTagResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryInstanceByTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryInstanceByTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryInstanceGaapCostRequest(TeaModel):
     def __init__(self, page_num=None, page_size=None, billing_cycle=None, product_code=None, product_type=None,
                  subscription_type=None):
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
 
     def validate(self):
         pass
@@ -8080,58 +8776,58 @@ class QueryInstanceGaapCostResponseBodyDataModulesModule(TeaModel):
                  unallocated_deducted_by_cash_coupons=None, unallocated_deducted_by_coupons=None, unallocated_deducted_by_prepaid_card=None,
                  unallocated_payment_amount=None, unallocated_pretax_amount=None, unallocated_pretax_amount_local=None,
                  unallocated_pretax_gross_amount=None, unallocated_pricing_discount=None, usage_end_date=None, usage_start_date=None):
-        self.accounting_unit = TeaConverter.to_unicode(accounting_unit)  # type: unicode
-        self.bill_type = TeaConverter.to_unicode(bill_type)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.deducted_by_cash_coupons = TeaConverter.to_unicode(deducted_by_cash_coupons)  # type: unicode
-        self.deducted_by_coupons = TeaConverter.to_unicode(deducted_by_coupons)  # type: unicode
-        self.deducted_by_prepaid_card = TeaConverter.to_unicode(deducted_by_prepaid_card)  # type: unicode
-        self.gaap_deducted_by_cash_coupons = TeaConverter.to_unicode(gaap_deducted_by_cash_coupons)  # type: unicode
-        self.gaap_deducted_by_coupons = TeaConverter.to_unicode(gaap_deducted_by_coupons)  # type: unicode
-        self.gaap_deducted_by_prepaid_card = TeaConverter.to_unicode(gaap_deducted_by_prepaid_card)  # type: unicode
-        self.gaap_payment_amount = TeaConverter.to_unicode(gaap_payment_amount)  # type: unicode
-        self.gaap_pretax_amount = TeaConverter.to_unicode(gaap_pretax_amount)  # type: unicode
-        self.gaap_pretax_amount_local = TeaConverter.to_unicode(gaap_pretax_amount_local)  # type: unicode
-        self.gaap_pretax_gross_amount = TeaConverter.to_unicode(gaap_pretax_gross_amount)  # type: unicode
-        self.gaap_pricing_discount = TeaConverter.to_unicode(gaap_pricing_discount)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.month_gaap_deducted_by_cash_coupons = TeaConverter.to_unicode(month_gaap_deducted_by_cash_coupons)  # type: unicode
-        self.month_gaap_deducted_by_coupons = TeaConverter.to_unicode(month_gaap_deducted_by_coupons)  # type: unicode
-        self.month_gaap_deducted_by_prepaid_card = TeaConverter.to_unicode(month_gaap_deducted_by_prepaid_card)  # type: unicode
-        self.month_gaap_payment_amount = TeaConverter.to_unicode(month_gaap_payment_amount)  # type: unicode
-        self.month_gaap_pretax_amount = TeaConverter.to_unicode(month_gaap_pretax_amount)  # type: unicode
-        self.month_gaap_pretax_amount_local = TeaConverter.to_unicode(month_gaap_pretax_amount_local)  # type: unicode
-        self.month_gaap_pretax_gross_amount = TeaConverter.to_unicode(month_gaap_pretax_gross_amount)  # type: unicode
-        self.month_gaap_pricing_discount = TeaConverter.to_unicode(month_gaap_pricing_discount)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
-        self.pay_time = TeaConverter.to_unicode(pay_time)  # type: unicode
-        self.payer_account = TeaConverter.to_unicode(payer_account)  # type: unicode
-        self.payment_amount = TeaConverter.to_unicode(payment_amount)  # type: unicode
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.pretax_amount = TeaConverter.to_unicode(pretax_amount)  # type: unicode
-        self.pretax_amount_local = TeaConverter.to_unicode(pretax_amount_local)  # type: unicode
-        self.pretax_gross_amount = TeaConverter.to_unicode(pretax_gross_amount)  # type: unicode
-        self.pricing_discount = TeaConverter.to_unicode(pricing_discount)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.resource_group = TeaConverter.to_unicode(resource_group)  # type: unicode
-        self.sub_order_id = TeaConverter.to_unicode(sub_order_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
-        self.unallocated_deducted_by_cash_coupons = TeaConverter.to_unicode(unallocated_deducted_by_cash_coupons)  # type: unicode
-        self.unallocated_deducted_by_coupons = TeaConverter.to_unicode(unallocated_deducted_by_coupons)  # type: unicode
-        self.unallocated_deducted_by_prepaid_card = TeaConverter.to_unicode(unallocated_deducted_by_prepaid_card)  # type: unicode
-        self.unallocated_payment_amount = TeaConverter.to_unicode(unallocated_payment_amount)  # type: unicode
-        self.unallocated_pretax_amount = TeaConverter.to_unicode(unallocated_pretax_amount)  # type: unicode
-        self.unallocated_pretax_amount_local = TeaConverter.to_unicode(unallocated_pretax_amount_local)  # type: unicode
-        self.unallocated_pretax_gross_amount = TeaConverter.to_unicode(unallocated_pretax_gross_amount)  # type: unicode
-        self.unallocated_pricing_discount = TeaConverter.to_unicode(unallocated_pricing_discount)  # type: unicode
-        self.usage_end_date = TeaConverter.to_unicode(usage_end_date)  # type: unicode
-        self.usage_start_date = TeaConverter.to_unicode(usage_start_date)  # type: unicode
+        self.accounting_unit = accounting_unit  # type: str
+        self.bill_type = bill_type  # type: str
+        self.billing_cycle = billing_cycle  # type: str
+        self.currency = currency  # type: str
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: str
+        self.deducted_by_coupons = deducted_by_coupons  # type: str
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: str
+        self.gaap_deducted_by_cash_coupons = gaap_deducted_by_cash_coupons  # type: str
+        self.gaap_deducted_by_coupons = gaap_deducted_by_coupons  # type: str
+        self.gaap_deducted_by_prepaid_card = gaap_deducted_by_prepaid_card  # type: str
+        self.gaap_payment_amount = gaap_payment_amount  # type: str
+        self.gaap_pretax_amount = gaap_pretax_amount  # type: str
+        self.gaap_pretax_amount_local = gaap_pretax_amount_local  # type: str
+        self.gaap_pretax_gross_amount = gaap_pretax_gross_amount  # type: str
+        self.gaap_pricing_discount = gaap_pricing_discount  # type: str
+        self.instance_id = instance_id  # type: str
+        self.month_gaap_deducted_by_cash_coupons = month_gaap_deducted_by_cash_coupons  # type: str
+        self.month_gaap_deducted_by_coupons = month_gaap_deducted_by_coupons  # type: str
+        self.month_gaap_deducted_by_prepaid_card = month_gaap_deducted_by_prepaid_card  # type: str
+        self.month_gaap_payment_amount = month_gaap_payment_amount  # type: str
+        self.month_gaap_pretax_amount = month_gaap_pretax_amount  # type: str
+        self.month_gaap_pretax_amount_local = month_gaap_pretax_amount_local  # type: str
+        self.month_gaap_pretax_gross_amount = month_gaap_pretax_gross_amount  # type: str
+        self.month_gaap_pricing_discount = month_gaap_pricing_discount  # type: str
+        self.order_id = order_id  # type: str
+        self.order_type = order_type  # type: str
+        self.owner_id = owner_id  # type: str
+        self.pay_time = pay_time  # type: str
+        self.payer_account = payer_account  # type: str
+        self.payment_amount = payment_amount  # type: str
+        self.payment_currency = payment_currency  # type: str
+        self.pretax_amount = pretax_amount  # type: str
+        self.pretax_amount_local = pretax_amount_local  # type: str
+        self.pretax_gross_amount = pretax_gross_amount  # type: str
+        self.pricing_discount = pricing_discount  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.resource_group = resource_group  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
+        self.unallocated_deducted_by_cash_coupons = unallocated_deducted_by_cash_coupons  # type: str
+        self.unallocated_deducted_by_coupons = unallocated_deducted_by_coupons  # type: str
+        self.unallocated_deducted_by_prepaid_card = unallocated_deducted_by_prepaid_card  # type: str
+        self.unallocated_payment_amount = unallocated_payment_amount  # type: str
+        self.unallocated_pretax_amount = unallocated_pretax_amount  # type: str
+        self.unallocated_pretax_amount_local = unallocated_pretax_amount_local  # type: str
+        self.unallocated_pretax_gross_amount = unallocated_pretax_gross_amount  # type: str
+        self.unallocated_pricing_discount = unallocated_pricing_discount  # type: str
+        self.usage_end_date = usage_end_date  # type: str
+        self.usage_start_date = usage_start_date  # type: str
 
     def validate(self):
         pass
@@ -8383,7 +9079,7 @@ class QueryInstanceGaapCostResponseBodyDataModules(TeaModel):
 
 class QueryInstanceGaapCostResponseBodyData(TeaModel):
     def __init__(self, host_id=None, modules=None, page_num=None, page_size=None, total_count=None):
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
+        self.host_id = host_id  # type: str
         self.modules = modules  # type: QueryInstanceGaapCostResponseBodyDataModules
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -8425,10 +9121,10 @@ class QueryInstanceGaapCostResponseBodyData(TeaModel):
 
 class QueryInstanceGaapCostResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryInstanceGaapCostResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -8467,7 +9163,7 @@ class QueryInstanceGaapCostResponseBody(TeaModel):
 
 class QueryInstanceGaapCostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryInstanceGaapCostResponseBody
 
     def validate(self):
@@ -8520,26 +9216,26 @@ class QueryInvoicingCustomerListResponseBodyDataCustomerInvoiceListCustomerInvoi
                  operating_license_address=None, operating_license_phone=None, register_no=None, start_cycle=None, status=None,
                  taxation_license=None, taxpayer_type=None, title_change_instructions=None, type=None, user_id=None, user_nick=None):
         self.adjust_type = adjust_type  # type: long
-        self.bank = TeaConverter.to_unicode(bank)  # type: unicode
-        self.bank_no = TeaConverter.to_unicode(bank_no)  # type: unicode
+        self.bank = bank  # type: str
+        self.bank_no = bank_no  # type: str
         self.customer_type = customer_type  # type: long
-        self.default_remark = TeaConverter.to_unicode(default_remark)  # type: unicode
+        self.default_remark = default_remark  # type: str
         self.end_cycle = end_cycle  # type: long
-        self.gmt_create = TeaConverter.to_unicode(gmt_create)  # type: unicode
+        self.gmt_create = gmt_create  # type: str
         self.id = id  # type: long
-        self.invoice_title = TeaConverter.to_unicode(invoice_title)  # type: unicode
+        self.invoice_title = invoice_title  # type: str
         self.issue_type = issue_type  # type: long
-        self.operating_license_address = TeaConverter.to_unicode(operating_license_address)  # type: unicode
-        self.operating_license_phone = TeaConverter.to_unicode(operating_license_phone)  # type: unicode
-        self.register_no = TeaConverter.to_unicode(register_no)  # type: unicode
+        self.operating_license_address = operating_license_address  # type: str
+        self.operating_license_phone = operating_license_phone  # type: str
+        self.register_no = register_no  # type: str
         self.start_cycle = start_cycle  # type: long
         self.status = status  # type: long
-        self.taxation_license = TeaConverter.to_unicode(taxation_license)  # type: unicode
+        self.taxation_license = taxation_license  # type: str
         self.taxpayer_type = taxpayer_type  # type: long
-        self.title_change_instructions = TeaConverter.to_unicode(title_change_instructions)  # type: unicode
+        self.title_change_instructions = title_change_instructions  # type: str
         self.type = type  # type: long
         self.user_id = user_id  # type: long
-        self.user_nick = TeaConverter.to_unicode(user_nick)  # type: unicode
+        self.user_nick = user_nick  # type: str
 
     def validate(self):
         pass
@@ -8689,10 +9385,10 @@ class QueryInvoicingCustomerListResponseBodyData(TeaModel):
 
 class QueryInvoicingCustomerListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryInvoicingCustomerListResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -8731,7 +9427,7 @@ class QueryInvoicingCustomerListResponseBody(TeaModel):
 
 class QueryInvoicingCustomerListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryInvoicingCustomerListResponseBody
 
     def validate(self):
@@ -8760,7 +9456,7 @@ class QueryInvoicingCustomerListResponse(TeaModel):
 
 class QueryMonthlyBillRequest(TeaModel):
     def __init__(self, billing_cycle=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
 
     def validate(self):
         pass
@@ -8785,23 +9481,23 @@ class QueryMonthlyBillResponseBodyDataItemsItem(TeaModel):
                  pretax_gross_amount=None, product_code=None, product_type=None, solution_code=None, solution_name=None,
                  subscription_type=None, tax=None):
         self.after_tax_amount = after_tax_amount  # type: float
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
+        self.item = item  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
         self.payment_amount = payment_amount  # type: float
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
+        self.payment_currency = payment_currency  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.solution_code = TeaConverter.to_unicode(solution_code)  # type: unicode
-        self.solution_name = TeaConverter.to_unicode(solution_name)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.solution_code = solution_code  # type: str
+        self.solution_name = solution_name  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.tax = tax  # type: float
 
     def validate(self):
@@ -8923,7 +9619,7 @@ class QueryMonthlyBillResponseBodyDataItems(TeaModel):
 class QueryMonthlyBillResponseBodyData(TeaModel):
     def __init__(self, billing_cycle=None, items=None, new_invoice_amount=None, outstanding_amount=None,
                  total_outstanding_amount=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryMonthlyBillResponseBodyDataItems
         self.new_invoice_amount = new_invoice_amount  # type: float
         self.outstanding_amount = outstanding_amount  # type: float
@@ -8965,10 +9661,10 @@ class QueryMonthlyBillResponseBodyData(TeaModel):
 
 class QueryMonthlyBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryMonthlyBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9007,7 +9703,7 @@ class QueryMonthlyBillResponseBody(TeaModel):
 
 class QueryMonthlyBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryMonthlyBillResponseBody
 
     def validate(self):
@@ -9037,13 +9733,13 @@ class QueryMonthlyBillResponse(TeaModel):
 class QueryMonthlyInstanceConsumptionRequest(TeaModel):
     def __init__(self, product_code=None, owner_id=None, page_num=None, page_size=None, billing_cycle=None,
                  product_type=None, subscription_type=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
+        self.product_code = product_code  # type: str
         self.owner_id = owner_id  # type: long
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
 
     def validate(self):
         pass
@@ -9091,21 +9787,21 @@ class QueryMonthlyInstanceConsumptionResponseBodyDataItemsItem(TeaModel):
                  pretax_gross_amount=None, product_code=None, product_type=None, region=None, resource_group=None,
                  subscription_type=None, tag=None, tax=None):
         self.after_tax_amount = after_tax_amount  # type: float
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.currency = currency  # type: str
         self.discount_amount = discount_amount  # type: float
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
-        self.payer_account = TeaConverter.to_unicode(payer_account)  # type: unicode
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.owner_id = owner_id  # type: str
+        self.payer_account = payer_account  # type: str
+        self.payment_currency = payment_currency  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.resource_group = TeaConverter.to_unicode(resource_group)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.resource_group = resource_group  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
         self.tax = tax  # type: float
 
     def validate(self):
@@ -9218,7 +9914,7 @@ class QueryMonthlyInstanceConsumptionResponseBodyDataItems(TeaModel):
 
 class QueryMonthlyInstanceConsumptionResponseBodyData(TeaModel):
     def __init__(self, billing_cycle=None, items=None, page_num=None, page_size=None, total_count=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QueryMonthlyInstanceConsumptionResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -9260,10 +9956,10 @@ class QueryMonthlyInstanceConsumptionResponseBodyData(TeaModel):
 
 class QueryMonthlyInstanceConsumptionResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryMonthlyInstanceConsumptionResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9302,7 +9998,7 @@ class QueryMonthlyInstanceConsumptionResponseBody(TeaModel):
 
 class QueryMonthlyInstanceConsumptionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryMonthlyInstanceConsumptionResponseBody
 
     def validate(self):
@@ -9332,15 +10028,15 @@ class QueryMonthlyInstanceConsumptionResponse(TeaModel):
 class QueryOrdersRequest(TeaModel):
     def __init__(self, create_time_end=None, page_num=None, page_size=None, product_code=None, product_type=None,
                  subscription_type=None, order_type=None, payment_status=None, create_time_start=None, owner_id=None):
-        self.create_time_end = TeaConverter.to_unicode(create_time_end)  # type: unicode
+        self.create_time_end = create_time_end  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.payment_status = TeaConverter.to_unicode(payment_status)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.order_type = order_type  # type: str
+        self.payment_status = payment_status  # type: str
+        self.create_time_start = create_time_start  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
@@ -9400,22 +10096,22 @@ class QueryOrdersResponseBodyDataOrderListOrder(TeaModel):
                  payment_currency=None, payment_status=None, payment_time=None, pretax_amount=None, pretax_amount_local=None,
                  pretax_gross_amount=None, product_code=None, product_type=None, related_order_id=None, subscription_type=None,
                  tax=None):
-        self.after_tax_amount = TeaConverter.to_unicode(after_tax_amount)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.payment_status = TeaConverter.to_unicode(payment_status)  # type: unicode
-        self.payment_time = TeaConverter.to_unicode(payment_time)  # type: unicode
-        self.pretax_amount = TeaConverter.to_unicode(pretax_amount)  # type: unicode
-        self.pretax_amount_local = TeaConverter.to_unicode(pretax_amount_local)  # type: unicode
-        self.pretax_gross_amount = TeaConverter.to_unicode(pretax_gross_amount)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.related_order_id = TeaConverter.to_unicode(related_order_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tax = TeaConverter.to_unicode(tax)  # type: unicode
+        self.after_tax_amount = after_tax_amount  # type: str
+        self.create_time = create_time  # type: str
+        self.currency = currency  # type: str
+        self.order_id = order_id  # type: str
+        self.order_type = order_type  # type: str
+        self.payment_currency = payment_currency  # type: str
+        self.payment_status = payment_status  # type: str
+        self.payment_time = payment_time  # type: str
+        self.pretax_amount = pretax_amount  # type: str
+        self.pretax_amount_local = pretax_amount_local  # type: str
+        self.pretax_gross_amount = pretax_gross_amount  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.related_order_id = related_order_id  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tax = tax  # type: str
 
     def validate(self):
         pass
@@ -9523,7 +10219,7 @@ class QueryOrdersResponseBodyDataOrderList(TeaModel):
 
 class QueryOrdersResponseBodyData(TeaModel):
     def __init__(self, host_name=None, order_list=None, page_num=None, page_size=None, total_count=None):
-        self.host_name = TeaConverter.to_unicode(host_name)  # type: unicode
+        self.host_name = host_name  # type: str
         self.order_list = order_list  # type: QueryOrdersResponseBodyDataOrderList
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -9565,10 +10261,10 @@ class QueryOrdersResponseBodyData(TeaModel):
 
 class QueryOrdersResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryOrdersResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9607,7 +10303,7 @@ class QueryOrdersResponseBody(TeaModel):
 
 class QueryOrdersResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryOrdersResponseBody
 
     def validate(self):
@@ -9656,10 +10352,10 @@ class QueryPermissionListRequest(TeaModel):
 
 class QueryPermissionListResponseBodyDataPermissionList(TeaModel):
     def __init__(self, end_time=None, start_time=None, permission_code=None, permission_name=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.permission_code = TeaConverter.to_unicode(permission_code)  # type: unicode
-        self.permission_name = TeaConverter.to_unicode(permission_name)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+        self.permission_code = permission_code  # type: str
+        self.permission_name = permission_name  # type: str
 
     def validate(self):
         pass
@@ -9692,14 +10388,14 @@ class QueryPermissionListResponseBodyDataPermissionList(TeaModel):
 class QueryPermissionListResponseBodyData(TeaModel):
     def __init__(self, end_time=None, relation_type=None, start_time=None, permission_list=None, state=None,
                  master_id=None, member_id=None, setup_time=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.relation_type = TeaConverter.to_unicode(relation_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.relation_type = relation_type  # type: str
+        self.start_time = start_time  # type: str
         self.permission_list = permission_list  # type: list[QueryPermissionListResponseBodyDataPermissionList]
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         self.master_id = master_id  # type: long
         self.member_id = member_id  # type: long
-        self.setup_time = TeaConverter.to_unicode(setup_time)  # type: unicode
+        self.setup_time = setup_time  # type: str
 
     def validate(self):
         if self.permission_list:
@@ -9755,10 +10451,10 @@ class QueryPermissionListResponseBodyData(TeaModel):
 
 class QueryPermissionListResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: QueryPermissionListResponseBodyData
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9797,7 +10493,7 @@ class QueryPermissionListResponseBody(TeaModel):
 
 class QueryPermissionListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryPermissionListResponseBody
 
     def validate(self):
@@ -9826,8 +10522,8 @@ class QueryPermissionListResponse(TeaModel):
 
 class QueryPrepaidCardsRequest(TeaModel):
     def __init__(self, expiry_time_end=None, expiry_time_start=None, effective_or_not=None):
-        self.expiry_time_end = TeaConverter.to_unicode(expiry_time_end)  # type: unicode
-        self.expiry_time_start = TeaConverter.to_unicode(expiry_time_start)  # type: unicode
+        self.expiry_time_end = expiry_time_end  # type: str
+        self.expiry_time_start = expiry_time_start  # type: str
         self.effective_or_not = effective_or_not  # type: bool
 
     def validate(self):
@@ -9858,16 +10554,16 @@ class QueryPrepaidCardsResponseBodyDataPrepaidCard(TeaModel):
     def __init__(self, applicable_products=None, applicable_scenarios=None, balance=None, effective_time=None,
                  expiry_time=None, granted_time=None, nominal_value=None, prepaid_card_id=None, prepaid_card_no=None,
                  status=None):
-        self.applicable_products = TeaConverter.to_unicode(applicable_products)  # type: unicode
-        self.applicable_scenarios = TeaConverter.to_unicode(applicable_scenarios)  # type: unicode
-        self.balance = TeaConverter.to_unicode(balance)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
-        self.expiry_time = TeaConverter.to_unicode(expiry_time)  # type: unicode
-        self.granted_time = TeaConverter.to_unicode(granted_time)  # type: unicode
-        self.nominal_value = TeaConverter.to_unicode(nominal_value)  # type: unicode
+        self.applicable_products = applicable_products  # type: str
+        self.applicable_scenarios = applicable_scenarios  # type: str
+        self.balance = balance  # type: str
+        self.effective_time = effective_time  # type: str
+        self.expiry_time = expiry_time  # type: str
+        self.granted_time = granted_time  # type: str
+        self.nominal_value = nominal_value  # type: str
         self.prepaid_card_id = prepaid_card_id  # type: long
-        self.prepaid_card_no = TeaConverter.to_unicode(prepaid_card_no)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.prepaid_card_no = prepaid_card_no  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -9951,10 +10647,10 @@ class QueryPrepaidCardsResponseBodyData(TeaModel):
 
 class QueryPrepaidCardsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryPrepaidCardsResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -9993,7 +10689,7 @@ class QueryPrepaidCardsResponseBody(TeaModel):
 
 class QueryPrepaidCardsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryPrepaidCardsResponseBody
 
     def validate(self):
@@ -10052,10 +10748,10 @@ class QueryProductListRequest(TeaModel):
 
 class QueryProductListResponseBodyDataProductListProduct(TeaModel):
     def __init__(self, product_code=None, product_name=None, product_type=None, subscription_type=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
 
     def validate(self):
         pass
@@ -10152,10 +10848,10 @@ class QueryProductListResponseBodyData(TeaModel):
 
 class QueryProductListResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryProductListResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -10194,7 +10890,7 @@ class QueryProductListResponseBody(TeaModel):
 
 class QueryProductListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryProductListResponseBody
 
     def validate(self):
@@ -10224,8 +10920,8 @@ class QueryProductListResponse(TeaModel):
 class QueryRedeemRequest(TeaModel):
     def __init__(self, expiry_time_start=None, expiry_time_end=None, effective_or_not=None, page_num=None,
                  page_size=None):
-        self.expiry_time_start = TeaConverter.to_unicode(expiry_time_start)  # type: unicode
-        self.expiry_time_end = TeaConverter.to_unicode(expiry_time_end)  # type: unicode
+        self.expiry_time_start = expiry_time_start  # type: str
+        self.expiry_time_end = expiry_time_end  # type: str
         self.effective_or_not = effective_or_not  # type: bool
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -10265,16 +10961,16 @@ class QueryRedeemRequest(TeaModel):
 class QueryRedeemResponseBodyDataRedeemRedeem(TeaModel):
     def __init__(self, applicable_products=None, balance=None, effective_time=None, expiry_time=None,
                  granted_time=None, nominal_value=None, redeem_id=None, redeem_no=None, specification=None, status=None):
-        self.applicable_products = TeaConverter.to_unicode(applicable_products)  # type: unicode
-        self.balance = TeaConverter.to_unicode(balance)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
-        self.expiry_time = TeaConverter.to_unicode(expiry_time)  # type: unicode
-        self.granted_time = TeaConverter.to_unicode(granted_time)  # type: unicode
-        self.nominal_value = TeaConverter.to_unicode(nominal_value)  # type: unicode
-        self.redeem_id = TeaConverter.to_unicode(redeem_id)  # type: unicode
-        self.redeem_no = TeaConverter.to_unicode(redeem_no)  # type: unicode
-        self.specification = TeaConverter.to_unicode(specification)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.applicable_products = applicable_products  # type: str
+        self.balance = balance  # type: str
+        self.effective_time = effective_time  # type: str
+        self.expiry_time = expiry_time  # type: str
+        self.granted_time = granted_time  # type: str
+        self.nominal_value = nominal_value  # type: str
+        self.redeem_id = redeem_id  # type: str
+        self.redeem_no = redeem_no  # type: str
+        self.specification = specification  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -10395,10 +11091,10 @@ class QueryRedeemResponseBodyData(TeaModel):
 
 class QueryRedeemResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryRedeemResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -10437,7 +11133,7 @@ class QueryRedeemResponseBody(TeaModel):
 
 class QueryRedeemResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryRedeemResponseBody
 
     def validate(self):
@@ -10469,7 +11165,7 @@ class QueryRelationListRequest(TeaModel):
         self.user_id = user_id  # type: long
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
-        self.status_list = status_list  # type: list[unicode]
+        self.status_list = status_list  # type: list[str]
 
     def validate(self):
         pass
@@ -10502,15 +11198,15 @@ class QueryRelationListRequest(TeaModel):
 class QueryRelationListResponseBodyDataFinancialRelationInfoList(TeaModel):
     def __init__(self, end_time=None, relation_type=None, account_nick_name=None, start_time=None, state=None,
                  account_id=None, setup_time=None, account_type=None, account_name=None, relation_id=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.relation_type = TeaConverter.to_unicode(relation_type)  # type: unicode
-        self.account_nick_name = TeaConverter.to_unicode(account_nick_name)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.relation_type = relation_type  # type: str
+        self.account_nick_name = account_nick_name  # type: str
+        self.start_time = start_time  # type: str
+        self.state = state  # type: str
         self.account_id = account_id  # type: long
-        self.setup_time = TeaConverter.to_unicode(setup_time)  # type: unicode
-        self.account_type = TeaConverter.to_unicode(account_type)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.setup_time = setup_time  # type: str
+        self.account_type = account_type  # type: str
+        self.account_name = account_name  # type: str
         self.relation_id = relation_id  # type: long
 
     def validate(self):
@@ -10610,10 +11306,10 @@ class QueryRelationListResponseBodyData(TeaModel):
 
 class QueryRelationListResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: QueryRelationListResponseBodyData
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -10652,7 +11348,7 @@ class QueryRelationListResponseBody(TeaModel):
 
 class QueryRelationListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryRelationListResponseBody
 
     def validate(self):
@@ -10682,7 +11378,7 @@ class QueryRelationListResponse(TeaModel):
 class QueryResellerAvailableQuotaRequest(TeaModel):
     def __init__(self, owner_id=None, item_codes=None):
         self.owner_id = owner_id  # type: long
-        self.item_codes = TeaConverter.to_unicode(item_codes)  # type: unicode
+        self.item_codes = item_codes  # type: str
 
     def validate(self):
         pass
@@ -10706,10 +11402,10 @@ class QueryResellerAvailableQuotaRequest(TeaModel):
 
 class QueryResellerAvailableQuotaResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.data = data  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -10746,7 +11442,7 @@ class QueryResellerAvailableQuotaResponseBody(TeaModel):
 
 class QueryResellerAvailableQuotaResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryResellerAvailableQuotaResponseBody
 
     def validate(self):
@@ -10776,12 +11472,12 @@ class QueryResellerAvailableQuotaResponse(TeaModel):
 class QueryRIUtilizationDetailRequest(TeaModel):
     def __init__(self, riinstance_id=None, instance_spec=None, ricommodity_code=None, deducted_instance_id=None,
                  start_time=None, end_time=None, page_num=None, page_size=None):
-        self.riinstance_id = TeaConverter.to_unicode(riinstance_id)  # type: unicode
-        self.instance_spec = TeaConverter.to_unicode(instance_spec)  # type: unicode
-        self.ricommodity_code = TeaConverter.to_unicode(ricommodity_code)  # type: unicode
-        self.deducted_instance_id = TeaConverter.to_unicode(deducted_instance_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.riinstance_id = riinstance_id  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.ricommodity_code = ricommodity_code  # type: str
+        self.deducted_instance_id = deducted_instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
 
@@ -10833,15 +11529,15 @@ class QueryRIUtilizationDetailResponseBodyDataDetailListDetailList(TeaModel):
     def __init__(self, deduct_date=None, deduct_factor_total=None, deduct_hours=None, deduct_quantity=None,
                  deducted_commodity_code=None, deducted_instance_id=None, deducted_product_detail=None, instance_spec=None,
                  riinstance_id=None):
-        self.deduct_date = TeaConverter.to_unicode(deduct_date)  # type: unicode
+        self.deduct_date = deduct_date  # type: str
         self.deduct_factor_total = deduct_factor_total  # type: float
-        self.deduct_hours = TeaConverter.to_unicode(deduct_hours)  # type: unicode
+        self.deduct_hours = deduct_hours  # type: str
         self.deduct_quantity = deduct_quantity  # type: float
-        self.deducted_commodity_code = TeaConverter.to_unicode(deducted_commodity_code)  # type: unicode
-        self.deducted_instance_id = TeaConverter.to_unicode(deducted_instance_id)  # type: unicode
-        self.deducted_product_detail = TeaConverter.to_unicode(deducted_product_detail)  # type: unicode
-        self.instance_spec = TeaConverter.to_unicode(instance_spec)  # type: unicode
-        self.riinstance_id = TeaConverter.to_unicode(riinstance_id)  # type: unicode
+        self.deducted_commodity_code = deducted_commodity_code  # type: str
+        self.deducted_instance_id = deducted_instance_id  # type: str
+        self.deducted_product_detail = deducted_product_detail  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.riinstance_id = riinstance_id  # type: str
 
     def validate(self):
         pass
@@ -10958,10 +11654,10 @@ class QueryRIUtilizationDetailResponseBodyData(TeaModel):
 
 class QueryRIUtilizationDetailResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryRIUtilizationDetailResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -11000,7 +11696,7 @@ class QueryRIUtilizationDetailResponseBody(TeaModel):
 
 class QueryRIUtilizationDetailResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryRIUtilizationDetailResponseBody
 
     def validate(self):
@@ -11030,13 +11726,13 @@ class QueryRIUtilizationDetailResponse(TeaModel):
 class QuerySavingsPlansDeductLogRequest(TeaModel):
     def __init__(self, instance_type=None, page_size=None, locale=None, page_num=None, instance_id=None,
                  start_time=None, end_time=None):
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         self.page_size = page_size  # type: int
-        self.locale = TeaConverter.to_unicode(locale)  # type: unicode
+        self.locale = locale  # type: str
         self.page_num = page_num  # type: int
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -11082,17 +11778,17 @@ class QuerySavingsPlansDeductLogResponseBodyDataItems(TeaModel):
     def __init__(self, end_time=None, start_time=None, savings_type=None, user_id=None, discount_rate=None,
                  bill_module=None, instance_id=None, deduct_instance_id=None, deduct_commodity=None, deduct_rate=None,
                  deduct_fee=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.savings_type = TeaConverter.to_unicode(savings_type)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+        self.savings_type = savings_type  # type: str
         self.user_id = user_id  # type: long
-        self.discount_rate = TeaConverter.to_unicode(discount_rate)  # type: unicode
-        self.bill_module = TeaConverter.to_unicode(bill_module)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.deduct_instance_id = TeaConverter.to_unicode(deduct_instance_id)  # type: unicode
-        self.deduct_commodity = TeaConverter.to_unicode(deduct_commodity)  # type: unicode
-        self.deduct_rate = TeaConverter.to_unicode(deduct_rate)  # type: unicode
-        self.deduct_fee = TeaConverter.to_unicode(deduct_fee)  # type: unicode
+        self.discount_rate = discount_rate  # type: str
+        self.bill_module = bill_module  # type: str
+        self.instance_id = instance_id  # type: str
+        self.deduct_instance_id = deduct_instance_id  # type: str
+        self.deduct_commodity = deduct_commodity  # type: str
+        self.deduct_rate = deduct_rate  # type: str
+        self.deduct_fee = deduct_fee  # type: str
 
     def validate(self):
         pass
@@ -11195,10 +11891,10 @@ class QuerySavingsPlansDeductLogResponseBodyData(TeaModel):
 
 class QuerySavingsPlansDeductLogResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: QuerySavingsPlansDeductLogResponseBodyData
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -11237,7 +11933,7 @@ class QuerySavingsPlansDeductLogResponseBody(TeaModel):
 
 class QuerySavingsPlansDeductLogResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QuerySavingsPlansDeductLogResponseBody
 
     def validate(self):
@@ -11267,11 +11963,11 @@ class QuerySavingsPlansDeductLogResponse(TeaModel):
 class QuerySavingsPlansInstanceRequest(TeaModel):
     def __init__(self, page_size=None, locale=None, page_num=None, instance_id=None, start_time=None, end_time=None):
         self.page_size = page_size  # type: int
-        self.locale = TeaConverter.to_unicode(locale)  # type: unicode
+        self.locale = locale  # type: str
         self.page_num = page_num  # type: int
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -11313,20 +12009,20 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
     def __init__(self, status=None, share=None, savings_type=None, prepay_fee=None, utilization=None,
                  instance_id=None, currency=None, end_time=None, start_time=None, instance_family=None, region=None,
                  total_save=None, pool_value=None, pay_mode=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         self.share = share  # type: bool
-        self.savings_type = TeaConverter.to_unicode(savings_type)  # type: unicode
-        self.prepay_fee = TeaConverter.to_unicode(prepay_fee)  # type: unicode
-        self.utilization = TeaConverter.to_unicode(utilization)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.instance_family = TeaConverter.to_unicode(instance_family)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.total_save = TeaConverter.to_unicode(total_save)  # type: unicode
-        self.pool_value = TeaConverter.to_unicode(pool_value)  # type: unicode
-        self.pay_mode = TeaConverter.to_unicode(pay_mode)  # type: unicode
+        self.savings_type = savings_type  # type: str
+        self.prepay_fee = prepay_fee  # type: str
+        self.utilization = utilization  # type: str
+        self.instance_id = instance_id  # type: str
+        self.currency = currency  # type: str
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+        self.instance_family = instance_family  # type: str
+        self.region = region  # type: str
+        self.total_save = total_save  # type: str
+        self.pool_value = pool_value  # type: str
+        self.pay_mode = pay_mode  # type: str
 
     def validate(self):
         pass
@@ -11441,10 +12137,10 @@ class QuerySavingsPlansInstanceResponseBodyData(TeaModel):
 
 class QuerySavingsPlansInstanceResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: QuerySavingsPlansInstanceResponseBodyData
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -11483,7 +12179,7 @@ class QuerySavingsPlansInstanceResponseBody(TeaModel):
 
 class QuerySavingsPlansInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QuerySavingsPlansInstanceResponseBody
 
     def validate(self):
@@ -11514,15 +12210,15 @@ class QuerySettleBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, type=None, product_code=None, product_type=None, subscription_type=None,
                  is_hide_zero_charge=None, is_display_local_currency=None, owner_id=None, next_token=None, max_results=None,
                  bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.type = type  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
         self.is_display_local_currency = is_display_local_currency  # type: bool
         self.owner_id = owner_id  # type: long
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
         self.max_results = max_results  # type: int
         self.bill_owner_id = bill_owner_id  # type: long
 
@@ -11590,35 +12286,35 @@ class QuerySettleBillResponseBodyDataItemsItem(TeaModel):
                  product_detail=None, product_name=None, product_type=None, record_id=None, round_down_discount=None, status=None,
                  sub_order_id=None, subscription_type=None, tax=None, usage_end_time=None, usage_start_time=None):
         self.after_tax_amount = after_tax_amount  # type: float
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.commodity_code = commodity_code  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
+        self.item = item  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
+        self.owner_id = owner_id  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.payment_time = TeaConverter.to_unicode(payment_time)  # type: unicode
-        self.payment_transaction_id = TeaConverter.to_unicode(payment_transaction_id)  # type: unicode
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.payment_currency = payment_currency  # type: str
+        self.payment_time = payment_time  # type: str
+        self.payment_transaction_id = payment_transaction_id  # type: str
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_detail = TeaConverter.to_unicode(product_detail)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.round_down_discount = TeaConverter.to_unicode(round_down_discount)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.sub_order_id = TeaConverter.to_unicode(sub_order_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.record_id = record_id  # type: str
+        self.round_down_discount = round_down_discount  # type: str
+        self.status = status  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.tax = tax  # type: float
-        self.usage_end_time = TeaConverter.to_unicode(usage_end_time)  # type: unicode
-        self.usage_start_time = TeaConverter.to_unicode(usage_start_time)  # type: unicode
+        self.usage_end_time = usage_end_time  # type: str
+        self.usage_start_time = usage_start_time  # type: str
 
     def validate(self):
         pass
@@ -11783,12 +12479,12 @@ class QuerySettleBillResponseBodyDataItems(TeaModel):
 class QuerySettleBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, max_results=None,
                  next_token=None, total_count=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QuerySettleBillResponseBodyDataItems
         self.max_results = max_results  # type: int
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11835,10 +12531,10 @@ class QuerySettleBillResponseBodyData(TeaModel):
 
 class QuerySettleBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QuerySettleBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -11877,7 +12573,7 @@ class QuerySettleBillResponseBody(TeaModel):
 
 class QuerySettleBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QuerySettleBillResponseBody
 
     def validate(self):
@@ -11911,13 +12607,13 @@ class QuerySettlementBillRequest(TeaModel):
         self.page_size = page_size  # type: int
         self.owner_id = owner_id  # type: long
         self.page_num = page_num  # type: int
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.type = type  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.is_hide_zero_charge = is_hide_zero_charge  # type: bool
 
     def validate(self):
@@ -11988,47 +12684,47 @@ class QuerySettlementBillResponseBodyDataItemsItem(TeaModel):
                  usage_end_time=None, usage_start_time=None):
         self.account_discount = account_discount  # type: float
         self.after_tax_amount = after_tax_amount  # type: float
-        self.bill_id = TeaConverter.to_unicode(bill_id)  # type: unicode
+        self.bill_id = bill_id  # type: str
         self.charge_discount = charge_discount  # type: float
-        self.cleared_time = TeaConverter.to_unicode(cleared_time)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.cleared_time = cleared_time  # type: str
+        self.config = config  # type: str
+        self.create_time = create_time  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
-        self.invoice_no = TeaConverter.to_unicode(invoice_no)  # type: unicode
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
-        self.linked_customer_order_id = TeaConverter.to_unicode(linked_customer_order_id)  # type: unicode
+        self.invoice_no = invoice_no  # type: str
+        self.item = item  # type: str
+        self.linked_customer_order_id = linked_customer_order_id  # type: str
         self.mybank_payment_amount = mybank_payment_amount  # type: float
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.original_order_id = TeaConverter.to_unicode(original_order_id)  # type: unicode
+        self.order_id = order_id  # type: str
+        self.order_type = order_type  # type: str
+        self.original_order_id = original_order_id  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
-        self.payer_account = TeaConverter.to_unicode(payer_account)  # type: unicode
+        self.owner_id = owner_id  # type: str
+        self.payer_account = payer_account  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.payment_currency = TeaConverter.to_unicode(payment_currency)  # type: unicode
-        self.payment_time = TeaConverter.to_unicode(payment_time)  # type: unicode
+        self.payment_currency = payment_currency  # type: str
+        self.payment_time = payment_time  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_amount_local = pretax_amount_local  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
         self.previous_billing_cycle_balance = previous_billing_cycle_balance  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.promotion = TeaConverter.to_unicode(promotion)  # type: unicode
-        self.quantity = TeaConverter.to_unicode(quantity)  # type: unicode
-        self.record_id = TeaConverter.to_unicode(record_id)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.seller = TeaConverter.to_unicode(seller)  # type: unicode
-        self.solution_id = TeaConverter.to_unicode(solution_id)  # type: unicode
-        self.solution_name = TeaConverter.to_unicode(solution_name)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.suborder_id = TeaConverter.to_unicode(suborder_id)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.promotion = promotion  # type: str
+        self.quantity = quantity  # type: str
+        self.record_id = record_id  # type: str
+        self.region = region  # type: str
+        self.seller = seller  # type: str
+        self.solution_id = solution_id  # type: str
+        self.solution_name = solution_name  # type: str
+        self.status = status  # type: str
+        self.suborder_id = suborder_id  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.tax = tax  # type: float
-        self.usage_end_time = TeaConverter.to_unicode(usage_end_time)  # type: unicode
-        self.usage_start_time = TeaConverter.to_unicode(usage_start_time)  # type: unicode
+        self.usage_end_time = usage_end_time  # type: str
+        self.usage_start_time = usage_start_time  # type: str
 
     def validate(self):
         pass
@@ -12244,7 +12940,7 @@ class QuerySettlementBillResponseBodyDataItems(TeaModel):
 
 class QuerySettlementBillResponseBodyData(TeaModel):
     def __init__(self, billing_cycle=None, items=None, page_num=None, page_size=None, total_count=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QuerySettlementBillResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -12286,10 +12982,10 @@ class QuerySettlementBillResponseBodyData(TeaModel):
 
 class QuerySettlementBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QuerySettlementBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -12328,7 +13024,7 @@ class QuerySettlementBillResponseBody(TeaModel):
 
 class QuerySettlementBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QuerySettlementBillResponseBody
 
     def validate(self):
@@ -12358,10 +13054,10 @@ class QuerySettlementBillResponse(TeaModel):
 class QuerySplitItemBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, product_code=None, product_type=None, subscription_type=None,
                  owner_id=None, page_num=None, page_size=None, bill_owner_id=None):
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
+        self.billing_cycle = billing_cycle  # type: str
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
         self.owner_id = owner_id  # type: long
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -12420,46 +13116,46 @@ class QuerySplitItemBillResponseBodyDataItemsItem(TeaModel):
                  pretax_gross_amount=None, product_code=None, product_detail=None, product_name=None, product_type=None, region=None,
                  resource_group=None, service_period=None, split_item_id=None, split_item_name=None, subscription_type=None,
                  tag=None, usage=None, usage_unit=None, zone=None):
-        self.billing_date = TeaConverter.to_unicode(billing_date)  # type: unicode
-        self.billing_item = TeaConverter.to_unicode(billing_item)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.cost_unit = TeaConverter.to_unicode(cost_unit)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.billing_date = billing_date  # type: str
+        self.billing_item = billing_item  # type: str
+        self.billing_type = billing_type  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.cost_unit = cost_unit  # type: str
+        self.currency = currency  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
-        self.deducted_by_resource_package = TeaConverter.to_unicode(deducted_by_resource_package)  # type: unicode
-        self.instance_config = TeaConverter.to_unicode(instance_config)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_spec = TeaConverter.to_unicode(instance_spec)  # type: unicode
-        self.internet_ip = TeaConverter.to_unicode(internet_ip)  # type: unicode
-        self.intranet_ip = TeaConverter.to_unicode(intranet_ip)  # type: unicode
+        self.deducted_by_resource_package = deducted_by_resource_package  # type: str
+        self.instance_config = instance_config  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_spec = instance_spec  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
         self.invoice_discount = invoice_discount  # type: float
-        self.item = TeaConverter.to_unicode(item)  # type: unicode
-        self.list_price = TeaConverter.to_unicode(list_price)  # type: unicode
-        self.list_price_unit = TeaConverter.to_unicode(list_price_unit)  # type: unicode
-        self.nick_name = TeaConverter.to_unicode(nick_name)  # type: unicode
+        self.item = item  # type: str
+        self.list_price = list_price  # type: str
+        self.list_price_unit = list_price_unit  # type: str
+        self.nick_name = nick_name  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
+        self.owner_id = owner_id  # type: str
         self.payment_amount = payment_amount  # type: float
-        self.pip_code = TeaConverter.to_unicode(pip_code)  # type: unicode
+        self.pip_code = pip_code  # type: str
         self.pretax_amount = pretax_amount  # type: float
         self.pretax_gross_amount = pretax_gross_amount  # type: float
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_detail = TeaConverter.to_unicode(product_detail)  # type: unicode
-        self.product_name = TeaConverter.to_unicode(product_name)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.resource_group = TeaConverter.to_unicode(resource_group)  # type: unicode
-        self.service_period = TeaConverter.to_unicode(service_period)  # type: unicode
-        self.split_item_id = TeaConverter.to_unicode(split_item_id)  # type: unicode
-        self.split_item_name = TeaConverter.to_unicode(split_item_name)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
-        self.usage = TeaConverter.to_unicode(usage)  # type: unicode
-        self.usage_unit = TeaConverter.to_unicode(usage_unit)  # type: unicode
-        self.zone = TeaConverter.to_unicode(zone)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_detail = product_detail  # type: str
+        self.product_name = product_name  # type: str
+        self.product_type = product_type  # type: str
+        self.region = region  # type: str
+        self.resource_group = resource_group  # type: str
+        self.service_period = service_period  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.split_item_name = split_item_name  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.tag = tag  # type: str
+        self.usage = usage  # type: str
+        self.usage_unit = usage_unit  # type: str
+        self.zone = zone  # type: str
 
     def validate(self):
         pass
@@ -12664,9 +13360,9 @@ class QuerySplitItemBillResponseBodyDataItems(TeaModel):
 class QuerySplitItemBillResponseBodyData(TeaModel):
     def __init__(self, account_id=None, account_name=None, billing_cycle=None, items=None, page_num=None,
                  page_size=None, total_count=None):
-        self.account_id = TeaConverter.to_unicode(account_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.billing_cycle = TeaConverter.to_unicode(billing_cycle)  # type: unicode
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.items = items  # type: QuerySplitItemBillResponseBodyDataItems
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -12716,10 +13412,10 @@ class QuerySplitItemBillResponseBodyData(TeaModel):
 
 class QuerySplitItemBillResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QuerySplitItemBillResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -12758,7 +13454,7 @@ class QuerySplitItemBillResponseBody(TeaModel):
 
 class QuerySplitItemBillResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QuerySplitItemBillResponseBody
 
     def validate(self):
@@ -12789,11 +13485,11 @@ class QueryUserOmsDataRequest(TeaModel):
     def __init__(self, owner_id=None, table=None, data_type=None, start_time=None, end_time=None, marker=None,
                  page_size=None):
         self.owner_id = owner_id  # type: long
-        self.table = TeaConverter.to_unicode(table)  # type: unicode
-        self.data_type = TeaConverter.to_unicode(data_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.table = table  # type: str
+        self.data_type = data_type  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.marker = marker  # type: str
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -12838,9 +13534,9 @@ class QueryUserOmsDataRequest(TeaModel):
 
 class QueryUserOmsDataResponseBodyData(TeaModel):
     def __init__(self, host_id=None, marker=None, oms_data=None):
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
-        self.oms_data = oms_data  # type: list[dict[unicode, any]]
+        self.host_id = host_id  # type: str
+        self.marker = marker  # type: str
+        self.oms_data = oms_data  # type: list[dict[str, any]]
 
     def validate(self):
         pass
@@ -12868,10 +13564,10 @@ class QueryUserOmsDataResponseBodyData(TeaModel):
 
 class QueryUserOmsDataResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: QueryUserOmsDataResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -12910,7 +13606,7 @@ class QueryUserOmsDataResponseBody(TeaModel):
 
 class QueryUserOmsDataResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryUserOmsDataResponseBody
 
     def validate(self):
@@ -12940,11 +13636,11 @@ class QueryUserOmsDataResponse(TeaModel):
 class RenewInstanceRequest(TeaModel):
     def __init__(self, product_code=None, instance_id=None, renew_period=None, client_token=None, product_type=None,
                  owner_id=None):
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.instance_id = instance_id  # type: str
         self.renew_period = renew_period  # type: int
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.product_type = product_type  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
@@ -12985,7 +13681,7 @@ class RenewInstanceRequest(TeaModel):
 
 class RenewInstanceResponseBodyData(TeaModel):
     def __init__(self, order_id=None):
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -13005,10 +13701,10 @@ class RenewInstanceResponseBodyData(TeaModel):
 
 class RenewInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: RenewInstanceResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13047,7 +13743,7 @@ class RenewInstanceResponseBody(TeaModel):
 
 class RenewInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RenewInstanceResponseBody
 
     def validate(self):
@@ -13077,10 +13773,10 @@ class RenewInstanceResponse(TeaModel):
 class RenewResourcePackageRequest(TeaModel):
     def __init__(self, owner_id=None, instance_id=None, effective_date=None, duration=None, pricing_cycle=None):
         self.owner_id = owner_id  # type: long
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.effective_date = TeaConverter.to_unicode(effective_date)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.effective_date = effective_date  # type: str
         self.duration = duration  # type: int
-        self.pricing_cycle = TeaConverter.to_unicode(pricing_cycle)  # type: unicode
+        self.pricing_cycle = pricing_cycle  # type: str
 
     def validate(self):
         pass
@@ -13116,7 +13812,7 @@ class RenewResourcePackageRequest(TeaModel):
 
 class RenewResourcePackageResponseBodyData(TeaModel):
     def __init__(self, instance_id=None, order_id=None):
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -13141,11 +13837,11 @@ class RenewResourcePackageResponseBodyData(TeaModel):
 
 class RenewResourcePackageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, order_id=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: RenewResourcePackageResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
         self.order_id = order_id  # type: long
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13188,7 +13884,7 @@ class RenewResourcePackageResponseBody(TeaModel):
 
 class RenewResourcePackageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RenewResourcePackageResponseBody
 
     def validate(self):
@@ -13220,12 +13916,12 @@ class SaveUserCreditRequest(TeaModel):
                  avoid_notification=None, credit_value=None, avoid_prepaid_expiration=None, operator=None, credit_type=None):
         self.avoid_expiration = avoid_expiration  # type: bool
         self.avoid_prepaid_notification = avoid_prepaid_notification  # type: bool
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         self.avoid_notification = avoid_notification  # type: bool
-        self.credit_value = TeaConverter.to_unicode(credit_value)  # type: unicode
+        self.credit_value = credit_value  # type: str
         self.avoid_prepaid_expiration = avoid_prepaid_expiration  # type: bool
-        self.operator = TeaConverter.to_unicode(operator)  # type: unicode
-        self.credit_type = TeaConverter.to_unicode(credit_type)  # type: unicode
+        self.operator = operator  # type: str
+        self.credit_type = credit_type  # type: str
 
     def validate(self):
         pass
@@ -13273,9 +13969,9 @@ class SaveUserCreditRequest(TeaModel):
 
 class SaveUserCreditResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13308,7 +14004,7 @@ class SaveUserCreditResponseBody(TeaModel):
 
 class SaveUserCreditResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SaveUserCreditResponseBody
 
     def validate(self):
@@ -13340,23 +14036,23 @@ class SetCreditLabelActionRequest(TeaModel):
                  daily_cycle=None, description=None, is_need_add_settle_label=None, is_need_adjust_credit_account=None,
                  is_need_save_notify_rule=None, is_need_set_credit_amount=None, need_notice=None, new_create_mode=None, operator=None,
                  request_id=None, site_code=None, source=None):
-        self.action_type = TeaConverter.to_unicode(action_type)  # type: unicode
-        self.uid = TeaConverter.to_unicode(uid)  # type: unicode
-        self.clear_cycle = TeaConverter.to_unicode(clear_cycle)  # type: unicode
-        self.credit_amount = TeaConverter.to_unicode(credit_amount)  # type: unicode
-        self.currency_code = TeaConverter.to_unicode(currency_code)  # type: unicode
-        self.daily_cycle = TeaConverter.to_unicode(daily_cycle)  # type: unicode
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.is_need_add_settle_label = TeaConverter.to_unicode(is_need_add_settle_label)  # type: unicode
-        self.is_need_adjust_credit_account = TeaConverter.to_unicode(is_need_adjust_credit_account)  # type: unicode
-        self.is_need_save_notify_rule = TeaConverter.to_unicode(is_need_save_notify_rule)  # type: unicode
-        self.is_need_set_credit_amount = TeaConverter.to_unicode(is_need_set_credit_amount)  # type: unicode
+        self.action_type = action_type  # type: str
+        self.uid = uid  # type: str
+        self.clear_cycle = clear_cycle  # type: str
+        self.credit_amount = credit_amount  # type: str
+        self.currency_code = currency_code  # type: str
+        self.daily_cycle = daily_cycle  # type: str
+        self.description = description  # type: str
+        self.is_need_add_settle_label = is_need_add_settle_label  # type: str
+        self.is_need_adjust_credit_account = is_need_adjust_credit_account  # type: str
+        self.is_need_save_notify_rule = is_need_save_notify_rule  # type: str
+        self.is_need_set_credit_amount = is_need_set_credit_amount  # type: str
         self.need_notice = need_notice  # type: bool
         self.new_create_mode = new_create_mode  # type: bool
-        self.operator = TeaConverter.to_unicode(operator)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.site_code = TeaConverter.to_unicode(site_code)  # type: unicode
-        self.source = TeaConverter.to_unicode(source)  # type: unicode
+        self.operator = operator  # type: str
+        self.request_id = request_id  # type: str
+        self.site_code = site_code  # type: str
+        self.source = source  # type: str
 
     def validate(self):
         pass
@@ -13440,10 +14136,10 @@ class SetCreditLabelActionRequest(TeaModel):
 
 class SetCreditLabelActionResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: bool
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13480,7 +14176,7 @@ class SetCreditLabelActionResponseBody(TeaModel):
 
 class SetCreditLabelActionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SetCreditLabelActionResponseBody
 
     def validate(self):
@@ -13511,13 +14207,13 @@ class SetRenewalRequest(TeaModel):
     def __init__(self, renewal_period=None, instance_ids=None, owner_id=None, product_code=None, product_type=None,
                  subscription_type=None, renewal_period_unit=None, renewal_status=None):
         self.renewal_period = renewal_period  # type: int
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
+        self.instance_ids = instance_ids  # type: str
         self.owner_id = owner_id  # type: long
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.product_type = TeaConverter.to_unicode(product_type)  # type: unicode
-        self.subscription_type = TeaConverter.to_unicode(subscription_type)  # type: unicode
-        self.renewal_period_unit = TeaConverter.to_unicode(renewal_period_unit)  # type: unicode
-        self.renewal_status = TeaConverter.to_unicode(renewal_status)  # type: unicode
+        self.product_code = product_code  # type: str
+        self.product_type = product_type  # type: str
+        self.subscription_type = subscription_type  # type: str
+        self.renewal_period_unit = renewal_period_unit  # type: str
+        self.renewal_status = renewal_status  # type: str
 
     def validate(self):
         pass
@@ -13565,9 +14261,9 @@ class SetRenewalRequest(TeaModel):
 
 class SetRenewalResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13600,7 +14296,7 @@ class SetRenewalResponseBody(TeaModel):
 
 class SetRenewalResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SetRenewalResponseBody
 
     def validate(self):
@@ -13630,8 +14326,8 @@ class SetRenewalResponse(TeaModel):
 class SetResellerUserAlarmThresholdRequest(TeaModel):
     def __init__(self, owner_id=None, alarm_type=None, alarm_thresholds=None):
         self.owner_id = owner_id  # type: long
-        self.alarm_type = TeaConverter.to_unicode(alarm_type)  # type: unicode
-        self.alarm_thresholds = TeaConverter.to_unicode(alarm_thresholds)  # type: unicode
+        self.alarm_type = alarm_type  # type: str
+        self.alarm_thresholds = alarm_thresholds  # type: str
 
     def validate(self):
         pass
@@ -13659,10 +14355,10 @@ class SetResellerUserAlarmThresholdRequest(TeaModel):
 
 class SetResellerUserAlarmThresholdResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: bool
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13699,7 +14395,7 @@ class SetResellerUserAlarmThresholdResponseBody(TeaModel):
 
 class SetResellerUserAlarmThresholdResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SetResellerUserAlarmThresholdResponseBody
 
     def validate(self):
@@ -13729,9 +14425,9 @@ class SetResellerUserAlarmThresholdResponse(TeaModel):
 class SetResellerUserQuotaRequest(TeaModel):
     def __init__(self, owner_id=None, amount=None, currency=None, out_biz_id=None):
         self.owner_id = owner_id  # type: long
-        self.amount = TeaConverter.to_unicode(amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-        self.out_biz_id = TeaConverter.to_unicode(out_biz_id)  # type: unicode
+        self.amount = amount  # type: str
+        self.currency = currency  # type: str
+        self.out_biz_id = out_biz_id  # type: str
 
     def validate(self):
         pass
@@ -13763,10 +14459,10 @@ class SetResellerUserQuotaRequest(TeaModel):
 
 class SetResellerUserQuotaResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: bool
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13803,7 +14499,7 @@ class SetResellerUserQuotaResponseBody(TeaModel):
 
 class SetResellerUserQuotaResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SetResellerUserQuotaResponseBody
 
     def validate(self):
@@ -13832,9 +14528,9 @@ class SetResellerUserQuotaResponse(TeaModel):
 
 class SetResellerUserStatusRequest(TeaModel):
     def __init__(self, owner_id=None, status=None, business_type=None):
-        self.owner_id = TeaConverter.to_unicode(owner_id)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.business_type = TeaConverter.to_unicode(business_type)  # type: unicode
+        self.owner_id = owner_id  # type: str
+        self.status = status  # type: str
+        self.business_type = business_type  # type: str
 
     def validate(self):
         pass
@@ -13862,10 +14558,10 @@ class SetResellerUserStatusRequest(TeaModel):
 
 class SetResellerUserStatusResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: bool
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -13902,7 +14598,7 @@ class SetResellerUserStatusResponseBody(TeaModel):
 
 class SetResellerUserStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SetResellerUserStatusResponseBody
 
     def validate(self):
@@ -13932,9 +14628,9 @@ class SetResellerUserStatusResponse(TeaModel):
 class SubscribeBillToOSSRequest(TeaModel):
     def __init__(self, subscribe_bucket=None, subscribe_type=None, mult_account_rel_subscribe=None,
                  bucket_owner_id=None):
-        self.subscribe_bucket = TeaConverter.to_unicode(subscribe_bucket)  # type: unicode
-        self.subscribe_type = TeaConverter.to_unicode(subscribe_type)  # type: unicode
-        self.mult_account_rel_subscribe = TeaConverter.to_unicode(mult_account_rel_subscribe)  # type: unicode
+        self.subscribe_bucket = subscribe_bucket  # type: str
+        self.subscribe_type = subscribe_type  # type: str
+        self.mult_account_rel_subscribe = mult_account_rel_subscribe  # type: str
         self.bucket_owner_id = bucket_owner_id  # type: long
 
     def validate(self):
@@ -13967,9 +14663,9 @@ class SubscribeBillToOSSRequest(TeaModel):
 
 class SubscribeBillToOSSResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -14002,7 +14698,7 @@ class SubscribeBillToOSSResponseBody(TeaModel):
 
 class SubscribeBillToOSSResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SubscribeBillToOSSResponseBody
 
     def validate(self):
@@ -14029,10 +14725,142 @@ class SubscribeBillToOSSResponse(TeaModel):
         return self
 
 
+class TagResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class TagResourcesRequest(TeaModel):
+    def __init__(self, resource_type=None, resource_id=None, tag=None):
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.tag = tag  # type: list[TagResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = TagResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class TagResourcesResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.data = data  # type: bool
+        self.code = code  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class TagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: TagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = TagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UnsubscribeBillToOSSRequest(TeaModel):
     def __init__(self, subscribe_type=None, mult_account_rel_subscribe=None):
-        self.subscribe_type = TeaConverter.to_unicode(subscribe_type)  # type: unicode
-        self.mult_account_rel_subscribe = TeaConverter.to_unicode(mult_account_rel_subscribe)  # type: unicode
+        self.subscribe_type = subscribe_type  # type: str
+        self.mult_account_rel_subscribe = mult_account_rel_subscribe  # type: str
 
     def validate(self):
         pass
@@ -14056,9 +14884,9 @@ class UnsubscribeBillToOSSRequest(TeaModel):
 
 class UnsubscribeBillToOSSResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -14091,7 +14919,7 @@ class UnsubscribeBillToOSSResponseBody(TeaModel):
 
 class UnsubscribeBillToOSSResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UnsubscribeBillToOSSResponseBody
 
     def validate(self):
@@ -14118,12 +14946,116 @@ class UnsubscribeBillToOSSResponse(TeaModel):
         return self
 
 
+class UntagResourcesRequest(TeaModel):
+    def __init__(self, resource_type=None, all=None, resource_id=None, tag_key=None):
+        self.resource_type = resource_type  # type: str
+        self.all = all  # type: bool
+        self.resource_id = resource_id  # type: list[str]
+        self.tag_key = tag_key  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.all is not None:
+            result['All'] = self.all
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('All') is not None:
+            self.all = m.get('All')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        return self
+
+
+class UntagResourcesResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, data=None, code=None, success=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.data = data  # type: bool
+        self.code = code  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UntagResourcesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UntagResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UntagResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpgradeResourcePackageRequest(TeaModel):
     def __init__(self, owner_id=None, instance_id=None, effective_date=None, specification=None):
         self.owner_id = owner_id  # type: long
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.effective_date = TeaConverter.to_unicode(effective_date)  # type: unicode
-        self.specification = TeaConverter.to_unicode(specification)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.effective_date = effective_date  # type: str
+        self.specification = specification  # type: str
 
     def validate(self):
         pass
@@ -14155,7 +15087,7 @@ class UpgradeResourcePackageRequest(TeaModel):
 
 class UpgradeResourcePackageResponseBodyData(TeaModel):
     def __init__(self, instance_id=None, order_id=None):
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -14180,11 +15112,11 @@ class UpgradeResourcePackageResponseBodyData(TeaModel):
 
 class UpgradeResourcePackageResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, order_id=None, request_id=None, success=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         self.data = data  # type: UpgradeResourcePackageResponseBodyData
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
         self.order_id = order_id  # type: long
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
@@ -14227,7 +15159,7 @@ class UpgradeResourcePackageResponseBody(TeaModel):
 
 class UpgradeResourcePackageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpgradeResourcePackageResponseBody
 
     def validate(self):

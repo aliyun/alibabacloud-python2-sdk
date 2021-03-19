@@ -240,6 +240,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_resource_package_product_with_options(request, runtime)
 
+    def describe_split_item_bill_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.DescribeSplitItemBillResponse().from_map(
+            self.do_rpcrequest('DescribeSplitItemBill', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_split_item_bill(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_split_item_bill_with_options(request, runtime)
+
     def enable_bill_generation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -542,6 +555,19 @@ class Client(OpenApiClient):
     def query_instance_bill(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_instance_bill_with_options(request, runtime)
+
+    def query_instance_by_tag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.QueryInstanceByTagResponse().from_map(
+            self.do_rpcrequest('QueryInstanceByTag', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_instance_by_tag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_instance_by_tag_with_options(request, runtime)
 
     def query_instance_gaap_cost_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -895,6 +921,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.subscribe_bill_to_osswith_options(request, runtime)
 
+    def tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.TagResourcesResponse().from_map(
+            self.do_rpcrequest('TagResources', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.tag_resources_with_options(request, runtime)
+
     def unsubscribe_bill_to_osswith_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -907,6 +946,19 @@ class Client(OpenApiClient):
     def unsubscribe_bill_to_oss(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unsubscribe_bill_to_osswith_options(request, runtime)
+
+    def untag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.UntagResourcesResponse().from_map(
+            self.do_rpcrequest('UntagResources', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def untag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.untag_resources_with_options(request, runtime)
 
     def upgrade_resource_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
