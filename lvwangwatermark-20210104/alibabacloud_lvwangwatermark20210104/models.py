@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class AddAudioAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.watermark_id = TeaConverter.to_unicode(watermark_id)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.watermark_id = watermark_id  # type: str
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -36,8 +35,8 @@ class AddAudioAsyncRequest(TeaModel):
 
 class AddAudioAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -61,8 +60,8 @@ class AddAudioAsyncResponseBodyData(TeaModel):
 
 class AddAudioAsyncResponseBody(TeaModel):
     def __init__(self, msg=None, request_id=None, data=None):
-        self.msg = TeaConverter.to_unicode(msg)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[AddAudioAsyncResponseBodyData]
 
     def validate(self):
@@ -99,7 +98,7 @@ class AddAudioAsyncResponseBody(TeaModel):
 
 class AddAudioAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AddAudioAsyncResponseBody
 
     def validate(self):
@@ -128,9 +127,9 @@ class AddAudioAsyncResponse(TeaModel):
 
 class AddImageAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.watermark_id = TeaConverter.to_unicode(watermark_id)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.watermark_id = watermark_id  # type: str
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -158,8 +157,8 @@ class AddImageAsyncRequest(TeaModel):
 
 class AddImageAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -183,7 +182,7 @@ class AddImageAsyncResponseBodyData(TeaModel):
 
 class AddImageAsyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[AddImageAsyncResponseBodyData]
 
     def validate(self):
@@ -216,7 +215,7 @@ class AddImageAsyncResponseBody(TeaModel):
 
 class AddImageAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AddImageAsyncResponseBody
 
     def validate(self):
@@ -245,9 +244,9 @@ class AddImageAsyncResponse(TeaModel):
 
 class AddImageSyncRequest(TeaModel):
     def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.watermark_id = TeaConverter.to_unicode(watermark_id)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.watermark_id = watermark_id  # type: str
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -275,8 +274,8 @@ class AddImageSyncRequest(TeaModel):
 
 class AddImageSyncResponseBodyData(TeaModel):
     def __init__(self, result_url=None, data_id=None):
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -300,7 +299,7 @@ class AddImageSyncResponseBodyData(TeaModel):
 
 class AddImageSyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[AddImageSyncResponseBodyData]
 
     def validate(self):
@@ -333,7 +332,7 @@ class AddImageSyncResponseBody(TeaModel):
 
 class AddImageSyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AddImageSyncResponseBody
 
     def validate(self):
@@ -362,9 +361,9 @@ class AddImageSyncResponse(TeaModel):
 
 class AddVideoAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.watermark_id = TeaConverter.to_unicode(watermark_id)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.watermark_id = watermark_id  # type: str
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -392,8 +391,8 @@ class AddVideoAsyncRequest(TeaModel):
 
 class AddVideoAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -417,7 +416,7 @@ class AddVideoAsyncResponseBodyData(TeaModel):
 
 class AddVideoAsyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[AddVideoAsyncResponseBodyData]
 
     def validate(self):
@@ -450,7 +449,7 @@ class AddVideoAsyncResponseBody(TeaModel):
 
 class AddVideoAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AddVideoAsyncResponseBody
 
     def validate(self):
@@ -479,8 +478,8 @@ class AddVideoAsyncResponse(TeaModel):
 
 class GetAudioAddRequest(TeaModel):
     def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -506,17 +505,17 @@ class GetAudioAddResponseBodyData(TeaModel):
     def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
                  media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
                  id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.source_url = TeaConverter.to_unicode(source_url)  # type: unicode
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.status = status  # type: str
+        self.source_url = source_url  # type: str
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
-        self.media_type = TeaConverter.to_unicode(media_type)  # type: unicode
-        self.msg = TeaConverter.to_unicode(msg)  # type: unicode
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
+        self.media_type = media_type  # type: str
+        self.msg = msg  # type: str
+        self.task_uid = task_uid  # type: str
         self.app_id = app_id  # type: long
         self.gmt_create = gmt_create  # type: long
-        self.opt_type = TeaConverter.to_unicode(opt_type)  # type: unicode
+        self.opt_type = opt_type  # type: str
         self.finished_time = finished_time  # type: long
         self.id = id  # type: long
 
@@ -586,7 +585,7 @@ class GetAudioAddResponseBodyData(TeaModel):
 
 class GetAudioAddResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: GetAudioAddResponseBodyData
 
     def validate(self):
@@ -613,7 +612,7 @@ class GetAudioAddResponseBody(TeaModel):
 
 class GetAudioAddResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetAudioAddResponseBody
 
     def validate(self):
@@ -642,10 +641,10 @@ class GetAudioAddResponse(TeaModel):
 
 class GetAudioAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.app_name = TeaConverter.to_unicode(app_name)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
-        self.water_mark_type = TeaConverter.to_unicode(water_mark_type)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.app_name = app_name  # type: str
+        self.url_list = url_list  # type: str
+        self.water_mark_type = water_mark_type  # type: str
 
     def validate(self):
         pass
@@ -677,8 +676,8 @@ class GetAudioAsyncRequest(TeaModel):
 
 class GetAudioAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -702,7 +701,7 @@ class GetAudioAsyncResponseBodyData(TeaModel):
 
 class GetAudioAsyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetAudioAsyncResponseBodyData]
 
     def validate(self):
@@ -735,7 +734,7 @@ class GetAudioAsyncResponseBody(TeaModel):
 
 class GetAudioAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetAudioAsyncResponseBody
 
     def validate(self):
@@ -764,8 +763,8 @@ class GetAudioAsyncResponse(TeaModel):
 
 class GetAudioExtractRequest(TeaModel):
     def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -791,17 +790,17 @@ class GetAudioExtractResponseBodyData(TeaModel):
     def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
                  media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
                  id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.source_url = TeaConverter.to_unicode(source_url)  # type: unicode
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.status = status  # type: str
+        self.source_url = source_url  # type: str
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
-        self.media_type = TeaConverter.to_unicode(media_type)  # type: unicode
-        self.msg = TeaConverter.to_unicode(msg)  # type: unicode
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
+        self.media_type = media_type  # type: str
+        self.msg = msg  # type: str
+        self.task_uid = task_uid  # type: str
         self.app_id = app_id  # type: long
         self.gmt_create = gmt_create  # type: long
-        self.opt_type = TeaConverter.to_unicode(opt_type)  # type: unicode
+        self.opt_type = opt_type  # type: str
         self.finished_time = finished_time  # type: long
         self.id = id  # type: long
 
@@ -871,7 +870,7 @@ class GetAudioExtractResponseBodyData(TeaModel):
 
 class GetAudioExtractResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: GetAudioExtractResponseBodyData
 
     def validate(self):
@@ -898,7 +897,7 @@ class GetAudioExtractResponseBody(TeaModel):
 
 class GetAudioExtractResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetAudioExtractResponseBody
 
     def validate(self):
@@ -927,10 +926,10 @@ class GetAudioExtractResponse(TeaModel):
 
 class GetAudioTraceRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, file_uid=None, user_info_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.app_name = TeaConverter.to_unicode(app_name)  # type: unicode
-        self.file_uid = TeaConverter.to_unicode(file_uid)  # type: unicode
-        self.user_info_list = TeaConverter.to_unicode(user_info_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.app_name = app_name  # type: str
+        self.file_uid = file_uid  # type: str
+        self.user_info_list = user_info_list  # type: str
 
     def validate(self):
         pass
@@ -962,8 +961,8 @@ class GetAudioTraceRequest(TeaModel):
 
 class GetAudioTraceResponseBodyData(TeaModel):
     def __init__(self, result_url=None, user_info=None):
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.user_info = TeaConverter.to_unicode(user_info)  # type: unicode
+        self.result_url = result_url  # type: str
+        self.user_info = user_info  # type: str
 
     def validate(self):
         pass
@@ -987,7 +986,7 @@ class GetAudioTraceResponseBodyData(TeaModel):
 
 class GetAudioTraceResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetAudioTraceResponseBodyData]
 
     def validate(self):
@@ -1020,7 +1019,7 @@ class GetAudioTraceResponseBody(TeaModel):
 
 class GetAudioTraceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetAudioTraceResponseBody
 
     def validate(self):
@@ -1049,9 +1048,9 @@ class GetAudioTraceResponse(TeaModel):
 
 class GetImageAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
+        self.source_ip = source_ip  # type: str
         self.app_name = app_name  # type: long
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -1079,8 +1078,8 @@ class GetImageAsyncRequest(TeaModel):
 
 class GetImageAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -1104,7 +1103,7 @@ class GetImageAsyncResponseBodyData(TeaModel):
 
 class GetImageAsyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetImageAsyncResponseBodyData]
 
     def validate(self):
@@ -1137,7 +1136,7 @@ class GetImageAsyncResponseBody(TeaModel):
 
 class GetImageAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetImageAsyncResponseBody
 
     def validate(self):
@@ -1166,9 +1165,9 @@ class GetImageAsyncResponse(TeaModel):
 
 class GetImageSyncRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, url_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.app_name = TeaConverter.to_unicode(app_name)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.app_name = app_name  # type: str
+        self.url_list = url_list  # type: str
 
     def validate(self):
         pass
@@ -1196,9 +1195,9 @@ class GetImageSyncRequest(TeaModel):
 
 class GetImageSyncResponseBodyData(TeaModel):
     def __init__(self, data_id=None, watermark_id=None, meta_file_url=None):
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
-        self.watermark_id = TeaConverter.to_unicode(watermark_id)  # type: unicode
-        self.meta_file_url = TeaConverter.to_unicode(meta_file_url)  # type: unicode
+        self.data_id = data_id  # type: str
+        self.watermark_id = watermark_id  # type: str
+        self.meta_file_url = meta_file_url  # type: str
 
     def validate(self):
         pass
@@ -1226,7 +1225,7 @@ class GetImageSyncResponseBodyData(TeaModel):
 
 class GetImageSyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetImageSyncResponseBodyData]
 
     def validate(self):
@@ -1259,7 +1258,7 @@ class GetImageSyncResponseBody(TeaModel):
 
 class GetImageSyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetImageSyncResponseBody
 
     def validate(self):
@@ -1288,8 +1287,8 @@ class GetImageSyncResponse(TeaModel):
 
 class GetVideoAddRequest(TeaModel):
     def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -1315,17 +1314,17 @@ class GetVideoAddResponseBodyData(TeaModel):
     def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
                  media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
                  id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.source_url = TeaConverter.to_unicode(source_url)  # type: unicode
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.status = status  # type: str
+        self.source_url = source_url  # type: str
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
-        self.media_type = TeaConverter.to_unicode(media_type)  # type: unicode
-        self.msg = TeaConverter.to_unicode(msg)  # type: unicode
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
+        self.media_type = media_type  # type: str
+        self.msg = msg  # type: str
+        self.task_uid = task_uid  # type: str
         self.app_id = app_id  # type: long
         self.gmt_create = gmt_create  # type: long
-        self.opt_type = TeaConverter.to_unicode(opt_type)  # type: unicode
+        self.opt_type = opt_type  # type: str
         self.finished_time = finished_time  # type: long
         self.id = id  # type: long
 
@@ -1395,7 +1394,7 @@ class GetVideoAddResponseBodyData(TeaModel):
 
 class GetVideoAddResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: GetVideoAddResponseBodyData
 
     def validate(self):
@@ -1422,7 +1421,7 @@ class GetVideoAddResponseBody(TeaModel):
 
 class GetVideoAddResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoAddResponseBody
 
     def validate(self):
@@ -1451,10 +1450,10 @@ class GetVideoAddResponse(TeaModel):
 
 class GetVideoAsyncRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.app_name = TeaConverter.to_unicode(app_name)  # type: unicode
-        self.url_list = TeaConverter.to_unicode(url_list)  # type: unicode
-        self.water_mark_type = TeaConverter.to_unicode(water_mark_type)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.app_name = app_name  # type: str
+        self.url_list = url_list  # type: str
+        self.water_mark_type = water_mark_type  # type: str
 
     def validate(self):
         pass
@@ -1486,8 +1485,8 @@ class GetVideoAsyncRequest(TeaModel):
 
 class GetVideoAsyncResponseBodyData(TeaModel):
     def __init__(self, task_uid=None, data_id=None):
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.task_uid = task_uid  # type: str
+        self.data_id = data_id  # type: str
 
     def validate(self):
         pass
@@ -1511,7 +1510,7 @@ class GetVideoAsyncResponseBodyData(TeaModel):
 
 class GetVideoAsyncResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetVideoAsyncResponseBodyData]
 
     def validate(self):
@@ -1544,7 +1543,7 @@ class GetVideoAsyncResponseBody(TeaModel):
 
 class GetVideoAsyncResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoAsyncResponseBody
 
     def validate(self):
@@ -1573,8 +1572,8 @@ class GetVideoAsyncResponse(TeaModel):
 
 class GetVideoExtractRequest(TeaModel):
     def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -1600,17 +1599,17 @@ class GetVideoExtractResponseBodyData(TeaModel):
     def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
                  media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
                  id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.source_url = TeaConverter.to_unicode(source_url)  # type: unicode
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.data_id = TeaConverter.to_unicode(data_id)  # type: unicode
+        self.status = status  # type: str
+        self.source_url = source_url  # type: str
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
         self.gmt_modified = gmt_modified  # type: long
-        self.media_type = TeaConverter.to_unicode(media_type)  # type: unicode
-        self.msg = TeaConverter.to_unicode(msg)  # type: unicode
-        self.task_uid = TeaConverter.to_unicode(task_uid)  # type: unicode
+        self.media_type = media_type  # type: str
+        self.msg = msg  # type: str
+        self.task_uid = task_uid  # type: str
         self.app_id = app_id  # type: long
         self.gmt_create = gmt_create  # type: long
-        self.opt_type = TeaConverter.to_unicode(opt_type)  # type: unicode
+        self.opt_type = opt_type  # type: str
         self.finished_time = finished_time  # type: long
         self.id = id  # type: long
 
@@ -1680,7 +1679,7 @@ class GetVideoExtractResponseBodyData(TeaModel):
 
 class GetVideoExtractResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: GetVideoExtractResponseBodyData
 
     def validate(self):
@@ -1707,7 +1706,7 @@ class GetVideoExtractResponseBody(TeaModel):
 
 class GetVideoExtractResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoExtractResponseBody
 
     def validate(self):
@@ -1736,10 +1735,10 @@ class GetVideoExtractResponse(TeaModel):
 
 class GetVideoTraceRequest(TeaModel):
     def __init__(self, source_ip=None, app_name=None, file_uid=None, user_info_list=None):
-        self.source_ip = TeaConverter.to_unicode(source_ip)  # type: unicode
-        self.app_name = TeaConverter.to_unicode(app_name)  # type: unicode
-        self.file_uid = TeaConverter.to_unicode(file_uid)  # type: unicode
-        self.user_info_list = TeaConverter.to_unicode(user_info_list)  # type: unicode
+        self.source_ip = source_ip  # type: str
+        self.app_name = app_name  # type: str
+        self.file_uid = file_uid  # type: str
+        self.user_info_list = user_info_list  # type: str
 
     def validate(self):
         pass
@@ -1771,8 +1770,8 @@ class GetVideoTraceRequest(TeaModel):
 
 class GetVideoTraceResponseBodyData(TeaModel):
     def __init__(self, result_url=None, user_info=None):
-        self.result_url = TeaConverter.to_unicode(result_url)  # type: unicode
-        self.user_info = TeaConverter.to_unicode(user_info)  # type: unicode
+        self.result_url = result_url  # type: str
+        self.user_info = user_info  # type: str
 
     def validate(self):
         pass
@@ -1796,7 +1795,7 @@ class GetVideoTraceResponseBodyData(TeaModel):
 
 class GetVideoTraceResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.data = data  # type: list[GetVideoTraceResponseBodyData]
 
     def validate(self):
@@ -1829,7 +1828,7 @@ class GetVideoTraceResponseBody(TeaModel):
 
 class GetVideoTraceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoTraceResponseBody
 
     def validate(self):
