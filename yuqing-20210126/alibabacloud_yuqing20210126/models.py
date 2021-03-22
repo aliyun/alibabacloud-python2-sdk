@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class Project(TeaModel):
@@ -10,27 +9,27 @@ class Project(TeaModel):
                  project_type_name=None, sub_project_ids=None, team_id=None, valid=None, gmt_create_timestamp=None,
                  gmt_modified_timestamp=None, uname_create=None, uid_create=None, uname_modified=None, uid_modified=None):
         # 搭配词
-        self.ass_keywords = TeaConverter.to_unicode(ass_keywords)  # type: unicode
+        self.ass_keywords = ass_keywords  # type: str
         # 项目的默认过滤模板ID
         self.default_filter_id = default_filter_id  # type: long
         # 高级用法，非关键词配置，如at用户，标题排除词。
-        self.ext_criteria = TeaConverter.to_unicode(ext_criteria)  # type: unicode
+        self.ext_criteria = ext_criteria  # type: str
         # 舆情项目ID
         self.id = id  # type: long
         # 项目名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 排除词
-        self.neg_keywords = TeaConverter.to_unicode(neg_keywords)  # type: unicode
+        self.neg_keywords = neg_keywords  # type: str
         # 项目父ID，如果没有父项目则为0
         self.pid = pid  # type: long
         # 项目关键词
-        self.pos_keywords = TeaConverter.to_unicode(pos_keywords)  # type: unicode
+        self.pos_keywords = pos_keywords  # type: str
         # 项目归属分组ID，0代表没有分组
         self.project_group_id = project_group_id  # type: long
         # 0:通用舆情项目，1：金融舆情项目
         self.project_type = project_type  # type: long
         # 舆情项目类型名称
-        self.project_type_name = TeaConverter.to_unicode(project_type_name)  # type: unicode
+        self.project_type_name = project_type_name  # type: str
         # 项目的子项目ID列表
         self.sub_project_ids = sub_project_ids  # type: list[long]
         # 团队id
@@ -42,13 +41,13 @@ class Project(TeaModel):
         # 项目修改时间，毫秒
         self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
         # 项目创建人名称
-        self.uname_create = TeaConverter.to_unicode(uname_create)  # type: unicode
+        self.uname_create = uname_create  # type: str
         # 项目创建人uid
-        self.uid_create = TeaConverter.to_unicode(uid_create)  # type: unicode
+        self.uid_create = uid_create  # type: str
         # 项目修改人名称
-        self.uname_modified = TeaConverter.to_unicode(uname_modified)  # type: unicode
+        self.uname_modified = uname_modified  # type: str
         # 项目修改人uid
-        self.uid_modified = TeaConverter.to_unicode(uid_modified)  # type: unicode
+        self.uid_modified = uid_modified  # type: str
 
     def validate(self):
         pass
@@ -153,23 +152,23 @@ class BizTagTree(TeaModel):
         # 标签id
         self.id = id  # type: long
         # 标签名字
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 父亲id
         self.parent_id = parent_id  # type: long
         # 标签状态，1表示激活，0表示不激活
         self.status = status  # type: long
         # 标签节点树
-        self.tag_id_path = TeaConverter.to_unicode(tag_id_path)  # type: unicode
+        self.tag_id_path = tag_id_path  # type: str
         # 标签节点名字树
-        self.tag_name_path = TeaConverter.to_unicode(tag_name_path)  # type: unicode
+        self.tag_name_path = tag_name_path  # type: str
         # 创建人id
-        self.uid_create = TeaConverter.to_unicode(uid_create)  # type: unicode
+        self.uid_create = uid_create  # type: str
         # 修改人id
-        self.uid_modified = TeaConverter.to_unicode(uid_modified)  # type: unicode
+        self.uid_modified = uid_modified  # type: str
         # 创建人名字
-        self.uname_create = TeaConverter.to_unicode(uname_create)  # type: unicode
+        self.uname_create = uname_create  # type: str
         # 修改人名字
-        self.uname_modified = TeaConverter.to_unicode(uname_modified)  # type: unicode
+        self.uname_modified = uname_modified  # type: str
 
     def validate(self):
         pass
@@ -236,29 +235,29 @@ class ReportNotifyRecord(TeaModel):
                  gmt_modified_timestamp=None, id=None, share_key=None, subject=None, success=None, type=None, uid_create=None,
                  uname_create=None, valid=None):
         # 配置： 如图片宽度/接收人/抄送人等
-        self.conf = TeaConverter.to_unicode(conf)  # type: unicode
+        self.conf = conf  # type: str
         # 自定义页面id
         self.cp_id = cp_id  # type: long
         # 创建时间，毫秒
         self.gmt_create_timestamp = gmt_create_timestamp  # type: long
         # 格式化的创建时间
-        self.gmt_create_format = TeaConverter.to_unicode(gmt_create_format)  # type: unicode
+        self.gmt_create_format = gmt_create_format  # type: str
         # 修改时间，毫秒
         self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
         # 记录id
         self.id = id  # type: long
         # cpId对应的共享key，用于共享报告
-        self.share_key = TeaConverter.to_unicode(share_key)  # type: unicode
+        self.share_key = share_key  # type: str
         # 主题
-        self.subject = TeaConverter.to_unicode(subject)  # type: unicode
+        self.subject = subject  # type: str
         # 是否成功的标志，1表示成功，否则表示不成功
         self.success = success  # type: long
         # 类型： 如邮件、钉钉等
         self.type = type  # type: long
         # 创建人id
-        self.uid_create = TeaConverter.to_unicode(uid_create)  # type: unicode
+        self.uid_create = uid_create  # type: str
         # 创建人名字
-        self.uname_create = TeaConverter.to_unicode(uname_create)  # type: unicode
+        self.uname_create = uname_create  # type: str
         # 状态，1为生效，0为失效。
         self.valid = valid  # type: long
 
@@ -352,15 +351,15 @@ class SearchCondition(TeaModel):
         # 舆情筛选模板Id
         self.filter_id = filter_id  # type: long
         # 搭配词，json字符串数组
-        self.ass_keywords_idx = TeaConverter.to_unicode(ass_keywords_idx)  # type: unicode
+        self.ass_keywords_idx = ass_keywords_idx  # type: str
         # 粉丝数上限
         self.author_followers_count_max_filter = author_followers_count_max_filter  # type: long
         # 粉丝数下限
         self.author_followers_count_min_filter = author_followers_count_min_filter  # type: long
         # 指定用户名，多个用户用英文逗号隔开
-        self.author_name_idx = TeaConverter.to_unicode(author_name_idx)  # type: unicode
+        self.author_name_idx = author_name_idx  # type: str
         # 作者认证类型，多个用,隔开
-        self.author_verify_type_filter = TeaConverter.to_unicode(author_verify_type_filter)  # type: unicode
+        self.author_verify_type_filter = author_verify_type_filter  # type: str
         # 评论数上限
         self.comments_count_max_filter = comments_count_max_filter  # type: long
         # 评论数下限
@@ -374,9 +373,9 @@ class SearchCondition(TeaModel):
         # 答案数下限
         self.doc_answers_count_min_filter = doc_answers_count_min_filter  # type: long
         # 提级地域
-        self.doc_area_idx = TeaConverter.to_unicode(doc_area_idx)  # type: unicode
+        self.doc_area_idx = doc_area_idx  # type: str
         # 相似文章索引Id,，多个用英文逗号隔开
-        self.doc_content_sign_idx = TeaConverter.to_unicode(doc_content_sign_idx)  # type: unicode
+        self.doc_content_sign_idx = doc_content_sign_idx  # type: str
         # 创建时间戳上限
         self.doc_create_time_end_filter = doc_create_time_end_filter  # type: long
         # 创建时间戳下限
@@ -392,41 +391,41 @@ class SearchCondition(TeaModel):
         # 情感分值下限，范围-10~10
         self.emotion_score_min_filter = emotion_score_min_filter  # type: float
         # 排除指定用户名，多个用户用英文逗号隔开
-        self.exclude_author_name_idx = TeaConverter.to_unicode(exclude_author_name_idx)  # type: unicode
+        self.exclude_author_name_idx = exclude_author_name_idx  # type: str
         # 排除指定Host
-        self.excluding_media_hosts_filter = TeaConverter.to_unicode(excluding_media_hosts_filter)  # type: unicode
+        self.excluding_media_hosts_filter = excluding_media_hosts_filter  # type: str
         # 排除指定媒体库ids，媒体库在舆情平台上定义
-        self.excluding_media_pool_ids_filter = TeaConverter.to_unicode(excluding_media_pool_ids_filter)  # type: unicode
+        self.excluding_media_pool_ids_filter = excluding_media_pool_ids_filter  # type: str
         # 点赞数上限
         self.likes_count_max_filter = likes_count_max_filter  # type: long
         # 点赞数下限
         self.likes_count_min_filter = likes_count_min_filter  # type: long
         # 指定Host
-        self.media_hosts_filter = TeaConverter.to_unicode(media_hosts_filter)  # type: unicode
+        self.media_hosts_filter = media_hosts_filter  # type: str
         # 媒体影响分上限
         self.media_influence_score_max_filter = media_influence_score_max_filter  # type: float
         # 媒体影响分下限
         self.media_influence_score_min_filter = media_influence_score_min_filter  # type: float
         # 指定媒体库ids，媒体库在舆情平台上定义
-        self.media_pool_ids_filter = TeaConverter.to_unicode(media_pool_ids_filter)  # type: unicode
+        self.media_pool_ids_filter = media_pool_ids_filter  # type: str
         # 媒体传播分上限取值范围：0-10分
         self.media_propagation_score_max_filter = media_propagation_score_max_filter  # type: float
         # 媒体传播分下限取值范围：0-10分
         self.media_propagation_score_min_filter = media_propagation_score_min_filter  # type: float
         # 枚举字符串如：WEIBO-WEIBO
-        self.media_type_filter = TeaConverter.to_unicode(media_type_filter)  # type: unicode
+        self.media_type_filter = media_type_filter  # type: str
         # 枚举字符串如：COMMENT
-        self.message_type_filter = TeaConverter.to_unicode(message_type_filter)  # type: unicode
+        self.message_type_filter = message_type_filter  # type: str
         # 排除关键词
-        self.neg_keywords_idx = TeaConverter.to_unicode(neg_keywords_idx)  # type: unicode
+        self.neg_keywords_idx = neg_keywords_idx  # type: str
         # 指定页码
         self.page_now = page_now  # type: int
         # 指定每页大小，最大50
         self.page_size = page_size  # type: int
         # 格式同AssKeywordsIdx，如果指定了AssKeywordsIdx，两者要同时满足。
-        self.pos_keywords_idx = TeaConverter.to_unicode(pos_keywords_idx)  # type: unicode
+        self.pos_keywords_idx = pos_keywords_idx  # type: str
         # 舆情文章id，支持多值
-        self.primary_key_idx = TeaConverter.to_unicode(primary_key_idx)  # type: unicode
+        self.primary_key_idx = primary_key_idx  # type: str
         # 阅读数上限
         self.reads_count_max_filter = reads_count_max_filter  # type: long
         # 阅读数下限
@@ -440,13 +439,13 @@ class SearchCondition(TeaModel):
         # 转发数下限
         self.reposts_count_min_filter = reposts_count_min_filter  # type: long
         # 文章转载来源名称
-        self.reprint_from_filter = TeaConverter.to_unicode(reprint_from_filter)  # type: unicode
+        self.reprint_from_filter = reprint_from_filter  # type: str
         # 标题不包含的关键词
-        self.title_excluding_words_idx = TeaConverter.to_unicode(title_excluding_words_idx)  # type: unicode
+        self.title_excluding_words_idx = title_excluding_words_idx  # type: str
         # 标题包含的关键词
-        self.title_including_words_idx = TeaConverter.to_unicode(title_including_words_idx)  # type: unicode
+        self.title_including_words_idx = title_including_words_idx  # type: str
         # 指定索引模式,KEYWORD|CREATE_TIME
-        self.used_index_mode_switch = TeaConverter.to_unicode(used_index_mode_switch)  # type: unicode
+        self.used_index_mode_switch = used_index_mode_switch  # type: str
         # 色情取值true or false
         self.eroticism_filter = eroticism_filter  # type: bool
         # 赌博取值true or false
@@ -462,9 +461,9 @@ class SearchCondition(TeaModel):
         # 疑似垃圾取值true or false
         self.suspicion_spam_filter = suspicion_spam_filter  # type: bool
         # 业务自定义标签字段过滤
-        self.biz_tags_idx = TeaConverter.to_unicode(biz_tags_idx)  # type: unicode
+        self.biz_tags_idx = biz_tags_idx  # type: str
         # 支付宝内部的2088账号
-        self.alipay_account_filter = TeaConverter.to_unicode(alipay_account_filter)  # type: unicode
+        self.alipay_account_filter = alipay_account_filter  # type: str
         # 文章更新时间上限
         self.doc_update_time_end_filter = doc_update_time_end_filter  # type: long
         # 更新时间戳下限
@@ -472,21 +471,21 @@ class SearchCondition(TeaModel):
         # 是否要进行关键词高亮显示
         self.enable_keyword_highlight = enable_keyword_highlight  # type: bool
         # 实体所在地，主要指的是公司
-        self.finance_entity_area_filter = TeaConverter.to_unicode(finance_entity_area_filter)  # type: unicode
+        self.finance_entity_area_filter = finance_entity_area_filter  # type: str
         # 公司全名称
-        self.entity_name = TeaConverter.to_unicode(entity_name)  # type: unicode
+        self.entity_name = entity_name  # type: str
         # 实体关联度得分上限
         self.finance_entity_relevance_score_max_filter = finance_entity_relevance_score_max_filter  # type: float
         # 实体关联度得分下限
         self.finance_entity_relevance_score_min_filter = finance_entity_relevance_score_min_filter  # type: float
         # 金融事件id，支持多个
-        self.finance_event_code_filter = TeaConverter.to_unicode(finance_event_code_filter)  # type: unicode
+        self.finance_event_code_filter = finance_event_code_filter  # type: str
         # 父文章docId
-        self.parent_ids_idx = TeaConverter.to_unicode(parent_ids_idx)  # type: unicode
+        self.parent_ids_idx = parent_ids_idx  # type: str
         # 如'+'是升序，'-'是降序
-        self.sort_by_direction = TeaConverter.to_unicode(sort_by_direction)  # type: unicode
+        self.sort_by_direction = sort_by_direction  # type: str
         # 排序字段枚举
-        self.sort_by = TeaConverter.to_unicode(sort_by)  # type: unicode
+        self.sort_by = sort_by  # type: str
 
     def validate(self):
         pass
@@ -784,25 +783,25 @@ class FinanceEvent(TeaModel):
     def __init__(self, entity_area=None, entity_id=None, entity_name=None, entity_relevance_score=None,
                  entity_summary=None, entity_type=None, event_code=None, event_id=None, event_name=None, entity_crn=None):
         # 实体地理位置
-        self.entity_area = TeaConverter.to_unicode(entity_area)  # type: unicode
+        self.entity_area = entity_area  # type: str
         # 实体ID
-        self.entity_id = TeaConverter.to_unicode(entity_id)  # type: unicode
+        self.entity_id = entity_id  # type: str
         # 实体名称
-        self.entity_name = TeaConverter.to_unicode(entity_name)  # type: unicode
+        self.entity_name = entity_name  # type: str
         # 实体相关度得分
-        self.entity_relevance_score = TeaConverter.to_unicode(entity_relevance_score)  # type: unicode
+        self.entity_relevance_score = entity_relevance_score  # type: str
         # 实体的事件摘要描述
-        self.entity_summary = TeaConverter.to_unicode(entity_summary)  # type: unicode
+        self.entity_summary = entity_summary  # type: str
         # 实体类型，枚举值
-        self.entity_type = TeaConverter.to_unicode(entity_type)  # type: unicode
+        self.entity_type = entity_type  # type: str
         # 事件码
         self.event_code = event_code  # type: long
         # 事件id
-        self.event_id = TeaConverter.to_unicode(event_id)  # type: unicode
+        self.event_id = event_id  # type: str
         # 事件名称
-        self.event_name = TeaConverter.to_unicode(event_name)  # type: unicode
+        self.event_name = event_name  # type: str
         # 实体唯一id，统一社会信用代码
-        self.entity_crn = TeaConverter.to_unicode(entity_crn)  # type: unicode
+        self.entity_crn = entity_crn  # type: str
 
     def validate(self):
         pass
@@ -868,9 +867,9 @@ class Filter(TeaModel):
         # 状态。1：有效，0：无效
         self.valid = valid  # type: long
         # 筛选模板名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 筛选模板配置内容
-        self.criteria = TeaConverter.to_unicode(criteria)  # type: unicode
+        self.criteria = criteria  # type: str
         # 筛选模板所属id
         self.filter_group_id = filter_group_id  # type: long
 
@@ -917,7 +916,7 @@ class Filter(TeaModel):
 class StatisticPoint(TeaModel):
     def __init__(self, key=None, value=None):
         # 聚合字段结果值
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # 聚合结果值
         self.value = value  # type: float
 
@@ -955,47 +954,48 @@ class YuqingMessage(TeaModel):
                  highlight_keywords=None, highlight_pos_keywords=None, image_count=None, media_hosts=None, media_influence_level=None,
                  media_influence_score=None, media_name=None, media_propagation_score=None, media_qun_name=None, media_res_city=None,
                  media_res_country=None, media_res_province=None, media_type=None, original_media=None, relevance_score_fmt=None,
-                 similar_number=None, spam=None, weibo_comment_id=None, weibo_mid=None, ue_emotion_score=None, finance_events=None):
+                 similar_number=None, spam=None, weibo_comment_id=None, weibo_mid=None, ue_emotion_score=None, finance_events=None,
+                 app_store_app_score=None, app_store_app_name=None, app_store_name=None):
         # 舆情文章唯一ID
-        self.doc_id = TeaConverter.to_unicode(doc_id)  # type: unicode
+        self.doc_id = doc_id  # type: str
         # 广告
         self.advertisement = advertisement  # type: bool
         # 2088账号
         self.alipay_account = alipay_account  # type: long
         # 被at的用户名列表
-        self.at_author_names = at_author_names  # type: list[unicode]
+        self.at_author_names = at_author_names  # type: list[str]
         # 用户头像地址
-        self.author_avatar_url = TeaConverter.to_unicode(author_avatar_url)  # type: unicode
+        self.author_avatar_url = author_avatar_url  # type: str
         # 作者粉丝数
         self.author_followers_count = author_followers_count  # type: long
         # 作者好友数
         self.author_friends_count = author_friends_count  # type: long
         # 外部平台作者id
-        self.author_id = TeaConverter.to_unicode(author_id)  # type: unicode
+        self.author_id = author_id  # type: str
         # 作者名称
-        self.author_name = TeaConverter.to_unicode(author_name)  # type: unicode
+        self.author_name = author_name  # type: str
         # 个人主页地址
-        self.author_profile_url = TeaConverter.to_unicode(author_profile_url)  # type: unicode
+        self.author_profile_url = author_profile_url  # type: str
         # 发布微博数
         self.author_statuses_count = author_statuses_count  # type: long
         # 作者认证类型
-        self.author_verify_type = TeaConverter.to_unicode(author_verify_type)  # type: unicode
+        self.author_verify_type = author_verify_type  # type: str
         # 敏感暴恐政
         self.bkz = bkz  # type: bool
         # 音频识别出来的文字
-        self.content_audio_text = TeaConverter.to_unicode(content_audio_text)  # type: unicode
+        self.content_audio_text = content_audio_text  # type: str
         # 音频地址
-        self.content_audio_urls = TeaConverter.to_unicode(content_audio_urls)  # type: unicode
+        self.content_audio_urls = content_audio_urls  # type: str
         # 情感的正负面，-1代表负面，1代表非负面
         self.content_emotion_type = content_emotion_type  # type: int
         # 从图片识别出来文字
-        self.content_image_text = TeaConverter.to_unicode(content_image_text)  # type: unicode
+        self.content_image_text = content_image_text  # type: str
         # 内容中的图片列表
-        self.content_image_urls = TeaConverter.to_unicode(content_image_urls)  # type: unicode
+        self.content_image_urls = content_image_urls  # type: str
         # 视频识别出来的文字
-        self.content_video_text = TeaConverter.to_unicode(content_video_text)  # type: unicode
+        self.content_video_text = content_video_text  # type: str
         # 视频地址
-        self.content_video_urls = TeaConverter.to_unicode(content_video_urls)  # type: unicode
+        self.content_video_urls = content_video_urls  # type: str
         # 舆情文章入库时间戳
         self.doc_create_time = doc_create_time  # type: long
         # 舆情文章的发布时间戳
@@ -1003,93 +1003,99 @@ class YuqingMessage(TeaModel):
         # 回答数
         self.doc_answers_count = doc_answers_count  # type: long
         # 新闻用内容提取的地名,微博用用户的地名,映射归一化
-        self.doc_areas = doc_areas  # type: list[unicode]
+        self.doc_areas = doc_areas  # type: list[str]
         # 文章评论数
         self.doc_comments_count = doc_comments_count  # type: long
         # 舆情消息内容
-        self.doc_content = TeaConverter.to_unicode(doc_content)  # type: unicode
+        self.doc_content = doc_content  # type: str
         # 文章内容概要，无Html标签，最长保留200个字
-        self.doc_content_brief = TeaConverter.to_unicode(doc_content_brief)  # type: unicode
+        self.doc_content_brief = doc_content_brief  # type: str
         # 文章内容签名，如果是转发微博或者其他有父内容的doc，计算的是父文章的得分。一般用于去重，相同的doc_content_sign说明内容相同
-        self.doc_content_sign = TeaConverter.to_unicode(doc_content_sign)  # type: unicode
+        self.doc_content_sign = doc_content_sign  # type: str
         # 文章的关注数
         self.doc_focus_article_count = doc_focus_article_count  # type: long
         # 文章点赞数
         self.doc_likes_count = doc_likes_count  # type: long
         # 舆情消息类型:转发,评论/回复, 原文,群聊等
-        self.doc_message_type = TeaConverter.to_unicode(doc_message_type)  # type: unicode
+        self.doc_message_type = doc_message_type  # type: str
         # 父文章DocID, 比如转发微博的父Id是源微博DocId
-        self.doc_parent_id = TeaConverter.to_unicode(doc_parent_id)  # type: unicode
+        self.doc_parent_id = doc_parent_id  # type: str
         # 阅读数
         self.doc_reads_count = doc_reads_count  # type: long
         # 转载数
         self.doc_reposts_count = doc_reposts_count  # type: long
         # 文章自身的内容签名，转发微博计算的是转发内容的contentSign，与父微博无关
-        self.doc_self_content_sign = TeaConverter.to_unicode(doc_self_content_sign)  # type: unicode
+        self.doc_self_content_sign = doc_self_content_sign  # type: str
         # 文章的标题
-        self.doc_title = TeaConverter.to_unicode(doc_title)  # type: unicode
+        self.doc_title = doc_title  # type: str
         # 文章标题，无Html标签
-        self.doc_title_brief = TeaConverter.to_unicode(doc_title_brief)  # type: unicode
+        self.doc_title_brief = doc_title_brief  # type: str
         # 原文链接
-        self.doc_url = TeaConverter.to_unicode(doc_url)  # type: unicode
+        self.doc_url = doc_url  # type: str
         # 业务自定义字段透传docUserDefineJson
-        self.doc_user_define_json = TeaConverter.to_unicode(doc_user_define_json)  # type: unicode
+        self.doc_user_define_json = doc_user_define_json  # type: str
         # 情感得分
-        self.emotion_score = TeaConverter.to_unicode(emotion_score)  # type: unicode
+        self.emotion_score = emotion_score  # type: str
         # 实体别名
-        self.entity_alias = TeaConverter.to_unicode(entity_alias)  # type: unicode
+        self.entity_alias = entity_alias  # type: str
         # 实体相关度得分，0-1,两位小数
-        self.entity_relevancy_score = TeaConverter.to_unicode(entity_relevancy_score)  # type: unicode
+        self.entity_relevancy_score = entity_relevancy_score  # type: str
         # 是否色情内容
         self.eroticism = eroticism  # type: bool
         # 内容的暴恐政色得分，0-10，值越大说明内容越敏感
-        self.eroticism_score_fmt = TeaConverter.to_unicode(eroticism_score_fmt)  # type: unicode
+        self.eroticism_score_fmt = eroticism_score_fmt  # type: str
         # 是否涉及赌博
         self.gambling = gambling  # type: bool
         # 如果查询条件中有搭配词，那么这个字段存储文章中命中的搭配词列表
-        self.highlight_ass_keywords = highlight_ass_keywords  # type: list[unicode]
+        self.highlight_ass_keywords = highlight_ass_keywords  # type: list[str]
         # 在指定关键词、搭配词的情况下，返回文章内命中的词列表
-        self.highlight_keywords = highlight_keywords  # type: list[unicode]
+        self.highlight_keywords = highlight_keywords  # type: list[str]
         # 如果查询条件中有关键词，那么这个字段保存文章中命中的关键词列表
-        self.highlight_pos_keywords = highlight_pos_keywords  # type: list[unicode]
+        self.highlight_pos_keywords = highlight_pos_keywords  # type: list[str]
         # 文章内容中的图片个数
         self.image_count = image_count  # type: long
         # 站点来源host列表
-        self.media_hosts = media_hosts  # type: list[unicode]
+        self.media_hosts = media_hosts  # type: list[str]
         # 媒体影响力等级，0-4，值越大影响力越大
         self.media_influence_level = media_influence_level  # type: int
         # 媒体影响力 0-10,两位小数
-        self.media_influence_score = TeaConverter.to_unicode(media_influence_score)  # type: unicode
+        self.media_influence_score = media_influence_score  # type: str
         # 媒体名称
-        self.media_name = TeaConverter.to_unicode(media_name)  # type: unicode
+        self.media_name = media_name  # type: str
         # 媒体传播得分，0-10,两位小数
-        self.media_propagation_score = TeaConverter.to_unicode(media_propagation_score)  # type: unicode
+        self.media_propagation_score = media_propagation_score  # type: str
         # IM软件群聊天名称
-        self.media_qun_name = TeaConverter.to_unicode(media_qun_name)  # type: unicode
+        self.media_qun_name = media_qun_name  # type: str
         # 媒体地域信息: 城市
-        self.media_res_city = TeaConverter.to_unicode(media_res_city)  # type: unicode
+        self.media_res_city = media_res_city  # type: str
         # 媒体地域信息: 国家
-        self.media_res_country = TeaConverter.to_unicode(media_res_country)  # type: unicode
+        self.media_res_country = media_res_country  # type: str
         # 媒体地域信息: 省份
-        self.media_res_province = TeaConverter.to_unicode(media_res_province)  # type: unicode
+        self.media_res_province = media_res_province  # type: str
         # 媒体类型，枚举值
-        self.media_type = TeaConverter.to_unicode(media_type)  # type: unicode
+        self.media_type = media_type  # type: str
         # 疑似首发媒体列表
-        self.original_media = original_media  # type: list[unicode]
+        self.original_media = original_media  # type: list[str]
         # 关键词/搭配词与文章内容的相关性得分，0-10分，值越大相关性越高
-        self.relevance_score_fmt = TeaConverter.to_unicode(relevance_score_fmt)  # type: unicode
+        self.relevance_score_fmt = relevance_score_fmt  # type: str
         # 相似文章数
         self.similar_number = similar_number  # type: int
         # 是否垃圾内容
         self.spam = spam  # type: bool
         # 微博评论的外部ID
-        self.weibo_comment_id = TeaConverter.to_unicode(weibo_comment_id)  # type: unicode
+        self.weibo_comment_id = weibo_comment_id  # type: str
         # 微博外部ID
-        self.weibo_mid = TeaConverter.to_unicode(weibo_mid)  # type: unicode
+        self.weibo_mid = weibo_mid  # type: str
         # 用户情感分值
-        self.ue_emotion_score = TeaConverter.to_unicode(ue_emotion_score)  # type: unicode
+        self.ue_emotion_score = ue_emotion_score  # type: str
         # 舆情文章提取出来的金融事件列表
         self.finance_events = finance_events  # type: list[FinanceEvent]
+        # appstore应用评分
+        self.app_store_app_score = app_store_app_score  # type: str
+        # 应用名称
+        self.app_store_app_name = app_store_app_name  # type: str
+        # 应用市场名称
+        self.app_store_name = app_store_name  # type: str
 
     def validate(self):
         if self.finance_events:
@@ -1235,6 +1241,12 @@ class YuqingMessage(TeaModel):
         if self.finance_events is not None:
             for k in self.finance_events:
                 result['financeEvents'].append(k.to_map() if k else None)
+        if self.app_store_app_score is not None:
+            result['appStoreAppScore'] = self.app_store_app_score
+        if self.app_store_app_name is not None:
+            result['appStoreAppName'] = self.app_store_app_name
+        if self.app_store_name is not None:
+            result['appStoreName'] = self.app_store_name
         return result
 
     def from_map(self, m=None):
@@ -1376,6 +1388,12 @@ class YuqingMessage(TeaModel):
             for k in m.get('financeEvents'):
                 temp_model = FinanceEvent()
                 self.finance_events.append(temp_model.from_map(k))
+        if m.get('appStoreAppScore') is not None:
+            self.app_store_app_score = m.get('appStoreAppScore')
+        if m.get('appStoreAppName') is not None:
+            self.app_store_app_name = m.get('appStoreAppName')
+        if m.get('appStoreName') is not None:
+            self.app_store_name = m.get('appStoreName')
         return self
 
 
@@ -1389,15 +1407,15 @@ class ProjectGroup(TeaModel):
         # 项目分组id，唯一标识项目分组
         self.id = id  # type: long
         # 项目分组名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 父项目分组id，0为默认值，表示无父项目分组
         self.parent_id = parent_id  # type: long
         # 项目分组类型，0表示通用舆情，2表示金融舆情
         self.project_group_type = project_group_type  # type: long
         # 项目创建人uid
-        self.uid_create = TeaConverter.to_unicode(uid_create)  # type: unicode
+        self.uid_create = uid_create  # type: str
         # 项目分组创建人名称
-        self.uname_create = TeaConverter.to_unicode(uname_create)  # type: unicode
+        self.uname_create = uname_create  # type: str
         # 是否有效，1表示有效，0表示无效
         self.valid = valid  # type: long
 
@@ -1456,49 +1474,49 @@ class AlarmData(TeaModel):
                  project_name=None, self_content_sign_str=None, source_url=None, state=None, tags=None, title=None, type=None,
                  message=None):
         # 预警规则等级
-        self.alarm_level = TeaConverter.to_unicode(alarm_level)  # type: unicode
+        self.alarm_level = alarm_level  # type: str
         # 舆情消息id
         self.alarm_msg_id = alarm_msg_id  # type: long
         # 预警规则id
         self.alarm_rule_id = alarm_rule_id  # type: long
         # 预警规则名称
-        self.alarm_rule_name = TeaConverter.to_unicode(alarm_rule_name)  # type: unicode
+        self.alarm_rule_name = alarm_rule_name  # type: str
         # 预警时间
         self.alarm_timestamp = alarm_timestamp  # type: long
         # 舆情作者名字
-        self.author_name = TeaConverter.to_unicode(author_name)  # type: unicode
+        self.author_name = author_name  # type: str
         # 舆情内容（不完整）
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.content = content  # type: str
         # 舆情文章唯一id
-        self.doc_id_str = TeaConverter.to_unicode(doc_id_str)  # type: unicode
+        self.doc_id_str = doc_id_str  # type: str
         # 舆情消息类型
-        self.doc_media_type = TeaConverter.to_unicode(doc_media_type)  # type: unicode
+        self.doc_media_type = doc_media_type  # type: str
         # 最后更新时间
         self.gmt_modified_timestamp = gmt_modified_timestamp  # type: long
         # 媒体名字
-        self.media_name = TeaConverter.to_unicode(media_name)  # type: unicode
+        self.media_name = media_name  # type: str
         # 备注列表
-        self.memos = memos  # type: list[unicode]
+        self.memos = memos  # type: list[str]
         # 最后修改舆情的用户名称
-        self.modifier_name = TeaConverter.to_unicode(modifier_name)  # type: unicode
+        self.modifier_name = modifier_name  # type: str
         # 员工工号
-        self.modifier_out_no = TeaConverter.to_unicode(modifier_out_no)  # type: unicode
+        self.modifier_out_no = modifier_out_no  # type: str
         # 项目id
         self.project_id = project_id  # type: long
         # 舆情命中的预警项目名称
-        self.project_name = TeaConverter.to_unicode(project_name)  # type: unicode
+        self.project_name = project_name  # type: str
         # 文章签名
-        self.self_content_sign_str = TeaConverter.to_unicode(self_content_sign_str)  # type: unicode
+        self.self_content_sign_str = self_content_sign_str  # type: str
         # url地址
-        self.source_url = TeaConverter.to_unicode(source_url)  # type: unicode
+        self.source_url = source_url  # type: str
         # 预警消息状态
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 预警的标签列表
-        self.tags = tags  # type: list[unicode]
+        self.tags = tags  # type: list[str]
         # 舆情标题
-        self.title = TeaConverter.to_unicode(title)  # type: unicode
+        self.title = title  # type: str
         # 预警规则类型，枚举值
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 舆情消息体
         self.message = message  # type: YuqingMessage
 
@@ -1617,13 +1635,13 @@ class AlarmQueryCondition(TeaModel):
         # 舆情消息id列表
         self.doc_ids = doc_ids  # type: list[long]
         # 查询数据的消息类型
-        self.doc_media_type = doc_media_type  # type: list[unicode]
+        self.doc_media_type = doc_media_type  # type: list[str]
         # 查询结束时间,毫秒
         self.end_time = end_time  # type: long
         # 预警id列表
         self.ids = ids  # type: list[long]
         # 预警等级过滤列表
-        self.levels = levels  # type: list[unicode]
+        self.levels = levels  # type: list[str]
         # 当前页
         self.page_now = page_now  # type: long
         # 分页大小
@@ -1633,11 +1651,11 @@ class AlarmQueryCondition(TeaModel):
         # 查询开始时间,毫秒
         self.start_time = start_time  # type: long
         # 预警状态列表
-        self.status = status  # type: list[unicode]
+        self.status = status  # type: list[str]
         # 标签id列表
         self.tag_ids = tag_ids  # type: list[long]
         # 预警规则类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 是否使用更新时间作为筛选
         self.is_query_update_time = is_query_update_time  # type: bool
 
@@ -1713,11 +1731,11 @@ class QueryAlarmDataListRequest(TeaModel):
     def __init__(self, alarm_query=None, order_by_key=None, team_hash_id=None, request_id=None):
         self.alarm_query = alarm_query  # type: AlarmQueryCondition
         # 排序方式
-        self.order_by_key = TeaConverter.to_unicode(order_by_key)  # type: unicode
+        self.order_by_key = order_by_key  # type: str
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.alarm_query:
@@ -1752,7 +1770,7 @@ class QueryAlarmDataListRequest(TeaModel):
 class QueryAlarmDataListResponseBody(TeaModel):
     def __init__(self, request_id=None, pages=None, total_count=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 预警列表
         self.pages = pages  # type: list[AlarmData]
         # 总条数
@@ -1792,7 +1810,7 @@ class QueryAlarmDataListResponseBody(TeaModel):
 
 class QueryAlarmDataListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAlarmDataListResponseBody
 
     def validate(self):
@@ -1824,9 +1842,9 @@ class GetAnalysisComponentResultRequest(TeaModel):
         # 分析任务Id
         self.analysis_id = analysis_id  # type: long
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1855,9 +1873,9 @@ class GetAnalysisComponentResultRequest(TeaModel):
 class GetAnalysisComponentResultResponseBody(TeaModel):
     def __init__(self, request_id=None, result_json=None, analysis_id=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 任务结果json。参考opinion.analysis.component.query的result_json
-        self.result_json = TeaConverter.to_unicode(result_json)  # type: unicode
+        self.result_json = result_json  # type: str
         # 任务Id
         self.analysis_id = analysis_id  # type: long
 
@@ -1887,7 +1905,7 @@ class GetAnalysisComponentResultResponseBody(TeaModel):
 
 class GetAnalysisComponentResultResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetAnalysisComponentResultResponseBody
 
     def validate(self):
@@ -1917,11 +1935,11 @@ class GetAnalysisComponentResultResponse(TeaModel):
 class GetMessageDetailRequest(TeaModel):
     def __init__(self, doc_id=None, team_hash_id=None, request_id=None):
         # 舆情文章Id
-        self.doc_id = TeaConverter.to_unicode(doc_id)  # type: unicode
+        self.doc_id = doc_id  # type: str
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1950,9 +1968,9 @@ class GetMessageDetailRequest(TeaModel):
 class GetMessageDetailResponseBody(TeaModel):
     def __init__(self, request_id=None, data=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 舆情消息体
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
+        self.data = data  # type: str
 
     def validate(self):
         pass
@@ -1976,7 +1994,7 @@ class GetMessageDetailResponseBody(TeaModel):
 
 class GetMessageDetailResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetMessageDetailResponseBody
 
     def validate(self):
@@ -2006,15 +2024,15 @@ class GetMessageDetailResponse(TeaModel):
 class CreateProjectRequest(TeaModel):
     def __init__(self, create_user_id=None, create_user_name=None, project=None, team_hash_id=None, request_id=None):
         # 创建者uid
-        self.create_user_id = TeaConverter.to_unicode(create_user_id)  # type: unicode
+        self.create_user_id = create_user_id  # type: str
         # 创建者名称
-        self.create_user_name = TeaConverter.to_unicode(create_user_name)  # type: unicode
+        self.create_user_name = create_user_name  # type: str
         # 舆情项目对象
         self.project = project  # type: Project
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.project:
@@ -2055,7 +2073,7 @@ class CreateProjectResponseBody(TeaModel):
         # 舆情项目id
         self.id = id  # type: long
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2079,7 +2097,7 @@ class CreateProjectResponseBody(TeaModel):
 
 class CreateProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateProjectResponseBody
 
     def validate(self):
@@ -2118,9 +2136,9 @@ class QueryProjectListRequest(TeaModel):
         # 指定舆情项目id
         self.project_id = project_id  # type: long
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2161,7 +2179,7 @@ class QueryProjectListRequest(TeaModel):
 class QueryProjectListResponseBody(TeaModel):
     def __init__(self, request_id=None, project_list=None, total_count=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 舆情项目列表,参考Project对象
         self.project_list = project_list  # type: list[Project]
         # 总记录数
@@ -2201,7 +2219,7 @@ class QueryProjectListResponseBody(TeaModel):
 
 class QueryProjectListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryProjectListResponseBody
 
     def validate(self):
@@ -2231,9 +2249,9 @@ class QueryProjectListResponse(TeaModel):
 class QueryTagNodesRequest(TeaModel):
     def __init__(self, team_hash_id=None, request_id=None):
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2258,7 +2276,7 @@ class QueryTagNodesRequest(TeaModel):
 class QueryTagNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, biz_tag_tree_list=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 标签列表
         self.biz_tag_tree_list = biz_tag_tree_list  # type: list[BizTagTree]
 
@@ -2292,7 +2310,7 @@ class QueryTagNodesResponseBody(TeaModel):
 
 class QueryTagNodesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryTagNodesResponseBody
 
     def validate(self):
@@ -2333,13 +2351,13 @@ class QueryReportNotifiesRequest(TeaModel):
         # 分页大小
         self.page_size = page_size  # type: long
         # 主题
-        self.subject = TeaConverter.to_unicode(subject)  # type: unicode
+        self.subject = subject  # type: str
         # 类型： 如邮件、钉钉等
         self.type = type  # type: long
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2392,7 +2410,7 @@ class QueryReportNotifiesRequest(TeaModel):
 class QueryReportNotifiesResponseBody(TeaModel):
     def __init__(self, request_id=None, report_notify_record_list=None, total_count=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 报告历史发送信息
         self.report_notify_record_list = report_notify_record_list  # type: list[ReportNotifyRecord]
         # 总数量
@@ -2432,7 +2450,7 @@ class QueryReportNotifiesResponseBody(TeaModel):
 
 class QueryReportNotifiesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryReportNotifiesResponseBody
 
     def validate(self):
@@ -2464,13 +2482,13 @@ class DeleteProjectRequest(TeaModel):
         # 舆情项目id
         self.id = id  # type: long
         # 修改人uid
-        self.modified_user_id = TeaConverter.to_unicode(modified_user_id)  # type: unicode
+        self.modified_user_id = modified_user_id  # type: str
         # 修改人名称
-        self.modified_user_name = TeaConverter.to_unicode(modified_user_name)  # type: unicode
+        self.modified_user_name = modified_user_name  # type: str
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2509,7 +2527,7 @@ class DeleteProjectResponseBody(TeaModel):
         # 被删除的项目id
         self.id = id  # type: long
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2533,7 +2551,7 @@ class DeleteProjectResponseBody(TeaModel):
 
 class DeleteProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteProjectResponseBody
 
     def validate(self):
@@ -2569,9 +2587,9 @@ class QueryFilterListRequest(TeaModel):
         # 指定筛选模板id查询
         self.filter_id = filter_id  # type: long
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2608,7 +2626,7 @@ class QueryFilterListRequest(TeaModel):
 class QueryFilterListResponseBody(TeaModel):
     def __init__(self, request_id=None, filters=None, total_count=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 筛选模板列表。
         self.filters = filters  # type: list[Filter]
         # 总条数
@@ -2648,7 +2666,7 @@ class QueryFilterListResponseBody(TeaModel):
 
 class QueryFilterListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryFilterListResponseBody
 
     def validate(self):
@@ -2681,15 +2699,15 @@ class AggregateSearchYuqingRequest(TeaModel):
         # 查询舆情条件
         self.search_condition = search_condition  # type: SearchCondition
         # 聚合函数
-        self.aggregate_function = TeaConverter.to_unicode(aggregate_function)  # type: unicode
+        self.aggregate_function = aggregate_function  # type: str
         # 聚合字段名字,枚举值
-        self.group_by_key = TeaConverter.to_unicode(group_by_key)  # type: unicode
+        self.group_by_key = group_by_key  # type: str
         # 聚合结果条数
         self.group_limits = group_limits  # type: long
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.search_condition:
@@ -2732,7 +2750,7 @@ class AggregateSearchYuqingRequest(TeaModel):
 class AggregateSearchYuqingResponseBody(TeaModel):
     def __init__(self, request_id=None, agg_result_list=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 聚合结果列表
         self.agg_result_list = agg_result_list  # type: list[StatisticPoint]
 
@@ -2766,7 +2784,7 @@ class AggregateSearchYuqingResponseBody(TeaModel):
 
 class AggregateSearchYuqingResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AggregateSearchYuqingResponseBody
 
     def validate(self):
@@ -2796,13 +2814,13 @@ class AggregateSearchYuqingResponse(TeaModel):
 class QueryAnalysisComponentRequest(TeaModel):
     def __init__(self, analyse_type=None, search_condition=None, team_hash_id=None, request_id=None):
         # 分析任务类型名称，具体可以填写的值可以在舆情平台查看
-        self.analyse_type = TeaConverter.to_unicode(analyse_type)  # type: unicode
+        self.analyse_type = analyse_type  # type: str
         # 搜索舆情条件
         self.search_condition = search_condition  # type: SearchCondition
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.search_condition:
@@ -2837,11 +2855,11 @@ class QueryAnalysisComponentRequest(TeaModel):
 class QueryAnalysisComponentResponseBody(TeaModel):
     def __init__(self, request_id=None, analysis_id=None, result_json=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 分析任务Id，用于查询这个任务对应的结果。如果是快速完成类型的分析，会直接返回结果。如果无结果返回，业务方可以根据这个id轮询查询结果。
         self.analysis_id = analysis_id  # type: long
         # 分析任务返回的结果json字符串，不同分析任务返回的json格式不一样。
-        self.result_json = TeaConverter.to_unicode(result_json)  # type: unicode
+        self.result_json = result_json  # type: str
 
     def validate(self):
         pass
@@ -2869,7 +2887,7 @@ class QueryAnalysisComponentResponseBody(TeaModel):
 
 class QueryAnalysisComponentResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: QueryAnalysisComponentResponseBody
 
     def validate(self):
@@ -2899,11 +2917,11 @@ class QueryAnalysisComponentResponse(TeaModel):
 class UpdatePropagationRequest(TeaModel):
     def __init__(self, weibo_urls=None, team_hash_id=None, request_id=None):
         # 微博源地址
-        self.weibo_urls = weibo_urls  # type: list[unicode]
+        self.weibo_urls = weibo_urls  # type: list[str]
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2932,7 +2950,7 @@ class UpdatePropagationRequest(TeaModel):
 class UpdatePropagationResponseBody(TeaModel):
     def __init__(self, request_id=None):
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2952,7 +2970,7 @@ class UpdatePropagationResponseBody(TeaModel):
 
 class UpdatePropagationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdatePropagationResponseBody
 
     def validate(self):
@@ -2984,9 +3002,9 @@ class ListYuqingMessagesRequest(TeaModel):
         # 查询过滤参数，多个过滤参数之间是且的关系。例如:过滤实例名称为i-a123、i-b123，且实例状态为Stopped：&Filter.1.Name=InstanceName&Filter.1.Value.1=i-a123&Filter.1.Value.2=i-b123&Filter.2.Name=Status&Filter.2.Value=Stopped。
         self.search_condition = search_condition  # type: SearchCondition
         # 舆情团队HashId
-        self.team_hash_id = TeaConverter.to_unicode(team_hash_id)  # type: unicode
+        self.team_hash_id = team_hash_id  # type: str
         # 请求id
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.search_condition:
@@ -3021,7 +3039,7 @@ class ListYuqingMessagesResponseBody(TeaModel):
         # 总记录数。
         self.total_count = total_count  # type: long
         # Id of the request
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.yuqing_messages:
@@ -3057,7 +3075,7 @@ class ListYuqingMessagesResponseBody(TeaModel):
 
 class ListYuqingMessagesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListYuqingMessagesResponseBody
 
     def validate(self):
