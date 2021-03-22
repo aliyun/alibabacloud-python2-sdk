@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class AttachEaiRequest(TeaModel):
     def __init__(self, region_id=None, elastic_accelerated_instance_id=None, client_instance_id=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
 
     def validate(self):
         pass
@@ -36,9 +35,9 @@ class AttachEaiRequest(TeaModel):
 
 class AttachEaiResponseBody(TeaModel):
     def __init__(self, request_id=None, client_instance_id=None, elastic_accelerated_instance_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
 
     def validate(self):
         pass
@@ -66,7 +65,7 @@ class AttachEaiResponseBody(TeaModel):
 
 class AttachEaiResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AttachEaiResponseBody
 
     def validate(self):
@@ -94,11 +93,14 @@ class AttachEaiResponse(TeaModel):
 
 
 class CreateEaiRequest(TeaModel):
-    def __init__(self, region_id=None, instance_type=None, client_token=None, instance_name=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
+    def __init__(self, region_id=None, instance_type=None, client_token=None, instance_name=None,
+                 security_group_id=None, v_switch_id=None):
+        self.region_id = region_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.client_token = client_token  # type: str
+        self.instance_name = instance_name  # type: str
+        self.security_group_id = security_group_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
         pass
@@ -113,6 +115,10 @@ class CreateEaiRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.security_group_id is not None:
+            result['SecurityGroupId'] = self.security_group_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
         return result
 
     def from_map(self, m=None):
@@ -125,13 +131,17 @@ class CreateEaiRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('SecurityGroupId') is not None:
+            self.security_group_id = m.get('SecurityGroupId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
         return self
 
 
 class CreateEaiResponseBody(TeaModel):
     def __init__(self, request_id=None, elastic_accelerated_instance_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
 
     def validate(self):
         pass
@@ -155,7 +165,7 @@ class CreateEaiResponseBody(TeaModel):
 
 class CreateEaiResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateEaiResponseBody
 
     def validate(self):
@@ -188,21 +198,21 @@ class CreateEaiAllRequest(TeaModel):
                  client_instance_name=None, client_password=None, client_internet_max_bandwidth_in=None,
                  client_internet_max_bandwidth_out=None, client_system_disk_category=None, client_system_disk_size=None, client_token=None,
                  instance_name=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.eai_instance_type = TeaConverter.to_unicode(eai_instance_type)  # type: unicode
-        self.client_vswitch_id = TeaConverter.to_unicode(client_vswitch_id)  # type: unicode
-        self.client_security_group_id = TeaConverter.to_unicode(client_security_group_id)  # type: unicode
-        self.client_image_id = TeaConverter.to_unicode(client_image_id)  # type: unicode
-        self.client_instance_type = TeaConverter.to_unicode(client_instance_type)  # type: unicode
-        self.client_zone_id = TeaConverter.to_unicode(client_zone_id)  # type: unicode
-        self.client_instance_name = TeaConverter.to_unicode(client_instance_name)  # type: unicode
-        self.client_password = TeaConverter.to_unicode(client_password)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.eai_instance_type = eai_instance_type  # type: str
+        self.client_vswitch_id = client_vswitch_id  # type: str
+        self.client_security_group_id = client_security_group_id  # type: str
+        self.client_image_id = client_image_id  # type: str
+        self.client_instance_type = client_instance_type  # type: str
+        self.client_zone_id = client_zone_id  # type: str
+        self.client_instance_name = client_instance_name  # type: str
+        self.client_password = client_password  # type: str
         self.client_internet_max_bandwidth_in = client_internet_max_bandwidth_in  # type: int
         self.client_internet_max_bandwidth_out = client_internet_max_bandwidth_out  # type: int
-        self.client_system_disk_category = TeaConverter.to_unicode(client_system_disk_category)  # type: unicode
+        self.client_system_disk_category = client_system_disk_category  # type: str
         self.client_system_disk_size = client_system_disk_size  # type: int
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.instance_name = instance_name  # type: str
 
     def validate(self):
         pass
@@ -278,9 +288,9 @@ class CreateEaiAllRequest(TeaModel):
 
 class CreateEaiAllResponseBody(TeaModel):
     def __init__(self, request_id=None, client_instance_id=None, elastic_accelerated_instance_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
 
     def validate(self):
         pass
@@ -308,7 +318,7 @@ class CreateEaiAllResponseBody(TeaModel):
 
 class CreateEaiAllResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateEaiAllResponseBody
 
     def validate(self):
@@ -337,8 +347,8 @@ class CreateEaiAllResponse(TeaModel):
 
 class DeleteEaiRequest(TeaModel):
     def __init__(self, region_id=None, elastic_accelerated_instance_id=None, force=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
         self.force = force  # type: bool
 
     def validate(self):
@@ -367,7 +377,7 @@ class DeleteEaiRequest(TeaModel):
 
 class DeleteEaiResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -387,7 +397,7 @@ class DeleteEaiResponseBody(TeaModel):
 
 class DeleteEaiResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteEaiResponseBody
 
     def validate(self):
@@ -416,9 +426,9 @@ class DeleteEaiResponse(TeaModel):
 
 class DeleteEaiAllRequest(TeaModel):
     def __init__(self, region_id=None, elastic_accelerated_instance_id=None, client_instance_id=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
 
     def validate(self):
         pass
@@ -446,7 +456,7 @@ class DeleteEaiAllRequest(TeaModel):
 
 class DeleteEaiAllResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -466,7 +476,7 @@ class DeleteEaiAllResponseBody(TeaModel):
 
 class DeleteEaiAllResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteEaiAllResponseBody
 
     def validate(self):
@@ -496,11 +506,11 @@ class DeleteEaiAllResponse(TeaModel):
 class DescribeEaisRequest(TeaModel):
     def __init__(self, region_id=None, elastic_accelerated_instance_ids=None, instance_name=None, status=None,
                  instance_type=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.elastic_accelerated_instance_ids = TeaConverter.to_unicode(elastic_accelerated_instance_ids)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.elastic_accelerated_instance_ids = elastic_accelerated_instance_ids  # type: str
+        self.instance_name = instance_name  # type: str
+        self.status = status  # type: str
+        self.instance_type = instance_type  # type: str
 
     def validate(self):
         pass
@@ -536,8 +546,8 @@ class DescribeEaisRequest(TeaModel):
 
 class DescribeEaisResponseBodyInstancesInstanceTagsTag(TeaModel):
     def __init__(self, tag_value=None, tag_key=None):
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+        self.tag_value = tag_value  # type: str
+        self.tag_key = tag_key  # type: str
 
     def validate(self):
         pass
@@ -591,18 +601,18 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
     def __init__(self, status=None, creation_time=None, client_instance_type=None, client_instance_id=None,
                  tags=None, instance_type=None, region_id=None, client_instance_name=None, description=None,
                  elastic_accelerated_instance_id=None, instance_name=None, zone_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
-        self.client_instance_type = TeaConverter.to_unicode(client_instance_type)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
+        self.status = status  # type: str
+        self.creation_time = creation_time  # type: str
+        self.client_instance_type = client_instance_type  # type: str
+        self.client_instance_id = client_instance_id  # type: str
         self.tags = tags  # type: DescribeEaisResponseBodyInstancesInstanceTags
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.client_instance_name = TeaConverter.to_unicode(client_instance_name)  # type: unicode
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.instance_type = instance_type  # type: str
+        self.region_id = region_id  # type: str
+        self.client_instance_name = client_instance_name  # type: str
+        self.description = description  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         if self.tags:
@@ -698,7 +708,7 @@ class DescribeEaisResponseBody(TeaModel):
     def __init__(self, instances=None, total_count=None, request_id=None, page_size=None, page_number=None):
         self.instances = instances  # type: DescribeEaisResponseBodyInstances
         self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
 
@@ -738,7 +748,7 @@ class DescribeEaisResponseBody(TeaModel):
 
 class DescribeEaisResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeEaisResponseBody
 
     def validate(self):
@@ -767,9 +777,9 @@ class DescribeEaisResponse(TeaModel):
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
-        self.local_name = TeaConverter.to_unicode(local_name)  # type: unicode
-        self.region_endpoint = TeaConverter.to_unicode(region_endpoint)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.local_name = local_name  # type: str
+        self.region_endpoint = region_endpoint  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -825,7 +835,7 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, request_id=None, regions=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
 
     def validate(self):
@@ -852,7 +862,7 @@ class DescribeRegionsResponseBody(TeaModel):
 
 class DescribeRegionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
@@ -881,8 +891,8 @@ class DescribeRegionsResponse(TeaModel):
 
 class DetachEaiRequest(TeaModel):
     def __init__(self, region_id=None, elastic_accelerated_instance_id=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.elastic_accelerated_instance_id = TeaConverter.to_unicode(elastic_accelerated_instance_id)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
 
     def validate(self):
         pass
@@ -906,7 +916,7 @@ class DetachEaiRequest(TeaModel):
 
 class DetachEaiResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -926,7 +936,7 @@ class DetachEaiResponseBody(TeaModel):
 
 class DetachEaiResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetachEaiResponseBody
 
     def validate(self):
@@ -955,8 +965,8 @@ class DetachEaiResponse(TeaModel):
 
 class GetPrivateIpRequest(TeaModel):
     def __init__(self, region_id=None, client_instance_id=None):
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.client_instance_id = TeaConverter.to_unicode(client_instance_id)  # type: unicode
+        self.region_id = region_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
 
     def validate(self):
         pass
@@ -980,8 +990,8 @@ class GetPrivateIpRequest(TeaModel):
 
 class GetPrivateIpResponseBody(TeaModel):
     def __init__(self, request_id=None, private_ip=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.private_ip = TeaConverter.to_unicode(private_ip)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.private_ip = private_ip  # type: str
 
     def validate(self):
         pass
@@ -1005,7 +1015,7 @@ class GetPrivateIpResponseBody(TeaModel):
 
 class GetPrivateIpResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetPrivateIpResponseBody
 
     def validate(self):
