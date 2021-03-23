@@ -227,6 +227,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_cost_unit_with_options(request, runtime)
 
+    def describe_pricing_module_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.DescribePricingModuleResponse().from_map(
+            self.do_rpcrequest('DescribePricingModule', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_pricing_module(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_pricing_module_with_options(request, runtime)
+
     def describe_resource_package_product_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -712,6 +725,19 @@ class Client(OpenApiClient):
     def query_reseller_available_quota(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_reseller_available_quota_with_options(request, runtime)
+
+    def query_resource_package_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return bss_open_api_20171214_models.QueryResourcePackageInstancesResponse().from_map(
+            self.do_rpcrequest('QueryResourcePackageInstances', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_resource_package_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_resource_package_instances_with_options(request, runtime)
 
     def query_riutilization_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
