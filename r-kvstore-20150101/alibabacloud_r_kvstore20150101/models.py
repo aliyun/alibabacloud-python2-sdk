@@ -1,25 +1,23 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class AddShardingNodeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, shard_count=None, shard_class=None, auto_pay=None, coupon_no=None,
-                 business_info=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 business_info=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.shard_count = shard_count  # type: int
-        self.shard_class = TeaConverter.to_unicode(shard_class)  # type: unicode
+        self.shard_class = shard_class  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.coupon_no = coupon_no  # type: str
+        self.business_info = business_info  # type: str
 
     def validate(self):
         pass
@@ -48,8 +46,6 @@ class AddShardingNodeRequest(TeaModel):
             result['CouponNo'] = self.coupon_no
         if self.business_info is not None:
             result['BusinessInfo'] = self.business_info
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
@@ -76,16 +72,14 @@ class AddShardingNodeRequest(TeaModel):
             self.coupon_no = m.get('CouponNo')
         if m.get('BusinessInfo') is not None:
             self.business_info = m.get('BusinessInfo')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class AddShardingNodeResponseBody(TeaModel):
-    def __init__(self, request_id=None, node_ids=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.node_ids = node_ids  # type: list[unicode]
+    def __init__(self, request_id=None, order_id=None, node_ids=None):
+        self.request_id = request_id  # type: str
         self.order_id = order_id  # type: long
+        self.node_ids = node_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -94,26 +88,26 @@ class AddShardingNodeResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.node_ids is not None:
-            result['NodeIds'] = self.node_ids
         if self.order_id is not None:
             result['OrderId'] = self.order_id
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('NodeIds') is not None:
-            self.node_ids = m.get('NodeIds')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
         return self
 
 
 class AddShardingNodeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AddShardingNodeResponseBody
 
     def validate(self):
@@ -142,18 +136,15 @@ class AddShardingNodeResponse(TeaModel):
 
 class AllocateDirectConnectionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, connection_string=None, port=None, only_allocate_ip=None,
-                 client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, connection_string=None, port=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.connection_string = TeaConverter.to_unicode(connection_string)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.only_allocate_ip = only_allocate_ip  # type: bool
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.connection_string = connection_string  # type: str
+        self.port = port  # type: str
 
     def validate(self):
         pass
@@ -176,10 +167,6 @@ class AllocateDirectConnectionRequest(TeaModel):
             result['ConnectionString'] = self.connection_string
         if self.port is not None:
             result['Port'] = self.port
-        if self.only_allocate_ip is not None:
-            result['OnlyAllocateIp'] = self.only_allocate_ip
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
@@ -200,16 +187,12 @@ class AllocateDirectConnectionRequest(TeaModel):
             self.connection_string = m.get('ConnectionString')
         if m.get('Port') is not None:
             self.port = m.get('Port')
-        if m.get('OnlyAllocateIp') is not None:
-            self.only_allocate_ip = m.get('OnlyAllocateIp')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class AllocateDirectConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -229,7 +212,7 @@ class AllocateDirectConnectionResponseBody(TeaModel):
 
 class AllocateDirectConnectionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AllocateDirectConnectionResponseBody
 
     def validate(self):
@@ -258,16 +241,15 @@ class AllocateDirectConnectionResponse(TeaModel):
 
 class AllocateInstancePublicConnectionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, connection_string_prefix=None, port=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, connection_string_prefix=None, port=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.connection_string_prefix = TeaConverter.to_unicode(connection_string_prefix)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.connection_string_prefix = connection_string_prefix  # type: str
+        self.port = port  # type: str
 
     def validate(self):
         pass
@@ -290,8 +272,6 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
             result['ConnectionStringPrefix'] = self.connection_string_prefix
         if self.port is not None:
             result['Port'] = self.port
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
@@ -312,14 +292,12 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
             self.connection_string_prefix = m.get('ConnectionStringPrefix')
         if m.get('Port') is not None:
             self.port = m.get('Port')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class AllocateInstancePublicConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -339,7 +317,7 @@ class AllocateInstancePublicConnectionResponseBody(TeaModel):
 
 class AllocateInstancePublicConnectionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AllocateInstancePublicConnectionResponseBody
 
     def validate(self):
@@ -369,19 +347,18 @@ class AllocateInstancePublicConnectionResponse(TeaModel):
 class CreateAccountRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None, account_privilege=None, account_password=None,
-                 account_description=None, account_type=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 account_description=None, account_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_privilege = TeaConverter.to_unicode(account_privilege)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
-        self.account_description = TeaConverter.to_unicode(account_description)  # type: unicode
-        self.account_type = TeaConverter.to_unicode(account_type)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_privilege = account_privilege  # type: str
+        self.account_password = account_password  # type: str
+        self.account_description = account_description  # type: str
+        self.account_type = account_type  # type: str
 
     def validate(self):
         pass
@@ -410,8 +387,6 @@ class CreateAccountRequest(TeaModel):
             result['AccountDescription'] = self.account_description
         if self.account_type is not None:
             result['AccountType'] = self.account_type
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
@@ -438,16 +413,14 @@ class CreateAccountRequest(TeaModel):
             self.account_description = m.get('AccountDescription')
         if m.get('AccountType') is not None:
             self.account_type = m.get('AccountType')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class CreateAccountResponseBody(TeaModel):
     def __init__(self, request_id=None, instance_id=None, acount_name=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.acount_name = TeaConverter.to_unicode(acount_name)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.acount_name = acount_name  # type: str
 
     def validate(self):
         pass
@@ -475,7 +448,7 @@ class CreateAccountResponseBody(TeaModel):
 
 class CreateAccountResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateAccountResponseBody
 
     def validate(self):
@@ -505,12 +478,12 @@ class CreateAccountResponse(TeaModel):
 class CreateBackupRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -550,8 +523,8 @@ class CreateBackupRequest(TeaModel):
 
 class CreateBackupResponseBody(TeaModel):
     def __init__(self, request_id=None, backup_job_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.backup_job_id = TeaConverter.to_unicode(backup_job_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.backup_job_id = backup_job_id  # type: str
 
     def validate(self):
         pass
@@ -575,7 +548,7 @@ class CreateBackupResponseBody(TeaModel):
 
 class CreateBackupResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateBackupResponseBody
 
     def validate(self):
@@ -605,12 +578,12 @@ class CreateBackupResponse(TeaModel):
 class CreateCacheAnalysisTaskRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -650,7 +623,7 @@ class CreateCacheAnalysisTaskRequest(TeaModel):
 
 class CreateCacheAnalysisTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -670,7 +643,7 @@ class CreateCacheAnalysisTaskResponseBody(TeaModel):
 
 class CreateCacheAnalysisTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateCacheAnalysisTaskResponseBody
 
     def validate(self):
@@ -699,14 +672,13 @@ class CreateCacheAnalysisTaskResponse(TeaModel):
 
 class CreateGlobalDistributeCacheRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, seed_sub_instance_id=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, seed_sub_instance_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.seed_sub_instance_id = TeaConverter.to_unicode(seed_sub_instance_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.seed_sub_instance_id = seed_sub_instance_id  # type: str
 
     def validate(self):
         pass
@@ -725,8 +697,6 @@ class CreateGlobalDistributeCacheRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.seed_sub_instance_id is not None:
             result['SeedSubInstanceId'] = self.seed_sub_instance_id
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
@@ -743,15 +713,13 @@ class CreateGlobalDistributeCacheRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('SeedSubInstanceId') is not None:
             self.seed_sub_instance_id = m.get('SeedSubInstanceId')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class CreateGlobalDistributeCacheResponseBody(TeaModel):
     def __init__(self, request_id=None, global_instance_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.global_instance_id = global_instance_id  # type: str
 
     def validate(self):
         pass
@@ -775,7 +743,7 @@ class CreateGlobalDistributeCacheResponseBody(TeaModel):
 
 class CreateGlobalDistributeCacheResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateGlobalDistributeCacheResponseBody
 
     def validate(self):
@@ -808,44 +776,42 @@ class CreateInstanceRequest(TeaModel):
                  instance_class=None, zone_id=None, config=None, charge_type=None, node_type=None, network_type=None, vpc_id=None,
                  v_switch_id=None, period=None, business_info=None, coupon_no=None, src_dbinstance_id=None, backup_id=None,
                  instance_type=None, engine_version=None, private_ip_address=None, auto_use_coupon=None, auto_renew=None,
-                 auto_renew_period=None, resource_group_id=None, restore_time=None, dedicated_host_group_id=None, shard_count=None,
-                 global_instance_id=None, global_instance=None, secondary_zone_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 auto_renew_period=None, resource_group_id=None, restore_time=None, dedicated_host_group_id=None,
+                 global_instance_id=None, global_instance=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.token = TeaConverter.to_unicode(token)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.password = TeaConverter.to_unicode(password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.token = token  # type: str
+        self.instance_name = instance_name  # type: str
+        self.password = password  # type: str
         self.capacity = capacity  # type: long
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.period = TeaConverter.to_unicode(period)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.src_dbinstance_id = TeaConverter.to_unicode(src_dbinstance_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.private_ip_address = TeaConverter.to_unicode(private_ip_address)  # type: unicode
-        self.auto_use_coupon = TeaConverter.to_unicode(auto_use_coupon)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.auto_renew_period = TeaConverter.to_unicode(auto_renew_period)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
-        self.dedicated_host_group_id = TeaConverter.to_unicode(dedicated_host_group_id)  # type: unicode
-        self.shard_count = shard_count  # type: int
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
+        self.instance_class = instance_class  # type: str
+        self.zone_id = zone_id  # type: str
+        self.config = config  # type: str
+        self.charge_type = charge_type  # type: str
+        self.node_type = node_type  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.period = period  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.src_dbinstance_id = src_dbinstance_id  # type: str
+        self.backup_id = backup_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.engine_version = engine_version  # type: str
+        self.private_ip_address = private_ip_address  # type: str
+        self.auto_use_coupon = auto_use_coupon  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.auto_renew_period = auto_renew_period  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.restore_time = restore_time  # type: str
+        self.dedicated_host_group_id = dedicated_host_group_id  # type: str
+        self.global_instance_id = global_instance_id  # type: str
         self.global_instance = global_instance  # type: bool
-        self.secondary_zone_id = TeaConverter.to_unicode(secondary_zone_id)  # type: unicode
 
     def validate(self):
         pass
@@ -916,14 +882,10 @@ class CreateInstanceRequest(TeaModel):
             result['RestoreTime'] = self.restore_time
         if self.dedicated_host_group_id is not None:
             result['DedicatedHostGroupId'] = self.dedicated_host_group_id
-        if self.shard_count is not None:
-            result['ShardCount'] = self.shard_count
         if self.global_instance_id is not None:
             result['GlobalInstanceId'] = self.global_instance_id
         if self.global_instance is not None:
             result['GlobalInstance'] = self.global_instance
-        if self.secondary_zone_id is not None:
-            result['SecondaryZoneId'] = self.secondary_zone_id
         return result
 
     def from_map(self, m=None):
@@ -992,143 +954,139 @@ class CreateInstanceRequest(TeaModel):
             self.restore_time = m.get('RestoreTime')
         if m.get('DedicatedHostGroupId') is not None:
             self.dedicated_host_group_id = m.get('DedicatedHostGroupId')
-        if m.get('ShardCount') is not None:
-            self.shard_count = m.get('ShardCount')
         if m.get('GlobalInstanceId') is not None:
             self.global_instance_id = m.get('GlobalInstanceId')
         if m.get('GlobalInstance') is not None:
             self.global_instance = m.get('GlobalInstance')
-        if m.get('SecondaryZoneId') is not None:
-            self.secondary_zone_id = m.get('SecondaryZoneId')
         return self
 
 
 class CreateInstanceResponseBody(TeaModel):
-    def __init__(self, connections=None, user_name=None, end_time=None, request_id=None, zone_id=None,
-                 instance_id=None, config=None, port=None, v_switch_id=None, private_ip_addr=None, connection_domain=None,
-                 instance_name=None, vpc_id=None, qps=None, capacity=None, charge_type=None, network_type=None,
-                 instance_status=None, node_type=None, bandwidth=None, region_id=None):
-        self.connections = connections  # type: long
-        self.user_name = TeaConverter.to_unicode(user_name)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, instance_name=None, connection_domain=None, port=None,
+                 user_name=None, instance_status=None, region_id=None, capacity=None, qps=None, bandwidth=None,
+                 connections=None, zone_id=None, config=None, charge_type=None, end_time=None, node_type=None, network_type=None,
+                 vpc_id=None, v_switch_id=None, private_ip_addr=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.connection_domain = connection_domain  # type: str
         self.port = port  # type: int
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.private_ip_addr = TeaConverter.to_unicode(private_ip_addr)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.qps = qps  # type: long
+        self.user_name = user_name  # type: str
+        self.instance_status = instance_status  # type: str
+        self.region_id = region_id  # type: str
         self.capacity = capacity  # type: long
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
+        self.qps = qps  # type: long
         self.bandwidth = bandwidth  # type: long
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.connections = connections  # type: long
+        self.zone_id = zone_id  # type: str
+        self.config = config  # type: str
+        self.charge_type = charge_type  # type: str
+        self.end_time = end_time  # type: str
+        self.node_type = node_type  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.private_ip_addr = private_ip_addr  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.connections is not None:
-            result['Connections'] = self.connections
-        if self.user_name is not None:
-            result['UserName'] = self.user_name
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.config is not None:
-            result['Config'] = self.config
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.connection_domain is not None:
+            result['ConnectionDomain'] = self.connection_domain
         if self.port is not None:
             result['Port'] = self.port
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        if self.instance_status is not None:
+            result['InstanceStatus'] = self.instance_status
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.qps is not None:
+            result['QPS'] = self.qps
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.connections is not None:
+            result['Connections'] = self.connections
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.private_ip_addr is not None:
             result['PrivateIpAddr'] = self.private_ip_addr
-        if self.connection_domain is not None:
-            result['ConnectionDomain'] = self.connection_domain
-        if self.instance_name is not None:
-            result['InstanceName'] = self.instance_name
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        if self.qps is not None:
-            result['QPS'] = self.qps
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
-        if self.charge_type is not None:
-            result['ChargeType'] = self.charge_type
-        if self.network_type is not None:
-            result['NetworkType'] = self.network_type
-        if self.instance_status is not None:
-            result['InstanceStatus'] = self.instance_status
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Connections') is not None:
-            self.connections = m.get('Connections')
-        if m.get('UserName') is not None:
-            self.user_name = m.get('UserName')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Config') is not None:
-            self.config = m.get('Config')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('ConnectionDomain') is not None:
+            self.connection_domain = m.get('ConnectionDomain')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        if m.get('InstanceStatus') is not None:
+            self.instance_status = m.get('InstanceStatus')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('QPS') is not None:
+            self.qps = m.get('QPS')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Connections') is not None:
+            self.connections = m.get('Connections')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('PrivateIpAddr') is not None:
             self.private_ip_addr = m.get('PrivateIpAddr')
-        if m.get('ConnectionDomain') is not None:
-            self.connection_domain = m.get('ConnectionDomain')
-        if m.get('InstanceName') is not None:
-            self.instance_name = m.get('InstanceName')
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
-        if m.get('QPS') is not None:
-            self.qps = m.get('QPS')
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
-        if m.get('ChargeType') is not None:
-            self.charge_type = m.get('ChargeType')
-        if m.get('NetworkType') is not None:
-            self.network_type = m.get('NetworkType')
-        if m.get('InstanceStatus') is not None:
-            self.instance_status = m.get('InstanceStatus')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
 class CreateInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateInstanceResponseBody
 
     def validate(self):
@@ -1160,39 +1118,38 @@ class CreateTairInstanceRequest(TeaModel):
                  owner_account=None, region_id=None, instance_name=None, password=None, instance_class=None, zone_id=None,
                  charge_type=None, vpc_id=None, v_switch_id=None, period=None, business_info=None, coupon_no=None,
                  src_dbinstance_id=None, backup_id=None, private_ip_address=None, auto_use_coupon=None, auto_renew=None,
-                 auto_renew_period=None, resource_group_id=None, auto_pay=None, client_token=None, storage_type=None, storage=None,
-                 shard_type=None, shard_count=None, engine_version=None, instance_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 auto_renew_period=None, auto_pay=None, client_token=None, storage_type=None, storage=None, shard_type=None,
+                 shard_count=None, engine_version=None, instance_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.password = TeaConverter.to_unicode(password)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.password = password  # type: str
+        self.instance_class = instance_class  # type: str
+        self.zone_id = zone_id  # type: str
+        self.charge_type = charge_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
         self.period = period  # type: int
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.src_dbinstance_id = TeaConverter.to_unicode(src_dbinstance_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.private_ip_address = TeaConverter.to_unicode(private_ip_address)  # type: unicode
-        self.auto_use_coupon = TeaConverter.to_unicode(auto_use_coupon)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.auto_renew_period = TeaConverter.to_unicode(auto_renew_period)  # type: unicode
-        self.resource_group_id = resource_group_id  # type: int
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.src_dbinstance_id = src_dbinstance_id  # type: str
+        self.backup_id = backup_id  # type: str
+        self.private_ip_address = private_ip_address  # type: str
+        self.auto_use_coupon = auto_use_coupon  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.auto_renew_period = auto_renew_period  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.storage_type = TeaConverter.to_unicode(storage_type)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.storage_type = storage_type  # type: str
         self.storage = storage  # type: int
-        self.shard_type = TeaConverter.to_unicode(shard_type)  # type: unicode
+        self.shard_type = shard_type  # type: str
         self.shard_count = shard_count  # type: int
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.engine_version = engine_version  # type: str
+        self.instance_type = instance_type  # type: str
 
     def validate(self):
         pass
@@ -1243,8 +1200,6 @@ class CreateTairInstanceRequest(TeaModel):
             result['AutoRenew'] = self.auto_renew
         if self.auto_renew_period is not None:
             result['AutoRenewPeriod'] = self.auto_renew_period
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
         if self.client_token is not None:
@@ -1309,8 +1264,6 @@ class CreateTairInstanceRequest(TeaModel):
             self.auto_renew = m.get('AutoRenew')
         if m.get('AutoRenewPeriod') is not None:
             self.auto_renew_period = m.get('AutoRenewPeriod')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
         if m.get('ClientToken') is not None:
@@ -1331,95 +1284,95 @@ class CreateTairInstanceRequest(TeaModel):
 
 
 class CreateTairInstanceResponseBody(TeaModel):
-    def __init__(self, connections=None, task_id=None, request_id=None, zone_id=None, instance_id=None, config=None,
-                 port=None, connection_domain=None, instance_name=None, qps=None, charge_type=None, instance_status=None,
-                 bandwidth=None, region_id=None):
-        self.connections = connections  # type: long
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, instance_name=None, connection_domain=None, port=None,
+                 instance_status=None, region_id=None, qps=None, bandwidth=None, connections=None, zone_id=None, config=None,
+                 charge_type=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.connection_domain = connection_domain  # type: str
         self.port = port  # type: int
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
+        self.instance_status = instance_status  # type: str
+        self.region_id = region_id  # type: str
         self.qps = qps  # type: long
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
         self.bandwidth = bandwidth  # type: long
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.connections = connections  # type: long
+        self.zone_id = zone_id  # type: str
+        self.config = config  # type: str
+        self.charge_type = charge_type  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.connections is not None:
-            result['Connections'] = self.connections
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.config is not None:
-            result['Config'] = self.config
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.connection_domain is not None:
-            result['ConnectionDomain'] = self.connection_domain
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
-        if self.qps is not None:
-            result['QPS'] = self.qps
-        if self.charge_type is not None:
-            result['ChargeType'] = self.charge_type
+        if self.connection_domain is not None:
+            result['ConnectionDomain'] = self.connection_domain
+        if self.port is not None:
+            result['Port'] = self.port
         if self.instance_status is not None:
             result['InstanceStatus'] = self.instance_status
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.qps is not None:
+            result['QPS'] = self.qps
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.connections is not None:
+            result['Connections'] = self.connections
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Connections') is not None:
-            self.connections = m.get('Connections')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Config') is not None:
-            self.config = m.get('Config')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('ConnectionDomain') is not None:
-            self.connection_domain = m.get('ConnectionDomain')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
-        if m.get('QPS') is not None:
-            self.qps = m.get('QPS')
-        if m.get('ChargeType') is not None:
-            self.charge_type = m.get('ChargeType')
+        if m.get('ConnectionDomain') is not None:
+            self.connection_domain = m.get('ConnectionDomain')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
         if m.get('InstanceStatus') is not None:
             self.instance_status = m.get('InstanceStatus')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('QPS') is not None:
+            self.qps = m.get('QPS')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Connections') is not None:
+            self.connections = m.get('Connections')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateTairInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateTairInstanceResponseBody
 
     def validate(self):
@@ -1451,24 +1404,24 @@ class CreateUserClusterHostRequest(TeaModel):
                  owner_account=None, region_id=None, cluster_id=None, charge_type=None, host_class=None, order_num=None,
                  order_period=None, auto_pay=None, auto_renew=None, agent_id=None, business_info=None, coupon_no=None,
                  engine=None, zone_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.host_class = TeaConverter.to_unicode(host_class)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.charge_type = charge_type  # type: str
+        self.host_class = host_class  # type: str
         self.order_num = order_num  # type: int
         self.order_period = order_period  # type: int
         self.auto_pay = auto_pay  # type: bool
         self.auto_renew = auto_renew  # type: bool
-        self.agent_id = TeaConverter.to_unicode(agent_id)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.agent_id = agent_id  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.engine = engine  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
@@ -1556,9 +1509,9 @@ class CreateUserClusterHostRequest(TeaModel):
 
 class CreateUserClusterHostResponseBody(TeaModel):
     def __init__(self, request_id=None, cluster_id=None, host_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.host_id = host_id  # type: str
 
     def validate(self):
         pass
@@ -1586,7 +1539,7 @@ class CreateUserClusterHostResponseBody(TeaModel):
 
 class CreateUserClusterHostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateUserClusterHostResponseBody
 
     def validate(self):
@@ -1616,13 +1569,13 @@ class CreateUserClusterHostResponse(TeaModel):
 class DeleteAccountRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
@@ -1666,7 +1619,7 @@ class DeleteAccountRequest(TeaModel):
 
 class DeleteAccountResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1686,7 +1639,7 @@ class DeleteAccountResponseBody(TeaModel):
 
 class DeleteAccountResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteAccountResponseBody
 
     def validate(self):
@@ -1715,15 +1668,14 @@ class DeleteAccountResponse(TeaModel):
 
 class DeleteInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, global_instance_id=None, release_sub_instance=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, global_instance_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
-        self.release_sub_instance = release_sub_instance  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.global_instance_id = global_instance_id  # type: str
 
     def validate(self):
         pass
@@ -1744,8 +1696,6 @@ class DeleteInstanceRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.global_instance_id is not None:
             result['GlobalInstanceId'] = self.global_instance_id
-        if self.release_sub_instance is not None:
-            result['ReleaseSubInstance'] = self.release_sub_instance
         return result
 
     def from_map(self, m=None):
@@ -1764,14 +1714,12 @@ class DeleteInstanceRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('GlobalInstanceId') is not None:
             self.global_instance_id = m.get('GlobalInstanceId')
-        if m.get('ReleaseSubInstance') is not None:
-            self.release_sub_instance = m.get('ReleaseSubInstance')
         return self
 
 
 class DeleteInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1791,7 +1739,7 @@ class DeleteInstanceResponseBody(TeaModel):
 
 class DeleteInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteInstanceResponseBody
 
     def validate(self):
@@ -1821,13 +1769,13 @@ class DeleteInstanceResponse(TeaModel):
 class DeleteShardingNodeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -1871,7 +1819,7 @@ class DeleteShardingNodeRequest(TeaModel):
 
 class DeleteShardingNodeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1891,7 +1839,7 @@ class DeleteShardingNodeResponseBody(TeaModel):
 
 class DeleteShardingNodeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteShardingNodeResponseBody
 
     def validate(self):
@@ -1921,16 +1869,16 @@ class DeleteShardingNodeResponse(TeaModel):
 class DeleteUserClusterHostRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, host_id=None, engine=None, zone_id=None, cluster_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.host_id = host_id  # type: str
+        self.engine = engine  # type: str
+        self.zone_id = zone_id  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         pass
@@ -1986,7 +1934,7 @@ class DeleteUserClusterHostRequest(TeaModel):
 
 class DeleteUserClusterHostResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -2006,7 +1954,7 @@ class DeleteUserClusterHostResponseBody(TeaModel):
 
 class DeleteUserClusterHostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteUserClusterHostResponseBody
 
     def validate(self):
@@ -2036,13 +1984,13 @@ class DeleteUserClusterHostResponse(TeaModel):
 class DescribeAccountsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
@@ -2086,7 +2034,7 @@ class DescribeAccountsRequest(TeaModel):
 
 class DescribeAccountsResponseBodyAccountsAccountDatabasePrivilegesDatabasePrivilege(TeaModel):
     def __init__(self, account_privilege=None):
-        self.account_privilege = TeaConverter.to_unicode(account_privilege)  # type: unicode
+        self.account_privilege = account_privilege  # type: str
 
     def validate(self):
         pass
@@ -2133,14 +2081,14 @@ class DescribeAccountsResponseBodyAccountsAccountDatabasePrivileges(TeaModel):
 
 
 class DescribeAccountsResponseBodyAccountsAccount(TeaModel):
-    def __init__(self, account_status=None, database_privileges=None, account_description=None, instance_id=None,
-                 account_type=None, account_name=None):
-        self.account_status = TeaConverter.to_unicode(account_status)  # type: unicode
+    def __init__(self, instance_id=None, account_name=None, account_status=None, account_type=None,
+                 account_description=None, database_privileges=None):
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_status = account_status  # type: str
+        self.account_type = account_type  # type: str
+        self.account_description = account_description  # type: str
         self.database_privileges = database_privileges  # type: DescribeAccountsResponseBodyAccountsAccountDatabasePrivileges
-        self.account_description = TeaConverter.to_unicode(account_description)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_type = TeaConverter.to_unicode(account_type)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
 
     def validate(self):
         if self.database_privileges:
@@ -2148,35 +2096,35 @@ class DescribeAccountsResponseBodyAccountsAccount(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.account_status is not None:
-            result['AccountStatus'] = self.account_status
-        if self.database_privileges is not None:
-            result['DatabasePrivileges'] = self.database_privileges.to_map()
-        if self.account_description is not None:
-            result['AccountDescription'] = self.account_description
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.account_type is not None:
-            result['AccountType'] = self.account_type
         if self.account_name is not None:
             result['AccountName'] = self.account_name
+        if self.account_status is not None:
+            result['AccountStatus'] = self.account_status
+        if self.account_type is not None:
+            result['AccountType'] = self.account_type
+        if self.account_description is not None:
+            result['AccountDescription'] = self.account_description
+        if self.database_privileges is not None:
+            result['DatabasePrivileges'] = self.database_privileges.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('AccountStatus') is not None:
             self.account_status = m.get('AccountStatus')
+        if m.get('AccountType') is not None:
+            self.account_type = m.get('AccountType')
+        if m.get('AccountDescription') is not None:
+            self.account_description = m.get('AccountDescription')
         if m.get('DatabasePrivileges') is not None:
             temp_model = DescribeAccountsResponseBodyAccountsAccountDatabasePrivileges()
             self.database_privileges = temp_model.from_map(m['DatabasePrivileges'])
-        if m.get('AccountDescription') is not None:
-            self.account_description = m.get('AccountDescription')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('AccountType') is not None:
-            self.account_type = m.get('AccountType')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
         return self
 
 
@@ -2210,7 +2158,7 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
 
 class DescribeAccountsResponseBody(TeaModel):
     def __init__(self, request_id=None, accounts=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.accounts = accounts  # type: DescribeAccountsResponseBodyAccounts
 
     def validate(self):
@@ -2237,7 +2185,7 @@ class DescribeAccountsResponseBody(TeaModel):
 
 class DescribeAccountsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAccountsResponseBody
 
     def validate(self):
@@ -2266,19 +2214,17 @@ class DescribeAccountsResponse(TeaModel):
 
 class DescribeActiveOperationTaskRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region=None, task_type=None, is_history=None, page_size=None, page_number=None,
-                 product_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, region=None, task_type=None, is_history=None, page_size=None, page_number=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region = region  # type: str
+        self.task_type = task_type  # type: str
         self.is_history = is_history  # type: int
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.product_id = TeaConverter.to_unicode(product_id)  # type: unicode
 
     def validate(self):
         pass
@@ -2305,8 +2251,6 @@ class DescribeActiveOperationTaskRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
-        if self.product_id is not None:
-            result['ProductId'] = self.product_id
         return result
 
     def from_map(self, m=None):
@@ -2331,91 +2275,89 @@ class DescribeActiveOperationTaskRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
-        if m.get('ProductId') is not None:
-            self.product_id = m.get('ProductId')
         return self
 
 
 class DescribeActiveOperationTaskResponseBodyItems(TeaModel):
-    def __init__(self, status=None, prepare_interval=None, deadline=None, start_time=None, task_type=None,
-                 modified_time=None, ins_name=None, db_type=None, region=None, created_time=None, id=None, switch_time=None):
-        self.status = status  # type: int
-        self.prepare_interval = TeaConverter.to_unicode(prepare_interval)  # type: unicode
-        self.deadline = TeaConverter.to_unicode(deadline)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
-        self.modified_time = TeaConverter.to_unicode(modified_time)  # type: unicode
-        self.ins_name = TeaConverter.to_unicode(ins_name)  # type: unicode
-        self.db_type = TeaConverter.to_unicode(db_type)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.created_time = TeaConverter.to_unicode(created_time)  # type: unicode
+    def __init__(self, id=None, ins_name=None, db_type=None, start_time=None, switch_time=None, deadline=None,
+                 status=None, created_time=None, modified_time=None, prepare_interval=None, task_type=None, region=None):
         self.id = id  # type: int
-        self.switch_time = TeaConverter.to_unicode(switch_time)  # type: unicode
+        self.ins_name = ins_name  # type: str
+        self.db_type = db_type  # type: str
+        self.start_time = start_time  # type: str
+        self.switch_time = switch_time  # type: str
+        self.deadline = deadline  # type: str
+        self.status = status  # type: int
+        self.created_time = created_time  # type: str
+        self.modified_time = modified_time  # type: str
+        self.prepare_interval = prepare_interval  # type: str
+        self.task_type = task_type  # type: str
+        self.region = region  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.prepare_interval is not None:
-            result['PrepareInterval'] = self.prepare_interval
-        if self.deadline is not None:
-            result['Deadline'] = self.deadline
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        if self.modified_time is not None:
-            result['ModifiedTime'] = self.modified_time
+        if self.id is not None:
+            result['Id'] = self.id
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
         if self.db_type is not None:
             result['DbType'] = self.db_type
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.created_time is not None:
-            result['CreatedTime'] = self.created_time
-        if self.id is not None:
-            result['Id'] = self.id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.switch_time is not None:
             result['SwitchTime'] = self.switch_time
+        if self.deadline is not None:
+            result['Deadline'] = self.deadline
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.created_time is not None:
+            result['CreatedTime'] = self.created_time
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.prepare_interval is not None:
+            result['PrepareInterval'] = self.prepare_interval
+        if self.task_type is not None:
+            result['TaskType'] = self.task_type
+        if self.region is not None:
+            result['Region'] = self.region
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('PrepareInterval') is not None:
-            self.prepare_interval = m.get('PrepareInterval')
-        if m.get('Deadline') is not None:
-            self.deadline = m.get('Deadline')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        if m.get('ModifiedTime') is not None:
-            self.modified_time = m.get('ModifiedTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
         if m.get('InsName') is not None:
             self.ins_name = m.get('InsName')
         if m.get('DbType') is not None:
             self.db_type = m.get('DbType')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('CreatedTime') is not None:
-            self.created_time = m.get('CreatedTime')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('SwitchTime') is not None:
             self.switch_time = m.get('SwitchTime')
+        if m.get('Deadline') is not None:
+            self.deadline = m.get('Deadline')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('CreatedTime') is not None:
+            self.created_time = m.get('CreatedTime')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('PrepareInterval') is not None:
+            self.prepare_interval = m.get('PrepareInterval')
+        if m.get('TaskType') is not None:
+            self.task_type = m.get('TaskType')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
         return self
 
 
 class DescribeActiveOperationTaskResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, request_id=None, page_size=None, page_number=None, items=None):
+    def __init__(self, request_id=None, total_record_count=None, page_size=None, page_number=None, items=None):
+        self.request_id = request_id  # type: str
         self.total_record_count = total_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
         self.items = items  # type: list[DescribeActiveOperationTaskResponseBodyItems]
@@ -2428,10 +2370,10 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.page_number is not None:
@@ -2444,10 +2386,10 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
@@ -2462,7 +2404,7 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
 
 class DescribeActiveOperationTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeActiveOperationTaskResponseBody
 
     def validate(self):
@@ -2493,21 +2435,21 @@ class DescribeAuditRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, node_id=None, account_name=None, database_name=None, query_keywords=None,
                  host_address=None, page_size=None, page_number=None, start_time=None, end_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.database_name = TeaConverter.to_unicode(database_name)  # type: unicode
-        self.query_keywords = TeaConverter.to_unicode(query_keywords)  # type: unicode
-        self.host_address = TeaConverter.to_unicode(host_address)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.account_name = account_name  # type: str
+        self.database_name = database_name  # type: str
+        self.query_keywords = query_keywords  # type: str
+        self.host_address = host_address  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -2582,16 +2524,16 @@ class DescribeAuditRecordsRequest(TeaModel):
 
 
 class DescribeAuditRecordsResponseBodyItemsSQL(TeaModel):
-    def __init__(self, host_address=None, sqltext=None, database_name=None, sqltype=None, execute_time=None,
-                 total_execution_times=None, account_name=None, ipaddress=None):
-        self.host_address = TeaConverter.to_unicode(host_address)  # type: unicode
-        self.sqltext = TeaConverter.to_unicode(sqltext)  # type: unicode
-        self.database_name = TeaConverter.to_unicode(database_name)  # type: unicode
-        self.sqltype = TeaConverter.to_unicode(sqltype)  # type: unicode
-        self.execute_time = TeaConverter.to_unicode(execute_time)  # type: unicode
-        self.total_execution_times = TeaConverter.to_unicode(total_execution_times)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
+    def __init__(self, host_address=None, database_name=None, ipaddress=None, sqltext=None, sqltype=None,
+                 total_execution_times=None, execute_time=None, account_name=None):
+        self.host_address = host_address  # type: str
+        self.database_name = database_name  # type: str
+        self.ipaddress = ipaddress  # type: str
+        self.sqltext = sqltext  # type: str
+        self.sqltype = sqltype  # type: str
+        self.total_execution_times = total_execution_times  # type: str
+        self.execute_time = execute_time  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
@@ -2600,40 +2542,40 @@ class DescribeAuditRecordsResponseBodyItemsSQL(TeaModel):
         result = dict()
         if self.host_address is not None:
             result['HostAddress'] = self.host_address
-        if self.sqltext is not None:
-            result['SQLText'] = self.sqltext
         if self.database_name is not None:
             result['DatabaseName'] = self.database_name
-        if self.sqltype is not None:
-            result['SQLType'] = self.sqltype
-        if self.execute_time is not None:
-            result['ExecuteTime'] = self.execute_time
-        if self.total_execution_times is not None:
-            result['TotalExecutionTimes'] = self.total_execution_times
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
         if self.ipaddress is not None:
             result['IPAddress'] = self.ipaddress
+        if self.sqltext is not None:
+            result['SQLText'] = self.sqltext
+        if self.sqltype is not None:
+            result['SQLType'] = self.sqltype
+        if self.total_execution_times is not None:
+            result['TotalExecutionTimes'] = self.total_execution_times
+        if self.execute_time is not None:
+            result['ExecuteTime'] = self.execute_time
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('HostAddress') is not None:
             self.host_address = m.get('HostAddress')
-        if m.get('SQLText') is not None:
-            self.sqltext = m.get('SQLText')
         if m.get('DatabaseName') is not None:
             self.database_name = m.get('DatabaseName')
-        if m.get('SQLType') is not None:
-            self.sqltype = m.get('SQLType')
-        if m.get('ExecuteTime') is not None:
-            self.execute_time = m.get('ExecuteTime')
-        if m.get('TotalExecutionTimes') is not None:
-            self.total_execution_times = m.get('TotalExecutionTimes')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
         if m.get('IPAddress') is not None:
             self.ipaddress = m.get('IPAddress')
+        if m.get('SQLText') is not None:
+            self.sqltext = m.get('SQLText')
+        if m.get('SQLType') is not None:
+            self.sqltype = m.get('SQLType')
+        if m.get('TotalExecutionTimes') is not None:
+            self.total_execution_times = m.get('TotalExecutionTimes')
+        if m.get('ExecuteTime') is not None:
+            self.execute_time = m.get('ExecuteTime')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         return self
 
 
@@ -2666,15 +2608,15 @@ class DescribeAuditRecordsResponseBodyItems(TeaModel):
 
 
 class DescribeAuditRecordsResponseBody(TeaModel):
-    def __init__(self, instance_name=None, total_record_count=None, end_time=None, request_id=None, page_size=None,
-                 page_number=None, start_time=None, items=None):
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.total_record_count = total_record_count  # type: int
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_record_count=None,
+                 instance_name=None, start_time=None, end_time=None, items=None):
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
+        self.page_size = page_size  # type: int
+        self.total_record_count = total_record_count  # type: int
+        self.instance_name = instance_name  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
         self.items = items  # type: DescribeAuditRecordsResponseBodyItems
 
     def validate(self):
@@ -2683,40 +2625,40 @@ class DescribeAuditRecordsResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.instance_name is not None:
-            result['InstanceName'] = self.instance_name
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
         if self.start_time is not None:
             result['StartTime'] = self.start_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.items is not None:
             result['Items'] = self.items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('InstanceName') is not None:
-            self.instance_name = m.get('InstanceName')
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('Items') is not None:
             temp_model = DescribeAuditRecordsResponseBodyItems()
             self.items = temp_model.from_map(m['Items'])
@@ -2725,7 +2667,7 @@ class DescribeAuditRecordsResponseBody(TeaModel):
 
 class DescribeAuditRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAuditRecordsResponseBody
 
     def validate(self):
@@ -2752,15 +2694,661 @@ class DescribeAuditRecordsResponse(TeaModel):
         return self
 
 
+class DescribeAvailableResourceRequest(TeaModel):
+    def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
+                 owner_account=None, region_id=None, zone_id=None, instance_charge_type=None, order_type=None, engine=None,
+                 resource_group_id=None, instance_id=None, accept_language=None, product_type=None):
+        self.security_token = security_token  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.instance_charge_type = instance_charge_type  # type: str
+        self.order_type = order_type  # type: str
+        self.engine = engine  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.accept_language = accept_language  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.instance_charge_type is not None:
+            result['InstanceChargeType'] = self.instance_charge_type
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('InstanceChargeType') is not None:
+            self.instance_charge_type = m.get('InstanceChargeType')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource(TeaModel):
+    def __init__(self, instance_class=None, instance_class_remark=None):
+        self.instance_class = instance_class  # type: str
+        self.instance_class_remark = instance_class_remark  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.instance_class is not None:
+            result['InstanceClass'] = self.instance_class
+        if self.instance_class_remark is not None:
+            result['InstanceClassRemark'] = self.instance_class_remark
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceClass') is not None:
+            self.instance_class = m.get('InstanceClass')
+        if m.get('InstanceClassRemark') is not None:
+            self.instance_class_remark = m.get('InstanceClassRemark')
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResources(TeaModel):
+    def __init__(self, available_resource=None):
+        self.available_resource = available_resource  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource]
+
+    def validate(self):
+        if self.available_resource:
+            for k in self.available_resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['AvailableResource'] = []
+        if self.available_resource is not None:
+            for k in self.available_resource:
+                result['AvailableResource'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.available_resource = []
+        if m.get('AvailableResource') is not None:
+            for k in m.get('AvailableResource'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource()
+                self.available_resource.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeType(TeaModel):
+    def __init__(self, supported_node_type=None, available_resources=None):
+        self.supported_node_type = supported_node_type  # type: str
+        self.available_resources = available_resources  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResources
+
+    def validate(self):
+        if self.available_resources:
+            self.available_resources.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.supported_node_type is not None:
+            result['SupportedNodeType'] = self.supported_node_type
+        if self.available_resources is not None:
+            result['AvailableResources'] = self.available_resources.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SupportedNodeType') is not None:
+            self.supported_node_type = m.get('SupportedNodeType')
+        if m.get('AvailableResources') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeTypeAvailableResources()
+            self.available_resources = temp_model.from_map(m['AvailableResources'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypes(TeaModel):
+    def __init__(self, supported_node_type=None):
+        self.supported_node_type = supported_node_type  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeType]
+
+    def validate(self):
+        if self.supported_node_type:
+            for k in self.supported_node_type:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedNodeType'] = []
+        if self.supported_node_type is not None:
+            for k in self.supported_node_type:
+                result['SupportedNodeType'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_node_type = []
+        if m.get('SupportedNodeType') is not None:
+            for k in m.get('SupportedNodeType'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypesSupportedNodeType()
+                self.supported_node_type.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumber(TeaModel):
+    def __init__(self, shard_number=None, supported_node_types=None):
+        self.shard_number = shard_number  # type: str
+        self.supported_node_types = supported_node_types  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypes
+
+    def validate(self):
+        if self.supported_node_types:
+            self.supported_node_types.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.shard_number is not None:
+            result['ShardNumber'] = self.shard_number
+        if self.supported_node_types is not None:
+            result['SupportedNodeTypes'] = self.supported_node_types.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ShardNumber') is not None:
+            self.shard_number = m.get('ShardNumber')
+        if m.get('SupportedNodeTypes') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumberSupportedNodeTypes()
+            self.supported_node_types = temp_model.from_map(m['SupportedNodeTypes'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbers(TeaModel):
+    def __init__(self, supported_shard_number=None):
+        self.supported_shard_number = supported_shard_number  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumber]
+
+    def validate(self):
+        if self.supported_shard_number:
+            for k in self.supported_shard_number:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedShardNumber'] = []
+        if self.supported_shard_number is not None:
+            for k in self.supported_shard_number:
+                result['SupportedShardNumber'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_shard_number = []
+        if m.get('SupportedShardNumber') is not None:
+            for k in m.get('SupportedShardNumber'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbersSupportedShardNumber()
+                self.supported_shard_number.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureType(TeaModel):
+    def __init__(self, architecture=None, supported_shard_numbers=None):
+        self.architecture = architecture  # type: str
+        self.supported_shard_numbers = supported_shard_numbers  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbers
+
+    def validate(self):
+        if self.supported_shard_numbers:
+            self.supported_shard_numbers.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.architecture is not None:
+            result['Architecture'] = self.architecture
+        if self.supported_shard_numbers is not None:
+            result['SupportedShardNumbers'] = self.supported_shard_numbers.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Architecture') is not None:
+            self.architecture = m.get('Architecture')
+        if m.get('SupportedShardNumbers') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureTypeSupportedShardNumbers()
+            self.supported_shard_numbers = temp_model.from_map(m['SupportedShardNumbers'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypes(TeaModel):
+    def __init__(self, supported_architecture_type=None):
+        self.supported_architecture_type = supported_architecture_type  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureType]
+
+    def validate(self):
+        if self.supported_architecture_type:
+            for k in self.supported_architecture_type:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedArchitectureType'] = []
+        if self.supported_architecture_type is not None:
+            for k in self.supported_architecture_type:
+                result['SupportedArchitectureType'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_architecture_type = []
+        if m.get('SupportedArchitectureType') is not None:
+            for k in m.get('SupportedArchitectureType'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypesSupportedArchitectureType()
+                self.supported_architecture_type.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersion(TeaModel):
+    def __init__(self, version=None, supported_architecture_types=None):
+        self.version = version  # type: str
+        self.supported_architecture_types = supported_architecture_types  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypes
+
+    def validate(self):
+        if self.supported_architecture_types:
+            self.supported_architecture_types.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.version is not None:
+            result['Version'] = self.version
+        if self.supported_architecture_types is not None:
+            result['SupportedArchitectureTypes'] = self.supported_architecture_types.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        if m.get('SupportedArchitectureTypes') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersionSupportedArchitectureTypes()
+            self.supported_architecture_types = temp_model.from_map(m['SupportedArchitectureTypes'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersions(TeaModel):
+    def __init__(self, supported_engine_version=None):
+        self.supported_engine_version = supported_engine_version  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersion]
+
+    def validate(self):
+        if self.supported_engine_version:
+            for k in self.supported_engine_version:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedEngineVersion'] = []
+        if self.supported_engine_version is not None:
+            for k in self.supported_engine_version:
+                result['SupportedEngineVersion'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_engine_version = []
+        if m.get('SupportedEngineVersion') is not None:
+            for k in m.get('SupportedEngineVersion'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersionsSupportedEngineVersion()
+                self.supported_engine_version.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesType(TeaModel):
+    def __init__(self, series_type=None, supported_engine_versions=None):
+        self.series_type = series_type  # type: str
+        self.supported_engine_versions = supported_engine_versions  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersions
+
+    def validate(self):
+        if self.supported_engine_versions:
+            self.supported_engine_versions.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.series_type is not None:
+            result['SeriesType'] = self.series_type
+        if self.supported_engine_versions is not None:
+            result['SupportedEngineVersions'] = self.supported_engine_versions.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SeriesType') is not None:
+            self.series_type = m.get('SeriesType')
+        if m.get('SupportedEngineVersions') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesTypeSupportedEngineVersions()
+            self.supported_engine_versions = temp_model.from_map(m['SupportedEngineVersions'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypes(TeaModel):
+    def __init__(self, supported_series_type=None):
+        self.supported_series_type = supported_series_type  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesType]
+
+    def validate(self):
+        if self.supported_series_type:
+            for k in self.supported_series_type:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedSeriesType'] = []
+        if self.supported_series_type is not None:
+            for k in self.supported_series_type:
+                result['SupportedSeriesType'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_series_type = []
+        if m.get('SupportedSeriesType') is not None:
+            for k in m.get('SupportedSeriesType'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypesSupportedSeriesType()
+                self.supported_series_type.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionType(TeaModel):
+    def __init__(self, edition_type=None, supported_series_types=None):
+        self.edition_type = edition_type  # type: str
+        self.supported_series_types = supported_series_types  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypes
+
+    def validate(self):
+        if self.supported_series_types:
+            self.supported_series_types.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.edition_type is not None:
+            result['EditionType'] = self.edition_type
+        if self.supported_series_types is not None:
+            result['SupportedSeriesTypes'] = self.supported_series_types.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EditionType') is not None:
+            self.edition_type = m.get('EditionType')
+        if m.get('SupportedSeriesTypes') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionTypeSupportedSeriesTypes()
+            self.supported_series_types = temp_model.from_map(m['SupportedSeriesTypes'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypes(TeaModel):
+    def __init__(self, supported_edition_type=None):
+        self.supported_edition_type = supported_edition_type  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionType]
+
+    def validate(self):
+        if self.supported_edition_type:
+            for k in self.supported_edition_type:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedEditionType'] = []
+        if self.supported_edition_type is not None:
+            for k in self.supported_edition_type:
+                result['SupportedEditionType'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_edition_type = []
+        if m.get('SupportedEditionType') is not None:
+            for k in m.get('SupportedEditionType'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypesSupportedEditionType()
+                self.supported_edition_type.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngine(TeaModel):
+    def __init__(self, engine=None, supported_edition_types=None):
+        self.engine = engine  # type: str
+        self.supported_edition_types = supported_edition_types  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypes
+
+    def validate(self):
+        if self.supported_edition_types:
+            self.supported_edition_types.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.supported_edition_types is not None:
+            result['SupportedEditionTypes'] = self.supported_edition_types.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('SupportedEditionTypes') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngineSupportedEditionTypes()
+            self.supported_edition_types = temp_model.from_map(m['SupportedEditionTypes'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEngines(TeaModel):
+    def __init__(self, supported_engine=None):
+        self.supported_engine = supported_engine  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngine]
+
+    def validate(self):
+        if self.supported_engine:
+            for k in self.supported_engine:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SupportedEngine'] = []
+        if self.supported_engine is not None:
+            for k in self.supported_engine:
+                result['SupportedEngine'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_engine = []
+        if m.get('SupportedEngine') is not None:
+            for k in m.get('SupportedEngine'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEnginesSupportedEngine()
+                self.supported_engine.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZonesAvailableZone(TeaModel):
+    def __init__(self, region_id=None, zone_id=None, zone_name=None, supported_engines=None):
+        self.region_id = region_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.zone_name = zone_name  # type: str
+        self.supported_engines = supported_engines  # type: DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEngines
+
+    def validate(self):
+        if self.supported_engines:
+            self.supported_engines.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.zone_name is not None:
+            result['ZoneName'] = self.zone_name
+        if self.supported_engines is not None:
+            result['SupportedEngines'] = self.supported_engines.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('ZoneName') is not None:
+            self.zone_name = m.get('ZoneName')
+        if m.get('SupportedEngines') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZoneSupportedEngines()
+            self.supported_engines = temp_model.from_map(m['SupportedEngines'])
+        return self
+
+
+class DescribeAvailableResourceResponseBodyAvailableZones(TeaModel):
+    def __init__(self, available_zone=None):
+        self.available_zone = available_zone  # type: list[DescribeAvailableResourceResponseBodyAvailableZonesAvailableZone]
+
+    def validate(self):
+        if self.available_zone:
+            for k in self.available_zone:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['AvailableZone'] = []
+        if self.available_zone is not None:
+            for k in self.available_zone:
+                result['AvailableZone'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.available_zone = []
+        if m.get('AvailableZone') is not None:
+            for k in m.get('AvailableZone'):
+                temp_model = DescribeAvailableResourceResponseBodyAvailableZonesAvailableZone()
+                self.available_zone.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAvailableResourceResponseBody(TeaModel):
+    def __init__(self, request_id=None, available_zones=None):
+        self.request_id = request_id  # type: str
+        self.available_zones = available_zones  # type: DescribeAvailableResourceResponseBodyAvailableZones
+
+    def validate(self):
+        if self.available_zones:
+            self.available_zones.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.available_zones is not None:
+            result['AvailableZones'] = self.available_zones.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('AvailableZones') is not None:
+            temp_model = DescribeAvailableResourceResponseBodyAvailableZones()
+            self.available_zones = temp_model.from_map(m['AvailableZones'])
+        return self
+
+
+class DescribeAvailableResourceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeAvailableResourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeAvailableResourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -2799,54 +3387,54 @@ class DescribeBackupPolicyRequest(TeaModel):
 
 
 class DescribeBackupPolicyResponseBody(TeaModel):
-    def __init__(self, preferred_backup_period=None, request_id=None, preferred_backup_time=None,
-                 enable_backup_log=None, backup_retention_period=None, preferred_next_backup_time=None):
-        self.preferred_backup_period = TeaConverter.to_unicode(preferred_backup_period)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.preferred_backup_time = TeaConverter.to_unicode(preferred_backup_time)  # type: unicode
+    def __init__(self, request_id=None, backup_retention_period=None, preferred_backup_time=None,
+                 preferred_backup_period=None, preferred_next_backup_time=None, enable_backup_log=None):
+        self.request_id = request_id  # type: str
+        self.backup_retention_period = backup_retention_period  # type: str
+        self.preferred_backup_time = preferred_backup_time  # type: str
+        self.preferred_backup_period = preferred_backup_period  # type: str
+        self.preferred_next_backup_time = preferred_next_backup_time  # type: str
         self.enable_backup_log = enable_backup_log  # type: int
-        self.backup_retention_period = TeaConverter.to_unicode(backup_retention_period)  # type: unicode
-        self.preferred_next_backup_time = TeaConverter.to_unicode(preferred_next_backup_time)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.preferred_backup_period is not None:
-            result['PreferredBackupPeriod'] = self.preferred_backup_period
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.preferred_backup_time is not None:
-            result['PreferredBackupTime'] = self.preferred_backup_time
-        if self.enable_backup_log is not None:
-            result['EnableBackupLog'] = self.enable_backup_log
         if self.backup_retention_period is not None:
             result['BackupRetentionPeriod'] = self.backup_retention_period
+        if self.preferred_backup_time is not None:
+            result['PreferredBackupTime'] = self.preferred_backup_time
+        if self.preferred_backup_period is not None:
+            result['PreferredBackupPeriod'] = self.preferred_backup_period
         if self.preferred_next_backup_time is not None:
             result['PreferredNextBackupTime'] = self.preferred_next_backup_time
+        if self.enable_backup_log is not None:
+            result['EnableBackupLog'] = self.enable_backup_log
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PreferredBackupPeriod') is not None:
-            self.preferred_backup_period = m.get('PreferredBackupPeriod')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PreferredBackupTime') is not None:
-            self.preferred_backup_time = m.get('PreferredBackupTime')
-        if m.get('EnableBackupLog') is not None:
-            self.enable_backup_log = m.get('EnableBackupLog')
         if m.get('BackupRetentionPeriod') is not None:
             self.backup_retention_period = m.get('BackupRetentionPeriod')
+        if m.get('PreferredBackupTime') is not None:
+            self.preferred_backup_time = m.get('PreferredBackupTime')
+        if m.get('PreferredBackupPeriod') is not None:
+            self.preferred_backup_period = m.get('PreferredBackupPeriod')
         if m.get('PreferredNextBackupTime') is not None:
             self.preferred_next_backup_time = m.get('PreferredNextBackupTime')
+        if m.get('EnableBackupLog') is not None:
+            self.enable_backup_log = m.get('EnableBackupLog')
         return self
 
 
 class DescribeBackupPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupPolicyResponseBody
 
     def validate(self):
@@ -2877,18 +3465,18 @@ class DescribeBackupsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, backup_id=None, page_size=None, page_number=None, start_time=None,
                  end_time=None, need_aof=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.backup_id = backup_id  # type: int
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.need_aof = TeaConverter.to_unicode(need_aof)  # type: unicode
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.need_aof = need_aof  # type: str
 
     def validate(self):
         pass
@@ -2951,84 +3539,84 @@ class DescribeBackupsRequest(TeaModel):
 
 
 class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
-    def __init__(self, backup_status=None, backup_type=None, backup_start_time=None, node_instance_id=None,
-                 backup_download_url=None, backup_end_time=None, engine_version=None, backup_dbnames=None, backup_id=None,
-                 backup_intranet_download_url=None, backup_size=None, backup_mode=None, backup_method=None):
-        self.backup_status = TeaConverter.to_unicode(backup_status)  # type: unicode
-        self.backup_type = TeaConverter.to_unicode(backup_type)  # type: unicode
-        self.backup_start_time = TeaConverter.to_unicode(backup_start_time)  # type: unicode
-        self.node_instance_id = TeaConverter.to_unicode(node_instance_id)  # type: unicode
-        self.backup_download_url = TeaConverter.to_unicode(backup_download_url)  # type: unicode
-        self.backup_end_time = TeaConverter.to_unicode(backup_end_time)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.backup_dbnames = TeaConverter.to_unicode(backup_dbnames)  # type: unicode
+    def __init__(self, backup_id=None, backup_dbnames=None, backup_status=None, backup_start_time=None,
+                 backup_end_time=None, backup_type=None, backup_mode=None, backup_method=None, backup_download_url=None,
+                 backup_size=None, engine_version=None, node_instance_id=None, backup_intranet_download_url=None):
         self.backup_id = backup_id  # type: int
-        self.backup_intranet_download_url = TeaConverter.to_unicode(backup_intranet_download_url)  # type: unicode
+        self.backup_dbnames = backup_dbnames  # type: str
+        self.backup_status = backup_status  # type: str
+        self.backup_start_time = backup_start_time  # type: str
+        self.backup_end_time = backup_end_time  # type: str
+        self.backup_type = backup_type  # type: str
+        self.backup_mode = backup_mode  # type: str
+        self.backup_method = backup_method  # type: str
+        self.backup_download_url = backup_download_url  # type: str
         self.backup_size = backup_size  # type: long
-        self.backup_mode = TeaConverter.to_unicode(backup_mode)  # type: unicode
-        self.backup_method = TeaConverter.to_unicode(backup_method)  # type: unicode
+        self.engine_version = engine_version  # type: str
+        self.node_instance_id = node_instance_id  # type: str
+        self.backup_intranet_download_url = backup_intranet_download_url  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.backup_status is not None:
-            result['BackupStatus'] = self.backup_status
-        if self.backup_type is not None:
-            result['BackupType'] = self.backup_type
-        if self.backup_start_time is not None:
-            result['BackupStartTime'] = self.backup_start_time
-        if self.node_instance_id is not None:
-            result['NodeInstanceId'] = self.node_instance_id
-        if self.backup_download_url is not None:
-            result['BackupDownloadURL'] = self.backup_download_url
-        if self.backup_end_time is not None:
-            result['BackupEndTime'] = self.backup_end_time
-        if self.engine_version is not None:
-            result['EngineVersion'] = self.engine_version
-        if self.backup_dbnames is not None:
-            result['BackupDBNames'] = self.backup_dbnames
         if self.backup_id is not None:
             result['BackupId'] = self.backup_id
-        if self.backup_intranet_download_url is not None:
-            result['BackupIntranetDownloadURL'] = self.backup_intranet_download_url
-        if self.backup_size is not None:
-            result['BackupSize'] = self.backup_size
+        if self.backup_dbnames is not None:
+            result['BackupDBNames'] = self.backup_dbnames
+        if self.backup_status is not None:
+            result['BackupStatus'] = self.backup_status
+        if self.backup_start_time is not None:
+            result['BackupStartTime'] = self.backup_start_time
+        if self.backup_end_time is not None:
+            result['BackupEndTime'] = self.backup_end_time
+        if self.backup_type is not None:
+            result['BackupType'] = self.backup_type
         if self.backup_mode is not None:
             result['BackupMode'] = self.backup_mode
         if self.backup_method is not None:
             result['BackupMethod'] = self.backup_method
+        if self.backup_download_url is not None:
+            result['BackupDownloadURL'] = self.backup_download_url
+        if self.backup_size is not None:
+            result['BackupSize'] = self.backup_size
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
+        if self.node_instance_id is not None:
+            result['NodeInstanceId'] = self.node_instance_id
+        if self.backup_intranet_download_url is not None:
+            result['BackupIntranetDownloadURL'] = self.backup_intranet_download_url
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BackupStatus') is not None:
-            self.backup_status = m.get('BackupStatus')
-        if m.get('BackupType') is not None:
-            self.backup_type = m.get('BackupType')
-        if m.get('BackupStartTime') is not None:
-            self.backup_start_time = m.get('BackupStartTime')
-        if m.get('NodeInstanceId') is not None:
-            self.node_instance_id = m.get('NodeInstanceId')
-        if m.get('BackupDownloadURL') is not None:
-            self.backup_download_url = m.get('BackupDownloadURL')
-        if m.get('BackupEndTime') is not None:
-            self.backup_end_time = m.get('BackupEndTime')
-        if m.get('EngineVersion') is not None:
-            self.engine_version = m.get('EngineVersion')
-        if m.get('BackupDBNames') is not None:
-            self.backup_dbnames = m.get('BackupDBNames')
         if m.get('BackupId') is not None:
             self.backup_id = m.get('BackupId')
-        if m.get('BackupIntranetDownloadURL') is not None:
-            self.backup_intranet_download_url = m.get('BackupIntranetDownloadURL')
-        if m.get('BackupSize') is not None:
-            self.backup_size = m.get('BackupSize')
+        if m.get('BackupDBNames') is not None:
+            self.backup_dbnames = m.get('BackupDBNames')
+        if m.get('BackupStatus') is not None:
+            self.backup_status = m.get('BackupStatus')
+        if m.get('BackupStartTime') is not None:
+            self.backup_start_time = m.get('BackupStartTime')
+        if m.get('BackupEndTime') is not None:
+            self.backup_end_time = m.get('BackupEndTime')
+        if m.get('BackupType') is not None:
+            self.backup_type = m.get('BackupType')
         if m.get('BackupMode') is not None:
             self.backup_mode = m.get('BackupMode')
         if m.get('BackupMethod') is not None:
             self.backup_method = m.get('BackupMethod')
+        if m.get('BackupDownloadURL') is not None:
+            self.backup_download_url = m.get('BackupDownloadURL')
+        if m.get('BackupSize') is not None:
+            self.backup_size = m.get('BackupSize')
+        if m.get('EngineVersion') is not None:
+            self.engine_version = m.get('EngineVersion')
+        if m.get('NodeInstanceId') is not None:
+            self.node_instance_id = m.get('NodeInstanceId')
+        if m.get('BackupIntranetDownloadURL') is not None:
+            self.backup_intranet_download_url = m.get('BackupIntranetDownloadURL')
         return self
 
 
@@ -3061,11 +3649,11 @@ class DescribeBackupsResponseBodyBackups(TeaModel):
 
 
 class DescribeBackupsResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, backups=None):
-        self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, backups=None):
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
         self.backups = backups  # type: DescribeBackupsResponseBodyBackups
 
     def validate(self):
@@ -3074,28 +3662,28 @@ class DescribeBackupsResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         if self.backups is not None:
             result['Backups'] = self.backups.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         if m.get('Backups') is not None:
             temp_model = DescribeBackupsResponseBodyBackups()
             self.backups = temp_model.from_map(m['Backups'])
@@ -3104,7 +3692,7 @@ class DescribeBackupsResponseBody(TeaModel):
 
 class DescribeBackupsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupsResponseBody
 
     def validate(self):
@@ -3134,14 +3722,14 @@ class DescribeBackupsResponse(TeaModel):
 class DescribeBackupTasksRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, backup_job_id=None, job_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.backup_job_id = TeaConverter.to_unicode(backup_job_id)  # type: unicode
-        self.job_mode = TeaConverter.to_unicode(job_mode)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.backup_job_id = backup_job_id  # type: str
+        self.job_mode = job_mode  # type: str
 
     def validate(self):
         pass
@@ -3188,46 +3776,46 @@ class DescribeBackupTasksRequest(TeaModel):
 
 
 class DescribeBackupTasksResponseBodyBackupJobs(TeaModel):
-    def __init__(self, start_time=None, process=None, job_mode=None, backup_job_id=None,
-                 backup_progress_status=None, task_action=None):
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.process = TeaConverter.to_unicode(process)  # type: unicode
-        self.job_mode = TeaConverter.to_unicode(job_mode)  # type: unicode
+    def __init__(self, backup_job_id=None, backup_progress_status=None, job_mode=None, process=None,
+                 start_time=None, task_action=None):
         self.backup_job_id = backup_job_id  # type: int
-        self.backup_progress_status = TeaConverter.to_unicode(backup_progress_status)  # type: unicode
-        self.task_action = TeaConverter.to_unicode(task_action)  # type: unicode
+        self.backup_progress_status = backup_progress_status  # type: str
+        self.job_mode = job_mode  # type: str
+        self.process = process  # type: str
+        self.start_time = start_time  # type: str
+        self.task_action = task_action  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.process is not None:
-            result['Process'] = self.process
-        if self.job_mode is not None:
-            result['JobMode'] = self.job_mode
         if self.backup_job_id is not None:
             result['BackupJobID'] = self.backup_job_id
         if self.backup_progress_status is not None:
             result['BackupProgressStatus'] = self.backup_progress_status
+        if self.job_mode is not None:
+            result['JobMode'] = self.job_mode
+        if self.process is not None:
+            result['Process'] = self.process
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.task_action is not None:
             result['TaskAction'] = self.task_action
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('Process') is not None:
-            self.process = m.get('Process')
-        if m.get('JobMode') is not None:
-            self.job_mode = m.get('JobMode')
         if m.get('BackupJobID') is not None:
             self.backup_job_id = m.get('BackupJobID')
         if m.get('BackupProgressStatus') is not None:
             self.backup_progress_status = m.get('BackupProgressStatus')
+        if m.get('JobMode') is not None:
+            self.job_mode = m.get('JobMode')
+        if m.get('Process') is not None:
+            self.process = m.get('Process')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TaskAction') is not None:
             self.task_action = m.get('TaskAction')
         return self
@@ -3235,8 +3823,8 @@ class DescribeBackupTasksResponseBodyBackupJobs(TeaModel):
 
 class DescribeBackupTasksResponseBody(TeaModel):
     def __init__(self, request_id=None, instance_id=None, backup_jobs=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
         self.backup_jobs = backup_jobs  # type: list[DescribeBackupTasksResponseBodyBackupJobs]
 
     def validate(self):
@@ -3273,7 +3861,7 @@ class DescribeBackupTasksResponseBody(TeaModel):
 
 class DescribeBackupTasksResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupTasksResponseBody
 
     def validate(self):
@@ -3304,17 +3892,17 @@ class DescribeCacheAnalysisReportRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, date=None, analysis_type=None, page_size=None, page_numbers=None,
                  node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.date = TeaConverter.to_unicode(date)  # type: unicode
-        self.analysis_type = TeaConverter.to_unicode(analysis_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.date = date  # type: str
+        self.analysis_type = analysis_type  # type: str
         self.page_size = page_size  # type: int
         self.page_numbers = page_numbers  # type: int
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -3373,59 +3961,59 @@ class DescribeCacheAnalysisReportRequest(TeaModel):
 
 
 class DescribeCacheAnalysisReportResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, hot_keys=None, page_record_count=None, big_keys=None,
-                 page_size=None, request_id=None, page_number=None):
+    def __init__(self, request_id=None, total_record_count=None, page_size=None, page_number=None,
+                 page_record_count=None, hot_keys=None, big_keys=None):
+        self.request_id = request_id  # type: str
         self.total_record_count = total_record_count  # type: int
-        self.hot_keys = hot_keys  # type: list[dict[unicode, any]]
-        self.page_record_count = page_record_count  # type: int
-        self.big_keys = big_keys  # type: list[dict[unicode, any]]
         self.page_size = page_size  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
         self.page_number = page_number  # type: int
+        self.page_record_count = page_record_count  # type: int
+        self.hot_keys = hot_keys  # type: list[dict[str, str]]
+        self.big_keys = big_keys  # type: list[dict[str, str]]
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
-        if self.hot_keys is not None:
-            result['HotKeys'] = self.hot_keys
-        if self.page_record_count is not None:
-            result['PageRecordCount'] = self.page_record_count
-        if self.big_keys is not None:
-            result['BigKeys'] = self.big_keys
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.hot_keys is not None:
+            result['HotKeys'] = self.hot_keys
+        if self.big_keys is not None:
+            result['BigKeys'] = self.big_keys
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
-        if m.get('HotKeys') is not None:
-            self.hot_keys = m.get('HotKeys')
-        if m.get('PageRecordCount') is not None:
-            self.page_record_count = m.get('PageRecordCount')
-        if m.get('BigKeys') is not None:
-            self.big_keys = m.get('BigKeys')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
+        if m.get('HotKeys') is not None:
+            self.hot_keys = m.get('HotKeys')
+        if m.get('BigKeys') is not None:
+            self.big_keys = m.get('BigKeys')
         return self
 
 
 class DescribeCacheAnalysisReportResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeCacheAnalysisReportResponseBody
 
     def validate(self):
@@ -3454,18 +4042,17 @@ class DescribeCacheAnalysisReportResponse(TeaModel):
 
 class DescribeCacheAnalysisReportListRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, days=None, page_size=None, page_numbers=None, node_id=None, date=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, days=None, page_size=None, page_numbers=None, node_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.days = days  # type: int
         self.page_size = page_size  # type: int
         self.page_numbers = page_numbers  # type: int
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.date = TeaConverter.to_unicode(date)  # type: unicode
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -3492,8 +4079,6 @@ class DescribeCacheAnalysisReportListRequest(TeaModel):
             result['PageNumbers'] = self.page_numbers
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.date is not None:
-            result['Date'] = self.date
         return result
 
     def from_map(self, m=None):
@@ -3518,43 +4103,41 @@ class DescribeCacheAnalysisReportListRequest(TeaModel):
             self.page_numbers = m.get('PageNumbers')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('Date') is not None:
-            self.date = m.get('Date')
         return self
 
 
 class DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTaskTasksTask(TeaModel):
-    def __init__(self, status=None, start_time=None, task_id=None, node_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+    def __init__(self, task_id=None, node_id=None, start_time=None, status=None):
+        self.task_id = task_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -3587,9 +4170,9 @@ class DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTaskTasks(TeaMod
 
 
 class DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTask(TeaModel):
-    def __init__(self, tasks=None, date=None):
+    def __init__(self, date=None, tasks=None):
+        self.date = date  # type: str
         self.tasks = tasks  # type: DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTaskTasks
-        self.date = TeaConverter.to_unicode(date)  # type: unicode
 
     def validate(self):
         if self.tasks:
@@ -3597,19 +4180,19 @@ class DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTask(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.tasks is not None:
-            result['Tasks'] = self.tasks.to_map()
         if self.date is not None:
             result['Date'] = self.date
+        if self.tasks is not None:
+            result['Tasks'] = self.tasks.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Date') is not None:
+            self.date = m.get('Date')
         if m.get('Tasks') is not None:
             temp_model = DescribeCacheAnalysisReportListResponseBodyDailyTasksDailyTaskTasks()
             self.tasks = temp_model.from_map(m['Tasks'])
-        if m.get('Date') is not None:
-            self.date = m.get('Date')
         return self
 
 
@@ -3642,10 +4225,10 @@ class DescribeCacheAnalysisReportListResponseBodyDailyTasks(TeaModel):
 
 
 class DescribeCacheAnalysisReportListResponseBody(TeaModel):
-    def __init__(self, daily_tasks=None, request_id=None, instance_id=None):
+    def __init__(self, request_id=None, instance_id=None, daily_tasks=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
         self.daily_tasks = daily_tasks  # type: DescribeCacheAnalysisReportListResponseBodyDailyTasks
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
 
     def validate(self):
         if self.daily_tasks:
@@ -3653,29 +4236,29 @@ class DescribeCacheAnalysisReportListResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.daily_tasks is not None:
-            result['DailyTasks'] = self.daily_tasks.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.daily_tasks is not None:
+            result['DailyTasks'] = self.daily_tasks.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DailyTasks') is not None:
-            temp_model = DescribeCacheAnalysisReportListResponseBodyDailyTasks()
-            self.daily_tasks = temp_model.from_map(m['DailyTasks'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('DailyTasks') is not None:
+            temp_model = DescribeCacheAnalysisReportListResponseBodyDailyTasks()
+            self.daily_tasks = temp_model.from_map(m['DailyTasks'])
         return self
 
 
 class DescribeCacheAnalysisReportListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeCacheAnalysisReportListResponseBody
 
     def validate(self):
@@ -3704,17 +4287,13 @@ class DescribeCacheAnalysisReportListResponse(TeaModel):
 
 class DescribeClusterMemberInfoRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, filter_service=None, need_replica=None, page_number=None, page_size=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.filter_service = TeaConverter.to_unicode(filter_service)  # type: unicode
-        self.need_replica = TeaConverter.to_unicode(need_replica)  # type: unicode
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -3733,14 +4312,6 @@ class DescribeClusterMemberInfoRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.filter_service is not None:
-            result['FilterService'] = self.filter_service
-        if self.need_replica is not None:
-            result['NeedReplica'] = self.need_replica
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
@@ -3757,112 +4328,104 @@ class DescribeClusterMemberInfoRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('FilterService') is not None:
-            self.filter_service = m.get('FilterService')
-        if m.get('NeedReplica') is not None:
-            self.need_replica = m.get('NeedReplica')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         return self
 
 
 class DescribeClusterMemberInfoResponseBodyClusterChildren(TeaModel):
-    def __init__(self, capacity=None, user_id=None, disk_size_mb=None, band_width=None, current_band_width=None,
-                 class_code=None, biz_type=None, service=None, binlog_retention_days=None, connections=None,
-                 resource_group_name=None, service_version=None, replica_size=None, name=None, id=None):
-        self.capacity = capacity  # type: long
-        self.user_id = TeaConverter.to_unicode(user_id)  # type: unicode
-        self.disk_size_mb = disk_size_mb  # type: int
-        self.band_width = band_width  # type: long
-        self.current_band_width = current_band_width  # type: long
-        self.class_code = TeaConverter.to_unicode(class_code)  # type: unicode
-        self.biz_type = TeaConverter.to_unicode(biz_type)  # type: unicode
-        self.service = TeaConverter.to_unicode(service)  # type: unicode
-        self.binlog_retention_days = binlog_retention_days  # type: int
-        self.connections = connections  # type: long
-        self.resource_group_name = TeaConverter.to_unicode(resource_group_name)  # type: unicode
-        self.service_version = TeaConverter.to_unicode(service_version)  # type: unicode
-        self.replica_size = replica_size  # type: int
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+    def __init__(self, id=None, name=None, biz_type=None, replica_size=None, service_version=None, disk_size_mb=None,
+                 class_code=None, resource_group_name=None, binlog_retention_days=None, user_id=None, service=None,
+                 capacity=None, band_width=None, connections=None, current_band_width=None):
         self.id = id  # type: long
+        self.name = name  # type: str
+        self.biz_type = biz_type  # type: str
+        self.replica_size = replica_size  # type: int
+        self.service_version = service_version  # type: str
+        self.disk_size_mb = disk_size_mb  # type: int
+        self.class_code = class_code  # type: str
+        self.resource_group_name = resource_group_name  # type: str
+        self.binlog_retention_days = binlog_retention_days  # type: int
+        self.user_id = user_id  # type: str
+        self.service = service  # type: str
+        self.capacity = capacity  # type: long
+        self.band_width = band_width  # type: long
+        self.connections = connections  # type: long
+        self.current_band_width = current_band_width  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
-        if self.user_id is not None:
-            result['UserId'] = self.user_id
-        if self.disk_size_mb is not None:
-            result['DiskSizeMB'] = self.disk_size_mb
-        if self.band_width is not None:
-            result['BandWidth'] = self.band_width
-        if self.current_band_width is not None:
-            result['CurrentBandWidth'] = self.current_band_width
-        if self.class_code is not None:
-            result['ClassCode'] = self.class_code
-        if self.biz_type is not None:
-            result['BizType'] = self.biz_type
-        if self.service is not None:
-            result['Service'] = self.service
-        if self.binlog_retention_days is not None:
-            result['BinlogRetentionDays'] = self.binlog_retention_days
-        if self.connections is not None:
-            result['Connections'] = self.connections
-        if self.resource_group_name is not None:
-            result['ResourceGroupName'] = self.resource_group_name
-        if self.service_version is not None:
-            result['ServiceVersion'] = self.service_version
-        if self.replica_size is not None:
-            result['ReplicaSize'] = self.replica_size
-        if self.name is not None:
-            result['Name'] = self.name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.replica_size is not None:
+            result['ReplicaSize'] = self.replica_size
+        if self.service_version is not None:
+            result['ServiceVersion'] = self.service_version
+        if self.disk_size_mb is not None:
+            result['DiskSizeMB'] = self.disk_size_mb
+        if self.class_code is not None:
+            result['ClassCode'] = self.class_code
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        if self.binlog_retention_days is not None:
+            result['BinlogRetentionDays'] = self.binlog_retention_days
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.service is not None:
+            result['Service'] = self.service
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.band_width is not None:
+            result['BandWidth'] = self.band_width
+        if self.connections is not None:
+            result['Connections'] = self.connections
+        if self.current_band_width is not None:
+            result['CurrentBandWidth'] = self.current_band_width
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
-        if m.get('UserId') is not None:
-            self.user_id = m.get('UserId')
-        if m.get('DiskSizeMB') is not None:
-            self.disk_size_mb = m.get('DiskSizeMB')
-        if m.get('BandWidth') is not None:
-            self.band_width = m.get('BandWidth')
-        if m.get('CurrentBandWidth') is not None:
-            self.current_band_width = m.get('CurrentBandWidth')
-        if m.get('ClassCode') is not None:
-            self.class_code = m.get('ClassCode')
-        if m.get('BizType') is not None:
-            self.biz_type = m.get('BizType')
-        if m.get('Service') is not None:
-            self.service = m.get('Service')
-        if m.get('BinlogRetentionDays') is not None:
-            self.binlog_retention_days = m.get('BinlogRetentionDays')
-        if m.get('Connections') is not None:
-            self.connections = m.get('Connections')
-        if m.get('ResourceGroupName') is not None:
-            self.resource_group_name = m.get('ResourceGroupName')
-        if m.get('ServiceVersion') is not None:
-            self.service_version = m.get('ServiceVersion')
-        if m.get('ReplicaSize') is not None:
-            self.replica_size = m.get('ReplicaSize')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('ReplicaSize') is not None:
+            self.replica_size = m.get('ReplicaSize')
+        if m.get('ServiceVersion') is not None:
+            self.service_version = m.get('ServiceVersion')
+        if m.get('DiskSizeMB') is not None:
+            self.disk_size_mb = m.get('DiskSizeMB')
+        if m.get('ClassCode') is not None:
+            self.class_code = m.get('ClassCode')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        if m.get('BinlogRetentionDays') is not None:
+            self.binlog_retention_days = m.get('BinlogRetentionDays')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('BandWidth') is not None:
+            self.band_width = m.get('BandWidth')
+        if m.get('Connections') is not None:
+            self.connections = m.get('Connections')
+        if m.get('CurrentBandWidth') is not None:
+            self.current_band_width = m.get('CurrentBandWidth')
         return self
 
 
 class DescribeClusterMemberInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, cluster_children=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.cluster_children = cluster_children  # type: list[DescribeClusterMemberInfoResponseBodyClusterChildren]
 
     def validate(self):
@@ -3895,7 +4458,7 @@ class DescribeClusterMemberInfoResponseBody(TeaModel):
 
 class DescribeClusterMemberInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterMemberInfoResponseBody
 
     def validate(self):
@@ -3925,12 +4488,12 @@ class DescribeClusterMemberInfoResponse(TeaModel):
 class DescribeDBInstanceNetInfoRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -3969,74 +4532,74 @@ class DescribeDBInstanceNetInfoRequest(TeaModel):
 
 
 class DescribeDBInstanceNetInfoResponseBodyNetInfoItemsInstanceNetInfo(TeaModel):
-    def __init__(self, direct_connection=None, v_switch_id=None, dbinstance_net_type=None, upgradeable=None,
-                 expired_time=None, connection_string=None, iptype=None, vpcinstance_id=None, port=None, vpcid=None,
-                 ipaddress=None):
+    def __init__(self, connection_string=None, ipaddress=None, port=None, vpcid=None, v_switch_id=None,
+                 dbinstance_net_type=None, vpcinstance_id=None, iptype=None, expired_time=None, upgradeable=None,
+                 direct_connection=None):
+        self.connection_string = connection_string  # type: str
+        self.ipaddress = ipaddress  # type: str
+        self.port = port  # type: str
+        self.vpcid = vpcid  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.dbinstance_net_type = dbinstance_net_type  # type: str
+        self.vpcinstance_id = vpcinstance_id  # type: str
+        self.iptype = iptype  # type: str
+        self.expired_time = expired_time  # type: str
+        self.upgradeable = upgradeable  # type: str
         self.direct_connection = direct_connection  # type: int
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.dbinstance_net_type = TeaConverter.to_unicode(dbinstance_net_type)  # type: unicode
-        self.upgradeable = TeaConverter.to_unicode(upgradeable)  # type: unicode
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
-        self.connection_string = TeaConverter.to_unicode(connection_string)  # type: unicode
-        self.iptype = TeaConverter.to_unicode(iptype)  # type: unicode
-        self.vpcinstance_id = TeaConverter.to_unicode(vpcinstance_id)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.direct_connection is not None:
-            result['DirectConnection'] = self.direct_connection
-        if self.v_switch_id is not None:
-            result['VSwitchId'] = self.v_switch_id
-        if self.dbinstance_net_type is not None:
-            result['DBInstanceNetType'] = self.dbinstance_net_type
-        if self.upgradeable is not None:
-            result['Upgradeable'] = self.upgradeable
-        if self.expired_time is not None:
-            result['ExpiredTime'] = self.expired_time
         if self.connection_string is not None:
             result['ConnectionString'] = self.connection_string
-        if self.iptype is not None:
-            result['IPType'] = self.iptype
-        if self.vpcinstance_id is not None:
-            result['VPCInstanceId'] = self.vpcinstance_id
+        if self.ipaddress is not None:
+            result['IPAddress'] = self.ipaddress
         if self.port is not None:
             result['Port'] = self.port
         if self.vpcid is not None:
             result['VPCId'] = self.vpcid
-        if self.ipaddress is not None:
-            result['IPAddress'] = self.ipaddress
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.dbinstance_net_type is not None:
+            result['DBInstanceNetType'] = self.dbinstance_net_type
+        if self.vpcinstance_id is not None:
+            result['VPCInstanceId'] = self.vpcinstance_id
+        if self.iptype is not None:
+            result['IPType'] = self.iptype
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.upgradeable is not None:
+            result['Upgradeable'] = self.upgradeable
+        if self.direct_connection is not None:
+            result['DirectConnection'] = self.direct_connection
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DirectConnection') is not None:
-            self.direct_connection = m.get('DirectConnection')
-        if m.get('VSwitchId') is not None:
-            self.v_switch_id = m.get('VSwitchId')
-        if m.get('DBInstanceNetType') is not None:
-            self.dbinstance_net_type = m.get('DBInstanceNetType')
-        if m.get('Upgradeable') is not None:
-            self.upgradeable = m.get('Upgradeable')
-        if m.get('ExpiredTime') is not None:
-            self.expired_time = m.get('ExpiredTime')
         if m.get('ConnectionString') is not None:
             self.connection_string = m.get('ConnectionString')
-        if m.get('IPType') is not None:
-            self.iptype = m.get('IPType')
-        if m.get('VPCInstanceId') is not None:
-            self.vpcinstance_id = m.get('VPCInstanceId')
+        if m.get('IPAddress') is not None:
+            self.ipaddress = m.get('IPAddress')
         if m.get('Port') is not None:
             self.port = m.get('Port')
         if m.get('VPCId') is not None:
             self.vpcid = m.get('VPCId')
-        if m.get('IPAddress') is not None:
-            self.ipaddress = m.get('IPAddress')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('DBInstanceNetType') is not None:
+            self.dbinstance_net_type = m.get('DBInstanceNetType')
+        if m.get('VPCInstanceId') is not None:
+            self.vpcinstance_id = m.get('VPCInstanceId')
+        if m.get('IPType') is not None:
+            self.iptype = m.get('IPType')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('Upgradeable') is not None:
+            self.upgradeable = m.get('Upgradeable')
+        if m.get('DirectConnection') is not None:
+            self.direct_connection = m.get('DirectConnection')
         return self
 
 
@@ -4069,10 +4632,10 @@ class DescribeDBInstanceNetInfoResponseBodyNetInfoItems(TeaModel):
 
 
 class DescribeDBInstanceNetInfoResponseBody(TeaModel):
-    def __init__(self, net_info_items=None, request_id=None, instance_network_type=None):
+    def __init__(self, request_id=None, instance_network_type=None, net_info_items=None):
+        self.request_id = request_id  # type: str
+        self.instance_network_type = instance_network_type  # type: str
         self.net_info_items = net_info_items  # type: DescribeDBInstanceNetInfoResponseBodyNetInfoItems
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_network_type = TeaConverter.to_unicode(instance_network_type)  # type: unicode
 
     def validate(self):
         if self.net_info_items:
@@ -4080,29 +4643,29 @@ class DescribeDBInstanceNetInfoResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.net_info_items is not None:
-            result['NetInfoItems'] = self.net_info_items.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_network_type is not None:
             result['InstanceNetworkType'] = self.instance_network_type
+        if self.net_info_items is not None:
+            result['NetInfoItems'] = self.net_info_items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('NetInfoItems') is not None:
-            temp_model = DescribeDBInstanceNetInfoResponseBodyNetInfoItems()
-            self.net_info_items = temp_model.from_map(m['NetInfoItems'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceNetworkType') is not None:
             self.instance_network_type = m.get('InstanceNetworkType')
+        if m.get('NetInfoItems') is not None:
+            temp_model = DescribeDBInstanceNetInfoResponseBodyNetInfoItems()
+            self.net_info_items = temp_model.from_map(m['NetInfoItems'])
         return self
 
 
 class DescribeDBInstanceNetInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceNetInfoResponseBody
 
     def validate(self):
@@ -4133,19 +4696,19 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, instance_id=None, instance_status=None, instance_net_type=None, engine=None,
                  engine_version=None, cluster_id=None, dedicated_host_name=None, page_number=None, page_size=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_id = instance_id  # type: str
         self.instance_status = instance_status  # type: int
-        self.instance_net_type = TeaConverter.to_unicode(instance_net_type)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.dedicated_host_name = TeaConverter.to_unicode(dedicated_host_name)  # type: unicode
+        self.instance_net_type = instance_net_type  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.dedicated_host_name = dedicated_host_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -4224,13 +4787,13 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
 class DescribeDedicatedClusterInstanceListResponseBodyInstancesInstanceNodeList(TeaModel):
     def __init__(self, node_ip=None, dedicated_host_name=None, node_type=None, zone_id=None, instance_id=None,
                  port=None, role=None, node_id=None):
-        self.node_ip = TeaConverter.to_unicode(node_ip)  # type: unicode
-        self.dedicated_host_name = TeaConverter.to_unicode(dedicated_host_name)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.node_ip = node_ip  # type: str
+        self.dedicated_host_name = dedicated_host_name  # type: str
+        self.node_type = node_type  # type: str
+        self.zone_id = zone_id  # type: str
+        self.instance_id = instance_id  # type: str
         self.port = port  # type: int
-        self.role = TeaConverter.to_unicode(role)  # type: unicode
+        self.role = role  # type: str
         self.node_id = node_id  # type: int
 
     def validate(self):
@@ -4283,29 +4846,29 @@ class DescribeDedicatedClusterInstanceListResponseBodyInstances(TeaModel):
                  instance_node_list=None, instance_id=None, band_width=None, current_band_width=None, engine_version=None,
                  region_id=None, instance_name=None, zone_id=None, cluster_name=None, instance_status=None, engine=None,
                  shard_count=None, custom_id=None, cluster_id=None):
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
         self.character_type = character_type  # type: int
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
-        self.storage_type = TeaConverter.to_unicode(storage_type)  # type: unicode
+        self.vswitch_id = vswitch_id  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.instance_class = instance_class  # type: str
+        self.connection_domain = connection_domain  # type: str
+        self.create_time = create_time  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.storage_type = storage_type  # type: str
         self.instance_node_list = instance_node_list  # type: list[DescribeDedicatedClusterInstanceListResponseBodyInstancesInstanceNodeList]
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         self.band_width = band_width  # type: long
         self.current_band_width = current_band_width  # type: long
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.cluster_name = TeaConverter.to_unicode(cluster_name)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.engine_version = engine_version  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.zone_id = zone_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.instance_status = instance_status  # type: str
+        self.engine = engine  # type: str
         self.shard_count = shard_count  # type: int
-        self.custom_id = TeaConverter.to_unicode(custom_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.custom_id = custom_id  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         if self.instance_node_list:
@@ -4424,7 +4987,7 @@ class DescribeDedicatedClusterInstanceListResponseBody(TeaModel):
         self.instances = instances  # type: list[DescribeDedicatedClusterInstanceListResponseBodyInstances]
         self.total_count = total_count  # type: int
         self.page_size = page_size  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
 
     def validate(self):
@@ -4469,7 +5032,7 @@ class DescribeDedicatedClusterInstanceListResponseBody(TeaModel):
 
 class DescribeDedicatedClusterInstanceListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDedicatedClusterInstanceListResponseBody
 
     def validate(self):
@@ -4498,14 +5061,13 @@ class DescribeDedicatedClusterInstanceListResponse(TeaModel):
 
 class DescribeEngineVersionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, parameters=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -4524,8 +5086,6 @@ class DescribeEngineVersionRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.parameters is not None:
-            result['Parameters'] = self.parameters
         return result
 
     def from_map(self, m=None):
@@ -4542,20 +5102,18 @@ class DescribeEngineVersionRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Parameters') is not None:
-            self.parameters = m.get('Parameters')
         return self
 
 
 class DescribeEngineVersionResponseBody(TeaModel):
-    def __init__(self, major_version=None, is_latest_version=None, request_id=None, minor_version=None,
-                 enable_upgrade_minor_version=None, engine=None, enable_upgrade_major_version=None):
-        self.major_version = TeaConverter.to_unicode(major_version)  # type: unicode
+    def __init__(self, request_id=None, engine=None, is_latest_version=None, minor_version=None,
+                 enable_upgrade_minor_version=None, major_version=None, enable_upgrade_major_version=None):
+        self.request_id = request_id  # type: str
+        self.engine = engine  # type: str
         self.is_latest_version = is_latest_version  # type: bool
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.minor_version = TeaConverter.to_unicode(minor_version)  # type: unicode
+        self.minor_version = minor_version  # type: str
         self.enable_upgrade_minor_version = enable_upgrade_minor_version  # type: bool
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.major_version = major_version  # type: str
         self.enable_upgrade_major_version = enable_upgrade_major_version  # type: bool
 
     def validate(self):
@@ -4563,36 +5121,36 @@ class DescribeEngineVersionResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.major_version is not None:
-            result['MajorVersion'] = self.major_version
-        if self.is_latest_version is not None:
-            result['IsLatestVersion'] = self.is_latest_version
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.is_latest_version is not None:
+            result['IsLatestVersion'] = self.is_latest_version
         if self.minor_version is not None:
             result['MinorVersion'] = self.minor_version
         if self.enable_upgrade_minor_version is not None:
             result['EnableUpgradeMinorVersion'] = self.enable_upgrade_minor_version
-        if self.engine is not None:
-            result['Engine'] = self.engine
+        if self.major_version is not None:
+            result['MajorVersion'] = self.major_version
         if self.enable_upgrade_major_version is not None:
             result['EnableUpgradeMajorVersion'] = self.enable_upgrade_major_version
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('MajorVersion') is not None:
-            self.major_version = m.get('MajorVersion')
-        if m.get('IsLatestVersion') is not None:
-            self.is_latest_version = m.get('IsLatestVersion')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('IsLatestVersion') is not None:
+            self.is_latest_version = m.get('IsLatestVersion')
         if m.get('MinorVersion') is not None:
             self.minor_version = m.get('MinorVersion')
         if m.get('EnableUpgradeMinorVersion') is not None:
             self.enable_upgrade_minor_version = m.get('EnableUpgradeMinorVersion')
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
+        if m.get('MajorVersion') is not None:
+            self.major_version = m.get('MajorVersion')
         if m.get('EnableUpgradeMajorVersion') is not None:
             self.enable_upgrade_major_version = m.get('EnableUpgradeMajorVersion')
         return self
@@ -4600,7 +5158,7 @@ class DescribeEngineVersionResponseBody(TeaModel):
 
 class DescribeEngineVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeEngineVersionResponseBody
 
     def validate(self):
@@ -4630,15 +5188,15 @@ class DescribeEngineVersionResponse(TeaModel):
 class DescribeGlobalDistributeCacheRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, global_instance_id=None, page_number=None, page_size=None, sub_instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
-        self.page_number = TeaConverter.to_unicode(page_number)  # type: unicode
-        self.page_size = TeaConverter.to_unicode(page_size)  # type: unicode
-        self.sub_instance_id = TeaConverter.to_unicode(sub_instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.global_instance_id = global_instance_id  # type: str
+        self.page_number = page_number  # type: str
+        self.page_size = page_size  # type: str
+        self.sub_instance_id = sub_instance_id  # type: str
 
     def validate(self):
         pass
@@ -4689,51 +5247,51 @@ class DescribeGlobalDistributeCacheRequest(TeaModel):
 
 
 class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstances(TeaModel):
-    def __init__(self, instance_class=None, instance_status=None, instance_id=None, global_instance_id=None,
-                 region_id=None):
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+    def __init__(self, global_instance_id=None, instance_id=None, region_id=None, instance_status=None,
+                 instance_class=None):
+        self.global_instance_id = global_instance_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_status = instance_status  # type: str
+        self.instance_class = instance_class  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.instance_class is not None:
-            result['InstanceClass'] = self.instance_class
-        if self.instance_status is not None:
-            result['InstanceStatus'] = self.instance_status
-        if self.instance_id is not None:
-            result['InstanceID'] = self.instance_id
         if self.global_instance_id is not None:
             result['GlobalInstanceId'] = self.global_instance_id
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.instance_status is not None:
+            result['InstanceStatus'] = self.instance_status
+        if self.instance_class is not None:
+            result['InstanceClass'] = self.instance_class
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('InstanceClass') is not None:
-            self.instance_class = m.get('InstanceClass')
-        if m.get('InstanceStatus') is not None:
-            self.instance_status = m.get('InstanceStatus')
-        if m.get('InstanceID') is not None:
-            self.instance_id = m.get('InstanceID')
         if m.get('GlobalInstanceId') is not None:
             self.global_instance_id = m.get('GlobalInstanceId')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('InstanceStatus') is not None:
+            self.instance_status = m.get('InstanceStatus')
+        if m.get('InstanceClass') is not None:
+            self.instance_class = m.get('InstanceClass')
         return self
 
 
 class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches(TeaModel):
-    def __init__(self, status=None, sub_instances=None, global_instance_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+    def __init__(self, global_instance_id=None, status=None, sub_instances=None):
+        self.global_instance_id = global_instance_id  # type: str
+        self.status = status  # type: str
         self.sub_instances = sub_instances  # type: list[DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstances]
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
 
     def validate(self):
         if self.sub_instances:
@@ -4743,18 +5301,20 @@ class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches(TeaModel):
 
     def to_map(self):
         result = dict()
+        if self.global_instance_id is not None:
+            result['GlobalInstanceId'] = self.global_instance_id
         if self.status is not None:
             result['Status'] = self.status
         result['SubInstances'] = []
         if self.sub_instances is not None:
             for k in self.sub_instances:
                 result['SubInstances'].append(k.to_map() if k else None)
-        if self.global_instance_id is not None:
-            result['GlobalInstanceId'] = self.global_instance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('GlobalInstanceId') is not None:
+            self.global_instance_id = m.get('GlobalInstanceId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         self.sub_instances = []
@@ -4762,19 +5322,17 @@ class DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches(TeaModel):
             for k in m.get('SubInstances'):
                 temp_model = DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCachesSubInstances()
                 self.sub_instances.append(temp_model.from_map(k))
-        if m.get('GlobalInstanceId') is not None:
-            self.global_instance_id = m.get('GlobalInstanceId')
         return self
 
 
 class DescribeGlobalDistributeCacheResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, global_distribute_caches=None, page_size=None, request_id=None,
-                 page_number=None):
+    def __init__(self, request_id=None, total_record_count=None, page_number=None, page_size=None,
+                 global_distribute_caches=None):
+        self.request_id = request_id  # type: str
         self.total_record_count = total_record_count  # type: int
-        self.global_distribute_caches = global_distribute_caches  # type: list[DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches]
-        self.page_size = page_size  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.global_distribute_caches = global_distribute_caches  # type: list[DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches]
 
     def validate(self):
         if self.global_distribute_caches:
@@ -4784,41 +5342,41 @@ class DescribeGlobalDistributeCacheResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         result['GlobalDistributeCaches'] = []
         if self.global_distribute_caches is not None:
             for k in self.global_distribute_caches:
                 result['GlobalDistributeCaches'].append(k.to_map() if k else None)
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TotalRecordCount') is not None:
             self.total_record_count = m.get('TotalRecordCount')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         self.global_distribute_caches = []
         if m.get('GlobalDistributeCaches') is not None:
             for k in m.get('GlobalDistributeCaches'):
                 temp_model = DescribeGlobalDistributeCacheResponseBodyGlobalDistributeCaches()
                 self.global_distribute_caches.append(temp_model.from_map(k))
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         return self
 
 
 class DescribeGlobalDistributeCacheResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeGlobalDistributeCacheResponseBody
 
     def validate(self):
@@ -4848,22 +5406,18 @@ class DescribeGlobalDistributeCacheResponse(TeaModel):
 class DescribeHistoryMonitorValuesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, start_time=None, end_time=None, interval_for_history=None,
-                 monitor_keys=None, node_id=None, access_type=None, product=None, category=None, replicator_job_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 monitor_keys=None, node_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.interval_for_history = TeaConverter.to_unicode(interval_for_history)  # type: unicode
-        self.monitor_keys = TeaConverter.to_unicode(monitor_keys)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.access_type = TeaConverter.to_unicode(access_type)  # type: unicode
-        self.product = TeaConverter.to_unicode(product)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
-        self.replicator_job_id = TeaConverter.to_unicode(replicator_job_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.interval_for_history = interval_for_history  # type: str
+        self.monitor_keys = monitor_keys  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -4892,14 +5446,6 @@ class DescribeHistoryMonitorValuesRequest(TeaModel):
             result['MonitorKeys'] = self.monitor_keys
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.access_type is not None:
-            result['AccessType'] = self.access_type
-        if self.product is not None:
-            result['Product'] = self.product
-        if self.category is not None:
-            result['Category'] = self.category
-        if self.replicator_job_id is not None:
-            result['ReplicatorJobId'] = self.replicator_job_id
         return result
 
     def from_map(self, m=None):
@@ -4926,45 +5472,37 @@ class DescribeHistoryMonitorValuesRequest(TeaModel):
             self.monitor_keys = m.get('MonitorKeys')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('AccessType') is not None:
-            self.access_type = m.get('AccessType')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
-        if m.get('ReplicatorJobId') is not None:
-            self.replicator_job_id = m.get('ReplicatorJobId')
         return self
 
 
 class DescribeHistoryMonitorValuesResponseBody(TeaModel):
-    def __init__(self, monitor_history=None, request_id=None):
-        self.monitor_history = TeaConverter.to_unicode(monitor_history)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, request_id=None, monitor_history=None):
+        self.request_id = request_id  # type: str
+        self.monitor_history = monitor_history  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.monitor_history is not None:
-            result['MonitorHistory'] = self.monitor_history
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.monitor_history is not None:
+            result['MonitorHistory'] = self.monitor_history
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('MonitorHistory') is not None:
-            self.monitor_history = m.get('MonitorHistory')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('MonitorHistory') is not None:
+            self.monitor_history = m.get('MonitorHistory')
         return self
 
 
 class DescribeHistoryMonitorValuesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeHistoryMonitorValuesResponseBody
 
     def validate(self):
@@ -4994,12 +5532,12 @@ class DescribeHistoryMonitorValuesResponse(TeaModel):
 class DescribeInstanceAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -5039,8 +5577,8 @@ class DescribeInstanceAttributeRequest(TeaModel):
 
 class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -5091,56 +5629,57 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags(TeaM
 
 
 class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel):
-    def __init__(self, vpc_id=None, private_ip=None, capacity=None, create_time=None, connection_domain=None,
-                 is_rds=None, charge_type=None, tags=None, vpc_auth_mode=None, architecture_type=None, network_type=None,
-                 availability_value=None, port=None, config=None, engine_version=None, package_type=None, vpc_cloud_instance_id=None,
-                 bandwidth=None, instance_name=None, security_iplist=None, shard_count=None, global_instance_id=None,
-                 qps=None, audit_log_retention=None, maintain_start_time=None, instance_class=None,
-                 maintain_end_time=None, instance_id=None, instance_type=None, has_renew_change_order=None,
-                 instance_release_protection=None, replication_mode=None, region_id=None, end_time=None, v_switch_id=None, replica_id=None,
-                 node_type=None, connections=None, resource_group_id=None, zone_id=None, instance_status=None, engine=None):
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.private_ip = TeaConverter.to_unicode(private_ip)  # type: unicode
-        self.capacity = capacity  # type: long
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.is_rds = is_rds  # type: bool
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.tags = tags  # type: DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags
-        self.vpc_auth_mode = TeaConverter.to_unicode(vpc_auth_mode)  # type: unicode
-        self.architecture_type = TeaConverter.to_unicode(architecture_type)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.availability_value = TeaConverter.to_unicode(availability_value)  # type: unicode
+    def __init__(self, instance_id=None, instance_name=None, connection_domain=None, port=None,
+                 instance_status=None, region_id=None, capacity=None, instance_class=None, qps=None, bandwidth=None,
+                 connections=None, zone_id=None, config=None, charge_type=None, node_type=None, network_type=None, vpc_id=None,
+                 v_switch_id=None, private_ip=None, create_time=None, end_time=None, has_renew_change_order=None, is_rds=None,
+                 engine=None, engine_version=None, maintain_start_time=None, maintain_end_time=None,
+                 availability_value=None, security_iplist=None, instance_type=None, architecture_type=None, package_type=None,
+                 replica_id=None, vpc_auth_mode=None, audit_log_retention=None, replication_mode=None,
+                 vpc_cloud_instance_id=None, instance_release_protection=None, resource_group_id=None, shard_count=None,
+                 global_instance_id=None, tags=None):
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.connection_domain = connection_domain  # type: str
         self.port = port  # type: long
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.package_type = TeaConverter.to_unicode(package_type)  # type: unicode
-        self.vpc_cloud_instance_id = TeaConverter.to_unicode(vpc_cloud_instance_id)  # type: unicode
-        self.bandwidth = bandwidth  # type: long
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.security_iplist = TeaConverter.to_unicode(security_iplist)  # type: unicode
-        self.shard_count = shard_count  # type: int
-        self.global_instance_id = TeaConverter.to_unicode(global_instance_id)  # type: unicode
+        self.instance_status = instance_status  # type: str
+        self.region_id = region_id  # type: str
+        self.capacity = capacity  # type: long
+        self.instance_class = instance_class  # type: str
         self.qps = qps  # type: long
-        self.audit_log_retention = TeaConverter.to_unicode(audit_log_retention)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.has_renew_change_order = TeaConverter.to_unicode(has_renew_change_order)  # type: unicode
-        self.instance_release_protection = instance_release_protection  # type: bool
-        self.replication_mode = TeaConverter.to_unicode(replication_mode)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.replica_id = TeaConverter.to_unicode(replica_id)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
+        self.bandwidth = bandwidth  # type: long
         self.connections = connections  # type: long
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.zone_id = zone_id  # type: str
+        self.config = config  # type: str
+        self.charge_type = charge_type  # type: str
+        self.node_type = node_type  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.private_ip = private_ip  # type: str
+        self.create_time = create_time  # type: str
+        self.end_time = end_time  # type: str
+        self.has_renew_change_order = has_renew_change_order  # type: str
+        self.is_rds = is_rds  # type: bool
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.availability_value = availability_value  # type: str
+        self.security_iplist = security_iplist  # type: str
+        self.instance_type = instance_type  # type: str
+        self.architecture_type = architecture_type  # type: str
+        self.package_type = package_type  # type: str
+        self.replica_id = replica_id  # type: str
+        self.vpc_auth_mode = vpc_auth_mode  # type: str
+        self.audit_log_retention = audit_log_retention  # type: str
+        self.replication_mode = replication_mode  # type: str
+        self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
+        self.instance_release_protection = instance_release_protection  # type: bool
+        self.resource_group_id = resource_group_id  # type: str
+        self.shard_count = shard_count  # type: int
+        self.global_instance_id = global_instance_id  # type: str
+        self.tags = tags  # type: DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags
 
     def validate(self):
         if self.tags:
@@ -5148,179 +5687,179 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
 
     def to_map(self):
         result = dict()
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        if self.private_ip is not None:
-            result['PrivateIp'] = self.private_ip
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.connection_domain is not None:
-            result['ConnectionDomain'] = self.connection_domain
-        if self.is_rds is not None:
-            result['IsRds'] = self.is_rds
-        if self.charge_type is not None:
-            result['ChargeType'] = self.charge_type
-        if self.tags is not None:
-            result['Tags'] = self.tags.to_map()
-        if self.vpc_auth_mode is not None:
-            result['VpcAuthMode'] = self.vpc_auth_mode
-        if self.architecture_type is not None:
-            result['ArchitectureType'] = self.architecture_type
-        if self.network_type is not None:
-            result['NetworkType'] = self.network_type
-        if self.availability_value is not None:
-            result['AvailabilityValue'] = self.availability_value
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.config is not None:
-            result['Config'] = self.config
-        if self.engine_version is not None:
-            result['EngineVersion'] = self.engine_version
-        if self.package_type is not None:
-            result['PackageType'] = self.package_type
-        if self.vpc_cloud_instance_id is not None:
-            result['VpcCloudInstanceId'] = self.vpc_cloud_instance_id
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.connection_domain is not None:
+            result['ConnectionDomain'] = self.connection_domain
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.instance_status is not None:
+            result['InstanceStatus'] = self.instance_status
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.instance_class is not None:
+            result['InstanceClass'] = self.instance_class
+        if self.qps is not None:
+            result['QPS'] = self.qps
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.connections is not None:
+            result['Connections'] = self.connections
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.private_ip is not None:
+            result['PrivateIp'] = self.private_ip
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.has_renew_change_order is not None:
+            result['HasRenewChangeOrder'] = self.has_renew_change_order
+        if self.is_rds is not None:
+            result['IsRds'] = self.is_rds
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
+        if self.maintain_start_time is not None:
+            result['MaintainStartTime'] = self.maintain_start_time
+        if self.maintain_end_time is not None:
+            result['MaintainEndTime'] = self.maintain_end_time
+        if self.availability_value is not None:
+            result['AvailabilityValue'] = self.availability_value
         if self.security_iplist is not None:
             result['SecurityIPList'] = self.security_iplist
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
+        if self.package_type is not None:
+            result['PackageType'] = self.package_type
+        if self.replica_id is not None:
+            result['ReplicaId'] = self.replica_id
+        if self.vpc_auth_mode is not None:
+            result['VpcAuthMode'] = self.vpc_auth_mode
+        if self.audit_log_retention is not None:
+            result['AuditLogRetention'] = self.audit_log_retention
+        if self.replication_mode is not None:
+            result['ReplicationMode'] = self.replication_mode
+        if self.vpc_cloud_instance_id is not None:
+            result['VpcCloudInstanceId'] = self.vpc_cloud_instance_id
+        if self.instance_release_protection is not None:
+            result['InstanceReleaseProtection'] = self.instance_release_protection
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.shard_count is not None:
             result['ShardCount'] = self.shard_count
         if self.global_instance_id is not None:
             result['GlobalInstanceId'] = self.global_instance_id
-        if self.qps is not None:
-            result['QPS'] = self.qps
-        if self.audit_log_retention is not None:
-            result['AuditLogRetention'] = self.audit_log_retention
-        if self.maintain_start_time is not None:
-            result['MaintainStartTime'] = self.maintain_start_time
-        if self.instance_class is not None:
-            result['InstanceClass'] = self.instance_class
-        if self.maintain_end_time is not None:
-            result['MaintainEndTime'] = self.maintain_end_time
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.instance_type is not None:
-            result['InstanceType'] = self.instance_type
-        if self.has_renew_change_order is not None:
-            result['HasRenewChangeOrder'] = self.has_renew_change_order
-        if self.instance_release_protection is not None:
-            result['InstanceReleaseProtection'] = self.instance_release_protection
-        if self.replication_mode is not None:
-            result['ReplicationMode'] = self.replication_mode
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.v_switch_id is not None:
-            result['VSwitchId'] = self.v_switch_id
-        if self.replica_id is not None:
-            result['ReplicaId'] = self.replica_id
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.connections is not None:
-            result['Connections'] = self.connections
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        if self.instance_status is not None:
-            result['InstanceStatus'] = self.instance_status
-        if self.engine is not None:
-            result['Engine'] = self.engine
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
-        if m.get('PrivateIp') is not None:
-            self.private_ip = m.get('PrivateIp')
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('ConnectionDomain') is not None:
-            self.connection_domain = m.get('ConnectionDomain')
-        if m.get('IsRds') is not None:
-            self.is_rds = m.get('IsRds')
-        if m.get('ChargeType') is not None:
-            self.charge_type = m.get('ChargeType')
-        if m.get('Tags') is not None:
-            temp_model = DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags()
-            self.tags = temp_model.from_map(m['Tags'])
-        if m.get('VpcAuthMode') is not None:
-            self.vpc_auth_mode = m.get('VpcAuthMode')
-        if m.get('ArchitectureType') is not None:
-            self.architecture_type = m.get('ArchitectureType')
-        if m.get('NetworkType') is not None:
-            self.network_type = m.get('NetworkType')
-        if m.get('AvailabilityValue') is not None:
-            self.availability_value = m.get('AvailabilityValue')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Config') is not None:
-            self.config = m.get('Config')
-        if m.get('EngineVersion') is not None:
-            self.engine_version = m.get('EngineVersion')
-        if m.get('PackageType') is not None:
-            self.package_type = m.get('PackageType')
-        if m.get('VpcCloudInstanceId') is not None:
-            self.vpc_cloud_instance_id = m.get('VpcCloudInstanceId')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('ConnectionDomain') is not None:
+            self.connection_domain = m.get('ConnectionDomain')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('InstanceStatus') is not None:
+            self.instance_status = m.get('InstanceStatus')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('InstanceClass') is not None:
+            self.instance_class = m.get('InstanceClass')
+        if m.get('QPS') is not None:
+            self.qps = m.get('QPS')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Connections') is not None:
+            self.connections = m.get('Connections')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('PrivateIp') is not None:
+            self.private_ip = m.get('PrivateIp')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('HasRenewChangeOrder') is not None:
+            self.has_renew_change_order = m.get('HasRenewChangeOrder')
+        if m.get('IsRds') is not None:
+            self.is_rds = m.get('IsRds')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('EngineVersion') is not None:
+            self.engine_version = m.get('EngineVersion')
+        if m.get('MaintainStartTime') is not None:
+            self.maintain_start_time = m.get('MaintainStartTime')
+        if m.get('MaintainEndTime') is not None:
+            self.maintain_end_time = m.get('MaintainEndTime')
+        if m.get('AvailabilityValue') is not None:
+            self.availability_value = m.get('AvailabilityValue')
         if m.get('SecurityIPList') is not None:
             self.security_iplist = m.get('SecurityIPList')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
+        if m.get('PackageType') is not None:
+            self.package_type = m.get('PackageType')
+        if m.get('ReplicaId') is not None:
+            self.replica_id = m.get('ReplicaId')
+        if m.get('VpcAuthMode') is not None:
+            self.vpc_auth_mode = m.get('VpcAuthMode')
+        if m.get('AuditLogRetention') is not None:
+            self.audit_log_retention = m.get('AuditLogRetention')
+        if m.get('ReplicationMode') is not None:
+            self.replication_mode = m.get('ReplicationMode')
+        if m.get('VpcCloudInstanceId') is not None:
+            self.vpc_cloud_instance_id = m.get('VpcCloudInstanceId')
+        if m.get('InstanceReleaseProtection') is not None:
+            self.instance_release_protection = m.get('InstanceReleaseProtection')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShardCount') is not None:
             self.shard_count = m.get('ShardCount')
         if m.get('GlobalInstanceId') is not None:
             self.global_instance_id = m.get('GlobalInstanceId')
-        if m.get('QPS') is not None:
-            self.qps = m.get('QPS')
-        if m.get('AuditLogRetention') is not None:
-            self.audit_log_retention = m.get('AuditLogRetention')
-        if m.get('MaintainStartTime') is not None:
-            self.maintain_start_time = m.get('MaintainStartTime')
-        if m.get('InstanceClass') is not None:
-            self.instance_class = m.get('InstanceClass')
-        if m.get('MaintainEndTime') is not None:
-            self.maintain_end_time = m.get('MaintainEndTime')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('InstanceType') is not None:
-            self.instance_type = m.get('InstanceType')
-        if m.get('HasRenewChangeOrder') is not None:
-            self.has_renew_change_order = m.get('HasRenewChangeOrder')
-        if m.get('InstanceReleaseProtection') is not None:
-            self.instance_release_protection = m.get('InstanceReleaseProtection')
-        if m.get('ReplicationMode') is not None:
-            self.replication_mode = m.get('ReplicationMode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('VSwitchId') is not None:
-            self.v_switch_id = m.get('VSwitchId')
-        if m.get('ReplicaId') is not None:
-            self.replica_id = m.get('ReplicaId')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Connections') is not None:
-            self.connections = m.get('Connections')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        if m.get('InstanceStatus') is not None:
-            self.instance_status = m.get('InstanceStatus')
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
+        if m.get('Tags') is not None:
+            temp_model = DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -5353,9 +5892,9 @@ class DescribeInstanceAttributeResponseBodyInstances(TeaModel):
 
 
 class DescribeInstanceAttributeResponseBody(TeaModel):
-    def __init__(self, instances=None, request_id=None):
+    def __init__(self, request_id=None, instances=None):
+        self.request_id = request_id  # type: str
         self.instances = instances  # type: DescribeInstanceAttributeResponseBodyInstances
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
 
     def validate(self):
         if self.instances:
@@ -5363,25 +5902,25 @@ class DescribeInstanceAttributeResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.instances is not None:
-            result['Instances'] = self.instances.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.instances is not None:
+            result['Instances'] = self.instances.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Instances') is not None:
             temp_model = DescribeInstanceAttributeResponseBodyInstances()
             self.instances = temp_model.from_map(m['Instances'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
 class DescribeInstanceAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstanceAttributeResponseBody
 
     def validate(self):
@@ -5410,19 +5949,16 @@ class DescribeInstanceAttributeResponse(TeaModel):
 
 class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, client_token=None,
-                 proxy_id=None, region_id=None, dbinstance_id=None, page_size=None, page_number=None, owner_account=None,
-                 category=None):
+                 region_id=None, dbinstance_id=None, page_size=None, page_number=None, owner_account=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.proxy_id = TeaConverter.to_unicode(proxy_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
+        self.owner_account = owner_account  # type: str
 
     def validate(self):
         pass
@@ -5437,8 +5973,6 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
-        if self.proxy_id is not None:
-            result['proxyId'] = self.proxy_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.dbinstance_id is not None:
@@ -5449,8 +5983,6 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
-        if self.category is not None:
-            result['Category'] = self.category
         return result
 
     def from_map(self, m=None):
@@ -5463,8 +5995,6 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
-        if m.get('proxyId') is not None:
-            self.proxy_id = m.get('proxyId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('DBInstanceId') is not None:
@@ -5475,43 +6005,41 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         return self
 
 
 class DescribeInstanceAutoRenewalAttributeResponseBodyItemsItem(TeaModel):
-    def __init__(self, auto_renew=None, duration=None, dbinstance_id=None, region_id=None):
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
+    def __init__(self, dbinstance_id=None, region_id=None, duration=None, auto_renew=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.region_id = region_id  # type: str
         self.duration = duration  # type: int
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.auto_renew = auto_renew  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.auto_renew is not None:
-            result['AutoRenew'] = self.auto_renew
-        if self.duration is not None:
-            result['Duration'] = self.duration
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.auto_renew is not None:
+            result['AutoRenew'] = self.auto_renew
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AutoRenew') is not None:
-            self.auto_renew = m.get('AutoRenew')
-        if m.get('Duration') is not None:
-            self.duration = m.get('Duration')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('AutoRenew') is not None:
+            self.auto_renew = m.get('AutoRenew')
         return self
 
 
@@ -5544,12 +6072,12 @@ class DescribeInstanceAutoRenewalAttributeResponseBodyItems(TeaModel):
 
 
 class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, page_record_count=None, request_id=None, page_number=None,
+    def __init__(self, request_id=None, page_number=None, total_record_count=None, page_record_count=None,
                  items=None):
+        self.request_id = request_id  # type: str
+        self.page_number = page_number  # type: int
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_number = page_number  # type: int
         self.items = items  # type: DescribeInstanceAutoRenewalAttributeResponseBodyItems
 
     def validate(self):
@@ -5558,28 +6086,28 @@ class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
-        if self.page_record_count is not None:
-            result['PageRecordCount'] = self.page_record_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
         if self.items is not None:
             result['Items'] = self.items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
-        if m.get('PageRecordCount') is not None:
-            self.page_record_count = m.get('PageRecordCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
         if m.get('Items') is not None:
             temp_model = DescribeInstanceAutoRenewalAttributeResponseBodyItems()
             self.items = temp_model.from_map(m['Items'])
@@ -5588,7 +6116,7 @@ class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
 
 class DescribeInstanceAutoRenewalAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstanceAutoRenewalAttributeResponseBody
 
     def validate(self):
@@ -5618,12 +6146,12 @@ class DescribeInstanceAutoRenewalAttributeResponse(TeaModel):
 class DescribeInstanceConfigRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -5663,8 +6191,8 @@ class DescribeInstanceConfigRequest(TeaModel):
 
 class DescribeInstanceConfigResponseBody(TeaModel):
     def __init__(self, request_id=None, config=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.config = config  # type: str
 
     def validate(self):
         pass
@@ -5688,7 +6216,7 @@ class DescribeInstanceConfigResponseBody(TeaModel):
 
 class DescribeInstanceConfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstanceConfigResponseBody
 
     def validate(self):
@@ -5717,8 +6245,8 @@ class DescribeInstanceConfigResponse(TeaModel):
 
 class DescribeInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -5744,34 +6272,33 @@ class DescribeInstancesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, instance_ids=None, instance_status=None, charge_type=None, network_type=None,
                  engine_version=None, instance_class=None, vpc_id=None, v_switch_id=None, page_number=None, page_size=None,
-                 instance_type=None, search_key=None, architecture_type=None, expired=None, zone_id=None, vpc_cloud_ins_info=None,
-                 resource_group_id=None, global_instance=None, edition_type=None, tag=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 instance_type=None, search_key=None, architecture_type=None, expired=None, zone_id=None, tag=None,
+                 resource_group_id=None, global_instance=None, edition_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_ids = instance_ids  # type: str
+        self.instance_status = instance_status  # type: str
+        self.charge_type = charge_type  # type: str
+        self.network_type = network_type  # type: str
+        self.engine_version = engine_version  # type: str
+        self.instance_class = instance_class  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.search_key = TeaConverter.to_unicode(search_key)  # type: unicode
-        self.architecture_type = TeaConverter.to_unicode(architecture_type)  # type: unicode
-        self.expired = TeaConverter.to_unicode(expired)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.vpc_cloud_ins_info = vpc_cloud_ins_info  # type: int
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.global_instance = global_instance  # type: bool
-        self.edition_type = TeaConverter.to_unicode(edition_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
+        self.search_key = search_key  # type: str
+        self.architecture_type = architecture_type  # type: str
+        self.expired = expired  # type: str
+        self.zone_id = zone_id  # type: str
         self.tag = tag  # type: list[DescribeInstancesRequestTag]
+        self.resource_group_id = resource_group_id  # type: str
+        self.global_instance = global_instance  # type: bool
+        self.edition_type = edition_type  # type: str
 
     def validate(self):
         if self.tag:
@@ -5823,18 +6350,16 @@ class DescribeInstancesRequest(TeaModel):
             result['Expired'] = self.expired
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
-        if self.vpc_cloud_ins_info is not None:
-            result['VpcCloudInsInfo'] = self.vpc_cloud_ins_info
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.global_instance is not None:
             result['GlobalInstance'] = self.global_instance
         if self.edition_type is not None:
             result['EditionType'] = self.edition_type
-        result['Tag'] = []
-        if self.tag is not None:
-            for k in self.tag:
-                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -5881,26 +6406,24 @@ class DescribeInstancesRequest(TeaModel):
             self.expired = m.get('Expired')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
-        if m.get('VpcCloudInsInfo') is not None:
-            self.vpc_cloud_ins_info = m.get('VpcCloudInsInfo')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeInstancesRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('GlobalInstance') is not None:
             self.global_instance = m.get('GlobalInstance')
         if m.get('EditionType') is not None:
             self.edition_type = m.get('EditionType')
-        self.tag = []
-        if m.get('Tag') is not None:
-            for k in m.get('Tag'):
-                temp_model = DescribeInstancesRequestTag()
-                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeInstancesResponseBodyInstancesKVStoreInstanceTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -5951,48 +6474,47 @@ class DescribeInstancesResponseBodyInstancesKVStoreInstanceTags(TeaModel):
 
 
 class DescribeInstancesResponseBodyInstancesKVStoreInstance(TeaModel):
-    def __init__(self, vpc_id=None, private_ip=None, capacity=None, replacate_id=None, create_time=None,
-                 connection_domain=None, is_rds=None, charge_type=None, tags=None, architecture_type=None, network_type=None,
-                 port=None, connection_mode=None, config=None, package_type=None, engine_version=None, bandwidth=None,
-                 instance_name=None, shard_count=None, user_name=None, qps=None, instance_class=None, destroy_time=None,
-                 instance_id=None, instance_type=None, has_renew_change_order=None, region_id=None, search_key=None,
-                 end_time=None, v_switch_id=None, node_type=None, connections=None, resource_group_id=None, zone_id=None,
-                 instance_status=None):
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.private_ip = TeaConverter.to_unicode(private_ip)  # type: unicode
-        self.capacity = capacity  # type: long
-        self.replacate_id = TeaConverter.to_unicode(replacate_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.is_rds = is_rds  # type: bool
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.tags = tags  # type: DescribeInstancesResponseBodyInstancesKVStoreInstanceTags
-        self.architecture_type = TeaConverter.to_unicode(architecture_type)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
+    def __init__(self, replacate_id=None, instance_id=None, instance_name=None, search_key=None,
+                 connection_domain=None, port=None, user_name=None, instance_status=None, region_id=None, capacity=None,
+                 instance_class=None, qps=None, bandwidth=None, connections=None, zone_id=None, config=None, charge_type=None,
+                 network_type=None, vpc_id=None, v_switch_id=None, private_ip=None, create_time=None, end_time=None,
+                 has_renew_change_order=None, is_rds=None, instance_type=None, architecture_type=None, node_type=None, package_type=None,
+                 engine_version=None, destroy_time=None, connection_mode=None, resource_group_id=None, shard_count=None, tags=None):
+        self.replacate_id = replacate_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.search_key = search_key  # type: str
+        self.connection_domain = connection_domain  # type: str
         self.port = port  # type: long
-        self.connection_mode = TeaConverter.to_unicode(connection_mode)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
-        self.package_type = TeaConverter.to_unicode(package_type)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.bandwidth = bandwidth  # type: long
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.shard_count = shard_count  # type: int
-        self.user_name = TeaConverter.to_unicode(user_name)  # type: unicode
+        self.user_name = user_name  # type: str
+        self.instance_status = instance_status  # type: str
+        self.region_id = region_id  # type: str
+        self.capacity = capacity  # type: long
+        self.instance_class = instance_class  # type: str
         self.qps = qps  # type: long
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.destroy_time = TeaConverter.to_unicode(destroy_time)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.has_renew_change_order = has_renew_change_order  # type: bool
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.search_key = TeaConverter.to_unicode(search_key)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
+        self.bandwidth = bandwidth  # type: long
         self.connections = connections  # type: long
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
+        self.zone_id = zone_id  # type: str
+        self.config = config  # type: str
+        self.charge_type = charge_type  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.private_ip = private_ip  # type: str
+        self.create_time = create_time  # type: str
+        self.end_time = end_time  # type: str
+        self.has_renew_change_order = has_renew_change_order  # type: bool
+        self.is_rds = is_rds  # type: bool
+        self.instance_type = instance_type  # type: str
+        self.architecture_type = architecture_type  # type: str
+        self.node_type = node_type  # type: str
+        self.package_type = package_type  # type: str
+        self.engine_version = engine_version  # type: str
+        self.destroy_time = destroy_time  # type: str
+        self.connection_mode = connection_mode  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.shard_count = shard_count  # type: int
+        self.tags = tags  # type: DescribeInstancesResponseBodyInstancesKVStoreInstanceTags
 
     def validate(self):
         if self.tags:
@@ -6000,151 +6522,151 @@ class DescribeInstancesResponseBodyInstancesKVStoreInstance(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.vpc_id is not None:
-            result['VpcId'] = self.vpc_id
-        if self.private_ip is not None:
-            result['PrivateIp'] = self.private_ip
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
         if self.replacate_id is not None:
             result['ReplacateId'] = self.replacate_id
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.search_key is not None:
+            result['SearchKey'] = self.search_key
         if self.connection_domain is not None:
             result['ConnectionDomain'] = self.connection_domain
-        if self.is_rds is not None:
-            result['IsRds'] = self.is_rds
-        if self.charge_type is not None:
-            result['ChargeType'] = self.charge_type
-        if self.tags is not None:
-            result['Tags'] = self.tags.to_map()
-        if self.architecture_type is not None:
-            result['ArchitectureType'] = self.architecture_type
-        if self.network_type is not None:
-            result['NetworkType'] = self.network_type
         if self.port is not None:
             result['Port'] = self.port
-        if self.connection_mode is not None:
-            result['ConnectionMode'] = self.connection_mode
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        if self.instance_status is not None:
+            result['InstanceStatus'] = self.instance_status
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.instance_class is not None:
+            result['InstanceClass'] = self.instance_class
+        if self.qps is not None:
+            result['QPS'] = self.qps
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.connections is not None:
+            result['Connections'] = self.connections
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
         if self.config is not None:
             result['Config'] = self.config
+        if self.charge_type is not None:
+            result['ChargeType'] = self.charge_type
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.private_ip is not None:
+            result['PrivateIp'] = self.private_ip
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.has_renew_change_order is not None:
+            result['HasRenewChangeOrder'] = self.has_renew_change_order
+        if self.is_rds is not None:
+            result['IsRds'] = self.is_rds
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.architecture_type is not None:
+            result['ArchitectureType'] = self.architecture_type
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
         if self.package_type is not None:
             result['PackageType'] = self.package_type
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
-        if self.instance_name is not None:
-            result['InstanceName'] = self.instance_name
-        if self.shard_count is not None:
-            result['ShardCount'] = self.shard_count
-        if self.user_name is not None:
-            result['UserName'] = self.user_name
-        if self.qps is not None:
-            result['QPS'] = self.qps
-        if self.instance_class is not None:
-            result['InstanceClass'] = self.instance_class
         if self.destroy_time is not None:
             result['DestroyTime'] = self.destroy_time
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.instance_type is not None:
-            result['InstanceType'] = self.instance_type
-        if self.has_renew_change_order is not None:
-            result['HasRenewChangeOrder'] = self.has_renew_change_order
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.search_key is not None:
-            result['SearchKey'] = self.search_key
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.v_switch_id is not None:
-            result['VSwitchId'] = self.v_switch_id
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.connections is not None:
-            result['Connections'] = self.connections
+        if self.connection_mode is not None:
+            result['ConnectionMode'] = self.connection_mode
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        if self.instance_status is not None:
-            result['InstanceStatus'] = self.instance_status
+        if self.shard_count is not None:
+            result['ShardCount'] = self.shard_count
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('VpcId') is not None:
-            self.vpc_id = m.get('VpcId')
-        if m.get('PrivateIp') is not None:
-            self.private_ip = m.get('PrivateIp')
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
         if m.get('ReplacateId') is not None:
             self.replacate_id = m.get('ReplacateId')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('SearchKey') is not None:
+            self.search_key = m.get('SearchKey')
         if m.get('ConnectionDomain') is not None:
             self.connection_domain = m.get('ConnectionDomain')
-        if m.get('IsRds') is not None:
-            self.is_rds = m.get('IsRds')
-        if m.get('ChargeType') is not None:
-            self.charge_type = m.get('ChargeType')
-        if m.get('Tags') is not None:
-            temp_model = DescribeInstancesResponseBodyInstancesKVStoreInstanceTags()
-            self.tags = temp_model.from_map(m['Tags'])
-        if m.get('ArchitectureType') is not None:
-            self.architecture_type = m.get('ArchitectureType')
-        if m.get('NetworkType') is not None:
-            self.network_type = m.get('NetworkType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
-        if m.get('ConnectionMode') is not None:
-            self.connection_mode = m.get('ConnectionMode')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        if m.get('InstanceStatus') is not None:
+            self.instance_status = m.get('InstanceStatus')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('InstanceClass') is not None:
+            self.instance_class = m.get('InstanceClass')
+        if m.get('QPS') is not None:
+            self.qps = m.get('QPS')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Connections') is not None:
+            self.connections = m.get('Connections')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
         if m.get('Config') is not None:
             self.config = m.get('Config')
+        if m.get('ChargeType') is not None:
+            self.charge_type = m.get('ChargeType')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('PrivateIp') is not None:
+            self.private_ip = m.get('PrivateIp')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('HasRenewChangeOrder') is not None:
+            self.has_renew_change_order = m.get('HasRenewChangeOrder')
+        if m.get('IsRds') is not None:
+            self.is_rds = m.get('IsRds')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('ArchitectureType') is not None:
+            self.architecture_type = m.get('ArchitectureType')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
         if m.get('PackageType') is not None:
             self.package_type = m.get('PackageType')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
-        if m.get('InstanceName') is not None:
-            self.instance_name = m.get('InstanceName')
-        if m.get('ShardCount') is not None:
-            self.shard_count = m.get('ShardCount')
-        if m.get('UserName') is not None:
-            self.user_name = m.get('UserName')
-        if m.get('QPS') is not None:
-            self.qps = m.get('QPS')
-        if m.get('InstanceClass') is not None:
-            self.instance_class = m.get('InstanceClass')
         if m.get('DestroyTime') is not None:
             self.destroy_time = m.get('DestroyTime')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('InstanceType') is not None:
-            self.instance_type = m.get('InstanceType')
-        if m.get('HasRenewChangeOrder') is not None:
-            self.has_renew_change_order = m.get('HasRenewChangeOrder')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('SearchKey') is not None:
-            self.search_key = m.get('SearchKey')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('VSwitchId') is not None:
-            self.v_switch_id = m.get('VSwitchId')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Connections') is not None:
-            self.connections = m.get('Connections')
+        if m.get('ConnectionMode') is not None:
+            self.connection_mode = m.get('ConnectionMode')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        if m.get('InstanceStatus') is not None:
-            self.instance_status = m.get('InstanceStatus')
+        if m.get('ShardCount') is not None:
+            self.shard_count = m.get('ShardCount')
+        if m.get('Tags') is not None:
+            temp_model = DescribeInstancesResponseBodyInstancesKVStoreInstanceTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -6177,12 +6699,12 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
 
 
 class DescribeInstancesResponseBody(TeaModel):
-    def __init__(self, instances=None, total_count=None, request_id=None, page_size=None, page_number=None):
-        self.instances = instances  # type: DescribeInstancesResponseBodyInstances
-        self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, instances=None):
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+        self.instances = instances  # type: DescribeInstancesResponseBodyInstances
 
     def validate(self):
         if self.instances:
@@ -6190,37 +6712,37 @@ class DescribeInstancesResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.instances is not None:
-            result['Instances'] = self.instances.to_map()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.instances is not None:
+            result['Instances'] = self.instances.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         if m.get('Instances') is not None:
             temp_model = DescribeInstancesResponseBodyInstances()
             self.instances = temp_model.from_map(m['Instances'])
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         return self
 
 
 class DescribeInstancesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstancesResponseBody
 
     def validate(self):
@@ -6250,12 +6772,12 @@ class DescribeInstancesResponse(TeaModel):
 class DescribeInstanceSSLRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -6294,49 +6816,49 @@ class DescribeInstanceSSLRequest(TeaModel):
 
 
 class DescribeInstanceSSLResponseBody(TeaModel):
-    def __init__(self, sslexpired_time=None, request_id=None, sslenabled=None, instance_id=None,
-                 cert_common_name=None):
-        self.sslexpired_time = TeaConverter.to_unicode(sslexpired_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.sslenabled = TeaConverter.to_unicode(sslenabled)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.cert_common_name = TeaConverter.to_unicode(cert_common_name)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, sslenabled=None, cert_common_name=None,
+                 sslexpired_time=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.sslenabled = sslenabled  # type: str
+        self.cert_common_name = cert_common_name  # type: str
+        self.sslexpired_time = sslexpired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.sslexpired_time is not None:
-            result['SSLExpiredTime'] = self.sslexpired_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.sslenabled is not None:
-            result['SSLEnabled'] = self.sslenabled
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.sslenabled is not None:
+            result['SSLEnabled'] = self.sslenabled
         if self.cert_common_name is not None:
             result['CertCommonName'] = self.cert_common_name
+        if self.sslexpired_time is not None:
+            result['SSLExpiredTime'] = self.sslexpired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SSLExpiredTime') is not None:
-            self.sslexpired_time = m.get('SSLExpiredTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('SSLEnabled') is not None:
-            self.sslenabled = m.get('SSLEnabled')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('SSLEnabled') is not None:
+            self.sslenabled = m.get('SSLEnabled')
         if m.get('CertCommonName') is not None:
             self.cert_common_name = m.get('CertCommonName')
+        if m.get('SSLExpiredTime') is not None:
+            self.sslexpired_time = m.get('SSLExpiredTime')
         return self
 
 
 class DescribeInstanceSSLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstanceSSLResponseBody
 
     def validate(self):
@@ -6366,13 +6888,13 @@ class DescribeInstanceSSLResponse(TeaModel):
 class DescribeIntranetAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -6415,43 +6937,43 @@ class DescribeIntranetAttributeRequest(TeaModel):
 
 
 class DescribeIntranetAttributeResponseBody(TeaModel):
-    def __init__(self, intranet_bandwidth=None, bandwidth_expire_time=None, request_id=None, expire_time=None):
+    def __init__(self, request_id=None, intranet_bandwidth=None, expire_time=None, bandwidth_expire_time=None):
+        self.request_id = request_id  # type: str
         self.intranet_bandwidth = intranet_bandwidth  # type: int
-        self.bandwidth_expire_time = TeaConverter.to_unicode(bandwidth_expire_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.expire_time = TeaConverter.to_unicode(expire_time)  # type: unicode
+        self.expire_time = expire_time  # type: str
+        self.bandwidth_expire_time = bandwidth_expire_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.intranet_bandwidth is not None:
-            result['IntranetBandwidth'] = self.intranet_bandwidth
-        if self.bandwidth_expire_time is not None:
-            result['BandwidthExpireTime'] = self.bandwidth_expire_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.intranet_bandwidth is not None:
+            result['IntranetBandwidth'] = self.intranet_bandwidth
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
+        if self.bandwidth_expire_time is not None:
+            result['BandwidthExpireTime'] = self.bandwidth_expire_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('IntranetBandwidth') is not None:
-            self.intranet_bandwidth = m.get('IntranetBandwidth')
-        if m.get('BandwidthExpireTime') is not None:
-            self.bandwidth_expire_time = m.get('BandwidthExpireTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('IntranetBandwidth') is not None:
+            self.intranet_bandwidth = m.get('IntranetBandwidth')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
+        if m.get('BandwidthExpireTime') is not None:
+            self.bandwidth_expire_time = m.get('BandwidthExpireTime')
         return self
 
 
 class DescribeIntranetAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeIntranetAttributeResponseBody
 
     def validate(self):
@@ -6481,12 +7003,12 @@ class DescribeIntranetAttributeResponse(TeaModel):
 class DescribeLogicInstanceTopologyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -6524,111 +7046,43 @@ class DescribeLogicInstanceTopologyRequest(TeaModel):
         return self
 
 
-class DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo(TeaModel):
-    def __init__(self, capacity=None, connection=None, node_type=None, bandwidth=None, node_id=None):
-        self.capacity = TeaConverter.to_unicode(capacity)  # type: unicode
-        self.connection = TeaConverter.to_unicode(connection)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.bandwidth = TeaConverter.to_unicode(bandwidth)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
-        if self.connection is not None:
-            result['Connection'] = self.connection
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
-        if self.node_id is not None:
-            result['NodeId'] = self.node_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
-        if m.get('Connection') is not None:
-            self.connection = m.get('Connection')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
-        if m.get('NodeId') is not None:
-            self.node_id = m.get('NodeId')
-        return self
-
-
-class DescribeLogicInstanceTopologyResponseBodyRedisShardList(TeaModel):
-    def __init__(self, node_info=None):
-        self.node_info = node_info  # type: list[DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo]
-
-    def validate(self):
-        if self.node_info:
-            for k in self.node_info:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['NodeInfo'] = []
-        if self.node_info is not None:
-            for k in self.node_info:
-                result['NodeInfo'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.node_info = []
-        if m.get('NodeInfo') is not None:
-            for k in m.get('NodeInfo'):
-                temp_model = DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo()
-                self.node_info.append(temp_model.from_map(k))
-        return self
-
-
 class DescribeLogicInstanceTopologyResponseBodyRedisProxyListNodeInfo(TeaModel):
-    def __init__(self, capacity=None, connection=None, node_type=None, bandwidth=None, node_id=None):
-        self.capacity = TeaConverter.to_unicode(capacity)  # type: unicode
-        self.connection = TeaConverter.to_unicode(connection)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.bandwidth = TeaConverter.to_unicode(bandwidth)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+    def __init__(self, node_id=None, connection=None, bandwidth=None, capacity=None, node_type=None):
+        self.node_id = node_id  # type: str
+        self.connection = connection  # type: str
+        self.bandwidth = bandwidth  # type: str
+        self.capacity = capacity  # type: str
+        self.node_type = node_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.capacity is not None:
-            result['Capacity'] = self.capacity
-        if self.connection is not None:
-            result['Connection'] = self.connection
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.bandwidth is not None:
-            result['Bandwidth'] = self.bandwidth
         if self.node_id is not None:
             result['NodeId'] = self.node_id
+        if self.connection is not None:
+            result['Connection'] = self.connection
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Capacity') is not None:
-            self.capacity = m.get('Capacity')
-        if m.get('Connection') is not None:
-            self.connection = m.get('Connection')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('Bandwidth') is not None:
-            self.bandwidth = m.get('Bandwidth')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
+        if m.get('Connection') is not None:
+            self.connection = m.get('Connection')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
         return self
 
 
@@ -6660,36 +7114,101 @@ class DescribeLogicInstanceTopologyResponseBodyRedisProxyList(TeaModel):
         return self
 
 
-class DescribeLogicInstanceTopologyResponseBody(TeaModel):
-    def __init__(self, redis_shard_list=None, request_id=None, instance_id=None, redis_proxy_list=None):
-        self.redis_shard_list = redis_shard_list  # type: DescribeLogicInstanceTopologyResponseBodyRedisShardList
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.redis_proxy_list = redis_proxy_list  # type: DescribeLogicInstanceTopologyResponseBodyRedisProxyList
+class DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo(TeaModel):
+    def __init__(self, node_id=None, connection=None, bandwidth=None, capacity=None, node_type=None):
+        self.node_id = node_id  # type: str
+        self.connection = connection  # type: str
+        self.bandwidth = bandwidth  # type: str
+        self.capacity = capacity  # type: str
+        self.node_type = node_type  # type: str
 
     def validate(self):
-        if self.redis_shard_list:
-            self.redis_shard_list.validate()
-        if self.redis_proxy_list:
-            self.redis_proxy_list.validate()
+        pass
 
     def to_map(self):
         result = dict()
-        if self.redis_shard_list is not None:
-            result['RedisShardList'] = self.redis_shard_list.to_map()
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.connection is not None:
+            result['Connection'] = self.connection
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.capacity is not None:
+            result['Capacity'] = self.capacity
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Connection') is not None:
+            self.connection = m.get('Connection')
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('Capacity') is not None:
+            self.capacity = m.get('Capacity')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
+        return self
+
+
+class DescribeLogicInstanceTopologyResponseBodyRedisShardList(TeaModel):
+    def __init__(self, node_info=None):
+        self.node_info = node_info  # type: list[DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo]
+
+    def validate(self):
+        if self.node_info:
+            for k in self.node_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['NodeInfo'] = []
+        if self.node_info is not None:
+            for k in self.node_info:
+                result['NodeInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.node_info = []
+        if m.get('NodeInfo') is not None:
+            for k in m.get('NodeInfo'):
+                temp_model = DescribeLogicInstanceTopologyResponseBodyRedisShardListNodeInfo()
+                self.node_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeLogicInstanceTopologyResponseBody(TeaModel):
+    def __init__(self, request_id=None, instance_id=None, redis_proxy_list=None, redis_shard_list=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.redis_proxy_list = redis_proxy_list  # type: DescribeLogicInstanceTopologyResponseBodyRedisProxyList
+        self.redis_shard_list = redis_shard_list  # type: DescribeLogicInstanceTopologyResponseBodyRedisShardList
+
+    def validate(self):
+        if self.redis_proxy_list:
+            self.redis_proxy_list.validate()
+        if self.redis_shard_list:
+            self.redis_shard_list.validate()
+
+    def to_map(self):
+        result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.redis_proxy_list is not None:
             result['RedisProxyList'] = self.redis_proxy_list.to_map()
+        if self.redis_shard_list is not None:
+            result['RedisShardList'] = self.redis_shard_list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RedisShardList') is not None:
-            temp_model = DescribeLogicInstanceTopologyResponseBodyRedisShardList()
-            self.redis_shard_list = temp_model.from_map(m['RedisShardList'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
@@ -6697,12 +7216,15 @@ class DescribeLogicInstanceTopologyResponseBody(TeaModel):
         if m.get('RedisProxyList') is not None:
             temp_model = DescribeLogicInstanceTopologyResponseBodyRedisProxyList()
             self.redis_proxy_list = temp_model.from_map(m['RedisProxyList'])
+        if m.get('RedisShardList') is not None:
+            temp_model = DescribeLogicInstanceTopologyResponseBodyRedisShardList()
+            self.redis_shard_list = temp_model.from_map(m['RedisShardList'])
         return self
 
 
 class DescribeLogicInstanceTopologyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeLogicInstanceTopologyResponseBody
 
     def validate(self):
@@ -6732,11 +7254,11 @@ class DescribeLogicInstanceTopologyResponse(TeaModel):
 class DescribeMonitorItemsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
+        self.owner_account = owner_account  # type: str
 
     def validate(self):
         pass
@@ -6772,8 +7294,8 @@ class DescribeMonitorItemsRequest(TeaModel):
 
 class DescribeMonitorItemsResponseBodyMonitorItemsKVStoreMonitorItem(TeaModel):
     def __init__(self, monitor_key=None, unit=None):
-        self.monitor_key = TeaConverter.to_unicode(monitor_key)  # type: unicode
-        self.unit = TeaConverter.to_unicode(unit)  # type: unicode
+        self.monitor_key = monitor_key  # type: str
+        self.unit = unit  # type: str
 
     def validate(self):
         pass
@@ -6824,9 +7346,9 @@ class DescribeMonitorItemsResponseBodyMonitorItems(TeaModel):
 
 
 class DescribeMonitorItemsResponseBody(TeaModel):
-    def __init__(self, monitor_items=None, request_id=None):
+    def __init__(self, request_id=None, monitor_items=None):
+        self.request_id = request_id  # type: str
         self.monitor_items = monitor_items  # type: DescribeMonitorItemsResponseBodyMonitorItems
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
 
     def validate(self):
         if self.monitor_items:
@@ -6834,25 +7356,25 @@ class DescribeMonitorItemsResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.monitor_items is not None:
-            result['MonitorItems'] = self.monitor_items.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.monitor_items is not None:
+            result['MonitorItems'] = self.monitor_items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('MonitorItems') is not None:
             temp_model = DescribeMonitorItemsResponseBodyMonitorItems()
             self.monitor_items = temp_model.from_map(m['MonitorItems'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
 class DescribeMonitorItemsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeMonitorItemsResponseBody
 
     def validate(self):
@@ -6882,13 +7404,13 @@ class DescribeMonitorItemsResponse(TeaModel):
 class DescribeParametersRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -6930,123 +7452,49 @@ class DescribeParametersRequest(TeaModel):
         return self
 
 
-class DescribeParametersResponseBodyRunningParametersParameter(TeaModel):
-    def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_restart=None,
-                 parameter_description=None, modifiable_status=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
-        self.force_restart = TeaConverter.to_unicode(force_restart)  # type: unicode
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
-        self.modifiable_status = TeaConverter.to_unicode(modifiable_status)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.checking_code is not None:
-            result['CheckingCode'] = self.checking_code
-        if self.parameter_name is not None:
-            result['ParameterName'] = self.parameter_name
-        if self.parameter_value is not None:
-            result['ParameterValue'] = self.parameter_value
-        if self.force_restart is not None:
-            result['ForceRestart'] = self.force_restart
-        if self.parameter_description is not None:
-            result['ParameterDescription'] = self.parameter_description
-        if self.modifiable_status is not None:
-            result['ModifiableStatus'] = self.modifiable_status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CheckingCode') is not None:
-            self.checking_code = m.get('CheckingCode')
-        if m.get('ParameterName') is not None:
-            self.parameter_name = m.get('ParameterName')
-        if m.get('ParameterValue') is not None:
-            self.parameter_value = m.get('ParameterValue')
-        if m.get('ForceRestart') is not None:
-            self.force_restart = m.get('ForceRestart')
-        if m.get('ParameterDescription') is not None:
-            self.parameter_description = m.get('ParameterDescription')
-        if m.get('ModifiableStatus') is not None:
-            self.modifiable_status = m.get('ModifiableStatus')
-        return self
-
-
-class DescribeParametersResponseBodyRunningParameters(TeaModel):
-    def __init__(self, parameter=None):
-        self.parameter = parameter  # type: list[DescribeParametersResponseBodyRunningParametersParameter]
-
-    def validate(self):
-        if self.parameter:
-            for k in self.parameter:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['Parameter'] = []
-        if self.parameter is not None:
-            for k in self.parameter:
-                result['Parameter'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.parameter = []
-        if m.get('Parameter') is not None:
-            for k in m.get('Parameter'):
-                temp_model = DescribeParametersResponseBodyRunningParametersParameter()
-                self.parameter.append(temp_model.from_map(k))
-        return self
-
-
 class DescribeParametersResponseBodyConfigParametersParameter(TeaModel):
-    def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_restart=None,
-                 parameter_description=None, modifiable_status=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
-        self.force_restart = force_restart  # type: bool
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
+    def __init__(self, parameter_name=None, parameter_value=None, modifiable_status=None, force_restart=None,
+                 checking_code=None, parameter_description=None):
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
         self.modifiable_status = modifiable_status  # type: bool
+        self.force_restart = force_restart  # type: bool
+        self.checking_code = checking_code  # type: str
+        self.parameter_description = parameter_description  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.checking_code is not None:
-            result['CheckingCode'] = self.checking_code
         if self.parameter_name is not None:
             result['ParameterName'] = self.parameter_name
         if self.parameter_value is not None:
             result['ParameterValue'] = self.parameter_value
-        if self.force_restart is not None:
-            result['ForceRestart'] = self.force_restart
-        if self.parameter_description is not None:
-            result['ParameterDescription'] = self.parameter_description
         if self.modifiable_status is not None:
             result['ModifiableStatus'] = self.modifiable_status
+        if self.force_restart is not None:
+            result['ForceRestart'] = self.force_restart
+        if self.checking_code is not None:
+            result['CheckingCode'] = self.checking_code
+        if self.parameter_description is not None:
+            result['ParameterDescription'] = self.parameter_description
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CheckingCode') is not None:
-            self.checking_code = m.get('CheckingCode')
         if m.get('ParameterName') is not None:
             self.parameter_name = m.get('ParameterName')
         if m.get('ParameterValue') is not None:
             self.parameter_value = m.get('ParameterValue')
-        if m.get('ForceRestart') is not None:
-            self.force_restart = m.get('ForceRestart')
-        if m.get('ParameterDescription') is not None:
-            self.parameter_description = m.get('ParameterDescription')
         if m.get('ModifiableStatus') is not None:
             self.modifiable_status = m.get('ModifiableStatus')
+        if m.get('ForceRestart') is not None:
+            self.force_restart = m.get('ForceRestart')
+        if m.get('CheckingCode') is not None:
+            self.checking_code = m.get('CheckingCode')
+        if m.get('ParameterDescription') is not None:
+            self.parameter_description = m.get('ParameterDescription')
         return self
 
 
@@ -7078,55 +7526,129 @@ class DescribeParametersResponseBodyConfigParameters(TeaModel):
         return self
 
 
-class DescribeParametersResponseBody(TeaModel):
-    def __init__(self, running_parameters=None, engine_version=None, request_id=None, config_parameters=None,
-                 engine=None):
-        self.running_parameters = running_parameters  # type: DescribeParametersResponseBodyRunningParameters
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.config_parameters = config_parameters  # type: DescribeParametersResponseBodyConfigParameters
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+class DescribeParametersResponseBodyRunningParametersParameter(TeaModel):
+    def __init__(self, parameter_name=None, parameter_value=None, modifiable_status=None, force_restart=None,
+                 checking_code=None, parameter_description=None):
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
+        self.modifiable_status = modifiable_status  # type: str
+        self.force_restart = force_restart  # type: str
+        self.checking_code = checking_code  # type: str
+        self.parameter_description = parameter_description  # type: str
 
     def validate(self):
-        if self.running_parameters:
-            self.running_parameters.validate()
-        if self.config_parameters:
-            self.config_parameters.validate()
+        pass
 
     def to_map(self):
         result = dict()
-        if self.running_parameters is not None:
-            result['RunningParameters'] = self.running_parameters.to_map()
-        if self.engine_version is not None:
-            result['EngineVersion'] = self.engine_version
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.config_parameters is not None:
-            result['ConfigParameters'] = self.config_parameters.to_map()
-        if self.engine is not None:
-            result['Engine'] = self.engine
+        if self.parameter_name is not None:
+            result['ParameterName'] = self.parameter_name
+        if self.parameter_value is not None:
+            result['ParameterValue'] = self.parameter_value
+        if self.modifiable_status is not None:
+            result['ModifiableStatus'] = self.modifiable_status
+        if self.force_restart is not None:
+            result['ForceRestart'] = self.force_restart
+        if self.checking_code is not None:
+            result['CheckingCode'] = self.checking_code
+        if self.parameter_description is not None:
+            result['ParameterDescription'] = self.parameter_description
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RunningParameters') is not None:
-            temp_model = DescribeParametersResponseBodyRunningParameters()
-            self.running_parameters = temp_model.from_map(m['RunningParameters'])
-        if m.get('EngineVersion') is not None:
-            self.engine_version = m.get('EngineVersion')
+        if m.get('ParameterName') is not None:
+            self.parameter_name = m.get('ParameterName')
+        if m.get('ParameterValue') is not None:
+            self.parameter_value = m.get('ParameterValue')
+        if m.get('ModifiableStatus') is not None:
+            self.modifiable_status = m.get('ModifiableStatus')
+        if m.get('ForceRestart') is not None:
+            self.force_restart = m.get('ForceRestart')
+        if m.get('CheckingCode') is not None:
+            self.checking_code = m.get('CheckingCode')
+        if m.get('ParameterDescription') is not None:
+            self.parameter_description = m.get('ParameterDescription')
+        return self
+
+
+class DescribeParametersResponseBodyRunningParameters(TeaModel):
+    def __init__(self, parameter=None):
+        self.parameter = parameter  # type: list[DescribeParametersResponseBodyRunningParametersParameter]
+
+    def validate(self):
+        if self.parameter:
+            for k in self.parameter:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['Parameter'] = []
+        if self.parameter is not None:
+            for k in self.parameter:
+                result['Parameter'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.parameter = []
+        if m.get('Parameter') is not None:
+            for k in m.get('Parameter'):
+                temp_model = DescribeParametersResponseBodyRunningParametersParameter()
+                self.parameter.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeParametersResponseBody(TeaModel):
+    def __init__(self, request_id=None, engine=None, engine_version=None, config_parameters=None,
+                 running_parameters=None):
+        self.request_id = request_id  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.config_parameters = config_parameters  # type: DescribeParametersResponseBodyConfigParameters
+        self.running_parameters = running_parameters  # type: DescribeParametersResponseBodyRunningParameters
+
+    def validate(self):
+        if self.config_parameters:
+            self.config_parameters.validate()
+        if self.running_parameters:
+            self.running_parameters.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.engine is not None:
+            result['Engine'] = self.engine
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
+        if self.config_parameters is not None:
+            result['ConfigParameters'] = self.config_parameters.to_map()
+        if self.running_parameters is not None:
+            result['RunningParameters'] = self.running_parameters.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('EngineVersion') is not None:
+            self.engine_version = m.get('EngineVersion')
         if m.get('ConfigParameters') is not None:
             temp_model = DescribeParametersResponseBodyConfigParameters()
             self.config_parameters = temp_model.from_map(m['ConfigParameters'])
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
+        if m.get('RunningParameters') is not None:
+            temp_model = DescribeParametersResponseBodyRunningParameters()
+            self.running_parameters = temp_model.from_map(m['RunningParameters'])
         return self
 
 
 class DescribeParametersResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeParametersResponseBody
 
     def validate(self):
@@ -7156,15 +7678,15 @@ class DescribeParametersResponse(TeaModel):
 class DescribeParameterTemplatesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, character_type=None, engine=None, engine_version=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.character_type = character_type  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -7215,14 +7737,14 @@ class DescribeParameterTemplatesRequest(TeaModel):
 
 
 class DescribeParameterTemplatesResponseBodyParametersTemplateRecord(TeaModel):
-    def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_modify=None,
-                 force_restart=None, parameter_description=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
+    def __init__(self, checking_code=None, force_modify=None, force_restart=None, parameter_description=None,
+                 parameter_name=None, parameter_value=None):
+        self.checking_code = checking_code  # type: str
         self.force_modify = force_modify  # type: bool
         self.force_restart = force_restart  # type: bool
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
+        self.parameter_description = parameter_description  # type: str
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
 
     def validate(self):
         pass
@@ -7231,32 +7753,32 @@ class DescribeParameterTemplatesResponseBodyParametersTemplateRecord(TeaModel):
         result = dict()
         if self.checking_code is not None:
             result['CheckingCode'] = self.checking_code
-        if self.parameter_name is not None:
-            result['ParameterName'] = self.parameter_name
-        if self.parameter_value is not None:
-            result['ParameterValue'] = self.parameter_value
         if self.force_modify is not None:
             result['ForceModify'] = self.force_modify
         if self.force_restart is not None:
             result['ForceRestart'] = self.force_restart
         if self.parameter_description is not None:
             result['ParameterDescription'] = self.parameter_description
+        if self.parameter_name is not None:
+            result['ParameterName'] = self.parameter_name
+        if self.parameter_value is not None:
+            result['ParameterValue'] = self.parameter_value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CheckingCode') is not None:
             self.checking_code = m.get('CheckingCode')
-        if m.get('ParameterName') is not None:
-            self.parameter_name = m.get('ParameterName')
-        if m.get('ParameterValue') is not None:
-            self.parameter_value = m.get('ParameterValue')
         if m.get('ForceModify') is not None:
             self.force_modify = m.get('ForceModify')
         if m.get('ForceRestart') is not None:
             self.force_restart = m.get('ForceRestart')
         if m.get('ParameterDescription') is not None:
             self.parameter_description = m.get('ParameterDescription')
+        if m.get('ParameterName') is not None:
+            self.parameter_name = m.get('ParameterName')
+        if m.get('ParameterValue') is not None:
+            self.parameter_value = m.get('ParameterValue')
         return self
 
 
@@ -7289,12 +7811,12 @@ class DescribeParameterTemplatesResponseBodyParameters(TeaModel):
 
 
 class DescribeParameterTemplatesResponseBody(TeaModel):
-    def __init__(self, parameter_count=None, engine_version=None, parameters=None, request_id=None, engine=None):
-        self.parameter_count = TeaConverter.to_unicode(parameter_count)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+    def __init__(self, engine=None, engine_version=None, parameter_count=None, request_id=None, parameters=None):
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.parameter_count = parameter_count  # type: str
+        self.request_id = request_id  # type: str
         self.parameters = parameters  # type: DescribeParameterTemplatesResponseBodyParameters
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
 
     def validate(self):
         if self.parameters:
@@ -7302,37 +7824,37 @@ class DescribeParameterTemplatesResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.parameter_count is not None:
-            result['ParameterCount'] = self.parameter_count
-        if self.engine_version is not None:
-            result['EngineVersion'] = self.engine_version
-        if self.parameters is not None:
-            result['Parameters'] = self.parameters.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.engine is not None:
             result['Engine'] = self.engine
+        if self.engine_version is not None:
+            result['EngineVersion'] = self.engine_version
+        if self.parameter_count is not None:
+            result['ParameterCount'] = self.parameter_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ParameterCount') is not None:
-            self.parameter_count = m.get('ParameterCount')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
+        if m.get('ParameterCount') is not None:
+            self.parameter_count = m.get('ParameterCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Parameters') is not None:
             temp_model = DescribeParameterTemplatesResponseBodyParameters()
             self.parameters = temp_model.from_map(m['Parameters'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
         return self
 
 
 class DescribeParameterTemplatesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeParameterTemplatesResponseBody
 
     def validate(self):
@@ -7364,26 +7886,26 @@ class DescribePriceRequest(TeaModel):
                  owner_account=None, region_id=None, capacity=None, instance_class=None, order_type=None, zone_id=None,
                  charge_type=None, node_type=None, period=None, quantity=None, instance_id=None, instances=None,
                  business_info=None, coupon_no=None, force_upgrade=None, order_param_out=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
         self.capacity = capacity  # type: long
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
+        self.instance_class = instance_class  # type: str
+        self.order_type = order_type  # type: str
+        self.zone_id = zone_id  # type: str
+        self.charge_type = charge_type  # type: str
+        self.node_type = node_type  # type: str
         self.period = period  # type: long
         self.quantity = quantity  # type: long
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instances = TeaConverter.to_unicode(instances)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.instances = instances  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
         self.force_upgrade = force_upgrade  # type: bool
-        self.order_param_out = TeaConverter.to_unicode(order_param_out)  # type: unicode
+        self.order_param_out = order_param_out  # type: str
 
     def validate(self):
         pass
@@ -7477,236 +7999,11 @@ class DescribePriceRequest(TeaModel):
         return self
 
 
-class DescribePriceResponseBodyOrderCouponsCoupon(TeaModel):
-    def __init__(self, description=None, is_selected=None, coupon_no=None, name=None):
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.is_selected = TeaConverter.to_unicode(is_selected)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.is_selected is not None:
-            result['IsSelected'] = self.is_selected
-        if self.coupon_no is not None:
-            result['CouponNo'] = self.coupon_no
-        if self.name is not None:
-            result['Name'] = self.name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('IsSelected') is not None:
-            self.is_selected = m.get('IsSelected')
-        if m.get('CouponNo') is not None:
-            self.coupon_no = m.get('CouponNo')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        return self
-
-
-class DescribePriceResponseBodyOrderCoupons(TeaModel):
-    def __init__(self, coupon=None):
-        self.coupon = coupon  # type: list[DescribePriceResponseBodyOrderCouponsCoupon]
-
-    def validate(self):
-        if self.coupon:
-            for k in self.coupon:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['Coupon'] = []
-        if self.coupon is not None:
-            for k in self.coupon:
-                result['Coupon'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.coupon = []
-        if m.get('Coupon') is not None:
-            for k in m.get('Coupon'):
-                temp_model = DescribePriceResponseBodyOrderCouponsCoupon()
-                self.coupon.append(temp_model.from_map(k))
-        return self
-
-
-class DescribePriceResponseBodyOrderRuleIds(TeaModel):
-    def __init__(self, rule_id=None):
-        self.rule_id = rule_id  # type: list[unicode]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.rule_id is not None:
-            result['RuleId'] = self.rule_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RuleId') is not None:
-            self.rule_id = m.get('RuleId')
-        return self
-
-
-class DescribePriceResponseBodyOrder(TeaModel):
-    def __init__(self, coupons=None, original_amount=None, discount_amount=None, rule_ids=None, trade_amount=None,
-                 currency=None):
-        self.coupons = coupons  # type: DescribePriceResponseBodyOrderCoupons
-        self.original_amount = TeaConverter.to_unicode(original_amount)  # type: unicode
-        self.discount_amount = TeaConverter.to_unicode(discount_amount)  # type: unicode
-        self.rule_ids = rule_ids  # type: DescribePriceResponseBodyOrderRuleIds
-        self.trade_amount = TeaConverter.to_unicode(trade_amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
-
-    def validate(self):
-        if self.coupons:
-            self.coupons.validate()
-        if self.rule_ids:
-            self.rule_ids.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.coupons is not None:
-            result['Coupons'] = self.coupons.to_map()
-        if self.original_amount is not None:
-            result['OriginalAmount'] = self.original_amount
-        if self.discount_amount is not None:
-            result['DiscountAmount'] = self.discount_amount
-        if self.rule_ids is not None:
-            result['RuleIds'] = self.rule_ids.to_map()
-        if self.trade_amount is not None:
-            result['TradeAmount'] = self.trade_amount
-        if self.currency is not None:
-            result['Currency'] = self.currency
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Coupons') is not None:
-            temp_model = DescribePriceResponseBodyOrderCoupons()
-            self.coupons = temp_model.from_map(m['Coupons'])
-        if m.get('OriginalAmount') is not None:
-            self.original_amount = m.get('OriginalAmount')
-        if m.get('DiscountAmount') is not None:
-            self.discount_amount = m.get('DiscountAmount')
-        if m.get('RuleIds') is not None:
-            temp_model = DescribePriceResponseBodyOrderRuleIds()
-            self.rule_ids = temp_model.from_map(m['RuleIds'])
-        if m.get('TradeAmount') is not None:
-            self.trade_amount = m.get('TradeAmount')
-        if m.get('Currency') is not None:
-            self.currency = m.get('Currency')
-        return self
-
-
-class DescribePriceResponseBodySubOrdersSubOrderRuleIds(TeaModel):
-    def __init__(self, rule_id=None):
-        self.rule_id = rule_id  # type: list[unicode]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.rule_id is not None:
-            result['RuleId'] = self.rule_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RuleId') is not None:
-            self.rule_id = m.get('RuleId')
-        return self
-
-
-class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
-    def __init__(self, original_amount=None, discount_amount=None, rule_ids=None, trade_amount=None,
-                 instance_id=None):
-        self.original_amount = TeaConverter.to_unicode(original_amount)  # type: unicode
-        self.discount_amount = TeaConverter.to_unicode(discount_amount)  # type: unicode
-        self.rule_ids = rule_ids  # type: DescribePriceResponseBodySubOrdersSubOrderRuleIds
-        self.trade_amount = TeaConverter.to_unicode(trade_amount)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-
-    def validate(self):
-        if self.rule_ids:
-            self.rule_ids.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.original_amount is not None:
-            result['OriginalAmount'] = self.original_amount
-        if self.discount_amount is not None:
-            result['DiscountAmount'] = self.discount_amount
-        if self.rule_ids is not None:
-            result['RuleIds'] = self.rule_ids.to_map()
-        if self.trade_amount is not None:
-            result['TradeAmount'] = self.trade_amount
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OriginalAmount') is not None:
-            self.original_amount = m.get('OriginalAmount')
-        if m.get('DiscountAmount') is not None:
-            self.discount_amount = m.get('DiscountAmount')
-        if m.get('RuleIds') is not None:
-            temp_model = DescribePriceResponseBodySubOrdersSubOrderRuleIds()
-            self.rule_ids = temp_model.from_map(m['RuleIds'])
-        if m.get('TradeAmount') is not None:
-            self.trade_amount = m.get('TradeAmount')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        return self
-
-
-class DescribePriceResponseBodySubOrders(TeaModel):
-    def __init__(self, sub_order=None):
-        self.sub_order = sub_order  # type: list[DescribePriceResponseBodySubOrdersSubOrder]
-
-    def validate(self):
-        if self.sub_order:
-            for k in self.sub_order:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['SubOrder'] = []
-        if self.sub_order is not None:
-            for k in self.sub_order:
-                result['SubOrder'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.sub_order = []
-        if m.get('SubOrder') is not None:
-            for k in m.get('SubOrder'):
-                temp_model = DescribePriceResponseBodySubOrdersSubOrder()
-                self.sub_order.append(temp_model.from_map(k))
-        return self
-
-
 class DescribePriceResponseBodyRulesRule(TeaModel):
-    def __init__(self, rule_desc_id=None, title=None, name=None):
+    def __init__(self, rule_desc_id=None, name=None, title=None):
         self.rule_desc_id = rule_desc_id  # type: long
-        self.title = TeaConverter.to_unicode(title)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
+        self.title = title  # type: str
 
     def validate(self):
         pass
@@ -7715,20 +8012,20 @@ class DescribePriceResponseBodyRulesRule(TeaModel):
         result = dict()
         if self.rule_desc_id is not None:
             result['RuleDescId'] = self.rule_desc_id
-        if self.title is not None:
-            result['Title'] = self.title
         if self.name is not None:
             result['Name'] = self.name
+        if self.title is not None:
+            result['Title'] = self.title
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RuleDescId') is not None:
             self.rule_desc_id = m.get('RuleDescId')
-        if m.get('Title') is not None:
-            self.title = m.get('Title')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
         return self
 
 
@@ -7760,57 +8057,282 @@ class DescribePriceResponseBodyRules(TeaModel):
         return self
 
 
-class DescribePriceResponseBody(TeaModel):
-    def __init__(self, order=None, request_id=None, sub_orders=None, order_params=None, rules=None):
-        self.order = order  # type: DescribePriceResponseBodyOrder
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.sub_orders = sub_orders  # type: DescribePriceResponseBodySubOrders
-        self.order_params = TeaConverter.to_unicode(order_params)  # type: unicode
-        self.rules = rules  # type: DescribePriceResponseBodyRules
+class DescribePriceResponseBodySubOrdersSubOrderRuleIds(TeaModel):
+    def __init__(self, rule_id=None):
+        self.rule_id = rule_id  # type: list[str]
 
     def validate(self):
-        if self.order:
-            self.order.validate()
-        if self.sub_orders:
-            self.sub_orders.validate()
-        if self.rules:
-            self.rules.validate()
+        pass
 
     def to_map(self):
         result = dict()
-        if self.order is not None:
-            result['Order'] = self.order.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.sub_orders is not None:
-            result['SubOrders'] = self.sub_orders.to_map()
-        if self.order_params is not None:
-            result['OrderParams'] = self.order_params
-        if self.rules is not None:
-            result['Rules'] = self.rules.to_map()
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Order') is not None:
-            temp_model = DescribePriceResponseBodyOrder()
-            self.order = temp_model.from_map(m['Order'])
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
+    def __init__(self, original_amount=None, trade_amount=None, discount_amount=None, instance_id=None,
+                 rule_ids=None):
+        self.original_amount = original_amount  # type: str
+        self.trade_amount = trade_amount  # type: str
+        self.discount_amount = discount_amount  # type: str
+        self.instance_id = instance_id  # type: str
+        self.rule_ids = rule_ids  # type: DescribePriceResponseBodySubOrdersSubOrderRuleIds
+
+    def validate(self):
+        if self.rule_ids:
+            self.rule_ids.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.original_amount is not None:
+            result['OriginalAmount'] = self.original_amount
+        if self.trade_amount is not None:
+            result['TradeAmount'] = self.trade_amount
+        if self.discount_amount is not None:
+            result['DiscountAmount'] = self.discount_amount
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.rule_ids is not None:
+            result['RuleIds'] = self.rule_ids.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OriginalAmount') is not None:
+            self.original_amount = m.get('OriginalAmount')
+        if m.get('TradeAmount') is not None:
+            self.trade_amount = m.get('TradeAmount')
+        if m.get('DiscountAmount') is not None:
+            self.discount_amount = m.get('DiscountAmount')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RuleIds') is not None:
+            temp_model = DescribePriceResponseBodySubOrdersSubOrderRuleIds()
+            self.rule_ids = temp_model.from_map(m['RuleIds'])
+        return self
+
+
+class DescribePriceResponseBodySubOrders(TeaModel):
+    def __init__(self, sub_order=None):
+        self.sub_order = sub_order  # type: list[DescribePriceResponseBodySubOrdersSubOrder]
+
+    def validate(self):
+        if self.sub_order:
+            for k in self.sub_order:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['SubOrder'] = []
+        if self.sub_order is not None:
+            for k in self.sub_order:
+                result['SubOrder'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.sub_order = []
+        if m.get('SubOrder') is not None:
+            for k in m.get('SubOrder'):
+                temp_model = DescribePriceResponseBodySubOrdersSubOrder()
+                self.sub_order.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePriceResponseBodyOrderRuleIds(TeaModel):
+    def __init__(self, rule_id=None):
+        self.rule_id = rule_id  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DescribePriceResponseBodyOrderCouponsCoupon(TeaModel):
+    def __init__(self, coupon_no=None, name=None, description=None, is_selected=None):
+        self.coupon_no = coupon_no  # type: str
+        self.name = name  # type: str
+        self.description = description  # type: str
+        self.is_selected = is_selected  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        result = dict()
+        if self.coupon_no is not None:
+            result['CouponNo'] = self.coupon_no
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.is_selected is not None:
+            result['IsSelected'] = self.is_selected
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CouponNo') is not None:
+            self.coupon_no = m.get('CouponNo')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IsSelected') is not None:
+            self.is_selected = m.get('IsSelected')
+        return self
+
+
+class DescribePriceResponseBodyOrderCoupons(TeaModel):
+    def __init__(self, coupon=None):
+        self.coupon = coupon  # type: list[DescribePriceResponseBodyOrderCouponsCoupon]
+
+    def validate(self):
+        if self.coupon:
+            for k in self.coupon:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        result = dict()
+        result['Coupon'] = []
+        if self.coupon is not None:
+            for k in self.coupon:
+                result['Coupon'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.coupon = []
+        if m.get('Coupon') is not None:
+            for k in m.get('Coupon'):
+                temp_model = DescribePriceResponseBodyOrderCouponsCoupon()
+                self.coupon.append(temp_model.from_map(k))
+        return self
+
+
+class DescribePriceResponseBodyOrder(TeaModel):
+    def __init__(self, original_amount=None, trade_amount=None, discount_amount=None, currency=None, rule_ids=None,
+                 coupons=None):
+        self.original_amount = original_amount  # type: str
+        self.trade_amount = trade_amount  # type: str
+        self.discount_amount = discount_amount  # type: str
+        self.currency = currency  # type: str
+        self.rule_ids = rule_ids  # type: DescribePriceResponseBodyOrderRuleIds
+        self.coupons = coupons  # type: DescribePriceResponseBodyOrderCoupons
+
+    def validate(self):
+        if self.rule_ids:
+            self.rule_ids.validate()
+        if self.coupons:
+            self.coupons.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.original_amount is not None:
+            result['OriginalAmount'] = self.original_amount
+        if self.trade_amount is not None:
+            result['TradeAmount'] = self.trade_amount
+        if self.discount_amount is not None:
+            result['DiscountAmount'] = self.discount_amount
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.rule_ids is not None:
+            result['RuleIds'] = self.rule_ids.to_map()
+        if self.coupons is not None:
+            result['Coupons'] = self.coupons.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OriginalAmount') is not None:
+            self.original_amount = m.get('OriginalAmount')
+        if m.get('TradeAmount') is not None:
+            self.trade_amount = m.get('TradeAmount')
+        if m.get('DiscountAmount') is not None:
+            self.discount_amount = m.get('DiscountAmount')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('RuleIds') is not None:
+            temp_model = DescribePriceResponseBodyOrderRuleIds()
+            self.rule_ids = temp_model.from_map(m['RuleIds'])
+        if m.get('Coupons') is not None:
+            temp_model = DescribePriceResponseBodyOrderCoupons()
+            self.coupons = temp_model.from_map(m['Coupons'])
+        return self
+
+
+class DescribePriceResponseBody(TeaModel):
+    def __init__(self, request_id=None, order_params=None, rules=None, sub_orders=None, order=None):
+        self.request_id = request_id  # type: str
+        self.order_params = order_params  # type: str
+        self.rules = rules  # type: DescribePriceResponseBodyRules
+        self.sub_orders = sub_orders  # type: DescribePriceResponseBodySubOrders
+        self.order = order  # type: DescribePriceResponseBodyOrder
+
+    def validate(self):
+        if self.rules:
+            self.rules.validate()
+        if self.sub_orders:
+            self.sub_orders.validate()
+        if self.order:
+            self.order.validate()
+
+    def to_map(self):
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.order_params is not None:
+            result['OrderParams'] = self.order_params
+        if self.rules is not None:
+            result['Rules'] = self.rules.to_map()
+        if self.sub_orders is not None:
+            result['SubOrders'] = self.sub_orders.to_map()
+        if self.order is not None:
+            result['Order'] = self.order.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('SubOrders') is not None:
-            temp_model = DescribePriceResponseBodySubOrders()
-            self.sub_orders = temp_model.from_map(m['SubOrders'])
         if m.get('OrderParams') is not None:
             self.order_params = m.get('OrderParams')
         if m.get('Rules') is not None:
             temp_model = DescribePriceResponseBodyRules()
             self.rules = temp_model.from_map(m['Rules'])
+        if m.get('SubOrders') is not None:
+            temp_model = DescribePriceResponseBodySubOrders()
+            self.sub_orders = temp_model.from_map(m['SubOrders'])
+        if m.get('Order') is not None:
+            temp_model = DescribePriceResponseBodyOrder()
+            self.order = temp_model.from_map(m['Order'])
         return self
 
 
 class DescribePriceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribePriceResponseBody
 
     def validate(self):
@@ -7840,12 +8362,12 @@ class DescribePriceResponse(TeaModel):
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, accept_language=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.accept_language = TeaConverter.to_unicode(accept_language)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.accept_language = accept_language  # type: str
 
     def validate(self):
         pass
@@ -7885,7 +8407,7 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegionIdsKVStoreRegionZoneIdList(TeaModel):
     def __init__(self, zone_id=None):
-        self.zone_id = zone_id  # type: list[unicode]
+        self.zone_id = zone_id  # type: list[str]
 
     def validate(self):
         pass
@@ -7904,12 +8426,12 @@ class DescribeRegionsResponseBodyRegionIdsKVStoreRegionZoneIdList(TeaModel):
 
 
 class DescribeRegionsResponseBodyRegionIdsKVStoreRegion(TeaModel):
-    def __init__(self, local_name=None, zone_id_list=None, region_endpoint=None, region_id=None, zone_ids=None):
-        self.local_name = TeaConverter.to_unicode(local_name)  # type: unicode
+    def __init__(self, region_id=None, zone_ids=None, local_name=None, region_endpoint=None, zone_id_list=None):
+        self.region_id = region_id  # type: str
+        self.zone_ids = zone_ids  # type: str
+        self.local_name = local_name  # type: str
+        self.region_endpoint = region_endpoint  # type: str
         self.zone_id_list = zone_id_list  # type: DescribeRegionsResponseBodyRegionIdsKVStoreRegionZoneIdList
-        self.region_endpoint = TeaConverter.to_unicode(region_endpoint)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.zone_ids = TeaConverter.to_unicode(zone_ids)  # type: unicode
 
     def validate(self):
         if self.zone_id_list:
@@ -7917,31 +8439,31 @@ class DescribeRegionsResponseBodyRegionIdsKVStoreRegion(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.local_name is not None:
-            result['LocalName'] = self.local_name
-        if self.zone_id_list is not None:
-            result['ZoneIdList'] = self.zone_id_list.to_map()
-        if self.region_endpoint is not None:
-            result['RegionEndpoint'] = self.region_endpoint
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.zone_ids is not None:
             result['ZoneIds'] = self.zone_ids
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
+        if self.region_endpoint is not None:
+            result['RegionEndpoint'] = self.region_endpoint
+        if self.zone_id_list is not None:
+            result['ZoneIdList'] = self.zone_id_list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('LocalName') is not None:
-            self.local_name = m.get('LocalName')
-        if m.get('ZoneIdList') is not None:
-            temp_model = DescribeRegionsResponseBodyRegionIdsKVStoreRegionZoneIdList()
-            self.zone_id_list = temp_model.from_map(m['ZoneIdList'])
-        if m.get('RegionEndpoint') is not None:
-            self.region_endpoint = m.get('RegionEndpoint')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ZoneIds') is not None:
             self.zone_ids = m.get('ZoneIds')
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
+        if m.get('RegionEndpoint') is not None:
+            self.region_endpoint = m.get('RegionEndpoint')
+        if m.get('ZoneIdList') is not None:
+            temp_model = DescribeRegionsResponseBodyRegionIdsKVStoreRegionZoneIdList()
+            self.zone_id_list = temp_model.from_map(m['ZoneIdList'])
         return self
 
 
@@ -7975,7 +8497,7 @@ class DescribeRegionsResponseBodyRegionIds(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, request_id=None, region_ids=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.region_ids = region_ids  # type: DescribeRegionsResponseBodyRegionIds
 
     def validate(self):
@@ -8002,7 +8524,7 @@ class DescribeRegionsResponseBody(TeaModel):
 
 class DescribeRegionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
@@ -8031,20 +8553,16 @@ class DescribeRegionsResponse(TeaModel):
 
 class DescribeRoleZoneInfoRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, product=None, category=None, query_type=None, page_number=None,
-                 page_size=None, role=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, query_type=None, page_number=None, page_size=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.product = TeaConverter.to_unicode(product)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.query_type = query_type  # type: int
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.role = TeaConverter.to_unicode(role)  # type: unicode
 
     def validate(self):
         pass
@@ -8063,18 +8581,12 @@ class DescribeRoleZoneInfoRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.product is not None:
-            result['Product'] = self.product
-        if self.category is not None:
-            result['Category'] = self.category
         if self.query_type is not None:
             result['QueryType'] = self.query_type
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.role is not None:
-            result['Role'] = self.role
         return result
 
     def from_map(self, m=None):
@@ -8091,95 +8603,89 @@ class DescribeRoleZoneInfoRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         if m.get('QueryType') is not None:
             self.query_type = m.get('QueryType')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Role') is not None:
-            self.role = m.get('Role')
         return self
 
 
 class DescribeRoleZoneInfoResponseBodyNodeNodeInfo(TeaModel):
-    def __init__(self, default_band_width=None, current_minor_version=None, current_band_width=None, ins_type=None,
-                 is_latest_version=None, node_type=None, ins_name=None, zone_id=None, is_open_band_width_service=None,
-                 custins_id=None, role=None, node_id=None):
-        self.default_band_width = default_band_width  # type: long
-        self.current_minor_version = TeaConverter.to_unicode(current_minor_version)  # type: unicode
-        self.current_band_width = current_band_width  # type: long
+    def __init__(self, node_id=None, node_type=None, role=None, zone_id=None, custins_id=None, ins_type=None,
+                 ins_name=None, is_latest_version=None, current_minor_version=None, current_band_width=None,
+                 default_band_width=None, is_open_band_width_service=None):
+        self.node_id = node_id  # type: str
+        self.node_type = node_type  # type: str
+        self.role = role  # type: str
+        self.zone_id = zone_id  # type: str
+        self.custins_id = custins_id  # type: str
         self.ins_type = ins_type  # type: int
+        self.ins_name = ins_name  # type: str
         self.is_latest_version = is_latest_version  # type: int
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.ins_name = TeaConverter.to_unicode(ins_name)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.current_minor_version = current_minor_version  # type: str
+        self.current_band_width = current_band_width  # type: long
+        self.default_band_width = default_band_width  # type: long
         self.is_open_band_width_service = is_open_band_width_service  # type: bool
-        self.custins_id = TeaConverter.to_unicode(custins_id)  # type: unicode
-        self.role = TeaConverter.to_unicode(role)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.default_band_width is not None:
-            result['DefaultBandWidth'] = self.default_band_width
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.node_type is not None:
+            result['NodeType'] = self.node_type
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.custins_id is not None:
+            result['CustinsId'] = self.custins_id
+        if self.ins_type is not None:
+            result['InsType'] = self.ins_type
+        if self.ins_name is not None:
+            result['InsName'] = self.ins_name
+        if self.is_latest_version is not None:
+            result['IsLatestVersion'] = self.is_latest_version
         if self.current_minor_version is not None:
             result['CurrentMinorVersion'] = self.current_minor_version
         if self.current_band_width is not None:
             result['CurrentBandWidth'] = self.current_band_width
-        if self.ins_type is not None:
-            result['InsType'] = self.ins_type
-        if self.is_latest_version is not None:
-            result['IsLatestVersion'] = self.is_latest_version
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.ins_name is not None:
-            result['InsName'] = self.ins_name
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
+        if self.default_band_width is not None:
+            result['DefaultBandWidth'] = self.default_band_width
         if self.is_open_band_width_service is not None:
             result['IsOpenBandWidthService'] = self.is_open_band_width_service
-        if self.custins_id is not None:
-            result['CustinsId'] = self.custins_id
-        if self.role is not None:
-            result['Role'] = self.role
-        if self.node_id is not None:
-            result['NodeId'] = self.node_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DefaultBandWidth') is not None:
-            self.default_band_width = m.get('DefaultBandWidth')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('NodeType') is not None:
+            self.node_type = m.get('NodeType')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('CustinsId') is not None:
+            self.custins_id = m.get('CustinsId')
+        if m.get('InsType') is not None:
+            self.ins_type = m.get('InsType')
+        if m.get('InsName') is not None:
+            self.ins_name = m.get('InsName')
+        if m.get('IsLatestVersion') is not None:
+            self.is_latest_version = m.get('IsLatestVersion')
         if m.get('CurrentMinorVersion') is not None:
             self.current_minor_version = m.get('CurrentMinorVersion')
         if m.get('CurrentBandWidth') is not None:
             self.current_band_width = m.get('CurrentBandWidth')
-        if m.get('InsType') is not None:
-            self.ins_type = m.get('InsType')
-        if m.get('IsLatestVersion') is not None:
-            self.is_latest_version = m.get('IsLatestVersion')
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('InsName') is not None:
-            self.ins_name = m.get('InsName')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
+        if m.get('DefaultBandWidth') is not None:
+            self.default_band_width = m.get('DefaultBandWidth')
         if m.get('IsOpenBandWidthService') is not None:
             self.is_open_band_width_service = m.get('IsOpenBandWidthService')
-        if m.get('CustinsId') is not None:
-            self.custins_id = m.get('CustinsId')
-        if m.get('Role') is not None:
-            self.role = m.get('Role')
-        if m.get('NodeId') is not None:
-            self.node_id = m.get('NodeId')
         return self
 
 
@@ -8212,11 +8718,11 @@ class DescribeRoleZoneInfoResponseBodyNode(TeaModel):
 
 
 class DescribeRoleZoneInfoResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, node=None):
-        self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, node=None):
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
         self.node = node  # type: DescribeRoleZoneInfoResponseBodyNode
 
     def validate(self):
@@ -8225,28 +8731,28 @@ class DescribeRoleZoneInfoResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         if self.node is not None:
             result['Node'] = self.node.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         if m.get('Node') is not None:
             temp_model = DescribeRoleZoneInfoResponseBodyNode()
             self.node = temp_model.from_map(m['Node'])
@@ -8255,7 +8761,7 @@ class DescribeRoleZoneInfoResponseBody(TeaModel):
 
 class DescribeRoleZoneInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRoleZoneInfoResponseBody
 
     def validate(self):
@@ -8284,27 +8790,26 @@ class DescribeRoleZoneInfoResponse(TeaModel):
 
 class DescribeRunningLogRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, node_id=None, sqlid=None, start_time=None, end_time=None, dbname=None,
-                 role_type=None, page_size=None, page_number=None, resource_group_id=None, character_type=None,
-                 query_keyword=None, order_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, node_id=None, start_time=None, end_time=None, dbname=None, role_type=None,
+                 page_size=None, page_number=None, resource_group_id=None, character_type=None, query_keyword=None,
+                 order_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.sqlid = sqlid  # type: long
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.dbname = dbname  # type: str
+        self.role_type = role_type  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
-        self.query_keyword = TeaConverter.to_unicode(query_keyword)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
+        self.character_type = character_type  # type: str
+        self.query_keyword = query_keyword  # type: str
+        self.order_type = order_type  # type: str
 
     def validate(self):
         pass
@@ -8325,8 +8830,6 @@ class DescribeRunningLogRecordsRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.sqlid is not None:
-            result['SQLId'] = self.sqlid
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.end_time is not None:
@@ -8365,8 +8868,6 @@ class DescribeRunningLogRecordsRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('SQLId') is not None:
-            self.sqlid = m.get('SQLId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
@@ -8391,10 +8892,10 @@ class DescribeRunningLogRecordsRequest(TeaModel):
 
 
 class DescribeRunningLogRecordsResponseBodyItemsLogRecords(TeaModel):
-    def __init__(self, create_time=None, instance_id=None, content=None):
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+    def __init__(self, create_time=None, content=None, instance_id=None):
+        self.create_time = create_time  # type: str
+        self.content = content  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -8403,20 +8904,20 @@ class DescribeRunningLogRecordsResponseBodyItemsLogRecords(TeaModel):
         result = dict()
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
         if self.content is not None:
             result['Content'] = self.content
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         return self
 
 
@@ -8449,17 +8950,17 @@ class DescribeRunningLogRecordsResponseBodyItems(TeaModel):
 
 
 class DescribeRunningLogRecordsResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, page_record_count=None, request_id=None, page_size=None,
-                 instance_id=None, page_number=None, start_time=None, items=None, engine=None):
+    def __init__(self, request_id=None, instance_id=None, start_time=None, engine=None, total_record_count=None,
+                 page_number=None, page_size=None, page_record_count=None, items=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.engine = engine  # type: str
         self.total_record_count = total_record_count  # type: int
-        self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
+        self.page_size = page_size  # type: int
+        self.page_record_count = page_record_count  # type: int
         self.items = items  # type: DescribeRunningLogRecordsResponseBodyItems
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
 
     def validate(self):
         if self.items:
@@ -8467,53 +8968,53 @@ class DescribeRunningLogRecordsResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
-        if self.page_record_count is not None:
-            result['PageRecordCount'] = self.page_record_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.items is not None:
-            result['Items'] = self.items.to_map()
         if self.engine is not None:
             result['Engine'] = self.engine
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
-        if m.get('PageRecordCount') is not None:
-            self.page_record_count = m.get('PageRecordCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
         if m.get('Items') is not None:
             temp_model = DescribeRunningLogRecordsResponseBodyItems()
             self.items = temp_model.from_map(m['Items'])
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
         return self
 
 
 class DescribeRunningLogRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRunningLogRecordsResponseBody
 
     def validate(self):
@@ -8543,12 +9044,12 @@ class DescribeRunningLogRecordsResponse(TeaModel):
 class DescribeSecurityGroupConfigurationRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -8587,32 +9088,32 @@ class DescribeSecurityGroupConfigurationRequest(TeaModel):
 
 
 class DescribeSecurityGroupConfigurationResponseBodyItemsEcsSecurityGroupRelation(TeaModel):
-    def __init__(self, security_group_id=None, net_type=None, region_id=None):
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
-        self.net_type = TeaConverter.to_unicode(net_type)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+    def __init__(self, region_id=None, security_group_id=None, net_type=None):
+        self.region_id = region_id  # type: str
+        self.security_group_id = security_group_id  # type: str
+        self.net_type = net_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.security_group_id is not None:
             result['SecurityGroupId'] = self.security_group_id
         if self.net_type is not None:
             result['NetType'] = self.net_type
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('SecurityGroupId') is not None:
             self.security_group_id = m.get('SecurityGroupId')
         if m.get('NetType') is not None:
             self.net_type = m.get('NetType')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -8646,7 +9147,7 @@ class DescribeSecurityGroupConfigurationResponseBodyItems(TeaModel):
 
 class DescribeSecurityGroupConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None, items=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.items = items  # type: DescribeSecurityGroupConfigurationResponseBodyItems
 
     def validate(self):
@@ -8673,7 +9174,7 @@ class DescribeSecurityGroupConfigurationResponseBody(TeaModel):
 
 class DescribeSecurityGroupConfigurationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSecurityGroupConfigurationResponseBody
 
     def validate(self):
@@ -8703,12 +9204,12 @@ class DescribeSecurityGroupConfigurationResponse(TeaModel):
 class DescribeSecurityIpsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -8748,9 +9249,9 @@ class DescribeSecurityIpsRequest(TeaModel):
 
 class DescribeSecurityIpsResponseBodySecurityIpGroupsSecurityIpGroup(TeaModel):
     def __init__(self, security_ip_group_name=None, security_ip_group_attribute=None, security_ip_list=None):
-        self.security_ip_group_name = TeaConverter.to_unicode(security_ip_group_name)  # type: unicode
-        self.security_ip_group_attribute = TeaConverter.to_unicode(security_ip_group_attribute)  # type: unicode
-        self.security_ip_list = TeaConverter.to_unicode(security_ip_list)  # type: unicode
+        self.security_ip_group_name = security_ip_group_name  # type: str
+        self.security_ip_group_attribute = security_ip_group_attribute  # type: str
+        self.security_ip_list = security_ip_list  # type: str
 
     def validate(self):
         pass
@@ -8806,7 +9307,7 @@ class DescribeSecurityIpsResponseBodySecurityIpGroups(TeaModel):
 
 class DescribeSecurityIpsResponseBody(TeaModel):
     def __init__(self, request_id=None, security_ip_groups=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.security_ip_groups = security_ip_groups  # type: DescribeSecurityIpsResponseBodySecurityIpGroups
 
     def validate(self):
@@ -8833,7 +9334,7 @@ class DescribeSecurityIpsResponseBody(TeaModel):
 
 class DescribeSecurityIpsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSecurityIpsResponseBody
 
     def validate(self):
@@ -8862,26 +9363,24 @@ class DescribeSecurityIpsResponse(TeaModel):
 
 class DescribeSlowLogRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, node_id=None, sqlid=None, start_time=None, end_time=None, dbname=None,
-                 page_size=None, page_number=None, slow_log_record_type=None, query_keyword=None, order_type=None,
-                 order_by=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, node_id=None, start_time=None, end_time=None, dbname=None, page_size=None,
+                 page_number=None, slow_log_record_type=None, query_keyword=None, order_type=None, order_by=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.sqlid = sqlid  # type: long
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.dbname = dbname  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.slow_log_record_type = TeaConverter.to_unicode(slow_log_record_type)  # type: unicode
-        self.query_keyword = TeaConverter.to_unicode(query_keyword)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.order_by = TeaConverter.to_unicode(order_by)  # type: unicode
+        self.slow_log_record_type = slow_log_record_type  # type: str
+        self.query_keyword = query_keyword  # type: str
+        self.order_type = order_type  # type: str
+        self.order_by = order_by  # type: str
 
     def validate(self):
         pass
@@ -8902,8 +9401,6 @@ class DescribeSlowLogRecordsRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.sqlid is not None:
-            result['SQLId'] = self.sqlid
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.end_time is not None:
@@ -8940,8 +9437,6 @@ class DescribeSlowLogRecordsRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('SQLId') is not None:
-            self.sqlid = m.get('SQLId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
@@ -8964,63 +9459,63 @@ class DescribeSlowLogRecordsRequest(TeaModel):
 
 
 class DescribeSlowLogRecordsResponseBodyItemsLogRecords(TeaModel):
-    def __init__(self, account=None, elapsed_time=None, command=None, dbname=None, execute_time=None,
-                 data_base_name=None, node_id=None, account_name=None, ipaddress=None):
-        self.account = TeaConverter.to_unicode(account)  # type: unicode
+    def __init__(self, node_id=None, ipaddress=None, dbname=None, data_base_name=None, command=None,
+                 elapsed_time=None, execute_time=None, account=None, account_name=None):
+        self.node_id = node_id  # type: str
+        self.ipaddress = ipaddress  # type: str
+        self.dbname = dbname  # type: str
+        self.data_base_name = data_base_name  # type: str
+        self.command = command  # type: str
         self.elapsed_time = elapsed_time  # type: long
-        self.command = TeaConverter.to_unicode(command)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
-        self.execute_time = TeaConverter.to_unicode(execute_time)  # type: unicode
-        self.data_base_name = TeaConverter.to_unicode(data_base_name)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
+        self.execute_time = execute_time  # type: str
+        self.account = account  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.account is not None:
-            result['Account'] = self.account
-        if self.elapsed_time is not None:
-            result['ElapsedTime'] = self.elapsed_time
-        if self.command is not None:
-            result['Command'] = self.command
-        if self.dbname is not None:
-            result['DBName'] = self.dbname
-        if self.execute_time is not None:
-            result['ExecuteTime'] = self.execute_time
-        if self.data_base_name is not None:
-            result['DataBaseName'] = self.data_base_name
         if self.node_id is not None:
             result['NodeId'] = self.node_id
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
         if self.ipaddress is not None:
             result['IPAddress'] = self.ipaddress
+        if self.dbname is not None:
+            result['DBName'] = self.dbname
+        if self.data_base_name is not None:
+            result['DataBaseName'] = self.data_base_name
+        if self.command is not None:
+            result['Command'] = self.command
+        if self.elapsed_time is not None:
+            result['ElapsedTime'] = self.elapsed_time
+        if self.execute_time is not None:
+            result['ExecuteTime'] = self.execute_time
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Account') is not None:
-            self.account = m.get('Account')
-        if m.get('ElapsedTime') is not None:
-            self.elapsed_time = m.get('ElapsedTime')
-        if m.get('Command') is not None:
-            self.command = m.get('Command')
-        if m.get('DBName') is not None:
-            self.dbname = m.get('DBName')
-        if m.get('ExecuteTime') is not None:
-            self.execute_time = m.get('ExecuteTime')
-        if m.get('DataBaseName') is not None:
-            self.data_base_name = m.get('DataBaseName')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
         if m.get('IPAddress') is not None:
             self.ipaddress = m.get('IPAddress')
+        if m.get('DBName') is not None:
+            self.dbname = m.get('DBName')
+        if m.get('DataBaseName') is not None:
+            self.data_base_name = m.get('DataBaseName')
+        if m.get('Command') is not None:
+            self.command = m.get('Command')
+        if m.get('ElapsedTime') is not None:
+            self.elapsed_time = m.get('ElapsedTime')
+        if m.get('ExecuteTime') is not None:
+            self.execute_time = m.get('ExecuteTime')
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         return self
 
 
@@ -9053,17 +9548,17 @@ class DescribeSlowLogRecordsResponseBodyItems(TeaModel):
 
 
 class DescribeSlowLogRecordsResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, page_record_count=None, request_id=None, page_size=None,
-                 instance_id=None, page_number=None, start_time=None, items=None, engine=None):
+    def __init__(self, request_id=None, instance_id=None, start_time=None, engine=None, total_record_count=None,
+                 page_number=None, page_size=None, page_record_count=None, items=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.engine = engine  # type: str
         self.total_record_count = total_record_count  # type: int
-        self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
+        self.page_size = page_size  # type: int
+        self.page_record_count = page_record_count  # type: int
         self.items = items  # type: DescribeSlowLogRecordsResponseBodyItems
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
 
     def validate(self):
         if self.items:
@@ -9071,53 +9566,53 @@ class DescribeSlowLogRecordsResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
-        if self.page_record_count is not None:
-            result['PageRecordCount'] = self.page_record_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.items is not None:
-            result['Items'] = self.items.to_map()
         if self.engine is not None:
             result['Engine'] = self.engine
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.page_record_count is not None:
+            result['PageRecordCount'] = self.page_record_count
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
-        if m.get('PageRecordCount') is not None:
-            self.page_record_count = m.get('PageRecordCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('Engine') is not None:
+            self.engine = m.get('Engine')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PageRecordCount') is not None:
+            self.page_record_count = m.get('PageRecordCount')
         if m.get('Items') is not None:
             temp_model = DescribeSlowLogRecordsResponseBodyItems()
             self.items = temp_model.from_map(m['Items'])
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
         return self
 
 
 class DescribeSlowLogRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSlowLogRecordsResponseBody
 
     def validate(self):
@@ -9148,17 +9643,17 @@ class DescribeTasksRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, page_size=None, page_number=None, start_time=None, end_time=None,
                  status=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -9217,77 +9712,77 @@ class DescribeTasksRequest(TeaModel):
 
 
 class DescribeTasksResponseBodyItems(TeaModel):
-    def __init__(self, status=None, finish_time=None, steps_info=None, progress=None, begin_time=None, remain=None,
-                 current_step_name=None, step_progress_info=None, task_id=None, task_action=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.finish_time = TeaConverter.to_unicode(finish_time)  # type: unicode
-        self.steps_info = TeaConverter.to_unicode(steps_info)  # type: unicode
+    def __init__(self, task_id=None, task_action=None, status=None, progress=None, begin_time=None, finish_time=None,
+                 steps_info=None, remain=None, step_progress_info=None, current_step_name=None):
+        self.task_id = task_id  # type: str
+        self.task_action = task_action  # type: str
+        self.status = status  # type: str
         self.progress = progress  # type: float
-        self.begin_time = TeaConverter.to_unicode(begin_time)  # type: unicode
+        self.begin_time = begin_time  # type: str
+        self.finish_time = finish_time  # type: str
+        self.steps_info = steps_info  # type: str
         self.remain = remain  # type: int
-        self.current_step_name = TeaConverter.to_unicode(current_step_name)  # type: unicode
-        self.step_progress_info = TeaConverter.to_unicode(step_progress_info)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.task_action = TeaConverter.to_unicode(task_action)  # type: unicode
+        self.step_progress_info = step_progress_info  # type: str
+        self.current_step_name = current_step_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.finish_time is not None:
-            result['FinishTime'] = self.finish_time
-        if self.steps_info is not None:
-            result['StepsInfo'] = self.steps_info
-        if self.progress is not None:
-            result['Progress'] = self.progress
-        if self.begin_time is not None:
-            result['BeginTime'] = self.begin_time
-        if self.remain is not None:
-            result['Remain'] = self.remain
-        if self.current_step_name is not None:
-            result['CurrentStepName'] = self.current_step_name
-        if self.step_progress_info is not None:
-            result['StepProgressInfo'] = self.step_progress_info
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_action is not None:
             result['TaskAction'] = self.task_action
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.finish_time is not None:
+            result['FinishTime'] = self.finish_time
+        if self.steps_info is not None:
+            result['StepsInfo'] = self.steps_info
+        if self.remain is not None:
+            result['Remain'] = self.remain
+        if self.step_progress_info is not None:
+            result['StepProgressInfo'] = self.step_progress_info
+        if self.current_step_name is not None:
+            result['CurrentStepName'] = self.current_step_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('FinishTime') is not None:
-            self.finish_time = m.get('FinishTime')
-        if m.get('StepsInfo') is not None:
-            self.steps_info = m.get('StepsInfo')
-        if m.get('Progress') is not None:
-            self.progress = m.get('Progress')
-        if m.get('BeginTime') is not None:
-            self.begin_time = m.get('BeginTime')
-        if m.get('Remain') is not None:
-            self.remain = m.get('Remain')
-        if m.get('CurrentStepName') is not None:
-            self.current_step_name = m.get('CurrentStepName')
-        if m.get('StepProgressInfo') is not None:
-            self.step_progress_info = m.get('StepProgressInfo')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskAction') is not None:
             self.task_action = m.get('TaskAction')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('FinishTime') is not None:
+            self.finish_time = m.get('FinishTime')
+        if m.get('StepsInfo') is not None:
+            self.steps_info = m.get('StepsInfo')
+        if m.get('Remain') is not None:
+            self.remain = m.get('Remain')
+        if m.get('StepProgressInfo') is not None:
+            self.step_progress_info = m.get('StepProgressInfo')
+        if m.get('CurrentStepName') is not None:
+            self.current_step_name = m.get('CurrentStepName')
         return self
 
 
 class DescribeTasksResponseBody(TeaModel):
-    def __init__(self, total_record_count=None, request_id=None, page_size=None, page_number=None, items=None):
-        self.total_record_count = total_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.page_size = page_size  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_record_count=None, items=None):
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_record_count = total_record_count  # type: int
         self.items = items  # type: list[DescribeTasksResponseBodyItems]
 
     def validate(self):
@@ -9298,14 +9793,14 @@ class DescribeTasksResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.total_record_count is not None:
-            result['TotalRecordCount'] = self.total_record_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_record_count is not None:
+            result['TotalRecordCount'] = self.total_record_count
         result['Items'] = []
         if self.items is not None:
             for k in self.items:
@@ -9314,14 +9809,14 @@ class DescribeTasksResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalRecordCount') is not None:
-            self.total_record_count = m.get('TotalRecordCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalRecordCount') is not None:
+            self.total_record_count = m.get('TotalRecordCount')
         self.items = []
         if m.get('Items') is not None:
             for k in m.get('Items'):
@@ -9332,7 +9827,7 @@ class DescribeTasksResponseBody(TeaModel):
 
 class DescribeTasksResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeTasksResponseBody
 
     def validate(self):
@@ -9363,17 +9858,17 @@ class DescribeUserClusterHostRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, max_records_per_page=None, page_number=None, zone_id=None, engine=None,
                  cluster_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
         self.max_records_per_page = max_records_per_page  # type: int
         self.page_number = page_number  # type: int
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         pass
@@ -9435,24 +9930,24 @@ class DescribeUserClusterHostResponseBodyHostItems(TeaModel):
     def __init__(self, host_ip=None, expire_time=None, create_time=None, host_status=None, charge_type=None,
                  host_name=None, host_storage=None, instance_number=None, host_id=None, host_class=None, region_id=None,
                  allocation_status=None, zone_id=None, host_cpu=None, engine=None, host_mem=None, id=None, cluster_id=None):
-        self.host_ip = TeaConverter.to_unicode(host_ip)  # type: unicode
-        self.expire_time = TeaConverter.to_unicode(expire_time)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.host_status = TeaConverter.to_unicode(host_status)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.host_name = TeaConverter.to_unicode(host_name)  # type: unicode
-        self.host_storage = TeaConverter.to_unicode(host_storage)  # type: unicode
-        self.instance_number = TeaConverter.to_unicode(instance_number)  # type: unicode
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.host_class = TeaConverter.to_unicode(host_class)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.allocation_status = TeaConverter.to_unicode(allocation_status)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.host_cpu = TeaConverter.to_unicode(host_cpu)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.host_mem = TeaConverter.to_unicode(host_mem)  # type: unicode
+        self.host_ip = host_ip  # type: str
+        self.expire_time = expire_time  # type: str
+        self.create_time = create_time  # type: str
+        self.host_status = host_status  # type: str
+        self.charge_type = charge_type  # type: str
+        self.host_name = host_name  # type: str
+        self.host_storage = host_storage  # type: str
+        self.instance_number = instance_number  # type: str
+        self.host_id = host_id  # type: str
+        self.host_class = host_class  # type: str
+        self.region_id = region_id  # type: str
+        self.allocation_status = allocation_status  # type: str
+        self.zone_id = zone_id  # type: str
+        self.host_cpu = host_cpu  # type: str
+        self.engine = engine  # type: str
+        self.host_mem = host_mem  # type: str
         self.id = id  # type: int
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         pass
@@ -9541,9 +10036,9 @@ class DescribeUserClusterHostResponseBodyHostItems(TeaModel):
 class DescribeUserClusterHostResponseBody(TeaModel):
     def __init__(self, max_records_per_page=None, host_items=None, request_id=None, page_number=None,
                  total_records=None, item_numbers=None):
-        self.max_records_per_page = TeaConverter.to_unicode(max_records_per_page)  # type: unicode
+        self.max_records_per_page = max_records_per_page  # type: str
         self.host_items = host_items  # type: list[DescribeUserClusterHostResponseBodyHostItems]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.total_records = total_records  # type: int
         self.item_numbers = item_numbers  # type: int
@@ -9594,7 +10089,7 @@ class DescribeUserClusterHostResponseBody(TeaModel):
 
 class DescribeUserClusterHostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeUserClusterHostResponseBody
 
     def validate(self):
@@ -9625,19 +10120,19 @@ class DescribeUserClusterHostInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, max_records_per_page=None, page_number=None, zone_id=None, engine=None,
                  cluster_id=None, instance_ids=None, instance_status=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
         self.max_records_per_page = max_records_per_page  # type: int
         self.page_number = page_number  # type: int
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.instance_ids = instance_ids  # type: str
+        self.instance_status = instance_status  # type: str
 
     def validate(self):
         pass
@@ -9706,16 +10201,16 @@ class DescribeUserClusterHostInstanceRequest(TeaModel):
 class DescribeUserClusterHostInstanceResponseBodyInstancesItemsInstanceInfo(TeaModel):
     def __init__(self, instance_class=None, create_time=None, zone_id=None, instance_status=None, engine=None,
                  instance_id=None, instance_type=None, engine_version=None, region_id=None, cluster_id=None):
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.instance_class = instance_class  # type: str
+        self.create_time = create_time  # type: str
+        self.zone_id = zone_id  # type: str
+        self.instance_status = instance_status  # type: str
+        self.engine = engine  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.engine_version = engine_version  # type: str
+        self.region_id = region_id  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         pass
@@ -9801,7 +10296,7 @@ class DescribeUserClusterHostInstanceResponseBody(TeaModel):
     def __init__(self, max_records_per_page=None, request_id=None, page_number=None, instances_items=None,
                  total_records=None, item_numbers=None):
         self.max_records_per_page = max_records_per_page  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.instances_items = instances_items  # type: DescribeUserClusterHostInstanceResponseBodyInstancesItems
         self.total_records = total_records  # type: int
@@ -9847,7 +10342,7 @@ class DescribeUserClusterHostInstanceResponseBody(TeaModel):
 
 class DescribeUserClusterHostInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeUserClusterHostInstanceResponseBody
 
     def validate(self):
@@ -9877,13 +10372,13 @@ class DescribeUserClusterHostInstanceResponse(TeaModel):
 class DescribeZonesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, accept_language=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.accept_language = TeaConverter.to_unicode(accept_language)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.accept_language = accept_language  # type: str
 
     def validate(self):
         pass
@@ -9926,47 +10421,47 @@ class DescribeZonesRequest(TeaModel):
 
 
 class DescribeZonesResponseBodyZonesKVStoreZone(TeaModel):
-    def __init__(self, is_rds=None, zone_id=None, disabled=None, switch_network=None, zone_name=None, region_id=None):
-        self.is_rds = is_rds  # type: bool
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.disabled = disabled  # type: bool
+    def __init__(self, region_id=None, zone_id=None, zone_name=None, switch_network=None, is_rds=None, disabled=None):
+        self.region_id = region_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.zone_name = zone_name  # type: str
         self.switch_network = switch_network  # type: bool
-        self.zone_name = TeaConverter.to_unicode(zone_name)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.is_rds = is_rds  # type: bool
+        self.disabled = disabled  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.is_rds is not None:
-            result['IsRds'] = self.is_rds
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        if self.disabled is not None:
-            result['Disabled'] = self.disabled
-        if self.switch_network is not None:
-            result['SwitchNetwork'] = self.switch_network
-        if self.zone_name is not None:
-            result['ZoneName'] = self.zone_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
+        if self.zone_name is not None:
+            result['ZoneName'] = self.zone_name
+        if self.switch_network is not None:
+            result['SwitchNetwork'] = self.switch_network
+        if self.is_rds is not None:
+            result['IsRds'] = self.is_rds
+        if self.disabled is not None:
+            result['Disabled'] = self.disabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('IsRds') is not None:
-            self.is_rds = m.get('IsRds')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        if m.get('Disabled') is not None:
-            self.disabled = m.get('Disabled')
-        if m.get('SwitchNetwork') is not None:
-            self.switch_network = m.get('SwitchNetwork')
-        if m.get('ZoneName') is not None:
-            self.zone_name = m.get('ZoneName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
+        if m.get('ZoneName') is not None:
+            self.zone_name = m.get('ZoneName')
+        if m.get('SwitchNetwork') is not None:
+            self.switch_network = m.get('SwitchNetwork')
+        if m.get('IsRds') is not None:
+            self.is_rds = m.get('IsRds')
+        if m.get('Disabled') is not None:
+            self.disabled = m.get('Disabled')
         return self
 
 
@@ -10000,7 +10495,7 @@ class DescribeZonesResponseBodyZones(TeaModel):
 
 class DescribeZonesResponseBody(TeaModel):
     def __init__(self, request_id=None, zones=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.zones = zones  # type: DescribeZonesResponseBodyZones
 
     def validate(self):
@@ -10027,7 +10522,7 @@ class DescribeZonesResponseBody(TeaModel):
 
 class DescribeZonesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeZonesResponseBody
 
     def validate(self):
@@ -10057,18 +10552,19 @@ class DescribeZonesResponse(TeaModel):
 class EnableAdditionalBandwidthRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, coupon_no=None, auto_pay=None, node_id=None, bandwidth=None,
-                 order_time_length=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 order_time_length=None, source_biz=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.coupon_no = coupon_no  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.bandwidth = TeaConverter.to_unicode(bandwidth)  # type: unicode
-        self.order_time_length = TeaConverter.to_unicode(order_time_length)  # type: unicode
+        self.node_id = node_id  # type: str
+        self.bandwidth = bandwidth  # type: str
+        self.order_time_length = order_time_length  # type: str
+        self.source_biz = source_biz  # type: str
 
     def validate(self):
         pass
@@ -10097,6 +10593,8 @@ class EnableAdditionalBandwidthRequest(TeaModel):
             result['Bandwidth'] = self.bandwidth
         if self.order_time_length is not None:
             result['OrderTimeLength'] = self.order_time_length
+        if self.source_biz is not None:
+            result['SourceBiz'] = self.source_biz
         return result
 
     def from_map(self, m=None):
@@ -10123,13 +10621,15 @@ class EnableAdditionalBandwidthRequest(TeaModel):
             self.bandwidth = m.get('Bandwidth')
         if m.get('OrderTimeLength') is not None:
             self.order_time_length = m.get('OrderTimeLength')
+        if m.get('SourceBiz') is not None:
+            self.source_biz = m.get('SourceBiz')
         return self
 
 
 class EnableAdditionalBandwidthResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -10153,7 +10653,7 @@ class EnableAdditionalBandwidthResponseBody(TeaModel):
 
 class EnableAdditionalBandwidthResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: EnableAdditionalBandwidthResponseBody
 
     def validate(self):
@@ -10183,13 +10683,13 @@ class EnableAdditionalBandwidthResponse(TeaModel):
 class FlushExpireKeysRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, effective_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
@@ -10232,38 +10732,38 @@ class FlushExpireKeysRequest(TeaModel):
 
 
 class FlushExpireKeysResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, instance_id=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class FlushExpireKeysResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: FlushExpireKeysResponseBody
 
     def validate(self):
@@ -10293,12 +10793,12 @@ class FlushExpireKeysResponse(TeaModel):
 class FlushInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -10338,7 +10838,7 @@ class FlushInstanceRequest(TeaModel):
 
 class FlushInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -10358,7 +10858,7 @@ class FlushInstanceResponseBody(TeaModel):
 
 class FlushInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: FlushInstanceResponseBody
 
     def validate(self):
@@ -10388,14 +10888,14 @@ class FlushInstanceResponse(TeaModel):
 class GrantAccountPrivilegeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None, account_privilege=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_privilege = TeaConverter.to_unicode(account_privilege)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_privilege = account_privilege  # type: str
 
     def validate(self):
         pass
@@ -10443,7 +10943,7 @@ class GrantAccountPrivilegeRequest(TeaModel):
 
 class GrantAccountPrivilegeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -10463,7 +10963,7 @@ class GrantAccountPrivilegeResponseBody(TeaModel):
 
 class GrantAccountPrivilegeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GrantAccountPrivilegeResponseBody
 
     def validate(self):
@@ -10492,14 +10992,13 @@ class GrantAccountPrivilegeResponse(TeaModel):
 
 class InitializeKvstorePermissionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region_id=None, service_name=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, region_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.service_name = TeaConverter.to_unicode(service_name)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -10518,8 +11017,6 @@ class InitializeKvstorePermissionRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.service_name is not None:
-            result['ServiceName'] = self.service_name
         return result
 
     def from_map(self, m=None):
@@ -10536,14 +11033,12 @@ class InitializeKvstorePermissionRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ServiceName') is not None:
-            self.service_name = m.get('ServiceName')
         return self
 
 
 class InitializeKvstorePermissionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -10563,7 +11058,7 @@ class InitializeKvstorePermissionResponseBody(TeaModel):
 
 class InitializeKvstorePermissionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: InitializeKvstorePermissionResponseBody
 
     def validate(self):
@@ -10592,8 +11087,8 @@ class InitializeKvstorePermissionResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -10617,16 +11112,16 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
-                 region_id=None, resource_type=None, next_token=None, resource_id=None, tag=None):
+                 region_id=None, resource_type=None, resource_id=None, tag=None, next_token=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: list[str]
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
+        self.next_token = next_token  # type: str
 
     def validate(self):
         if self.tag:
@@ -10648,14 +11143,14 @@ class ListTagResourcesRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         return result
 
     def from_map(self, m=None):
@@ -10672,8 +11167,6 @@ class ListTagResourcesRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         self.tag = []
@@ -10681,41 +11174,43 @@ class ListTagResourcesRequest(TeaModel):
             for k in m.get('Tag'):
                 temp_model = ListTagResourcesRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         return self
 
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
-    def __init__(self, resource_type=None, tag_value=None, resource_id=None, tag_key=None):
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+    def __init__(self, tag_key=None, tag_value=None, resource_type=None, resource_id=None):
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
         return self
 
 
@@ -10748,9 +11243,9 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 
 class ListTagResourcesResponseBody(TeaModel):
-    def __init__(self, next_token=None, request_id=None, tag_resources=None):
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, request_id=None, next_token=None, tag_resources=None):
+        self.request_id = request_id  # type: str
+        self.next_token = next_token  # type: str
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -10759,20 +11254,20 @@ class ListTagResourcesResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.tag_resources is not None:
             result['TagResources'] = self.tag_resources.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('TagResources') is not None:
             temp_model = ListTagResourcesResponseBodyTagResources()
             self.tag_resources = temp_model.from_map(m['TagResources'])
@@ -10781,7 +11276,7 @@ class ListTagResourcesResponseBody(TeaModel):
 
 class ListTagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
@@ -10811,15 +11306,15 @@ class ListTagResourcesResponse(TeaModel):
 class MigrateToOtherZoneRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, zone_id=None, v_switch_id=None, effective_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
@@ -10871,7 +11366,7 @@ class MigrateToOtherZoneRequest(TeaModel):
 
 class MigrateToOtherZoneResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -10891,7 +11386,7 @@ class MigrateToOtherZoneResponseBody(TeaModel):
 
 class MigrateToOtherZoneResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: MigrateToOtherZoneResponseBody
 
     def validate(self):
@@ -10921,14 +11416,14 @@ class MigrateToOtherZoneResponse(TeaModel):
 class ModifyAccountDescriptionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None, account_description=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_description = TeaConverter.to_unicode(account_description)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_description = account_description  # type: str
 
     def validate(self):
         pass
@@ -10976,7 +11471,7 @@ class ModifyAccountDescriptionRequest(TeaModel):
 
 class ModifyAccountDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -10996,7 +11491,7 @@ class ModifyAccountDescriptionResponseBody(TeaModel):
 
 class ModifyAccountDescriptionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAccountDescriptionResponseBody
 
     def validate(self):
@@ -11026,15 +11521,15 @@ class ModifyAccountDescriptionResponse(TeaModel):
 class ModifyAccountPasswordRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None, old_account_password=None, new_account_password=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.old_account_password = TeaConverter.to_unicode(old_account_password)  # type: unicode
-        self.new_account_password = TeaConverter.to_unicode(new_account_password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.old_account_password = old_account_password  # type: str
+        self.new_account_password = new_account_password  # type: str
 
     def validate(self):
         pass
@@ -11086,7 +11581,7 @@ class ModifyAccountPasswordRequest(TeaModel):
 
 class ModifyAccountPasswordResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11106,7 +11601,7 @@ class ModifyAccountPasswordResponseBody(TeaModel):
 
 class ModifyAccountPasswordResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAccountPasswordResponseBody
 
     def validate(self):
@@ -11136,13 +11631,13 @@ class ModifyAccountPasswordResponse(TeaModel):
 class ModifyActiveOperationTaskRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, ids=None, switch_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.ids = TeaConverter.to_unicode(ids)  # type: unicode
-        self.switch_time = TeaConverter.to_unicode(switch_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.ids = ids  # type: str
+        self.switch_time = switch_time  # type: str
 
     def validate(self):
         pass
@@ -11186,8 +11681,8 @@ class ModifyActiveOperationTaskRequest(TeaModel):
 
 class ModifyActiveOperationTaskResponseBody(TeaModel):
     def __init__(self, request_id=None, ids=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.ids = TeaConverter.to_unicode(ids)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.ids = ids  # type: str
 
     def validate(self):
         pass
@@ -11211,7 +11706,7 @@ class ModifyActiveOperationTaskResponseBody(TeaModel):
 
 class ModifyActiveOperationTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyActiveOperationTaskResponseBody
 
     def validate(self):
@@ -11240,20 +11735,15 @@ class ModifyActiveOperationTaskResponse(TeaModel):
 
 class ModifyAuditLogConfigRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, audit_log_switch_source=None, service_type=None, retention=None,
-                 proxy_audit=None, db_audit=None, audit_command=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, retention=None, db_audit=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.audit_log_switch_source = TeaConverter.to_unicode(audit_log_switch_source)  # type: unicode
-        self.service_type = TeaConverter.to_unicode(service_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.retention = retention  # type: int
-        self.proxy_audit = TeaConverter.to_unicode(proxy_audit)  # type: unicode
         self.db_audit = db_audit  # type: bool
-        self.audit_command = TeaConverter.to_unicode(audit_command)  # type: unicode
 
     def validate(self):
         pass
@@ -11272,18 +11762,10 @@ class ModifyAuditLogConfigRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.audit_log_switch_source is not None:
-            result['AuditLogSwitchSource'] = self.audit_log_switch_source
-        if self.service_type is not None:
-            result['ServiceType'] = self.service_type
         if self.retention is not None:
             result['Retention'] = self.retention
-        if self.proxy_audit is not None:
-            result['ProxyAudit'] = self.proxy_audit
         if self.db_audit is not None:
             result['DbAudit'] = self.db_audit
-        if self.audit_command is not None:
-            result['AuditCommand'] = self.audit_command
         return result
 
     def from_map(self, m=None):
@@ -11300,24 +11782,16 @@ class ModifyAuditLogConfigRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('AuditLogSwitchSource') is not None:
-            self.audit_log_switch_source = m.get('AuditLogSwitchSource')
-        if m.get('ServiceType') is not None:
-            self.service_type = m.get('ServiceType')
         if m.get('Retention') is not None:
             self.retention = m.get('Retention')
-        if m.get('ProxyAudit') is not None:
-            self.proxy_audit = m.get('ProxyAudit')
         if m.get('DbAudit') is not None:
             self.db_audit = m.get('DbAudit')
-        if m.get('AuditCommand') is not None:
-            self.audit_command = m.get('AuditCommand')
         return self
 
 
 class ModifyAuditLogConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11337,7 +11811,7 @@ class ModifyAuditLogConfigResponseBody(TeaModel):
 
 class ModifyAuditLogConfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAuditLogConfigResponseBody
 
     def validate(self):
@@ -11368,14 +11842,14 @@ class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, preferred_backup_time=None, preferred_backup_period=None,
                  enable_backup_log=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.preferred_backup_time = TeaConverter.to_unicode(preferred_backup_time)  # type: unicode
-        self.preferred_backup_period = TeaConverter.to_unicode(preferred_backup_period)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.preferred_backup_time = preferred_backup_time  # type: str
+        self.preferred_backup_period = preferred_backup_period  # type: str
         self.enable_backup_log = enable_backup_log  # type: int
 
     def validate(self):
@@ -11428,7 +11902,7 @@ class ModifyBackupPolicyRequest(TeaModel):
 
 class ModifyBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11448,7 +11922,7 @@ class ModifyBackupPolicyResponseBody(TeaModel):
 
 class ModifyBackupPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyBackupPolicyResponseBody
 
     def validate(self):
@@ -11479,16 +11953,16 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, new_connection_string=None, current_connection_string=None, port=None,
                  iptype=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.new_connection_string = TeaConverter.to_unicode(new_connection_string)  # type: unicode
-        self.current_connection_string = TeaConverter.to_unicode(current_connection_string)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.iptype = TeaConverter.to_unicode(iptype)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.new_connection_string = new_connection_string  # type: str
+        self.current_connection_string = current_connection_string  # type: str
+        self.port = port  # type: str
+        self.iptype = iptype  # type: str
 
     def validate(self):
         pass
@@ -11544,7 +12018,7 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
 
 class ModifyDBInstanceConnectionStringResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11564,7 +12038,7 @@ class ModifyDBInstanceConnectionStringResponseBody(TeaModel):
 
 class ModifyDBInstanceConnectionStringResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceConnectionStringResponseBody
 
     def validate(self):
@@ -11593,19 +12067,16 @@ class ModifyDBInstanceConnectionStringResponse(TeaModel):
 
 class ModifyInstanceAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, instance_name=None, new_password=None, instance_release_protection=None,
-                 product=None, category=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, instance_name=None, new_password=None, instance_release_protection=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.new_password = TeaConverter.to_unicode(new_password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.new_password = new_password  # type: str
         self.instance_release_protection = instance_release_protection  # type: bool
-        self.product = TeaConverter.to_unicode(product)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
 
     def validate(self):
         pass
@@ -11630,10 +12101,6 @@ class ModifyInstanceAttributeRequest(TeaModel):
             result['NewPassword'] = self.new_password
         if self.instance_release_protection is not None:
             result['InstanceReleaseProtection'] = self.instance_release_protection
-        if self.product is not None:
-            result['Product'] = self.product
-        if self.category is not None:
-            result['Category'] = self.category
         return result
 
     def from_map(self, m=None):
@@ -11656,16 +12123,12 @@ class ModifyInstanceAttributeRequest(TeaModel):
             self.new_password = m.get('NewPassword')
         if m.get('InstanceReleaseProtection') is not None:
             self.instance_release_protection = m.get('InstanceReleaseProtection')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         return self
 
 
 class ModifyInstanceAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11685,7 +12148,7 @@ class ModifyInstanceAttributeResponseBody(TeaModel):
 
 class ModifyInstanceAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceAttributeResponseBody
 
     def validate(self):
@@ -11715,14 +12178,14 @@ class ModifyInstanceAttributeResponse(TeaModel):
 class ModifyInstanceAutoRenewalAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, duration=None, auto_renew=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.duration = duration  # type: str
+        self.auto_renew = auto_renew  # type: str
 
     def validate(self):
         pass
@@ -11770,7 +12233,7 @@ class ModifyInstanceAutoRenewalAttributeRequest(TeaModel):
 
 class ModifyInstanceAutoRenewalAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11790,7 +12253,7 @@ class ModifyInstanceAutoRenewalAttributeResponseBody(TeaModel):
 
 class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceAutoRenewalAttributeResponseBody
 
     def validate(self):
@@ -11820,13 +12283,13 @@ class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
 class ModifyInstanceConfigRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, config=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.config = config  # type: str
 
     def validate(self):
         pass
@@ -11870,7 +12333,7 @@ class ModifyInstanceConfigRequest(TeaModel):
 
 class ModifyInstanceConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11890,7 +12353,7 @@ class ModifyInstanceConfigResponseBody(TeaModel):
 
 class ModifyInstanceConfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceConfigResponseBody
 
     def validate(self):
@@ -11920,14 +12383,14 @@ class ModifyInstanceConfigResponse(TeaModel):
 class ModifyInstanceMaintainTimeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, maintain_start_time=None, maintain_end_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
 
     def validate(self):
         pass
@@ -11975,7 +12438,7 @@ class ModifyInstanceMaintainTimeRequest(TeaModel):
 
 class ModifyInstanceMaintainTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -11995,7 +12458,7 @@ class ModifyInstanceMaintainTimeResponseBody(TeaModel):
 
 class ModifyInstanceMaintainTimeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceMaintainTimeResponseBody
 
     def validate(self):
@@ -12024,16 +12487,15 @@ class ModifyInstanceMaintainTimeResponse(TeaModel):
 
 class ModifyInstanceMajorVersionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, major_version=None, effect_time=None, effective_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, major_version=None, effective_time=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.major_version = TeaConverter.to_unicode(major_version)  # type: unicode
-        self.effect_time = TeaConverter.to_unicode(effect_time)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.major_version = major_version  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
@@ -12054,8 +12516,6 @@ class ModifyInstanceMajorVersionRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.major_version is not None:
             result['MajorVersion'] = self.major_version
-        if self.effect_time is not None:
-            result['EffectTime'] = self.effect_time
         if self.effective_time is not None:
             result['EffectiveTime'] = self.effective_time
         return result
@@ -12076,8 +12536,6 @@ class ModifyInstanceMajorVersionRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('MajorVersion') is not None:
             self.major_version = m.get('MajorVersion')
-        if m.get('EffectTime') is not None:
-            self.effect_time = m.get('EffectTime')
         if m.get('EffectiveTime') is not None:
             self.effective_time = m.get('EffectiveTime')
         return self
@@ -12085,7 +12543,7 @@ class ModifyInstanceMajorVersionRequest(TeaModel):
 
 class ModifyInstanceMajorVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -12105,7 +12563,7 @@ class ModifyInstanceMajorVersionResponseBody(TeaModel):
 
 class ModifyInstanceMajorVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceMajorVersionResponseBody
 
     def validate(self):
@@ -12134,16 +12592,15 @@ class ModifyInstanceMajorVersionResponse(TeaModel):
 
 class ModifyInstanceMinorVersionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, minorversion=None, effect_time=None, effective_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, minorversion=None, effective_time=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.minorversion = TeaConverter.to_unicode(minorversion)  # type: unicode
-        self.effect_time = TeaConverter.to_unicode(effect_time)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.minorversion = minorversion  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
@@ -12164,8 +12621,6 @@ class ModifyInstanceMinorVersionRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.minorversion is not None:
             result['Minorversion'] = self.minorversion
-        if self.effect_time is not None:
-            result['EffectTime'] = self.effect_time
         if self.effective_time is not None:
             result['EffectiveTime'] = self.effective_time
         return result
@@ -12186,8 +12641,6 @@ class ModifyInstanceMinorVersionRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Minorversion') is not None:
             self.minorversion = m.get('Minorversion')
-        if m.get('EffectTime') is not None:
-            self.effect_time = m.get('EffectTime')
         if m.get('EffectiveTime') is not None:
             self.effective_time = m.get('EffectiveTime')
         return self
@@ -12195,7 +12648,7 @@ class ModifyInstanceMinorVersionRequest(TeaModel):
 
 class ModifyInstanceMinorVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -12215,7 +12668,7 @@ class ModifyInstanceMinorVersionResponseBody(TeaModel):
 
 class ModifyInstanceMinorVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceMinorVersionResponseBody
 
     def validate(self):
@@ -12245,13 +12698,13 @@ class ModifyInstanceMinorVersionResponse(TeaModel):
 class ModifyInstanceNetExpireTimeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, connection_string=None, classic_expired_days=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.connection_string = TeaConverter.to_unicode(connection_string)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.connection_string = connection_string  # type: str
         self.classic_expired_days = classic_expired_days  # type: int
 
     def validate(self):
@@ -12299,13 +12752,13 @@ class ModifyInstanceNetExpireTimeRequest(TeaModel):
 
 
 class ModifyInstanceNetExpireTimeResponseBodyNetInfoItemsNetInfoItem(TeaModel):
-    def __init__(self, dbinstance_net_type=None, connection_string=None, expired_time=None, port=None,
+    def __init__(self, dbinstance_net_type=None, port=None, expired_time=None, connection_string=None,
                  ipaddress=None):
-        self.dbinstance_net_type = TeaConverter.to_unicode(dbinstance_net_type)  # type: unicode
-        self.connection_string = TeaConverter.to_unicode(connection_string)  # type: unicode
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
+        self.dbinstance_net_type = dbinstance_net_type  # type: str
+        self.port = port  # type: str
+        self.expired_time = expired_time  # type: str
+        self.connection_string = connection_string  # type: str
+        self.ipaddress = ipaddress  # type: str
 
     def validate(self):
         pass
@@ -12314,12 +12767,12 @@ class ModifyInstanceNetExpireTimeResponseBodyNetInfoItemsNetInfoItem(TeaModel):
         result = dict()
         if self.dbinstance_net_type is not None:
             result['DBInstanceNetType'] = self.dbinstance_net_type
-        if self.connection_string is not None:
-            result['ConnectionString'] = self.connection_string
-        if self.expired_time is not None:
-            result['ExpiredTime'] = self.expired_time
         if self.port is not None:
             result['Port'] = self.port
+        if self.expired_time is not None:
+            result['ExpiredTime'] = self.expired_time
+        if self.connection_string is not None:
+            result['ConnectionString'] = self.connection_string
         if self.ipaddress is not None:
             result['IPAddress'] = self.ipaddress
         return result
@@ -12328,12 +12781,12 @@ class ModifyInstanceNetExpireTimeResponseBodyNetInfoItemsNetInfoItem(TeaModel):
         m = m or dict()
         if m.get('DBInstanceNetType') is not None:
             self.dbinstance_net_type = m.get('DBInstanceNetType')
-        if m.get('ConnectionString') is not None:
-            self.connection_string = m.get('ConnectionString')
-        if m.get('ExpiredTime') is not None:
-            self.expired_time = m.get('ExpiredTime')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('ExpiredTime') is not None:
+            self.expired_time = m.get('ExpiredTime')
+        if m.get('ConnectionString') is not None:
+            self.connection_string = m.get('ConnectionString')
         if m.get('IPAddress') is not None:
             self.ipaddress = m.get('IPAddress')
         return self
@@ -12368,10 +12821,10 @@ class ModifyInstanceNetExpireTimeResponseBodyNetInfoItems(TeaModel):
 
 
 class ModifyInstanceNetExpireTimeResponseBody(TeaModel):
-    def __init__(self, net_info_items=None, request_id=None, instance_id=None):
+    def __init__(self, request_id=None, instance_id=None, net_info_items=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
         self.net_info_items = net_info_items  # type: ModifyInstanceNetExpireTimeResponseBodyNetInfoItems
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
 
     def validate(self):
         if self.net_info_items:
@@ -12379,29 +12832,29 @@ class ModifyInstanceNetExpireTimeResponseBody(TeaModel):
 
     def to_map(self):
         result = dict()
-        if self.net_info_items is not None:
-            result['NetInfoItems'] = self.net_info_items.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.net_info_items is not None:
+            result['NetInfoItems'] = self.net_info_items.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('NetInfoItems') is not None:
-            temp_model = ModifyInstanceNetExpireTimeResponseBodyNetInfoItems()
-            self.net_info_items = temp_model.from_map(m['NetInfoItems'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('NetInfoItems') is not None:
+            temp_model = ModifyInstanceNetExpireTimeResponseBodyNetInfoItems()
+            self.net_info_items = temp_model.from_map(m['NetInfoItems'])
         return self
 
 
 class ModifyInstanceNetExpireTimeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceNetExpireTimeResponseBody
 
     def validate(self):
@@ -12430,26 +12883,25 @@ class ModifyInstanceNetExpireTimeResponse(TeaModel):
 
 class ModifyInstanceSpecRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, instance_class=None, from_app=None, business_info=None, coupon_no=None,
+                 owner_account=None, instance_id=None, instance_class=None, business_info=None, coupon_no=None,
                  force_upgrade=None, effective_time=None, auto_pay=None, order_type=None, major_version=None, client_token=None,
                  source_biz=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_class = instance_class  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
         self.force_upgrade = force_upgrade  # type: bool
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.effective_time = effective_time  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.major_version = TeaConverter.to_unicode(major_version)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.source_biz = TeaConverter.to_unicode(source_biz)  # type: unicode
+        self.order_type = order_type  # type: str
+        self.major_version = major_version  # type: str
+        self.client_token = client_token  # type: str
+        self.source_biz = source_biz  # type: str
 
     def validate(self):
         pass
@@ -12470,8 +12922,6 @@ class ModifyInstanceSpecRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.instance_class is not None:
             result['InstanceClass'] = self.instance_class
-        if self.from_app is not None:
-            result['FromApp'] = self.from_app
         if self.business_info is not None:
             result['BusinessInfo'] = self.business_info
         if self.coupon_no is not None:
@@ -12508,8 +12958,6 @@ class ModifyInstanceSpecRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceClass') is not None:
             self.instance_class = m.get('InstanceClass')
-        if m.get('FromApp') is not None:
-            self.from_app = m.get('FromApp')
         if m.get('BusinessInfo') is not None:
             self.business_info = m.get('BusinessInfo')
         if m.get('CouponNo') is not None:
@@ -12533,8 +12981,8 @@ class ModifyInstanceSpecRequest(TeaModel):
 
 class ModifyInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
@@ -12558,7 +13006,7 @@ class ModifyInstanceSpecResponseBody(TeaModel):
 
 class ModifyInstanceSpecResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceSpecResponseBody
 
     def validate(self):
@@ -12588,13 +13036,13 @@ class ModifyInstanceSpecResponse(TeaModel):
 class ModifyInstanceSSLRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, sslenabled=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.sslenabled = TeaConverter.to_unicode(sslenabled)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.sslenabled = sslenabled  # type: str
 
     def validate(self):
         pass
@@ -12637,38 +13085,38 @@ class ModifyInstanceSSLRequest(TeaModel):
 
 
 class ModifyInstanceSSLResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, instance_id=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class ModifyInstanceSSLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceSSLResponseBody
 
     def validate(self):
@@ -12698,13 +13146,13 @@ class ModifyInstanceSSLResponse(TeaModel):
 class ModifyInstanceVpcAuthModeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, vpc_auth_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.vpc_auth_mode = TeaConverter.to_unicode(vpc_auth_mode)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.vpc_auth_mode = vpc_auth_mode  # type: str
 
     def validate(self):
         pass
@@ -12748,7 +13196,7 @@ class ModifyInstanceVpcAuthModeRequest(TeaModel):
 
 class ModifyInstanceVpcAuthModeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -12768,7 +13216,7 @@ class ModifyInstanceVpcAuthModeResponseBody(TeaModel):
 
 class ModifyInstanceVpcAuthModeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceVpcAuthModeResponseBody
 
     def validate(self):
@@ -12798,14 +13246,14 @@ class ModifyInstanceVpcAuthModeResponse(TeaModel):
 class ModifyIntranetAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, band_width=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.band_width = band_width  # type: long
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
@@ -12853,7 +13301,7 @@ class ModifyIntranetAttributeRequest(TeaModel):
 
 class ModifyIntranetAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -12873,7 +13321,7 @@ class ModifyIntranetAttributeResponseBody(TeaModel):
 
 class ModifyIntranetAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyIntranetAttributeResponseBody
 
     def validate(self):
@@ -12904,19 +13352,19 @@ class ModifyNodeSpecRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, instance_class=None, business_info=None, coupon_no=None, auto_pay=None,
                  order_type=None, node_id=None, switch_time_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_class = instance_class  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.switch_time_mode = TeaConverter.to_unicode(switch_time_mode)  # type: unicode
+        self.order_type = order_type  # type: str
+        self.node_id = node_id  # type: str
+        self.switch_time_mode = switch_time_mode  # type: str
 
     def validate(self):
         pass
@@ -12984,7 +13432,7 @@ class ModifyNodeSpecRequest(TeaModel):
 
 class ModifyNodeSpecResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.order_id = order_id  # type: long
 
     def validate(self):
@@ -13009,7 +13457,7 @@ class ModifyNodeSpecResponseBody(TeaModel):
 
 class ModifyNodeSpecResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyNodeSpecResponseBody
 
     def validate(self):
@@ -13038,17 +13486,15 @@ class ModifyNodeSpecResponse(TeaModel):
 
 class ModifyResourceGroupRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, client_token=None,
-                 owner_account=None, instance_id=None, resource_group_id=None, region_id=None, product=None, category=None):
+                 owner_account=None, instance_id=None, resource_group_id=None, region_id=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.product = TeaConverter.to_unicode(product)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -13071,10 +13517,6 @@ class ModifyResourceGroupRequest(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.product is not None:
-            result['Product'] = self.product
-        if self.category is not None:
-            result['Category'] = self.category
         return result
 
     def from_map(self, m=None):
@@ -13095,16 +13537,12 @@ class ModifyResourceGroupRequest(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         return self
 
 
 class ModifyResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13124,7 +13562,7 @@ class ModifyResourceGroupResponseBody(TeaModel):
 
 class ModifyResourceGroupResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyResourceGroupResponseBody
 
     def validate(self):
@@ -13154,13 +13592,13 @@ class ModifyResourceGroupResponse(TeaModel):
 class ModifySecurityGroupConfigurationRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, security_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.security_group_id = security_group_id  # type: str
 
     def validate(self):
         pass
@@ -13204,7 +13642,7 @@ class ModifySecurityGroupConfigurationRequest(TeaModel):
 
 class ModifySecurityGroupConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13224,7 +13662,7 @@ class ModifySecurityGroupConfigurationResponseBody(TeaModel):
 
 class ModifySecurityGroupConfigurationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifySecurityGroupConfigurationResponseBody
 
     def validate(self):
@@ -13253,19 +13691,18 @@ class ModifySecurityGroupConfigurationResponse(TeaModel):
 
 class ModifySecurityIpsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region_id=None, instance_id=None, security_ips=None, security_ip_group_name=None,
+                 owner_account=None, instance_id=None, security_ips=None, security_ip_group_name=None,
                  security_ip_group_attribute=None, modify_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.security_ips = TeaConverter.to_unicode(security_ips)  # type: unicode
-        self.security_ip_group_name = TeaConverter.to_unicode(security_ip_group_name)  # type: unicode
-        self.security_ip_group_attribute = TeaConverter.to_unicode(security_ip_group_attribute)  # type: unicode
-        self.modify_mode = TeaConverter.to_unicode(modify_mode)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.security_ips = security_ips  # type: str
+        self.security_ip_group_name = security_ip_group_name  # type: str
+        self.security_ip_group_attribute = security_ip_group_attribute  # type: str
+        self.modify_mode = modify_mode  # type: str
 
     def validate(self):
         pass
@@ -13282,8 +13719,6 @@ class ModifySecurityIpsRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.security_ips is not None:
@@ -13308,8 +13743,6 @@ class ModifySecurityIpsRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('SecurityIps') is not None:
@@ -13325,7 +13758,7 @@ class ModifySecurityIpsRequest(TeaModel):
 
 class ModifySecurityIpsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13345,7 +13778,7 @@ class ModifySecurityIpsResponseBody(TeaModel):
 
 class ModifySecurityIpsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifySecurityIpsResponseBody
 
     def validate(self):
@@ -13376,17 +13809,17 @@ class ModifyUserClusterHostRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, host_id=None, cluster_id=None, allocation_status=None, engine=None,
                  zone_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.host_id = host_id  # type: str
+        self.cluster_id = cluster_id  # type: str
         self.allocation_status = allocation_status  # type: int
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.engine = engine  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
@@ -13446,7 +13879,7 @@ class ModifyUserClusterHostRequest(TeaModel):
 
 class ModifyUserClusterHostResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13466,7 +13899,7 @@ class ModifyUserClusterHostResponseBody(TeaModel):
 
 class ModifyUserClusterHostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyUserClusterHostResponseBody
 
     def validate(self):
@@ -13496,12 +13929,12 @@ class ModifyUserClusterHostResponse(TeaModel):
 class ReleaseDirectConnectionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         pass
@@ -13541,7 +13974,7 @@ class ReleaseDirectConnectionRequest(TeaModel):
 
 class ReleaseDirectConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13561,7 +13994,7 @@ class ReleaseDirectConnectionResponseBody(TeaModel):
 
 class ReleaseDirectConnectionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ReleaseDirectConnectionResponseBody
 
     def validate(self):
@@ -13591,13 +14024,13 @@ class ReleaseDirectConnectionResponse(TeaModel):
 class ReleaseInstancePublicConnectionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, current_connection_string=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.current_connection_string = TeaConverter.to_unicode(current_connection_string)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.current_connection_string = current_connection_string  # type: str
 
     def validate(self):
         pass
@@ -13641,7 +14074,7 @@ class ReleaseInstancePublicConnectionRequest(TeaModel):
 
 class ReleaseInstancePublicConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -13661,7 +14094,7 @@ class ReleaseInstancePublicConnectionResponseBody(TeaModel):
 
 class ReleaseInstancePublicConnectionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ReleaseInstancePublicConnectionResponseBody
 
     def validate(self):
@@ -13691,21 +14124,20 @@ class ReleaseInstancePublicConnectionResponse(TeaModel):
 class RenewInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, capacity=None, instance_class=None, period=None, auto_pay=None,
-                 from_app=None, business_info=None, coupon_no=None, force_upgrade=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 from_app=None, business_info=None, coupon_no=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.capacity = TeaConverter.to_unicode(capacity)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.capacity = capacity  # type: str
+        self.instance_class = instance_class  # type: str
         self.period = period  # type: long
         self.auto_pay = auto_pay  # type: bool
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.force_upgrade = force_upgrade  # type: bool
+        self.from_app = from_app  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
 
     def validate(self):
         pass
@@ -13738,8 +14170,6 @@ class RenewInstanceRequest(TeaModel):
             result['BusinessInfo'] = self.business_info
         if self.coupon_no is not None:
             result['CouponNo'] = self.coupon_no
-        if self.force_upgrade is not None:
-            result['ForceUpgrade'] = self.force_upgrade
         return result
 
     def from_map(self, m=None):
@@ -13770,44 +14200,42 @@ class RenewInstanceRequest(TeaModel):
             self.business_info = m.get('BusinessInfo')
         if m.get('CouponNo') is not None:
             self.coupon_no = m.get('CouponNo')
-        if m.get('ForceUpgrade') is not None:
-            self.force_upgrade = m.get('ForceUpgrade')
         return self
 
 
 class RenewInstanceResponseBody(TeaModel):
-    def __init__(self, end_time=None, request_id=None, order_id=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+    def __init__(self, request_id=None, order_id=None, end_time=None):
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.order_id is not None:
             result['OrderId'] = self.order_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         return self
 
 
 class RenewInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RenewInstanceResponseBody
 
     def validate(self):
@@ -13837,16 +14265,16 @@ class RenewInstanceResponse(TeaModel):
 class ReplaceUserClusterHostRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, cluster_id=None, host_id=None, engine=None, zone_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.host_id = TeaConverter.to_unicode(host_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.host_id = host_id  # type: str
+        self.engine = engine  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
@@ -13902,8 +14330,8 @@ class ReplaceUserClusterHostRequest(TeaModel):
 
 class ReplaceUserClusterHostResponseBody(TeaModel):
     def __init__(self, request_id=None, new_host_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.new_host_id = TeaConverter.to_unicode(new_host_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.new_host_id = new_host_id  # type: str
 
     def validate(self):
         pass
@@ -13927,7 +14355,7 @@ class ReplaceUserClusterHostResponseBody(TeaModel):
 
 class ReplaceUserClusterHostResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ReplaceUserClusterHostResponseBody
 
     def validate(self):
@@ -13957,14 +14385,14 @@ class ReplaceUserClusterHostResponse(TeaModel):
 class ResetAccountPasswordRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, account_name=None, account_password=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
 
     def validate(self):
         pass
@@ -14012,7 +14440,7 @@ class ResetAccountPasswordRequest(TeaModel):
 
 class ResetAccountPasswordResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14032,7 +14460,7 @@ class ResetAccountPasswordResponseBody(TeaModel):
 
 class ResetAccountPasswordResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ResetAccountPasswordResponseBody
 
     def validate(self):
@@ -14062,13 +14490,13 @@ class ResetAccountPasswordResponse(TeaModel):
 class RestartInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, effective_time=None, upgrade_minor_version=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.effective_time = effective_time  # type: str
         self.upgrade_minor_version = upgrade_minor_version  # type: bool
 
     def validate(self):
@@ -14116,38 +14544,38 @@ class RestartInstanceRequest(TeaModel):
 
 
 class RestartInstanceResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, instance_id=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+    def __init__(self, request_id=None, instance_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class RestartInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RestartInstanceResponseBody
 
     def validate(self):
@@ -14176,16 +14604,14 @@ class RestartInstanceResponse(TeaModel):
 
 class RestoreInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, backup_id=None, restore_type=None, restore_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, backup_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.restore_type = TeaConverter.to_unicode(restore_type)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.backup_id = backup_id  # type: str
 
     def validate(self):
         pass
@@ -14206,10 +14632,6 @@ class RestoreInstanceRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.backup_id is not None:
             result['BackupId'] = self.backup_id
-        if self.restore_type is not None:
-            result['RestoreType'] = self.restore_type
-        if self.restore_time is not None:
-            result['RestoreTime'] = self.restore_time
         return result
 
     def from_map(self, m=None):
@@ -14228,16 +14650,12 @@ class RestoreInstanceRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('BackupId') is not None:
             self.backup_id = m.get('BackupId')
-        if m.get('RestoreType') is not None:
-            self.restore_type = m.get('RestoreType')
-        if m.get('RestoreTime') is not None:
-            self.restore_time = m.get('RestoreTime')
         return self
 
 
 class RestoreInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14257,7 +14675,7 @@ class RestoreInstanceResponseBody(TeaModel):
 
 class RestoreInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RestoreInstanceResponseBody
 
     def validate(self):
@@ -14286,19 +14704,16 @@ class RestoreInstanceResponse(TeaModel):
 
 class SwitchInstanceHARequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, node_id=None, switch_mode=None, product=None, category=None,
-                 switch_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, node_id=None, switch_mode=None, switch_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
         self.switch_mode = switch_mode  # type: int
-        self.product = TeaConverter.to_unicode(product)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
-        self.switch_type = TeaConverter.to_unicode(switch_type)  # type: unicode
+        self.switch_type = switch_type  # type: str
 
     def validate(self):
         pass
@@ -14321,10 +14736,6 @@ class SwitchInstanceHARequest(TeaModel):
             result['NodeId'] = self.node_id
         if self.switch_mode is not None:
             result['SwitchMode'] = self.switch_mode
-        if self.product is not None:
-            result['Product'] = self.product
-        if self.category is not None:
-            result['Category'] = self.category
         if self.switch_type is not None:
             result['SwitchType'] = self.switch_type
         return result
@@ -14347,10 +14758,6 @@ class SwitchInstanceHARequest(TeaModel):
             self.node_id = m.get('NodeId')
         if m.get('SwitchMode') is not None:
             self.switch_mode = m.get('SwitchMode')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
         if m.get('SwitchType') is not None:
             self.switch_type = m.get('SwitchType')
         return self
@@ -14358,7 +14765,7 @@ class SwitchInstanceHARequest(TeaModel):
 
 class SwitchInstanceHAResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14378,7 +14785,7 @@ class SwitchInstanceHAResponseBody(TeaModel):
 
 class SwitchInstanceHAResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SwitchInstanceHAResponseBody
 
     def validate(self):
@@ -14409,17 +14816,17 @@ class SwitchNetworkRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, target_network_type=None, vpc_id=None, v_switch_id=None, instance_id=None,
                  retain_classic=None, classic_expired_days=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.target_network_type = TeaConverter.to_unicode(target_network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.retain_classic = TeaConverter.to_unicode(retain_classic)  # type: unicode
-        self.classic_expired_days = TeaConverter.to_unicode(classic_expired_days)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.target_network_type = target_network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.retain_classic = retain_classic  # type: str
+        self.classic_expired_days = classic_expired_days  # type: str
 
     def validate(self):
         pass
@@ -14478,33 +14885,33 @@ class SwitchNetworkRequest(TeaModel):
 
 
 class SwitchNetworkResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, request_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class SwitchNetworkResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SwitchNetworkResponseBody
 
     def validate(self):
@@ -14534,15 +14941,15 @@ class SwitchNetworkResponse(TeaModel):
 class SyncDtsStatusRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, instance_id=None, status=None, task_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.status = status  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -14594,7 +15001,7 @@ class SyncDtsStatusRequest(TeaModel):
 
 class SyncDtsStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14614,7 +15021,7 @@ class SyncDtsStatusResponseBody(TeaModel):
 
 class SyncDtsStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SyncDtsStatusResponseBody
 
     def validate(self):
@@ -14643,8 +15050,8 @@ class SyncDtsStatusResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -14670,12 +15077,12 @@ class TagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
                  region_id=None, resource_type=None, resource_id=None, tag=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: list[str]
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -14732,7 +15139,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14752,7 +15159,7 @@ class TagResourcesResponseBody(TeaModel):
 
 class TagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
@@ -14781,16 +15188,15 @@ class TagResourcesResponse(TeaModel):
 
 class TransformToPrePaidRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, instance_id=None, period=None, auto_pay=None, from_app=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, instance_id=None, period=None, auto_pay=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.period = period  # type: long
         self.auto_pay = auto_pay  # type: bool
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
 
     def validate(self):
         pass
@@ -14813,8 +15219,6 @@ class TransformToPrePaidRequest(TeaModel):
             result['Period'] = self.period
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
-        if self.from_app is not None:
-            result['FromApp'] = self.from_app
         return result
 
     def from_map(self, m=None):
@@ -14835,44 +15239,42 @@ class TransformToPrePaidRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
-        if m.get('FromApp') is not None:
-            self.from_app = m.get('FromApp')
         return self
 
 
 class TransformToPrePaidResponseBody(TeaModel):
-    def __init__(self, end_time=None, request_id=None, order_id=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+    def __init__(self, request_id=None, order_id=None, end_time=None):
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.order_id is not None:
             result['OrderId'] = self.order_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         return self
 
 
 class TransformToPrePaidResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: TransformToPrePaidResponseBody
 
     def validate(self):
@@ -14901,16 +15303,16 @@ class TransformToPrePaidResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
-                 region_id=None, resource_type=None, all=None, resource_id=None, tag_key=None):
+                 region_id=None, resource_type=None, resource_id=None, tag_key=None, all=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.tag_key = tag_key  # type: list[str]
         self.all = all  # type: bool
-        self.resource_id = resource_id  # type: list[unicode]
-        self.tag_key = tag_key  # type: list[unicode]
 
     def validate(self):
         pass
@@ -14929,12 +15331,12 @@ class UntagResourcesRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
-        if self.all is not None:
-            result['All'] = self.all
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
+        if self.all is not None:
+            result['All'] = self.all
         return result
 
     def from_map(self, m=None):
@@ -14951,18 +15353,18 @@ class UntagResourcesRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
-        if m.get('All') is not None:
-            self.all = m.get('All')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
+        if m.get('All') is not None:
+            self.all = m.get('All')
         return self
 
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -14982,7 +15384,7 @@ class UntagResourcesResponseBody(TeaModel):
 
 class UntagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
