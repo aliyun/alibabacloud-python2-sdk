@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -48,7 +50,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.QueryAlarmDataListResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryAlarmDataListResponse(),
             self.do_roarequest('QueryAlarmDataList', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryAlarmDataList.json', 'json', req, runtime)
         )
 
@@ -70,7 +73,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.GetAnalysisComponentResultResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.GetAnalysisComponentResultResponse(),
             self.do_roarequest('GetAnalysisComponentResult', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/getAnalysisComponentResult.json', 'json', req, runtime)
         )
 
@@ -92,7 +96,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.GetMessageDetailResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.GetMessageDetailResponse(),
             self.do_roarequest('GetMessageDetail', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/getMessageFromHbase.json', 'json', req, runtime)
         )
 
@@ -120,7 +125,8 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.CreateProjectResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.CreateProjectResponse(),
             self.do_roarequest_with_form('CreateProject', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/createProject.json', 'json', req, runtime)
         )
 
@@ -148,7 +154,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.QueryProjectListResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryProjectListResponse(),
             self.do_roarequest('QueryProjectList', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryProjectList.json', 'json', req, runtime)
         )
 
@@ -168,7 +175,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.QueryTagNodesResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryTagNodesResponse(),
             self.do_roarequest('QueryTagNodes', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryTagNodes.json', 'json', req, runtime)
         )
 
@@ -202,7 +210,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.QueryReportNotifiesResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryReportNotifiesResponse(),
             self.do_roarequest('QueryReportNotifies', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryReportNotifies.json', 'json', req, runtime)
         )
 
@@ -230,7 +239,8 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.DeleteProjectResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.DeleteProjectResponse(),
             self.do_roarequest_with_form('DeleteProject', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/deleteProject.json', 'json', req, runtime)
         )
 
@@ -256,7 +266,8 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
-        return yuqing_20210126_models.QueryFilterListResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryFilterListResponse(),
             self.do_roarequest('QueryFilterList', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryFilterList.json', 'json', req, runtime)
         )
 
@@ -286,7 +297,8 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.AggregateSearchYuqingResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.AggregateSearchYuqingResponse(),
             self.do_roarequest_with_form('AggregateSearchYuqing', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/aggSearch.json', 'json', req, runtime)
         )
 
@@ -312,7 +324,8 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.QueryAnalysisComponentResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.QueryAnalysisComponentResponse(),
             self.do_roarequest_with_form('QueryAnalysisComponent', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/queryAnalysisComponent.json', 'json', req, runtime)
         )
 
@@ -336,7 +349,8 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.UpdatePropagationResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.UpdatePropagationResponse(),
             self.do_roarequest_with_form('UpdatePropagation', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/updatePropagation.json', 'json', req, runtime)
         )
 
@@ -360,6 +374,7 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
-        return yuqing_20210126_models.ListYuqingMessagesResponse().from_map(
+        return TeaCore.from_map(
+            yuqing_20210126_models.ListYuqingMessagesResponse(),
             self.do_roarequest_with_form('ListYuqingMessages', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/searchMessages.json', 'json', req, runtime)
         )
