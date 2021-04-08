@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_lvwangwatermark20210104_py2.
 
-Created on 19/03/2021
+Created on 08/04/2021
 
 @author: Alibaba Cloud SDK
 """

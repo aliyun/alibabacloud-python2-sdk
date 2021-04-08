@@ -4,8 +4,7 @@ from Tea.model import TeaModel
 
 
 class AddAudioAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, watermark_id=None, url_list=None):
         self.watermark_id = watermark_id  # type: str
         self.url_list = url_list  # type: str
 
@@ -13,9 +12,11 @@ class AddAudioAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddAudioAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.watermark_id is not None:
             result['WatermarkId'] = self.watermark_id
         if self.url_list is not None:
@@ -24,8 +25,6 @@ class AddAudioAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('WatermarkId') is not None:
             self.watermark_id = m.get('WatermarkId')
         if m.get('urlList') is not None:
@@ -42,6 +41,10 @@ class AddAudioAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddAudioAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -71,6 +74,10 @@ class AddAudioAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AddAudioAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.msg is not None:
             result['Msg'] = self.msg
@@ -108,6 +115,10 @@ class AddAudioAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AddAudioAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -126,8 +137,7 @@ class AddAudioAsyncResponse(TeaModel):
 
 
 class AddImageAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, watermark_id=None, url_list=None):
         self.watermark_id = watermark_id  # type: str
         self.url_list = url_list  # type: str
 
@@ -135,9 +145,11 @@ class AddImageAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddImageAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.watermark_id is not None:
             result['WatermarkId'] = self.watermark_id
         if self.url_list is not None:
@@ -146,8 +158,6 @@ class AddImageAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('WatermarkId') is not None:
             self.watermark_id = m.get('WatermarkId')
         if m.get('urlList') is not None:
@@ -164,6 +174,10 @@ class AddImageAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddImageAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -192,6 +206,10 @@ class AddImageAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AddImageAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -225,6 +243,10 @@ class AddImageAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AddImageAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -243,8 +265,7 @@ class AddImageAsyncResponse(TeaModel):
 
 
 class AddImageSyncRequest(TeaModel):
-    def __init__(self, source_ip=None, watermark_id=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, watermark_id=None, url_list=None):
         self.watermark_id = watermark_id  # type: str
         self.url_list = url_list  # type: str
 
@@ -252,9 +273,11 @@ class AddImageSyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddImageSyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.watermark_id is not None:
             result['WatermarkId'] = self.watermark_id
         if self.url_list is not None:
@@ -263,8 +286,6 @@ class AddImageSyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('WatermarkId') is not None:
             self.watermark_id = m.get('WatermarkId')
         if m.get('urlList') is not None:
@@ -281,6 +302,10 @@ class AddImageSyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddImageSyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.result_url is not None:
             result['ResultUrl'] = self.result_url
@@ -309,6 +334,10 @@ class AddImageSyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AddImageSyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -342,6 +371,10 @@ class AddImageSyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AddImageSyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -360,8 +393,7 @@ class AddImageSyncResponse(TeaModel):
 
 
 class AddVideoAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, watermark_id=None, vm_type=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, watermark_id=None, vm_type=None, url_list=None):
         self.watermark_id = watermark_id  # type: str
         self.vm_type = vm_type  # type: str
         self.url_list = url_list  # type: str
@@ -370,9 +402,11 @@ class AddVideoAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddVideoAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.watermark_id is not None:
             result['WatermarkId'] = self.watermark_id
         if self.vm_type is not None:
@@ -383,8 +417,6 @@ class AddVideoAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('WatermarkId') is not None:
             self.watermark_id = m.get('WatermarkId')
         if m.get('VmType') is not None:
@@ -403,6 +435,10 @@ class AddVideoAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AddVideoAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -431,6 +467,10 @@ class AddVideoAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AddVideoAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -464,6 +504,10 @@ class AddVideoAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AddVideoAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -482,25 +526,24 @@ class AddVideoAsyncResponse(TeaModel):
 
 
 class GetAudioAddRequest(TeaModel):
-    def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, task_id=None):
         self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetAudioAddRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -528,6 +571,10 @@ class GetAudioAddResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioAddResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -598,6 +645,10 @@ class GetAudioAddResponseBody(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super(GetAudioAddResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -627,6 +678,10 @@ class GetAudioAddResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetAudioAddResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -645,8 +700,7 @@ class GetAudioAddResponse(TeaModel):
 
 
 class GetAudioAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, url_list=None, water_mark_type=None):
         self.app_name = app_name  # type: str
         self.url_list = url_list  # type: str
         self.water_mark_type = water_mark_type  # type: str
@@ -655,9 +709,11 @@ class GetAudioAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.url_list is not None:
@@ -668,8 +724,6 @@ class GetAudioAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('urlList') is not None:
@@ -688,6 +742,10 @@ class GetAudioAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -716,6 +774,10 @@ class GetAudioAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetAudioAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -749,6 +811,10 @@ class GetAudioAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetAudioAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -767,25 +833,24 @@ class GetAudioAsyncResponse(TeaModel):
 
 
 class GetAudioExtractRequest(TeaModel):
-    def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, task_id=None):
         self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetAudioExtractRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -814,6 +879,10 @@ class GetAudioExtractResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioExtractResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -888,6 +957,10 @@ class GetAudioExtractResponseBody(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super(GetAudioExtractResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -917,6 +990,10 @@ class GetAudioExtractResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetAudioExtractResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -935,8 +1012,7 @@ class GetAudioExtractResponse(TeaModel):
 
 
 class GetAudioTraceRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, file_uid=None, user_info_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, file_uid=None, user_info_list=None):
         self.app_name = app_name  # type: str
         self.file_uid = file_uid  # type: str
         self.user_info_list = user_info_list  # type: str
@@ -945,9 +1021,11 @@ class GetAudioTraceRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioTraceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.file_uid is not None:
@@ -958,8 +1036,6 @@ class GetAudioTraceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('FileUid') is not None:
@@ -978,6 +1054,10 @@ class GetAudioTraceResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetAudioTraceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.result_url is not None:
             result['ResultUrl'] = self.result_url
@@ -1006,6 +1086,10 @@ class GetAudioTraceResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetAudioTraceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1039,6 +1123,10 @@ class GetAudioTraceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetAudioTraceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1057,8 +1145,7 @@ class GetAudioTraceResponse(TeaModel):
 
 
 class GetImageAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, url_list=None):
         self.app_name = app_name  # type: long
         self.url_list = url_list  # type: str
 
@@ -1066,9 +1153,11 @@ class GetImageAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.url_list is not None:
@@ -1077,8 +1166,6 @@ class GetImageAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('urlList') is not None:
@@ -1095,6 +1182,10 @@ class GetImageAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -1123,6 +1214,10 @@ class GetImageAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetImageAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1156,6 +1251,10 @@ class GetImageAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetImageAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1174,8 +1273,7 @@ class GetImageAsyncResponse(TeaModel):
 
 
 class GetImageSyncRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, url_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, url_list=None):
         self.app_name = app_name  # type: str
         self.url_list = url_list  # type: str
 
@@ -1183,9 +1281,11 @@ class GetImageSyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageSyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.url_list is not None:
@@ -1194,8 +1294,6 @@ class GetImageSyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('urlList') is not None:
@@ -1213,6 +1311,10 @@ class GetImageSyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageSyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.data_id is not None:
             result['dataId'] = self.data_id
@@ -1245,6 +1347,10 @@ class GetImageSyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetImageSyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1278,6 +1384,10 @@ class GetImageSyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetImageSyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1295,26 +1405,199 @@ class GetImageSyncResponse(TeaModel):
         return self
 
 
-class GetVideoAddRequest(TeaModel):
-    def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = source_ip  # type: str
+class GetQueryTraceFileRequest(TeaModel):
+    def __init__(self, task_id=None):
         self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetQueryTraceFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class GetQueryTraceFileResponseBodyData(TeaModel):
+    def __init__(self, status=None, source_url=None, result_url=None, data_id=None, gmt_modified=None,
+                 media_type=None, msg=None, task_uid=None, app_id=None, gmt_create=None, opt_type=None, finished_time=None,
+                 id=None):
+        self.status = status  # type: str
+        self.source_url = source_url  # type: str
+        self.result_url = result_url  # type: str
+        self.data_id = data_id  # type: str
+        self.gmt_modified = gmt_modified  # type: long
+        self.media_type = media_type  # type: str
+        self.msg = msg  # type: str
+        self.task_uid = task_uid  # type: str
+        self.app_id = app_id  # type: long
+        self.gmt_create = gmt_create  # type: long
+        self.opt_type = opt_type  # type: str
+        self.finished_time = finished_time  # type: long
+        self.id = id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetQueryTraceFileResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.source_url is not None:
+            result['SourceUrl'] = self.source_url
+        if self.result_url is not None:
+            result['ResultUrl'] = self.result_url
+        if self.data_id is not None:
+            result['DataId'] = self.data_id
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.media_type is not None:
+            result['MediaType'] = self.media_type
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.task_uid is not None:
+            result['TaskUid'] = self.task_uid
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.opt_type is not None:
+            result['OptType'] = self.opt_type
+        if self.finished_time is not None:
+            result['FinishedTime'] = self.finished_time
+        if self.id is not None:
+            result['Id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SourceUrl') is not None:
+            self.source_url = m.get('SourceUrl')
+        if m.get('ResultUrl') is not None:
+            self.result_url = m.get('ResultUrl')
+        if m.get('DataId') is not None:
+            self.data_id = m.get('DataId')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('MediaType') is not None:
+            self.media_type = m.get('MediaType')
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('TaskUid') is not None:
+            self.task_uid = m.get('TaskUid')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('OptType') is not None:
+            self.opt_type = m.get('OptType')
+        if m.get('FinishedTime') is not None:
+            self.finished_time = m.get('FinishedTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        return self
+
+
+class GetQueryTraceFileResponseBody(TeaModel):
+    def __init__(self, request_id=None, data=None):
+        self.request_id = request_id  # type: str
+        self.data = data  # type: GetQueryTraceFileResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetQueryTraceFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            temp_model = GetQueryTraceFileResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class GetQueryTraceFileResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetQueryTraceFileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetQueryTraceFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetQueryTraceFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetVideoAddRequest(TeaModel):
+    def __init__(self, task_id=None):
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVideoAddRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -1342,6 +1625,10 @@ class GetVideoAddResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetVideoAddResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -1412,6 +1699,10 @@ class GetVideoAddResponseBody(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super(GetVideoAddResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1441,6 +1732,10 @@ class GetVideoAddResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoAddResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1459,8 +1754,7 @@ class GetVideoAddResponse(TeaModel):
 
 
 class GetVideoAsyncRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, url_list=None, water_mark_type=None, vm_type=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, url_list=None, water_mark_type=None, vm_type=None):
         self.app_name = app_name  # type: str
         self.url_list = url_list  # type: str
         self.water_mark_type = water_mark_type  # type: str
@@ -1470,9 +1764,11 @@ class GetVideoAsyncRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetVideoAsyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.url_list is not None:
@@ -1485,8 +1781,6 @@ class GetVideoAsyncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('urlList') is not None:
@@ -1507,6 +1801,10 @@ class GetVideoAsyncResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetVideoAsyncResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_uid is not None:
             result['TaskUid'] = self.task_uid
@@ -1535,6 +1833,10 @@ class GetVideoAsyncResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetVideoAsyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1568,6 +1870,10 @@ class GetVideoAsyncResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoAsyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1586,25 +1892,24 @@ class GetVideoAsyncResponse(TeaModel):
 
 
 class GetVideoExtractRequest(TeaModel):
-    def __init__(self, source_ip=None, task_id=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, task_id=None):
         self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoExtractRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -1633,6 +1938,10 @@ class GetVideoExtractResponseBodyData(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetVideoExtractResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -1707,6 +2016,10 @@ class GetVideoExtractResponseBody(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super(GetVideoExtractResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1736,6 +2049,10 @@ class GetVideoExtractResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoExtractResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1754,62 +2071,80 @@ class GetVideoExtractResponse(TeaModel):
 
 
 class GetVideoTraceRequest(TeaModel):
-    def __init__(self, source_ip=None, app_name=None, file_uid=None, user_info_list=None):
-        self.source_ip = source_ip  # type: str
+    def __init__(self, app_name=None, file_uid=None, user_info_list=None, file_type=None):
         self.app_name = app_name  # type: str
         self.file_uid = file_uid  # type: str
         self.user_info_list = user_info_list  # type: str
+        self.file_type = file_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoTraceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.file_uid is not None:
             result['FileUid'] = self.file_uid
         if self.user_info_list is not None:
             result['userInfoList'] = self.user_info_list
+        if self.file_type is not None:
+            result['FileType'] = self.file_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('FileUid') is not None:
             self.file_uid = m.get('FileUid')
         if m.get('userInfoList') is not None:
             self.user_info_list = m.get('userInfoList')
+        if m.get('FileType') is not None:
+            self.file_type = m.get('FileType')
         return self
 
 
 class GetVideoTraceResponseBodyData(TeaModel):
-    def __init__(self, result_url=None, user_info=None):
+    def __init__(self, task_uid=None, result_url=None, user_info=None, file_uid=None):
+        self.task_uid = task_uid  # type: str
         self.result_url = result_url  # type: str
         self.user_info = user_info  # type: str
+        self.file_uid = file_uid  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoTraceResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.task_uid is not None:
+            result['TaskUid'] = self.task_uid
         if self.result_url is not None:
             result['ResultUrl'] = self.result_url
         if self.user_info is not None:
             result['UserInfo'] = self.user_info
+        if self.file_uid is not None:
+            result['FileUid'] = self.file_uid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('TaskUid') is not None:
+            self.task_uid = m.get('TaskUid')
         if m.get('ResultUrl') is not None:
             self.result_url = m.get('ResultUrl')
         if m.get('UserInfo') is not None:
             self.user_info = m.get('UserInfo')
+        if m.get('FileUid') is not None:
+            self.file_uid = m.get('FileUid')
         return self
 
 
@@ -1825,6 +2160,10 @@ class GetVideoTraceResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetVideoTraceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1858,6 +2197,10 @@ class GetVideoTraceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoTraceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers

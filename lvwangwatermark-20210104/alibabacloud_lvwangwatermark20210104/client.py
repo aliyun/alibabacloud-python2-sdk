@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -32,7 +34,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.AddAudioAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.AddAudioAsyncResponse(),
             self.do_rpcrequest('AddAudioAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -45,7 +48,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.AddImageAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.AddImageAsyncResponse(),
             self.do_rpcrequest('AddImageAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -58,7 +62,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.AddImageSyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.AddImageSyncResponse(),
             self.do_rpcrequest('AddImageSync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -71,7 +76,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.AddVideoAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.AddVideoAsyncResponse(),
             self.do_rpcrequest('AddVideoAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -84,7 +90,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetAudioAddResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetAudioAddResponse(),
             self.do_rpcrequest('GetAudioAdd', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -97,7 +104,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetAudioAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetAudioAsyncResponse(),
             self.do_rpcrequest('GetAudioAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -110,7 +118,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetAudioExtractResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetAudioExtractResponse(),
             self.do_rpcrequest('GetAudioExtract', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -123,7 +132,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetAudioTraceResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetAudioTraceResponse(),
             self.do_rpcrequest('GetAudioTrace', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -136,7 +146,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetImageAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetImageAsyncResponse(),
             self.do_rpcrequest('GetImageAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -149,7 +160,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetImageSyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetImageSyncResponse(),
             self.do_rpcrequest('GetImageSync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -157,12 +169,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_image_sync_with_options(request, runtime)
 
+    def get_query_trace_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetQueryTraceFileResponse(),
+            self.do_rpcrequest('GetQueryTraceFile', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_query_trace_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_query_trace_file_with_options(request, runtime)
+
     def get_video_add_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetVideoAddResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetVideoAddResponse(),
             self.do_rpcrequest('GetVideoAdd', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -175,7 +202,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetVideoAsyncResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetVideoAsyncResponse(),
             self.do_rpcrequest('GetVideoAsync', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -188,7 +216,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetVideoExtractResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetVideoExtractResponse(),
             self.do_rpcrequest('GetVideoExtract', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -201,7 +230,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return lvwang_watermark_20210104_models.GetVideoTraceResponse().from_map(
+        return TeaCore.from_map(
+            lvwang_watermark_20210104_models.GetVideoTraceResponse(),
             self.do_rpcrequest('GetVideoTrace', '2021-01-04', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
