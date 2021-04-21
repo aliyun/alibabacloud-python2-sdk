@@ -1288,6 +1288,131 @@ class CreateAppResponse(TeaModel):
         return self
 
 
+class SetUsersPermissionsRequest(TeaModel):
+    def __init__(self, user_ids=None, doc_key=None, app_id=None, permission_type=None):
+        # 需要设置权限的用户ID，多个用英文逗号（,）分隔，最多30个，每个ID由纯数字组成
+        self.user_ids = user_ids  # type: str
+        # 白板文档唯一标识符
+        self.doc_key = doc_key  # type: str
+        # 白板应用唯一标识符
+        self.app_id = app_id  # type: str
+        # 用户白板权限类型，可选值：ban/read/edit
+        self.permission_type = permission_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetUsersPermissionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_ids is not None:
+            result['UserIds'] = self.user_ids
+        if self.doc_key is not None:
+            result['DocKey'] = self.doc_key
+        if self.app_id is not None:
+            result['AppID'] = self.app_id
+        if self.permission_type is not None:
+            result['PermissionType'] = self.permission_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('UserIds') is not None:
+            self.user_ids = m.get('UserIds')
+        if m.get('DocKey') is not None:
+            self.doc_key = m.get('DocKey')
+        if m.get('AppID') is not None:
+            self.app_id = m.get('AppID')
+        if m.get('PermissionType') is not None:
+            self.permission_type = m.get('PermissionType')
+        return self
+
+
+class SetUsersPermissionsResponseBody(TeaModel):
+    def __init__(self, request_id=None, response_success=None, error_code=None, error_msg=None, result=None):
+        # 请求ID
+        self.request_id = request_id  # type: str
+        # 请求结果
+        self.response_success = response_success  # type: bool
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 返回结果
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetUsersPermissionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.response_success is not None:
+            result['ResponseSuccess'] = self.response_success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResponseSuccess') is not None:
+            self.response_success = m.get('ResponseSuccess')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class SetUsersPermissionsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetUsersPermissionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetUsersPermissionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetUsersPermissionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateWhiteBoardRequest(TeaModel):
     def __init__(self, user_id=None, app_id=None):
         # 创建白板的用户ID（客户业务用户），由纯数字组成。

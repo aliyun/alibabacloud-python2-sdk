@@ -141,6 +141,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_app_with_options(request, runtime)
 
+    def set_users_permissions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rtc_white_board_20201214_models.SetUsersPermissionsResponse(),
+            self.do_rpcrequest('SetUsersPermissions', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def set_users_permissions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_users_permissions_with_options(request, runtime)
+
     def create_white_board_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
