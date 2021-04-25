@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -58,7 +60,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.CreateCertificateResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.CreateCertificateResponse(),
             self.do_rpcrequest('CreateCertificate', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -71,7 +74,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.CreateCertificateByCertificateIdResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.CreateCertificateByCertificateIdResponse(),
             self.do_rpcrequest('CreateCertificateByCertificateId', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -84,7 +88,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.CreateDomainResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.CreateDomainResponse(),
             self.do_rpcrequest('CreateDomain', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -97,7 +102,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.CreateProtectionModuleRuleResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.CreateProtectionModuleRuleResponse(),
             self.do_rpcrequest('CreateProtectionModuleRule', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -110,7 +116,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DeleteDomainResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DeleteDomainResponse(),
             self.do_rpcrequest('DeleteDomain', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -123,7 +130,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DeleteInstanceResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DeleteInstanceResponse(),
             self.do_rpcrequest('DeleteInstance', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -136,7 +144,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DeleteProtectionModuleRuleResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DeleteProtectionModuleRuleResponse(),
             self.do_rpcrequest('DeleteProtectionModuleRule', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -149,7 +158,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeCertificatesResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeCertificatesResponse(),
             self.do_rpcrequest('DescribeCertificates', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -162,7 +172,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeCertMatchStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeCertMatchStatusResponse(),
             self.do_rpcrequest('DescribeCertMatchStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -175,7 +186,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainResponse(),
             self.do_rpcrequest('DescribeDomain', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -188,7 +200,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainAdvanceConfigsResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainAdvanceConfigsResponse(),
             self.do_rpcrequest('DescribeDomainAdvanceConfigs', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -201,7 +214,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainBasicConfigsResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainBasicConfigsResponse(),
             self.do_rpcrequest('DescribeDomainBasicConfigs', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -214,7 +228,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainListResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainListResponse(),
             self.do_rpcrequest('DescribeDomainList', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -227,7 +242,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainNamesResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainNamesResponse(),
             self.do_rpcrequest('DescribeDomainNames', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -240,7 +256,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeDomainRuleGroupResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeDomainRuleGroupResponse(),
             self.do_rpcrequest('DescribeDomainRuleGroup', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -253,7 +270,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeInstanceInfoResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeInstanceInfoResponse(),
             self.do_rpcrequest('DescribeInstanceInfo', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -266,7 +284,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeInstanceInfosResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeInstanceInfosResponse(),
             self.do_rpcrequest('DescribeInstanceInfos', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -279,7 +298,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeInstanceSpecInfoResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeInstanceSpecInfoResponse(),
             self.do_rpcrequest('DescribeInstanceSpecInfo', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -292,7 +312,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeLogServiceStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeLogServiceStatusResponse(),
             self.do_rpcrequest('DescribeLogServiceStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -305,7 +326,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeProtectionModuleCodeConfigResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeProtectionModuleCodeConfigResponse(),
             self.do_rpcrequest('DescribeProtectionModuleCodeConfig', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -318,7 +340,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeProtectionModuleModeResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeProtectionModuleModeResponse(),
             self.do_rpcrequest('DescribeProtectionModuleMode', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -331,7 +354,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeProtectionModuleRulesResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeProtectionModuleRulesResponse(),
             self.do_rpcrequest('DescribeProtectionModuleRules', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -344,7 +368,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeProtectionModuleStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeProtectionModuleStatusResponse(),
             self.do_rpcrequest('DescribeProtectionModuleStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -357,7 +382,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.DescribeWafSourceIpSegmentResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.DescribeWafSourceIpSegmentResponse(),
             self.do_rpcrequest('DescribeWafSourceIpSegment', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -370,7 +396,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyDomainResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyDomainResponse(),
             self.do_rpcrequest('ModifyDomain', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -383,7 +410,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyDomainIpv6StatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyDomainIpv6StatusResponse(),
             self.do_rpcrequest('ModifyDomainIpv6Status', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -396,7 +424,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyLogRetrievalStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyLogRetrievalStatusResponse(),
             self.do_rpcrequest('ModifyLogRetrievalStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -409,7 +438,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyLogServiceStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyLogServiceStatusResponse(),
             self.do_rpcrequest('ModifyLogServiceStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -422,7 +452,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyProtectionModuleModeResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyProtectionModuleModeResponse(),
             self.do_rpcrequest('ModifyProtectionModuleMode', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -435,7 +466,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyProtectionModuleRuleResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyProtectionModuleRuleResponse(),
             self.do_rpcrequest('ModifyProtectionModuleRule', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -448,7 +480,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyProtectionModuleStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyProtectionModuleStatusResponse(),
             self.do_rpcrequest('ModifyProtectionModuleStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -461,7 +494,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyProtectionRuleCacheStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyProtectionRuleCacheStatusResponse(),
             self.do_rpcrequest('ModifyProtectionRuleCacheStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -474,7 +508,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.ModifyProtectionRuleStatusResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.ModifyProtectionRuleStatusResponse(),
             self.do_rpcrequest('ModifyProtectionRuleStatus', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -487,7 +522,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return waf_openapi_20190910_models.SetDomainRuleGroupResponse().from_map(
+        return TeaCore.from_map(
+            waf_openapi_20190910_models.SetDomainRuleGroupResponse(),
             self.do_rpcrequest('SetDomainRuleGroup', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
