@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -19,12 +21,11 @@ class Client(OpenApiClient):
         super(Client, self).__init__(config)
         self._endpoint_rule = 'regional'
         self._endpoint_map = {
-            'ap-northeast-2-pop': 'iot.ap-northeast-1.aliyuncs.com',
-            'ap-south-1': 'iot.ap-northeast-1.aliyuncs.com',
-            'ap-southeast-2': 'iot.ap-northeast-1.aliyuncs.com',
-            'ap-southeast-3': 'iot.ap-northeast-1.aliyuncs.com',
-            'ap-southeast-5': 'iot.ap-northeast-1.aliyuncs.com',
-            'cn-beijing': 'iot.aliyuncs.com',
+            'ap-northeast-2-pop': 'iot.aliyuncs.com',
+            'ap-south-1': 'iot.aliyuncs.com',
+            'ap-southeast-2': 'iot.aliyuncs.com',
+            'ap-southeast-3': 'iot.aliyuncs.com',
+            'ap-southeast-5': 'iot.aliyuncs.com',
             'cn-beijing-finance-1': 'iot.aliyuncs.com',
             'cn-beijing-finance-pop': 'iot.aliyuncs.com',
             'cn-beijing-gov-1': 'iot.aliyuncs.com',
@@ -43,7 +44,7 @@ class Client(OpenApiClient):
             'cn-hongkong': 'iot.aliyuncs.com',
             'cn-hongkong-finance-pop': 'iot.aliyuncs.com',
             'cn-huhehaote': 'iot.aliyuncs.com',
-            'cn-north-2-gov-1': 'iot.aliyuncs.com',
+            'cn-huhehaote-nebula-1': 'iot.aliyuncs.com',
             'cn-qingdao': 'iot.aliyuncs.com',
             'cn-qingdao-nebula': 'iot.aliyuncs.com',
             'cn-shanghai-et15-b01': 'iot.aliyuncs.com',
@@ -51,21 +52,22 @@ class Client(OpenApiClient):
             'cn-shanghai-finance-1': 'iot.aliyuncs.com',
             'cn-shanghai-inner': 'iot.aliyuncs.com',
             'cn-shanghai-internal-test-1': 'iot.aliyuncs.com',
-            'cn-shenzhen': 'iot.aliyuncs.com',
             'cn-shenzhen-finance-1': 'iot.aliyuncs.com',
             'cn-shenzhen-inner': 'iot.aliyuncs.com',
             'cn-shenzhen-st4-d01': 'iot.aliyuncs.com',
             'cn-shenzhen-su18-b01': 'iot.aliyuncs.com',
             'cn-wuhan': 'iot.aliyuncs.com',
+            'cn-wulanchabu': 'iot.aliyuncs.com',
             'cn-yushanfang': 'iot.aliyuncs.com',
+            'cn-zhangbei': 'iot.aliyuncs.com',
             'cn-zhangbei-na61-b01': 'iot.aliyuncs.com',
             'cn-zhangjiakou': 'iot.aliyuncs.com',
             'cn-zhangjiakou-na62-a01': 'iot.aliyuncs.com',
             'cn-zhengzhou-nebula-1': 'iot.aliyuncs.com',
-            'eu-west-1': 'iot.ap-northeast-1.aliyuncs.com',
-            'eu-west-1-oxs': 'iot.ap-northeast-1.aliyuncs.com',
-            'me-east-1': 'iot.ap-northeast-1.aliyuncs.com',
-            'rus-west-1-pop': 'iot.ap-northeast-1.aliyuncs.com'
+            'eu-west-1': 'iot.aliyuncs.com',
+            'eu-west-1-oxs': 'iot.aliyuncs.com',
+            'me-east-1': 'iot.aliyuncs.com',
+            'rus-west-1-pop': 'iot.aliyuncs.com'
         }
         self.check_config(config)
         self._endpoint = self.get_endpoint('iot', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -82,7 +84,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchAddDeviceGroupRelationsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchAddDeviceGroupRelationsResponse(),
             self.do_rpcrequest('BatchAddDeviceGroupRelations', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -95,7 +98,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchAddThingTopoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchAddThingTopoResponse(),
             self.do_rpcrequest('BatchAddThingTopo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -108,7 +112,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchBindDevicesIntoProjectResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchBindDevicesIntoProjectResponse(),
             self.do_rpcrequest('BatchBindDevicesIntoProject', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -121,7 +126,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchBindDeviceToEdgeInstanceWithDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchBindDeviceToEdgeInstanceWithDriverResponse(),
             self.do_rpcrequest('BatchBindDeviceToEdgeInstanceWithDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -134,7 +140,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchBindProductsIntoProjectResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchBindProductsIntoProjectResponse(),
             self.do_rpcrequest('BatchBindProductsIntoProject', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -147,7 +154,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchCheckDeviceNamesResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchCheckDeviceNamesResponse(),
             self.do_rpcrequest('BatchCheckDeviceNames', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -160,7 +168,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchClearEdgeInstanceDeviceConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchClearEdgeInstanceDeviceConfigResponse(),
             self.do_rpcrequest('BatchClearEdgeInstanceDeviceConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -173,7 +182,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchDeleteDeviceGroupRelationsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchDeleteDeviceGroupRelationsResponse(),
             self.do_rpcrequest('BatchDeleteDeviceGroupRelations', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -186,7 +196,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchDeleteEdgeInstanceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchDeleteEdgeInstanceChannelResponse(),
             self.do_rpcrequest('BatchDeleteEdgeInstanceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -199,7 +210,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetDeviceBindStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetDeviceBindStatusResponse(),
             self.do_rpcrequest('BatchGetDeviceBindStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -212,7 +224,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetDeviceStateResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetDeviceStateResponse(),
             self.do_rpcrequest('BatchGetDeviceState', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -225,7 +238,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeDriverResponse(),
             self.do_rpcrequest('BatchGetEdgeDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -238,7 +252,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeInstanceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeInstanceChannelResponse(),
             self.do_rpcrequest('BatchGetEdgeInstanceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -251,7 +266,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeInstanceDeviceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeInstanceDeviceChannelResponse(),
             self.do_rpcrequest('BatchGetEdgeInstanceDeviceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -264,7 +280,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeInstanceDeviceConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeInstanceDeviceConfigResponse(),
             self.do_rpcrequest('BatchGetEdgeInstanceDeviceConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -277,7 +294,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeInstanceDeviceDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeInstanceDeviceDriverResponse(),
             self.do_rpcrequest('BatchGetEdgeInstanceDeviceDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -290,7 +308,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchGetEdgeInstanceDriverConfigsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchGetEdgeInstanceDriverConfigsResponse(),
             self.do_rpcrequest('BatchGetEdgeInstanceDriverConfigs', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -303,7 +322,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchPubResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchPubResponse(),
             self.do_rpcrequest('BatchPub', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -316,7 +336,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchQueryDeviceDetailResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchQueryDeviceDetailResponse(),
             self.do_rpcrequest('BatchQueryDeviceDetail', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -329,7 +350,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchRegisterDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchRegisterDeviceResponse(),
             self.do_rpcrequest('BatchRegisterDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -342,7 +364,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchRegisterDeviceWithApplyIdResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchRegisterDeviceWithApplyIdResponse(),
             self.do_rpcrequest('BatchRegisterDeviceWithApplyId', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -355,7 +378,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchSetEdgeInstanceDeviceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchSetEdgeInstanceDeviceChannelResponse(),
             self.do_rpcrequest('BatchSetEdgeInstanceDeviceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -368,7 +392,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchSetEdgeInstanceDeviceConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchSetEdgeInstanceDeviceConfigResponse(),
             self.do_rpcrequest('BatchSetEdgeInstanceDeviceConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -381,7 +406,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchUnbindDeviceFromEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchUnbindDeviceFromEdgeInstanceResponse(),
             self.do_rpcrequest('BatchUnbindDeviceFromEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -394,7 +420,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchUnbindProjectDevicesResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchUnbindProjectDevicesResponse(),
             self.do_rpcrequest('BatchUnbindProjectDevices', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -407,7 +434,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchUnbindProjectProductsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchUnbindProjectProductsResponse(),
             self.do_rpcrequest('BatchUnbindProjectProducts', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -420,7 +448,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BatchUpdateDeviceNicknameResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BatchUpdateDeviceNicknameResponse(),
             self.do_rpcrequest('BatchUpdateDeviceNickname', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -433,7 +462,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BindApplicationToEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BindApplicationToEdgeInstanceResponse(),
             self.do_rpcrequest('BindApplicationToEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -446,7 +476,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BindDriverToEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BindDriverToEdgeInstanceResponse(),
             self.do_rpcrequest('BindDriverToEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -459,7 +490,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BindGatewayToEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BindGatewayToEdgeInstanceResponse(),
             self.do_rpcrequest('BindGatewayToEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -472,7 +504,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BindRoleToEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BindRoleToEdgeInstanceResponse(),
             self.do_rpcrequest('BindRoleToEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -485,7 +518,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.BindSceneRuleToEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.BindSceneRuleToEdgeInstanceResponse(),
             self.do_rpcrequest('BindSceneRuleToEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -498,7 +532,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CancelJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CancelJobResponse(),
             self.do_rpcrequest('CancelJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -511,7 +546,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CancelOTAStrategyByJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CancelOTAStrategyByJobResponse(),
             self.do_rpcrequest('CancelOTAStrategyByJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -524,7 +560,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CancelOTATaskByDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CancelOTATaskByDeviceResponse(),
             self.do_rpcrequest('CancelOTATaskByDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -537,7 +574,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CancelOTATaskByJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CancelOTATaskByJobResponse(),
             self.do_rpcrequest('CancelOTATaskByJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -550,7 +588,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ClearEdgeInstanceDriverConfigsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ClearEdgeInstanceDriverConfigsResponse(),
             self.do_rpcrequest('ClearEdgeInstanceDriverConfigs', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -563,7 +602,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CloseEdgeInstanceDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CloseEdgeInstanceDeploymentResponse(),
             self.do_rpcrequest('CloseEdgeInstanceDeployment', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -576,7 +616,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CopyThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CopyThingModelResponse(),
             self.do_rpcrequest('CopyThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -589,7 +630,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateConsumerGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateConsumerGroupResponse(),
             self.do_rpcrequest('CreateConsumerGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -602,7 +644,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateConsumerGroupSubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateConsumerGroupSubscribeRelationResponse(),
             self.do_rpcrequest('CreateConsumerGroupSubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -615,7 +658,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateDataAPIServiceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDataAPIServiceResponse(),
             self.do_rpcrequest('CreateDataAPIService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -628,7 +672,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateDeviceDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDeviceDistributeJobResponse(),
             self.do_rpcrequest('CreateDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -641,7 +686,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateDeviceGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateDeviceGroupResponse(),
             self.do_rpcrequest('CreateDeviceGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -654,7 +700,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeDriverResponse(),
             self.do_rpcrequest('CreateEdgeDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -667,7 +714,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeDriverVersionResponse(),
             self.do_rpcrequest('CreateEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -680,7 +728,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeInstanceResponse(),
             self.do_rpcrequest('CreateEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -693,7 +742,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeInstanceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeInstanceChannelResponse(),
             self.do_rpcrequest('CreateEdgeInstanceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -706,7 +756,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeInstanceDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeInstanceDeploymentResponse(),
             self.do_rpcrequest('CreateEdgeInstanceDeployment', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -714,12 +765,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_edge_instance_deployment_with_options(request, runtime)
 
+    def create_edge_instance_message_routing_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeInstanceMessageRoutingResponse(),
+            self.do_rpcrequest('CreateEdgeInstanceMessageRouting', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_edge_instance_message_routing(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_edge_instance_message_routing_with_options(request, runtime)
+
     def create_edge_oss_pre_signed_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateEdgeOssPreSignedAddressResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateEdgeOssPreSignedAddressResponse(),
             self.do_rpcrequest('CreateEdgeOssPreSignedAddress', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -732,7 +798,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateJobResponse(),
             self.do_rpcrequest('CreateJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -745,7 +812,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateLoRaNodesTaskResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateLoRaNodesTaskResponse(),
             self.do_rpcrequest('CreateLoRaNodesTask', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -758,7 +826,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateOTADynamicUpgradeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateOTADynamicUpgradeJobResponse(),
             self.do_rpcrequest('CreateOTADynamicUpgradeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -771,7 +840,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateOTAFirmwareResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateOTAFirmwareResponse(),
             self.do_rpcrequest('CreateOTAFirmware', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -784,7 +854,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateOTAModuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateOTAModuleResponse(),
             self.do_rpcrequest('CreateOTAModule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -797,7 +868,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateOTAStaticUpgradeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateOTAStaticUpgradeJobResponse(),
             self.do_rpcrequest('CreateOTAStaticUpgradeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -810,7 +882,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateOTAVerifyJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateOTAVerifyJobResponse(),
             self.do_rpcrequest('CreateOTAVerifyJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -823,7 +896,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateProductResponse(),
             self.do_rpcrequest('CreateProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -836,7 +910,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateProductDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateProductDistributeJobResponse(),
             self.do_rpcrequest('CreateProductDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -849,7 +924,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateProductTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateProductTagsResponse(),
             self.do_rpcrequest('CreateProductTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -862,7 +938,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateProductTopicResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateProductTopicResponse(),
             self.do_rpcrequest('CreateProductTopic', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -875,7 +952,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateRuleResponse(),
             self.do_rpcrequest('CreateRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -888,7 +966,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateRuleActionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateRuleActionResponse(),
             self.do_rpcrequest('CreateRuleAction', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -901,7 +980,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateRulengDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateRulengDistributeJobResponse(),
             self.do_rpcrequest('CreateRulengDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -914,7 +994,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSceneRuleResponse(),
             self.do_rpcrequest('CreateSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -927,7 +1008,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateSubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateSubscribeRelationResponse(),
             self.do_rpcrequest('CreateSubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -940,7 +1022,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateThingModelResponse(),
             self.do_rpcrequest('CreateThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -953,7 +1036,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateThingScriptResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateThingScriptResponse(),
             self.do_rpcrequest('CreateThingScript', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -966,7 +1050,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.CreateTopicRouteTableResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.CreateTopicRouteTableResponse(),
             self.do_rpcrequest('CreateTopicRouteTable', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -979,7 +1064,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteConsumerGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteConsumerGroupResponse(),
             self.do_rpcrequest('DeleteConsumerGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -992,7 +1078,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteConsumerGroupSubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteConsumerGroupSubscribeRelationResponse(),
             self.do_rpcrequest('DeleteConsumerGroupSubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1005,7 +1092,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceResponse(),
             self.do_rpcrequest('DeleteDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1018,7 +1106,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteDeviceDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceDistributeJobResponse(),
             self.do_rpcrequest('DeleteDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1031,7 +1120,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteDeviceFileResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceFileResponse(),
             self.do_rpcrequest('DeleteDeviceFile', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1044,7 +1134,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteDeviceGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDeviceGroupResponse(),
             self.do_rpcrequest('DeleteDeviceGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1057,7 +1148,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteDevicePropResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteDevicePropResponse(),
             self.do_rpcrequest('DeleteDeviceProp', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1070,7 +1162,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteEdgeDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteEdgeDriverResponse(),
             self.do_rpcrequest('DeleteEdgeDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1083,7 +1176,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteEdgeDriverVersionResponse(),
             self.do_rpcrequest('DeleteEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1096,7 +1190,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteEdgeInstanceResponse(),
             self.do_rpcrequest('DeleteEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1104,12 +1199,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_edge_instance_with_options(request, runtime)
 
+    def delete_edge_instance_message_routing_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteEdgeInstanceMessageRoutingResponse(),
+            self.do_rpcrequest('DeleteEdgeInstanceMessageRouting', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_edge_instance_message_routing(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_edge_instance_message_routing_with_options(request, runtime)
+
     def delete_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteJobResponse(),
             self.do_rpcrequest('DeleteJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1122,7 +1232,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteOTAFirmwareResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteOTAFirmwareResponse(),
             self.do_rpcrequest('DeleteOTAFirmware', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1135,7 +1246,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteOTAModuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteOTAModuleResponse(),
             self.do_rpcrequest('DeleteOTAModule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1148,7 +1260,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteProductResponse(),
             self.do_rpcrequest('DeleteProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1161,7 +1274,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteProductTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteProductTagsResponse(),
             self.do_rpcrequest('DeleteProductTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1174,7 +1288,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteProductTopicResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteProductTopicResponse(),
             self.do_rpcrequest('DeleteProductTopic', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1187,7 +1302,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteRuleResponse(),
             self.do_rpcrequest('DeleteRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1200,7 +1316,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteRuleActionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteRuleActionResponse(),
             self.do_rpcrequest('DeleteRuleAction', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1213,7 +1330,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSceneRuleResponse(),
             self.do_rpcrequest('DeleteSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1226,7 +1344,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteSubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteSubscribeRelationResponse(),
             self.do_rpcrequest('DeleteSubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1239,7 +1358,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteThingModelResponse(),
             self.do_rpcrequest('DeleteThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1252,7 +1372,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DeleteTopicRouteTableResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DeleteTopicRouteTableResponse(),
             self.do_rpcrequest('DeleteTopicRouteTable', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1260,12 +1381,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_topic_route_table_with_options(request, runtime)
 
+    def disable_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DisableDeviceTunnelResponse(),
+            self.do_rpcrequest('DisableDeviceTunnel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def disable_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_device_tunnel_with_options(request, runtime)
+
+    def disable_device_tunnel_share_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.DisableDeviceTunnelShareResponse(),
+            self.do_rpcrequest('DisableDeviceTunnelShare', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def disable_device_tunnel_share(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_device_tunnel_share_with_options(request, runtime)
+
     def disable_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DisableSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DisableSceneRuleResponse(),
             self.do_rpcrequest('DisableSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1278,7 +1428,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.DisableThingResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.DisableThingResponse(),
             self.do_rpcrequest('DisableThing', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1286,12 +1437,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.disable_thing_with_options(request, runtime)
 
+    def enable_device_tunnel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.EnableDeviceTunnelResponse(),
+            self.do_rpcrequest('EnableDeviceTunnel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def enable_device_tunnel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_device_tunnel_with_options(request, runtime)
+
+    def enable_device_tunnel_share_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.EnableDeviceTunnelShareResponse(),
+            self.do_rpcrequest('EnableDeviceTunnelShare', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def enable_device_tunnel_share(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_device_tunnel_share_with_options(request, runtime)
+
     def enable_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.EnableSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.EnableSceneRuleResponse(),
             self.do_rpcrequest('EnableSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1304,7 +1484,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.EnableThingResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.EnableThingResponse(),
             self.do_rpcrequest('EnableThing', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1317,7 +1498,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GenerateDeviceNameListURLResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GenerateDeviceNameListURLResponse(),
             self.do_rpcrequest('GenerateDeviceNameListURL', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1330,7 +1512,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GenerateFileUploadURLResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GenerateFileUploadURLResponse(),
             self.do_rpcrequest('GenerateFileUploadURL', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1343,7 +1526,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GenerateOTAUploadURLResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GenerateOTAUploadURLResponse(),
             self.do_rpcrequest('GenerateOTAUploadURL', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1356,7 +1540,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetDataAPIServiceDetailResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetDataAPIServiceDetailResponse(),
             self.do_rpcrequest('GetDataAPIServiceDetail', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1369,7 +1554,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetDeviceShadowResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetDeviceShadowResponse(),
             self.do_rpcrequest('GetDeviceShadow', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1382,7 +1568,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetDeviceStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetDeviceStatusResponse(),
             self.do_rpcrequest('GetDeviceStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1390,12 +1577,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_device_status_with_options(request, runtime)
 
+    def get_device_tunnel_share_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetDeviceTunnelShareStatusResponse(),
+            self.do_rpcrequest('GetDeviceTunnelShareStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_device_tunnel_share_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_device_tunnel_share_status_with_options(request, runtime)
+
+    def get_device_tunnel_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetDeviceTunnelStatusResponse(),
+            self.do_rpcrequest('GetDeviceTunnelStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_device_tunnel_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_device_tunnel_status_with_options(request, runtime)
+
     def get_edge_driver_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetEdgeDriverVersionResponse(),
             self.do_rpcrequest('GetEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1408,7 +1624,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetEdgeInstanceResponse(),
             self.do_rpcrequest('GetEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1421,7 +1638,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetEdgeInstanceDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetEdgeInstanceDeploymentResponse(),
             self.do_rpcrequest('GetEdgeInstanceDeployment', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1429,12 +1647,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_edge_instance_deployment_with_options(request, runtime)
 
+    def get_edge_instance_message_routing_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetEdgeInstanceMessageRoutingResponse(),
+            self.do_rpcrequest('GetEdgeInstanceMessageRouting', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_edge_instance_message_routing(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_edge_instance_message_routing_with_options(request, runtime)
+
     def get_gateway_by_sub_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetGatewayBySubDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetGatewayBySubDeviceResponse(),
             self.do_rpcrequest('GetGatewayBySubDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1447,7 +1680,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetLoraNodesTaskResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetLoraNodesTaskResponse(),
             self.do_rpcrequest('GetLoraNodesTask', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1460,7 +1694,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetNodesAddingTaskResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetNodesAddingTaskResponse(),
             self.do_rpcrequest('GetNodesAddingTask', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1473,7 +1708,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetRuleResponse(),
             self.do_rpcrequest('GetRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1486,7 +1722,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetRuleActionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetRuleActionResponse(),
             self.do_rpcrequest('GetRuleAction', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1499,7 +1736,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetSceneRuleResponse(),
             self.do_rpcrequest('GetSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1512,7 +1750,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetThingModelTslResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetThingModelTslResponse(),
             self.do_rpcrequest('GetThingModelTsl', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1525,7 +1764,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetThingModelTslPublishedResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetThingModelTslPublishedResponse(),
             self.do_rpcrequest('GetThingModelTslPublished', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1538,7 +1778,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetThingScriptResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetThingScriptResponse(),
             self.do_rpcrequest('GetThingScript', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1551,7 +1792,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetThingTemplateResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetThingTemplateResponse(),
             self.do_rpcrequest('GetThingTemplate', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1564,7 +1806,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.GetThingTopoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.GetThingTopoResponse(),
             self.do_rpcrequest('GetThingTopo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1577,7 +1820,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ImportThingModelTslResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ImportThingModelTslResponse(),
             self.do_rpcrequest('ImportThingModelTsl', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1590,7 +1834,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.InvokeDataAPIServiceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.InvokeDataAPIServiceResponse(),
             self.do_rpcrequest('InvokeDataAPIService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1603,7 +1848,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.InvokeThingServiceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.InvokeThingServiceResponse(),
             self.do_rpcrequest('InvokeThingService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1616,7 +1862,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.InvokeThingsServiceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.InvokeThingsServiceResponse(),
             self.do_rpcrequest('InvokeThingsService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1629,7 +1876,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListAnalyticsDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListAnalyticsDataResponse(),
             self.do_rpcrequest('ListAnalyticsData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1642,7 +1890,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListDeviceDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListDeviceDistributeJobResponse(),
             self.do_rpcrequest('ListDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1655,7 +1904,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListDistributedDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListDistributedDeviceResponse(),
             self.do_rpcrequest('ListDistributedDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1668,7 +1918,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListDistributedProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListDistributedProductResponse(),
             self.do_rpcrequest('ListDistributedProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1681,7 +1932,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListJobResponse(),
             self.do_rpcrequest('ListJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1694,7 +1946,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListOTAFirmwareResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTAFirmwareResponse(),
             self.do_rpcrequest('ListOTAFirmware', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1707,7 +1960,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListOTAJobByDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTAJobByDeviceResponse(),
             self.do_rpcrequest('ListOTAJobByDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1720,7 +1974,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListOTAJobByFirmwareResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTAJobByFirmwareResponse(),
             self.do_rpcrequest('ListOTAJobByFirmware', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1734,7 +1989,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             query=query
         )
-        return iot_20180120_models.ListOTAModuleByProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTAModuleByProductResponse(),
             self.do_rpcrequest('ListOTAModuleByProduct', '2018-01-20', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
         )
 
@@ -1747,7 +2003,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListOTAModuleVersionsByDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTAModuleVersionsByDeviceResponse(),
             self.do_rpcrequest('ListOTAModuleVersionsByDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1760,7 +2017,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListOTATaskByJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListOTATaskByJobResponse(),
             self.do_rpcrequest('ListOTATaskByJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1773,7 +2031,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListProductByTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListProductByTagsResponse(),
             self.do_rpcrequest('ListProductByTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1786,7 +2045,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListProductTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListProductTagsResponse(),
             self.do_rpcrequest('ListProductTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1799,7 +2059,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListRuleResponse(),
             self.do_rpcrequest('ListRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1812,7 +2073,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListRuleActionsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListRuleActionsResponse(),
             self.do_rpcrequest('ListRuleActions', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1825,7 +2087,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListTaskResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListTaskResponse(),
             self.do_rpcrequest('ListTask', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1838,7 +2101,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListTaskByPageResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListTaskByPageResponse(),
             self.do_rpcrequest('ListTaskByPage', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1851,7 +2115,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListThingModelVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListThingModelVersionResponse(),
             self.do_rpcrequest('ListThingModelVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1864,7 +2129,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ListThingTemplatesResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ListThingTemplatesResponse(),
             self.do_rpcrequest('ListThingTemplates', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1877,7 +2143,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.NotifyAddThingTopoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.NotifyAddThingTopoResponse(),
             self.do_rpcrequest('NotifyAddThingTopo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1890,7 +2157,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.OpenIotServiceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.OpenIotServiceResponse(),
             self.do_rpcrequest('OpenIotService', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1898,12 +2166,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.open_iot_service_with_options(request, runtime)
 
+    def print_by_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.PrintByTemplateResponse(),
+            self.do_rpcrequest('PrintByTemplate', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def print_by_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.print_by_template_with_options(request, runtime)
+
     def pub_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.PubResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.PubResponse(),
             self.do_rpcrequest('Pub', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1916,7 +2199,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.PubBroadcastResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.PubBroadcastResponse(),
             self.do_rpcrequest('PubBroadcast', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1929,7 +2213,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.PublishThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.PublishThingModelResponse(),
             self.do_rpcrequest('PublishThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1942,7 +2227,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryAppDeviceListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryAppDeviceListResponse(),
             self.do_rpcrequest('QueryAppDeviceList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1955,7 +2241,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryBatchRegisterDeviceStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryBatchRegisterDeviceStatusResponse(),
             self.do_rpcrequest('QueryBatchRegisterDeviceStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1968,7 +2255,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryCertUrlByApplyIdResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryCertUrlByApplyIdResponse(),
             self.do_rpcrequest('QueryCertUrlByApplyId', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1981,7 +2269,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryConsumerGroupByGroupIdResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryConsumerGroupByGroupIdResponse(),
             self.do_rpcrequest('QueryConsumerGroupByGroupId', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1994,7 +2283,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryConsumerGroupListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryConsumerGroupListResponse(),
             self.do_rpcrequest('QueryConsumerGroupList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2007,7 +2297,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryConsumerGroupStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryConsumerGroupStatusResponse(),
             self.do_rpcrequest('QueryConsumerGroupStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2020,7 +2311,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDetailSceneRuleLogResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDetailSceneRuleLogResponse(),
             self.do_rpcrequest('QueryDetailSceneRuleLog', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2033,7 +2325,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceResponse(),
             self.do_rpcrequest('QueryDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2046,7 +2339,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceBySQLResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceBySQLResponse(),
             self.do_rpcrequest('QueryDeviceBySQL', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2059,7 +2353,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceByStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceByStatusResponse(),
             self.do_rpcrequest('QueryDeviceByStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2072,7 +2367,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceByTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceByTagsResponse(),
             self.do_rpcrequest('QueryDeviceByTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2085,7 +2381,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceCertResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceCertResponse(),
             self.do_rpcrequest('QueryDeviceCert', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2098,7 +2395,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceDesiredPropertyResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceDesiredPropertyResponse(),
             self.do_rpcrequest('QueryDeviceDesiredProperty', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2111,7 +2409,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceDetailResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceDetailResponse(),
             self.do_rpcrequest('QueryDeviceDetail', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2124,7 +2423,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceDistributeDetailResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceDistributeDetailResponse(),
             self.do_rpcrequest('QueryDeviceDistributeDetail', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2137,7 +2437,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceDistributeJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceDistributeJobResponse(),
             self.do_rpcrequest('QueryDeviceDistributeJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2150,7 +2451,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceEventDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceEventDataResponse(),
             self.do_rpcrequest('QueryDeviceEventData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2163,7 +2465,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceFileResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceFileResponse(),
             self.do_rpcrequest('QueryDeviceFile', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2176,7 +2479,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceFileListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceFileListResponse(),
             self.do_rpcrequest('QueryDeviceFileList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2189,7 +2493,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceGroupByDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceGroupByDeviceResponse(),
             self.do_rpcrequest('QueryDeviceGroupByDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2202,7 +2507,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceGroupByTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceGroupByTagsResponse(),
             self.do_rpcrequest('QueryDeviceGroupByTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2215,7 +2521,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceGroupInfoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceGroupInfoResponse(),
             self.do_rpcrequest('QueryDeviceGroupInfo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2228,7 +2535,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceGroupListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceGroupListResponse(),
             self.do_rpcrequest('QueryDeviceGroupList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2241,7 +2549,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceGroupTagListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceGroupTagListResponse(),
             self.do_rpcrequest('QueryDeviceGroupTagList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2254,7 +2563,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceListByDeviceGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceListByDeviceGroupResponse(),
             self.do_rpcrequest('QueryDeviceListByDeviceGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2267,7 +2577,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceOriginalEventDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceOriginalEventDataResponse(),
             self.do_rpcrequest('QueryDeviceOriginalEventData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2280,7 +2591,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceOriginalPropertyDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceOriginalPropertyDataResponse(),
             self.do_rpcrequest('QueryDeviceOriginalPropertyData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2293,7 +2605,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceOriginalPropertyStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceOriginalPropertyStatusResponse(),
             self.do_rpcrequest('QueryDeviceOriginalPropertyStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2306,7 +2619,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceOriginalServiceDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceOriginalServiceDataResponse(),
             self.do_rpcrequest('QueryDeviceOriginalServiceData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2319,7 +2633,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDevicePropResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDevicePropResponse(),
             self.do_rpcrequest('QueryDeviceProp', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2332,7 +2647,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDevicePropertiesDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDevicePropertiesDataResponse(),
             self.do_rpcrequest('QueryDevicePropertiesData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2345,7 +2661,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDevicePropertyDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDevicePropertyDataResponse(),
             self.do_rpcrequest('QueryDevicePropertyData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2358,7 +2675,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDevicePropertyStatusResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDevicePropertyStatusResponse(),
             self.do_rpcrequest('QueryDevicePropertyStatus', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2371,7 +2689,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceServiceDataResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceServiceDataResponse(),
             self.do_rpcrequest('QueryDeviceServiceData', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2384,7 +2703,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryDeviceStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceStatisticsResponse(),
             self.do_rpcrequest('QueryDeviceStatistics', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2397,7 +2717,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeDriverResponse(),
             self.do_rpcrequest('QueryEdgeDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2410,7 +2731,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeDriverVersionResponse(),
             self.do_rpcrequest('QueryEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2423,7 +2745,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceResponse(),
             self.do_rpcrequest('QueryEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2436,7 +2759,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceChannelResponse(),
             self.do_rpcrequest('QueryEdgeInstanceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2449,7 +2773,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceDeviceResponse(),
             self.do_rpcrequest('QueryEdgeInstanceDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2462,7 +2787,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceDeviceByDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceDeviceByDriverResponse(),
             self.do_rpcrequest('QueryEdgeInstanceDeviceByDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2475,7 +2801,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceDriverResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceDriverResponse(),
             self.do_rpcrequest('QueryEdgeInstanceDriver', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2488,7 +2815,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceGatewayResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceGatewayResponse(),
             self.do_rpcrequest('QueryEdgeInstanceGateway', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2501,7 +2829,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceHistoricDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceHistoricDeploymentResponse(),
             self.do_rpcrequest('QueryEdgeInstanceHistoricDeployment', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2509,12 +2838,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_edge_instance_historic_deployment_with_options(request, runtime)
 
+    def query_edge_instance_message_routing_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceMessageRoutingResponse(),
+            self.do_rpcrequest('QueryEdgeInstanceMessageRouting', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_edge_instance_message_routing(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_edge_instance_message_routing_with_options(request, runtime)
+
     def query_edge_instance_scene_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryEdgeInstanceSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryEdgeInstanceSceneRuleResponse(),
             self.do_rpcrequest('QueryEdgeInstanceSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2527,7 +2871,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryJobResponse(),
             self.do_rpcrequest('QueryJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2541,7 +2886,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             query=query
         )
-        return iot_20180120_models.QueryJobStatisticsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryJobStatisticsResponse(),
             self.do_rpcrequest('QueryJobStatistics', '2018-01-20', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
         )
 
@@ -2554,7 +2900,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryLoRaJoinPermissionsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryLoRaJoinPermissionsResponse(),
             self.do_rpcrequest('QueryLoRaJoinPermissions', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2567,7 +2914,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryOTAFirmwareResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryOTAFirmwareResponse(),
             self.do_rpcrequest('QueryOTAFirmware', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2580,7 +2928,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryOTAJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryOTAJobResponse(),
             self.do_rpcrequest('QueryOTAJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2593,7 +2942,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryPageByApplyIdResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryPageByApplyIdResponse(),
             self.do_rpcrequest('QueryPageByApplyId', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2606,7 +2956,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryProductResponse(),
             self.do_rpcrequest('QueryProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2619,7 +2970,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryProductCertInfoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryProductCertInfoResponse(),
             self.do_rpcrequest('QueryProductCertInfo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2632,7 +2984,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryProductListResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryProductListResponse(),
             self.do_rpcrequest('QueryProductList', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2645,7 +2998,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryProductTopicResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryProductTopicResponse(),
             self.do_rpcrequest('QueryProductTopic', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2658,7 +3012,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QuerySceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySceneRuleResponse(),
             self.do_rpcrequest('QuerySceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2671,7 +3026,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QuerySubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySubscribeRelationResponse(),
             self.do_rpcrequest('QuerySubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2684,7 +3040,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QuerySummarySceneRuleLogResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySummarySceneRuleLogResponse(),
             self.do_rpcrequest('QuerySummarySceneRuleLog', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2697,7 +3054,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QuerySuperDeviceGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySuperDeviceGroupResponse(),
             self.do_rpcrequest('QuerySuperDeviceGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2710,7 +3068,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryTaskResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryTaskResponse(),
             self.do_rpcrequest('QueryTask', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2723,7 +3082,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryThingModelResponse(),
             self.do_rpcrequest('QueryThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2736,7 +3096,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryThingModelExtendConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryThingModelExtendConfigResponse(),
             self.do_rpcrequest('QueryThingModelExtendConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2749,7 +3110,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryThingModelExtendConfigPublishedResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryThingModelExtendConfigPublishedResponse(),
             self.do_rpcrequest('QueryThingModelExtendConfigPublished', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2762,7 +3124,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryThingModelPublishedResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryThingModelPublishedResponse(),
             self.do_rpcrequest('QueryThingModelPublished', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2775,7 +3138,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryTopicReverseRouteTableResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryTopicReverseRouteTableResponse(),
             self.do_rpcrequest('QueryTopicReverseRouteTable', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2788,7 +3152,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.QueryTopicRouteTableResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.QueryTopicRouteTableResponse(),
             self.do_rpcrequest('QueryTopicRouteTable', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2796,12 +3161,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_topic_route_table_with_options(request, runtime)
 
+    def refresh_device_tunnel_share_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.RefreshDeviceTunnelSharePasswordResponse(),
+            self.do_rpcrequest('RefreshDeviceTunnelSharePassword', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def refresh_device_tunnel_share_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.refresh_device_tunnel_share_password_with_options(request, runtime)
+
     def register_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.RegisterDeviceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.RegisterDeviceResponse(),
             self.do_rpcrequest('RegisterDevice', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2814,7 +3194,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ReleaseEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ReleaseEdgeDriverVersionResponse(),
             self.do_rpcrequest('ReleaseEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2827,7 +3208,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.RemoveThingTopoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.RemoveThingTopoResponse(),
             self.do_rpcrequest('RemoveThingTopo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2840,7 +3222,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ReplaceEdgeInstanceGatewayResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ReplaceEdgeInstanceGatewayResponse(),
             self.do_rpcrequest('ReplaceEdgeInstanceGateway', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2853,7 +3236,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ResetConsumerGroupPositionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ResetConsumerGroupPositionResponse(),
             self.do_rpcrequest('ResetConsumerGroupPosition', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2866,7 +3250,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.ResetThingResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.ResetThingResponse(),
             self.do_rpcrequest('ResetThing', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2879,7 +3264,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.RRpcResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.RRpcResponse(),
             self.do_rpcrequest('RRpc', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2892,7 +3278,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SaveDevicePropResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SaveDevicePropResponse(),
             self.do_rpcrequest('SaveDeviceProp', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2905,7 +3292,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetDeviceDesiredPropertyResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetDeviceDesiredPropertyResponse(),
             self.do_rpcrequest('SetDeviceDesiredProperty', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2918,7 +3306,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetDeviceGroupTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetDeviceGroupTagsResponse(),
             self.do_rpcrequest('SetDeviceGroupTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2931,7 +3320,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetDevicePropertyResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetDevicePropertyResponse(),
             self.do_rpcrequest('SetDeviceProperty', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2944,7 +3334,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetDevicesPropertyResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetDevicesPropertyResponse(),
             self.do_rpcrequest('SetDevicesProperty', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2957,7 +3348,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetEdgeInstanceDriverConfigsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetEdgeInstanceDriverConfigsResponse(),
             self.do_rpcrequest('SetEdgeInstanceDriverConfigs', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2970,7 +3362,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SetProductCertInfoResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SetProductCertInfoResponse(),
             self.do_rpcrequest('SetProductCertInfo', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2983,7 +3376,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SpeechByCombinationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SpeechByCombinationResponse(),
             self.do_rpcrequest('SpeechByCombination', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2996,7 +3390,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.StartCpuResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.StartCpuResponse(),
             self.do_rpcrequest('StartCpu', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3009,7 +3404,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.StartRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.StartRuleResponse(),
             self.do_rpcrequest('StartRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3022,7 +3418,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.StopRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.StopRuleResponse(),
             self.do_rpcrequest('StopRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3035,7 +3432,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.SyncSpeechByCombinationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.SyncSpeechByCombinationResponse(),
             self.do_rpcrequest('SyncSpeechByCombination', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3048,7 +3446,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.TriggerSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.TriggerSceneRuleResponse(),
             self.do_rpcrequest('TriggerSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3061,7 +3460,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UnbindApplicationFromEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UnbindApplicationFromEdgeInstanceResponse(),
             self.do_rpcrequest('UnbindApplicationFromEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3074,7 +3474,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UnbindDriverFromEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UnbindDriverFromEdgeInstanceResponse(),
             self.do_rpcrequest('UnbindDriverFromEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3087,7 +3488,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UnbindRoleFromEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UnbindRoleFromEdgeInstanceResponse(),
             self.do_rpcrequest('UnbindRoleFromEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3100,7 +3502,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UnbindSceneRuleFromEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UnbindSceneRuleFromEdgeInstanceResponse(),
             self.do_rpcrequest('UnbindSceneRuleFromEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3113,7 +3516,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateConsumerGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateConsumerGroupResponse(),
             self.do_rpcrequest('UpdateConsumerGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3126,7 +3530,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateDeviceGroupResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateDeviceGroupResponse(),
             self.do_rpcrequest('UpdateDeviceGroup', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3139,7 +3544,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateDeviceShadowResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateDeviceShadowResponse(),
             self.do_rpcrequest('UpdateDeviceShadow', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3152,7 +3558,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateEdgeDriverVersionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateEdgeDriverVersionResponse(),
             self.do_rpcrequest('UpdateEdgeDriverVersion', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3165,7 +3572,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateEdgeInstanceResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateEdgeInstanceResponse(),
             self.do_rpcrequest('UpdateEdgeInstance', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3178,7 +3586,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateEdgeInstanceChannelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateEdgeInstanceChannelResponse(),
             self.do_rpcrequest('UpdateEdgeInstanceChannel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3186,12 +3595,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_edge_instance_channel_with_options(request, runtime)
 
+    def update_edge_instance_message_routing_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateEdgeInstanceMessageRoutingResponse(),
+            self.do_rpcrequest('UpdateEdgeInstanceMessageRouting', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_edge_instance_message_routing(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_edge_instance_message_routing_with_options(request, runtime)
+
     def update_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateJobResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateJobResponse(),
             self.do_rpcrequest('UpdateJob', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3204,7 +3628,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateOTAModuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateOTAModuleResponse(),
             self.do_rpcrequest('UpdateOTAModule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3217,7 +3642,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateProductResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateProductResponse(),
             self.do_rpcrequest('UpdateProduct', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3230,7 +3656,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateProductFilterConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateProductFilterConfigResponse(),
             self.do_rpcrequest('UpdateProductFilterConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3243,7 +3670,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateProductTagsResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateProductTagsResponse(),
             self.do_rpcrequest('UpdateProductTags', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3256,7 +3684,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateProductTopicResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateProductTopicResponse(),
             self.do_rpcrequest('UpdateProductTopic', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3269,7 +3698,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateRuleResponse(),
             self.do_rpcrequest('UpdateRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3282,7 +3712,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateRuleActionResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateRuleActionResponse(),
             self.do_rpcrequest('UpdateRuleAction', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3295,7 +3726,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateSceneRuleResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSceneRuleResponse(),
             self.do_rpcrequest('UpdateSceneRule', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3308,7 +3740,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateSubscribeRelationResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateSubscribeRelationResponse(),
             self.do_rpcrequest('UpdateSubscribeRelation', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3321,7 +3754,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateThingModelResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateThingModelResponse(),
             self.do_rpcrequest('UpdateThingModel', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3334,7 +3768,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateThingModelValidationConfigResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateThingModelValidationConfigResponse(),
             self.do_rpcrequest('UpdateThingModelValidationConfig', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3347,7 +3782,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return iot_20180120_models.UpdateThingScriptResponse().from_map(
+        return TeaCore.from_map(
+            iot_20180120_models.UpdateThingScriptResponse(),
             self.do_rpcrequest('UpdateThingScript', '2018-01-20', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
