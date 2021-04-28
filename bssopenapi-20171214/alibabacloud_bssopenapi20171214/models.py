@@ -13513,17 +13513,51 @@ class QuerySavingsPlansDeductLogResponse(TeaModel):
         return self
 
 
+class QuerySavingsPlansInstanceRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansInstanceRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class QuerySavingsPlansInstanceRequest(TeaModel):
-    def __init__(self, page_size=None, locale=None, page_num=None, instance_id=None, start_time=None, end_time=None):
+    def __init__(self, page_size=None, locale=None, page_num=None, instance_id=None, start_time=None, end_time=None,
+                 tag=None):
         self.page_size = page_size  # type: int
         self.locale = locale  # type: str
         self.page_num = page_num  # type: int
         self.instance_id = instance_id  # type: str
         self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.tag = tag  # type: list[QuerySavingsPlansInstanceRequestTag]
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(QuerySavingsPlansInstanceRequest, self).to_map()
@@ -13543,6 +13577,10 @@ class QuerySavingsPlansInstanceRequest(TeaModel):
             result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -13559,16 +13597,50 @@ class QuerySavingsPlansInstanceRequest(TeaModel):
             self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = QuerySavingsPlansInstanceRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class QuerySavingsPlansInstanceResponseBodyDataItemsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuerySavingsPlansInstanceResponseBodyDataItemsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
 class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
-    def __init__(self, status=None, share=None, savings_type=None, prepay_fee=None, utilization=None,
-                 instance_id=None, currency=None, end_time=None, start_time=None, instance_family=None, region=None,
-                 total_save=None, pool_value=None, pay_mode=None):
+    def __init__(self, status=None, savings_type=None, tags=None, prepay_fee=None, utilization=None,
+                 instance_id=None, currency=None, end_time=None, start_time=None, instance_family=None, allocation_status=None,
+                 region=None, total_save=None, pool_value=None, pay_mode=None):
         self.status = status  # type: str
-        self.share = share  # type: bool
         self.savings_type = savings_type  # type: str
+        self.tags = tags  # type: list[QuerySavingsPlansInstanceResponseBodyDataItemsTags]
         self.prepay_fee = prepay_fee  # type: str
         self.utilization = utilization  # type: str
         self.instance_id = instance_id  # type: str
@@ -13576,13 +13648,17 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
         self.end_time = end_time  # type: str
         self.start_time = start_time  # type: str
         self.instance_family = instance_family  # type: str
+        self.allocation_status = allocation_status  # type: str
         self.region = region  # type: str
         self.total_save = total_save  # type: str
         self.pool_value = pool_value  # type: str
         self.pay_mode = pay_mode  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(QuerySavingsPlansInstanceResponseBodyDataItems, self).to_map()
@@ -13592,10 +13668,12 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
-        if self.share is not None:
-            result['Share'] = self.share
         if self.savings_type is not None:
             result['SavingsType'] = self.savings_type
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.prepay_fee is not None:
             result['PrepayFee'] = self.prepay_fee
         if self.utilization is not None:
@@ -13610,6 +13688,8 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
             result['StartTime'] = self.start_time
         if self.instance_family is not None:
             result['InstanceFamily'] = self.instance_family
+        if self.allocation_status is not None:
+            result['AllocationStatus'] = self.allocation_status
         if self.region is not None:
             result['Region'] = self.region
         if self.total_save is not None:
@@ -13624,10 +13704,13 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
         m = m or dict()
         if m.get('Status') is not None:
             self.status = m.get('Status')
-        if m.get('Share') is not None:
-            self.share = m.get('Share')
         if m.get('SavingsType') is not None:
             self.savings_type = m.get('SavingsType')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = QuerySavingsPlansInstanceResponseBodyDataItemsTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('PrepayFee') is not None:
             self.prepay_fee = m.get('PrepayFee')
         if m.get('Utilization') is not None:
@@ -13642,6 +13725,8 @@ class QuerySavingsPlansInstanceResponseBodyDataItems(TeaModel):
             self.start_time = m.get('StartTime')
         if m.get('InstanceFamily') is not None:
             self.instance_family = m.get('InstanceFamily')
+        if m.get('AllocationStatus') is not None:
+            self.allocation_status = m.get('AllocationStatus')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('TotalSave') is not None:
