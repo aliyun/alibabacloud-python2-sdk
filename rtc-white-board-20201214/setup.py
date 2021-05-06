@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_rtc-white-board20201214_py2.
 
-Created on 21/04/2021
+Created on 06/05/2021
 
 @author: Alibaba Cloud SDK
 """
