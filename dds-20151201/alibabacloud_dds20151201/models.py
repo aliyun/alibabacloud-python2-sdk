@@ -1,27 +1,30 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class AllocateNodePrivateNetworkAddressRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, zone_id=None, dbinstance_id=None, node_id=None, account_name=None, account_password=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.zone_id = zone_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AllocateNodePrivateNetworkAddressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -72,12 +75,16 @@ class AllocateNodePrivateNetworkAddressRequest(TeaModel):
 
 class AllocateNodePrivateNetworkAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AllocateNodePrivateNetworkAddressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -92,7 +99,7 @@ class AllocateNodePrivateNetworkAddressResponseBody(TeaModel):
 
 class AllocateNodePrivateNetworkAddressResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AllocateNodePrivateNetworkAddressResponseBody
 
     def validate(self):
@@ -102,6 +109,10 @@ class AllocateNodePrivateNetworkAddressResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AllocateNodePrivateNetworkAddressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -122,18 +133,22 @@ class AllocateNodePrivateNetworkAddressResponse(TeaModel):
 class AllocatePublicNetworkAddressRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AllocatePublicNetworkAddressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -172,12 +187,16 @@ class AllocatePublicNetworkAddressRequest(TeaModel):
 
 class AllocatePublicNetworkAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AllocatePublicNetworkAddressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -192,7 +211,7 @@ class AllocatePublicNetworkAddressResponseBody(TeaModel):
 
 class AllocatePublicNetworkAddressResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AllocatePublicNetworkAddressResponseBody
 
     def validate(self):
@@ -202,6 +221,10 @@ class AllocatePublicNetworkAddressResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AllocatePublicNetworkAddressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -222,18 +245,22 @@ class AllocatePublicNetworkAddressResponse(TeaModel):
 class CheckCloudResourceAuthorizedRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, target_region_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.target_region_id = TeaConverter.to_unicode(target_region_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.target_region_id = target_region_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CheckCloudResourceAuthorizedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -273,13 +300,17 @@ class CheckCloudResourceAuthorizedRequest(TeaModel):
 class CheckCloudResourceAuthorizedResponseBody(TeaModel):
     def __init__(self, authorization_state=None, request_id=None, role_arn=None):
         self.authorization_state = authorization_state  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.role_arn = TeaConverter.to_unicode(role_arn)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.role_arn = role_arn  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CheckCloudResourceAuthorizedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.authorization_state is not None:
             result['AuthorizationState'] = self.authorization_state
@@ -302,7 +333,7 @@ class CheckCloudResourceAuthorizedResponseBody(TeaModel):
 
 class CheckCloudResourceAuthorizedResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CheckCloudResourceAuthorizedResponseBody
 
     def validate(self):
@@ -312,6 +343,10 @@ class CheckCloudResourceAuthorizedResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CheckCloudResourceAuthorizedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -333,21 +368,25 @@ class CheckRecoveryConditionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, source_dbinstance=None, database_names=None, restore_time=None, backup_id=None,
                  resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.source_dbinstance = TeaConverter.to_unicode(source_dbinstance)  # type: unicode
-        self.database_names = TeaConverter.to_unicode(database_names)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.source_dbinstance = source_dbinstance  # type: str
+        self.database_names = database_names  # type: str
+        self.restore_time = restore_time  # type: str
+        self.backup_id = backup_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CheckRecoveryConditionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -398,14 +437,18 @@ class CheckRecoveryConditionRequest(TeaModel):
 
 class CheckRecoveryConditionResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstance_name=None, is_valid=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.dbinstance_name = TeaConverter.to_unicode(dbinstance_name)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.dbinstance_name = dbinstance_name  # type: str
         self.is_valid = is_valid  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CheckRecoveryConditionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -428,7 +471,7 @@ class CheckRecoveryConditionResponseBody(TeaModel):
 
 class CheckRecoveryConditionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CheckRecoveryConditionResponseBody
 
     def validate(self):
@@ -438,6 +481,10 @@ class CheckRecoveryConditionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CheckRecoveryConditionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -458,18 +505,22 @@ class CheckRecoveryConditionResponse(TeaModel):
 class CreateBackupRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, backup_method=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.backup_method = TeaConverter.to_unicode(backup_method)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.backup_method = backup_method  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateBackupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -508,13 +559,17 @@ class CreateBackupRequest(TeaModel):
 
 class CreateBackupResponseBody(TeaModel):
     def __init__(self, request_id=None, backup_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.backup_id = backup_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateBackupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -533,7 +588,7 @@ class CreateBackupResponseBody(TeaModel):
 
 class CreateBackupResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateBackupResponseBody
 
     def validate(self):
@@ -543,6 +598,10 @@ class CreateBackupResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateBackupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -562,47 +621,53 @@ class CreateBackupResponse(TeaModel):
 
 class CreateDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, client_token=None, zone_id=None, engine=None, engine_version=None, dbinstance_class=None,
-                 dbinstance_storage=None, dbinstance_description=None, security_iplist=None, account_password=None, charge_type=None,
-                 period=None, network_type=None, vpc_id=None, v_switch_id=None, src_dbinstance_id=None, backup_id=None,
-                 restore_time=None, business_info=None, auto_renew=None, database_names=None, coupon_no=None,
-                 storage_engine=None, replication_factor=None, readonly_replicas=None, resource_group_id=None, cluster_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, region_id=None, client_token=None, zone_id=None, engine=None, engine_version=None,
+                 dbinstance_class=None, dbinstance_storage=None, dbinstance_description=None, security_iplist=None,
+                 account_password=None, charge_type=None, period=None, network_type=None, vpc_id=None, v_switch_id=None,
+                 src_dbinstance_id=None, backup_id=None, restore_time=None, business_info=None, auto_renew=None, database_names=None,
+                 coupon_no=None, storage_engine=None, replication_factor=None, readonly_replicas=None,
+                 resource_group_id=None, cluster_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.client_token = client_token  # type: str
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
         self.dbinstance_storage = dbinstance_storage  # type: int
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.security_iplist = TeaConverter.to_unicode(security_iplist)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.security_iplist = security_iplist  # type: str
+        self.account_password = account_password  # type: str
+        self.charge_type = charge_type  # type: str
         self.period = period  # type: int
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.src_dbinstance_id = TeaConverter.to_unicode(src_dbinstance_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.database_names = TeaConverter.to_unicode(database_names)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.storage_engine = TeaConverter.to_unicode(storage_engine)  # type: unicode
-        self.replication_factor = TeaConverter.to_unicode(replication_factor)  # type: unicode
-        self.readonly_replicas = TeaConverter.to_unicode(readonly_replicas)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.src_dbinstance_id = src_dbinstance_id  # type: str
+        self.backup_id = backup_id  # type: str
+        self.restore_time = restore_time  # type: str
+        self.business_info = business_info  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.database_names = database_names  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.storage_engine = storage_engine  # type: str
+        self.replication_factor = replication_factor  # type: str
+        self.readonly_replicas = readonly_replicas  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -614,6 +679,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.zone_id is not None:
@@ -680,6 +747,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('ZoneId') is not None:
@@ -737,14 +806,18 @@ class CreateDBInstanceRequest(TeaModel):
 
 class CreateDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstance_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -767,7 +840,7 @@ class CreateDBInstanceResponseBody(TeaModel):
 
 class CreateDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateDBInstanceResponseBody
 
     def validate(self):
@@ -777,6 +850,10 @@ class CreateDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -798,17 +875,17 @@ class CreateNodeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_class=None, node_storage=None, node_type=None, client_token=None,
                  from_app=None, auto_pay=None, readonly_replicas=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_class = node_class  # type: str
         self.node_storage = node_storage  # type: int
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
+        self.node_type = node_type  # type: str
+        self.client_token = client_token  # type: str
+        self.from_app = from_app  # type: str
         self.auto_pay = auto_pay  # type: bool
         self.readonly_replicas = readonly_replicas  # type: int
 
@@ -816,6 +893,10 @@ class CreateNodeRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateNodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -878,14 +959,18 @@ class CreateNodeRequest(TeaModel):
 
 class CreateNodeResponseBody(TeaModel):
     def __init__(self, request_id=None, node_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.node_id = node_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateNodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -908,7 +993,7 @@ class CreateNodeResponseBody(TeaModel):
 
 class CreateNodeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateNodeResponseBody
 
     def validate(self):
@@ -918,6 +1003,10 @@ class CreateNodeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateNodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -938,20 +1027,24 @@ class CreateNodeResponse(TeaModel):
 class CreateRecommendationTaskRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, node_id=None, start_time=None, end_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateRecommendationTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -998,12 +1091,16 @@ class CreateRecommendationTaskRequest(TeaModel):
 
 class CreateRecommendationTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateRecommendationTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1018,7 +1115,7 @@ class CreateRecommendationTaskResponseBody(TeaModel):
 
 class CreateRecommendationTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateRecommendationTaskResponseBody
 
     def validate(self):
@@ -1028,6 +1125,10 @@ class CreateRecommendationTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateRecommendationTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1048,37 +1149,38 @@ class CreateRecommendationTaskResponse(TeaModel):
 class CreateServerlessDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, dbinstance_storage=None, zone_id=None, engine=None, engine_version=None,
-                 dbinstance_description=None, security_iplist=None, account_password=None, charge_type=None, period=None,
-                 network_type=None, vpc_id=None, v_switch_id=None, client_token=None, storage_engine=None, auto_renew=None,
-                 resource_group_id=None, period_price_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 dbinstance_description=None, security_iplist=None, account_password=None, period=None, vpc_id=None, v_switch_id=None,
+                 client_token=None, storage_engine=None, auto_renew=None, resource_group_id=None, period_price_type=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
         self.dbinstance_storage = dbinstance_storage  # type: int
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.security_iplist = TeaConverter.to_unicode(security_iplist)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.security_iplist = security_iplist  # type: str
+        self.account_password = account_password  # type: str
         self.period = period  # type: int
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.storage_engine = TeaConverter.to_unicode(storage_engine)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.period_price_type = TeaConverter.to_unicode(period_price_type)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.client_token = client_token  # type: str
+        self.storage_engine = storage_engine  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.period_price_type = period_price_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateServerlessDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -1106,12 +1208,8 @@ class CreateServerlessDBInstanceRequest(TeaModel):
             result['SecurityIPList'] = self.security_iplist
         if self.account_password is not None:
             result['AccountPassword'] = self.account_password
-        if self.charge_type is not None:
-            result['ChargeType'] = self.charge_type
         if self.period is not None:
             result['Period'] = self.period
-        if self.network_type is not None:
-            result['NetworkType'] = self.network_type
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         if self.v_switch_id is not None:
@@ -1156,12 +1254,8 @@ class CreateServerlessDBInstanceRequest(TeaModel):
             self.security_iplist = m.get('SecurityIPList')
         if m.get('AccountPassword') is not None:
             self.account_password = m.get('AccountPassword')
-        if m.get('ChargeType') is not None:
-            self.charge_type = m.get('ChargeType')
         if m.get('Period') is not None:
             self.period = m.get('Period')
-        if m.get('NetworkType') is not None:
-            self.network_type = m.get('NetworkType')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         if m.get('VSwitchId') is not None:
@@ -1181,14 +1275,18 @@ class CreateServerlessDBInstanceRequest(TeaModel):
 
 class CreateServerlessDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstance_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateServerlessDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1211,7 +1309,7 @@ class CreateServerlessDBInstanceResponseBody(TeaModel):
 
 class CreateServerlessDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateServerlessDBInstanceResponseBody
 
     def validate(self):
@@ -1221,6 +1319,10 @@ class CreateServerlessDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateServerlessDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1240,12 +1342,16 @@ class CreateServerlessDBInstanceResponse(TeaModel):
 
 class CreateShardingDBInstanceRequestMongos(TeaModel):
     def __init__(self, class_=None):
-        self.class_ = TeaConverter.to_unicode(class_)  # type: unicode
+        self.class_ = class_  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceRequestMongos, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.class_ is not None:
             result['Class'] = self.class_
@@ -1260,7 +1366,7 @@ class CreateShardingDBInstanceRequestMongos(TeaModel):
 
 class CreateShardingDBInstanceRequestReplicaSet(TeaModel):
     def __init__(self, class_=None, storage=None, readonly_replicas=None):
-        self.class_ = TeaConverter.to_unicode(class_)  # type: unicode
+        self.class_ = class_  # type: str
         self.storage = storage  # type: int
         self.readonly_replicas = readonly_replicas  # type: int
 
@@ -1268,6 +1374,10 @@ class CreateShardingDBInstanceRequestReplicaSet(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceRequestReplicaSet, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.class_ is not None:
             result['Class'] = self.class_
@@ -1290,13 +1400,17 @@ class CreateShardingDBInstanceRequestReplicaSet(TeaModel):
 
 class CreateShardingDBInstanceRequestConfigServer(TeaModel):
     def __init__(self, class_=None, storage=None):
-        self.class_ = TeaConverter.to_unicode(class_)  # type: unicode
+        self.class_ = class_  # type: str
         self.storage = storage  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceRequestConfigServer, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.class_ is not None:
             result['Class'] = self.class_
@@ -1314,33 +1428,34 @@ class CreateShardingDBInstanceRequestConfigServer(TeaModel):
 
 
 class CreateShardingDBInstanceRequest(TeaModel):
-    def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, zone_id=None, engine=None, engine_version=None, dbinstance_description=None,
-                 security_iplist=None, account_password=None, charge_type=None, period=None, network_type=None, vpc_id=None,
-                 v_switch_id=None, src_dbinstance_id=None, restore_time=None, client_token=None, storage_engine=None,
-                 auto_renew=None, protocol_type=None, mongos=None, replica_set=None, config_server=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+    def __init__(self, region_id=None, security_token=None, owner_id=None, resource_owner_account=None,
+                 resource_owner_id=None, owner_account=None, zone_id=None, engine=None, engine_version=None,
+                 dbinstance_description=None, security_iplist=None, account_password=None, charge_type=None, period=None,
+                 network_type=None, vpc_id=None, v_switch_id=None, src_dbinstance_id=None, restore_time=None, client_token=None,
+                 storage_engine=None, auto_renew=None, protocol_type=None, mongos=None, replica_set=None, config_server=None):
+        self.region_id = region_id  # type: str
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.security_iplist = TeaConverter.to_unicode(security_iplist)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.security_iplist = security_iplist  # type: str
+        self.account_password = account_password  # type: str
+        self.charge_type = charge_type  # type: str
         self.period = period  # type: int
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.src_dbinstance_id = TeaConverter.to_unicode(src_dbinstance_id)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.storage_engine = TeaConverter.to_unicode(storage_engine)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.protocol_type = TeaConverter.to_unicode(protocol_type)  # type: unicode
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.src_dbinstance_id = src_dbinstance_id  # type: str
+        self.restore_time = restore_time  # type: str
+        self.client_token = client_token  # type: str
+        self.storage_engine = storage_engine  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.protocol_type = protocol_type  # type: str
         self.mongos = mongos  # type: list[CreateShardingDBInstanceRequestMongos]
         self.replica_set = replica_set  # type: list[CreateShardingDBInstanceRequestReplicaSet]
         self.config_server = config_server  # type: list[CreateShardingDBInstanceRequestConfigServer]
@@ -1360,7 +1475,13 @@ class CreateShardingDBInstanceRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
         if self.owner_id is not None:
@@ -1421,6 +1542,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
         if m.get('OwnerId') is not None:
@@ -1485,14 +1608,18 @@ class CreateShardingDBInstanceRequest(TeaModel):
 
 class CreateShardingDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstance_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1515,7 +1642,7 @@ class CreateShardingDBInstanceResponseBody(TeaModel):
 
 class CreateShardingDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateShardingDBInstanceResponseBody
 
     def validate(self):
@@ -1525,6 +1652,10 @@ class CreateShardingDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateShardingDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1545,18 +1676,22 @@ class CreateShardingDBInstanceResponse(TeaModel):
 class DeleteDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.client_token = client_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -1595,12 +1730,16 @@ class DeleteDBInstanceRequest(TeaModel):
 
 class DeleteDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1615,7 +1754,7 @@ class DeleteDBInstanceResponseBody(TeaModel):
 
 class DeleteDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteDBInstanceResponseBody
 
     def validate(self):
@@ -1625,6 +1764,10 @@ class DeleteDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1645,19 +1788,23 @@ class DeleteDBInstanceResponse(TeaModel):
 class DeleteNodeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, client_token=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.client_token = client_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteNodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -1701,13 +1848,17 @@ class DeleteNodeRequest(TeaModel):
 class DeleteNodeResponseBody(TeaModel):
     def __init__(self, task_id=None, request_id=None, order_id=None):
         self.task_id = task_id  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteNodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_id is not None:
             result['TaskId'] = self.task_id
@@ -1730,7 +1881,7 @@ class DeleteNodeResponseBody(TeaModel):
 
 class DeleteNodeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteNodeResponseBody
 
     def validate(self):
@@ -1740,6 +1891,10 @@ class DeleteNodeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteNodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1760,18 +1915,22 @@ class DeleteNodeResponse(TeaModel):
 class DescribeAccountsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, account_name=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAccountsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -1811,16 +1970,20 @@ class DescribeAccountsRequest(TeaModel):
 class DescribeAccountsResponseBodyAccountsAccount(TeaModel):
     def __init__(self, character_type=None, account_status=None, account_description=None, dbinstance_id=None,
                  account_name=None):
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
-        self.account_status = TeaConverter.to_unicode(account_status)  # type: unicode
-        self.account_description = TeaConverter.to_unicode(account_description)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.character_type = character_type  # type: str
+        self.account_status = account_status  # type: str
+        self.account_description = account_description  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAccountsResponseBodyAccountsAccount, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.character_type is not None:
             result['CharacterType'] = self.character_type
@@ -1860,6 +2023,10 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeAccountsResponseBodyAccounts, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Account'] = []
         if self.account is not None:
@@ -1879,7 +2046,7 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
 
 class DescribeAccountsResponseBody(TeaModel):
     def __init__(self, request_id=None, accounts=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.accounts = accounts  # type: DescribeAccountsResponseBodyAccounts
 
     def validate(self):
@@ -1887,6 +2054,10 @@ class DescribeAccountsResponseBody(TeaModel):
             self.accounts.validate()
 
     def to_map(self):
+        _map = super(DescribeAccountsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1906,7 +2077,7 @@ class DescribeAccountsResponseBody(TeaModel):
 
 class DescribeAccountsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAccountsResponseBody
 
     def validate(self):
@@ -1916,6 +2087,10 @@ class DescribeAccountsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAccountsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1936,17 +2111,21 @@ class DescribeAccountsResponse(TeaModel):
 class DescribeActiveOperationTaskCountRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -1981,7 +2160,7 @@ class DescribeActiveOperationTaskCountRequest(TeaModel):
 
 class DescribeActiveOperationTaskCountResponseBody(TeaModel):
     def __init__(self, request_id=None, need_pop=None, task_count=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.need_pop = need_pop  # type: int
         self.task_count = task_count  # type: int
 
@@ -1989,6 +2168,10 @@ class DescribeActiveOperationTaskCountResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2011,7 +2194,7 @@ class DescribeActiveOperationTaskCountResponseBody(TeaModel):
 
 class DescribeActiveOperationTaskCountResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeActiveOperationTaskCountResponseBody
 
     def validate(self):
@@ -2021,6 +2204,10 @@ class DescribeActiveOperationTaskCountResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2041,18 +2228,22 @@ class DescribeActiveOperationTaskCountResponse(TeaModel):
 class DescribeActiveOperationTaskTypeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, is_history=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
+        self.owner_account = owner_account  # type: str
         self.is_history = is_history  # type: int
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -2091,13 +2282,17 @@ class DescribeActiveOperationTaskTypeRequest(TeaModel):
 
 class DescribeActiveOperationTaskTypeResponseBodyTypeList(TeaModel):
     def __init__(self, task_type=None, count=None):
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.task_type = task_type  # type: str
         self.count = count  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskTypeResponseBodyTypeList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_type is not None:
             result['TaskType'] = self.task_type
@@ -2116,7 +2311,7 @@ class DescribeActiveOperationTaskTypeResponseBodyTypeList(TeaModel):
 
 class DescribeActiveOperationTaskTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, type_list=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.type_list = type_list  # type: list[DescribeActiveOperationTaskTypeResponseBodyTypeList]
 
     def validate(self):
@@ -2126,6 +2321,10 @@ class DescribeActiveOperationTaskTypeResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2149,7 +2348,7 @@ class DescribeActiveOperationTaskTypeResponseBody(TeaModel):
 
 class DescribeActiveOperationTaskTypeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeActiveOperationTaskTypeResponseBody
 
     def validate(self):
@@ -2159,6 +2358,10 @@ class DescribeActiveOperationTaskTypeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeActiveOperationTaskTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2179,13 +2382,13 @@ class DescribeActiveOperationTaskTypeResponse(TeaModel):
 class DescribeAuditFilesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, page_size=None, page_number=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
 
@@ -2193,6 +2396,10 @@ class DescribeAuditFilesRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditFilesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -2241,16 +2448,20 @@ class DescribeAuditFilesResponseBodyItemsLogFile(TeaModel):
     def __init__(self, file_id=None, log_start_time=None, log_size=None, log_download_url=None, log_end_time=None,
                  log_status=None):
         self.file_id = file_id  # type: int
-        self.log_start_time = TeaConverter.to_unicode(log_start_time)  # type: unicode
+        self.log_start_time = log_start_time  # type: str
         self.log_size = log_size  # type: long
-        self.log_download_url = TeaConverter.to_unicode(log_download_url)  # type: unicode
-        self.log_end_time = TeaConverter.to_unicode(log_end_time)  # type: unicode
-        self.log_status = TeaConverter.to_unicode(log_status)  # type: unicode
+        self.log_download_url = log_download_url  # type: str
+        self.log_end_time = log_end_time  # type: str
+        self.log_status = log_status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditFilesResponseBodyItemsLogFile, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.file_id is not None:
             result['FileID'] = self.file_id
@@ -2294,6 +2505,10 @@ class DescribeAuditFilesResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditFilesResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['LogFile'] = []
         if self.log_file is not None:
@@ -2316,7 +2531,7 @@ class DescribeAuditFilesResponseBody(TeaModel):
                  items=None):
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeAuditFilesResponseBodyItems
 
@@ -2325,6 +2540,10 @@ class DescribeAuditFilesResponseBody(TeaModel):
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditFilesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
@@ -2356,7 +2575,7 @@ class DescribeAuditFilesResponseBody(TeaModel):
 
 class DescribeAuditFilesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAuditFilesResponseBody
 
     def validate(self):
@@ -2366,6 +2585,10 @@ class DescribeAuditFilesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditFilesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2386,18 +2609,22 @@ class DescribeAuditFilesResponse(TeaModel):
 class DescribeAuditLogFilterRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, role_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.role_type = role_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditLogFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -2436,14 +2663,18 @@ class DescribeAuditLogFilterRequest(TeaModel):
 
 class DescribeAuditLogFilterResponseBody(TeaModel):
     def __init__(self, request_id=None, filter=None, role_type=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.filter = TeaConverter.to_unicode(filter)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.filter = filter  # type: str
+        self.role_type = role_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditLogFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2466,7 +2697,7 @@ class DescribeAuditLogFilterResponseBody(TeaModel):
 
 class DescribeAuditLogFilterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAuditLogFilterResponseBody
 
     def validate(self):
@@ -2476,6 +2707,10 @@ class DescribeAuditLogFilterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditLogFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2496,17 +2731,21 @@ class DescribeAuditLogFilterResponse(TeaModel):
 class DescribeAuditPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -2541,13 +2780,17 @@ class DescribeAuditPolicyRequest(TeaModel):
 
 class DescribeAuditPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None, log_audit_status=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.log_audit_status = TeaConverter.to_unicode(log_audit_status)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.log_audit_status = log_audit_status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2566,7 +2809,7 @@ class DescribeAuditPolicyResponseBody(TeaModel):
 
 class DescribeAuditPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAuditPolicyResponseBody
 
     def validate(self):
@@ -2576,6 +2819,10 @@ class DescribeAuditPolicyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2597,27 +2844,31 @@ class DescribeAuditRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, start_time=None, end_time=None, database=None, user=None,
                  form=None, query_keywords=None, page_size=None, page_number=None, order_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.database = TeaConverter.to_unicode(database)  # type: unicode
-        self.user = TeaConverter.to_unicode(user)  # type: unicode
-        self.form = TeaConverter.to_unicode(form)  # type: unicode
-        self.query_keywords = TeaConverter.to_unicode(query_keywords)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.database = database  # type: str
+        self.user = user  # type: str
+        self.form = form  # type: str
+        self.query_keywords = query_keywords  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
+        self.order_type = order_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -2693,20 +2944,24 @@ class DescribeAuditRecordsRequest(TeaModel):
 class DescribeAuditRecordsResponseBodyItemsSQLRecord(TeaModel):
     def __init__(self, host_address=None, table_name=None, return_row_counts=None, dbname=None, execute_time=None,
                  thread_id=None, total_execution_times=None, syntax=None, account_name=None):
-        self.host_address = TeaConverter.to_unicode(host_address)  # type: unicode
-        self.table_name = TeaConverter.to_unicode(table_name)  # type: unicode
+        self.host_address = host_address  # type: str
+        self.table_name = table_name  # type: str
         self.return_row_counts = return_row_counts  # type: long
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
-        self.execute_time = TeaConverter.to_unicode(execute_time)  # type: unicode
-        self.thread_id = TeaConverter.to_unicode(thread_id)  # type: unicode
+        self.dbname = dbname  # type: str
+        self.execute_time = execute_time  # type: str
+        self.thread_id = thread_id  # type: str
         self.total_execution_times = total_execution_times  # type: long
-        self.syntax = TeaConverter.to_unicode(syntax)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.syntax = syntax  # type: str
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAuditRecordsResponseBodyItemsSQLRecord, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.host_address is not None:
             result['HostAddress'] = self.host_address
@@ -2762,6 +3017,10 @@ class DescribeAuditRecordsResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditRecordsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['SQLRecord'] = []
         if self.sqlrecord is not None:
@@ -2784,7 +3043,7 @@ class DescribeAuditRecordsResponseBody(TeaModel):
                  items=None):
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeAuditRecordsResponseBodyItems
 
@@ -2793,6 +3052,10 @@ class DescribeAuditRecordsResponseBody(TeaModel):
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
@@ -2824,7 +3087,7 @@ class DescribeAuditRecordsResponseBody(TeaModel):
 
 class DescribeAuditRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAuditRecordsResponseBody
 
     def validate(self):
@@ -2834,6 +3097,10 @@ class DescribeAuditRecordsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAuditRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2851,471 +3118,25 @@ class DescribeAuditRecordsResponse(TeaModel):
         return self
 
 
-class DescribeAvailableResourceRequest(TeaModel):
-    def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region_id=None, zone_id=None, instance_charge_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        if self.instance_charge_type is not None:
-            result['InstanceChargeType'] = self.instance_charge_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        if m.get('InstanceChargeType') is not None:
-            self.instance_charge_type = m.get('InstanceChargeType')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource(TeaModel):
-    def __init__(self, instance_class_remark=None, instance_class=None):
-        self.instance_class_remark = TeaConverter.to_unicode(instance_class_remark)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.instance_class_remark is not None:
-            result['InstanceClassRemark'] = self.instance_class_remark
-        if self.instance_class is not None:
-            result['InstanceClass'] = self.instance_class
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InstanceClassRemark') is not None:
-            self.instance_class_remark = m.get('InstanceClassRemark')
-        if m.get('InstanceClass') is not None:
-            self.instance_class = m.get('InstanceClass')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResources(TeaModel):
-    def __init__(self, available_resource=None):
-        self.available_resource = available_resource  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource]
-
-    def validate(self):
-        if self.available_resource:
-            for k in self.available_resource:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['AvailableResource'] = []
-        if self.available_resource is not None:
-            for k in self.available_resource:
-                result['AvailableResource'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.available_resource = []
-        if m.get('AvailableResource') is not None:
-            for k in m.get('AvailableResource'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResourcesAvailableResource()
-                self.available_resource.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeType(TeaModel):
-    def __init__(self, node_type=None, network_types=None, available_resources=None):
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.network_types = TeaConverter.to_unicode(network_types)  # type: unicode
-        self.available_resources = available_resources  # type: DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResources
-
-    def validate(self):
-        if self.available_resources:
-            self.available_resources.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.node_type is not None:
-            result['NodeType'] = self.node_type
-        if self.network_types is not None:
-            result['NetworkTypes'] = self.network_types
-        if self.available_resources is not None:
-            result['AvailableResources'] = self.available_resources.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('NodeType') is not None:
-            self.node_type = m.get('NodeType')
-        if m.get('NetworkTypes') is not None:
-            self.network_types = m.get('NetworkTypes')
-        if m.get('AvailableResources') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeTypeAvailableResources()
-            self.available_resources = temp_model.from_map(m['AvailableResources'])
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypes(TeaModel):
-    def __init__(self, supported_node_type=None):
-        self.supported_node_type = supported_node_type  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeType]
-
-    def validate(self):
-        if self.supported_node_type:
-            for k in self.supported_node_type:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['SupportedNodeType'] = []
-        if self.supported_node_type is not None:
-            for k in self.supported_node_type:
-                result['SupportedNodeType'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.supported_node_type = []
-        if m.get('SupportedNodeType') is not None:
-            for k in m.get('SupportedNodeType'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypesSupportedNodeType()
-                self.supported_node_type.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngine(TeaModel):
-    def __init__(self, supported_node_types=None, engine=None):
-        self.supported_node_types = supported_node_types  # type: DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypes
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-
-    def validate(self):
-        if self.supported_node_types:
-            self.supported_node_types.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.supported_node_types is not None:
-            result['SupportedNodeTypes'] = self.supported_node_types.to_map()
-        if self.engine is not None:
-            result['Engine'] = self.engine
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SupportedNodeTypes') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngineSupportedNodeTypes()
-            self.supported_node_types = temp_model.from_map(m['SupportedNodeTypes'])
-        if m.get('Engine') is not None:
-            self.engine = m.get('Engine')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEngines(TeaModel):
-    def __init__(self, supported_engine=None):
-        self.supported_engine = supported_engine  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngine]
-
-    def validate(self):
-        if self.supported_engine:
-            for k in self.supported_engine:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['SupportedEngine'] = []
-        if self.supported_engine is not None:
-            for k in self.supported_engine:
-                result['SupportedEngine'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.supported_engine = []
-        if m.get('SupportedEngine') is not None:
-            for k in m.get('SupportedEngine'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEnginesSupportedEngine()
-                self.supported_engine.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersion(TeaModel):
-    def __init__(self, supported_engines=None, version=None):
-        self.supported_engines = supported_engines  # type: DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEngines
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
-
-    def validate(self):
-        if self.supported_engines:
-            self.supported_engines.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.supported_engines is not None:
-            result['SupportedEngines'] = self.supported_engines.to_map()
-        if self.version is not None:
-            result['Version'] = self.version
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SupportedEngines') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersionSupportedEngines()
-            self.supported_engines = temp_model.from_map(m['SupportedEngines'])
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersions(TeaModel):
-    def __init__(self, supported_engine_version=None):
-        self.supported_engine_version = supported_engine_version  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersion]
-
-    def validate(self):
-        if self.supported_engine_version:
-            for k in self.supported_engine_version:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['SupportedEngineVersion'] = []
-        if self.supported_engine_version is not None:
-            for k in self.supported_engine_version:
-                result['SupportedEngineVersion'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.supported_engine_version = []
-        if m.get('SupportedEngineVersion') is not None:
-            for k in m.get('SupportedEngineVersion'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersionsSupportedEngineVersion()
-                self.supported_engine_version.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZone(TeaModel):
-    def __init__(self, supported_engine_versions=None, zone_id=None, region_id=None):
-        self.supported_engine_versions = supported_engine_versions  # type: DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersions
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-
-    def validate(self):
-        if self.supported_engine_versions:
-            self.supported_engine_versions.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.supported_engine_versions is not None:
-            result['SupportedEngineVersions'] = self.supported_engine_versions.to_map()
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SupportedEngineVersions') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZoneSupportedEngineVersions()
-            self.supported_engine_versions = temp_model.from_map(m['SupportedEngineVersions'])
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZones(TeaModel):
-    def __init__(self, available_zone=None):
-        self.available_zone = available_zone  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZone]
-
-    def validate(self):
-        if self.available_zone:
-            for k in self.available_zone:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['AvailableZone'] = []
-        if self.available_zone is not None:
-            for k in self.available_zone:
-                result['AvailableZone'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.available_zone = []
-        if m.get('AvailableZone') is not None:
-            for k in m.get('AvailableZone'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZonesAvailableZone()
-                self.available_zone.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBType(TeaModel):
-    def __init__(self, available_zones=None, db_type=None):
-        self.available_zones = available_zones  # type: DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZones
-        self.db_type = TeaConverter.to_unicode(db_type)  # type: unicode
-
-    def validate(self):
-        if self.available_zones:
-            self.available_zones.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.available_zones is not None:
-            result['AvailableZones'] = self.available_zones.to_map()
-        if self.db_type is not None:
-            result['DbType'] = self.db_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AvailableZones') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBTypeAvailableZones()
-            self.available_zones = temp_model.from_map(m['AvailableZones'])
-        if m.get('DbType') is not None:
-            self.db_type = m.get('DbType')
-        return self
-
-
-class DescribeAvailableResourceResponseBodySupportedDBTypes(TeaModel):
-    def __init__(self, supported_dbtype=None):
-        self.supported_dbtype = supported_dbtype  # type: list[DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBType]
-
-    def validate(self):
-        if self.supported_dbtype:
-            for k in self.supported_dbtype:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        result = dict()
-        result['SupportedDBType'] = []
-        if self.supported_dbtype is not None:
-            for k in self.supported_dbtype:
-                result['SupportedDBType'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.supported_dbtype = []
-        if m.get('SupportedDBType') is not None:
-            for k in m.get('SupportedDBType'):
-                temp_model = DescribeAvailableResourceResponseBodySupportedDBTypesSupportedDBType()
-                self.supported_dbtype.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAvailableResourceResponseBody(TeaModel):
-    def __init__(self, request_id=None, supported_dbtypes=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.supported_dbtypes = supported_dbtypes  # type: DescribeAvailableResourceResponseBodySupportedDBTypes
-
-    def validate(self):
-        if self.supported_dbtypes:
-            self.supported_dbtypes.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.supported_dbtypes is not None:
-            result['SupportedDBTypes'] = self.supported_dbtypes.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('SupportedDBTypes') is not None:
-            temp_model = DescribeAvailableResourceResponseBodySupportedDBTypes()
-            self.supported_dbtypes = temp_model.from_map(m['SupportedDBTypes'])
-        return self
-
-
-class DescribeAvailableResourceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = body  # type: DescribeAvailableResourceResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeAvailableResourceResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeAvailableTimeRangeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAvailableTimeRangeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -3354,16 +3175,20 @@ class DescribeAvailableTimeRangeRequest(TeaModel):
 
 class DescribeAvailableTimeRangeResponseBodyTimeRangeTimeRange(TeaModel):
     def __init__(self, status=None, end_time=None, start_time=None, task_id=None, node_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.status = status  # type: str
+        self.end_time = end_time  # type: str
+        self.start_time = start_time  # type: str
+        self.task_id = task_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAvailableTimeRangeResponseBodyTimeRangeTimeRange, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -3403,6 +3228,10 @@ class DescribeAvailableTimeRangeResponseBodyTimeRange(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeAvailableTimeRangeResponseBodyTimeRange, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['TimeRange'] = []
         if self.time_range is not None:
@@ -3423,13 +3252,17 @@ class DescribeAvailableTimeRangeResponseBodyTimeRange(TeaModel):
 class DescribeAvailableTimeRangeResponseBody(TeaModel):
     def __init__(self, time_range=None, request_id=None):
         self.time_range = time_range  # type: DescribeAvailableTimeRangeResponseBodyTimeRange
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.time_range:
             self.time_range.validate()
 
     def to_map(self):
+        _map = super(DescribeAvailableTimeRangeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.time_range is not None:
             result['TimeRange'] = self.time_range.to_map()
@@ -3449,7 +3282,7 @@ class DescribeAvailableTimeRangeResponseBody(TeaModel):
 
 class DescribeAvailableTimeRangeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAvailableTimeRangeResponseBody
 
     def validate(self):
@@ -3459,6 +3292,10 @@ class DescribeAvailableTimeRangeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAvailableTimeRangeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3480,22 +3317,26 @@ class DescribeBackupDBsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, page_number=None, page_size=None, source_dbinstance=None, restore_time=None, backup_id=None,
                  resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
+        self.owner_account = owner_account  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.source_dbinstance = TeaConverter.to_unicode(source_dbinstance)  # type: unicode
-        self.restore_time = TeaConverter.to_unicode(restore_time)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.source_dbinstance = source_dbinstance  # type: str
+        self.restore_time = restore_time  # type: str
+        self.backup_id = backup_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupDBsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -3550,12 +3391,16 @@ class DescribeBackupDBsRequest(TeaModel):
 
 class DescribeBackupDBsResponseBodyDatabasesDatabase(TeaModel):
     def __init__(self, dbname=None):
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
+        self.dbname = dbname  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupDBsResponseBodyDatabasesDatabase, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.dbname is not None:
             result['DBName'] = self.dbname
@@ -3579,6 +3424,10 @@ class DescribeBackupDBsResponseBodyDatabases(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupDBsResponseBodyDatabases, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Database'] = []
         if self.database is not None:
@@ -3600,7 +3449,7 @@ class DescribeBackupDBsResponseBody(TeaModel):
     def __init__(self, total_count=None, databases=None, request_id=None, page_size=None, page_number=None):
         self.total_count = total_count  # type: int
         self.databases = databases  # type: DescribeBackupDBsResponseBodyDatabases
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
 
@@ -3609,6 +3458,10 @@ class DescribeBackupDBsResponseBody(TeaModel):
             self.databases.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupDBsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
@@ -3640,7 +3493,7 @@ class DescribeBackupDBsResponseBody(TeaModel):
 
 class DescribeBackupDBsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupDBsResponseBody
 
     def validate(self):
@@ -3650,6 +3503,10 @@ class DescribeBackupDBsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupDBsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3670,17 +3527,21 @@ class DescribeBackupDBsResponse(TeaModel):
 class DescribeBackupPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -3716,15 +3577,19 @@ class DescribeBackupPolicyRequest(TeaModel):
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, preferred_backup_period=None, request_id=None, preferred_backup_time=None,
                  backup_retention_period=None):
-        self.preferred_backup_period = TeaConverter.to_unicode(preferred_backup_period)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.preferred_backup_time = TeaConverter.to_unicode(preferred_backup_time)  # type: unicode
-        self.backup_retention_period = TeaConverter.to_unicode(backup_retention_period)  # type: unicode
+        self.preferred_backup_period = preferred_backup_period  # type: str
+        self.request_id = request_id  # type: str
+        self.preferred_backup_time = preferred_backup_time  # type: str
+        self.backup_retention_period = backup_retention_period  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.preferred_backup_period is not None:
             result['PreferredBackupPeriod'] = self.preferred_backup_period
@@ -3751,7 +3616,7 @@ class DescribeBackupPolicyResponseBody(TeaModel):
 
 class DescribeBackupPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupPolicyResponseBody
 
     def validate(self):
@@ -3761,6 +3626,10 @@ class DescribeBackupPolicyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3782,23 +3651,27 @@ class DescribeBackupsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, backup_id=None, page_number=None, page_size=None,
                  start_time=None, end_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.backup_id = TeaConverter.to_unicode(backup_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.backup_id = backup_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -3859,22 +3732,26 @@ class DescribeBackupsResponseBodyBackupsBackup(TeaModel):
     def __init__(self, backup_status=None, backup_type=None, backup_start_time=None,
                  backup_intranet_download_url=None, backup_size=None, backup_download_url=None, backup_mode=None, backup_end_time=None,
                  backup_id=None, backup_dbnames=None, backup_method=None):
-        self.backup_status = TeaConverter.to_unicode(backup_status)  # type: unicode
-        self.backup_type = TeaConverter.to_unicode(backup_type)  # type: unicode
-        self.backup_start_time = TeaConverter.to_unicode(backup_start_time)  # type: unicode
-        self.backup_intranet_download_url = TeaConverter.to_unicode(backup_intranet_download_url)  # type: unicode
+        self.backup_status = backup_status  # type: str
+        self.backup_type = backup_type  # type: str
+        self.backup_start_time = backup_start_time  # type: str
+        self.backup_intranet_download_url = backup_intranet_download_url  # type: str
         self.backup_size = backup_size  # type: long
-        self.backup_download_url = TeaConverter.to_unicode(backup_download_url)  # type: unicode
-        self.backup_mode = TeaConverter.to_unicode(backup_mode)  # type: unicode
-        self.backup_end_time = TeaConverter.to_unicode(backup_end_time)  # type: unicode
+        self.backup_download_url = backup_download_url  # type: str
+        self.backup_mode = backup_mode  # type: str
+        self.backup_end_time = backup_end_time  # type: str
         self.backup_id = backup_id  # type: int
-        self.backup_dbnames = TeaConverter.to_unicode(backup_dbnames)  # type: unicode
-        self.backup_method = TeaConverter.to_unicode(backup_method)  # type: unicode
+        self.backup_dbnames = backup_dbnames  # type: str
+        self.backup_method = backup_method  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeBackupsResponseBodyBackupsBackup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.backup_status is not None:
             result['BackupStatus'] = self.backup_status
@@ -3938,6 +3815,10 @@ class DescribeBackupsResponseBodyBackups(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupsResponseBodyBackups, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Backup'] = []
         if self.backup is not None:
@@ -3958,7 +3839,7 @@ class DescribeBackupsResponseBodyBackups(TeaModel):
 class DescribeBackupsResponseBody(TeaModel):
     def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, backups=None):
         self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
         self.backups = backups  # type: DescribeBackupsResponseBodyBackups
@@ -3968,6 +3849,10 @@ class DescribeBackupsResponseBody(TeaModel):
             self.backups.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
@@ -3999,7 +3884,7 @@ class DescribeBackupsResponseBody(TeaModel):
 
 class DescribeBackupsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeBackupsResponseBody
 
     def validate(self):
@@ -4009,6 +3894,10 @@ class DescribeBackupsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeBackupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4029,19 +3918,23 @@ class DescribeBackupsResponse(TeaModel):
 class DescribeDBInstanceAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, engine=None, dbinstance_id=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.engine = engine  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -4085,18 +3978,22 @@ class DescribeDBInstanceAttributeRequest(TeaModel):
 class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSetsReplicaSet(TeaModel):
     def __init__(self, v_switch_id=None, connection_port=None, replica_set_role=None, connection_domain=None,
                  vpccloud_instance_id=None, network_type=None, vpcid=None):
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.connection_port = TeaConverter.to_unicode(connection_port)  # type: unicode
-        self.replica_set_role = TeaConverter.to_unicode(replica_set_role)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.vpccloud_instance_id = TeaConverter.to_unicode(vpccloud_instance_id)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
+        self.v_switch_id = v_switch_id  # type: str
+        self.connection_port = connection_port  # type: str
+        self.replica_set_role = replica_set_role  # type: str
+        self.connection_domain = connection_domain  # type: str
+        self.vpccloud_instance_id = vpccloud_instance_id  # type: str
+        self.network_type = network_type  # type: str
+        self.vpcid = vpcid  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSetsReplicaSet, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
@@ -4144,6 +4041,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSets(Te
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSets, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ReplicaSet'] = []
         if self.replica_set is not None:
@@ -4163,13 +4064,17 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSets(Te
 
 class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -4197,6 +4102,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags(TeaModel)
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Tag'] = []
         if self.tag is not None:
@@ -4217,21 +4126,25 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags(TeaModel)
 class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceMongosListMongosAttribute(TeaModel):
     def __init__(self, vpc_cloud_instance_id=None, max_iops=None, v_switch_id=None, node_class=None,
                  max_connections=None, port=None, vpcid=None, connect_sting=None, node_description=None, node_id=None):
-        self.vpc_cloud_instance_id = TeaConverter.to_unicode(vpc_cloud_instance_id)  # type: unicode
+        self.vpc_cloud_instance_id = vpc_cloud_instance_id  # type: str
         self.max_iops = max_iops  # type: int
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
+        self.v_switch_id = v_switch_id  # type: str
+        self.node_class = node_class  # type: str
         self.max_connections = max_connections  # type: int
         self.port = port  # type: int
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
-        self.connect_sting = TeaConverter.to_unicode(connect_sting)  # type: unicode
-        self.node_description = TeaConverter.to_unicode(node_description)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.vpcid = vpcid  # type: str
+        self.connect_sting = connect_sting  # type: str
+        self.node_description = node_description  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceMongosListMongosAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vpc_cloud_instance_id is not None:
             result['VpcCloudInstanceId'] = self.vpc_cloud_instance_id
@@ -4291,6 +4204,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceMongosList(Tea
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceMongosList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['MongosAttribute'] = []
         if self.mongos_attribute is not None:
@@ -4312,12 +4229,12 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardListShard
     def __init__(self, max_iops=None, connect_string=None, node_class=None, max_connections=None, port=None,
                  node_description=None, node_id=None, node_storage=None, readonly_replicas=None):
         self.max_iops = max_iops  # type: int
-        self.connect_string = TeaConverter.to_unicode(connect_string)  # type: unicode
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
+        self.connect_string = connect_string  # type: str
+        self.node_class = node_class  # type: str
         self.max_connections = max_connections  # type: int
         self.port = port  # type: int
-        self.node_description = TeaConverter.to_unicode(node_description)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_description = node_description  # type: str
+        self.node_id = node_id  # type: str
         self.node_storage = node_storage  # type: int
         self.readonly_replicas = readonly_replicas  # type: int
 
@@ -4325,6 +4242,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardListShard
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardListShardAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.max_iops is not None:
             result['MaxIOPS'] = self.max_iops
@@ -4380,6 +4301,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardList(TeaM
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ShardAttribute'] = []
         if self.shard_attribute is not None:
@@ -4401,18 +4326,22 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverLi
     def __init__(self, max_iops=None, connect_string=None, node_class=None, max_connections=None, port=None,
                  node_description=None, node_id=None, node_storage=None):
         self.max_iops = max_iops  # type: int
-        self.connect_string = TeaConverter.to_unicode(connect_string)  # type: unicode
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
+        self.connect_string = connect_string  # type: str
+        self.node_class = node_class  # type: str
         self.max_connections = max_connections  # type: int
         self.port = port  # type: int
-        self.node_description = TeaConverter.to_unicode(node_description)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_description = node_description  # type: str
+        self.node_id = node_id  # type: str
         self.node_storage = node_storage  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverListConfigserverAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.max_iops is not None:
             result['MaxIOPS'] = self.max_iops
@@ -4464,6 +4393,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverLi
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ConfigserverAttribute'] = []
         if self.configserver_attribute is not None:
@@ -4491,45 +4424,45 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
                  storage_engine=None, configserver_list=None, resource_group_id=None, zone_id=None, max_connections=None,
                  dbinstance_id=None, dbinstance_class=None, engine=None, readonly_replicas=None, replication_factor=None,
                  kind_code=None):
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
+        self.creation_time = creation_time  # type: str
         self.replica_sets = replica_sets  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceReplicaSets
-        self.replacate_id = TeaConverter.to_unicode(replacate_id)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
+        self.replacate_id = replacate_id  # type: str
+        self.charge_type = charge_type  # type: str
         self.tags = tags  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags
-        self.vpc_auth_mode = TeaConverter.to_unicode(vpc_auth_mode)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.lock_mode = TeaConverter.to_unicode(lock_mode)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+        self.vpc_auth_mode = vpc_auth_mode  # type: str
+        self.network_type = network_type  # type: str
+        self.lock_mode = lock_mode  # type: str
+        self.engine_version = engine_version  # type: str
         self.max_iops = max_iops  # type: int
-        self.vpccloud_instance_ids = TeaConverter.to_unicode(vpccloud_instance_ids)  # type: unicode
+        self.vpccloud_instance_ids = vpccloud_instance_ids  # type: str
         self.mongos_list = mongos_list  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceMongosList
-        self.protocol_type = TeaConverter.to_unicode(protocol_type)  # type: unicode
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.current_kernel_version = TeaConverter.to_unicode(current_kernel_version)  # type: unicode
+        self.protocol_type = protocol_type  # type: str
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.current_kernel_version = current_kernel_version  # type: str
         self.dbinstance_release_protection = dbinstance_release_protection  # type: bool
-        self.expire_time = TeaConverter.to_unicode(expire_time)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.dbinstance_type = TeaConverter.to_unicode(dbinstance_type)  # type: unicode
-        self.last_downgrade_time = TeaConverter.to_unicode(last_downgrade_time)  # type: unicode
+        self.expire_time = expire_time  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.dbinstance_type = dbinstance_type  # type: str
+        self.last_downgrade_time = last_downgrade_time  # type: str
         self.shard_list = shard_list  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceShardList
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
-        self.dbinstance_status = TeaConverter.to_unicode(dbinstance_status)  # type: unicode
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.dbinstance_status = dbinstance_status  # type: str
+        self.vpcid = vpcid  # type: str
+        self.region_id = region_id  # type: str
         self.dbinstance_storage = dbinstance_storage  # type: int
-        self.replica_set_name = TeaConverter.to_unicode(replica_set_name)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.storage_engine = TeaConverter.to_unicode(storage_engine)  # type: unicode
+        self.replica_set_name = replica_set_name  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.storage_engine = storage_engine  # type: str
         self.configserver_list = configserver_list  # type: DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceConfigserverList
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
+        self.zone_id = zone_id  # type: str
         self.max_connections = max_connections  # type: int
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.readonly_replicas = TeaConverter.to_unicode(readonly_replicas)  # type: unicode
-        self.replication_factor = TeaConverter.to_unicode(replication_factor)  # type: unicode
-        self.kind_code = TeaConverter.to_unicode(kind_code)  # type: unicode
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
+        self.engine = engine  # type: str
+        self.readonly_replicas = readonly_replicas  # type: str
+        self.replication_factor = replication_factor  # type: str
+        self.kind_code = kind_code  # type: str
 
     def validate(self):
         if self.replica_sets:
@@ -4544,6 +4477,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             self.configserver_list.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
@@ -4724,6 +4661,10 @@ class DescribeDBInstanceAttributeResponseBodyDBInstances(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBodyDBInstances, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['DBInstance'] = []
         if self.dbinstance is not None:
@@ -4743,7 +4684,7 @@ class DescribeDBInstanceAttributeResponseBodyDBInstances(TeaModel):
 
 class DescribeDBInstanceAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstances=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.dbinstances = dbinstances  # type: DescribeDBInstanceAttributeResponseBodyDBInstances
 
     def validate(self):
@@ -4751,6 +4692,10 @@ class DescribeDBInstanceAttributeResponseBody(TeaModel):
             self.dbinstances.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -4770,7 +4715,7 @@ class DescribeDBInstanceAttributeResponseBody(TeaModel):
 
 class DescribeDBInstanceAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceAttributeResponseBody
 
     def validate(self):
@@ -4780,6 +4725,10 @@ class DescribeDBInstanceAttributeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4800,18 +4749,22 @@ class DescribeDBInstanceAttributeResponse(TeaModel):
 class DescribeDBInstanceEncryptionKeyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, encryption_key=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.encryption_key = TeaConverter.to_unicode(encryption_key)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.encryption_key = encryption_key  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceEncryptionKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -4851,20 +4804,24 @@ class DescribeDBInstanceEncryptionKeyRequest(TeaModel):
 class DescribeDBInstanceEncryptionKeyResponseBody(TeaModel):
     def __init__(self, origin=None, description=None, request_id=None, encryption_key_status=None,
                  material_expire_time=None, key_usage=None, encryption_key=None, creator=None, delete_date=None):
-        self.origin = TeaConverter.to_unicode(origin)  # type: unicode
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.encryption_key_status = TeaConverter.to_unicode(encryption_key_status)  # type: unicode
-        self.material_expire_time = TeaConverter.to_unicode(material_expire_time)  # type: unicode
-        self.key_usage = TeaConverter.to_unicode(key_usage)  # type: unicode
-        self.encryption_key = TeaConverter.to_unicode(encryption_key)  # type: unicode
-        self.creator = TeaConverter.to_unicode(creator)  # type: unicode
-        self.delete_date = TeaConverter.to_unicode(delete_date)  # type: unicode
+        self.origin = origin  # type: str
+        self.description = description  # type: str
+        self.request_id = request_id  # type: str
+        self.encryption_key_status = encryption_key_status  # type: str
+        self.material_expire_time = material_expire_time  # type: str
+        self.key_usage = key_usage  # type: str
+        self.encryption_key = encryption_key  # type: str
+        self.creator = creator  # type: str
+        self.delete_date = delete_date  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceEncryptionKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.origin is not None:
             result['Origin'] = self.origin
@@ -4911,7 +4868,7 @@ class DescribeDBInstanceEncryptionKeyResponseBody(TeaModel):
 
 class DescribeDBInstanceEncryptionKeyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceEncryptionKeyResponseBody
 
     def validate(self):
@@ -4921,6 +4878,10 @@ class DescribeDBInstanceEncryptionKeyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceEncryptionKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4941,17 +4902,21 @@ class DescribeDBInstanceEncryptionKeyResponse(TeaModel):
 class DescribeDBInstanceMonitorRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -4986,13 +4951,17 @@ class DescribeDBInstanceMonitorRequest(TeaModel):
 
 class DescribeDBInstanceMonitorResponseBody(TeaModel):
     def __init__(self, request_id=None, granularity=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.granularity = TeaConverter.to_unicode(granularity)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.granularity = granularity  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -5011,7 +4980,7 @@ class DescribeDBInstanceMonitorResponseBody(TeaModel):
 
 class DescribeDBInstanceMonitorResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceMonitorResponseBody
 
     def validate(self):
@@ -5021,6 +4990,10 @@ class DescribeDBInstanceMonitorResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5042,23 +5015,27 @@ class DescribeDBInstancePerformanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, key=None, start_time=None, end_time=None, role_id=None,
                  replica_set_role=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.role_id = TeaConverter.to_unicode(role_id)  # type: unicode
-        self.replica_set_role = TeaConverter.to_unicode(replica_set_role)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.key = key  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.role_id = role_id  # type: str
+        self.replica_set_role = replica_set_role  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -5117,13 +5094,17 @@ class DescribeDBInstancePerformanceRequest(TeaModel):
 
 class DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerformanceValuesPerformanceValue(TeaModel):
     def __init__(self, value=None, date=None):
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
-        self.date = TeaConverter.to_unicode(date)  # type: unicode
+        self.value = value  # type: str
+        self.date = date  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerformanceValuesPerformanceValue, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.value is not None:
             result['Value'] = self.value
@@ -5151,6 +5132,10 @@ class DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerf
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerformanceValues, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['PerformanceValue'] = []
         if self.performance_value is not None:
@@ -5170,9 +5155,9 @@ class DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerf
 
 class DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKey(TeaModel):
     def __init__(self, key=None, unit=None, value_format=None, performance_values=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.unit = TeaConverter.to_unicode(unit)  # type: unicode
-        self.value_format = TeaConverter.to_unicode(value_format)  # type: unicode
+        self.key = key  # type: str
+        self.unit = unit  # type: str
+        self.value_format = value_format  # type: str
         self.performance_values = performance_values  # type: DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKeyPerformanceValues
 
     def validate(self):
@@ -5180,6 +5165,10 @@ class DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKey(Tea
             self.performance_values.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponseBodyPerformanceKeysPerformanceKey, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -5216,6 +5205,10 @@ class DescribeDBInstancePerformanceResponseBodyPerformanceKeys(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponseBodyPerformanceKeys, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['PerformanceKey'] = []
         if self.performance_key is not None:
@@ -5236,15 +5229,19 @@ class DescribeDBInstancePerformanceResponseBodyPerformanceKeys(TeaModel):
 class DescribeDBInstancePerformanceResponseBody(TeaModel):
     def __init__(self, performance_keys=None, end_time=None, request_id=None, start_time=None):
         self.performance_keys = performance_keys  # type: DescribeDBInstancePerformanceResponseBodyPerformanceKeys
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.performance_keys:
             self.performance_keys.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.performance_keys is not None:
             result['PerformanceKeys'] = self.performance_keys.to_map()
@@ -5272,7 +5269,7 @@ class DescribeDBInstancePerformanceResponseBody(TeaModel):
 
 class DescribeDBInstancePerformanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstancePerformanceResponseBody
 
     def validate(self):
@@ -5282,6 +5279,10 @@ class DescribeDBInstancePerformanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancePerformanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5301,13 +5302,17 @@ class DescribeDBInstancePerformanceResponse(TeaModel):
 
 class DescribeDBInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -5330,30 +5335,30 @@ class DescribeDBInstancesRequest(TeaModel):
                  dbinstance_description=None, expire_time=None, dbinstance_status=None, dbinstance_type=None, dbinstance_class=None,
                  engine=None, engine_version=None, network_type=None, vpc_id=None, v_switch_id=None, charge_type=None,
                  zone_id=None, expired=None, connection_domain=None, resource_group_id=None, tag=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
+        self.owner_account = owner_account  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.replication_factor = TeaConverter.to_unicode(replication_factor)  # type: unicode
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.expire_time = TeaConverter.to_unicode(expire_time)  # type: unicode
-        self.dbinstance_status = TeaConverter.to_unicode(dbinstance_status)  # type: unicode
-        self.dbinstance_type = TeaConverter.to_unicode(dbinstance_type)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.expired = TeaConverter.to_unicode(expired)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.replication_factor = replication_factor  # type: str
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.expire_time = expire_time  # type: str
+        self.dbinstance_status = dbinstance_status  # type: str
+        self.dbinstance_type = dbinstance_type  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.charge_type = charge_type  # type: str
+        self.zone_id = zone_id  # type: str
+        self.expired = expired  # type: str
+        self.connection_domain = connection_domain  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.tag = tag  # type: list[DescribeDBInstancesRequestTag]
 
     def validate(self):
@@ -5363,6 +5368,10 @@ class DescribeDBInstancesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -5478,13 +5487,17 @@ class DescribeDBInstancesRequest(TeaModel):
 
 class DescribeDBInstancesResponseBodyDBInstancesDBInstanceTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -5512,6 +5525,10 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Tag'] = []
         if self.tag is not None:
@@ -5531,14 +5548,18 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags(TeaModel):
 
 class DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosListMongosAttribute(TeaModel):
     def __init__(self, node_class=None, node_description=None, node_id=None):
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
-        self.node_description = TeaConverter.to_unicode(node_description)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_class = node_class  # type: str
+        self.node_description = node_description  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosListMongosAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.node_class is not None:
             result['NodeClass'] = self.node_class
@@ -5570,6 +5591,10 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosList(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['MongosAttribute'] = []
         if self.mongos_attribute is not None:
@@ -5590,16 +5615,20 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosList(TeaModel):
 class DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardListShardAttribute(TeaModel):
     def __init__(self, node_class=None, node_description=None, node_storage=None, node_id=None,
                  readonly_replicas=None):
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
-        self.node_description = TeaConverter.to_unicode(node_description)  # type: unicode
+        self.node_class = node_class  # type: str
+        self.node_description = node_description  # type: str
         self.node_storage = node_storage  # type: int
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.node_id = node_id  # type: str
         self.readonly_replicas = readonly_replicas  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardListShardAttribute, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.node_class is not None:
             result['NodeClass'] = self.node_class
@@ -5639,6 +5668,10 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardList(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ShardAttribute'] = []
         if self.shard_attribute is not None:
@@ -5662,30 +5695,30 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
                  dbinstance_type=None, last_downgrade_time=None, shard_list=None, destroy_time=None, dbinstance_status=None,
                  region_id=None, dbinstance_storage=None, resource_group_id=None, zone_id=None, dbinstance_id=None,
                  dbinstance_class=None, engine=None, replication_factor=None, kind_code=None):
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
-        self.charge_type = TeaConverter.to_unicode(charge_type)  # type: unicode
+        self.creation_time = creation_time  # type: str
+        self.charge_type = charge_type  # type: str
         self.tags = tags  # type: DescribeDBInstancesResponseBodyDBInstancesDBInstanceTags
-        self.vpc_auth_mode = TeaConverter.to_unicode(vpc_auth_mode)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.lock_mode = TeaConverter.to_unicode(lock_mode)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+        self.vpc_auth_mode = vpc_auth_mode  # type: str
+        self.network_type = network_type  # type: str
+        self.lock_mode = lock_mode  # type: str
+        self.engine_version = engine_version  # type: str
         self.mongos_list = mongos_list  # type: DescribeDBInstancesResponseBodyDBInstancesDBInstanceMongosList
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
-        self.expire_time = TeaConverter.to_unicode(expire_time)  # type: unicode
-        self.dbinstance_type = TeaConverter.to_unicode(dbinstance_type)  # type: unicode
-        self.last_downgrade_time = TeaConverter.to_unicode(last_downgrade_time)  # type: unicode
+        self.dbinstance_description = dbinstance_description  # type: str
+        self.expire_time = expire_time  # type: str
+        self.dbinstance_type = dbinstance_type  # type: str
+        self.last_downgrade_time = last_downgrade_time  # type: str
         self.shard_list = shard_list  # type: DescribeDBInstancesResponseBodyDBInstancesDBInstanceShardList
-        self.destroy_time = TeaConverter.to_unicode(destroy_time)  # type: unicode
-        self.dbinstance_status = TeaConverter.to_unicode(dbinstance_status)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.destroy_time = destroy_time  # type: str
+        self.dbinstance_status = dbinstance_status  # type: str
+        self.region_id = region_id  # type: str
         self.dbinstance_storage = dbinstance_storage  # type: int
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.replication_factor = TeaConverter.to_unicode(replication_factor)  # type: unicode
-        self.kind_code = TeaConverter.to_unicode(kind_code)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
+        self.engine = engine  # type: str
+        self.replication_factor = replication_factor  # type: str
+        self.kind_code = kind_code  # type: str
 
     def validate(self):
         if self.tags:
@@ -5696,6 +5729,10 @@ class DescribeDBInstancesResponseBodyDBInstancesDBInstance(TeaModel):
             self.shard_list.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstancesDBInstance, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
@@ -5814,6 +5851,10 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBodyDBInstances, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['DBInstance'] = []
         if self.dbinstance is not None:
@@ -5834,7 +5875,7 @@ class DescribeDBInstancesResponseBodyDBInstances(TeaModel):
 class DescribeDBInstancesResponseBody(TeaModel):
     def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, dbinstances=None):
         self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
         self.dbinstances = dbinstances  # type: DescribeDBInstancesResponseBodyDBInstances
@@ -5844,6 +5885,10 @@ class DescribeDBInstancesResponseBody(TeaModel):
             self.dbinstances.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
@@ -5875,7 +5920,7 @@ class DescribeDBInstancesResponseBody(TeaModel):
 
 class DescribeDBInstancesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstancesResponseBody
 
     def validate(self):
@@ -5885,6 +5930,10 @@ class DescribeDBInstancesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5905,17 +5954,21 @@ class DescribeDBInstancesResponse(TeaModel):
 class DescribeDBInstanceSSLRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceSSLRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -5950,15 +6003,19 @@ class DescribeDBInstanceSSLRequest(TeaModel):
 
 class DescribeDBInstanceSSLResponseBody(TeaModel):
     def __init__(self, sslexpired_time=None, sslstatus=None, request_id=None, cert_common_name=None):
-        self.sslexpired_time = TeaConverter.to_unicode(sslexpired_time)  # type: unicode
-        self.sslstatus = TeaConverter.to_unicode(sslstatus)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.cert_common_name = TeaConverter.to_unicode(cert_common_name)  # type: unicode
+        self.sslexpired_time = sslexpired_time  # type: str
+        self.sslstatus = sslstatus  # type: str
+        self.request_id = request_id  # type: str
+        self.cert_common_name = cert_common_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceSSLResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.sslexpired_time is not None:
             result['SSLExpiredTime'] = self.sslexpired_time
@@ -5985,7 +6042,7 @@ class DescribeDBInstanceSSLResponseBody(TeaModel):
 
 class DescribeDBInstanceSSLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceSSLResponseBody
 
     def validate(self):
@@ -5995,6 +6052,10 @@ class DescribeDBInstanceSSLResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceSSLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6015,17 +6076,21 @@ class DescribeDBInstanceSSLResponse(TeaModel):
 class DescribeDBInstanceTDEInfoRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceTDEInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -6060,13 +6125,17 @@ class DescribeDBInstanceTDEInfoRequest(TeaModel):
 
 class DescribeDBInstanceTDEInfoResponseBody(TeaModel):
     def __init__(self, tdestatus=None, request_id=None):
-        self.tdestatus = TeaConverter.to_unicode(tdestatus)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.tdestatus = tdestatus  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeDBInstanceTDEInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tdestatus is not None:
             result['TDEStatus'] = self.tdestatus
@@ -6085,7 +6154,7 @@ class DescribeDBInstanceTDEInfoResponseBody(TeaModel):
 
 class DescribeDBInstanceTDEInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDBInstanceTDEInfoResponseBody
 
     def validate(self):
@@ -6095,6 +6164,10 @@ class DescribeDBInstanceTDEInfoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDBInstanceTDEInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6114,24 +6187,23 @@ class DescribeDBInstanceTDEInfoResponse(TeaModel):
 
 class DescribeDedicatedClusterInstanceListRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region_id=None, region=None, zone_id=None, instance_id=None, instance_status=None,
-                 instance_net_type=None, engine=None, engine_version=None, cluster_id=None, dedicated_host_name=None,
-                 page_number=None, page_size=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, region_id=None, zone_id=None, instance_id=None, instance_status=None, instance_net_type=None,
+                 engine=None, engine_version=None, cluster_id=None, dedicated_host_name=None, page_number=None,
+                 page_size=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.instance_net_type = TeaConverter.to_unicode(instance_net_type)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
-        self.dedicated_host_name = TeaConverter.to_unicode(dedicated_host_name)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.instance_status = instance_status  # type: str
+        self.instance_net_type = instance_net_type  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.dedicated_host_name = dedicated_host_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -6139,6 +6211,10 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -6152,8 +6228,6 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.region is not None:
-            result['Region'] = self.region
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         if self.instance_id is not None:
@@ -6190,8 +6264,6 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         if m.get('InstanceId') is not None:
@@ -6218,12 +6290,12 @@ class DescribeDedicatedClusterInstanceListRequest(TeaModel):
 class DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanceNodeListInstanceNodes(TeaModel):
     def __init__(self, node_ip=None, dedicated_host_name=None, ins_name=None, node_type=None, zone_id=None,
                  role=None, port=None, node_id=None):
-        self.node_ip = TeaConverter.to_unicode(node_ip)  # type: unicode
-        self.dedicated_host_name = TeaConverter.to_unicode(dedicated_host_name)  # type: unicode
-        self.ins_name = TeaConverter.to_unicode(ins_name)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.role = TeaConverter.to_unicode(role)  # type: unicode
+        self.node_ip = node_ip  # type: str
+        self.dedicated_host_name = dedicated_host_name  # type: str
+        self.ins_name = ins_name  # type: str
+        self.node_type = node_type  # type: str
+        self.zone_id = zone_id  # type: str
+        self.role = role  # type: str
         self.port = port  # type: int
         self.node_id = node_id  # type: int
 
@@ -6231,6 +6303,10 @@ class DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanc
         pass
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanceNodeListInstanceNodes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.node_ip is not None:
             result['NodeIp'] = self.node_ip
@@ -6282,6 +6358,10 @@ class DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanc
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanceNodeList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['InstanceNodes'] = []
         if self.instance_nodes is not None:
@@ -6304,32 +6384,36 @@ class DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstance(TeaMod
                  instance_class=None, create_time=None, maintain_end_time=None, storage_type=None, instance_node_list=None,
                  instance_id=None, engine_version=None, region_id=None, instance_name=None, region=None, zone_id=None,
                  cluster_name=None, instance_status=None, engine=None, custom_id=None, cluster_id=None):
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.instance_class = TeaConverter.to_unicode(instance_class)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
-        self.storage_type = TeaConverter.to_unicode(storage_type)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
+        self.character_type = character_type  # type: str
+        self.vswitch_id = vswitch_id  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.instance_class = instance_class  # type: str
+        self.create_time = create_time  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.storage_type = storage_type  # type: str
         self.instance_node_list = instance_node_list  # type: DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstanceInstanceNodeList
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.cluster_name = TeaConverter.to_unicode(cluster_name)  # type: unicode
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.custom_id = TeaConverter.to_unicode(custom_id)  # type: unicode
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.engine_version = engine_version  # type: str
+        self.region_id = region_id  # type: str
+        self.instance_name = instance_name  # type: str
+        self.region = region  # type: str
+        self.zone_id = zone_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.instance_status = instance_status  # type: str
+        self.engine = engine  # type: str
+        self.custom_id = custom_id  # type: str
+        self.cluster_id = cluster_id  # type: str
 
     def validate(self):
         if self.instance_node_list:
             self.instance_node_list.validate()
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponseBodyInstancesDbInstance, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
@@ -6430,6 +6514,10 @@ class DescribeDedicatedClusterInstanceListResponseBodyInstances(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponseBodyInstances, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['dbInstance'] = []
         if self.db_instance is not None:
@@ -6451,7 +6539,7 @@ class DescribeDedicatedClusterInstanceListResponseBody(TeaModel):
     def __init__(self, instances=None, total_count=None, request_id=None, page_size=None, page_number=None):
         self.instances = instances  # type: DescribeDedicatedClusterInstanceListResponseBodyInstances
         self.total_count = total_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
 
@@ -6460,6 +6548,10 @@ class DescribeDedicatedClusterInstanceListResponseBody(TeaModel):
             self.instances.validate()
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instances is not None:
             result['Instances'] = self.instances.to_map()
@@ -6491,7 +6583,7 @@ class DescribeDedicatedClusterInstanceListResponseBody(TeaModel):
 
 class DescribeDedicatedClusterInstanceListResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeDedicatedClusterInstanceListResponseBody
 
     def validate(self):
@@ -6501,6 +6593,10 @@ class DescribeDedicatedClusterInstanceListResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeDedicatedClusterInstanceListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6522,25 +6618,29 @@ class DescribeErrorLogRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, role_type=None, start_time=None, end_time=None, dbname=None,
                  page_size=None, page_number=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.role_type = role_type  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.dbname = dbname  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeErrorLogRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -6607,16 +6707,20 @@ class DescribeErrorLogRecordsRequest(TeaModel):
 
 class DescribeErrorLogRecordsResponseBodyItemsLogRecords(TeaModel):
     def __init__(self, conn_info=None, create_time=None, category=None, content=None, id=None):
-        self.conn_info = TeaConverter.to_unicode(conn_info)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.conn_info = conn_info  # type: str
+        self.create_time = create_time  # type: str
+        self.category = category  # type: str
+        self.content = content  # type: str
         self.id = id  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeErrorLogRecordsResponseBodyItemsLogRecords, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.conn_info is not None:
             result['ConnInfo'] = self.conn_info
@@ -6656,6 +6760,10 @@ class DescribeErrorLogRecordsResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeErrorLogRecordsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['LogRecords'] = []
         if self.log_records is not None:
@@ -6678,16 +6786,20 @@ class DescribeErrorLogRecordsResponseBody(TeaModel):
                  items=None, engine=None):
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeErrorLogRecordsResponseBodyItems
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.engine = engine  # type: str
 
     def validate(self):
         if self.items:
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeErrorLogRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
@@ -6723,7 +6835,7 @@ class DescribeErrorLogRecordsResponseBody(TeaModel):
 
 class DescribeErrorLogRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeErrorLogRecordsResponseBody
 
     def validate(self):
@@ -6733,6 +6845,10 @@ class DescribeErrorLogRecordsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeErrorLogRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6753,14 +6869,14 @@ class DescribeErrorLogRecordsResponse(TeaModel):
 class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, dbinstance_id=None, dbinstance_type=None, page_size=None, page_number=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.dbinstance_type = TeaConverter.to_unicode(dbinstance_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.dbinstance_type = dbinstance_type  # type: str
         self.page_size = page_size  # type: long
         self.page_number = page_number  # type: long
 
@@ -6768,6 +6884,10 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeInstanceAutoRenewalAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -6818,16 +6938,20 @@ class DescribeInstanceAutoRenewalAttributeRequest(TeaModel):
 
 class DescribeInstanceAutoRenewalAttributeResponseBodyItemsItem(TeaModel):
     def __init__(self, dbinstance_type=None, auto_renew=None, duration=None, db_instance_id=None, region_id=None):
-        self.dbinstance_type = TeaConverter.to_unicode(dbinstance_type)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.db_instance_id = TeaConverter.to_unicode(db_instance_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.dbinstance_type = dbinstance_type  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.duration = duration  # type: str
+        self.db_instance_id = db_instance_id  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeInstanceAutoRenewalAttributeResponseBodyItemsItem, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.dbinstance_type is not None:
             result['DBInstanceType'] = self.dbinstance_type
@@ -6867,6 +6991,10 @@ class DescribeInstanceAutoRenewalAttributeResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeInstanceAutoRenewalAttributeResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Item'] = []
         if self.item is not None:
@@ -6888,7 +7016,7 @@ class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
     def __init__(self, items_numbers=None, page_record_count=None, request_id=None, page_number=None, items=None):
         self.items_numbers = items_numbers  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeInstanceAutoRenewalAttributeResponseBodyItems
 
@@ -6897,6 +7025,10 @@ class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeInstanceAutoRenewalAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.items_numbers is not None:
             result['ItemsNumbers'] = self.items_numbers
@@ -6928,7 +7060,7 @@ class DescribeInstanceAutoRenewalAttributeResponseBody(TeaModel):
 
 class DescribeInstanceAutoRenewalAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeInstanceAutoRenewalAttributeResponseBody
 
     def validate(self):
@@ -6938,6 +7070,10 @@ class DescribeInstanceAutoRenewalAttributeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeInstanceAutoRenewalAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6958,17 +7094,21 @@ class DescribeInstanceAutoRenewalAttributeResponse(TeaModel):
 class DescribeKernelReleaseNotesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, kernel_version=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.kernel_version = TeaConverter.to_unicode(kernel_version)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.kernel_version = kernel_version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeKernelReleaseNotesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7003,13 +7143,17 @@ class DescribeKernelReleaseNotesRequest(TeaModel):
 
 class DescribeKernelReleaseNotesResponseBodyReleaseNotesReleaseNote(TeaModel):
     def __init__(self, release_note=None, kernel_version=None):
-        self.release_note = TeaConverter.to_unicode(release_note)  # type: unicode
-        self.kernel_version = TeaConverter.to_unicode(kernel_version)  # type: unicode
+        self.release_note = release_note  # type: str
+        self.kernel_version = kernel_version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeKernelReleaseNotesResponseBodyReleaseNotesReleaseNote, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.release_note is not None:
             result['ReleaseNote'] = self.release_note
@@ -7037,6 +7181,10 @@ class DescribeKernelReleaseNotesResponseBodyReleaseNotes(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeKernelReleaseNotesResponseBodyReleaseNotes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ReleaseNote'] = []
         if self.release_note is not None:
@@ -7056,7 +7204,7 @@ class DescribeKernelReleaseNotesResponseBodyReleaseNotes(TeaModel):
 
 class DescribeKernelReleaseNotesResponseBody(TeaModel):
     def __init__(self, request_id=None, release_notes=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.release_notes = release_notes  # type: DescribeKernelReleaseNotesResponseBodyReleaseNotes
 
     def validate(self):
@@ -7064,6 +7212,10 @@ class DescribeKernelReleaseNotesResponseBody(TeaModel):
             self.release_notes.validate()
 
     def to_map(self):
+        _map = super(DescribeKernelReleaseNotesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -7083,7 +7235,7 @@ class DescribeKernelReleaseNotesResponseBody(TeaModel):
 
 class DescribeKernelReleaseNotesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeKernelReleaseNotesResponseBody
 
     def validate(self):
@@ -7093,6 +7245,10 @@ class DescribeKernelReleaseNotesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeKernelReleaseNotesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7113,17 +7269,21 @@ class DescribeKernelReleaseNotesResponse(TeaModel):
 class DescribeMongoDBLogConfigRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeMongoDBLogConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7159,8 +7319,8 @@ class DescribeMongoDBLogConfigRequest(TeaModel):
 class DescribeMongoDBLogConfigResponseBody(TeaModel):
     def __init__(self, user_project_name=None, request_id=None, is_user_project_logstore_exist=None,
                  is_etl_meta_exist=None):
-        self.user_project_name = TeaConverter.to_unicode(user_project_name)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.user_project_name = user_project_name  # type: str
+        self.request_id = request_id  # type: str
         self.is_user_project_logstore_exist = is_user_project_logstore_exist  # type: int
         self.is_etl_meta_exist = is_etl_meta_exist  # type: int
 
@@ -7168,6 +7328,10 @@ class DescribeMongoDBLogConfigResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeMongoDBLogConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.user_project_name is not None:
             result['UserProjectName'] = self.user_project_name
@@ -7194,7 +7358,7 @@ class DescribeMongoDBLogConfigResponseBody(TeaModel):
 
 class DescribeMongoDBLogConfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeMongoDBLogConfigResponseBody
 
     def validate(self):
@@ -7204,6 +7368,10 @@ class DescribeMongoDBLogConfigResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeMongoDBLogConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7224,21 +7392,25 @@ class DescribeMongoDBLogConfigResponse(TeaModel):
 class DescribeParameterModificationHistoryRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, start_time=None, end_time=None, character_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.character_type = character_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParameterModificationHistoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7289,15 +7461,19 @@ class DescribeParameterModificationHistoryRequest(TeaModel):
 
 class DescribeParameterModificationHistoryResponseBodyHistoricalParametersHistoricalParameter(TeaModel):
     def __init__(self, parameter_name=None, old_parameter_value=None, new_parameter_value=None, modify_time=None):
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.old_parameter_value = TeaConverter.to_unicode(old_parameter_value)  # type: unicode
-        self.new_parameter_value = TeaConverter.to_unicode(new_parameter_value)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.parameter_name = parameter_name  # type: str
+        self.old_parameter_value = old_parameter_value  # type: str
+        self.new_parameter_value = new_parameter_value  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParameterModificationHistoryResponseBodyHistoricalParametersHistoricalParameter, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.parameter_name is not None:
             result['ParameterName'] = self.parameter_name
@@ -7333,6 +7509,10 @@ class DescribeParameterModificationHistoryResponseBodyHistoricalParameters(TeaMo
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterModificationHistoryResponseBodyHistoricalParameters, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['HistoricalParameter'] = []
         if self.historical_parameter is not None:
@@ -7352,7 +7532,7 @@ class DescribeParameterModificationHistoryResponseBodyHistoricalParameters(TeaMo
 
 class DescribeParameterModificationHistoryResponseBody(TeaModel):
     def __init__(self, request_id=None, historical_parameters=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.historical_parameters = historical_parameters  # type: DescribeParameterModificationHistoryResponseBodyHistoricalParameters
 
     def validate(self):
@@ -7360,6 +7540,10 @@ class DescribeParameterModificationHistoryResponseBody(TeaModel):
             self.historical_parameters.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterModificationHistoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -7379,7 +7563,7 @@ class DescribeParameterModificationHistoryResponseBody(TeaModel):
 
 class DescribeParameterModificationHistoryResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeParameterModificationHistoryResponseBody
 
     def validate(self):
@@ -7389,6 +7573,10 @@ class DescribeParameterModificationHistoryResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterModificationHistoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7409,19 +7597,23 @@ class DescribeParameterModificationHistoryResponse(TeaModel):
 class DescribeParametersRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, character_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.character_type = character_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParametersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7465,17 +7657,21 @@ class DescribeParametersRequest(TeaModel):
 class DescribeParametersResponseBodyRunningParametersParameter(TeaModel):
     def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_restart=None,
                  parameter_description=None, modifiable_status=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
-        self.force_restart = TeaConverter.to_unicode(force_restart)  # type: unicode
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
-        self.modifiable_status = TeaConverter.to_unicode(modifiable_status)  # type: unicode
+        self.checking_code = checking_code  # type: str
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
+        self.force_restart = force_restart  # type: str
+        self.parameter_description = parameter_description  # type: str
+        self.modifiable_status = modifiable_status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParametersResponseBodyRunningParametersParameter, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.checking_code is not None:
             result['CheckingCode'] = self.checking_code
@@ -7519,6 +7715,10 @@ class DescribeParametersResponseBodyRunningParameters(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeParametersResponseBodyRunningParameters, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Parameter'] = []
         if self.parameter is not None:
@@ -7539,17 +7739,21 @@ class DescribeParametersResponseBodyRunningParameters(TeaModel):
 class DescribeParametersResponseBodyConfigParametersParameter(TeaModel):
     def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_restart=None,
                  parameter_description=None, modifiable_status=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
+        self.checking_code = checking_code  # type: str
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
         self.force_restart = force_restart  # type: bool
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
+        self.parameter_description = parameter_description  # type: str
         self.modifiable_status = modifiable_status  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParametersResponseBodyConfigParametersParameter, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.checking_code is not None:
             result['CheckingCode'] = self.checking_code
@@ -7593,6 +7797,10 @@ class DescribeParametersResponseBodyConfigParameters(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeParametersResponseBodyConfigParameters, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Parameter'] = []
         if self.parameter is not None:
@@ -7614,10 +7822,10 @@ class DescribeParametersResponseBody(TeaModel):
     def __init__(self, running_parameters=None, engine_version=None, request_id=None, config_parameters=None,
                  engine=None):
         self.running_parameters = running_parameters  # type: DescribeParametersResponseBodyRunningParameters
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.engine_version = engine_version  # type: str
+        self.request_id = request_id  # type: str
         self.config_parameters = config_parameters  # type: DescribeParametersResponseBodyConfigParameters
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.engine = engine  # type: str
 
     def validate(self):
         if self.running_parameters:
@@ -7626,6 +7834,10 @@ class DescribeParametersResponseBody(TeaModel):
             self.config_parameters.validate()
 
     def to_map(self):
+        _map = super(DescribeParametersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.running_parameters is not None:
             result['RunningParameters'] = self.running_parameters.to_map()
@@ -7658,7 +7870,7 @@ class DescribeParametersResponseBody(TeaModel):
 
 class DescribeParametersResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeParametersResponseBody
 
     def validate(self):
@@ -7668,6 +7880,10 @@ class DescribeParametersResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeParametersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7688,18 +7904,22 @@ class DescribeParametersResponse(TeaModel):
 class DescribeParameterTemplatesRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, engine=None, engine_version=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParameterTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7739,17 +7959,21 @@ class DescribeParameterTemplatesRequest(TeaModel):
 class DescribeParameterTemplatesResponseBodyParametersTemplateRecord(TeaModel):
     def __init__(self, checking_code=None, parameter_name=None, parameter_value=None, force_modify=None,
                  force_restart=None, parameter_description=None):
-        self.checking_code = TeaConverter.to_unicode(checking_code)  # type: unicode
-        self.parameter_name = TeaConverter.to_unicode(parameter_name)  # type: unicode
-        self.parameter_value = TeaConverter.to_unicode(parameter_value)  # type: unicode
+        self.checking_code = checking_code  # type: str
+        self.parameter_name = parameter_name  # type: str
+        self.parameter_value = parameter_value  # type: str
         self.force_modify = force_modify  # type: bool
         self.force_restart = force_restart  # type: bool
-        self.parameter_description = TeaConverter.to_unicode(parameter_description)  # type: unicode
+        self.parameter_description = parameter_description  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeParameterTemplatesResponseBodyParametersTemplateRecord, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.checking_code is not None:
             result['CheckingCode'] = self.checking_code
@@ -7793,6 +8017,10 @@ class DescribeParameterTemplatesResponseBodyParameters(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterTemplatesResponseBodyParameters, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['TemplateRecord'] = []
         if self.template_record is not None:
@@ -7812,17 +8040,21 @@ class DescribeParameterTemplatesResponseBodyParameters(TeaModel):
 
 class DescribeParameterTemplatesResponseBody(TeaModel):
     def __init__(self, parameter_count=None, engine_version=None, parameters=None, request_id=None, engine=None):
-        self.parameter_count = TeaConverter.to_unicode(parameter_count)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+        self.parameter_count = parameter_count  # type: str
+        self.engine_version = engine_version  # type: str
         self.parameters = parameters  # type: DescribeParameterTemplatesResponseBodyParameters
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.engine = engine  # type: str
 
     def validate(self):
         if self.parameters:
             self.parameters.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.parameter_count is not None:
             result['ParameterCount'] = self.parameter_count
@@ -7854,7 +8086,7 @@ class DescribeParameterTemplatesResponseBody(TeaModel):
 
 class DescribeParameterTemplatesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeParameterTemplatesResponseBody
 
     def validate(self):
@@ -7864,6 +8096,10 @@ class DescribeParameterTemplatesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeParameterTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7885,24 +8121,28 @@ class DescribePriceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, order_type=None, dbinstances=None, commodity_code=None, product_code=None,
                  business_info=None, coupon_no=None, order_param_out=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.dbinstances = TeaConverter.to_unicode(dbinstances)  # type: unicode
-        self.commodity_code = TeaConverter.to_unicode(commodity_code)  # type: unicode
-        self.product_code = TeaConverter.to_unicode(product_code)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.order_param_out = TeaConverter.to_unicode(order_param_out)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.order_type = order_type  # type: str
+        self.dbinstances = dbinstances  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.product_code = product_code  # type: str
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.order_param_out = order_param_out  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribePriceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -7965,15 +8205,19 @@ class DescribePriceRequest(TeaModel):
 
 class DescribePriceResponseBodyOrderCouponsCoupon(TeaModel):
     def __init__(self, description=None, is_selected=None, coupon_no=None, name=None):
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
-        self.is_selected = TeaConverter.to_unicode(is_selected)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.description = description  # type: str
+        self.is_selected = is_selected  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyOrderCouponsCoupon, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.description is not None:
             result['Description'] = self.description
@@ -8009,6 +8253,10 @@ class DescribePriceResponseBodyOrderCoupons(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyOrderCoupons, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Coupon'] = []
         if self.coupon is not None:
@@ -8028,12 +8276,16 @@ class DescribePriceResponseBodyOrderCoupons(TeaModel):
 
 class DescribePriceResponseBodyOrderRuleIds(TeaModel):
     def __init__(self, rule_id=None):
-        self.rule_id = rule_id  # type: list[unicode]
+        self.rule_id = rule_id  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyOrderRuleIds, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
@@ -8050,11 +8302,11 @@ class DescribePriceResponseBodyOrder(TeaModel):
     def __init__(self, coupons=None, original_amount=None, discount_amount=None, rule_ids=None, trade_amount=None,
                  currency=None):
         self.coupons = coupons  # type: DescribePriceResponseBodyOrderCoupons
-        self.original_amount = TeaConverter.to_unicode(original_amount)  # type: unicode
-        self.discount_amount = TeaConverter.to_unicode(discount_amount)  # type: unicode
+        self.original_amount = original_amount  # type: str
+        self.discount_amount = discount_amount  # type: str
         self.rule_ids = rule_ids  # type: DescribePriceResponseBodyOrderRuleIds
-        self.trade_amount = TeaConverter.to_unicode(trade_amount)  # type: unicode
-        self.currency = TeaConverter.to_unicode(currency)  # type: unicode
+        self.trade_amount = trade_amount  # type: str
+        self.currency = currency  # type: str
 
     def validate(self):
         if self.coupons:
@@ -8063,6 +8315,10 @@ class DescribePriceResponseBodyOrder(TeaModel):
             self.rule_ids.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyOrder, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.coupons is not None:
             result['Coupons'] = self.coupons.to_map()
@@ -8099,12 +8355,16 @@ class DescribePriceResponseBodyOrder(TeaModel):
 
 class DescribePriceResponseBodySubOrdersSubOrderRuleIds(TeaModel):
     def __init__(self, rule_id=None):
-        self.rule_id = rule_id  # type: list[unicode]
+        self.rule_id = rule_id  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodySubOrdersSubOrderRuleIds, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
@@ -8120,17 +8380,21 @@ class DescribePriceResponseBodySubOrdersSubOrderRuleIds(TeaModel):
 class DescribePriceResponseBodySubOrdersSubOrder(TeaModel):
     def __init__(self, original_amount=None, discount_amount=None, rule_ids=None, trade_amount=None,
                  instance_id=None):
-        self.original_amount = TeaConverter.to_unicode(original_amount)  # type: unicode
-        self.discount_amount = TeaConverter.to_unicode(discount_amount)  # type: unicode
+        self.original_amount = original_amount  # type: str
+        self.discount_amount = discount_amount  # type: str
         self.rule_ids = rule_ids  # type: DescribePriceResponseBodySubOrdersSubOrderRuleIds
-        self.trade_amount = TeaConverter.to_unicode(trade_amount)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.trade_amount = trade_amount  # type: str
+        self.instance_id = instance_id  # type: str
 
     def validate(self):
         if self.rule_ids:
             self.rule_ids.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodySubOrdersSubOrder, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.original_amount is not None:
             result['OriginalAmount'] = self.original_amount
@@ -8171,6 +8435,10 @@ class DescribePriceResponseBodySubOrders(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodySubOrders, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['SubOrder'] = []
         if self.sub_order is not None:
@@ -8191,13 +8459,17 @@ class DescribePriceResponseBodySubOrders(TeaModel):
 class DescribePriceResponseBodyRulesRule(TeaModel):
     def __init__(self, rule_desc_id=None, title=None, name=None):
         self.rule_desc_id = rule_desc_id  # type: long
-        self.title = TeaConverter.to_unicode(title)  # type: unicode
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.title = title  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyRulesRule, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.rule_desc_id is not None:
             result['RuleDescId'] = self.rule_desc_id
@@ -8229,6 +8501,10 @@ class DescribePriceResponseBodyRules(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBodyRules, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Rule'] = []
         if self.rule is not None:
@@ -8249,10 +8525,10 @@ class DescribePriceResponseBodyRules(TeaModel):
 class DescribePriceResponseBody(TeaModel):
     def __init__(self, order=None, request_id=None, sub_orders=None, trace_id=None, order_params=None, rules=None):
         self.order = order  # type: DescribePriceResponseBodyOrder
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.sub_orders = sub_orders  # type: DescribePriceResponseBodySubOrders
-        self.trace_id = TeaConverter.to_unicode(trace_id)  # type: unicode
-        self.order_params = TeaConverter.to_unicode(order_params)  # type: unicode
+        self.trace_id = trace_id  # type: str
+        self.order_params = order_params  # type: str
         self.rules = rules  # type: DescribePriceResponseBodyRules
 
     def validate(self):
@@ -8264,6 +8540,10 @@ class DescribePriceResponseBody(TeaModel):
             self.rules.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.order is not None:
             result['Order'] = self.order.to_map()
@@ -8301,7 +8581,7 @@ class DescribePriceResponseBody(TeaModel):
 
 class DescribePriceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribePriceResponseBody
 
     def validate(self):
@@ -8311,6 +8591,10 @@ class DescribePriceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribePriceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8330,19 +8614,22 @@ class DescribePriceResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
-                 owner_account=None, region_id=None, zone_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 owner_account=None, region_id=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRegionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -8356,8 +8643,6 @@ class DescribeRegionsRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.zone_id is not None:
-            result['ZoneId'] = self.zone_id
         return result
 
     def from_map(self, m=None):
@@ -8374,20 +8659,22 @@ class DescribeRegionsRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ZoneId') is not None:
-            self.zone_id = m.get('ZoneId')
         return self
 
 
 class DescribeRegionsResponseBodyRegionsDdsRegionZonesZone(TeaModel):
     def __init__(self, vpc_enabled=None, zone_name=None):
         self.vpc_enabled = vpc_enabled  # type: bool
-        self.zone_name = TeaConverter.to_unicode(zone_name)  # type: unicode
+        self.zone_name = zone_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegionsDdsRegionZonesZone, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vpc_enabled is not None:
             result['VpcEnabled'] = self.vpc_enabled
@@ -8415,6 +8702,10 @@ class DescribeRegionsResponseBodyRegionsDdsRegionZones(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegionsDdsRegionZones, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Zone'] = []
         if self.zone is not None:
@@ -8435,13 +8726,17 @@ class DescribeRegionsResponseBodyRegionsDdsRegionZones(TeaModel):
 class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
     def __init__(self, zones=None, region_id=None):
         self.zones = zones  # type: DescribeRegionsResponseBodyRegionsDdsRegionZones
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
 
     def validate(self):
         if self.zones:
             self.zones.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegionsDdsRegion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.zones is not None:
             result['Zones'] = self.zones.to_map()
@@ -8470,6 +8765,10 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegions, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['DdsRegion'] = []
         if self.dds_region is not None:
@@ -8489,7 +8788,7 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, request_id=None, regions=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
 
     def validate(self):
@@ -8497,6 +8796,10 @@ class DescribeRegionsResponseBody(TeaModel):
             self.regions.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -8516,7 +8819,7 @@ class DescribeRegionsResponseBody(TeaModel):
 
 class DescribeRegionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
@@ -8526,6 +8829,10 @@ class DescribeRegionsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8546,17 +8853,21 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeReplicaSetRoleRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeReplicaSetRoleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -8592,17 +8903,21 @@ class DescribeReplicaSetRoleRequest(TeaModel):
 class DescribeReplicaSetRoleResponseBodyReplicaSetsReplicaSet(TeaModel):
     def __init__(self, connection_port=None, replica_set_role=None, expired_time=None, connection_domain=None,
                  network_type=None, role_id=None):
-        self.connection_port = TeaConverter.to_unicode(connection_port)  # type: unicode
-        self.replica_set_role = TeaConverter.to_unicode(replica_set_role)  # type: unicode
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
-        self.connection_domain = TeaConverter.to_unicode(connection_domain)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.role_id = TeaConverter.to_unicode(role_id)  # type: unicode
+        self.connection_port = connection_port  # type: str
+        self.replica_set_role = replica_set_role  # type: str
+        self.expired_time = expired_time  # type: str
+        self.connection_domain = connection_domain  # type: str
+        self.network_type = network_type  # type: str
+        self.role_id = role_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeReplicaSetRoleResponseBodyReplicaSetsReplicaSet, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.connection_port is not None:
             result['ConnectionPort'] = self.connection_port
@@ -8646,6 +8961,10 @@ class DescribeReplicaSetRoleResponseBodyReplicaSets(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeReplicaSetRoleResponseBodyReplicaSets, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ReplicaSet'] = []
         if self.replica_set is not None:
@@ -8665,8 +8984,8 @@ class DescribeReplicaSetRoleResponseBodyReplicaSets(TeaModel):
 
 class DescribeReplicaSetRoleResponseBody(TeaModel):
     def __init__(self, request_id=None, dbinstance_id=None, replica_sets=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
         self.replica_sets = replica_sets  # type: DescribeReplicaSetRoleResponseBodyReplicaSets
 
     def validate(self):
@@ -8674,6 +8993,10 @@ class DescribeReplicaSetRoleResponseBody(TeaModel):
             self.replica_sets.validate()
 
     def to_map(self):
+        _map = super(DescribeReplicaSetRoleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -8697,7 +9020,7 @@ class DescribeReplicaSetRoleResponseBody(TeaModel):
 
 class DescribeReplicaSetRoleResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeReplicaSetRoleResponseBody
 
     def validate(self):
@@ -8707,6 +9030,10 @@ class DescribeReplicaSetRoleResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeReplicaSetRoleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8727,17 +9054,21 @@ class DescribeReplicaSetRoleResponse(TeaModel):
 class DescribeRoleZoneInfoRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRoleZoneInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -8772,16 +9103,20 @@ class DescribeRoleZoneInfoRequest(TeaModel):
 
 class DescribeRoleZoneInfoResponseBodyZoneInfosZoneInfo(TeaModel):
     def __init__(self, ins_name=None, node_type=None, role_type=None, zone_id=None, role_id=None):
-        self.ins_name = TeaConverter.to_unicode(ins_name)  # type: unicode
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.role_id = TeaConverter.to_unicode(role_id)  # type: unicode
+        self.ins_name = ins_name  # type: str
+        self.node_type = node_type  # type: str
+        self.role_type = role_type  # type: str
+        self.zone_id = zone_id  # type: str
+        self.role_id = role_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRoleZoneInfoResponseBodyZoneInfosZoneInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
@@ -8821,6 +9156,10 @@ class DescribeRoleZoneInfoResponseBodyZoneInfos(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRoleZoneInfoResponseBodyZoneInfos, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ZoneInfo'] = []
         if self.zone_info is not None:
@@ -8840,7 +9179,7 @@ class DescribeRoleZoneInfoResponseBodyZoneInfos(TeaModel):
 
 class DescribeRoleZoneInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, zone_infos=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.zone_infos = zone_infos  # type: DescribeRoleZoneInfoResponseBodyZoneInfos
 
     def validate(self):
@@ -8848,6 +9187,10 @@ class DescribeRoleZoneInfoResponseBody(TeaModel):
             self.zone_infos.validate()
 
     def to_map(self):
+        _map = super(DescribeRoleZoneInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -8867,7 +9210,7 @@ class DescribeRoleZoneInfoResponseBody(TeaModel):
 
 class DescribeRoleZoneInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRoleZoneInfoResponseBody
 
     def validate(self):
@@ -8877,6 +9220,10 @@ class DescribeRoleZoneInfoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeRoleZoneInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8898,27 +9245,31 @@ class DescribeRunningLogRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, start_time=None, end_time=None, dbname=None, role_type=None,
                  page_size=None, page_number=None, order_type=None, resource_group_id=None, role_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.dbname = dbname  # type: str
+        self.role_type = role_type  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.role_id = TeaConverter.to_unicode(role_id)  # type: unicode
+        self.order_type = order_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.role_id = role_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRunningLogRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -8993,16 +9344,20 @@ class DescribeRunningLogRecordsRequest(TeaModel):
 
 class DescribeRunningLogRecordsResponseBodyItemsLogRecords(TeaModel):
     def __init__(self, conn_info=None, create_time=None, category=None, content=None, id=None):
-        self.conn_info = TeaConverter.to_unicode(conn_info)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.conn_info = conn_info  # type: str
+        self.create_time = create_time  # type: str
+        self.category = category  # type: str
+        self.content = content  # type: str
         self.id = id  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRunningLogRecordsResponseBodyItemsLogRecords, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.conn_info is not None:
             result['ConnInfo'] = self.conn_info
@@ -9042,6 +9397,10 @@ class DescribeRunningLogRecordsResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRunningLogRecordsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['LogRecords'] = []
         if self.log_records is not None:
@@ -9064,16 +9423,20 @@ class DescribeRunningLogRecordsResponseBody(TeaModel):
                  items=None, engine=None):
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeRunningLogRecordsResponseBodyItems
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.engine = engine  # type: str
 
     def validate(self):
         if self.items:
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeRunningLogRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
@@ -9109,7 +9472,7 @@ class DescribeRunningLogRecordsResponseBody(TeaModel):
 
 class DescribeRunningLogRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRunningLogRecordsResponseBody
 
     def validate(self):
@@ -9119,6 +9482,10 @@ class DescribeRunningLogRecordsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeRunningLogRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9139,17 +9506,21 @@ class DescribeRunningLogRecordsResponse(TeaModel):
 class DescribeSecurityGroupConfigurationRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSecurityGroupConfigurationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -9184,14 +9555,18 @@ class DescribeSecurityGroupConfigurationRequest(TeaModel):
 
 class DescribeSecurityGroupConfigurationResponseBodyItemsRdsEcsSecurityGroupRel(TeaModel):
     def __init__(self, security_group_id=None, net_type=None, region_id=None):
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
-        self.net_type = TeaConverter.to_unicode(net_type)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
+        self.net_type = net_type  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSecurityGroupConfigurationResponseBodyItemsRdsEcsSecurityGroupRel, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_group_id is not None:
             result['SecurityGroupId'] = self.security_group_id
@@ -9223,6 +9598,10 @@ class DescribeSecurityGroupConfigurationResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityGroupConfigurationResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['RdsEcsSecurityGroupRel'] = []
         if self.rds_ecs_security_group_rel is not None:
@@ -9242,7 +9621,7 @@ class DescribeSecurityGroupConfigurationResponseBodyItems(TeaModel):
 
 class DescribeSecurityGroupConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None, items=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.items = items  # type: DescribeSecurityGroupConfigurationResponseBodyItems
 
     def validate(self):
@@ -9250,6 +9629,10 @@ class DescribeSecurityGroupConfigurationResponseBody(TeaModel):
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityGroupConfigurationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -9269,7 +9652,7 @@ class DescribeSecurityGroupConfigurationResponseBody(TeaModel):
 
 class DescribeSecurityGroupConfigurationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSecurityGroupConfigurationResponseBody
 
     def validate(self):
@@ -9279,6 +9662,10 @@ class DescribeSecurityGroupConfigurationResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityGroupConfigurationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9299,17 +9686,21 @@ class DescribeSecurityGroupConfigurationResponse(TeaModel):
 class DescribeSecurityIpsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSecurityIpsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -9344,14 +9735,18 @@ class DescribeSecurityIpsRequest(TeaModel):
 
 class DescribeSecurityIpsResponseBodySecurityIpGroupsSecurityIpGroup(TeaModel):
     def __init__(self, security_ip_group_name=None, security_ip_group_attribute=None, security_ip_list=None):
-        self.security_ip_group_name = TeaConverter.to_unicode(security_ip_group_name)  # type: unicode
-        self.security_ip_group_attribute = TeaConverter.to_unicode(security_ip_group_attribute)  # type: unicode
-        self.security_ip_list = TeaConverter.to_unicode(security_ip_list)  # type: unicode
+        self.security_ip_group_name = security_ip_group_name  # type: str
+        self.security_ip_group_attribute = security_ip_group_attribute  # type: str
+        self.security_ip_list = security_ip_list  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSecurityIpsResponseBodySecurityIpGroupsSecurityIpGroup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_ip_group_name is not None:
             result['SecurityIpGroupName'] = self.security_ip_group_name
@@ -9383,6 +9778,10 @@ class DescribeSecurityIpsResponseBodySecurityIpGroups(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityIpsResponseBodySecurityIpGroups, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['SecurityIpGroup'] = []
         if self.security_ip_group is not None:
@@ -9402,8 +9801,8 @@ class DescribeSecurityIpsResponseBodySecurityIpGroups(TeaModel):
 
 class DescribeSecurityIpsResponseBody(TeaModel):
     def __init__(self, security_ips=None, request_id=None, security_ip_groups=None):
-        self.security_ips = TeaConverter.to_unicode(security_ips)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.security_ips = security_ips  # type: str
+        self.request_id = request_id  # type: str
         self.security_ip_groups = security_ip_groups  # type: DescribeSecurityIpsResponseBodySecurityIpGroups
 
     def validate(self):
@@ -9411,6 +9810,10 @@ class DescribeSecurityIpsResponseBody(TeaModel):
             self.security_ip_groups.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityIpsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_ips is not None:
             result['SecurityIps'] = self.security_ips
@@ -9434,7 +9837,7 @@ class DescribeSecurityIpsResponseBody(TeaModel):
 
 class DescribeSecurityIpsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSecurityIpsResponseBody
 
     def validate(self):
@@ -9444,6 +9847,10 @@ class DescribeSecurityIpsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeSecurityIpsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9464,18 +9871,22 @@ class DescribeSecurityIpsResponse(TeaModel):
 class DescribeShardingNetworkAddressRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -9515,18 +9926,22 @@ class DescribeShardingNetworkAddressRequest(TeaModel):
 class DescribeShardingNetworkAddressResponseBodyCompatibleConnectionsCompatibleConnection(TeaModel):
     def __init__(self, vswitch_id=None, expired_time=None, network_type=None, port=None, network_address=None,
                  vpcid=None, ipaddress=None):
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.network_address = TeaConverter.to_unicode(network_address)  # type: unicode
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
+        self.vswitch_id = vswitch_id  # type: str
+        self.expired_time = expired_time  # type: str
+        self.network_type = network_type  # type: str
+        self.port = port  # type: str
+        self.network_address = network_address  # type: str
+        self.vpcid = vpcid  # type: str
+        self.ipaddress = ipaddress  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponseBodyCompatibleConnectionsCompatibleConnection, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.vswitch_id is not None:
             result['VswitchId'] = self.vswitch_id
@@ -9574,6 +9989,10 @@ class DescribeShardingNetworkAddressResponseBodyCompatibleConnections(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponseBodyCompatibleConnections, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['CompatibleConnection'] = []
         if self.compatible_connection is not None:
@@ -9594,21 +10013,25 @@ class DescribeShardingNetworkAddressResponseBodyCompatibleConnections(TeaModel):
 class DescribeShardingNetworkAddressResponseBodyNetworkAddressesNetworkAddress(TeaModel):
     def __init__(self, node_type=None, vswitch_id=None, expired_time=None, network_type=None, role=None, port=None,
                  vpcid=None, network_address=None, node_id=None, ipaddress=None):
-        self.node_type = TeaConverter.to_unicode(node_type)  # type: unicode
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.role = TeaConverter.to_unicode(role)  # type: unicode
-        self.port = TeaConverter.to_unicode(port)  # type: unicode
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
-        self.network_address = TeaConverter.to_unicode(network_address)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.ipaddress = TeaConverter.to_unicode(ipaddress)  # type: unicode
+        self.node_type = node_type  # type: str
+        self.vswitch_id = vswitch_id  # type: str
+        self.expired_time = expired_time  # type: str
+        self.network_type = network_type  # type: str
+        self.role = role  # type: str
+        self.port = port  # type: str
+        self.vpcid = vpcid  # type: str
+        self.network_address = network_address  # type: str
+        self.node_id = node_id  # type: str
+        self.ipaddress = ipaddress  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponseBodyNetworkAddressesNetworkAddress, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.node_type is not None:
             result['NodeType'] = self.node_type
@@ -9668,6 +10091,10 @@ class DescribeShardingNetworkAddressResponseBodyNetworkAddresses(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponseBodyNetworkAddresses, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['NetworkAddress'] = []
         if self.network_address is not None:
@@ -9688,7 +10115,7 @@ class DescribeShardingNetworkAddressResponseBodyNetworkAddresses(TeaModel):
 class DescribeShardingNetworkAddressResponseBody(TeaModel):
     def __init__(self, compatible_connections=None, request_id=None, network_addresses=None):
         self.compatible_connections = compatible_connections  # type: DescribeShardingNetworkAddressResponseBodyCompatibleConnections
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.network_addresses = network_addresses  # type: DescribeShardingNetworkAddressResponseBodyNetworkAddresses
 
     def validate(self):
@@ -9698,6 +10125,10 @@ class DescribeShardingNetworkAddressResponseBody(TeaModel):
             self.network_addresses.validate()
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.compatible_connections is not None:
             result['CompatibleConnections'] = self.compatible_connections.to_map()
@@ -9722,7 +10153,7 @@ class DescribeShardingNetworkAddressResponseBody(TeaModel):
 
 class DescribeShardingNetworkAddressResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeShardingNetworkAddressResponseBody
 
     def validate(self):
@@ -9732,6 +10163,10 @@ class DescribeShardingNetworkAddressResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeShardingNetworkAddressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9753,25 +10188,29 @@ class DescribeSlowLogRecordsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, start_time=None, end_time=None, dbname=None, page_size=None,
                  page_number=None, order_type=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.dbname = dbname  # type: str
         self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.order_type = order_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSlowLogRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -9840,21 +10279,25 @@ class DescribeSlowLogRecordsResponseBodyItemsLogRecords(TeaModel):
     def __init__(self, execution_start_time=None, host_address=None, query_times=None, table_name=None,
                  sqltext=None, return_row_counts=None, keys_examined=None, dbname=None, docs_examined=None,
                  account_name=None):
-        self.execution_start_time = TeaConverter.to_unicode(execution_start_time)  # type: unicode
-        self.host_address = TeaConverter.to_unicode(host_address)  # type: unicode
-        self.query_times = TeaConverter.to_unicode(query_times)  # type: unicode
-        self.table_name = TeaConverter.to_unicode(table_name)  # type: unicode
-        self.sqltext = TeaConverter.to_unicode(sqltext)  # type: unicode
+        self.execution_start_time = execution_start_time  # type: str
+        self.host_address = host_address  # type: str
+        self.query_times = query_times  # type: str
+        self.table_name = table_name  # type: str
+        self.sqltext = sqltext  # type: str
         self.return_row_counts = return_row_counts  # type: long
         self.keys_examined = keys_examined  # type: long
-        self.dbname = TeaConverter.to_unicode(dbname)  # type: unicode
+        self.dbname = dbname  # type: str
         self.docs_examined = docs_examined  # type: long
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
+        self.account_name = account_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeSlowLogRecordsResponseBodyItemsLogRecords, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.execution_start_time is not None:
             result['ExecutionStartTime'] = self.execution_start_time
@@ -9914,6 +10357,10 @@ class DescribeSlowLogRecordsResponseBodyItems(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeSlowLogRecordsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['LogRecords'] = []
         if self.log_records is not None:
@@ -9936,16 +10383,20 @@ class DescribeSlowLogRecordsResponseBody(TeaModel):
                  items=None, engine=None):
         self.total_record_count = total_record_count  # type: int
         self.page_record_count = page_record_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.page_number = page_number  # type: int
         self.items = items  # type: DescribeSlowLogRecordsResponseBodyItems
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.engine = engine  # type: str
 
     def validate(self):
         if self.items:
             self.items.validate()
 
     def to_map(self):
+        _map = super(DescribeSlowLogRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.total_record_count is not None:
             result['TotalRecordCount'] = self.total_record_count
@@ -9981,7 +10432,7 @@ class DescribeSlowLogRecordsResponseBody(TeaModel):
 
 class DescribeSlowLogRecordsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeSlowLogRecordsResponseBody
 
     def validate(self):
@@ -9991,6 +10442,10 @@ class DescribeSlowLogRecordsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeSlowLogRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10011,20 +10466,24 @@ class DescribeSlowLogRecordsResponse(TeaModel):
 class DestroyInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, dbinstance_id=None, client_token=None, resource_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.client_token = client_token  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DestroyInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -10071,12 +10530,16 @@ class DestroyInstanceRequest(TeaModel):
 
 class DestroyInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DestroyInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10091,7 +10554,7 @@ class DestroyInstanceResponseBody(TeaModel):
 
 class DestroyInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DestroyInstanceResponseBody
 
     def validate(self):
@@ -10101,6 +10564,10 @@ class DestroyInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DestroyInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10122,23 +10589,27 @@ class EvaluateResourceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, zone_id=None, engine=None, engine_version=None, dbinstance_class=None,
                  shards_info=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
-        self.shards_info = TeaConverter.to_unicode(shards_info)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.engine = engine  # type: str
+        self.engine_version = engine_version  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
+        self.shards_info = shards_info  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EvaluateResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -10197,15 +10668,19 @@ class EvaluateResourceRequest(TeaModel):
 
 class EvaluateResourceResponseBody(TeaModel):
     def __init__(self, dbinstance_available=None, engine_version=None, request_id=None, engine=None):
-        self.dbinstance_available = TeaConverter.to_unicode(dbinstance_available)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.engine = TeaConverter.to_unicode(engine)  # type: unicode
+        self.dbinstance_available = dbinstance_available  # type: str
+        self.engine_version = engine_version  # type: str
+        self.request_id = request_id  # type: str
+        self.engine = engine  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EvaluateResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.dbinstance_available is not None:
             result['DBInstanceAvailable'] = self.dbinstance_available
@@ -10232,7 +10707,7 @@ class EvaluateResourceResponseBody(TeaModel):
 
 class EvaluateResourceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: EvaluateResourceResponseBody
 
     def validate(self):
@@ -10242,6 +10717,10 @@ class EvaluateResourceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(EvaluateResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10261,13 +10740,17 @@ class EvaluateResourceResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -10288,13 +10771,13 @@ class ListTagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
                  region_id=None, resource_type=None, next_token=None, resource_id=None, tag=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.next_token = next_token  # type: str
+        self.resource_id = resource_id  # type: list[str]
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -10304,6 +10787,10 @@ class ListTagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -10355,15 +10842,19 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_type=None, tag_value=None, resource_id=None, tag_key=None):
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+        self.resource_type = resource_type  # type: str
+        self.tag_value = tag_value  # type: str
+        self.resource_id = resource_id  # type: str
+        self.tag_key = tag_key  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResourcesTagResource, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
@@ -10399,6 +10890,10 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResources, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['TagResource'] = []
         if self.tag_resource is not None:
@@ -10418,8 +10913,8 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -10427,6 +10922,10 @@ class ListTagResourcesResponseBody(TeaModel):
             self.tag_resources.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.next_token is not None:
             result['NextToken'] = self.next_token
@@ -10450,7 +10949,7 @@ class ListTagResourcesResponseBody(TeaModel):
 
 class ListTagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
@@ -10460,6 +10959,10 @@ class ListTagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10481,18 +10984,22 @@ class MigrateAvailableZoneRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
                  dbinstance_id=None, zone_id=None, vswitch=None, effective_time=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.vswitch = TeaConverter.to_unicode(vswitch)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.vswitch = vswitch  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(MigrateAvailableZoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -10535,12 +11042,16 @@ class MigrateAvailableZoneRequest(TeaModel):
 
 class MigrateAvailableZoneResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(MigrateAvailableZoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10555,7 +11066,7 @@ class MigrateAvailableZoneResponseBody(TeaModel):
 
 class MigrateAvailableZoneResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: MigrateAvailableZoneResponseBody
 
     def validate(self):
@@ -10565,6 +11076,10 @@ class MigrateAvailableZoneResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(MigrateAvailableZoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10586,18 +11101,22 @@ class MigrateToOtherZoneRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, instance_id=None,
                  zone_id=None, owner_account=None, effective_time=None, v_switch_id=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
+        self.zone_id = zone_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.effective_time = effective_time  # type: str
+        self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(MigrateToOtherZoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -10640,12 +11159,16 @@ class MigrateToOtherZoneRequest(TeaModel):
 
 class MigrateToOtherZoneResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(MigrateToOtherZoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10660,7 +11183,7 @@ class MigrateToOtherZoneResponseBody(TeaModel):
 
 class MigrateToOtherZoneResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: MigrateToOtherZoneResponseBody
 
     def validate(self):
@@ -10670,6 +11193,10 @@ class MigrateToOtherZoneResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(MigrateToOtherZoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10690,19 +11217,23 @@ class MigrateToOtherZoneResponse(TeaModel):
 class ModifyAccountDescriptionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, account_name=None, account_description=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_description = TeaConverter.to_unicode(account_description)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_description = account_description  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAccountDescriptionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -10745,12 +11276,16 @@ class ModifyAccountDescriptionRequest(TeaModel):
 
 class ModifyAccountDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAccountDescriptionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10765,7 +11300,7 @@ class ModifyAccountDescriptionResponseBody(TeaModel):
 
 class ModifyAccountDescriptionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAccountDescriptionResponseBody
 
     def validate(self):
@@ -10775,6 +11310,10 @@ class ModifyAccountDescriptionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyAccountDescriptionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10795,19 +11334,23 @@ class ModifyAccountDescriptionResponse(TeaModel):
 class ModifyAuditLogFilterRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, filter=None, role_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.filter = TeaConverter.to_unicode(filter)  # type: unicode
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.filter = filter  # type: str
+        self.role_type = role_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAuditLogFilterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -10850,12 +11393,16 @@ class ModifyAuditLogFilterRequest(TeaModel):
 
 class ModifyAuditLogFilterResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAuditLogFilterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10870,7 +11417,7 @@ class ModifyAuditLogFilterResponseBody(TeaModel):
 
 class ModifyAuditLogFilterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAuditLogFilterResponseBody
 
     def validate(self):
@@ -10880,6 +11427,10 @@ class ModifyAuditLogFilterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyAuditLogFilterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10900,19 +11451,23 @@ class ModifyAuditLogFilterResponse(TeaModel):
 class ModifyAuditPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, audit_status=None, storage_period=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.audit_status = TeaConverter.to_unicode(audit_status)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.audit_status = audit_status  # type: str
         self.storage_period = storage_period  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAuditPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -10955,12 +11510,16 @@ class ModifyAuditPolicyRequest(TeaModel):
 
 class ModifyAuditPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyAuditPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -10975,7 +11534,7 @@ class ModifyAuditPolicyResponseBody(TeaModel):
 
 class ModifyAuditPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyAuditPolicyResponseBody
 
     def validate(self):
@@ -10985,6 +11544,10 @@ class ModifyAuditPolicyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyAuditPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11005,19 +11568,23 @@ class ModifyAuditPolicyResponse(TeaModel):
 class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, preferred_backup_time=None, preferred_backup_period=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.preferred_backup_time = TeaConverter.to_unicode(preferred_backup_time)  # type: unicode
-        self.preferred_backup_period = TeaConverter.to_unicode(preferred_backup_period)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.preferred_backup_time = preferred_backup_time  # type: str
+        self.preferred_backup_period = preferred_backup_period  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyBackupPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11060,12 +11627,16 @@ class ModifyBackupPolicyRequest(TeaModel):
 
 class ModifyBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyBackupPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11080,7 +11651,7 @@ class ModifyBackupPolicyResponseBody(TeaModel):
 
 class ModifyBackupPolicyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyBackupPolicyResponseBody
 
     def validate(self):
@@ -11090,6 +11661,10 @@ class ModifyBackupPolicyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyBackupPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11111,20 +11686,24 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, current_connection_string=None,
                  new_connection_string=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.current_connection_string = TeaConverter.to_unicode(current_connection_string)  # type: unicode
-        self.new_connection_string = TeaConverter.to_unicode(new_connection_string)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.current_connection_string = current_connection_string  # type: str
+        self.new_connection_string = new_connection_string  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceConnectionStringRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11171,12 +11750,16 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
 
 class ModifyDBInstanceConnectionStringResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceConnectionStringResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11191,7 +11774,7 @@ class ModifyDBInstanceConnectionStringResponseBody(TeaModel):
 
 class ModifyDBInstanceConnectionStringResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceConnectionStringResponseBody
 
     def validate(self):
@@ -11201,6 +11784,10 @@ class ModifyDBInstanceConnectionStringResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceConnectionStringResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11221,19 +11808,23 @@ class ModifyDBInstanceConnectionStringResponse(TeaModel):
 class ModifyDBInstanceDescriptionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, dbinstance_description=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.dbinstance_description = TeaConverter.to_unicode(dbinstance_description)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.dbinstance_description = dbinstance_description  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceDescriptionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11276,12 +11867,16 @@ class ModifyDBInstanceDescriptionRequest(TeaModel):
 
 class ModifyDBInstanceDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceDescriptionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11296,7 +11891,7 @@ class ModifyDBInstanceDescriptionResponseBody(TeaModel):
 
 class ModifyDBInstanceDescriptionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceDescriptionResponseBody
 
     def validate(self):
@@ -11306,6 +11901,10 @@ class ModifyDBInstanceDescriptionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceDescriptionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11326,19 +11925,23 @@ class ModifyDBInstanceDescriptionResponse(TeaModel):
 class ModifyDBInstanceMaintainTimeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, maintain_start_time=None, maintain_end_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.maintain_start_time = TeaConverter.to_unicode(maintain_start_time)  # type: unicode
-        self.maintain_end_time = TeaConverter.to_unicode(maintain_end_time)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMaintainTimeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11381,12 +11984,16 @@ class ModifyDBInstanceMaintainTimeRequest(TeaModel):
 
 class ModifyDBInstanceMaintainTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMaintainTimeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11401,7 +12008,7 @@ class ModifyDBInstanceMaintainTimeResponseBody(TeaModel):
 
 class ModifyDBInstanceMaintainTimeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceMaintainTimeResponseBody
 
     def validate(self):
@@ -11411,6 +12018,10 @@ class ModifyDBInstanceMaintainTimeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMaintainTimeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11431,18 +12042,22 @@ class ModifyDBInstanceMaintainTimeResponse(TeaModel):
 class ModifyDBInstanceMonitorRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, granularity=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.granularity = TeaConverter.to_unicode(granularity)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.granularity = granularity  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11481,12 +12096,16 @@ class ModifyDBInstanceMonitorRequest(TeaModel):
 
 class ModifyDBInstanceMonitorResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11501,7 +12120,7 @@ class ModifyDBInstanceMonitorResponseBody(TeaModel):
 
 class ModifyDBInstanceMonitorResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceMonitorResponseBody
 
     def validate(self):
@@ -11511,6 +12130,10 @@ class ModifyDBInstanceMonitorResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11531,19 +12154,23 @@ class ModifyDBInstanceMonitorResponse(TeaModel):
 class ModifyDBInstanceNetExpireTimeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, connection_string=None, classic_expend_expired_days=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.connection_string = TeaConverter.to_unicode(connection_string)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.connection_string = connection_string  # type: str
         self.classic_expend_expired_days = classic_expend_expired_days  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetExpireTimeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11586,12 +12213,16 @@ class ModifyDBInstanceNetExpireTimeRequest(TeaModel):
 
 class ModifyDBInstanceNetExpireTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetExpireTimeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11606,7 +12237,7 @@ class ModifyDBInstanceNetExpireTimeResponseBody(TeaModel):
 
 class ModifyDBInstanceNetExpireTimeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceNetExpireTimeResponseBody
 
     def validate(self):
@@ -11616,6 +12247,10 @@ class ModifyDBInstanceNetExpireTimeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetExpireTimeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11637,22 +12272,26 @@ class ModifyDBInstanceNetworkTypeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, network_type=None, vpc_id=None, v_switch_id=None, retain_classic=None,
                  classic_expired_days=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
-        self.v_switch_id = TeaConverter.to_unicode(v_switch_id)  # type: unicode
-        self.retain_classic = TeaConverter.to_unicode(retain_classic)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.network_type = network_type  # type: str
+        self.vpc_id = vpc_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.retain_classic = retain_classic  # type: str
         self.classic_expired_days = classic_expired_days  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetworkTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11707,12 +12346,16 @@ class ModifyDBInstanceNetworkTypeRequest(TeaModel):
 
 class ModifyDBInstanceNetworkTypeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetworkTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11727,7 +12370,7 @@ class ModifyDBInstanceNetworkTypeResponseBody(TeaModel):
 
 class ModifyDBInstanceNetworkTypeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceNetworkTypeResponseBody
 
     def validate(self):
@@ -11737,6 +12380,10 @@ class ModifyDBInstanceNetworkTypeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceNetworkTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11757,29 +12404,32 @@ class ModifyDBInstanceNetworkTypeResponse(TeaModel):
 class ModifyDBInstanceSpecRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, dbinstance_class=None, dbinstance_storage=None, order_type=None,
-                 auto_pay=None, from_app=None, business_info=None, replication_factor=None, readonly_replicas=None,
-                 coupon_no=None, effective_time=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 auto_pay=None, business_info=None, replication_factor=None, readonly_replicas=None, coupon_no=None,
+                 effective_time=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.dbinstance_class = TeaConverter.to_unicode(dbinstance_class)  # type: unicode
-        self.dbinstance_storage = TeaConverter.to_unicode(dbinstance_storage)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.dbinstance_class = dbinstance_class  # type: str
+        self.dbinstance_storage = dbinstance_storage  # type: str
+        self.order_type = order_type  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.replication_factor = TeaConverter.to_unicode(replication_factor)  # type: unicode
-        self.readonly_replicas = TeaConverter.to_unicode(readonly_replicas)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
+        self.business_info = business_info  # type: str
+        self.replication_factor = replication_factor  # type: str
+        self.readonly_replicas = readonly_replicas  # type: str
+        self.coupon_no = coupon_no  # type: str
+        self.effective_time = effective_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSpecRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11801,8 +12451,6 @@ class ModifyDBInstanceSpecRequest(TeaModel):
             result['OrderType'] = self.order_type
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
-        if self.from_app is not None:
-            result['FromApp'] = self.from_app
         if self.business_info is not None:
             result['BusinessInfo'] = self.business_info
         if self.replication_factor is not None:
@@ -11837,8 +12485,6 @@ class ModifyDBInstanceSpecRequest(TeaModel):
             self.order_type = m.get('OrderType')
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
-        if m.get('FromApp') is not None:
-            self.from_app = m.get('FromApp')
         if m.get('BusinessInfo') is not None:
             self.business_info = m.get('BusinessInfo')
         if m.get('ReplicationFactor') is not None:
@@ -11854,13 +12500,17 @@ class ModifyDBInstanceSpecRequest(TeaModel):
 
 class ModifyDBInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSpecResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11879,7 +12529,7 @@ class ModifyDBInstanceSpecResponseBody(TeaModel):
 
 class ModifyDBInstanceSpecResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceSpecResponseBody
 
     def validate(self):
@@ -11889,6 +12539,10 @@ class ModifyDBInstanceSpecResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSpecResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11909,18 +12563,22 @@ class ModifyDBInstanceSpecResponse(TeaModel):
 class ModifyDBInstanceSSLRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, sslaction=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.sslaction = TeaConverter.to_unicode(sslaction)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.sslaction = sslaction  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSSLRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -11959,12 +12617,16 @@ class ModifyDBInstanceSSLRequest(TeaModel):
 
 class ModifyDBInstanceSSLResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSSLResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -11979,7 +12641,7 @@ class ModifyDBInstanceSSLResponseBody(TeaModel):
 
 class ModifyDBInstanceSSLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceSSLResponseBody
 
     def validate(self):
@@ -11989,6 +12651,10 @@ class ModifyDBInstanceSSLResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceSSLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12009,21 +12675,25 @@ class ModifyDBInstanceSSLResponse(TeaModel):
 class ModifyDBInstanceTDERequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, tdestatus=None, encryptor_name=None, encryption_key=None, role_arn=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.tdestatus = TeaConverter.to_unicode(tdestatus)  # type: unicode
-        self.encryptor_name = TeaConverter.to_unicode(encryptor_name)  # type: unicode
-        self.encryption_key = TeaConverter.to_unicode(encryption_key)  # type: unicode
-        self.role_arn = TeaConverter.to_unicode(role_arn)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.tdestatus = tdestatus  # type: str
+        self.encryptor_name = encryptor_name  # type: str
+        self.encryption_key = encryption_key  # type: str
+        self.role_arn = role_arn  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceTDERequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12074,12 +12744,16 @@ class ModifyDBInstanceTDERequest(TeaModel):
 
 class ModifyDBInstanceTDEResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyDBInstanceTDEResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12094,7 +12768,7 @@ class ModifyDBInstanceTDEResponseBody(TeaModel):
 
 class ModifyDBInstanceTDEResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyDBInstanceTDEResponseBody
 
     def validate(self):
@@ -12104,6 +12778,10 @@ class ModifyDBInstanceTDEResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyDBInstanceTDEResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12124,20 +12802,24 @@ class ModifyDBInstanceTDEResponse(TeaModel):
 class ModifyInstanceAutoRenewalAttributeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, region_id=None, dbinstance_id=None, duration=None, auto_renew=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.duration = duration  # type: str
+        self.auto_renew = auto_renew  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyInstanceAutoRenewalAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12184,12 +12866,16 @@ class ModifyInstanceAutoRenewalAttributeRequest(TeaModel):
 
 class ModifyInstanceAutoRenewalAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyInstanceAutoRenewalAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12204,7 +12890,7 @@ class ModifyInstanceAutoRenewalAttributeResponseBody(TeaModel):
 
 class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceAutoRenewalAttributeResponseBody
 
     def validate(self):
@@ -12214,6 +12900,10 @@ class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyInstanceAutoRenewalAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12234,19 +12924,23 @@ class ModifyInstanceAutoRenewalAttributeResponse(TeaModel):
 class ModifyInstanceVpcAuthModeRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, vpc_auth_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.vpc_auth_mode = TeaConverter.to_unicode(vpc_auth_mode)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.vpc_auth_mode = vpc_auth_mode  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyInstanceVpcAuthModeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12289,12 +12983,16 @@ class ModifyInstanceVpcAuthModeRequest(TeaModel):
 
 class ModifyInstanceVpcAuthModeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyInstanceVpcAuthModeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12309,7 +13007,7 @@ class ModifyInstanceVpcAuthModeResponseBody(TeaModel):
 
 class ModifyInstanceVpcAuthModeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyInstanceVpcAuthModeResponseBody
 
     def validate(self):
@@ -12319,6 +13017,10 @@ class ModifyInstanceVpcAuthModeResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyInstanceVpcAuthModeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12339,27 +13041,35 @@ class ModifyInstanceVpcAuthModeResponse(TeaModel):
 class ModifyNodeSpecRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, node_class=None, node_storage=None, client_token=None,
-                 from_app=None, auto_pay=None, effective_time=None, order_type=None, readonly_replicas=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+                 from_app=None, auto_pay=None, effective_time=None, switch_time=None, order_type=None,
+                 readonly_replicas=None, business_info=None, coupon_no=None):
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.node_class = TeaConverter.to_unicode(node_class)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.node_class = node_class  # type: str
         self.node_storage = node_storage  # type: int
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
+        self.client_token = client_token  # type: str
+        self.from_app = from_app  # type: str
         self.auto_pay = auto_pay  # type: bool
-        self.effective_time = TeaConverter.to_unicode(effective_time)  # type: unicode
-        self.order_type = TeaConverter.to_unicode(order_type)  # type: unicode
+        self.effective_time = effective_time  # type: str
+        self.switch_time = switch_time  # type: str
+        self.order_type = order_type  # type: str
         self.readonly_replicas = readonly_replicas  # type: int
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyNodeSpecRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12387,10 +13097,16 @@ class ModifyNodeSpecRequest(TeaModel):
             result['AutoPay'] = self.auto_pay
         if self.effective_time is not None:
             result['EffectiveTime'] = self.effective_time
+        if self.switch_time is not None:
+            result['SwitchTime'] = self.switch_time
         if self.order_type is not None:
             result['OrderType'] = self.order_type
         if self.readonly_replicas is not None:
             result['ReadonlyReplicas'] = self.readonly_replicas
+        if self.business_info is not None:
+            result['BusinessInfo'] = self.business_info
+        if self.coupon_no is not None:
+            result['CouponNo'] = self.coupon_no
         return result
 
     def from_map(self, m=None):
@@ -12421,22 +13137,32 @@ class ModifyNodeSpecRequest(TeaModel):
             self.auto_pay = m.get('AutoPay')
         if m.get('EffectiveTime') is not None:
             self.effective_time = m.get('EffectiveTime')
+        if m.get('SwitchTime') is not None:
+            self.switch_time = m.get('SwitchTime')
         if m.get('OrderType') is not None:
             self.order_type = m.get('OrderType')
         if m.get('ReadonlyReplicas') is not None:
             self.readonly_replicas = m.get('ReadonlyReplicas')
+        if m.get('BusinessInfo') is not None:
+            self.business_info = m.get('BusinessInfo')
+        if m.get('CouponNo') is not None:
+            self.coupon_no = m.get('CouponNo')
         return self
 
 
 class ModifyNodeSpecResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyNodeSpecResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12455,7 +13181,7 @@ class ModifyNodeSpecResponseBody(TeaModel):
 
 class ModifyNodeSpecResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyNodeSpecResponseBody
 
     def validate(self):
@@ -12465,6 +13191,10 @@ class ModifyNodeSpecResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyNodeSpecResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12485,20 +13215,24 @@ class ModifyNodeSpecResponse(TeaModel):
 class ModifyParametersRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, parameters=None, character_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
-        self.character_type = TeaConverter.to_unicode(character_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.parameters = parameters  # type: str
+        self.character_type = character_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyParametersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12545,12 +13279,16 @@ class ModifyParametersRequest(TeaModel):
 
 class ModifyParametersResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyParametersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12565,7 +13303,7 @@ class ModifyParametersResponseBody(TeaModel):
 
 class ModifyParametersResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyParametersResponseBody
 
     def validate(self):
@@ -12575,6 +13313,10 @@ class ModifyParametersResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyParametersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12595,18 +13337,22 @@ class ModifyParametersResponse(TeaModel):
 class ModifySecurityGroupConfigurationRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, security_group_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.security_group_id = security_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifySecurityGroupConfigurationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12645,12 +13391,16 @@ class ModifySecurityGroupConfigurationRequest(TeaModel):
 
 class ModifySecurityGroupConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifySecurityGroupConfigurationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12665,7 +13415,7 @@ class ModifySecurityGroupConfigurationResponseBody(TeaModel):
 
 class ModifySecurityGroupConfigurationResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifySecurityGroupConfigurationResponseBody
 
     def validate(self):
@@ -12675,6 +13425,10 @@ class ModifySecurityGroupConfigurationResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifySecurityGroupConfigurationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12696,21 +13450,25 @@ class ModifySecurityIpsRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, security_ips=None, modify_mode=None, security_ip_group_name=None,
                  security_ip_group_attribute=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.security_ips = TeaConverter.to_unicode(security_ips)  # type: unicode
-        self.modify_mode = TeaConverter.to_unicode(modify_mode)  # type: unicode
-        self.security_ip_group_name = TeaConverter.to_unicode(security_ip_group_name)  # type: unicode
-        self.security_ip_group_attribute = TeaConverter.to_unicode(security_ip_group_attribute)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.security_ips = security_ips  # type: str
+        self.modify_mode = modify_mode  # type: str
+        self.security_ip_group_name = security_ip_group_name  # type: str
+        self.security_ip_group_attribute = security_ip_group_attribute  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifySecurityIpsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12761,12 +13519,16 @@ class ModifySecurityIpsRequest(TeaModel):
 
 class ModifySecurityIpsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifySecurityIpsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12781,7 +13543,7 @@ class ModifySecurityIpsResponseBody(TeaModel):
 
 class ModifySecurityIpsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifySecurityIpsResponseBody
 
     def validate(self):
@@ -12791,6 +13553,10 @@ class ModifySecurityIpsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifySecurityIpsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12811,19 +13577,23 @@ class ModifySecurityIpsResponse(TeaModel):
 class ReleaseNodePrivateNetworkAddressRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, network_type=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.network_type = TeaConverter.to_unicode(network_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.network_type = network_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ReleaseNodePrivateNetworkAddressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12866,12 +13636,16 @@ class ReleaseNodePrivateNetworkAddressRequest(TeaModel):
 
 class ReleaseNodePrivateNetworkAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ReleaseNodePrivateNetworkAddressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12886,7 +13660,7 @@ class ReleaseNodePrivateNetworkAddressResponseBody(TeaModel):
 
 class ReleaseNodePrivateNetworkAddressResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ReleaseNodePrivateNetworkAddressResponseBody
 
     def validate(self):
@@ -12896,6 +13670,10 @@ class ReleaseNodePrivateNetworkAddressResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ReleaseNodePrivateNetworkAddressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12916,18 +13694,22 @@ class ReleaseNodePrivateNetworkAddressResponse(TeaModel):
 class ReleasePublicNetworkAddressRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ReleasePublicNetworkAddressRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -12966,12 +13748,16 @@ class ReleasePublicNetworkAddressRequest(TeaModel):
 
 class ReleasePublicNetworkAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ReleasePublicNetworkAddressResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12986,7 +13772,7 @@ class ReleasePublicNetworkAddressResponseBody(TeaModel):
 
 class ReleasePublicNetworkAddressResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ReleasePublicNetworkAddressResponseBody
 
     def validate(self):
@@ -12996,6 +13782,10 @@ class ReleasePublicNetworkAddressResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ReleasePublicNetworkAddressResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13017,22 +13807,26 @@ class RenewDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, client_token=None, dbinstance_id=None, period=None, auto_pay=None, business_info=None,
                  coupon_no=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.client_token = client_token  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
         self.period = period  # type: int
         self.auto_pay = auto_pay  # type: bool
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.business_info = business_info  # type: str
+        self.coupon_no = coupon_no  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RenewDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13087,13 +13881,17 @@ class RenewDBInstanceRequest(TeaModel):
 
 class RenewDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RenewDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13112,7 +13910,7 @@ class RenewDBInstanceResponseBody(TeaModel):
 
 class RenewDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RenewDBInstanceResponseBody
 
     def validate(self):
@@ -13122,6 +13920,10 @@ class RenewDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RenewDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13142,19 +13944,23 @@ class RenewDBInstanceResponse(TeaModel):
 class ResetAccountPasswordRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, account_name=None, account_password=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.account_name = TeaConverter.to_unicode(account_name)  # type: unicode
-        self.account_password = TeaConverter.to_unicode(account_password)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.account_name = account_name  # type: str
+        self.account_password = account_password  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ResetAccountPasswordRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13197,12 +14003,16 @@ class ResetAccountPasswordRequest(TeaModel):
 
 class ResetAccountPasswordResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ResetAccountPasswordResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13217,7 +14027,7 @@ class ResetAccountPasswordResponseBody(TeaModel):
 
 class ResetAccountPasswordResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ResetAccountPasswordResponseBody
 
     def validate(self):
@@ -13227,6 +14037,10 @@ class ResetAccountPasswordResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ResetAccountPasswordResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13247,18 +14061,22 @@ class ResetAccountPasswordResponse(TeaModel):
 class RestartDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RestartDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13297,12 +14115,16 @@ class RestartDBInstanceRequest(TeaModel):
 
 class RestartDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RestartDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13317,7 +14139,7 @@ class RestartDBInstanceResponseBody(TeaModel):
 
 class RestartDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RestartDBInstanceResponseBody
 
     def validate(self):
@@ -13327,6 +14149,10 @@ class RestartDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RestartDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13347,18 +14173,22 @@ class RestartDBInstanceResponse(TeaModel):
 class RestoreDBInstanceRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, backup_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
         self.backup_id = backup_id  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RestoreDBInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13397,12 +14227,16 @@ class RestoreDBInstanceRequest(TeaModel):
 
 class RestoreDBInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RestoreDBInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13417,7 +14251,7 @@ class RestoreDBInstanceResponseBody(TeaModel):
 
 class RestoreDBInstanceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RestoreDBInstanceResponseBody
 
     def validate(self):
@@ -13427,6 +14261,10 @@ class RestoreDBInstanceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RestoreDBInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13447,20 +14285,24 @@ class RestoreDBInstanceResponse(TeaModel):
 class SwitchDBInstanceHARequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, node_id=None, role_ids=None, switch_mode=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.node_id = TeaConverter.to_unicode(node_id)  # type: unicode
-        self.role_ids = TeaConverter.to_unicode(role_ids)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
+        self.role_ids = role_ids  # type: str
         self.switch_mode = switch_mode  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(SwitchDBInstanceHARequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13507,12 +14349,16 @@ class SwitchDBInstanceHARequest(TeaModel):
 
 class SwitchDBInstanceHAResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(SwitchDBInstanceHAResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13527,7 +14373,7 @@ class SwitchDBInstanceHAResponseBody(TeaModel):
 
 class SwitchDBInstanceHAResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: SwitchDBInstanceHAResponseBody
 
     def validate(self):
@@ -13537,6 +14383,10 @@ class SwitchDBInstanceHAResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(SwitchDBInstanceHAResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13556,13 +14406,17 @@ class SwitchDBInstanceHAResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -13583,13 +14437,13 @@ class TagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
                  region_id=None, resource_type=None, resource_group_id=None, resource_id=None, tag=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -13599,6 +14453,10 @@ class TagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -13650,12 +14508,16 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13670,7 +14532,7 @@ class TagResourcesResponseBody(TeaModel):
 
 class TagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
@@ -13680,6 +14542,10 @@ class TagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13701,23 +14567,27 @@ class TransformToPrePaidRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, instance_id=None, period=None, auto_pay=None, from_app=None, business_info=None,
                  auto_renew=None, coupon_no=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.instance_id = instance_id  # type: str
         self.period = period  # type: long
         self.auto_pay = auto_pay  # type: bool
-        self.from_app = TeaConverter.to_unicode(from_app)  # type: unicode
-        self.business_info = TeaConverter.to_unicode(business_info)  # type: unicode
-        self.auto_renew = TeaConverter.to_unicode(auto_renew)  # type: unicode
-        self.coupon_no = TeaConverter.to_unicode(coupon_no)  # type: unicode
+        self.from_app = from_app  # type: str
+        self.business_info = business_info  # type: str
+        self.auto_renew = auto_renew  # type: str
+        self.coupon_no = coupon_no  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TransformToPrePaidRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13776,13 +14646,17 @@ class TransformToPrePaidRequest(TeaModel):
 
 class TransformToPrePaidResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TransformToPrePaidResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13801,7 +14675,7 @@ class TransformToPrePaidResponseBody(TeaModel):
 
 class TransformToPrePaidResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: TransformToPrePaidResponseBody
 
     def validate(self):
@@ -13811,6 +14685,10 @@ class TransformToPrePaidResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(TransformToPrePaidResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13832,20 +14710,24 @@ class UntagResourcesRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, owner_account=None,
                  region_id=None, resource_type=None, all=None, resource_group_id=None, resource_id=None, tag_key=None):
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
         self.all = all  # type: bool
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
-        self.tag_key = tag_key  # type: list[unicode]
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -13896,12 +14778,16 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UntagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -13916,7 +14802,7 @@ class UntagResourcesResponseBody(TeaModel):
 
 class UntagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
@@ -13926,6 +14812,10 @@ class UntagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13946,18 +14836,22 @@ class UntagResourcesResponse(TeaModel):
 class UpgradeDBInstanceEngineVersionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None, engine_version=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
-        self.engine_version = TeaConverter.to_unicode(engine_version)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.engine_version = engine_version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceEngineVersionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -13996,12 +14890,16 @@ class UpgradeDBInstanceEngineVersionRequest(TeaModel):
 
 class UpgradeDBInstanceEngineVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceEngineVersionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -14016,7 +14914,7 @@ class UpgradeDBInstanceEngineVersionResponseBody(TeaModel):
 
 class UpgradeDBInstanceEngineVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpgradeDBInstanceEngineVersionResponseBody
 
     def validate(self):
@@ -14026,6 +14924,10 @@ class UpgradeDBInstanceEngineVersionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceEngineVersionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -14046,17 +14948,21 @@ class UpgradeDBInstanceEngineVersionResponse(TeaModel):
 class UpgradeDBInstanceKernelVersionRequest(TeaModel):
     def __init__(self, security_token=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
                  owner_account=None, dbinstance_id=None):
-        self.security_token = TeaConverter.to_unicode(security_token)  # type: unicode
+        self.security_token = security_token  # type: str
         self.owner_id = owner_id  # type: long
-        self.resource_owner_account = TeaConverter.to_unicode(resource_owner_account)  # type: unicode
+        self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.owner_account = TeaConverter.to_unicode(owner_account)  # type: unicode
-        self.dbinstance_id = TeaConverter.to_unicode(dbinstance_id)  # type: unicode
+        self.owner_account = owner_account  # type: str
+        self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceKernelVersionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
@@ -14091,12 +14997,16 @@ class UpgradeDBInstanceKernelVersionRequest(TeaModel):
 
 class UpgradeDBInstanceKernelVersionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceKernelVersionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -14111,7 +15021,7 @@ class UpgradeDBInstanceKernelVersionResponseBody(TeaModel):
 
 class UpgradeDBInstanceKernelVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpgradeDBInstanceKernelVersionResponseBody
 
     def validate(self):
@@ -14121,6 +15031,10 @@ class UpgradeDBInstanceKernelVersionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpgradeDBInstanceKernelVersionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
