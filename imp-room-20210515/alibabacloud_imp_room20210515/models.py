@@ -415,3 +415,317 @@ class CreateRoomResponse(TeaModel):
         return self
 
 
+class DestroyRoomRequestRequest(TeaModel):
+    def __init__(self, domain=None, room_id=None):
+        # 租户名
+        self.domain = domain  # type: str
+        # 房间id
+        self.room_id = room_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DestroyRoomRequestRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.room_id is not None:
+            result['RoomId'] = self.room_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('RoomId') is not None:
+            self.room_id = m.get('RoomId')
+        return self
+
+
+class DestroyRoomRequest(TeaModel):
+    def __init__(self, request=None):
+        self.request = request  # type: DestroyRoomRequestRequest
+
+    def validate(self):
+        if self.request:
+            self.request.validate()
+
+    def to_map(self):
+        _map = super(DestroyRoomRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request is not None:
+            result['Request'] = self.request.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Request') is not None:
+            temp_model = DestroyRoomRequestRequest()
+            self.request = temp_model.from_map(m['Request'])
+        return self
+
+
+class DestroyRoomResponseBody(TeaModel):
+    def __init__(self, request_id=None, response_success=None, error_code=None, error_msg=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.response_success = response_success  # type: bool
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DestroyRoomResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.response_success is not None:
+            result['ResponseSuccess'] = self.response_success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResponseSuccess') is not None:
+            self.response_success = m.get('ResponseSuccess')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        return self
+
+
+class DestroyRoomResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DestroyRoomResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DestroyRoomResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DestroyRoomResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateInstanceRequestRequest(TeaModel):
+    def __init__(self, domain=None, room_id=None, plugin_id=None, extension=None):
+        # 租户名
+        self.domain = domain  # type: str
+        # 房间id
+        self.room_id = room_id  # type: str
+        # 插件ID
+        self.plugin_id = plugin_id  # type: str
+        # 拓展字段
+        self.extension = extension  # type: dict[str, str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceRequestRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.room_id is not None:
+            result['RoomId'] = self.room_id
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('RoomId') is not None:
+            self.room_id = m.get('RoomId')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        return self
+
+
+class CreateInstanceRequest(TeaModel):
+    def __init__(self, request=None):
+        self.request = request  # type: CreateInstanceRequestRequest
+
+    def validate(self):
+        if self.request:
+            self.request.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request is not None:
+            result['Request'] = self.request.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Request') is not None:
+            temp_model = CreateInstanceRequestRequest()
+            self.request = temp_model.from_map(m['Request'])
+        return self
+
+
+class CreateInstanceResponseBodyResult(TeaModel):
+    def __init__(self, instance_id=None, extension=None):
+        # 插件实例ID
+        self.instance_id = instance_id  # type: str
+        # 扩展信息
+        self.extension = extension  # type: dict[str, str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateInstanceResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        return self
+
+
+class CreateInstanceResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, response_success=None, error_code=None, error_msg=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result = result  # type: CreateInstanceResponseBodyResult
+        self.response_success = response_success  # type: bool
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.response_success is not None:
+            result['ResponseSuccess'] = self.response_success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = CreateInstanceResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('ResponseSuccess') is not None:
+            self.response_success = m.get('ResponseSuccess')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        return self
+
+
+class CreateInstanceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+

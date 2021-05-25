@@ -61,3 +61,31 @@ class Client(OpenApiClient):
     def create_room(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_room_with_options(request, runtime)
+
+    def destroy_room_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_room_20210515_models.DestroyRoomResponse(),
+            self.do_rpcrequest('DestroyRoom', '2021-05-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def destroy_room(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.destroy_room_with_options(request, runtime)
+
+    def create_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_room_20210515_models.CreateInstanceResponse(),
+            self.do_rpcrequest('CreateInstance', '2021-05-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_instance_with_options(request, runtime)
