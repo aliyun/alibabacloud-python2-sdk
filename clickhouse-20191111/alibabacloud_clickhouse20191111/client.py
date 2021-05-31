@@ -215,6 +215,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbconfig_with_options(request, runtime)
 
+    def create_ports_for_click_house_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            clickhouse_20191111_models.CreatePortsForClickHouseResponse(),
+            self.do_rpcrequest('CreatePortsForClickHouse', '2019-11-11', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_ports_for_click_house(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_ports_for_click_house_with_options(request, runtime)
+
     def delete_dbcluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
