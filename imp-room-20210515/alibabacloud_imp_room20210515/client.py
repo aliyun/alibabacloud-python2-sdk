@@ -89,3 +89,31 @@ class Client(OpenApiClient):
     def create_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_instance_with_options(request, runtime)
+
+    def get_room_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_room_20210515_models.GetRoomDetailResponse(),
+            self.do_rpcrequest('GetRoomDetail', '2021-05-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_room_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_room_detail_with_options(request, runtime)
+
+    def get_room_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_room_20210515_models.GetRoomListResponse(),
+            self.do_rpcrequest('GetRoomList', '2021-05-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_room_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_room_list_with_options(request, runtime)
