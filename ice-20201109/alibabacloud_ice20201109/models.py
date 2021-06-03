@@ -4,15 +4,16 @@ from Tea.model import TeaModel
 
 
 class ListSmartJobsRequest(TeaModel):
-    def __init__(self, status=None, next_token=None, max_results=None, page_no=None, page_size=None, title=None,
-                 job_type=None):
+    def __init__(self, status=None, next_token=None, max_results=None, page_no=None, page_size=None, job_type=None,
+                 sort_by=None, job_state=None):
         self.status = status  # type: long
         self.next_token = next_token  # type: str
         self.max_results = max_results  # type: long
         self.page_no = page_no  # type: long
         self.page_size = page_size  # type: long
-        self.title = title  # type: str
         self.job_type = job_type  # type: str
+        self.sort_by = sort_by  # type: str
+        self.job_state = job_state  # type: str
 
     def validate(self):
         pass
@@ -33,10 +34,12 @@ class ListSmartJobsRequest(TeaModel):
             result['PageNo'] = self.page_no
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.title is not None:
-            result['Title'] = self.title
         if self.job_type is not None:
             result['JobType'] = self.job_type
+        if self.sort_by is not None:
+            result['SortBy'] = self.sort_by
+        if self.job_state is not None:
+            result['JobState'] = self.job_state
         return result
 
     def from_map(self, m=None):
@@ -51,10 +54,12 @@ class ListSmartJobsRequest(TeaModel):
             self.page_no = m.get('PageNo')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Title') is not None:
-            self.title = m.get('Title')
         if m.get('JobType') is not None:
             self.job_type = m.get('JobType')
+        if m.get('SortBy') is not None:
+            self.sort_by = m.get('SortBy')
+        if m.get('JobState') is not None:
+            self.job_state = m.get('JobState')
         return self
 
 
@@ -2544,9 +2549,10 @@ class DeleteEditingProjectsResponse(TeaModel):
 
 
 class GetMediaInfoRequest(TeaModel):
-    def __init__(self, media_id=None, input_url=None):
+    def __init__(self, media_id=None, input_url=None, output_type=None):
         self.media_id = media_id  # type: str
         self.input_url = input_url  # type: str
+        self.output_type = output_type  # type: str
 
     def validate(self):
         pass
@@ -2561,6 +2567,8 @@ class GetMediaInfoRequest(TeaModel):
             result['MediaId'] = self.media_id
         if self.input_url is not None:
             result['InputURL'] = self.input_url
+        if self.output_type is not None:
+            result['OutputType'] = self.output_type
         return result
 
     def from_map(self, m=None):
@@ -2569,6 +2577,8 @@ class GetMediaInfoRequest(TeaModel):
             self.media_id = m.get('MediaId')
         if m.get('InputURL') is not None:
             self.input_url = m.get('InputURL')
+        if m.get('OutputType') is not None:
+            self.output_type = m.get('OutputType')
         return self
 
 
@@ -3562,7 +3572,7 @@ class SubmitSmartJobResponse(TeaModel):
 
 class SubmitDelogoJobRequest(TeaModel):
     def __init__(self, input_file=None, user_data=None, title=None, description=None, output_config=None,
-                 input_type=None):
+                 input_type=None, overwrite=None):
         # 输入文件
         self.input_file = input_file  # type: str
         self.user_data = user_data  # type: str
@@ -3572,6 +3582,8 @@ class SubmitDelogoJobRequest(TeaModel):
         self.output_config = output_config  # type: str
         # 输入文件类型
         self.input_type = input_type  # type: str
+        # 是否强制覆盖现有OSS文件
+        self.overwrite = overwrite  # type: bool
 
     def validate(self):
         pass
@@ -3594,6 +3606,8 @@ class SubmitDelogoJobRequest(TeaModel):
             result['OutputConfig'] = self.output_config
         if self.input_type is not None:
             result['InputType'] = self.input_type
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
         return result
 
     def from_map(self, m=None):
@@ -3610,6 +3624,8 @@ class SubmitDelogoJobRequest(TeaModel):
             self.output_config = m.get('OutputConfig')
         if m.get('InputType') is not None:
             self.input_type = m.get('InputType')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
         return self
 
 
@@ -4265,15 +4281,98 @@ class GetEditingProjectMaterialsResponse(TeaModel):
         return self
 
 
+class GetDefaultStorageLocationResponseBody(TeaModel):
+    def __init__(self, request_id=None, storage_type=None, bucket=None, path=None, status=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # 存储类型
+        self.storage_type = storage_type  # type: str
+        # oss bucket 名称
+        self.bucket = bucket  # type: str
+        # 路径
+        self.path = path  # type: str
+        # 状态
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDefaultStorageLocationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
+        if self.bucket is not None:
+            result['Bucket'] = self.bucket
+        if self.path is not None:
+            result['Path'] = self.path
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
+        if m.get('Bucket') is not None:
+            self.bucket = m.get('Bucket')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetDefaultStorageLocationResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetDefaultStorageLocationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDefaultStorageLocationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetDefaultStorageLocationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SubmitAudioProduceJobRequest(TeaModel):
     def __init__(self, editing_config=None, output_config=None, input_config=None, title=None, description=None,
-                 user_data=None):
+                 user_data=None, overwrite=None):
         self.editing_config = editing_config  # type: str
         self.output_config = output_config  # type: str
         self.input_config = input_config  # type: str
         self.title = title  # type: str
         self.description = description  # type: str
         self.user_data = user_data  # type: str
+        self.overwrite = overwrite  # type: bool
 
     def validate(self):
         pass
@@ -4296,6 +4395,8 @@ class SubmitAudioProduceJobRequest(TeaModel):
             result['Description'] = self.description
         if self.user_data is not None:
             result['UserData'] = self.user_data
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
         return result
 
     def from_map(self, m=None):
@@ -4312,6 +4413,8 @@ class SubmitAudioProduceJobRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('UserData') is not None:
             self.user_data = m.get('UserData')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
         return self
 
 
@@ -4451,13 +4554,15 @@ class SubmitMediaProducingJobRequest(TeaModel):
 
 
 class SubmitMediaProducingJobResponseBody(TeaModel):
-    def __init__(self, request_id=None, project_id=None, job_id=None):
+    def __init__(self, request_id=None, project_id=None, job_id=None, media_id=None):
         # Id of the request
         self.request_id = request_id  # type: str
         # 剪辑工程Id
         self.project_id = project_id  # type: str
         # 合成作业Id
         self.job_id = job_id  # type: str
+        # 合成媒资Id
+        self.media_id = media_id  # type: str
 
     def validate(self):
         pass
@@ -4474,6 +4579,8 @@ class SubmitMediaProducingJobResponseBody(TeaModel):
             result['ProjectId'] = self.project_id
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.media_id is not None:
+            result['MediaId'] = self.media_id
         return result
 
     def from_map(self, m=None):
@@ -4484,6 +4591,8 @@ class SubmitMediaProducingJobResponseBody(TeaModel):
             self.project_id = m.get('ProjectId')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('MediaId') is not None:
+            self.media_id = m.get('MediaId')
         return self
 
 
@@ -4848,7 +4957,7 @@ class ListAllPublicMediaTagsResponse(TeaModel):
 
 class SubmitMattingJobRequest(TeaModel):
     def __init__(self, input_file=None, user_data=None, title=None, description=None, output_config=None,
-                 input_type=None):
+                 input_type=None, overwrite=None):
         # 输入文件
         self.input_file = input_file  # type: str
         self.user_data = user_data  # type: str
@@ -4858,6 +4967,8 @@ class SubmitMattingJobRequest(TeaModel):
         self.output_config = output_config  # type: str
         # 输入文件类型
         self.input_type = input_type  # type: str
+        # 是否强制覆盖现有OSS文件
+        self.overwrite = overwrite  # type: str
 
     def validate(self):
         pass
@@ -4880,6 +4991,8 @@ class SubmitMattingJobRequest(TeaModel):
             result['OutputConfig'] = self.output_config
         if self.input_type is not None:
             result['InputType'] = self.input_type
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
         return result
 
     def from_map(self, m=None):
@@ -4896,6 +5009,8 @@ class SubmitMattingJobRequest(TeaModel):
             self.output_config = m.get('OutputConfig')
         if m.get('InputType') is not None:
             self.input_type = m.get('InputType')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
         return self
 
 
@@ -5852,6 +5967,103 @@ class SubmitCoverJobResponse(TeaModel):
         return self
 
 
+class SetDefaultStorageLocationRequest(TeaModel):
+    def __init__(self, storage_type=None, bucket=None, path=None):
+        self.storage_type = storage_type  # type: str
+        self.bucket = bucket  # type: str
+        self.path = path  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDefaultStorageLocationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
+        if self.bucket is not None:
+            result['Bucket'] = self.bucket
+        if self.path is not None:
+            result['Path'] = self.path
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
+        if m.get('Bucket') is not None:
+            self.bucket = m.get('Bucket')
+        if m.get('Path') is not None:
+            self.path = m.get('Path')
+        return self
+
+
+class SetDefaultStorageLocationResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDefaultStorageLocationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetDefaultStorageLocationResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetDefaultStorageLocationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDefaultStorageLocationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetDefaultStorageLocationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateMediaInfoRequest(TeaModel):
     def __init__(self, media_id=None, input_url=None, business_type=None, title=None, description=None,
                  category=None, media_tags=None, cover_url=None, dynamic_meta_data_list=None, user_data=None,
@@ -6407,7 +6619,7 @@ class GetSmartHandleJobResponse(TeaModel):
 
 class SubmitH2VJobRequest(TeaModel):
     def __init__(self, input_file=None, user_data=None, title=None, description=None, output_config=None,
-                 input_type=None):
+                 input_type=None, overwrite=None):
         # 输入文件
         self.input_file = input_file  # type: str
         self.user_data = user_data  # type: str
@@ -6417,6 +6629,8 @@ class SubmitH2VJobRequest(TeaModel):
         self.output_config = output_config  # type: str
         # 输入文件类型
         self.input_type = input_type  # type: str
+        # 是否强制覆盖现有OSS文件
+        self.overwrite = overwrite  # type: bool
 
     def validate(self):
         pass
@@ -6439,6 +6653,8 @@ class SubmitH2VJobRequest(TeaModel):
             result['OutputConfig'] = self.output_config
         if self.input_type is not None:
             result['InputType'] = self.input_type
+        if self.overwrite is not None:
+            result['Overwrite'] = self.overwrite
         return result
 
     def from_map(self, m=None):
@@ -6455,6 +6671,8 @@ class SubmitH2VJobRequest(TeaModel):
             self.output_config = m.get('OutputConfig')
         if m.get('InputType') is not None:
             self.input_type = m.get('InputType')
+        if m.get('Overwrite') is not None:
+            self.overwrite = m.get('Overwrite')
         return self
 
 

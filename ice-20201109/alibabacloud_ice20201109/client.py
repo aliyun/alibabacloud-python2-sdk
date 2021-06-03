@@ -367,6 +367,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_editing_project_materials_with_options(request, runtime)
 
+    def get_default_storage_location_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        return TeaCore.from_map(
+            ice20201109_models.GetDefaultStorageLocationResponse(),
+            self.do_rpcrequest('GetDefaultStorageLocation', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_default_storage_location(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_default_storage_location_with_options(runtime)
+
     def submit_audio_produce_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -506,6 +517,20 @@ class Client(OpenApiClient):
     def submit_cover_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_cover_job_with_options(request, runtime)
+
+    def set_default_storage_location_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SetDefaultStorageLocationResponse(),
+            self.do_rpcrequest('SetDefaultStorageLocation', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def set_default_storage_location(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_default_storage_location_with_options(request, runtime)
 
     def update_media_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
