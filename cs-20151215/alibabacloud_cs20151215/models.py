@@ -1,20 +1,23 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class Runtime(TeaModel):
     def __init__(self, name=None, version=None):
         # 容器运行时名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 容器运行时版本
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(Runtime, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -34,16 +37,20 @@ class Runtime(TeaModel):
 class Taint(TeaModel):
     def __init__(self, key=None, value=None, effect=None):
         # key值。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # value值。
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
         # 污点生效策略。
-        self.effect = TeaConverter.to_unicode(effect)  # type: unicode
+        self.effect = effect  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(Taint, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -67,18 +74,22 @@ class Taint(TeaModel):
 class DataDisk(TeaModel):
     def __init__(self, category=None, size=None, encrypted=None, auto_snapshot_policy_id=None):
         # 数据盘类型
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
+        self.category = category  # type: str
         # 数据盘大小，取值范围：40～32767
         self.size = size  # type: long
         # 是否对数据盘加密。
-        self.encrypted = TeaConverter.to_unicode(encrypted)  # type: unicode
+        self.encrypted = encrypted  # type: str
         # 开启云盘备份时的自动备份策略。
-        self.auto_snapshot_policy_id = TeaConverter.to_unicode(auto_snapshot_policy_id)  # type: unicode
+        self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DataDisk, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.category is not None:
             result['category'] = self.category
@@ -106,14 +117,18 @@ class DataDisk(TeaModel):
 class Tag(TeaModel):
     def __init__(self, key=None, value=None):
         # key值。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # value值。
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(Tag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -133,9 +148,9 @@ class Tag(TeaModel):
 class Addon(TeaModel):
     def __init__(self, name=None, config=None, disabled=None):
         # 插件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 插件配置参数。
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.config = config  # type: str
         # 是否禁止默认安装。true | false。
         self.disabled = disabled  # type: bool
 
@@ -143,6 +158,10 @@ class Addon(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(Addon, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -168,16 +187,20 @@ class MaintenanceWindow(TeaModel):
         # 是否开启维护窗口。默认值false。
         self.enable = enable  # type: bool
         # 维护起始时间。Golang标准时间格式"15:04:05Z"。
-        self.maintenance_time = TeaConverter.to_unicode(maintenance_time)  # type: unicode
+        self.maintenance_time = maintenance_time  # type: str
         # 维护时长。取值范围1～24，单位为小时。 默认值：3h。
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
+        self.duration = duration  # type: str
         # 维护周期。取值范围为:Monday~Sunday，多个值用逗号分隔。 默认值：Thursday。
-        self.weekly_period = TeaConverter.to_unicode(weekly_period)  # type: unicode
+        self.weekly_period = weekly_period  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(MaintenanceWindow, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -205,15 +228,15 @@ class MaintenanceWindow(TeaModel):
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, resource_ids=None, resource_type=None, region_id=None, tags=None, next_token=None):
         # 集群ID列表。
-        self.resource_ids = resource_ids  # type: list[unicode]
+        self.resource_ids = resource_ids  # type: list[str]
         # 资源类型，只支持Cluster
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 地域ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 按标签查找。
         self.tags = tags  # type: list[Tag]
         # 下一次查询Token。
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
 
     def validate(self):
         if self.tags:
@@ -222,6 +245,10 @@ class ListTagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.resource_ids is not None:
             result['resource_ids'] = self.resource_ids
@@ -259,20 +286,24 @@ class ListTagResourcesShrinkRequest(TeaModel):
     def __init__(self, resource_ids_shrink=None, resource_type=None, region_id=None, tags_shrink=None,
                  next_token=None):
         # 集群ID列表。
-        self.resource_ids_shrink = TeaConverter.to_unicode(resource_ids_shrink)  # type: unicode
+        self.resource_ids_shrink = resource_ids_shrink  # type: str
         # 资源类型，只支持Cluster
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 地域ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 按标签查找。
-        self.tags_shrink = TeaConverter.to_unicode(tags_shrink)  # type: unicode
+        self.tags_shrink = tags_shrink  # type: str
         # 下一次查询Token。
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.resource_ids_shrink is not None:
             result['resource_ids'] = self.resource_ids_shrink
@@ -304,18 +335,22 @@ class ListTagResourcesShrinkRequest(TeaModel):
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, tag_key=None, tag_value=None, resource_id=None, resource_type=None):
         # 标签key。
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
+        self.tag_key = tag_key  # type: str
         # 标签值。
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
+        self.tag_value = tag_value  # type: str
         # 资源ID。
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
+        self.resource_id = resource_id  # type: str
         # 资源类型。
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResourcesTagResource, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tag_key is not None:
             result['tag_key'] = self.tag_key
@@ -352,6 +387,10 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResources, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['tag_resource'] = []
         if self.tag_resource is not None:
@@ -372,9 +411,9 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
         # 下一个查询开始Token，为空说明没有下一个
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+        self.next_token = next_token  # type: str
         # 请求ID。
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 资源标签列表。
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
@@ -383,6 +422,10 @@ class ListTagResourcesResponseBody(TeaModel):
             self.tag_resources.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.next_token is not None:
             result['next_token'] = self.next_token
@@ -406,7 +449,7 @@ class ListTagResourcesResponseBody(TeaModel):
 
 class ListTagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
@@ -416,6 +459,10 @@ class ListTagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -436,18 +483,22 @@ class ListTagResourcesResponse(TeaModel):
 class UntagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_ids=None, resource_type=None, tag_keys=None):
         # 资源所属的地域ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 资源ID。数组长度取值范围为：1~50
-        self.resource_ids = resource_ids  # type: list[unicode]
+        self.resource_ids = resource_ids  # type: list[str]
         # 资源类型定义。取值范围： 只支持CLUSTER这一种资源类型
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 资源的标签键。N的取值范围：1~20
-        self.tag_keys = tag_keys  # type: list[unicode]
+        self.tag_keys = tag_keys  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['region_id'] = self.region_id
@@ -474,12 +525,16 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -499,17 +554,17 @@ class ModifyClusterRequest(TeaModel):
         # 集群是否绑定EIP，用于公网访问API Server。 true | false
         self.api_server_eip = api_server_eip  # type: bool
         # 集群API Server 公网连接端点。
-        self.api_server_eip_id = TeaConverter.to_unicode(api_server_eip_id)  # type: unicode
+        self.api_server_eip_id = api_server_eip_id  # type: str
         # 集群是否开启删除保护。默认值false。
         self.deletion_protection = deletion_protection  # type: bool
         # 实例删除保护，防止通过控制台或API误删除释放节点。
         self.instance_deletion_protection = instance_deletion_protection  # type: bool
         # 域名是否重新绑定到Ingress的SLB地址。
-        self.ingress_domain_rebinding = TeaConverter.to_unicode(ingress_domain_rebinding)  # type: unicode
+        self.ingress_domain_rebinding = ingress_domain_rebinding  # type: str
         # 集群的Ingress SLB的ID。
-        self.ingress_loadbalancer_id = TeaConverter.to_unicode(ingress_loadbalancer_id)  # type: unicode
+        self.ingress_loadbalancer_id = ingress_loadbalancer_id  # type: str
         # 集群资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
 
     def validate(self):
@@ -517,6 +572,10 @@ class ModifyClusterRequest(TeaModel):
             self.maintenance_window.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.api_server_eip is not None:
             result['api_server_eip'] = self.api_server_eip
@@ -561,16 +620,20 @@ class ModifyClusterRequest(TeaModel):
 class ModifyClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 请求ID。
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -593,7 +656,7 @@ class ModifyClusterResponseBody(TeaModel):
 
 class ModifyClusterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyClusterResponseBody
 
     def validate(self):
@@ -603,6 +666,10 @@ class ModifyClusterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -624,22 +691,26 @@ class DescribeClusterAttachScriptsRequest(TeaModel):
     def __init__(self, nodepool_id=None, format_disk=None, keep_instance_name=None, rds_instances=None, arch=None,
                  options=None):
         # 节点池ID。将节点加入指定节点池。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 数据盘挂载
         self.format_disk = format_disk  # type: bool
         # 保留实例名称
         self.keep_instance_name = keep_instance_name  # type: bool
         # RDS白名单
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 节点CPU架构,支持amd64、arm、arm64。边缘托管集群专有字段。
-        self.arch = TeaConverter.to_unicode(arch)  # type: unicode
+        self.arch = arch  # type: str
         # 边缘托管版集群节点的接入配置。
-        self.options = TeaConverter.to_unicode(options)  # type: unicode
+        self.options = options  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterAttachScriptsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.nodepool_id is not None:
             result['nodepool_id'] = self.nodepool_id
@@ -674,14 +745,18 @@ class DescribeClusterAttachScriptsRequest(TeaModel):
 
 class DescribeClusterAttachScriptsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = TeaConverter.to_unicode(body)  # type: unicode
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: str
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
         self.validate_required(self.body, 'body')
 
     def to_map(self):
+        _map = super(DescribeClusterAttachScriptsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -703,7 +778,7 @@ class RemoveClusterNodesRequest(TeaModel):
         # 是否排空节点上的Pod。
         self.drain_node = drain_node  # type: bool
         # 要移除的Node列表。
-        self.nodes = nodes  # type: list[unicode]
+        self.nodes = nodes  # type: list[str]
         # 是否同时释放ECS。
         self.release_node = release_node  # type: bool
 
@@ -711,6 +786,10 @@ class RemoveClusterNodesRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(RemoveClusterNodesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.drain_node is not None:
             result['drain_node'] = self.drain_node
@@ -733,12 +812,16 @@ class RemoveClusterNodesRequest(TeaModel):
 
 class RemoveClusterNodesResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(RemoveClusterNodesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -754,18 +837,22 @@ class RemoveClusterNodesResponse(TeaModel):
 class DescribeKubernetesVersionMetadataRequest(TeaModel):
     def __init__(self, region=None, cluster_type=None, kubernetes_version=None, profile=None):
         # 地域ID。
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
+        self.region = region  # type: str
         # 集群类型。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 要查询的版本，如果为空则查所有版本。
-        self.kubernetes_version = TeaConverter.to_unicode(kubernetes_version)  # type: unicode
+        self.kubernetes_version = kubernetes_version  # type: str
         # 边缘集群标识，用于区分边缘集群，取值：Default或Edge。
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
+        self.profile = profile  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeKubernetesVersionMetadataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region is not None:
             result['Region'] = self.region
@@ -794,24 +881,28 @@ class DescribeKubernetesVersionMetadataResponseBodyImages(TeaModel):
     def __init__(self, image_id=None, image_name=None, platform=None, os_version=None, image_type=None, os_type=None,
                  image_category=None):
         # 镜像ID。	
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 镜像名称。	
-        self.image_name = TeaConverter.to_unicode(image_name)  # type: unicode
+        self.image_name = image_name  # type: str
         # 操作系统发行版。取值范围： CentOS,AliyunLinux,Windows,WindowsCore。
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # 镜像版本。
-        self.os_version = TeaConverter.to_unicode(os_version)  # type: unicode
+        self.os_version = os_version  # type: str
         # 镜像类型。	
-        self.image_type = TeaConverter.to_unicode(image_type)  # type: unicode
+        self.image_type = image_type  # type: str
         # 操作系统发行版本号。
-        self.os_type = TeaConverter.to_unicode(os_type)  # type: unicode
+        self.os_type = os_type  # type: str
         # 镜像分类
-        self.image_category = TeaConverter.to_unicode(image_category)  # type: unicode
+        self.image_category = image_category  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeKubernetesVersionMetadataResponseBodyImages, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.image_id is not None:
             result['image_id'] = self.image_id
@@ -851,17 +942,17 @@ class DescribeKubernetesVersionMetadataResponseBodyImages(TeaModel):
 class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
     def __init__(self, capabilities=None, images=None, meta_data=None, runtimes=None, version=None, multi_az=None):
         # Kubernetes版本特性。	
-        self.capabilities = capabilities  # type: dict[unicode, any]
+        self.capabilities = capabilities  # type: dict[str, any]
         # ECS系统镜像列表。	
         self.images = images  # type: list[DescribeKubernetesVersionMetadataResponseBodyImages]
         # Kubernetes版本元数据信息。	
-        self.meta_data = meta_data  # type: dict[unicode, any]
+        self.meta_data = meta_data  # type: dict[str, any]
         # 容器运行时详情。	
         self.runtimes = runtimes  # type: list[Runtime]
         # Kubernetes版本。	
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
         # 是否为多可用区。
-        self.multi_az = TeaConverter.to_unicode(multi_az)  # type: unicode
+        self.multi_az = multi_az  # type: str
 
     def validate(self):
         if self.images:
@@ -874,6 +965,10 @@ class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeKubernetesVersionMetadataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.capabilities is not None:
             result['capabilities'] = self.capabilities
@@ -918,7 +1013,7 @@ class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
 
 class DescribeKubernetesVersionMetadataResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeKubernetesVersionMetadataResponseBody]
 
     def validate(self):
@@ -930,6 +1025,10 @@ class DescribeKubernetesVersionMetadataResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeKubernetesVersionMetadataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -956,20 +1055,24 @@ class DescribeClusterLogsResponseBody(TeaModel):
         # 日志ID。
         self.id = id  # type: long
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 日志内容。
-        self.cluster_log = TeaConverter.to_unicode(cluster_log)  # type: unicode
+        self.cluster_log = cluster_log  # type: str
         # 日志等级。
-        self.log_level = TeaConverter.to_unicode(log_level)  # type: unicode
+        self.log_level = log_level  # type: str
         # 日志创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 日志更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['ID'] = self.id
@@ -1004,7 +1107,7 @@ class DescribeClusterLogsResponseBody(TeaModel):
 
 class DescribeClusterLogsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeClusterLogsResponseBody]
 
     def validate(self):
@@ -1016,6 +1119,10 @@ class DescribeClusterLogsResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1040,18 +1147,22 @@ class DescribeClusterLogsResponse(TeaModel):
 class CreateKubernetesTriggerRequest(TeaModel):
     def __init__(self, cluster_id=None, project_id=None, action=None, type=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 项目名称。
-        self.project_id = TeaConverter.to_unicode(project_id)  # type: unicode
+        self.project_id = project_id  # type: str
         # 触发器行为
-        self.action = TeaConverter.to_unicode(action)  # type: unicode
+        self.action = action  # type: str
         # 触发器类型。默认deployment。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateKubernetesTriggerRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -1079,20 +1190,24 @@ class CreateKubernetesTriggerRequest(TeaModel):
 class CreateKubernetesTriggerResponseBody(TeaModel):
     def __init__(self, id=None, cluster_id=None, project_id=None, type=None, action=None):
         # 触发器ID。
-        self.id = TeaConverter.to_unicode(id)  # type: unicode
+        self.id = id  # type: str
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 触发器项目名称。
-        self.project_id = TeaConverter.to_unicode(project_id)  # type: unicode
+        self.project_id = project_id  # type: str
         # 触发器类型。默认值为 deployment 。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 触发器行为。
-        self.action = TeaConverter.to_unicode(action)  # type: unicode
+        self.action = action  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateKubernetesTriggerResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['id'] = self.id
@@ -1123,7 +1238,7 @@ class CreateKubernetesTriggerResponseBody(TeaModel):
 
 class CreateKubernetesTriggerResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateKubernetesTriggerResponseBody
 
     def validate(self):
@@ -1133,6 +1248,10 @@ class CreateKubernetesTriggerResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateKubernetesTriggerResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1154,15 +1273,15 @@ class GrantPermissionsRequestBody(TeaModel):
     def __init__(self, cluster=None, is_custom=None, role_name=None, role_type=None, namespace=None,
                  is_ram_role=None):
         # 授权目标集群id
-        self.cluster = TeaConverter.to_unicode(cluster)  # type: unicode
+        self.cluster = cluster  # type: str
         # 该授权是否是自定义授权
         self.is_custom = is_custom  # type: bool
         # 预置的角色名称
-        self.role_name = TeaConverter.to_unicode(role_name)  # type: unicode
+        self.role_name = role_name  # type: str
         # 授权类型
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.role_type = role_type  # type: str
         # 命名空间名称
-        self.namespace = TeaConverter.to_unicode(namespace)  # type: unicode
+        self.namespace = namespace  # type: str
         # 是否是 RAM 角色授权
         self.is_ram_role = is_ram_role  # type: bool
 
@@ -1170,6 +1289,10 @@ class GrantPermissionsRequestBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GrantPermissionsRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster is not None:
             result['cluster'] = self.cluster
@@ -1214,6 +1337,10 @@ class GrantPermissionsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GrantPermissionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['body'] = []
         if self.body is not None:
@@ -1233,12 +1360,16 @@ class GrantPermissionsRequest(TeaModel):
 
 class GrantPermissionsResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(GrantPermissionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1259,61 +1390,61 @@ class DescribeClusterDetailResponseBody(TeaModel):
                  zone_id=None, master_url=None, private_zone=None, profile=None, cluster_spec=None,
                  worker_ram_role_name=None, maintenance_window=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 集群类型。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 集群创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 集群初始化版本。
-        self.init_version = TeaConverter.to_unicode(init_version)  # type: unicode
+        self.init_version = init_version  # type: str
         # 集群当前版本。
-        self.current_version = TeaConverter.to_unicode(current_version)  # type: unicode
+        self.current_version = current_version  # type: str
         # 集群可升级版本。
-        self.next_version = TeaConverter.to_unicode(next_version)  # type: unicode
+        self.next_version = next_version  # type: str
         # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
         # 集群内Docker版本。
-        self.docker_version = TeaConverter.to_unicode(docker_version)  # type: unicode
+        self.docker_version = docker_version  # type: str
         # 集群Ingress LB实例ID。
-        self.external_loadbalancer_id = TeaConverter.to_unicode(external_loadbalancer_id)  # type: unicode
+        self.external_loadbalancer_id = external_loadbalancer_id  # type: str
         # 集群元数据。
-        self.meta_data = TeaConverter.to_unicode(meta_data)  # type: unicode
+        self.meta_data = meta_data  # type: str
         # 集群名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群采用的网络类型，例如：VPC网络。
-        self.network_mode = TeaConverter.to_unicode(network_mode)  # type: unicode
+        self.network_mode = network_mode  # type: str
         # 集群所在地域ID。
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 集群资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         # 集群安全组ID。
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 集群节点数量。
         self.size = size  # type: long
         # 集群运行状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 集群标签。
         self.tags = tags  # type: list[Tag]
         # 集群更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
         # 集群使用的VPC ID。
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
         # 集群节点使用的虚拟交换机列表。
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
+        self.vswitch_id = vswitch_id  # type: str
         # Pod网络地址段，必须是有效的私有网段，即以下网段及其子网：10.0.0.0/8，172.16-31.0.0/12-16，192.168.0.0/16。不能与 VPC 及VPC 内已有 Kubernetes 集群使用的网段重复，创建成功后不能修改。  有关集群网络规划，请参见：[VPC下 Kubernetes 的网络地址段规划](https://help.aliyun.com/document_detail/～～86500～～)。
-        self.subnet_cidr = TeaConverter.to_unicode(subnet_cidr)  # type: unicode
+        self.subnet_cidr = subnet_cidr  # type: str
         # 集群所在地域内的可用区ID。
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.zone_id = zone_id  # type: str
         # 集群访问地址。
-        self.master_url = TeaConverter.to_unicode(master_url)  # type: unicode
+        self.master_url = master_url  # type: str
         # 集群是否启用用PrivateZone。  true：启用 false：不启用 默认值：false。
         self.private_zone = private_zone  # type: bool
         # 面向场景时的集群类型。  Default：非边缘场景集群。 Edge：边缘场景集群。
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
+        self.profile = profile  # type: str
         # 托管版集群类型，面向托管集群。  ack.pro.small：专业托管集群。 ack.standard ：标准托管集群。
-        self.cluster_spec = TeaConverter.to_unicode(cluster_spec)  # type: unicode
+        self.cluster_spec = cluster_spec  # type: str
         # Worker节点RAM角色名称。
-        self.worker_ram_role_name = TeaConverter.to_unicode(worker_ram_role_name)  # type: unicode
+        self.worker_ram_role_name = worker_ram_role_name  # type: str
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
 
     def validate(self):
@@ -1325,6 +1456,10 @@ class DescribeClusterDetailResponseBody(TeaModel):
             self.maintenance_window.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -1457,7 +1592,7 @@ class DescribeClusterDetailResponseBody(TeaModel):
 
 class DescribeClusterDetailResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterDetailResponseBody
 
     def validate(self):
@@ -1467,6 +1602,10 @@ class DescribeClusterDetailResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1486,12 +1625,16 @@ class DescribeClusterDetailResponse(TeaModel):
 
 class PauseComponentUpgradeResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(PauseComponentUpgradeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1507,14 +1650,18 @@ class PauseComponentUpgradeResponse(TeaModel):
 class DescribeClustersRequest(TeaModel):
     def __init__(self, name=None, cluster_type=None):
         # 集群名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群类型。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClustersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -1534,14 +1681,18 @@ class DescribeClustersRequest(TeaModel):
 class DescribeClustersResponseBodyTags(TeaModel):
     def __init__(self, key=None, value=None):
         # 标签名。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # 标签值。
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClustersResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -1566,63 +1717,63 @@ class DescribeClustersResponseBody(TeaModel):
                  state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_cidr=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 集群类型。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 集群创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 集群当前版本。
-        self.current_version = TeaConverter.to_unicode(current_version)  # type: unicode
+        self.current_version = current_version  # type: str
         # 节点系统盘类型。
-        self.data_disk_category = TeaConverter.to_unicode(data_disk_category)  # type: unicode
+        self.data_disk_category = data_disk_category  # type: str
         # 节点系统盘大小。
         self.data_disk_size = data_disk_size  # type: long
         # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
         # 容器运行时版本。
-        self.docker_version = TeaConverter.to_unicode(docker_version)  # type: unicode
+        self.docker_version = docker_version  # type: str
         # 集群Ingerss SLB实例的ID。
-        self.external_loadbalancer_id = TeaConverter.to_unicode(external_loadbalancer_id)  # type: unicode
+        self.external_loadbalancer_id = external_loadbalancer_id  # type: str
         # 集群创建时版本。
-        self.init_version = TeaConverter.to_unicode(init_version)  # type: unicode
+        self.init_version = init_version  # type: str
         # 集群的endpoint地址。
-        self.master_url = TeaConverter.to_unicode(master_url)  # type: unicode
+        self.master_url = master_url  # type: str
         # 集群元数据。
-        self.meta_data = TeaConverter.to_unicode(meta_data)  # type: unicode
+        self.meta_data = meta_data  # type: str
         # 集群名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群使用的网络类型。
-        self.network_mode = TeaConverter.to_unicode(network_mode)  # type: unicode
+        self.network_mode = network_mode  # type: str
         # 集群是否开启Private Zone，默认false。
         self.private_zone = private_zone  # type: bool
         # 集群标识，区分是否为边缘托管版。
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
+        self.profile = profile  # type: str
         # 集群所在地域ID。
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 集群资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         # 集群安全组ID。
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 集群内实例数量。
         self.size = size  # type: long
         # 集群运行状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # POD网络。
-        self.subnet_cidr = TeaConverter.to_unicode(subnet_cidr)  # type: unicode
+        self.subnet_cidr = subnet_cidr  # type: str
         # 集群标签。
         self.tags = tags  # type: list[DescribeClustersResponseBodyTags]
         # 集群更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
         # 集群使用的VPC ID。
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
         # 虚拟交换机网络ID。
-        self.vswitch_cidr = TeaConverter.to_unicode(vswitch_cidr)  # type: unicode
+        self.vswitch_cidr = vswitch_cidr  # type: str
         # 节点使用的Vswitch ID。
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
+        self.vswitch_id = vswitch_id  # type: str
         # 集群Worker节点RAM角色名称。
-        self.worker_ram_role_name = TeaConverter.to_unicode(worker_ram_role_name)  # type: unicode
+        self.worker_ram_role_name = worker_ram_role_name  # type: str
         # 集群所在Region内的区域ID。
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         if self.tags:
@@ -1631,6 +1782,10 @@ class DescribeClustersResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClustersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -1762,7 +1917,7 @@ class DescribeClustersResponseBody(TeaModel):
 
 class DescribeClustersResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeClustersResponseBody]
 
     def validate(self):
@@ -1774,6 +1929,10 @@ class DescribeClustersResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClustersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1799,13 +1958,13 @@ class DescribeUserPermissionResponseBody(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, role_name=None, role_type=None, is_owner=None,
                  is_ram_role=None):
         # 集群访问配置
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
+        self.resource_id = resource_id  # type: str
         # 授权类型
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 自定义角色名称
-        self.role_name = TeaConverter.to_unicode(role_name)  # type: unicode
+        self.role_name = role_name  # type: str
         # 预置的角色类型
-        self.role_type = TeaConverter.to_unicode(role_type)  # type: unicode
+        self.role_type = role_type  # type: str
         # 是否为集群 owner 的授权
         self.is_owner = is_owner  # type: long
         # 是否为ram 角色授权
@@ -1815,6 +1974,10 @@ class DescribeUserPermissionResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeUserPermissionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.resource_id is not None:
             result['resource_id'] = self.resource_id
@@ -1849,7 +2012,7 @@ class DescribeUserPermissionResponseBody(TeaModel):
 
 class DescribeUserPermissionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeUserPermissionResponseBody]
 
     def validate(self):
@@ -1861,6 +2024,10 @@ class DescribeUserPermissionResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeUserPermissionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1888,7 +2055,7 @@ class ModifyClusterNodePoolRequestAutoScaling(TeaModel):
         # 带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
         # EIP计费类型。
-        self.eip_internet_charge_type = TeaConverter.to_unicode(eip_internet_charge_type)  # type: unicode
+        self.eip_internet_charge_type = eip_internet_charge_type  # type: str
         # 是否开启自动伸缩。
         self.enable = enable  # type: bool
         # 是否绑定EIP。
@@ -1898,12 +2065,16 @@ class ModifyClusterNodePoolRequestAutoScaling(TeaModel):
         # 最小实例数。
         self.min_instances = min_instances  # type: long
         # 自动伸缩节点类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestAutoScaling, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.eip_bandwidth is not None:
             result['eip_bandwidth'] = self.eip_bandwidth
@@ -1946,17 +2117,17 @@ class ModifyClusterNodePoolRequestKubernetesConfig(TeaModel):
         # 是否开启云监控。
         self.cms_enabled = cms_enabled  # type: bool
         # CPU管理策略。
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 节点标签。
         self.labels = labels  # type: list[Tag]
         # 容器运行时。
-        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
+        self.runtime = runtime  # type: str
         # 容器运行时版本。
-        self.runtime_version = TeaConverter.to_unicode(runtime_version)  # type: unicode
+        self.runtime_version = runtime_version  # type: str
         # 污点配置。
         self.taints = taints  # type: list[Taint]
         # 实例自定义数据。
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.labels:
@@ -1969,6 +2140,10 @@ class ModifyClusterNodePoolRequestKubernetesConfig(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestKubernetesConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cms_enabled is not None:
             result['cms_enabled'] = self.cms_enabled
@@ -2018,14 +2193,18 @@ class ModifyClusterNodePoolRequestKubernetesConfig(TeaModel):
 class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
     def __init__(self, name=None, resource_group_id=None):
         # 节点池名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestNodepoolInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -2045,14 +2224,18 @@ class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
 class ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # 抢占式实例规格
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         # 单台实例上限价格，单位：元/小时。
-        self.price_limit = TeaConverter.to_unicode(price_limit)  # type: unicode
+        self.price_limit = price_limit  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_type is not None:
             result['instance_type'] = self.instance_type
@@ -2078,43 +2261,43 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
         # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
         # 节点付费类型。
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
+        self.instance_charge_type = instance_charge_type  # type: str
         # 包年包月时长
         self.period = period  # type: long
         # 付费周期
-        self.period_unit = TeaConverter.to_unicode(period_unit)  # type: unicode
+        self.period_unit = period_unit  # type: str
         # 节点池节点是启用自动续费
         self.auto_renew = auto_renew  # type: bool
         # 节点池节点自动续费周期
         self.auto_renew_period = auto_renew_period  # type: long
         # 操作系统发行版。
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # 自定义镜像
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 抢占式实例类型
-        self.spot_strategy = TeaConverter.to_unicode(spot_strategy)  # type: unicode
+        self.spot_strategy = spot_strategy  # type: str
         # 抢占实例价格上限配置
         self.spot_price_limit = spot_price_limit  # type: list[ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit]
         # 节点实例规格。
-        self.instance_types = instance_types  # type: list[unicode]
+        self.instance_types = instance_types  # type: list[str]
         # 密钥对名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # SSH登录密码，和key_pari二选一。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # RDS实例列表。
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 扩容策略。
-        self.scaling_policy = TeaConverter.to_unicode(scaling_policy)  # type: unicode
+        self.scaling_policy = scaling_policy  # type: str
         # 节点系统盘类型。
-        self.system_disk_category = TeaConverter.to_unicode(system_disk_category)  # type: unicode
+        self.system_disk_category = system_disk_category  # type: str
         # 节点系统盘大小。
         self.system_disk_size = system_disk_size  # type: long
         # ECS标签。
         self.tags = tags  # type: list[Tag]
         # 节点使用的虚拟交换机ID。
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 多可用区伸缩组ECS实例扩缩容策略
-        self.multi_az_policy = TeaConverter.to_unicode(multi_az_policy)  # type: unicode
+        self.multi_az_policy = multi_az_policy  # type: str
         # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
         # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
@@ -2141,6 +2324,10 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestScalingGroup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['data_disks'] = []
         if self.data_disks is not None:
@@ -2273,6 +2460,10 @@ class ModifyClusterNodePoolRequestTeeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestTeeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tee_enable is not None:
             result['tee_enable'] = self.tee_enable
@@ -2300,6 +2491,10 @@ class ModifyClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestManagementUpgradeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_upgrade is not None:
             result['auto_upgrade'] = self.auto_upgrade
@@ -2338,6 +2533,10 @@ class ModifyClusterNodePoolRequestManagement(TeaModel):
             self.upgrade_config.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestManagement, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -2392,6 +2591,10 @@ class ModifyClusterNodePoolRequest(TeaModel):
             self.management.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_scaling is not None:
             result['auto_scaling'] = self.auto_scaling.to_map()
@@ -2437,14 +2640,18 @@ class ModifyClusterNodePoolRequest(TeaModel):
 class ModifyClusterNodePoolResponseBody(TeaModel):
     def __init__(self, task_id=None, nodepool_id=None):
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
         # 节点池ID。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_id is not None:
             result['task_id'] = self.task_id
@@ -2463,7 +2670,7 @@ class ModifyClusterNodePoolResponseBody(TeaModel):
 
 class ModifyClusterNodePoolResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ModifyClusterNodePoolResponseBody
 
     def validate(self):
@@ -2473,6 +2680,10 @@ class ModifyClusterNodePoolResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterNodePoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2492,12 +2703,16 @@ class ModifyClusterNodePoolResponse(TeaModel):
 
 class ResumeUpgradeClusterResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(ResumeUpgradeClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2513,12 +2728,16 @@ class ResumeUpgradeClusterResponse(TeaModel):
 class OpenAckServiceRequest(TeaModel):
     def __init__(self, type=None):
         # 要开通的服务类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(OpenAckServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.type is not None:
             result['type'] = self.type
@@ -2534,14 +2753,18 @@ class OpenAckServiceRequest(TeaModel):
 class OpenAckServiceResponseBody(TeaModel):
     def __init__(self, request_id=None, order_id=None):
         # 请求ID
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 开通服务的订单号。
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+        self.order_id = order_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(OpenAckServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['request_id'] = self.request_id
@@ -2560,7 +2783,7 @@ class OpenAckServiceResponseBody(TeaModel):
 
 class OpenAckServiceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: OpenAckServiceResponseBody
 
     def validate(self):
@@ -2570,6 +2793,10 @@ class OpenAckServiceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(OpenAckServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2596,6 +2823,10 @@ class ScaleClusterNodePoolRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterNodePoolRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.count is not None:
             result['count'] = self.count
@@ -2611,12 +2842,16 @@ class ScaleClusterNodePoolRequest(TeaModel):
 class ScaleClusterNodePoolResponseBody(TeaModel):
     def __init__(self, task_id=None):
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterNodePoolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_id is not None:
             result['task_id'] = self.task_id
@@ -2631,7 +2866,7 @@ class ScaleClusterNodePoolResponseBody(TeaModel):
 
 class ScaleClusterNodePoolResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ScaleClusterNodePoolResponseBody
 
     def validate(self):
@@ -2641,6 +2876,10 @@ class ScaleClusterNodePoolResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ScaleClusterNodePoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2664,7 +2903,7 @@ class DescribeClusterNodePoolDetailResponseBodyAutoScaling(TeaModel):
         # EIP带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
         # EIP实例付费类型。
-        self.eip_internet_charge_type = TeaConverter.to_unicode(eip_internet_charge_type)  # type: unicode
+        self.eip_internet_charge_type = eip_internet_charge_type  # type: str
         # 是否启用自动伸缩。
         self.enable = enable  # type: bool
         # 是否绑定EIP。
@@ -2674,12 +2913,16 @@ class DescribeClusterNodePoolDetailResponseBodyAutoScaling(TeaModel):
         # 最小实例数。
         self.min_instances = min_instances  # type: long
         # 扩容组类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyAutoScaling, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.eip_bandwidth is not None:
             result['eip_bandwidth'] = self.eip_bandwidth
@@ -2722,17 +2965,17 @@ class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
         # 是否开启云监控
         self.cms_enabled = cms_enabled  # type: bool
         # CPU管理策略
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 节点标签。
         self.labels = labels  # type: list[Tag]
         # 容器运行时
-        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
+        self.runtime = runtime  # type: str
         # 容器运行时版本。
-        self.runtime_version = TeaConverter.to_unicode(runtime_version)  # type: unicode
+        self.runtime_version = runtime_version  # type: str
         # 污点配置。
         self.taints = taints  # type: list[Taint]
         # 节点自定义数据
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.labels:
@@ -2745,6 +2988,10 @@ class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyKubernetesConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cms_enabled is not None:
             result['cms_enabled'] = self.cms_enabled
@@ -2795,26 +3042,30 @@ class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
         # 节点池创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 是否为默认节点池。
         self.is_default = is_default  # type: bool
         # 节点池名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 节点池ID。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 节点池所属地域ID。
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 节点池所属资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         # 节点池类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 节点池更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyNodepoolInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.created is not None:
             result['created'] = self.created
@@ -2858,14 +3109,18 @@ class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # 抢占式实例规格。
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         # 单台实例上限价格，单位：元/小时。
-        self.price_limit = TeaConverter.to_unicode(price_limit)  # type: unicode
+        self.price_limit = price_limit  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_type is not None:
             result['instance_type'] = self.instance_type
@@ -2896,13 +3151,13 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
         # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
         # 自定义镜像ID。
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 节点付费类型。
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
+        self.instance_charge_type = instance_charge_type  # type: str
         # 节点ECS规格类型。
-        self.instance_types = instance_types  # type: list[unicode]
+        self.instance_types = instance_types  # type: list[str]
         # 多可用区伸缩组ECS实例扩缩容策略
-        self.multi_az_policy = TeaConverter.to_unicode(multi_az_policy)  # type: unicode
+        self.multi_az_policy = multi_az_policy  # type: str
         # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
         # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
@@ -2916,35 +3171,35 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
         # 节点包年包月时长。
         self.period = period  # type: long
         # 节点付费周期。
-        self.period_unit = TeaConverter.to_unicode(period_unit)  # type: unicode
+        self.period_unit = period_unit  # type: str
         # 操作系统发行版。取值： CentOS，AliyunLinux，Windows，WindowsCore。
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # 节点RAM 角色名称。
-        self.ram_policy = TeaConverter.to_unicode(ram_policy)  # type: unicode
+        self.ram_policy = ram_policy  # type: str
         # 抢占式实例类型
-        self.spot_strategy = TeaConverter.to_unicode(spot_strategy)  # type: unicode
+        self.spot_strategy = spot_strategy  # type: str
         # 抢占式实例价格上限配置。
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit]
         # RDS实例列表。
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 扩容组ID。
-        self.scaling_group_id = TeaConverter.to_unicode(scaling_group_id)  # type: unicode
+        self.scaling_group_id = scaling_group_id  # type: str
         # 扩容策略。
-        self.scaling_policy = TeaConverter.to_unicode(scaling_policy)  # type: unicode
+        self.scaling_policy = scaling_policy  # type: str
         # 节点所属安全组ID。
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 系统盘类型
-        self.system_disk_category = TeaConverter.to_unicode(system_disk_category)  # type: unicode
+        self.system_disk_category = system_disk_category  # type: str
         # 系统盘大小
         self.system_disk_size = system_disk_size  # type: long
         # ECS标签
         self.tags = tags  # type: list[Tag]
         # 虚拟交换机ID。
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 登录密码
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 密钥对名称
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
 
     def validate(self):
         if self.data_disks:
@@ -2961,6 +3216,10 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyScalingGroup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_renew is not None:
             result['auto_renew'] = self.auto_renew
@@ -3112,7 +3371,7 @@ class DescribeClusterNodePoolDetailResponseBodyStatus(TeaModel):
         # 工作节点数量。
         self.serving_nodes = serving_nodes  # type: long
         # 节点池状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 总节点数。
         self.total_nodes = total_nodes  # type: long
 
@@ -3120,6 +3379,10 @@ class DescribeClusterNodePoolDetailResponseBodyStatus(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyStatus, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.failed_nodes is not None:
             result['failed_nodes'] = self.failed_nodes
@@ -3169,6 +3432,10 @@ class DescribeClusterNodePoolDetailResponseBodyTeeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyTeeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tee_enable is not None:
             result['tee_enable'] = self.tee_enable
@@ -3196,6 +3463,10 @@ class DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig(TeaModel)
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_upgrade is not None:
             result['auto_upgrade'] = self.auto_upgrade
@@ -3234,6 +3505,10 @@ class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
             self.upgrade_config.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyManagement, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -3290,6 +3565,10 @@ class DescribeClusterNodePoolDetailResponseBody(TeaModel):
             self.management.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_scaling is not None:
             result['auto_scaling'] = self.auto_scaling.to_map()
@@ -3335,7 +3614,7 @@ class DescribeClusterNodePoolDetailResponseBody(TeaModel):
 
 class DescribeClusterNodePoolDetailResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterNodePoolDetailResponseBody
 
     def validate(self):
@@ -3345,6 +3624,10 @@ class DescribeClusterNodePoolDetailResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3372,11 +3655,11 @@ class CreateClusterNodePoolRequestAutoScaling(TeaModel):
         # 最小实例数。
         self.min_instances = min_instances  # type: long
         # 扩容节点类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 是否绑定EIP。
         self.is_bond_eip = is_bond_eip  # type: bool
         # EIP实例规格。
-        self.eip_internet_charge_type = TeaConverter.to_unicode(eip_internet_charge_type)  # type: unicode
+        self.eip_internet_charge_type = eip_internet_charge_type  # type: str
         # 带宽峰值。
         self.eip_bandwidth = eip_bandwidth  # type: long
 
@@ -3384,6 +3667,10 @@ class CreateClusterNodePoolRequestAutoScaling(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestAutoScaling, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -3426,17 +3713,17 @@ class CreateClusterNodePoolRequestKubernetesConfig(TeaModel):
         # 是否开启云监控。
         self.cms_enabled = cms_enabled  # type: bool
         # CPU管理策略。
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 节点标签。
         self.labels = labels  # type: list[Tag]
         # 容器运行时。
-        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
+        self.runtime = runtime  # type: str
         # 容器运行时版本。
-        self.runtime_version = TeaConverter.to_unicode(runtime_version)  # type: unicode
+        self.runtime_version = runtime_version  # type: str
         # 污点信息。
         self.taints = taints  # type: list[Taint]
         # 节点自定义数据。
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.labels:
@@ -3449,6 +3736,10 @@ class CreateClusterNodePoolRequestKubernetesConfig(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestKubernetesConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cms_enabled is not None:
             result['cms_enabled'] = self.cms_enabled
@@ -3498,14 +3789,18 @@ class CreateClusterNodePoolRequestKubernetesConfig(TeaModel):
 class CreateClusterNodePoolRequestNodepoolInfo(TeaModel):
     def __init__(self, name=None, resource_group_id=None):
         # 节点池名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestNodepoolInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -3525,14 +3820,18 @@ class CreateClusterNodePoolRequestNodepoolInfo(TeaModel):
 class CreateClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # 抢占实例规格。
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         # 抢占实例单价。
-        self.price_limit = TeaConverter.to_unicode(price_limit)  # type: unicode
+        self.price_limit = price_limit  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestScalingGroupSpotPriceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_type is not None:
             result['instance_type'] = self.instance_type
@@ -3552,14 +3851,18 @@ class CreateClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
 class CreateClusterNodePoolRequestScalingGroupTags(TeaModel):
     def __init__(self, key=None, value=None):
         # key
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # value
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestScalingGroupTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -3590,41 +3893,41 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
         # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
         # 自定义镜像。
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 节点付费类型
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
+        self.instance_charge_type = instance_charge_type  # type: str
         # 实例规格。
-        self.instance_types = instance_types  # type: list[unicode]
+        self.instance_types = instance_types  # type: list[str]
         # 密钥对名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # SSH登录密码。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 节点包年包月时长。
         self.period = period  # type: long
         # 节点包年包月周期。
-        self.period_unit = TeaConverter.to_unicode(period_unit)  # type: unicode
+        self.period_unit = period_unit  # type: str
         # 操作系统发行版
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # RDS实例列表。
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 抢占式实例类型
-        self.spot_strategy = TeaConverter.to_unicode(spot_strategy)  # type: unicode
+        self.spot_strategy = spot_strategy  # type: str
         # 抢占实例价格上限配置。
         self.spot_price_limit = spot_price_limit  # type: list[CreateClusterNodePoolRequestScalingGroupSpotPriceLimit]
         # 自动伸缩。
-        self.scaling_policy = TeaConverter.to_unicode(scaling_policy)  # type: unicode
+        self.scaling_policy = scaling_policy  # type: str
         # 安全组ID。
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 节点系统盘类型。
-        self.system_disk_category = TeaConverter.to_unicode(system_disk_category)  # type: unicode
+        self.system_disk_category = system_disk_category  # type: str
         # 节点系统盘大小。
         self.system_disk_size = system_disk_size  # type: long
         # ECS标签
         self.tags = tags  # type: list[CreateClusterNodePoolRequestScalingGroupTags]
         # 虚拟交换机ID。
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 多可用区伸缩组ECS实例扩缩容策略
-        self.multi_az_policy = TeaConverter.to_unicode(multi_az_policy)  # type: unicode
+        self.multi_az_policy = multi_az_policy  # type: str
         # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
         # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
@@ -3651,6 +3954,10 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestScalingGroup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_renew is not None:
             result['auto_renew'] = self.auto_renew
@@ -3787,6 +4094,10 @@ class CreateClusterNodePoolRequestTeeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestTeeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tee_enable is not None:
             result['tee_enable'] = self.tee_enable
@@ -3814,6 +4125,10 @@ class CreateClusterNodePoolRequestManagementUpgradeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestManagementUpgradeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_upgrade is not None:
             result['auto_upgrade'] = self.auto_upgrade
@@ -3852,6 +4167,10 @@ class CreateClusterNodePoolRequestManagement(TeaModel):
             self.upgrade_config.validate()
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequestManagement, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -3906,6 +4225,10 @@ class CreateClusterNodePoolRequest(TeaModel):
             self.management.validate()
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_scaling is not None:
             result['auto_scaling'] = self.auto_scaling.to_map()
@@ -3951,12 +4274,16 @@ class CreateClusterNodePoolRequest(TeaModel):
 class CreateClusterNodePoolResponseBody(TeaModel):
     def __init__(self, nodepool_id=None):
         # 节点池ID
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.nodepool_id is not None:
             result['nodepool_id'] = self.nodepool_id
@@ -3971,7 +4298,7 @@ class CreateClusterNodePoolResponseBody(TeaModel):
 
 class CreateClusterNodePoolResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateClusterNodePoolResponseBody
 
     def validate(self):
@@ -3981,6 +4308,10 @@ class CreateClusterNodePoolResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateClusterNodePoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3999,50 +4330,70 @@ class CreateClusterNodePoolResponse(TeaModel):
 
 
 class DescribeClusterUserKubeconfigRequest(TeaModel):
-    def __init__(self, private_ip_address=None):
+    def __init__(self, private_ip_address=None, temporary_duration_minutes=None):
         # ApiServer是否为内网地址。
         self.private_ip_address = private_ip_address  # type: bool
+        # 临时kubeconfig有效期，单位：分钟。  最小值：15（15分钟）  最大值：4320（3天）。
+        self.temporary_duration_minutes = temporary_duration_minutes  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterUserKubeconfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
+        if self.temporary_duration_minutes is not None:
+            result['TemporaryDurationMinutes'] = self.temporary_duration_minutes
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
+        if m.get('TemporaryDurationMinutes') is not None:
+            self.temporary_duration_minutes = m.get('TemporaryDurationMinutes')
         return self
 
 
 class DescribeClusterUserKubeconfigResponseBody(TeaModel):
-    def __init__(self, config=None):
+    def __init__(self, config=None, expiration=None):
         # kubeconfig内容。
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.config = config  # type: str
+        # kubeconfig过期时间。格式：RFC3339 格式的 UTC 时间。
+        self.expiration = expiration  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterUserKubeconfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.config is not None:
             result['config'] = self.config
+        if self.expiration is not None:
+            result['expiration'] = self.expiration
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('config') is not None:
             self.config = m.get('config')
+        if m.get('expiration') is not None:
+            self.expiration = m.get('expiration')
         return self
 
 
 class DescribeClusterUserKubeconfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterUserKubeconfigResponseBody
 
     def validate(self):
@@ -4052,6 +4403,10 @@ class DescribeClusterUserKubeconfigResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterUserKubeconfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4072,12 +4427,16 @@ class DescribeClusterUserKubeconfigResponse(TeaModel):
 class ScaleClusterRequestTags(TeaModel):
     def __init__(self, key=None):
         # 标签值。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -4093,16 +4452,20 @@ class ScaleClusterRequestTags(TeaModel):
 class ScaleClusterRequestTaints(TeaModel):
     def __init__(self, effect=None, key=None, value=None):
         # 污点生效策略。
-        self.effect = TeaConverter.to_unicode(effect)  # type: unicode
+        self.effect = effect  # type: str
         # 污点键。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # 污点值。
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterRequestTaints, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.effect is not None:
             result['effect'] = self.effect
@@ -4126,16 +4489,20 @@ class ScaleClusterRequestTaints(TeaModel):
 class ScaleClusterRequestWorkerDataDisks(TeaModel):
     def __init__(self, category=None, encrypted=None, size=None):
         # 数据盘类型。
-        self.category = TeaConverter.to_unicode(category)  # type: unicode
+        self.category = category  # type: str
         # 是否对数据盘加密。
-        self.encrypted = TeaConverter.to_unicode(encrypted)  # type: unicode
+        self.encrypted = encrypted  # type: str
         # 数据盘大小。
-        self.size = TeaConverter.to_unicode(size)  # type: unicode
+        self.size = size  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterRequestWorkerDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.category is not None:
             result['category'] = self.category
@@ -4167,19 +4534,19 @@ class ScaleClusterRequest(TeaModel):
         # 扩容节点数。
         self.count = count  # type: long
         # 节点CPU策略。
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 失败是否回滚。
         self.disable_rollback = disable_rollback  # type: bool
         # keypair名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # SSH登录密码。和keypair二选一。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 集群标签。
         self.tags = tags  # type: list[ScaleClusterRequestTags]
         # 节点污点标记。
         self.taints = taints  # type: list[ScaleClusterRequestTaints]
         # 节点交换机ID列表。
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 节点是否开启Worker节点自动续费。
         self.worker_auto_renew = worker_auto_renew  # type: bool
         # 自动续费周期。
@@ -4189,15 +4556,15 @@ class ScaleClusterRequest(TeaModel):
         # Worker数据盘类型、大小等配置的组合。
         self.worker_data_disks = worker_data_disks  # type: list[ScaleClusterRequestWorkerDataDisks]
         # 节点付费类型。
-        self.worker_instance_charge_type = TeaConverter.to_unicode(worker_instance_charge_type)  # type: unicode
+        self.worker_instance_charge_type = worker_instance_charge_type  # type: str
         # Worker节点ECS规格类型。
-        self.worker_instance_types = worker_instance_types  # type: list[unicode]
+        self.worker_instance_types = worker_instance_types  # type: list[str]
         # 节点包年包月时长。
         self.worker_period = worker_period  # type: long
         # 当指定为PrePaid的时候需要指定周期。
-        self.worker_period_unit = TeaConverter.to_unicode(worker_period_unit)  # type: unicode
+        self.worker_period_unit = worker_period_unit  # type: str
         # 节点系统盘类型。
-        self.worker_system_disk_category = TeaConverter.to_unicode(worker_system_disk_category)  # type: unicode
+        self.worker_system_disk_category = worker_system_disk_category  # type: str
         # 节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
 
@@ -4216,6 +4583,10 @@ class ScaleClusterRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ScaleClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cloud_monitor_flags is not None:
             result['cloud_monitor_flags'] = self.cloud_monitor_flags
@@ -4318,16 +4689,20 @@ class ScaleClusterRequest(TeaModel):
 class ScaleClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 请求ID。
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -4350,7 +4725,7 @@ class ScaleClusterResponseBody(TeaModel):
 
 class ScaleClusterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ScaleClusterResponseBody
 
     def validate(self):
@@ -4360,6 +4735,10 @@ class ScaleClusterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ScaleClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4379,7 +4758,7 @@ class ScaleClusterResponse(TeaModel):
 
 class DescribeClusterAddonUpgradeStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: dict
 
     def validate(self):
@@ -4387,6 +4766,10 @@ class DescribeClusterAddonUpgradeStatusResponse(TeaModel):
         self.validate_required(self.body, 'body')
 
     def to_map(self):
+        _map = super(DescribeClusterAddonUpgradeStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4406,14 +4789,18 @@ class DescribeClusterAddonUpgradeStatusResponse(TeaModel):
 class DescribeAddonsRequest(TeaModel):
     def __init__(self, region=None, cluster_type=None):
         # 地域ID。
-        self.region = TeaConverter.to_unicode(region)  # type: unicode
+        self.region = region  # type: str
         # 集群类型。  - Kubernetes: 专有版集群。 - ManagedKubernetes：托管版集群。 - Ask：Serverless 集群。 - ExternalKubernetes：注册到ACK的外部集群。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAddonsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region is not None:
             result['region'] = self.region
@@ -4433,12 +4820,16 @@ class DescribeAddonsRequest(TeaModel):
 class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
     def __init__(self, name=None):
         # 组件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeAddonsResponseBodyComponentGroupsItems, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -4454,7 +4845,7 @@ class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
 class DescribeAddonsResponseBodyComponentGroups(TeaModel):
     def __init__(self, group_name=None, items=None):
         # 组件组名称。
-        self.group_name = TeaConverter.to_unicode(group_name)  # type: unicode
+        self.group_name = group_name  # type: str
         # 组件列表
         self.items = items  # type: list[DescribeAddonsResponseBodyComponentGroupsItems]
 
@@ -4465,6 +4856,10 @@ class DescribeAddonsResponseBodyComponentGroups(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeAddonsResponseBodyComponentGroups, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.group_name is not None:
             result['group_name'] = self.group_name
@@ -4491,7 +4886,7 @@ class DescribeAddonsResponseBody(TeaModel):
         # 组件分组信息，例如：存储类组件，网络组件等。
         self.component_groups = component_groups  # type: list[DescribeAddonsResponseBodyComponentGroups]
         # 标准组件信息，包含各个组件的描述信息。
-        self.standard_components = standard_components  # type: dict[unicode, StandardComponentsValue]
+        self.standard_components = standard_components  # type: dict[str, StandardComponentsValue]
 
     def validate(self):
         if self.component_groups:
@@ -4504,6 +4899,10 @@ class DescribeAddonsResponseBody(TeaModel):
                     v.validate()
 
     def to_map(self):
+        _map = super(DescribeAddonsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['ComponentGroups'] = []
         if self.component_groups is not None:
@@ -4532,7 +4931,7 @@ class DescribeAddonsResponseBody(TeaModel):
 
 class DescribeAddonsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeAddonsResponseBody
 
     def validate(self):
@@ -4542,6 +4941,10 @@ class DescribeAddonsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeAddonsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4577,26 +4980,26 @@ class CreateClusterRequest(TeaModel):
                  service_discovery_types=None, nat_gateway=None, zone_id=None, profile=None, deletion_protection=None,
                  disable_rollback=None, timeout_mins=None):
         # 集群名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 地域ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 集群类型
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 托管版集群类型
-        self.cluster_spec = TeaConverter.to_unicode(cluster_spec)  # type: unicode
+        self.cluster_spec = cluster_spec  # type: str
         # 集群版本
-        self.kubernetes_version = TeaConverter.to_unicode(kubernetes_version)  # type: unicode
+        self.kubernetes_version = kubernetes_version  # type: str
         self.runtime = runtime  # type: Runtime
         # 集群专有网络ID。
-        self.vpcid = TeaConverter.to_unicode(vpcid)  # type: unicode
+        self.vpcid = vpcid  # type: str
         # 创建Terway网络类型的集群时，需要为pod指定单独的虚拟交换机
-        self.pod_vswitch_ids = pod_vswitch_ids  # type: list[unicode]
+        self.pod_vswitch_ids = pod_vswitch_ids  # type: list[str]
         # POD网络网段
-        self.container_cidr = TeaConverter.to_unicode(container_cidr)  # type: unicode
+        self.container_cidr = container_cidr  # type: str
         # 服务网络网段
-        self.service_cidr = TeaConverter.to_unicode(service_cidr)  # type: unicode
+        self.service_cidr = service_cidr  # type: str
         # 安全组ID，和is_enterprise_security_group二选一
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 自动创建企业安全组
         self.is_enterprise_security_group = is_enterprise_security_group  # type: bool
         # 若您集群内的节点、应用等需要访问公网，勾选该项后我们将为您创建 NAT 网关并自动配置 SNAT 规则
@@ -4606,29 +5009,29 @@ class CreateClusterRequest(TeaModel):
         # 允许公网ssh登录
         self.ssh_flags = ssh_flags  # type: bool
         # 时区
-        self.timezone = TeaConverter.to_unicode(timezone)  # type: unicode
+        self.timezone = timezone  # type: str
         # 节点IP数量
-        self.node_cidr_mask = TeaConverter.to_unicode(node_cidr_mask)  # type: unicode
+        self.node_cidr_mask = node_cidr_mask  # type: str
         # 自定义集群CA
-        self.user_ca = TeaConverter.to_unicode(user_ca)  # type: unicode
+        self.user_ca = user_ca  # type: str
         # 节点自定义数据
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
         # 集群本地域名
-        self.cluster_domain = TeaConverter.to_unicode(cluster_domain)  # type: unicode
+        self.cluster_domain = cluster_domain  # type: str
         # 自定义节点名称
-        self.node_name_mode = TeaConverter.to_unicode(node_name_mode)  # type: unicode
+        self.node_name_mode = node_name_mode  # type: str
         # 自定义证书SAN
-        self.custom_san = TeaConverter.to_unicode(custom_san)  # type: unicode
+        self.custom_san = custom_san  # type: str
         # Secret落盘加密
-        self.encryption_provider_key = TeaConverter.to_unicode(encryption_provider_key)  # type: unicode
+        self.encryption_provider_key = encryption_provider_key  # type: str
         # serviceaccount token中的签发身份，即token payload中的iss字段。
-        self.service_account_issuer = TeaConverter.to_unicode(service_account_issuer)  # type: unicode
+        self.service_account_issuer = service_account_issuer  # type: str
         # 合法的请求token身份，用于apiserver服务端认证请求token是否合法。
-        self.api_audiences = TeaConverter.to_unicode(api_audiences)  # type: unicode
+        self.api_audiences = api_audiences  # type: str
         # 自定义镜像
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # RDS白名单
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 集群标签
         self.tags = tags  # type: list[Tag]
         # 集群组件配置
@@ -4638,35 +5041,35 @@ class CreateClusterRequest(TeaModel):
         # 为ECS安装云监控
         self.cloud_monitor_flags = cloud_monitor_flags  # type: bool
         # 操作系统发行版
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # 操作系统平台类型
-        self.os_type = TeaConverter.to_unicode(os_type)  # type: unicode
+        self.os_type = os_type  # type: str
         # CPU策略
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # Proxy代理模式，ipvs|iptables
-        self.proxy_mode = TeaConverter.to_unicode(proxy_mode)  # type: unicode
+        self.proxy_mode = proxy_mode  # type: str
         # 节点服务端口范围
-        self.node_port_range = TeaConverter.to_unicode(node_port_range)  # type: unicode
+        self.node_port_range = node_port_range  # type: str
         # 密钥对名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # SSH登录密码。密码规则为8~30 个字符，且至少同时包含三项（大小写字母、数字和特殊符号），和key_pair二选一。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 集群Master节点数量
         self.master_count = master_count  # type: long
         # 集群Master节点使用的虚拟交换机
-        self.master_vswitch_ids = master_vswitch_ids  # type: list[unicode]
+        self.master_vswitch_ids = master_vswitch_ids  # type: list[str]
         # 集群Master节点类型
-        self.master_instance_types = master_instance_types  # type: list[unicode]
+        self.master_instance_types = master_instance_types  # type: list[str]
         # 集群Master节点系统盘类型
-        self.master_system_disk_category = TeaConverter.to_unicode(master_system_disk_category)  # type: unicode
+        self.master_system_disk_category = master_system_disk_category  # type: str
         # 集群Master节点系统盘大小，至少40
         self.master_system_disk_size = master_system_disk_size  # type: long
         # 集群Master节点自动快照备份策略
-        self.master_system_disk_snapshot_policy_id = TeaConverter.to_unicode(master_system_disk_snapshot_policy_id)  # type: unicode
+        self.master_system_disk_snapshot_policy_id = master_system_disk_snapshot_policy_id  # type: str
         # 集群Master节点付费类型
-        self.master_instance_charge_type = TeaConverter.to_unicode(master_instance_charge_type)  # type: unicode
+        self.master_instance_charge_type = master_instance_charge_type  # type: str
         # 集群Master节点包年包月周期
-        self.master_period_unit = TeaConverter.to_unicode(master_period_unit)  # type: unicode
+        self.master_period_unit = master_period_unit  # type: str
         # 集群Master节点包年包月时长
         self.master_period = master_period  # type: long
         # 集群Master节点是否自动续费
@@ -4676,23 +5079,23 @@ class CreateClusterRequest(TeaModel):
         # 集群Worker节点数量
         self.num_of_nodes = num_of_nodes  # type: long
         # 集群节点所在虚拟交换机。
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 集群Worker节点所在虚拟交换机
-        self.worker_vswitch_ids = worker_vswitch_ids  # type: list[unicode]
+        self.worker_vswitch_ids = worker_vswitch_ids  # type: list[str]
         # 集群Worker节点类型
-        self.worker_instance_types = worker_instance_types  # type: list[unicode]
+        self.worker_instance_types = worker_instance_types  # type: list[str]
         # 集群Worker节点系统盘类型
-        self.worker_system_disk_category = TeaConverter.to_unicode(worker_system_disk_category)  # type: unicode
+        self.worker_system_disk_category = worker_system_disk_category  # type: str
         # 集群Worker节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
         # 集群Worker节点系统盘快照备份策略
-        self.worker_system_disk_snapshot_policy_id = TeaConverter.to_unicode(worker_system_disk_snapshot_policy_id)  # type: unicode
+        self.worker_system_disk_snapshot_policy_id = worker_system_disk_snapshot_policy_id  # type: str
         # 集群Worker节点数据盘配置
         self.worker_data_disks = worker_data_disks  # type: list[DataDisk]
         # 集群Worker节点付费类型
-        self.worker_instance_charge_type = TeaConverter.to_unicode(worker_instance_charge_type)  # type: unicode
+        self.worker_instance_charge_type = worker_instance_charge_type  # type: str
         # 集群Worker节点包年包月周期
-        self.worker_period_unit = TeaConverter.to_unicode(worker_period_unit)  # type: unicode
+        self.worker_period_unit = worker_period_unit  # type: str
         # 集群Worker节点包年包月时长
         self.worker_period = worker_period  # type: long
         # 集群Worker节点到期是否自动续费
@@ -4700,19 +5103,19 @@ class CreateClusterRequest(TeaModel):
         # 集群Worker节点自动续费时长
         self.worker_auto_renew_period = worker_auto_renew_period  # type: long
         # 使用已有节点创建集群时，已有实例列表
-        self.instances = instances  # type: list[unicode]
+        self.instances = instances  # type: list[str]
         # 使用已有节点创建集群时，是否格式化已有实例的磁盘
         self.format_disk = format_disk  # type: bool
         # 使用已有节点创建集群时，是否保留实例名称。
         self.keep_instance_name = keep_instance_name  # type: bool
         # 创建ASK集群时，服务发现类型
-        self.service_discovery_types = service_discovery_types  # type: list[unicode]
+        self.service_discovery_types = service_discovery_types  # type: list[str]
         # 使用自动创建专有网络创建ASK集群时，是否在vpc中创建Nat网关并配置SNAT规则。
         self.nat_gateway = nat_gateway  # type: bool
         # 使用自动创建专有网络创建ASK集群时，需要指定专有网络的可用区
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.zone_id = zone_id  # type: str
         # 面向场景时的集群类型。  Default：非边缘场景集群。 Edge：边缘场景集群。
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
+        self.profile = profile  # type: str
         # 集群删除保护
         self.deletion_protection = deletion_protection  # type: bool
         # 失败回滚
@@ -4741,6 +5144,10 @@ class CreateClusterRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(CreateClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -5061,16 +5468,20 @@ class CreateClusterRequest(TeaModel):
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 请求ID。
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -5093,7 +5504,7 @@ class CreateClusterResponseBody(TeaModel):
 
 class CreateClusterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateClusterResponseBody
 
     def validate(self):
@@ -5103,6 +5514,10 @@ class CreateClusterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5123,16 +5538,20 @@ class CreateClusterResponse(TeaModel):
 class UpgradeClusterRequest(TeaModel):
     def __init__(self, component_name=None, next_version=None, version=None):
         # 组件名称，集群升级时取值"k8s"。
-        self.component_name = TeaConverter.to_unicode(component_name)  # type: unicode
+        self.component_name = component_name  # type: str
         # 目标版本。
-        self.next_version = TeaConverter.to_unicode(next_version)  # type: unicode
+        self.next_version = next_version  # type: str
         # 当前版本。
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.component_name is not None:
             result['component_name'] = self.component_name
@@ -5155,12 +5574,16 @@ class UpgradeClusterRequest(TeaModel):
 
 class UpgradeClusterResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UpgradeClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5176,12 +5599,16 @@ class UpgradeClusterResponse(TeaModel):
 class CancelWorkflowRequest(TeaModel):
     def __init__(self, action=None):
         # 执行的操作，目前只支持cancel。
-        self.action = TeaConverter.to_unicode(action)  # type: unicode
+        self.action = action  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CancelWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.action is not None:
             result['action'] = self.action
@@ -5196,12 +5623,16 @@ class CancelWorkflowRequest(TeaModel):
 
 class CancelWorkflowResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(CancelWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5219,11 +5650,11 @@ class AttachInstancesRequest(TeaModel):
                  is_edge_worker=None, nodepool_id=None, image_id=None, cpu_policy=None, user_data=None, rds_instances=None,
                  runtime=None, tags=None):
         # 实例列表。
-        self.instances = instances  # type: list[unicode]
+        self.instances = instances  # type: list[str]
         # key_pair名称，与login_password二选一
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # password，与key_pair二选一。
-        self.password = TeaConverter.to_unicode(password)  # type: unicode
+        self.password = password  # type: str
         # 是否格式化数据盘。
         self.format_disk = format_disk  # type: bool
         # 是否保留实例名称。
@@ -5231,15 +5662,15 @@ class AttachInstancesRequest(TeaModel):
         # 是否为边缘节点。
         self.is_edge_worker = is_edge_worker  # type: bool
         # 节点池ID，欲将节点添加到哪个节点池中。。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 自定义镜像ID。
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # CPU亲和策略。
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 节点自定义数据。
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
         # RDS实例列表。
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         self.runtime = runtime  # type: Runtime
         # 节点标签。
         self.tags = tags  # type: list[Tag]
@@ -5253,6 +5684,10 @@ class AttachInstancesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AttachInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instances is not None:
             result['instances'] = self.instances
@@ -5322,16 +5757,20 @@ class AttachInstancesRequest(TeaModel):
 class AttachInstancesResponseBodyList(TeaModel):
     def __init__(self, code=None, instance_id=None, message=None):
         # 状态码。
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
         # 实例ID。
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         # 添加结果描述。
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AttachInstancesResponseBodyList, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.code is not None:
             result['code'] = self.code
@@ -5357,7 +5796,7 @@ class AttachInstancesResponseBody(TeaModel):
         # 节点信息列表。
         self.list = list  # type: list[AttachInstancesResponseBodyList]
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         if self.list:
@@ -5366,6 +5805,10 @@ class AttachInstancesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(AttachInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['list'] = []
         if self.list is not None:
@@ -5389,7 +5832,7 @@ class AttachInstancesResponseBody(TeaModel):
 
 class AttachInstancesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: AttachInstancesResponseBody
 
     def validate(self):
@@ -5399,6 +5842,10 @@ class AttachInstancesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AttachInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5419,7 +5866,7 @@ class AttachInstancesResponse(TeaModel):
 class DescribeTemplatesRequest(TeaModel):
     def __init__(self, template_type=None, page_num=None, page_size=None):
         # 模板类型，部署模板类型，目前一共有2种类型，取值为：kubernetes或compose。
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
         # 对查询结果进行分页处理，指定返回第几页的数据。  默认值为 1
         self.page_num = page_num  # type: long
         # 对查询结果进行分页处理，指定每页包含的数据条数。  默认值为 10
@@ -5429,6 +5876,10 @@ class DescribeTemplatesRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.template_type is not None:
             result['template_type'] = self.template_type
@@ -5453,30 +5904,34 @@ class DescribeTemplatesResponseBodyTemplates(TeaModel):
     def __init__(self, acl=None, id=None, name=None, description=None, tags=None, template=None, template_type=None,
                  created=None, updated=None, template_with_hist_id=None):
         # 模板访问权限，取值为：private、pubilc或shared。。
-        self.acl = TeaConverter.to_unicode(acl)  # type: unicode
+        self.acl = acl  # type: str
         # 模板ID。会模板随着更新而变化。
-        self.id = TeaConverter.to_unicode(id)  # type: unicode
+        self.id = id  # type: str
         # 模板名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 模板描述信息。
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         # 模板标签，如果不显式指定了，默认为模板名称。
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
+        self.tags = tags  # type: str
         # 模板详情。
-        self.template = TeaConverter.to_unicode(template)  # type: unicode
+        self.template = template  # type: str
         # 部署模板类型。
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
         # 模板创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 模板修改时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
         # 模板唯一ID。
-        self.template_with_hist_id = TeaConverter.to_unicode(template_with_hist_id)  # type: unicode
+        self.template_with_hist_id = template_with_hist_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeTemplatesResponseBodyTemplates, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.acl is not None:
             result['acl'] = self.acl
@@ -5538,6 +5993,10 @@ class DescribeTemplatesResponseBodyPageInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeTemplatesResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.page_number is not None:
             result['page_number'] = self.page_number
@@ -5574,6 +6033,10 @@ class DescribeTemplatesResponseBody(TeaModel):
             self.page_info.validate()
 
     def to_map(self):
+        _map = super(DescribeTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['templates'] = []
         if self.templates is not None:
@@ -5598,7 +6061,7 @@ class DescribeTemplatesResponseBody(TeaModel):
 
 class DescribeTemplatesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeTemplatesResponseBody
 
     def validate(self):
@@ -5608,6 +6071,10 @@ class DescribeTemplatesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5627,12 +6094,16 @@ class DescribeTemplatesResponse(TeaModel):
 
 class PauseClusterUpgradeResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(PauseClusterUpgradeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5647,12 +6118,16 @@ class PauseClusterUpgradeResponse(TeaModel):
 
 class DeleteTemplateResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(DeleteTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5668,12 +6143,16 @@ class DeleteTemplateResponse(TeaModel):
 class DescribeTemplateAttributeRequest(TeaModel):
     def __init__(self, template_type=None):
         # 模板类型，值为创建部署模板时指定的模板类型。
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeTemplateAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.template_type is not None:
             result['template_type'] = self.template_type
@@ -5690,30 +6169,34 @@ class DescribeTemplateAttributeResponseBody(TeaModel):
     def __init__(self, id=None, acl=None, name=None, template=None, template_type=None, description=None, tags=None,
                  template_with_hist_id=None, created=None, updated=None):
         # 编排模板ID，模板每次修改，这个ID都会改变。	
-        self.id = TeaConverter.to_unicode(id)  # type: unicode
+        self.id = id  # type: str
         # 编排模板权限。取值：private，public，shared。
-        self.acl = TeaConverter.to_unicode(acl)  # type: unicode
+        self.acl = acl  # type: str
         # 编排模板名称。	
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 编排模板内容。	
-        self.template = TeaConverter.to_unicode(template)  # type: unicode
+        self.template = template  # type: str
         # 编排模板类型
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
         # 编排模板描述。
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         # 部署模板的标签。
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
+        self.tags = tags  # type: str
         # 编排模板ID，该ID唯一不随更新而改变。	
-        self.template_with_hist_id = TeaConverter.to_unicode(template_with_hist_id)  # type: unicode
+        self.template_with_hist_id = template_with_hist_id  # type: str
         # 编排模板创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 编排模板修改时间。	
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeTemplateAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['id'] = self.id
@@ -5764,7 +6247,7 @@ class DescribeTemplateAttributeResponseBody(TeaModel):
 
 class DescribeTemplateAttributeResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeTemplateAttributeResponseBody]
 
     def validate(self):
@@ -5776,6 +6259,10 @@ class DescribeTemplateAttributeResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeTemplateAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5800,20 +6287,24 @@ class DescribeTemplateAttributeResponse(TeaModel):
 class CreateTemplateRequest(TeaModel):
     def __init__(self, name=None, template=None, tags=None, description=None, template_type=None):
         # 模板名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # YAML格式的模板内容。
-        self.template = TeaConverter.to_unicode(template)  # type: unicode
+        self.template = template  # type: str
         # 模板标签。
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
+        self.tags = tags  # type: str
         # 模板描述。
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         # 模板类型。默认值：kubernetes
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -5845,12 +6336,16 @@ class CreateTemplateRequest(TeaModel):
 class CreateTemplateResponseBody(TeaModel):
     def __init__(self, template_id=None):
         # 模板ID。
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
+        self.template_id = template_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.template_id is not None:
             result['template_id'] = self.template_id
@@ -5865,7 +6360,7 @@ class CreateTemplateResponseBody(TeaModel):
 
 class CreateTemplateResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateTemplateResponseBody
 
     def validate(self):
@@ -5875,6 +6370,10 @@ class CreateTemplateResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5895,20 +6394,24 @@ class CreateTemplateResponse(TeaModel):
 class DescribeClusterNodesRequest(TeaModel):
     def __init__(self, instance_ids=None, nodepool_id=None, state=None, page_size=None, page_number=None):
         # 节点实例ID，按照实例ID进行过滤。  节点池ID不为空时会忽略此字段。多节点用逗号分割
-        self.instance_ids = TeaConverter.to_unicode(instance_ids)  # type: unicode
+        self.instance_ids = instance_ids  # type: str
         # 节点池ID。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 节点状态。默认值：all。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 每页大小。
-        self.page_size = TeaConverter.to_unicode(page_size)  # type: unicode
+        self.page_size = page_size  # type: str
         # 分页数量
-        self.page_number = TeaConverter.to_unicode(page_number)  # type: unicode
+        self.page_number = page_number  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_ids is not None:
             result['instanceIds'] = self.instance_ids
@@ -5943,50 +6446,54 @@ class DescribeClusterNodesResponseBodyNodes(TeaModel):
                  instance_type=None, instance_type_family=None, ip_address=None, is_aliyun_node=None, node_name=None,
                  node_status=None, nodepool_id=None, source=None, state=None, spot_strategy=None):
         # 节点创建时间。
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
+        self.creation_time = creation_time  # type: str
         # 错误信息说明。
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.error_message = error_message  # type: str
         # 节点过期时间。
-        self.expired_time = TeaConverter.to_unicode(expired_time)  # type: unicode
+        self.expired_time = expired_time  # type: str
         # 节点主机名。
-        self.host_name = TeaConverter.to_unicode(host_name)  # type: unicode
+        self.host_name = host_name  # type: str
         # 节点使用的镜像ID。
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 节点付费类型。
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
+        self.instance_charge_type = instance_charge_type  # type: str
         # 节点实例ID。
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         # 节点名称。
-        self.instance_name = TeaConverter.to_unicode(instance_name)  # type: unicode
+        self.instance_name = instance_name  # type: str
         # 节点实例角色类型，Master或Worker。
-        self.instance_role = TeaConverter.to_unicode(instance_role)  # type: unicode
+        self.instance_role = instance_role  # type: str
         # 节点实例状态，
-        self.instance_status = TeaConverter.to_unicode(instance_status)  # type: unicode
+        self.instance_status = instance_status  # type: str
         # 节点实例类型。
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         # 节点实例所属ECS实例簇名称。
-        self.instance_type_family = TeaConverter.to_unicode(instance_type_family)  # type: unicode
+        self.instance_type_family = instance_type_family  # type: str
         # 节点IP地址。
-        self.ip_address = ip_address  # type: list[unicode]
+        self.ip_address = ip_address  # type: list[str]
         # 节点是否为aliyun实例。
         self.is_aliyun_node = is_aliyun_node  # type: bool
         # 节点名称，该名称是k8s专用名称。
-        self.node_name = TeaConverter.to_unicode(node_name)  # type: unicode
+        self.node_name = node_name  # type: str
         # 节点状态，是否Ready。
-        self.node_status = TeaConverter.to_unicode(node_status)  # type: unicode
+        self.node_status = node_status  # type: str
         # 节点池ID。
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 节点通过什么方式创建出来的，例如：ROS。
-        self.source = TeaConverter.to_unicode(source)  # type: unicode
+        self.source = source  # type: str
         # ECS运行状态，例如：Running。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 抢占时实例类型
-        self.spot_strategy = TeaConverter.to_unicode(spot_strategy)  # type: unicode
+        self.spot_strategy = spot_strategy  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodesResponseBodyNodes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.creation_time is not None:
             result['creation_time'] = self.creation_time
@@ -6088,6 +6595,10 @@ class DescribeClusterNodesResponseBodyPage(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodesResponseBodyPage, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.page_number is not None:
             result['page_number'] = self.page_number
@@ -6124,6 +6635,10 @@ class DescribeClusterNodesResponseBody(TeaModel):
             self.page.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['nodes'] = []
         if self.nodes is not None:
@@ -6148,7 +6663,7 @@ class DescribeClusterNodesResponseBody(TeaModel):
 
 class DescribeClusterNodesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterNodesResponseBody
 
     def validate(self):
@@ -6158,6 +6673,10 @@ class DescribeClusterNodesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6182,12 +6701,16 @@ class DeleteClusterRequest(TeaModel):
         # 是否保留SLB。  true：保留 false：不保留 默认值：false。
         self.keep_slb = keep_slb  # type: bool
         # 要保留的资源列表。
-        self.retain_resources = retain_resources  # type: list[unicode]
+        self.retain_resources = retain_resources  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.retain_all_resources is not None:
             result['retain_all_resources'] = self.retain_all_resources
@@ -6215,12 +6738,16 @@ class DeleteClusterShrinkRequest(TeaModel):
         # 是否保留SLB。  true：保留 false：不保留 默认值：false。
         self.keep_slb = keep_slb  # type: bool
         # 要保留的资源列表。
-        self.retain_resources_shrink = TeaConverter.to_unicode(retain_resources_shrink)  # type: unicode
+        self.retain_resources_shrink = retain_resources_shrink  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteClusterShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.retain_all_resources is not None:
             result['retain_all_resources'] = self.retain_all_resources
@@ -6243,12 +6770,16 @@ class DeleteClusterShrinkRequest(TeaModel):
 
 class DeleteClusterResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(DeleteClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6263,12 +6794,16 @@ class DeleteClusterResponse(TeaModel):
 
 class CancelComponentUpgradeResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(CancelComponentUpgradeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6283,12 +6818,16 @@ class CancelComponentUpgradeResponse(TeaModel):
 
 class MigrateClusterResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(MigrateClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6303,7 +6842,7 @@ class MigrateClusterResponse(TeaModel):
 
 class DescribeClusterAddonsVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: dict
 
     def validate(self):
@@ -6311,6 +6850,10 @@ class DescribeClusterAddonsVersionResponse(TeaModel):
         self.validate_required(self.body, 'body')
 
     def to_map(self):
+        _map = super(DescribeClusterAddonsVersionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6330,12 +6873,16 @@ class DescribeClusterAddonsVersionResponse(TeaModel):
 class DescribeExternalAgentRequest(TeaModel):
     def __init__(self, private_ip_address=None):
         # 是否获取内网访问凭据。  true：获取内网连接凭据 false：获取公网连接凭据 默认值：false。
-        self.private_ip_address = TeaConverter.to_unicode(private_ip_address)  # type: unicode
+        self.private_ip_address = private_ip_address  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeExternalAgentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
@@ -6351,12 +6898,16 @@ class DescribeExternalAgentRequest(TeaModel):
 class DescribeExternalAgentResponseBody(TeaModel):
     def __init__(self, config=None):
         # 代理配置。
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.config = config  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeExternalAgentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.config is not None:
             result['config'] = self.config
@@ -6371,7 +6922,7 @@ class DescribeExternalAgentResponseBody(TeaModel):
 
 class DescribeExternalAgentResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeExternalAgentResponseBody
 
     def validate(self):
@@ -6381,6 +6932,10 @@ class DescribeExternalAgentResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeExternalAgentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6401,12 +6956,16 @@ class DescribeExternalAgentResponse(TeaModel):
 class UnInstallClusterAddonsRequestAddons(TeaModel):
     def __init__(self, name=None):
         # 组件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UnInstallClusterAddonsRequestAddons, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -6431,6 +6990,10 @@ class UnInstallClusterAddonsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(UnInstallClusterAddonsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['addons'] = []
         if self.addons is not None:
@@ -6450,12 +7013,16 @@ class UnInstallClusterAddonsRequest(TeaModel):
 
 class UnInstallClusterAddonsResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UnInstallClusterAddonsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6470,12 +7037,16 @@ class UnInstallClusterAddonsResponse(TeaModel):
 
 class ResumeComponentUpgradeResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(ResumeComponentUpgradeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6491,9 +7062,9 @@ class ResumeComponentUpgradeResponse(TeaModel):
 class DescribeClustersV1Request(TeaModel):
     def __init__(self, name=None, cluster_type=None, page_size=None, page_number=None):
         # 通过集群名称进行模糊查询。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群类型。  Kubernetes: 专有版集群。 ManagedKubernetes：托管版集群。 Ask：Serverless集群。 ExternalKubernetes：注册集群。 ServiceMesh：ASM集群。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 单页大小。
         self.page_size = page_size  # type: long
         # 分页数。
@@ -6503,6 +7074,10 @@ class DescribeClustersV1Request(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClustersV1Request, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -6535,61 +7110,61 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
                  vpc_id=None, vswitch_id=None, worker_ram_role_name=None, zone_id=None, cluster_spec=None,
                  maintenance_window=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 集群类型。
-        self.cluster_type = TeaConverter.to_unicode(cluster_type)  # type: unicode
+        self.cluster_type = cluster_type  # type: str
         # 集群初始化时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 集群初始化版本。
-        self.init_version = TeaConverter.to_unicode(init_version)  # type: unicode
+        self.init_version = init_version  # type: str
         # 集群当前版本。
-        self.current_version = TeaConverter.to_unicode(current_version)  # type: unicode
+        self.current_version = current_version  # type: str
         # 集群可升级版本。
-        self.next_version = TeaConverter.to_unicode(next_version)  # type: unicode
+        self.next_version = next_version  # type: str
         # 集群是否开启删除保护。
         self.deletion_protection = deletion_protection  # type: bool
         # 集群使用的Docker版本。
-        self.docker_version = TeaConverter.to_unicode(docker_version)  # type: unicode
+        self.docker_version = docker_version  # type: str
         # 集群负载均衡服务的ID。
-        self.external_loadbalancer_id = TeaConverter.to_unicode(external_loadbalancer_id)  # type: unicode
+        self.external_loadbalancer_id = external_loadbalancer_id  # type: str
         # 集群访问地址列表。
-        self.master_url = TeaConverter.to_unicode(master_url)  # type: unicode
+        self.master_url = master_url  # type: str
         # 集群元数据信息。
-        self.meta_data = TeaConverter.to_unicode(meta_data)  # type: unicode
+        self.meta_data = meta_data  # type: str
         # 集群名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群使用的网络类型，例如：VPC网络。
-        self.network_mode = TeaConverter.to_unicode(network_mode)  # type: unicode
+        self.network_mode = network_mode  # type: str
         # 集群是否开启Private Zone。
         self.private_zone = private_zone  # type: bool
         # 边缘集群表示，用于区分边缘托管版集群。
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
+        self.profile = profile  # type: str
         # 地域ID。
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 集群资源组ID。
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         # 集群安全组ID。
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 集群节点数。
         self.size = size  # type: long
         # 集群运行状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # POD网段地址。
-        self.subnet_cidr = TeaConverter.to_unicode(subnet_cidr)  # type: unicode
+        self.subnet_cidr = subnet_cidr  # type: str
         # 集群标签。
         self.tags = tags  # type: list[Tag]
         # 集群更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
         # 集群所在的VPC ID。
-        self.vpc_id = TeaConverter.to_unicode(vpc_id)  # type: unicode
+        self.vpc_id = vpc_id  # type: str
         # 集群使用的虚拟交换ID。
-        self.vswitch_id = TeaConverter.to_unicode(vswitch_id)  # type: unicode
+        self.vswitch_id = vswitch_id  # type: str
         # 集群Worker RAM角色。
-        self.worker_ram_role_name = TeaConverter.to_unicode(worker_ram_role_name)  # type: unicode
+        self.worker_ram_role_name = worker_ram_role_name  # type: str
         # 可用区ID。
-        self.zone_id = TeaConverter.to_unicode(zone_id)  # type: unicode
+        self.zone_id = zone_id  # type: str
         # 托管版集群类型，面向托管集群。 • ack.pro.small：专业托管集群。 • ack.standard ：标准托管集群。
-        self.cluster_spec = TeaConverter.to_unicode(cluster_spec)  # type: unicode
+        self.cluster_spec = cluster_spec  # type: str
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
 
     def validate(self):
@@ -6601,6 +7176,10 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
             self.maintenance_window.validate()
 
     def to_map(self):
+        _map = super(DescribeClustersV1ResponseBodyClusters, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -6744,6 +7323,10 @@ class DescribeClustersV1ResponseBodyPageInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClustersV1ResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.page_number is not None:
             result['page_number'] = self.page_number
@@ -6780,6 +7363,10 @@ class DescribeClustersV1ResponseBody(TeaModel):
             self.page_info.validate()
 
     def to_map(self):
+        _map = super(DescribeClustersV1ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['clusters'] = []
         if self.clusters is not None:
@@ -6804,7 +7391,7 @@ class DescribeClustersV1ResponseBody(TeaModel):
 
 class DescribeClustersV1Response(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClustersV1ResponseBody
 
     def validate(self):
@@ -6814,6 +7401,10 @@ class DescribeClustersV1Response(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClustersV1Response, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6834,14 +7425,18 @@ class DescribeClustersV1Response(TeaModel):
 class ModifyClusterConfigurationRequestCustomizeConfigConfigs(TeaModel):
     def __init__(self, key=None, value=None):
         # key值。
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
+        self.key = key  # type: str
         # value值。
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ModifyClusterConfigurationRequestCustomizeConfigConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['key'] = self.key
@@ -6861,7 +7456,7 @@ class ModifyClusterConfigurationRequestCustomizeConfigConfigs(TeaModel):
 class ModifyClusterConfigurationRequestCustomizeConfig(TeaModel):
     def __init__(self, name=None, configs=None):
         # 组件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 组件配置。
         self.configs = configs  # type: list[ModifyClusterConfigurationRequestCustomizeConfigConfigs]
 
@@ -6872,6 +7467,10 @@ class ModifyClusterConfigurationRequestCustomizeConfig(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterConfigurationRequestCustomizeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -6905,6 +7504,10 @@ class ModifyClusterConfigurationRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterConfigurationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['customize_config'] = []
         if self.customize_config is not None:
@@ -6924,12 +7527,16 @@ class ModifyClusterConfigurationRequest(TeaModel):
 
 class ModifyClusterConfigurationResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(ModifyClusterConfigurationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6945,14 +7552,18 @@ class ModifyClusterConfigurationResponse(TeaModel):
 class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
     def __init__(self, data=None, status=None):
         # 操作的资源，例如：实例ID。
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
+        self.data = data  # type: str
         # 资源的状态。
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeTaskInfoResponseBodyTaskResult, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.data is not None:
             result['data'] = self.data
@@ -6973,17 +7584,17 @@ class DescribeTaskInfoResponseBody(TeaModel):
     def __init__(self, cluster_id=None, task_id=None, created=None, updated=None, state=None, task_type=None,
                  task_result=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
         # 任务创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 任务更新时间。
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
         # 任务当前状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 当前任务类型。
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.task_type = task_type  # type: str
         # 任务执行详情。
         self.task_result = task_result  # type: list[DescribeTaskInfoResponseBodyTaskResult]
 
@@ -6994,6 +7605,10 @@ class DescribeTaskInfoResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeTaskInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -7037,7 +7652,7 @@ class DescribeTaskInfoResponseBody(TeaModel):
 
 class DescribeTaskInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeTaskInfoResponseBody
 
     def validate(self):
@@ -7047,6 +7662,10 @@ class DescribeTaskInfoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeTaskInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7068,32 +7687,36 @@ class DescirbeWorkflowResponseBody(TeaModel):
     def __init__(self, create_time=None, duration=None, finish_time=None, input_data_size=None, job_name=None,
                  job_namespace=None, output_data_size=None, status=None, total_bases=None, total_reads=None, user_input_data=None):
         # 工作流创建时间。
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
+        self.create_time = create_time  # type: str
         # 工作流经过时长。
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
+        self.duration = duration  # type: str
         # 任务结束时间。
-        self.finish_time = TeaConverter.to_unicode(finish_time)  # type: unicode
+        self.finish_time = finish_time  # type: str
         # 输入数据大小。
-        self.input_data_size = TeaConverter.to_unicode(input_data_size)  # type: unicode
+        self.input_data_size = input_data_size  # type: str
         # 工作流名称。
-        self.job_name = TeaConverter.to_unicode(job_name)  # type: unicode
+        self.job_name = job_name  # type: str
         # 工作流所在命名空间。
-        self.job_namespace = TeaConverter.to_unicode(job_namespace)  # type: unicode
+        self.job_namespace = job_namespace  # type: str
         # 输出数据大小。
-        self.output_data_size = TeaConverter.to_unicode(output_data_size)  # type: unicode
+        self.output_data_size = output_data_size  # type: str
         # 工作流当前状态。
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         # 碱基对个数。
-        self.total_bases = TeaConverter.to_unicode(total_bases)  # type: unicode
+        self.total_bases = total_bases  # type: str
         # Reads个数。
-        self.total_reads = TeaConverter.to_unicode(total_reads)  # type: unicode
+        self.total_reads = total_reads  # type: str
         # 用户输入参数。
-        self.user_input_data = TeaConverter.to_unicode(user_input_data)  # type: unicode
+        self.user_input_data = user_input_data  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescirbeWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.create_time is not None:
             result['create_time'] = self.create_time
@@ -7148,7 +7771,7 @@ class DescirbeWorkflowResponseBody(TeaModel):
 
 class DescirbeWorkflowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescirbeWorkflowResponseBody
 
     def validate(self):
@@ -7158,6 +7781,10 @@ class DescirbeWorkflowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescirbeWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7177,12 +7804,16 @@ class DescirbeWorkflowResponse(TeaModel):
 
 class CancelClusterUpgradeResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(CancelClusterUpgradeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7197,12 +7828,16 @@ class CancelClusterUpgradeResponse(TeaModel):
 
 class RemoveWorkflowResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(RemoveWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7218,20 +7853,24 @@ class RemoveWorkflowResponse(TeaModel):
 class UpdateTemplateRequest(TeaModel):
     def __init__(self, description=None, name=None, tags=None, template=None, template_type=None):
         # 部署模板描述信息。
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         # 部署模板名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 部署模板标签
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
+        self.tags = tags  # type: str
         # 部署模板yaml。
-        self.template = TeaConverter.to_unicode(template)  # type: unicode
+        self.template = template  # type: str
         # 部署模板类型。
-        self.template_type = TeaConverter.to_unicode(template_type)  # type: unicode
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.description is not None:
             result['description'] = self.description
@@ -7262,12 +7901,16 @@ class UpdateTemplateRequest(TeaModel):
 
 class UpdateTemplateResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UpdateTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7283,16 +7926,20 @@ class UpdateTemplateResponse(TeaModel):
 class UpgradeClusterAddonsRequestBody(TeaModel):
     def __init__(self, component_name=None, next_version=None, version=None):
         # 组件名称。
-        self.component_name = TeaConverter.to_unicode(component_name)  # type: unicode
+        self.component_name = component_name  # type: str
         # 可升级版本。
-        self.next_version = TeaConverter.to_unicode(next_version)  # type: unicode
+        self.next_version = next_version  # type: str
         # 当前版本。
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpgradeClusterAddonsRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.component_name is not None:
             result['component_name'] = self.component_name
@@ -7325,6 +7972,10 @@ class UpgradeClusterAddonsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(UpgradeClusterAddonsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['body'] = []
         if self.body is not None:
@@ -7344,12 +7995,16 @@ class UpgradeClusterAddonsRequest(TeaModel):
 
 class UpgradeClusterAddonsResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UpgradeClusterAddonsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7363,33 +8018,47 @@ class UpgradeClusterAddonsResponse(TeaModel):
 
 
 class DescribeClusterNamespacesResponse(TeaModel):
-    def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: list[str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
 
     def to_map(self):
+        _map = super(DescribeClusterNamespacesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
 class DeleteKubernetesTriggerResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(DeleteKubernetesTriggerResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7420,6 +8089,10 @@ class DescribeUserQuotaResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeUserQuotaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.amk_cluster_quota is not None:
             result['amk_cluster_quota'] = self.amk_cluster_quota
@@ -7450,7 +8123,7 @@ class DescribeUserQuotaResponseBody(TeaModel):
 
 class DescribeUserQuotaResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeUserQuotaResponseBody
 
     def validate(self):
@@ -7460,6 +8133,10 @@ class DescribeUserQuotaResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeUserQuotaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7479,12 +8156,16 @@ class DescribeUserQuotaResponse(TeaModel):
 
 class DeleteClusterNodepoolResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(DeleteClusterNodepoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7500,12 +8181,16 @@ class DeleteClusterNodepoolResponse(TeaModel):
 class DescribeClusterAddonsUpgradeStatusRequest(TeaModel):
     def __init__(self, component_ids=None):
         # 组件名称列表。
-        self.component_ids = component_ids  # type: list[unicode]
+        self.component_ids = component_ids  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterAddonsUpgradeStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.component_ids is not None:
             result['componentIds'] = self.component_ids
@@ -7521,12 +8206,16 @@ class DescribeClusterAddonsUpgradeStatusRequest(TeaModel):
 class DescribeClusterAddonsUpgradeStatusShrinkRequest(TeaModel):
     def __init__(self, component_ids_shrink=None):
         # 组件名称列表。
-        self.component_ids_shrink = TeaConverter.to_unicode(component_ids_shrink)  # type: unicode
+        self.component_ids_shrink = component_ids_shrink  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterAddonsUpgradeStatusShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.component_ids_shrink is not None:
             result['componentIds'] = self.component_ids_shrink
@@ -7541,7 +8230,7 @@ class DescribeClusterAddonsUpgradeStatusShrinkRequest(TeaModel):
 
 class DescribeClusterAddonsUpgradeStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: dict
 
     def validate(self):
@@ -7549,6 +8238,10 @@ class DescribeClusterAddonsUpgradeStatusResponse(TeaModel):
         self.validate_required(self.body, 'body')
 
     def to_map(self):
+        _map = super(DescribeClusterAddonsUpgradeStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7568,16 +8261,20 @@ class DescribeClusterAddonsUpgradeStatusResponse(TeaModel):
 class DescribeWorkflowsResponseBodyJobs(TeaModel):
     def __init__(self, cluster_id=None, job_name=None, create_time=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 工作流名称。
-        self.job_name = TeaConverter.to_unicode(job_name)  # type: unicode
+        self.job_name = job_name  # type: str
         # 工作流创建时间。
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
+        self.create_time = create_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeWorkflowsResponseBodyJobs, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -7610,6 +8307,10 @@ class DescribeWorkflowsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeWorkflowsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['jobs'] = []
         if self.jobs is not None:
@@ -7629,7 +8330,7 @@ class DescribeWorkflowsResponseBody(TeaModel):
 
 class DescribeWorkflowsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeWorkflowsResponseBody
 
     def validate(self):
@@ -7639,6 +8340,10 @@ class DescribeWorkflowsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeWorkflowsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7659,16 +8364,20 @@ class DescribeWorkflowsResponse(TeaModel):
 class InstallClusterAddonsRequestBody(TeaModel):
     def __init__(self, name=None, version=None, config=None):
         # 组件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 组件版本号。
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
         # 组件配置信息。
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.config = config  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(InstallClusterAddonsRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
@@ -7701,6 +8410,10 @@ class InstallClusterAddonsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(InstallClusterAddonsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['body'] = []
         if self.body is not None:
@@ -7720,12 +8433,16 @@ class InstallClusterAddonsRequest(TeaModel):
 
 class InstallClusterAddonsResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(InstallClusterAddonsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7746,7 +8463,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling(TeaModel):
         # 是否绑定EIP
         self.is_bond_eip = is_bond_eip  # type: bool
         # EIP实例计费方式
-        self.eip_internet_charge_type = TeaConverter.to_unicode(eip_internet_charge_type)  # type: unicode
+        self.eip_internet_charge_type = eip_internet_charge_type  # type: str
         # 自动伸缩。	
         self.enable = enable  # type: bool
         # 最大节点数	
@@ -7754,12 +8471,16 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling(TeaModel):
         # 最小节点数	
         self.min_instances = min_instances  # type: long
         # 扩容组类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.eip_bandwidth is not None:
             result['eip_bandwidth'] = self.eip_bandwidth
@@ -7802,17 +8523,17 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
         # 是否开启云监控	
         self.cms_enabled = cms_enabled  # type: bool
         # CPU管理策略	
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # ECS标签。	
         self.labels = labels  # type: list[Tag]
         # 容器运行时	
-        self.runtime = TeaConverter.to_unicode(runtime)  # type: unicode
+        self.runtime = runtime  # type: str
         # 容器运行时版本	
-        self.runtime_version = TeaConverter.to_unicode(runtime_version)  # type: unicode
+        self.runtime_version = runtime_version  # type: str
         # 污点配置
         self.taints = taints  # type: list[Taint]
         # 节点自定义数据
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.labels:
@@ -7825,6 +8546,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cms_enabled is not None:
             result['cms_enabled'] = self.cms_enabled
@@ -7875,26 +8600,30 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
         # 节点池创建时间
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 是否为默认节点池
         self.is_default = is_default  # type: bool
         # 节点池名称
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 节点池ID
-        self.nodepool_id = TeaConverter.to_unicode(nodepool_id)  # type: unicode
+        self.nodepool_id = nodepool_id  # type: str
         # 节点池所在地域ID。
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 资源组ID
-        self.resource_group_id = TeaConverter.to_unicode(resource_group_id)  # type: unicode
+        self.resource_group_id = resource_group_id  # type: str
         # 节点池类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 节点池更新时间
-        self.updated = TeaConverter.to_unicode(updated)  # type: unicode
+        self.updated = updated  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.created is not None:
             result['created'] = self.created
@@ -7938,14 +8667,18 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         # 抢占式实例规格。
-        self.instance_type = TeaConverter.to_unicode(instance_type)  # type: unicode
+        self.instance_type = instance_type  # type: str
         # 单台实例上限价格，单位：元/小时。
-        self.price_limit = TeaConverter.to_unicode(price_limit)  # type: unicode
+        self.price_limit = price_limit  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.instance_type is not None:
             result['instance_type'] = self.instance_type
@@ -7976,13 +8709,13 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
         # 数据盘配置	
         self.data_disks = data_disks  # type: list[DataDisk]
         # 镜像ID	
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 节点付费类型	
-        self.instance_charge_type = TeaConverter.to_unicode(instance_charge_type)  # type: unicode
+        self.instance_charge_type = instance_charge_type  # type: str
         # 节点类型	
-        self.instance_types = instance_types  # type: list[unicode]
+        self.instance_types = instance_types  # type: list[str]
         # 多可用区伸缩组ECS实例扩缩容策略
-        self.multi_az_policy = TeaConverter.to_unicode(multi_az_policy)  # type: unicode
+        self.multi_az_policy = multi_az_policy  # type: str
         # 伸缩组所需要按量实例个数的最小值，取值范围：0~1000。当按量实例个数少于该值时，将优先创建按量实例。
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
         # 伸缩组满足最小按量实例数（OnDemandBaseCapacity）要求后，超出的实例中按量实例应占的比例，取值范围：0～100。
@@ -7996,35 +8729,35 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
         # 包年包月时长	
         self.period = period  # type: long
         # 自动付费周期	
-        self.period_unit = TeaConverter.to_unicode(period_unit)  # type: unicode
+        self.period_unit = period_unit  # type: str
         # 操作系统发行版。取值： CentOS，AliyunLinux，Windows，WindowsCore。
-        self.platform = TeaConverter.to_unicode(platform)  # type: unicode
+        self.platform = platform  # type: str
         # RAM 角色名称	
-        self.ram_policy = TeaConverter.to_unicode(ram_policy)  # type: unicode
+        self.ram_policy = ram_policy  # type: str
         # 抢占式实例类型
-        self.spot_strategy = TeaConverter.to_unicode(spot_strategy)  # type: unicode
+        self.spot_strategy = spot_strategy  # type: str
         # 抢占实例价格上限配置。
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit]
         # RDS列表	
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 扩容组ID	
-        self.scaling_group_id = TeaConverter.to_unicode(scaling_group_id)  # type: unicode
+        self.scaling_group_id = scaling_group_id  # type: str
         # 扩容节点策略	
-        self.scaling_policy = TeaConverter.to_unicode(scaling_policy)  # type: unicode
+        self.scaling_policy = scaling_policy  # type: str
         # 安全组ID。	
-        self.security_group_id = TeaConverter.to_unicode(security_group_id)  # type: unicode
+        self.security_group_id = security_group_id  # type: str
         # 系统盘类型。	
-        self.system_disk_category = TeaConverter.to_unicode(system_disk_category)  # type: unicode
+        self.system_disk_category = system_disk_category  # type: str
         # 系统盘大小	
         self.system_disk_size = system_disk_size  # type: long
         # 节点标签	
         self.tags = tags  # type: list[Tag]
         # 虚拟交换机ID。	
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # 登录密码，返回结果是加密的。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 密钥对名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
 
     def validate(self):
         if self.data_disks:
@@ -8041,6 +8774,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_renew is not None:
             result['auto_renew'] = self.auto_renew
@@ -8192,7 +8929,7 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
         # 正在工作节点数	
         self.serving_nodes = serving_nodes  # type: long
         # 节点池状态	
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
         # 节点总数	
         self.total_nodes = total_nodes  # type: long
 
@@ -8200,6 +8937,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsStatus, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.failed_nodes is not None:
             result['failed_nodes'] = self.failed_nodes
@@ -8249,6 +8990,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tee_enable is not None:
             result['tee_enable'] = self.tee_enable
@@ -8276,6 +9021,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig(TeaMo
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_upgrade is not None:
             result['auto_upgrade'] = self.auto_upgrade
@@ -8314,6 +9063,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
             self.upgrade_config.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsManagement, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.enable is not None:
             result['enable'] = self.enable
@@ -8370,6 +9123,10 @@ class DescribeClusterNodePoolsResponseBodyNodepools(TeaModel):
             self.management.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepools, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.auto_scaling is not None:
             result['auto_scaling'] = self.auto_scaling.to_map()
@@ -8425,6 +9182,10 @@ class DescribeClusterNodePoolsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['nodepools'] = []
         if self.nodepools is not None:
@@ -8444,7 +9205,7 @@ class DescribeClusterNodePoolsResponseBody(TeaModel):
 
 class DescribeClusterNodePoolsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterNodePoolsResponseBody
 
     def validate(self):
@@ -8454,6 +9215,10 @@ class DescribeClusterNodePoolsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8480,6 +9245,10 @@ class DescribeClusterV2UserKubeconfigRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterV2UserKubeconfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
@@ -8495,12 +9264,16 @@ class DescribeClusterV2UserKubeconfigRequest(TeaModel):
 class DescribeClusterV2UserKubeconfigResponseBody(TeaModel):
     def __init__(self, config=None):
         # kubeconfig内容。
-        self.config = TeaConverter.to_unicode(config)  # type: unicode
+        self.config = config  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterV2UserKubeconfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.config is not None:
             result['config'] = self.config
@@ -8515,7 +9288,7 @@ class DescribeClusterV2UserKubeconfigResponseBody(TeaModel):
 
 class DescribeClusterV2UserKubeconfigResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeClusterV2UserKubeconfigResponseBody
 
     def validate(self):
@@ -8525,6 +9298,10 @@ class DescribeClusterV2UserKubeconfigResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterV2UserKubeconfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8549,48 +9326,52 @@ class StartWorkflowRequest(TeaModel):
                  wgs_oss_region=None, wgs_fastq_first_filename=None, wgs_fastq_second_filename=None, wgs_bucket_name=None,
                  wgs_fastq_path=None, wgs_reference_path=None, wgs_vcf_out_path=None, wgs_vcf_out_filename=None):
         # 工作流类型，可选值：wgs或mapping。
-        self.workflow_type = TeaConverter.to_unicode(workflow_type)  # type: unicode
+        self.workflow_type = workflow_type  # type: str
         # SLA类型，可选值：s、g、p。 白银级（s）：超过90 Gbp的部分，按1.5 Gbp/min计算增加的时间。 黄金级（g）：超过90 Gbp的部分，按2 Gbp/min计算增加的时间。 铂金级（p）：超过90 Gbp的部分，按3 Gbp/min计算增加的时间。
-        self.service = TeaConverter.to_unicode(service)  # type: unicode
+        self.service = service  # type: str
         # mapping oss数据的存放region。
-        self.mapping_oss_region = TeaConverter.to_unicode(mapping_oss_region)  # type: unicode
+        self.mapping_oss_region = mapping_oss_region  # type: str
         # mapping的第一个fastq文件名。
-        self.mapping_fastq_first_filename = TeaConverter.to_unicode(mapping_fastq_first_filename)  # type: unicode
+        self.mapping_fastq_first_filename = mapping_fastq_first_filename  # type: str
         # mapping的第二个fastq文件名。
-        self.mapping_fastq_second_filename = TeaConverter.to_unicode(mapping_fastq_second_filename)  # type: unicode
+        self.mapping_fastq_second_filename = mapping_fastq_second_filename  # type: str
         # 存放mapping的bucket名称。
-        self.mapping_bucket_name = TeaConverter.to_unicode(mapping_bucket_name)  # type: unicode
+        self.mapping_bucket_name = mapping_bucket_name  # type: str
         # mapping的fastq文件路径。
-        self.mapping_fastq_path = TeaConverter.to_unicode(mapping_fastq_path)  # type: unicode
+        self.mapping_fastq_path = mapping_fastq_path  # type: str
         # mapping的reference文件位置。
-        self.mapping_reference_path = TeaConverter.to_unicode(mapping_reference_path)  # type: unicode
+        self.mapping_reference_path = mapping_reference_path  # type: str
         # 是否进行dup。
-        self.mapping_is_mark_dup = TeaConverter.to_unicode(mapping_is_mark_dup)  # type: unicode
+        self.mapping_is_mark_dup = mapping_is_mark_dup  # type: str
         # bam文件输出路径。
-        self.mapping_bam_out_path = TeaConverter.to_unicode(mapping_bam_out_path)  # type: unicode
+        self.mapping_bam_out_path = mapping_bam_out_path  # type: str
         # bam文件输出名称。
-        self.mapping_bam_out_filename = TeaConverter.to_unicode(mapping_bam_out_filename)  # type: unicode
+        self.mapping_bam_out_filename = mapping_bam_out_filename  # type: str
         # wgs oss数据的存放region。
-        self.wgs_oss_region = TeaConverter.to_unicode(wgs_oss_region)  # type: unicode
+        self.wgs_oss_region = wgs_oss_region  # type: str
         # wgs的第一个fastq文件名。
-        self.wgs_fastq_first_filename = TeaConverter.to_unicode(wgs_fastq_first_filename)  # type: unicode
+        self.wgs_fastq_first_filename = wgs_fastq_first_filename  # type: str
         # wgs的第二个fastq文件名。
-        self.wgs_fastq_second_filename = TeaConverter.to_unicode(wgs_fastq_second_filename)  # type: unicode
+        self.wgs_fastq_second_filename = wgs_fastq_second_filename  # type: str
         # 存放wgs的bucket名称。
-        self.wgs_bucket_name = TeaConverter.to_unicode(wgs_bucket_name)  # type: unicode
+        self.wgs_bucket_name = wgs_bucket_name  # type: str
         # wgs的fastq文件路径。
-        self.wgs_fastq_path = TeaConverter.to_unicode(wgs_fastq_path)  # type: unicode
+        self.wgs_fastq_path = wgs_fastq_path  # type: str
         # wgs的reference文件路径。
-        self.wgs_reference_path = TeaConverter.to_unicode(wgs_reference_path)  # type: unicode
+        self.wgs_reference_path = wgs_reference_path  # type: str
         # wgs的vcf输出路径。
-        self.wgs_vcf_out_path = TeaConverter.to_unicode(wgs_vcf_out_path)  # type: unicode
+        self.wgs_vcf_out_path = wgs_vcf_out_path  # type: str
         # wgs的vcf输出文件名称。
-        self.wgs_vcf_out_filename = TeaConverter.to_unicode(wgs_vcf_out_filename)  # type: unicode
+        self.wgs_vcf_out_filename = wgs_vcf_out_filename  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(StartWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.workflow_type is not None:
             result['workflow_type'] = self.workflow_type
@@ -8678,12 +9459,16 @@ class StartWorkflowRequest(TeaModel):
 class StartWorkflowResponseBody(TeaModel):
     def __init__(self, job_name=None):
         # 工作流名称
-        self.job_name = TeaConverter.to_unicode(job_name)  # type: unicode
+        self.job_name = job_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(StartWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.job_name is not None:
             result['JobName'] = self.job_name
@@ -8698,7 +9483,7 @@ class StartWorkflowResponseBody(TeaModel):
 
 class StartWorkflowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: StartWorkflowResponseBody
 
     def validate(self):
@@ -8708,6 +9493,10 @@ class StartWorkflowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(StartWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8734,25 +9523,25 @@ class ScaleOutClusterRequest(TeaModel):
         # 扩容节点数
         self.count = count  # type: long
         # keypair名称，和login_password二选一。
-        self.key_pair = TeaConverter.to_unicode(key_pair)  # type: unicode
+        self.key_pair = key_pair  # type: str
         # SSH登录密码，和key_pair二选一。
-        self.login_password = TeaConverter.to_unicode(login_password)  # type: unicode
+        self.login_password = login_password  # type: str
         # 虚拟交换机
-        self.vswitch_ids = vswitch_ids  # type: list[unicode]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
         # Worker节点付费类型
-        self.worker_instance_charge_type = TeaConverter.to_unicode(worker_instance_charge_type)  # type: unicode
+        self.worker_instance_charge_type = worker_instance_charge_type  # type: str
         # Worker节点包年包月时长
         self.worker_period = worker_period  # type: long
         # Worker节点包年包月周期
-        self.worker_period_unit = TeaConverter.to_unicode(worker_period_unit)  # type: unicode
+        self.worker_period_unit = worker_period_unit  # type: str
         # Worker节点到期是否自动续费
         self.worker_auto_renew = worker_auto_renew  # type: bool
         # Worker节点自动续费时长
         self.worker_auto_renew_period = worker_auto_renew_period  # type: long
         # Worker节点实例规格
-        self.worker_instance_types = worker_instance_types  # type: list[unicode]
+        self.worker_instance_types = worker_instance_types  # type: list[str]
         # Worker节点系统盘类型
-        self.worker_system_disk_category = TeaConverter.to_unicode(worker_system_disk_category)  # type: unicode
+        self.worker_system_disk_category = worker_system_disk_category  # type: str
         # Worker节点系统盘大小
         self.worker_system_disk_size = worker_system_disk_size  # type: long
         # Worker节点数据盘配置
@@ -8760,13 +9549,13 @@ class ScaleOutClusterRequest(TeaModel):
         # 在节点上安装云监控
         self.cloud_monitor_flags = cloud_monitor_flags  # type: bool
         # CPU亲和性策略
-        self.cpu_policy = TeaConverter.to_unicode(cpu_policy)  # type: unicode
+        self.cpu_policy = cpu_policy  # type: str
         # 自定义镜像
-        self.image_id = TeaConverter.to_unicode(image_id)  # type: unicode
+        self.image_id = image_id  # type: str
         # 节点自定义数据
-        self.user_data = TeaConverter.to_unicode(user_data)  # type: unicode
+        self.user_data = user_data  # type: str
         # RDS白名单
-        self.rds_instances = rds_instances  # type: list[unicode]
+        self.rds_instances = rds_instances  # type: list[str]
         # 节点标签
         self.tags = tags  # type: list[Tag]
         # 节点污点信息
@@ -8790,6 +9579,10 @@ class ScaleOutClusterRequest(TeaModel):
             self.runtime.validate()
 
     def to_map(self):
+        _map = super(ScaleOutClusterRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.count is not None:
             result['count'] = self.count
@@ -8901,16 +9694,20 @@ class ScaleOutClusterRequest(TeaModel):
 class ScaleOutClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 请求ID。
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         # 任务ID。
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ScaleOutClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -8933,7 +9730,7 @@ class ScaleOutClusterResponseBody(TeaModel):
 
 class ScaleOutClusterResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ScaleOutClusterResponseBody
 
     def validate(self):
@@ -8943,6 +9740,10 @@ class ScaleOutClusterResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ScaleOutClusterResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8963,9 +9764,9 @@ class ScaleOutClusterResponse(TeaModel):
 class DescribeEventsRequest(TeaModel):
     def __init__(self, cluster_id=None, type=None, page_size=None, page_number=None):
         # 集群ID
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 事件类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 页数
         self.page_size = page_size  # type: long
         # 没页记录数量
@@ -8975,6 +9776,10 @@ class DescribeEventsRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeEventsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -9002,16 +9807,20 @@ class DescribeEventsRequest(TeaModel):
 class DescribeEventsResponseBodyEventsData(TeaModel):
     def __init__(self, level=None, reason=None, message=None):
         # 事件级别
-        self.level = TeaConverter.to_unicode(level)  # type: unicode
+        self.level = level  # type: str
         # 事件状态
-        self.reason = TeaConverter.to_unicode(reason)  # type: unicode
+        self.reason = reason  # type: str
         # 事件详情
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeEventsResponseBodyEventsData, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.level is not None:
             result['level'] = self.level
@@ -9035,17 +9844,17 @@ class DescribeEventsResponseBodyEventsData(TeaModel):
 class DescribeEventsResponseBodyEvents(TeaModel):
     def __init__(self, event_id=None, type=None, source=None, subject=None, time=None, cluster_id=None, data=None):
         # 事件ID
-        self.event_id = TeaConverter.to_unicode(event_id)  # type: unicode
+        self.event_id = event_id  # type: str
         # 事件类型
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 事件源
-        self.source = TeaConverter.to_unicode(source)  # type: unicode
+        self.source = source  # type: str
         # 事件
-        self.subject = TeaConverter.to_unicode(subject)  # type: unicode
+        self.subject = subject  # type: str
         # 事件开始事件
-        self.time = TeaConverter.to_unicode(time)  # type: unicode
+        self.time = time  # type: str
         # 集群ID
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 事件描述
         self.data = data  # type: DescribeEventsResponseBodyEventsData
 
@@ -9054,6 +9863,10 @@ class DescribeEventsResponseBodyEvents(TeaModel):
             self.data.validate()
 
     def to_map(self):
+        _map = super(DescribeEventsResponseBodyEvents, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.event_id is not None:
             result['event_id'] = self.event_id
@@ -9104,6 +9917,10 @@ class DescribeEventsResponseBodyPageInfo(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeEventsResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.page_size is not None:
             result['page_size'] = self.page_size
@@ -9138,6 +9955,10 @@ class DescribeEventsResponseBody(TeaModel):
             self.page_info.validate()
 
     def to_map(self):
+        _map = super(DescribeEventsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['events'] = []
         if self.events is not None:
@@ -9162,7 +9983,7 @@ class DescribeEventsResponseBody(TeaModel):
 
 class DescribeEventsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeEventsResponseBody
 
     def validate(self):
@@ -9172,6 +9993,10 @@ class DescribeEventsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeEventsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9191,12 +10016,16 @@ class DescribeEventsResponse(TeaModel):
 
 class UpdateK8sClusterUserConfigExpireResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(UpdateK8sClusterUserConfigExpireResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9212,11 +10041,11 @@ class UpdateK8sClusterUserConfigExpireResponse(TeaModel):
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_ids=None, resource_type=None, region_id=None, tags=None):
         # 资源ID列表
-        self.resource_ids = resource_ids  # type: list[unicode]
+        self.resource_ids = resource_ids  # type: list[str]
         # 资源类型定义。取值范围：  只支持CLUSTER这一种资源类型
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 资源所属的地域ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.region_id = region_id  # type: str
         # 资源的标签键值对。数组长度范围：1~20。一旦传值，则不允许为空字符串。最多支持128个字符，不能以aliyun和acs:开头，不能包含http://或者https://。
         self.tags = tags  # type: list[Tag]
 
@@ -9227,6 +10056,10 @@ class TagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.resource_ids is not None:
             result['resource_ids'] = self.resource_ids
@@ -9258,12 +10091,16 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9288,6 +10125,10 @@ class ModifyClusterTagsRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ModifyClusterTagsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['body'] = []
         if self.body is not None:
@@ -9307,12 +10148,16 @@ class ModifyClusterTagsRequest(TeaModel):
 
 class ModifyClusterTagsResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(ModifyClusterTagsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9328,18 +10173,22 @@ class ModifyClusterTagsResponse(TeaModel):
 class GetKubernetesTriggerRequest(TeaModel):
     def __init__(self, namespace=None, type=None, name=None, action=None):
         # 应用所属命名空间。
-        self.namespace = TeaConverter.to_unicode(namespace)  # type: unicode
+        self.namespace = namespace  # type: str
         # 应用类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 应用名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 触发器行为。
-        self.action = TeaConverter.to_unicode(action)  # type: unicode
+        self.action = action  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetKubernetesTriggerRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.namespace is not None:
             result['Namespace'] = self.namespace
@@ -9367,24 +10216,28 @@ class GetKubernetesTriggerRequest(TeaModel):
 class GetKubernetesTriggerResponseBody(TeaModel):
     def __init__(self, id=None, name=None, cluster_id=None, project_id=None, type=None, action=None, token=None):
         # 触发器ID。
-        self.id = TeaConverter.to_unicode(id)  # type: unicode
+        self.id = id  # type: str
         # 触发器名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 集群ID
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 触发器项目名称
-        self.project_id = TeaConverter.to_unicode(project_id)  # type: unicode
+        self.project_id = project_id  # type: str
         # 触发器类型。
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         # 触发器行为
-        self.action = TeaConverter.to_unicode(action)  # type: unicode
+        self.action = action  # type: str
         # Token
-        self.token = TeaConverter.to_unicode(token)  # type: unicode
+        self.token = token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetKubernetesTriggerResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.id is not None:
             result['id'] = self.id
@@ -9423,7 +10276,7 @@ class GetKubernetesTriggerResponseBody(TeaModel):
 
 class GetKubernetesTriggerResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[GetKubernetesTriggerResponseBody]
 
     def validate(self):
@@ -9435,6 +10288,10 @@ class GetKubernetesTriggerResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetKubernetesTriggerResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9459,14 +10316,18 @@ class GetKubernetesTriggerResponse(TeaModel):
 class GetUpgradeStatusResponseBodyUpgradeTask(TeaModel):
     def __init__(self, status=None, message=None):
         # 任务状态：  emptry、running、success、failed
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         # 任务描述信息。
-        self.message = TeaConverter.to_unicode(message)  # type: unicode
+        self.message = message  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetUpgradeStatusResponseBodyUpgradeTask, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['status'] = self.status
@@ -9487,13 +10348,13 @@ class GetUpgradeStatusResponseBody(TeaModel):
     def __init__(self, error_message=None, precheck_report_id=None, status=None, upgrade_step=None,
                  upgrade_task=None):
         # 错误信息描述。
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
+        self.error_message = error_message  # type: str
         # 预检查返回ID。
-        self.precheck_report_id = TeaConverter.to_unicode(precheck_report_id)  # type: unicode
+        self.precheck_report_id = precheck_report_id  # type: str
         # 升级状态。
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         # 升级任务执行到哪一步了。
-        self.upgrade_step = TeaConverter.to_unicode(upgrade_step)  # type: unicode
+        self.upgrade_step = upgrade_step  # type: str
         # 升级任务详情。
         self.upgrade_task = upgrade_task  # type: GetUpgradeStatusResponseBodyUpgradeTask
 
@@ -9502,6 +10363,10 @@ class GetUpgradeStatusResponseBody(TeaModel):
             self.upgrade_task.validate()
 
     def to_map(self):
+        _map = super(GetUpgradeStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.error_message is not None:
             result['error_message'] = self.error_message
@@ -9533,7 +10398,7 @@ class GetUpgradeStatusResponseBody(TeaModel):
 
 class GetUpgradeStatusResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetUpgradeStatusResponseBody
 
     def validate(self):
@@ -9543,6 +10408,10 @@ class GetUpgradeStatusResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetUpgradeStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9564,22 +10433,26 @@ class DescribeClusterResourcesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, instance_id=None, resource_info=None, resource_type=None,
                  state=None):
         # 集群ID。
-        self.cluster_id = TeaConverter.to_unicode(cluster_id)  # type: unicode
+        self.cluster_id = cluster_id  # type: str
         # 资源创建时间。
-        self.created = TeaConverter.to_unicode(created)  # type: unicode
+        self.created = created  # type: str
         # 资源实例ID。
-        self.instance_id = TeaConverter.to_unicode(instance_id)  # type: unicode
+        self.instance_id = instance_id  # type: str
         # 资源元信息。
-        self.resource_info = TeaConverter.to_unicode(resource_info)  # type: unicode
+        self.resource_info = resource_info  # type: str
         # 资源类型。
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+        self.resource_type = resource_type  # type: str
         # 资源状态。
-        self.state = TeaConverter.to_unicode(state)  # type: unicode
+        self.state = state  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeClusterResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cluster_id is not None:
             result['cluster_id'] = self.cluster_id
@@ -9614,7 +10487,7 @@ class DescribeClusterResourcesResponseBody(TeaModel):
 
 class DescribeClusterResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: list[DescribeClusterResourcesResponseBody]
 
     def validate(self):
@@ -9626,6 +10499,10 @@ class DescribeClusterResourcesResponse(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeClusterResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9654,12 +10531,16 @@ class DeleteClusterNodesRequest(TeaModel):
         # 是否同时释放 ECS
         self.release_node = release_node  # type: bool
         # 移除节点列表。
-        self.nodes = nodes  # type: list[unicode]
+        self.nodes = nodes  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteClusterNodesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.drain_node is not None:
             result['drain_node'] = self.drain_node
@@ -9682,12 +10563,16 @@ class DeleteClusterNodesRequest(TeaModel):
 
 class DeleteClusterNodesResponse(TeaModel):
     def __init__(self, headers=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
 
     def to_map(self):
+        _map = super(DeleteClusterNodesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9703,13 +10588,13 @@ class DeleteClusterNodesResponse(TeaModel):
 class StandardComponentsValue(TeaModel):
     def __init__(self, name=None, version=None, description=None, required=None, disabled=None):
         # 组件名称。
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
+        self.name = name  # type: str
         # 组件版本。
-        self.version = TeaConverter.to_unicode(version)  # type: unicode
+        self.version = version  # type: str
         # 组件描述信息。
-        self.description = TeaConverter.to_unicode(description)  # type: unicode
+        self.description = description  # type: str
         # 是否为必需组件。
-        self.required = TeaConverter.to_unicode(required)  # type: unicode
+        self.required = required  # type: str
         # 是否禁止默认安装。
         self.disabled = disabled  # type: bool
 
@@ -9717,6 +10602,10 @@ class StandardComponentsValue(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(StandardComponentsValue, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.name is not None:
             result['name'] = self.name
