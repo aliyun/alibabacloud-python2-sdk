@@ -186,6 +186,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.optimize_right_angle_with_options(request, runtime)
 
+    def add_relative_position_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.AddRelativePositionResponse(),
+            self.do_rpcrequest('AddRelativePosition', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def add_relative_position(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_relative_position_with_options(request, runtime)
+
     def detail_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
