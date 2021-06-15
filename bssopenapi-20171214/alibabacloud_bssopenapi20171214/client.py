@@ -86,6 +86,20 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_account_relation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.AddAccountRelationResponse(),
+            self.do_rpcrequest('AddAccountRelation', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def add_account_relation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_account_relation_with_options(request, runtime)
+
     def allocate_cost_unit_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -141,6 +155,20 @@ class Client(OpenApiClient):
     def change_reseller_consume_amount(self, request):
         runtime = util_models.RuntimeOptions()
         return self.change_reseller_consume_amount_with_options(request, runtime)
+
+    def confirm_relation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.ConfirmRelationResponse(),
+            self.do_rpcrequest('ConfirmRelation', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def confirm_relation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.confirm_relation_with_options(request, runtime)
 
     def convert_charge_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -254,6 +282,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_bill_with_options(request, runtime)
 
+    def describe_resource_coverage_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeResourceCoverageDetailResponse(),
+            self.do_rpcrequest('DescribeResourceCoverageDetail', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_resource_coverage_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_resource_coverage_detail_with_options(request, runtime)
+
+    def describe_resource_coverage_total_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeResourceCoverageTotalResponse(),
+            self.do_rpcrequest('DescribeResourceCoverageTotal', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_resource_coverage_total(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_resource_coverage_total_with_options(request, runtime)
+
     def describe_resource_package_product_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -267,6 +323,34 @@ class Client(OpenApiClient):
     def describe_resource_package_product(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_resource_package_product_with_options(request, runtime)
+
+    def describe_resource_usage_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeResourceUsageDetailResponse(),
+            self.do_rpcrequest('DescribeResourceUsageDetail', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_resource_usage_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_resource_usage_detail_with_options(request, runtime)
+
+    def describe_resource_usage_total_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.DescribeResourceUsageTotalResponse(),
+            self.do_rpcrequest('DescribeResourceUsageTotal', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_resource_usage_total(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_resource_usage_total_with_options(request, runtime)
 
     def describe_split_item_bill_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -376,6 +460,20 @@ class Client(OpenApiClient):
     def get_subscription_price(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_subscription_price_with_options(request, runtime)
+
+    def modify_account_relation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.ModifyAccountRelationResponse(),
+            self.do_rpcrequest('ModifyAccountRelation', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_account_relation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_account_relation_with_options(request, runtime)
 
     def modify_cost_unit_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -566,6 +664,20 @@ class Client(OpenApiClient):
     def query_customer_address_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_customer_address_list_with_options(request, runtime)
+
+    def query_dputilization_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.QueryDPUtilizationDetailResponse(),
+            self.do_rpcrequest('QueryDPUtilizationDetail', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_dputilization_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_dputilization_detail_with_options(request, runtime)
 
     def query_evaluate_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -875,6 +987,20 @@ class Client(OpenApiClient):
     def query_user_oms_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_user_oms_data_with_options(request, runtime)
+
+    def relieve_account_relation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.RelieveAccountRelationResponse(),
+            self.do_rpcrequest('RelieveAccountRelation', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def relieve_account_relation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.relieve_account_relation_with_options(request, runtime)
 
     def renew_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
