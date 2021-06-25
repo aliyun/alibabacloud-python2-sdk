@@ -1044,6 +1044,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.save_user_credit_with_options(request, runtime)
 
+    def set_all_expiration_day_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            bss_open_api_20171214_models.SetAllExpirationDayResponse(),
+            self.do_rpcrequest('SetAllExpirationDay', '2017-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def set_all_expiration_day(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_all_expiration_day_with_options(request, runtime)
+
     def set_credit_label_action_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(

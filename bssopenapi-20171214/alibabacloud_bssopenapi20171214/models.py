@@ -2232,13 +2232,14 @@ class DescribeInstanceBillRequest(TeaModel):
 
 class DescribeInstanceBillResponseBodyDataItems(TeaModel):
     def __init__(self, billing_date=None, instance_config=None, internet_ip=None, item=None, tag=None,
-                 instance_id=None, currency=None, deducted_by_cash_coupons=None, subscription_type=None, instance_spec=None,
-                 deducted_by_coupons=None, billing_item=None, region=None, outstanding_amount=None, cost_unit=None,
-                 list_price_unit=None, resource_group=None, pip_code=None, service_period_unit=None, pretax_amount=None,
-                 commodity_code=None, product_name=None, nick_name=None, product_detail=None, usage=None, intranet_ip=None,
-                 owner_id=None, deducted_by_prepaid_card=None, usage_unit=None, payment_amount=None, invoice_discount=None,
-                 deducted_by_resource_package=None, product_type=None, service_period=None, zone=None, list_price=None, pretax_gross_amount=None,
-                 product_code=None, billing_type=None):
+                 instance_id=None, currency=None, bill_account_name=None, deducted_by_cash_coupons=None,
+                 subscription_type=None, biz_type=None, instance_spec=None, deducted_by_coupons=None, billing_item=None, region=None,
+                 outstanding_amount=None, cost_unit=None, list_price_unit=None, resource_group=None, pip_code=None,
+                 service_period_unit=None, pretax_amount=None, commodity_code=None, product_name=None, nick_name=None,
+                 product_detail=None, usage=None, intranet_ip=None, owner_id=None, deducted_by_prepaid_card=None, usage_unit=None,
+                 bill_account_id=None, payment_amount=None, invoice_discount=None, deducted_by_resource_package=None,
+                 product_type=None, service_period=None, zone=None, list_price=None, pretax_gross_amount=None, product_code=None,
+                 billing_type=None):
         self.billing_date = billing_date  # type: str
         self.instance_config = instance_config  # type: str
         self.internet_ip = internet_ip  # type: str
@@ -2246,8 +2247,10 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
         self.tag = tag  # type: str
         self.instance_id = instance_id  # type: str
         self.currency = currency  # type: str
+        self.bill_account_name = bill_account_name  # type: str
         self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
         self.subscription_type = subscription_type  # type: str
+        self.biz_type = biz_type  # type: str
         self.instance_spec = instance_spec  # type: str
         self.deducted_by_coupons = deducted_by_coupons  # type: float
         self.billing_item = billing_item  # type: str
@@ -2268,6 +2271,7 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
         self.owner_id = owner_id  # type: str
         self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.usage_unit = usage_unit  # type: str
+        self.bill_account_id = bill_account_id  # type: str
         self.payment_amount = payment_amount  # type: float
         self.invoice_discount = invoice_discount  # type: float
         self.deducted_by_resource_package = deducted_by_resource_package  # type: str
@@ -2302,10 +2306,14 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
             result['InstanceID'] = self.instance_id
         if self.currency is not None:
             result['Currency'] = self.currency
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
         if self.deducted_by_cash_coupons is not None:
             result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
         if self.subscription_type is not None:
             result['SubscriptionType'] = self.subscription_type
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
         if self.instance_spec is not None:
             result['InstanceSpec'] = self.instance_spec
         if self.deducted_by_coupons is not None:
@@ -2346,6 +2354,8 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
             result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
         if self.usage_unit is not None:
             result['UsageUnit'] = self.usage_unit
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
         if self.payment_amount is not None:
             result['PaymentAmount'] = self.payment_amount
         if self.invoice_discount is not None:
@@ -2384,10 +2394,14 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
             self.instance_id = m.get('InstanceID')
         if m.get('Currency') is not None:
             self.currency = m.get('Currency')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
         if m.get('DeductedByCashCoupons') is not None:
             self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
         if m.get('SubscriptionType') is not None:
             self.subscription_type = m.get('SubscriptionType')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
         if m.get('InstanceSpec') is not None:
             self.instance_spec = m.get('InstanceSpec')
         if m.get('DeductedByCoupons') is not None:
@@ -2428,6 +2442,8 @@ class DescribeInstanceBillResponseBodyDataItems(TeaModel):
             self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
         if m.get('UsageUnit') is not None:
             self.usage_unit = m.get('UsageUnit')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
         if m.get('PaymentAmount') is not None:
             self.payment_amount = m.get('PaymentAmount')
         if m.get('InvoiceDiscount') is not None:
@@ -4193,7 +4209,7 @@ class DescribeSplitItemBillRequestTagFilter(TeaModel):
 class DescribeSplitItemBillRequest(TeaModel):
     def __init__(self, billing_cycle=None, product_code=None, product_type=None, subscription_type=None,
                  owner_id=None, next_token=None, max_results=None, bill_owner_id=None, instance_id=None, split_item_id=None,
-                 tag_filter=None):
+                 granularity=None, billing_date=None, tag_filter=None):
         self.billing_cycle = billing_cycle  # type: str
         self.product_code = product_code  # type: str
         self.product_type = product_type  # type: str
@@ -4204,6 +4220,8 @@ class DescribeSplitItemBillRequest(TeaModel):
         self.bill_owner_id = bill_owner_id  # type: long
         self.instance_id = instance_id  # type: str
         self.split_item_id = split_item_id  # type: str
+        self.granularity = granularity  # type: str
+        self.billing_date = billing_date  # type: str
         self.tag_filter = tag_filter  # type: list[DescribeSplitItemBillRequestTagFilter]
 
     def validate(self):
@@ -4238,6 +4256,10 @@ class DescribeSplitItemBillRequest(TeaModel):
             result['InstanceID'] = self.instance_id
         if self.split_item_id is not None:
             result['SplitItemID'] = self.split_item_id
+        if self.granularity is not None:
+            result['Granularity'] = self.granularity
+        if self.billing_date is not None:
+            result['BillingDate'] = self.billing_date
         result['TagFilter'] = []
         if self.tag_filter is not None:
             for k in self.tag_filter:
@@ -4266,6 +4288,10 @@ class DescribeSplitItemBillRequest(TeaModel):
             self.instance_id = m.get('InstanceID')
         if m.get('SplitItemID') is not None:
             self.split_item_id = m.get('SplitItemID')
+        if m.get('Granularity') is not None:
+            self.granularity = m.get('Granularity')
+        if m.get('BillingDate') is not None:
+            self.billing_date = m.get('BillingDate')
         self.tag_filter = []
         if m.get('TagFilter') is not None:
             for k in m.get('TagFilter'):
@@ -4275,62 +4301,66 @@ class DescribeSplitItemBillRequest(TeaModel):
 
 
 class DescribeSplitItemBillResponseBodyDataItems(TeaModel):
-    def __init__(self, billing_date=None, instance_config=None, internet_ip=None, split_item_id=None, item=None,
-                 split_account_id=None, tag=None, instance_id=None, currency=None, deducted_by_cash_coupons=None,
-                 subscription_type=None, instance_spec=None, deducted_by_coupons=None, billing_item=None, region=None,
-                 outstanding_amount=None, cost_unit=None, list_price_unit=None, resource_group=None, pip_code=None,
-                 service_period_unit=None, pretax_amount=None, commodity_code=None, product_name=None, split_product_detail=None,
-                 nick_name=None, product_detail=None, usage=None, intranet_ip=None, owner_id=None, split_commodity_code=None,
-                 deducted_by_prepaid_card=None, usage_unit=None, payment_amount=None, invoice_discount=None,
-                 deducted_by_resource_package=None, product_type=None, split_billing_cycle=None, service_period=None, split_item_name=None,
-                 zone=None, list_price=None, pretax_gross_amount=None, split_account_name=None, product_code=None,
-                 billing_type=None):
-        self.billing_date = billing_date  # type: str
-        self.instance_config = instance_config  # type: str
-        self.internet_ip = internet_ip  # type: str
-        self.split_item_id = split_item_id  # type: str
-        self.item = item  # type: str
+    def __init__(self, split_account_id=None, bill_account_name=None, subscription_type=None, instance_spec=None,
+                 deducted_by_coupons=None, region=None, outstanding_amount=None, pip_code=None, commodity_code=None, nick_name=None,
+                 product_detail=None, usage=None, intranet_ip=None, usage_unit=None, split_commodity_code=None,
+                 bill_account_id=None, product_type=None, deducted_by_resource_package=None, payment_amount=None,
+                 split_billing_cycle=None, service_period=None, split_item_name=None, list_price=None, zone=None,
+                 pretax_gross_amount=None, instance_config=None, billing_date=None, internet_ip=None, item=None, split_item_id=None,
+                 instance_id=None, tag=None, currency=None, deducted_by_cash_coupons=None, biz_type=None, billing_item=None,
+                 cost_unit=None, list_price_unit=None, resource_group=None, pretax_amount=None, service_period_unit=None,
+                 split_billing_date=None, product_name=None, split_product_detail=None, owner_id=None, deducted_by_prepaid_card=None,
+                 invoice_discount=None, split_account_name=None, billing_type=None, product_code=None):
         self.split_account_id = split_account_id  # type: str
-        self.tag = tag  # type: str
-        self.instance_id = instance_id  # type: str
-        self.currency = currency  # type: str
-        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.bill_account_name = bill_account_name  # type: str
         self.subscription_type = subscription_type  # type: str
         self.instance_spec = instance_spec  # type: str
         self.deducted_by_coupons = deducted_by_coupons  # type: float
-        self.billing_item = billing_item  # type: str
         self.region = region  # type: str
         self.outstanding_amount = outstanding_amount  # type: float
-        self.cost_unit = cost_unit  # type: str
-        self.list_price_unit = list_price_unit  # type: str
-        self.resource_group = resource_group  # type: str
         self.pip_code = pip_code  # type: str
-        self.service_period_unit = service_period_unit  # type: str
-        self.pretax_amount = pretax_amount  # type: float
         self.commodity_code = commodity_code  # type: str
-        self.product_name = product_name  # type: str
-        self.split_product_detail = split_product_detail  # type: str
         self.nick_name = nick_name  # type: str
         self.product_detail = product_detail  # type: str
         self.usage = usage  # type: str
         self.intranet_ip = intranet_ip  # type: str
-        self.owner_id = owner_id  # type: str
-        self.split_commodity_code = split_commodity_code  # type: str
-        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
         self.usage_unit = usage_unit  # type: str
-        self.payment_amount = payment_amount  # type: float
-        self.invoice_discount = invoice_discount  # type: float
-        self.deducted_by_resource_package = deducted_by_resource_package  # type: str
+        self.split_commodity_code = split_commodity_code  # type: str
+        self.bill_account_id = bill_account_id  # type: str
         self.product_type = product_type  # type: str
+        self.deducted_by_resource_package = deducted_by_resource_package  # type: str
+        self.payment_amount = payment_amount  # type: float
         self.split_billing_cycle = split_billing_cycle  # type: str
         self.service_period = service_period  # type: str
         self.split_item_name = split_item_name  # type: str
-        self.zone = zone  # type: str
         self.list_price = list_price  # type: str
+        self.zone = zone  # type: str
         self.pretax_gross_amount = pretax_gross_amount  # type: float
+        self.instance_config = instance_config  # type: str
+        self.billing_date = billing_date  # type: str
+        self.internet_ip = internet_ip  # type: str
+        self.item = item  # type: str
+        self.split_item_id = split_item_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.tag = tag  # type: str
+        self.currency = currency  # type: str
+        self.deducted_by_cash_coupons = deducted_by_cash_coupons  # type: float
+        self.biz_type = biz_type  # type: str
+        self.billing_item = billing_item  # type: str
+        self.cost_unit = cost_unit  # type: str
+        self.list_price_unit = list_price_unit  # type: str
+        self.resource_group = resource_group  # type: str
+        self.pretax_amount = pretax_amount  # type: float
+        self.service_period_unit = service_period_unit  # type: str
+        self.split_billing_date = split_billing_date  # type: str
+        self.product_name = product_name  # type: str
+        self.split_product_detail = split_product_detail  # type: str
+        self.owner_id = owner_id  # type: str
+        self.deducted_by_prepaid_card = deducted_by_prepaid_card  # type: float
+        self.invoice_discount = invoice_discount  # type: float
         self.split_account_name = split_account_name  # type: str
-        self.product_code = product_code  # type: str
         self.billing_type = billing_type  # type: str
+        self.product_code = product_code  # type: str
 
     def validate(self):
         pass
@@ -4341,56 +4371,24 @@ class DescribeSplitItemBillResponseBodyDataItems(TeaModel):
             return _map
 
         result = dict()
-        if self.billing_date is not None:
-            result['BillingDate'] = self.billing_date
-        if self.instance_config is not None:
-            result['InstanceConfig'] = self.instance_config
-        if self.internet_ip is not None:
-            result['InternetIP'] = self.internet_ip
-        if self.split_item_id is not None:
-            result['SplitItemID'] = self.split_item_id
-        if self.item is not None:
-            result['Item'] = self.item
         if self.split_account_id is not None:
             result['SplitAccountID'] = self.split_account_id
-        if self.tag is not None:
-            result['Tag'] = self.tag
-        if self.instance_id is not None:
-            result['InstanceID'] = self.instance_id
-        if self.currency is not None:
-            result['Currency'] = self.currency
-        if self.deducted_by_cash_coupons is not None:
-            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.bill_account_name is not None:
+            result['BillAccountName'] = self.bill_account_name
         if self.subscription_type is not None:
             result['SubscriptionType'] = self.subscription_type
         if self.instance_spec is not None:
             result['InstanceSpec'] = self.instance_spec
         if self.deducted_by_coupons is not None:
             result['DeductedByCoupons'] = self.deducted_by_coupons
-        if self.billing_item is not None:
-            result['BillingItem'] = self.billing_item
         if self.region is not None:
             result['Region'] = self.region
         if self.outstanding_amount is not None:
             result['OutstandingAmount'] = self.outstanding_amount
-        if self.cost_unit is not None:
-            result['CostUnit'] = self.cost_unit
-        if self.list_price_unit is not None:
-            result['ListPriceUnit'] = self.list_price_unit
-        if self.resource_group is not None:
-            result['ResourceGroup'] = self.resource_group
         if self.pip_code is not None:
             result['PipCode'] = self.pip_code
-        if self.service_period_unit is not None:
-            result['ServicePeriodUnit'] = self.service_period_unit
-        if self.pretax_amount is not None:
-            result['PretaxAmount'] = self.pretax_amount
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
-        if self.product_name is not None:
-            result['ProductName'] = self.product_name
-        if self.split_product_detail is not None:
-            result['SplitProductDetail'] = self.split_product_detail
         if self.nick_name is not None:
             result['NickName'] = self.nick_name
         if self.product_detail is not None:
@@ -4399,94 +4397,102 @@ class DescribeSplitItemBillResponseBodyDataItems(TeaModel):
             result['Usage'] = self.usage
         if self.intranet_ip is not None:
             result['IntranetIP'] = self.intranet_ip
-        if self.owner_id is not None:
-            result['OwnerID'] = self.owner_id
-        if self.split_commodity_code is not None:
-            result['SplitCommodityCode'] = self.split_commodity_code
-        if self.deducted_by_prepaid_card is not None:
-            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
         if self.usage_unit is not None:
             result['UsageUnit'] = self.usage_unit
-        if self.payment_amount is not None:
-            result['PaymentAmount'] = self.payment_amount
-        if self.invoice_discount is not None:
-            result['InvoiceDiscount'] = self.invoice_discount
-        if self.deducted_by_resource_package is not None:
-            result['DeductedByResourcePackage'] = self.deducted_by_resource_package
+        if self.split_commodity_code is not None:
+            result['SplitCommodityCode'] = self.split_commodity_code
+        if self.bill_account_id is not None:
+            result['BillAccountID'] = self.bill_account_id
         if self.product_type is not None:
             result['ProductType'] = self.product_type
+        if self.deducted_by_resource_package is not None:
+            result['DeductedByResourcePackage'] = self.deducted_by_resource_package
+        if self.payment_amount is not None:
+            result['PaymentAmount'] = self.payment_amount
         if self.split_billing_cycle is not None:
             result['SplitBillingCycle'] = self.split_billing_cycle
         if self.service_period is not None:
             result['ServicePeriod'] = self.service_period
         if self.split_item_name is not None:
             result['SplitItemName'] = self.split_item_name
-        if self.zone is not None:
-            result['Zone'] = self.zone
         if self.list_price is not None:
             result['ListPrice'] = self.list_price
+        if self.zone is not None:
+            result['Zone'] = self.zone
         if self.pretax_gross_amount is not None:
             result['PretaxGrossAmount'] = self.pretax_gross_amount
+        if self.instance_config is not None:
+            result['InstanceConfig'] = self.instance_config
+        if self.billing_date is not None:
+            result['BillingDate'] = self.billing_date
+        if self.internet_ip is not None:
+            result['InternetIP'] = self.internet_ip
+        if self.item is not None:
+            result['Item'] = self.item
+        if self.split_item_id is not None:
+            result['SplitItemID'] = self.split_item_id
+        if self.instance_id is not None:
+            result['InstanceID'] = self.instance_id
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.deducted_by_cash_coupons is not None:
+            result['DeductedByCashCoupons'] = self.deducted_by_cash_coupons
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.billing_item is not None:
+            result['BillingItem'] = self.billing_item
+        if self.cost_unit is not None:
+            result['CostUnit'] = self.cost_unit
+        if self.list_price_unit is not None:
+            result['ListPriceUnit'] = self.list_price_unit
+        if self.resource_group is not None:
+            result['ResourceGroup'] = self.resource_group
+        if self.pretax_amount is not None:
+            result['PretaxAmount'] = self.pretax_amount
+        if self.service_period_unit is not None:
+            result['ServicePeriodUnit'] = self.service_period_unit
+        if self.split_billing_date is not None:
+            result['SplitBillingDate'] = self.split_billing_date
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.split_product_detail is not None:
+            result['SplitProductDetail'] = self.split_product_detail
+        if self.owner_id is not None:
+            result['OwnerID'] = self.owner_id
+        if self.deducted_by_prepaid_card is not None:
+            result['DeductedByPrepaidCard'] = self.deducted_by_prepaid_card
+        if self.invoice_discount is not None:
+            result['InvoiceDiscount'] = self.invoice_discount
         if self.split_account_name is not None:
             result['SplitAccountName'] = self.split_account_name
-        if self.product_code is not None:
-            result['ProductCode'] = self.product_code
         if self.billing_type is not None:
             result['BillingType'] = self.billing_type
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BillingDate') is not None:
-            self.billing_date = m.get('BillingDate')
-        if m.get('InstanceConfig') is not None:
-            self.instance_config = m.get('InstanceConfig')
-        if m.get('InternetIP') is not None:
-            self.internet_ip = m.get('InternetIP')
-        if m.get('SplitItemID') is not None:
-            self.split_item_id = m.get('SplitItemID')
-        if m.get('Item') is not None:
-            self.item = m.get('Item')
         if m.get('SplitAccountID') is not None:
             self.split_account_id = m.get('SplitAccountID')
-        if m.get('Tag') is not None:
-            self.tag = m.get('Tag')
-        if m.get('InstanceID') is not None:
-            self.instance_id = m.get('InstanceID')
-        if m.get('Currency') is not None:
-            self.currency = m.get('Currency')
-        if m.get('DeductedByCashCoupons') is not None:
-            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('BillAccountName') is not None:
+            self.bill_account_name = m.get('BillAccountName')
         if m.get('SubscriptionType') is not None:
             self.subscription_type = m.get('SubscriptionType')
         if m.get('InstanceSpec') is not None:
             self.instance_spec = m.get('InstanceSpec')
         if m.get('DeductedByCoupons') is not None:
             self.deducted_by_coupons = m.get('DeductedByCoupons')
-        if m.get('BillingItem') is not None:
-            self.billing_item = m.get('BillingItem')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('OutstandingAmount') is not None:
             self.outstanding_amount = m.get('OutstandingAmount')
-        if m.get('CostUnit') is not None:
-            self.cost_unit = m.get('CostUnit')
-        if m.get('ListPriceUnit') is not None:
-            self.list_price_unit = m.get('ListPriceUnit')
-        if m.get('ResourceGroup') is not None:
-            self.resource_group = m.get('ResourceGroup')
         if m.get('PipCode') is not None:
             self.pip_code = m.get('PipCode')
-        if m.get('ServicePeriodUnit') is not None:
-            self.service_period_unit = m.get('ServicePeriodUnit')
-        if m.get('PretaxAmount') is not None:
-            self.pretax_amount = m.get('PretaxAmount')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
-        if m.get('ProductName') is not None:
-            self.product_name = m.get('ProductName')
-        if m.get('SplitProductDetail') is not None:
-            self.split_product_detail = m.get('SplitProductDetail')
         if m.get('NickName') is not None:
             self.nick_name = m.get('NickName')
         if m.get('ProductDetail') is not None:
@@ -4495,40 +4501,80 @@ class DescribeSplitItemBillResponseBodyDataItems(TeaModel):
             self.usage = m.get('Usage')
         if m.get('IntranetIP') is not None:
             self.intranet_ip = m.get('IntranetIP')
-        if m.get('OwnerID') is not None:
-            self.owner_id = m.get('OwnerID')
-        if m.get('SplitCommodityCode') is not None:
-            self.split_commodity_code = m.get('SplitCommodityCode')
-        if m.get('DeductedByPrepaidCard') is not None:
-            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
         if m.get('UsageUnit') is not None:
             self.usage_unit = m.get('UsageUnit')
-        if m.get('PaymentAmount') is not None:
-            self.payment_amount = m.get('PaymentAmount')
-        if m.get('InvoiceDiscount') is not None:
-            self.invoice_discount = m.get('InvoiceDiscount')
-        if m.get('DeductedByResourcePackage') is not None:
-            self.deducted_by_resource_package = m.get('DeductedByResourcePackage')
+        if m.get('SplitCommodityCode') is not None:
+            self.split_commodity_code = m.get('SplitCommodityCode')
+        if m.get('BillAccountID') is not None:
+            self.bill_account_id = m.get('BillAccountID')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
+        if m.get('DeductedByResourcePackage') is not None:
+            self.deducted_by_resource_package = m.get('DeductedByResourcePackage')
+        if m.get('PaymentAmount') is not None:
+            self.payment_amount = m.get('PaymentAmount')
         if m.get('SplitBillingCycle') is not None:
             self.split_billing_cycle = m.get('SplitBillingCycle')
         if m.get('ServicePeriod') is not None:
             self.service_period = m.get('ServicePeriod')
         if m.get('SplitItemName') is not None:
             self.split_item_name = m.get('SplitItemName')
-        if m.get('Zone') is not None:
-            self.zone = m.get('Zone')
         if m.get('ListPrice') is not None:
             self.list_price = m.get('ListPrice')
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
         if m.get('PretaxGrossAmount') is not None:
             self.pretax_gross_amount = m.get('PretaxGrossAmount')
+        if m.get('InstanceConfig') is not None:
+            self.instance_config = m.get('InstanceConfig')
+        if m.get('BillingDate') is not None:
+            self.billing_date = m.get('BillingDate')
+        if m.get('InternetIP') is not None:
+            self.internet_ip = m.get('InternetIP')
+        if m.get('Item') is not None:
+            self.item = m.get('Item')
+        if m.get('SplitItemID') is not None:
+            self.split_item_id = m.get('SplitItemID')
+        if m.get('InstanceID') is not None:
+            self.instance_id = m.get('InstanceID')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('DeductedByCashCoupons') is not None:
+            self.deducted_by_cash_coupons = m.get('DeductedByCashCoupons')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('BillingItem') is not None:
+            self.billing_item = m.get('BillingItem')
+        if m.get('CostUnit') is not None:
+            self.cost_unit = m.get('CostUnit')
+        if m.get('ListPriceUnit') is not None:
+            self.list_price_unit = m.get('ListPriceUnit')
+        if m.get('ResourceGroup') is not None:
+            self.resource_group = m.get('ResourceGroup')
+        if m.get('PretaxAmount') is not None:
+            self.pretax_amount = m.get('PretaxAmount')
+        if m.get('ServicePeriodUnit') is not None:
+            self.service_period_unit = m.get('ServicePeriodUnit')
+        if m.get('SplitBillingDate') is not None:
+            self.split_billing_date = m.get('SplitBillingDate')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('SplitProductDetail') is not None:
+            self.split_product_detail = m.get('SplitProductDetail')
+        if m.get('OwnerID') is not None:
+            self.owner_id = m.get('OwnerID')
+        if m.get('DeductedByPrepaidCard') is not None:
+            self.deducted_by_prepaid_card = m.get('DeductedByPrepaidCard')
+        if m.get('InvoiceDiscount') is not None:
+            self.invoice_discount = m.get('InvoiceDiscount')
         if m.get('SplitAccountName') is not None:
             self.split_account_name = m.get('SplitAccountName')
-        if m.get('ProductCode') is not None:
-            self.product_code = m.get('ProductCode')
         if m.get('BillingType') is not None:
             self.billing_type = m.get('BillingType')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
         return self
 
 
@@ -17821,6 +17867,107 @@ class SaveUserCreditResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = SaveUserCreditResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetAllExpirationDayRequest(TeaModel):
+    def __init__(self, owner_id=None, unify_expire_day=None):
+        self.owner_id = owner_id  # type: long
+        self.unify_expire_day = unify_expire_day  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetAllExpirationDayRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.unify_expire_day is not None:
+            result['UnifyExpireDay'] = self.unify_expire_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('UnifyExpireDay') is not None:
+            self.unify_expire_day = m.get('UnifyExpireDay')
+        return self
+
+
+class SetAllExpirationDayResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetAllExpirationDayResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetAllExpirationDayResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetAllExpirationDayResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetAllExpirationDayResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetAllExpirationDayResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
