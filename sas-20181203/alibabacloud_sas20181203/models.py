@@ -21183,9 +21183,11 @@ class DescribeStrategyResponse(TeaModel):
 
 
 class DescribeStrategyExecDetailRequest(TeaModel):
-    def __init__(self, source_ip=None, strategy_id=None):
+    def __init__(self, source_ip=None, strategy_id=None, page_size=None, current_page=None):
         self.source_ip = source_ip  # type: str
         self.strategy_id = strategy_id  # type: int
+        self.page_size = page_size  # type: int
+        self.current_page = current_page  # type: int
 
     def validate(self):
         pass
@@ -21200,6 +21202,10 @@ class DescribeStrategyExecDetailRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.strategy_id is not None:
             result['StrategyId'] = self.strategy_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
         return result
 
     def from_map(self, m=None):
@@ -21208,6 +21214,10 @@ class DescribeStrategyExecDetailRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('StrategyId') is not None:
             self.strategy_id = m.get('StrategyId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
         return self
 
 
@@ -21848,11 +21858,12 @@ class DescribeSuspEventDetailRequest(TeaModel):
 
 
 class DescribeSuspEventDetailResponseBodyDetails(TeaModel):
-    def __init__(self, type=None, value=None, name=None, info_type=None):
+    def __init__(self, type=None, value=None, info_type=None, name_display=None, name=None):
         self.type = type  # type: str
         self.value = value  # type: str
-        self.name = name  # type: str
         self.info_type = info_type  # type: str
+        self.name_display = name_display  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -21867,10 +21878,12 @@ class DescribeSuspEventDetailResponseBodyDetails(TeaModel):
             result['Type'] = self.type
         if self.value is not None:
             result['Value'] = self.value
-        if self.name is not None:
-            result['Name'] = self.name
         if self.info_type is not None:
             result['InfoType'] = self.info_type
+        if self.name_display is not None:
+            result['NameDisplay'] = self.name_display
+        if self.name is not None:
+            result['Name'] = self.name
         return result
 
     def from_map(self, m=None):
@@ -21879,10 +21892,12 @@ class DescribeSuspEventDetailResponseBodyDetails(TeaModel):
             self.type = m.get('Type')
         if m.get('Value') is not None:
             self.value = m.get('Value')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('InfoType') is not None:
             self.info_type = m.get('InfoType')
+        if m.get('NameDisplay') is not None:
+            self.name_display = m.get('NameDisplay')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         return self
 
 
