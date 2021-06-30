@@ -2,6 +2,7 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
 from Tea.converter import TeaConverter
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
@@ -37,12 +38,136 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def compare_faces_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloudauth_20201112_models.CompareFacesResponse(),
+            self.do_rpcrequest('CompareFaces', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def compare_faces(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.compare_faces_with_options(request, runtime)
+
+    def describe_verify_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloudauth_20201112_models.DescribeVerifyResultResponse(),
+            self.do_rpcrequest('DescribeVerifyResult', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_verify_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_verify_result_with_options(request, runtime)
+
+    def describe_verify_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloudauth_20201112_models.DescribeVerifyTokenResponse(),
+            self.do_rpcrequest('DescribeVerifyToken', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_verify_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_verify_token_with_options(request, runtime)
+
+    def detect_face_attributes_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloudauth_20201112_models.DetectFaceAttributesResponse(),
+            self.do_rpcrequest('DetectFaceAttributes', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def detect_face_attributes(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detect_face_attributes_with_options(request, runtime)
+
+    def detect_face_attributes_advance(self, request, runtime):
+        # Step 0: init client
+        access_key_id = self._credential.get_access_key_id()
+        access_key_secret = self._credential.get_access_key_secret()
+        security_token = self._credential.get_security_token()
+        credential_type = self._credential.get_type()
+        open_platform_endpoint = self._open_platform_endpoint
+        if UtilClient.is_unset(open_platform_endpoint):
+            open_platform_endpoint = 'openplatform.aliyuncs.com'
+        if UtilClient.is_unset(credential_type):
+            credential_type = 'access_key'
+        auth_config = rpc_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            security_token=security_token,
+            type=credential_type,
+            endpoint=open_platform_endpoint,
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        auth_client = OpenPlatformClient(auth_config)
+        auth_request = open_platform_models.AuthorizeFileUploadRequest(
+            product='Cloudauth',
+            region_id=self._region_id
+        )
+        auth_response = open_platform_models.AuthorizeFileUploadResponse()
+        oss_config = oss_models.Config(
+            access_key_secret=access_key_secret,
+            type='access_key',
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        oss_client = None
+        file_obj = file_form_models.FileField()
+        oss_header = oss_models.PostObjectRequestHeader()
+        upload_request = oss_models.PostObjectRequest()
+        oss_runtime = ossutil_models.RuntimeOptions()
+        OpenApiUtilClient.convert(runtime, oss_runtime)
+        detect_face_attributes_req = cloudauth_20201112_models.DetectFaceAttributesRequest()
+        OpenApiUtilClient.convert(request, detect_face_attributes_req)
+        if not UtilClient.is_unset(request.image_file_object):
+            auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
+            oss_config.access_key_id = auth_response.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.endpoint, auth_response.use_accelerate, self._endpoint_type)
+            oss_client = OSSClient(oss_config)
+            file_obj = file_form_models.FileField(
+                filename=auth_response.object_key,
+                content=request.image_file_object,
+                content_type=''
+            )
+            oss_header = oss_models.PostObjectRequestHeader(
+                access_key_id=auth_response.access_key_id,
+                policy=auth_response.encoded_policy,
+                signature=auth_response.signature,
+                key=auth_response.object_key,
+                file=file_obj,
+                success_action_status='201'
+            )
+            upload_request = oss_models.PostObjectRequest(
+                bucket_name=auth_response.bucket,
+                header=oss_header
+            )
+            oss_client.post_object(upload_request, oss_runtime)
+            detect_face_attributes_req.image_file = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.bucket), TeaConverter.to_unicode(auth_response.endpoint), TeaConverter.to_unicode(auth_response.object_key))
+        detect_face_attributes_resp = self.detect_face_attributes_with_options(detect_face_attributes_req, runtime)
+        return detect_face_attributes_resp
+
     def liveness_detect_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return cloudauth_20201112_models.LivenessDetectResponse().from_map(
+        return TeaCore.from_map(
+            cloudauth_20201112_models.LivenessDetectResponse(),
             self.do_rpcrequest('LivenessDetect', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -54,11 +179,19 @@ class Client(OpenApiClient):
         # Step 0: init client
         access_key_id = self._credential.get_access_key_id()
         access_key_secret = self._credential.get_access_key_secret()
+        security_token = self._credential.get_security_token()
+        credential_type = self._credential.get_type()
+        open_platform_endpoint = self._open_platform_endpoint
+        if UtilClient.is_unset(open_platform_endpoint):
+            open_platform_endpoint = 'openplatform.aliyuncs.com'
+        if UtilClient.is_unset(credential_type):
+            credential_type = 'access_key'
         auth_config = rpc_models.Config(
             access_key_id=access_key_id,
             access_key_secret=access_key_secret,
-            type='access_key',
-            endpoint='openplatform.aliyuncs.com',
+            security_token=security_token,
+            type=credential_type,
+            endpoint=open_platform_endpoint,
             protocol=self._protocol,
             region_id=self._region_id
         )
@@ -82,28 +215,43 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(runtime, oss_runtime)
         liveness_detect_req = cloudauth_20201112_models.LivenessDetectRequest()
         OpenApiUtilClient.convert(request, liveness_detect_req)
-        auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
-        oss_config.access_key_id = auth_response.access_key_id
-        oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.endpoint, auth_response.use_accelerate, self._endpoint_type)
-        oss_client = OSSClient(oss_config)
-        file_obj = file_form_models.FileField(
-            filename=auth_response.object_key,
-            content=request.media_file_object,
-            content_type=''
-        )
-        oss_header = oss_models.PostObjectRequestHeader(
-            access_key_id=auth_response.access_key_id,
-            policy=auth_response.encoded_policy,
-            signature=auth_response.signature,
-            key=auth_response.object_key,
-            file=file_obj,
-            success_action_status='201'
-        )
-        upload_request = oss_models.PostObjectRequest(
-            bucket_name=auth_response.bucket,
-            header=oss_header
-        )
-        oss_client.post_object(upload_request, oss_runtime)
-        liveness_detect_req.media_file = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.bucket), TeaConverter.to_unicode(auth_response.endpoint), TeaConverter.to_unicode(auth_response.object_key))
+        if not UtilClient.is_unset(request.media_file_object):
+            auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
+            oss_config.access_key_id = auth_response.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.endpoint, auth_response.use_accelerate, self._endpoint_type)
+            oss_client = OSSClient(oss_config)
+            file_obj = file_form_models.FileField(
+                filename=auth_response.object_key,
+                content=request.media_file_object,
+                content_type=''
+            )
+            oss_header = oss_models.PostObjectRequestHeader(
+                access_key_id=auth_response.access_key_id,
+                policy=auth_response.encoded_policy,
+                signature=auth_response.signature,
+                key=auth_response.object_key,
+                file=file_obj,
+                success_action_status='201'
+            )
+            upload_request = oss_models.PostObjectRequest(
+                bucket_name=auth_response.bucket,
+                header=oss_header
+            )
+            oss_client.post_object(upload_request, oss_runtime)
+            liveness_detect_req.media_file = 'http://%s.%s/%s' % (TeaConverter.to_unicode(auth_response.bucket), TeaConverter.to_unicode(auth_response.endpoint), TeaConverter.to_unicode(auth_response.object_key))
         liveness_detect_resp = self.liveness_detect_with_options(liveness_detect_req, runtime)
         return liveness_detect_resp
+
+    def verify_material_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloudauth_20201112_models.VerifyMaterialResponse(),
+            self.do_rpcrequest('VerifyMaterial', '2020-11-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def verify_material(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.verify_material_with_options(request, runtime)

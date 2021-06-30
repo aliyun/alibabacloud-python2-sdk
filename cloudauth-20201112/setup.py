@@ -19,12 +19,13 @@
 """
 
 import os
+import sys
 from setuptools import setup, find_packages
 
 """
 setup module for alibabacloud_cloudauth20201112_py2.
 
-Created on 25/02/2021
+Created on 30/06/2021
 
 @author: Alibaba Cloud SDK
 """
@@ -47,9 +48,14 @@ REQUIRES = [
 ]
 
 LONG_DESCRIPTION = ''
+
 if os.path.exists('./README.md'):
-    with open("README.md") as fp:
-        LONG_DESCRIPTION = fp.read()
+    if sys.version_info.major == 2:
+        with open("README.md") as fp:
+            LONG_DESCRIPTION = fp.read()
+    else:
+        with open("README.md", encoding="utf-8") as fp:
+            LONG_DESCRIPTION = fp.read()
 
 setup(
     name=NAME,
@@ -73,6 +79,12 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development"
     )
 )
