@@ -440,6 +440,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_diagnostic_report_with_options(request, runtime)
 
+    def create_gdn_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateGdnInstanceResponse(),
+            self.do_rpcrequest('CreateGdnInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_gdn_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_gdn_instance_with_options(request, runtime)
+
     def create_migrate_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -649,6 +663,20 @@ class Client(OpenApiClient):
     def delete_parameter_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_parameter_group_with_options(request, runtime)
+
+    def delete_user_backup_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteUserBackupFileResponse(),
+            self.do_rpcrequest('DeleteUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_user_backup_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_user_backup_file_with_options(request, runtime)
 
     def descibe_imports_from_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -985,6 +1013,20 @@ class Client(OpenApiClient):
     def describe_dbinstance_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_detail_with_options(request, runtime)
+
+    def describe_dbinstance_encryption_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceEncryptionKeyResponse(),
+            self.do_rpcrequest('DescribeDBInstanceEncryptionKey', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dbinstance_encryption_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_encryption_key_with_options(request, runtime)
 
     def describe_dbinstance_haconfig_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1938,6 +1980,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.import_database_between_instances_with_options(request, runtime)
 
+    def import_user_backup_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ImportUserBackupFileResponse(),
+            self.do_rpcrequest('ImportUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def import_user_backup_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.import_user_backup_file_with_options(request, runtime)
+
+    def list_classes_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ListClassesResponse(),
+            self.do_rpcrequest('ListClasses', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_classes(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_classes_with_options(request, runtime)
+
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1951,6 +2021,20 @@ class Client(OpenApiClient):
     def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
+
+    def list_user_backup_files_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ListUserBackupFilesResponse(),
+            self.do_rpcrequest('ListUserBackupFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_user_backup_files(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_backup_files_with_options(request, runtime)
 
     def lock_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2987,6 +3071,20 @@ class Client(OpenApiClient):
     def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
+
+    def update_user_backup_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.UpdateUserBackupFileResponse(),
+            self.do_rpcrequest('UpdateUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_user_backup_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_backup_file_with_options(request, runtime)
 
     def upgrade_dbinstance_engine_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
