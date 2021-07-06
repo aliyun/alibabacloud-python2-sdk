@@ -3593,3 +3593,574 @@ class StopGameSessionResponse(TeaModel):
         return self
 
 
+class SubmitInternalPurchaseChargeDataRequest(TeaModel):
+    def __init__(self, user_activation_rate=None, new_user_retention_rate_one_day=None,
+                 active_user_retention_rate_one_day=None, new_user_retention_rate_seven_day=None, active_user_retention_rate_seven_day=None,
+                 payment_conversion_rate=None, dau=None, mau=None, play_time_range_one_day=None, play_time_range_thirty_day=None, arpu=None,
+                 game_id=None, charge_date=None, new_user_retention_rate_thirty_day=None,
+                 active_user_retention_rate_thirty_day=None, play_time_average_one_day=None, play_time_average_thirty_day=None,
+                 play_time_ninety_points_one_day=None, play_time_ninety_points_thirty_day=None):
+        self.user_activation_rate = user_activation_rate  # type: long
+        self.new_user_retention_rate_one_day = new_user_retention_rate_one_day  # type: long
+        self.active_user_retention_rate_one_day = active_user_retention_rate_one_day  # type: long
+        self.new_user_retention_rate_seven_day = new_user_retention_rate_seven_day  # type: long
+        self.active_user_retention_rate_seven_day = active_user_retention_rate_seven_day  # type: long
+        self.payment_conversion_rate = payment_conversion_rate  # type: long
+        self.dau = dau  # type: long
+        self.mau = mau  # type: long
+        self.play_time_range_one_day = play_time_range_one_day  # type: str
+        self.play_time_range_thirty_day = play_time_range_thirty_day  # type: str
+        self.arpu = arpu  # type: long
+        self.game_id = game_id  # type: str
+        self.charge_date = charge_date  # type: str
+        self.new_user_retention_rate_thirty_day = new_user_retention_rate_thirty_day  # type: long
+        self.active_user_retention_rate_thirty_day = active_user_retention_rate_thirty_day  # type: long
+        self.play_time_average_one_day = play_time_average_one_day  # type: long
+        self.play_time_average_thirty_day = play_time_average_thirty_day  # type: long
+        self.play_time_ninety_points_one_day = play_time_ninety_points_one_day  # type: long
+        self.play_time_ninety_points_thirty_day = play_time_ninety_points_thirty_day  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseChargeDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.user_activation_rate is not None:
+            result['UserActivationRate'] = self.user_activation_rate
+        if self.new_user_retention_rate_one_day is not None:
+            result['NewUserRetentionRateOneDay'] = self.new_user_retention_rate_one_day
+        if self.active_user_retention_rate_one_day is not None:
+            result['ActiveUserRetentionRateOneDay'] = self.active_user_retention_rate_one_day
+        if self.new_user_retention_rate_seven_day is not None:
+            result['NewUserRetentionRateSevenDay'] = self.new_user_retention_rate_seven_day
+        if self.active_user_retention_rate_seven_day is not None:
+            result['ActiveUserRetentionRateSevenDay'] = self.active_user_retention_rate_seven_day
+        if self.payment_conversion_rate is not None:
+            result['PaymentConversionRate'] = self.payment_conversion_rate
+        if self.dau is not None:
+            result['Dau'] = self.dau
+        if self.mau is not None:
+            result['Mau'] = self.mau
+        if self.play_time_range_one_day is not None:
+            result['PlayTimeRangeOneDay'] = self.play_time_range_one_day
+        if self.play_time_range_thirty_day is not None:
+            result['PlayTimeRangeThirtyDay'] = self.play_time_range_thirty_day
+        if self.arpu is not None:
+            result['Arpu'] = self.arpu
+        if self.game_id is not None:
+            result['GameId'] = self.game_id
+        if self.charge_date is not None:
+            result['ChargeDate'] = self.charge_date
+        if self.new_user_retention_rate_thirty_day is not None:
+            result['NewUserRetentionRateThirtyDay'] = self.new_user_retention_rate_thirty_day
+        if self.active_user_retention_rate_thirty_day is not None:
+            result['ActiveUserRetentionRateThirtyDay'] = self.active_user_retention_rate_thirty_day
+        if self.play_time_average_one_day is not None:
+            result['PlayTimeAverageOneDay'] = self.play_time_average_one_day
+        if self.play_time_average_thirty_day is not None:
+            result['PlayTimeAverageThirtyDay'] = self.play_time_average_thirty_day
+        if self.play_time_ninety_points_one_day is not None:
+            result['PlayTimeNinetyPointsOneDay'] = self.play_time_ninety_points_one_day
+        if self.play_time_ninety_points_thirty_day is not None:
+            result['PlayTimeNinetyPointsThirtyDay'] = self.play_time_ninety_points_thirty_day
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('UserActivationRate') is not None:
+            self.user_activation_rate = m.get('UserActivationRate')
+        if m.get('NewUserRetentionRateOneDay') is not None:
+            self.new_user_retention_rate_one_day = m.get('NewUserRetentionRateOneDay')
+        if m.get('ActiveUserRetentionRateOneDay') is not None:
+            self.active_user_retention_rate_one_day = m.get('ActiveUserRetentionRateOneDay')
+        if m.get('NewUserRetentionRateSevenDay') is not None:
+            self.new_user_retention_rate_seven_day = m.get('NewUserRetentionRateSevenDay')
+        if m.get('ActiveUserRetentionRateSevenDay') is not None:
+            self.active_user_retention_rate_seven_day = m.get('ActiveUserRetentionRateSevenDay')
+        if m.get('PaymentConversionRate') is not None:
+            self.payment_conversion_rate = m.get('PaymentConversionRate')
+        if m.get('Dau') is not None:
+            self.dau = m.get('Dau')
+        if m.get('Mau') is not None:
+            self.mau = m.get('Mau')
+        if m.get('PlayTimeRangeOneDay') is not None:
+            self.play_time_range_one_day = m.get('PlayTimeRangeOneDay')
+        if m.get('PlayTimeRangeThirtyDay') is not None:
+            self.play_time_range_thirty_day = m.get('PlayTimeRangeThirtyDay')
+        if m.get('Arpu') is not None:
+            self.arpu = m.get('Arpu')
+        if m.get('GameId') is not None:
+            self.game_id = m.get('GameId')
+        if m.get('ChargeDate') is not None:
+            self.charge_date = m.get('ChargeDate')
+        if m.get('NewUserRetentionRateThirtyDay') is not None:
+            self.new_user_retention_rate_thirty_day = m.get('NewUserRetentionRateThirtyDay')
+        if m.get('ActiveUserRetentionRateThirtyDay') is not None:
+            self.active_user_retention_rate_thirty_day = m.get('ActiveUserRetentionRateThirtyDay')
+        if m.get('PlayTimeAverageOneDay') is not None:
+            self.play_time_average_one_day = m.get('PlayTimeAverageOneDay')
+        if m.get('PlayTimeAverageThirtyDay') is not None:
+            self.play_time_average_thirty_day = m.get('PlayTimeAverageThirtyDay')
+        if m.get('PlayTimeNinetyPointsOneDay') is not None:
+            self.play_time_ninety_points_one_day = m.get('PlayTimeNinetyPointsOneDay')
+        if m.get('PlayTimeNinetyPointsThirtyDay') is not None:
+            self.play_time_ninety_points_thirty_day = m.get('PlayTimeNinetyPointsThirtyDay')
+        return self
+
+
+class SubmitInternalPurchaseChargeDataResponseBodyData(TeaModel):
+    def __init__(self, status=None, message=None):
+        self.status = status  # type: int
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseChargeDataResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class SubmitInternalPurchaseChargeDataResponseBody(TeaModel):
+    def __init__(self, request_id=None, data=None):
+        self.request_id = request_id  # type: str
+        self.data = data  # type: SubmitInternalPurchaseChargeDataResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseChargeDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            temp_model = SubmitInternalPurchaseChargeDataResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class SubmitInternalPurchaseChargeDataResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SubmitInternalPurchaseChargeDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseChargeDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SubmitInternalPurchaseChargeDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitInternalPurchaseOrdersRequestOrderList(TeaModel):
+    def __init__(self, finish_time=None, final_price=None, user_id=None, game_id=None, batch_number=None,
+                 role_id=None, order_id=None):
+        self.finish_time = finish_time  # type: long
+        self.final_price = final_price  # type: long
+        self.user_id = user_id  # type: str
+        self.game_id = game_id  # type: str
+        self.batch_number = batch_number  # type: str
+        self.role_id = role_id  # type: str
+        self.order_id = order_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseOrdersRequestOrderList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.finish_time is not None:
+            result['FinishTime'] = self.finish_time
+        if self.final_price is not None:
+            result['FinalPrice'] = self.final_price
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        if self.game_id is not None:
+            result['GameId'] = self.game_id
+        if self.batch_number is not None:
+            result['BatchNumber'] = self.batch_number
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FinishTime') is not None:
+            self.finish_time = m.get('FinishTime')
+        if m.get('FinalPrice') is not None:
+            self.final_price = m.get('FinalPrice')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        if m.get('GameId') is not None:
+            self.game_id = m.get('GameId')
+        if m.get('BatchNumber') is not None:
+            self.batch_number = m.get('BatchNumber')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        return self
+
+
+class SubmitInternalPurchaseOrdersRequest(TeaModel):
+    def __init__(self, order_list=None):
+        self.order_list = order_list  # type: list[SubmitInternalPurchaseOrdersRequestOrderList]
+
+    def validate(self):
+        if self.order_list:
+            for k in self.order_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseOrdersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['OrderList'] = []
+        if self.order_list is not None:
+            for k in self.order_list:
+                result['OrderList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.order_list = []
+        if m.get('OrderList') is not None:
+            for k in m.get('OrderList'):
+                temp_model = SubmitInternalPurchaseOrdersRequestOrderList()
+                self.order_list.append(temp_model.from_map(k))
+        return self
+
+
+class SubmitInternalPurchaseOrdersResponseBodyData(TeaModel):
+    def __init__(self, status=None, message=None):
+        self.status = status  # type: int
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseOrdersResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class SubmitInternalPurchaseOrdersResponseBody(TeaModel):
+    def __init__(self, request_id=None, data=None):
+        self.request_id = request_id  # type: str
+        self.data = data  # type: SubmitInternalPurchaseOrdersResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseOrdersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            temp_model = SubmitInternalPurchaseOrdersResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class SubmitInternalPurchaseOrdersResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SubmitInternalPurchaseOrdersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseOrdersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SubmitInternalPurchaseOrdersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitInternalPurchaseReadyFlagRequestBatchInfoList(TeaModel):
+    def __init__(self, batch_size=None, batch_numbers=None):
+        self.batch_size = batch_size  # type: int
+        self.batch_numbers = batch_numbers  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseReadyFlagRequestBatchInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.batch_size is not None:
+            result['BatchSize'] = self.batch_size
+        if self.batch_numbers is not None:
+            result['BatchNumbers'] = self.batch_numbers
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BatchSize') is not None:
+            self.batch_size = m.get('BatchSize')
+        if m.get('BatchNumbers') is not None:
+            self.batch_numbers = m.get('BatchNumbers')
+        return self
+
+
+class SubmitInternalPurchaseReadyFlagRequest(TeaModel):
+    def __init__(self, status=None, game_id=None, charge_date=None, order_total_count=None, batch_info_list=None):
+        self.status = status  # type: int
+        self.game_id = game_id  # type: str
+        self.charge_date = charge_date  # type: str
+        self.order_total_count = order_total_count  # type: int
+        self.batch_info_list = batch_info_list  # type: list[SubmitInternalPurchaseReadyFlagRequestBatchInfoList]
+
+    def validate(self):
+        if self.batch_info_list:
+            for k in self.batch_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseReadyFlagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.game_id is not None:
+            result['GameId'] = self.game_id
+        if self.charge_date is not None:
+            result['ChargeDate'] = self.charge_date
+        if self.order_total_count is not None:
+            result['OrderTotalCount'] = self.order_total_count
+        result['BatchInfoList'] = []
+        if self.batch_info_list is not None:
+            for k in self.batch_info_list:
+                result['BatchInfoList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('GameId') is not None:
+            self.game_id = m.get('GameId')
+        if m.get('ChargeDate') is not None:
+            self.charge_date = m.get('ChargeDate')
+        if m.get('OrderTotalCount') is not None:
+            self.order_total_count = m.get('OrderTotalCount')
+        self.batch_info_list = []
+        if m.get('BatchInfoList') is not None:
+            for k in m.get('BatchInfoList'):
+                temp_model = SubmitInternalPurchaseReadyFlagRequestBatchInfoList()
+                self.batch_info_list.append(temp_model.from_map(k))
+        return self
+
+
+class SubmitInternalPurchaseReadyFlagResponseBodyData(TeaModel):
+    def __init__(self, status=None, missing_batch_numbers=None, message=None):
+        self.status = status  # type: int
+        self.missing_batch_numbers = missing_batch_numbers  # type: str
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseReadyFlagResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.missing_batch_numbers is not None:
+            result['MissingBatchNumbers'] = self.missing_batch_numbers
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('MissingBatchNumbers') is not None:
+            self.missing_batch_numbers = m.get('MissingBatchNumbers')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class SubmitInternalPurchaseReadyFlagResponseBody(TeaModel):
+    def __init__(self, request_id=None, data=None):
+        self.request_id = request_id  # type: str
+        self.data = data  # type: SubmitInternalPurchaseReadyFlagResponseBodyData
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseReadyFlagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Data') is not None:
+            temp_model = SubmitInternalPurchaseReadyFlagResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        return self
+
+
+class SubmitInternalPurchaseReadyFlagResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SubmitInternalPurchaseReadyFlagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitInternalPurchaseReadyFlagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SubmitInternalPurchaseReadyFlagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+

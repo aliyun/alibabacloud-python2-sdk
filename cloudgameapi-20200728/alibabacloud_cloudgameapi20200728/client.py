@@ -336,3 +336,45 @@ class Client(OpenApiClient):
     def stop_game_session(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_game_session_with_options(request, runtime)
+
+    def submit_internal_purchase_charge_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.SubmitInternalPurchaseChargeDataResponse(),
+            self.do_rpcrequest('SubmitInternalPurchaseChargeData', '2020-07-28', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def submit_internal_purchase_charge_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_internal_purchase_charge_data_with_options(request, runtime)
+
+    def submit_internal_purchase_orders_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.SubmitInternalPurchaseOrdersResponse(),
+            self.do_rpcrequest('SubmitInternalPurchaseOrders', '2020-07-28', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def submit_internal_purchase_orders(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_internal_purchase_orders_with_options(request, runtime)
+
+    def submit_internal_purchase_ready_flag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.SubmitInternalPurchaseReadyFlagResponse(),
+            self.do_rpcrequest('SubmitInternalPurchaseReadyFlag', '2020-07-28', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def submit_internal_purchase_ready_flag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_internal_purchase_ready_flag_with_options(request, runtime)
