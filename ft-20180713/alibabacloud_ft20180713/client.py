@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -84,7 +86,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.BatchAuditTest01Response().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.BatchAuditTest01Response(),
             self.do_rpcrequest('BatchAuditTest01', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -97,7 +100,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FTApiAliasApiResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FTApiAliasApiResponse(),
             self.do_rpcrequest('FTApiAliasApi', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -110,7 +114,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtDynamicAddressDubboResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtDynamicAddressDubboResponse(),
             self.do_rpcrequest('FtDynamicAddressDubbo', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -120,7 +125,8 @@ class Client(OpenApiClient):
 
     def ft_dynamic_address_hsf_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return ft_20180713_models.FtDynamicAddressHsfResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtDynamicAddressHsfResponse(),
             self.do_rpcrequest('FtDynamicAddressHsf', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -128,12 +134,35 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.ft_dynamic_address_hsf_with_options(runtime)
 
+    def ft_dynamic_address_http_vpc_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ft_20180713_models.FtDynamicAddressHttpVpcShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.string_value):
+            request.string_value_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.string_value, 'StringValue', 'json')
+        if not UtilClient.is_unset(tmp_req.default_value):
+            request.default_value_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.default_value, 'DefaultValue', 'json')
+        if not UtilClient.is_unset(tmp_req.other_param):
+            request.other_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.other_param, 'OtherParam', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ft_20180713_models.FtDynamicAddressHttpVpcResponse(),
+            self.do_rpcrequest('FtDynamicAddressHttpVpc', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def ft_dynamic_address_http_vpc(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ft_dynamic_address_http_vpc_with_options(request, runtime)
+
     def ft_eagle_eye_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtEagleEyeResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtEagleEyeResponse(),
             self.do_rpcrequest('FtEagleEye', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -146,7 +175,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtFlowSpecialResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtFlowSpecialResponse(),
             self.do_rpcrequest('FtFlowSpecial', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -159,7 +189,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtGatedLaunchPolicy4Response().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtGatedLaunchPolicy4Response(),
             self.do_rpcrequest('FtGatedLaunchPolicy4', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -172,7 +203,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtIpFlowControlResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtIpFlowControlResponse(),
             self.do_rpcrequest('FtIpFlowControl', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -185,7 +217,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.FtParamListResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.FtParamListResponse(),
             self.do_rpcrequest('FtParamList', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -202,7 +235,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.TestFlowStrategy01Response().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.TestFlowStrategy01Response(),
             self.do_rpcrequest('TestFlowStrategy01', '2018-07-13', 'HTTPS', 'PUT', 'AK', 'json', req, runtime)
         )
 
@@ -223,7 +257,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ft_20180713_models.TestHttpApiResponse().from_map(
+        return TeaCore.from_map(
+            ft_20180713_models.TestHttpApiResponse(),
             self.do_rpcrequest('TestHttpApi', '2018-07-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
