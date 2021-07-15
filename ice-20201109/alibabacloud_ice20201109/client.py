@@ -225,6 +225,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_event_callback_with_options(request, runtime)
 
+    def get_template_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetTemplateResponse(),
+            self.do_rpcrequest('GetTemplate', '2020-11-09', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def get_template(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_template_with_options(request, runtime)
+
     def register_media_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(

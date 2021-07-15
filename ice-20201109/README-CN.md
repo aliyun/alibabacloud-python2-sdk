@@ -15,8 +15,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 alibabacloud_ice20201109
-pip install alibabacloud_ice20201109
+# 安装 alibabacloud_ice20201109_py2
+pip install alibabacloud_ice20201109_py2
 ```
 
 ## 问题
