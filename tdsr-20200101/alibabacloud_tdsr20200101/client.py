@@ -60,20 +60,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_task_status_with_options(request, runtime)
 
-    def get_scene_data_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetSceneDataResponse(),
-            self.do_rpcrequest('GetSceneData', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_scene_data(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_scene_data_with_options(request, runtime)
-
     def link_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -115,20 +101,6 @@ class Client(OpenApiClient):
     def update_conn_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_conn_data_with_options(request, runtime)
-
-    def bucket_is_exist_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.BucketIsExistResponse(),
-            self.do_rpcrequest('BucketIsExist', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def bucket_is_exist(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.bucket_is_exist_with_options(request, runtime)
 
     def rectify_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -326,20 +298,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.save_hotspot_tag_with_options(request, runtime)
 
-    def check_permission_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.CheckPermissionResponse(),
-            self.do_rpcrequest('CheckPermission', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def check_permission(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_permission_with_options(request, runtime)
-
     def delete_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -438,20 +396,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_project_with_options(request, runtime)
 
-    def list_main_scenes_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.ListMainScenesResponse(),
-            self.do_rpcrequest('ListMainScenes', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_main_scenes(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_main_scenes_with_options(request, runtime)
-
     def detail_sub_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -494,6 +438,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_sub_scene_with_options(request, runtime)
 
+    def get_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.GetJobResponse(),
+            self.do_rpcrequest('GetJob', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_job_with_options(request, runtime)
+
     def create_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -507,45 +465,6 @@ class Client(OpenApiClient):
     def create_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_project_with_options(request, runtime)
-
-    def drop_bucket_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.DropBucketResponse(),
-            self.do_rpcrequest('DropBucket', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def drop_bucket(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.drop_bucket_with_options(request, runtime)
-
-    def get_user_bucket_config_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetUserBucketConfigResponse(),
-            self.do_rpcrequest('GetUserBucketConfig', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_user_bucket_config(self):
-        runtime = util_models.RuntimeOptions()
-        return self.get_user_bucket_config_with_options(runtime)
-
-    def add_bucket_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.AddBucketResponse(),
-            self.do_rpcrequest('AddBucket', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def add_bucket(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.add_bucket_with_options(request, runtime)
 
     def save_hotspot_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -574,34 +493,6 @@ class Client(OpenApiClient):
     def get_window_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_window_config_with_options(request, runtime)
-
-    def statis_query_by_type_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.StatisQueryByTypeResponse(),
-            self.do_rpcrequest('StatisQueryByType', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def statis_query_by_type(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.statis_query_by_type_with_options(request, runtime)
-
-    def statis_export_scene_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.StatisExportSceneInfoResponse(),
-            self.do_rpcrequest('StatisExportSceneInfo', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def statis_export_scene_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.statis_export_scene_info_with_options(request, runtime)
 
     def get_hotspot_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -645,20 +536,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.temp_preview_with_options(request, runtime)
 
-    def publish_scene_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.PublishSceneResponse(),
-            self.do_rpcrequest('PublishScene', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def publish_scene(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.publish_scene_with_options(request, runtime)
-
     def detail_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -701,20 +578,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.drop_sub_scene_with_options(request, runtime)
 
-    def is_enable_oss_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.IsEnableOssResponse(),
-            self.do_rpcrequest('IsEnableOss', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def is_enable_oss(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.is_enable_oss_with_options(request, runtime)
-
     def get_hotspot_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -742,17 +605,6 @@ class Client(OpenApiClient):
     def drop_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.drop_project_with_options(request, runtime)
-
-    def get_user_oss_status_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetUserOssStatusResponse(),
-            self.do_rpcrequest('GetUserOssStatus', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_user_oss_status(self):
-        runtime = util_models.RuntimeOptions()
-        return self.get_user_oss_status_with_options(runtime)
 
     def list_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -782,20 +634,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_origin_layout_data_with_options(request, runtime)
 
-    def statis_list_scene_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.StatisListSceneInfoResponse(),
-            self.do_rpcrequest('StatisListSceneInfo', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def statis_list_scene_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.statis_list_scene_info_with_options(request, runtime)
-
     def scene_publish_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -809,20 +647,6 @@ class Client(OpenApiClient):
     def scene_publish(self, request):
         runtime = util_models.RuntimeOptions()
         return self.scene_publish_with_options(request, runtime)
-
-    def save_file_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.SaveFileResponse(),
-            self.do_rpcrequest('SaveFile', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def save_file(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.save_file_with_options(request, runtime)
 
     def get_rectify_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -851,48 +675,6 @@ class Client(OpenApiClient):
     def update_project(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_project_with_options(request, runtime)
-
-    def update_bucket_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.UpdateBucketResponse(),
-            self.do_rpcrequest('UpdateBucket', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_bucket(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_bucket_with_options(request, runtime)
-
-    def statis_query_by_day_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.StatisQueryByDayResponse(),
-            self.do_rpcrequest('StatisQueryByDay', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def statis_query_by_day(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.statis_query_by_day_with_options(request, runtime)
-
-    def get_scene_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetSceneListResponse(),
-            self.do_rpcrequest('GetSceneList', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_scene_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_scene_list_with_options(request, runtime)
 
     def get_sub_scene_task_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
