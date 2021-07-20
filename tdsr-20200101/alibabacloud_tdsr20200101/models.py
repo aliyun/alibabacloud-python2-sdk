@@ -4399,9 +4399,9 @@ class GetSceneBuildTaskStatusResponse(TeaModel):
 
 
 class TempPreviewRequest(TeaModel):
-    def __init__(self, id=None):
+    def __init__(self, scene_id=None):
         # 场景ID
-        self.id = id  # type: str
+        self.scene_id = scene_id  # type: str
 
     def validate(self):
         pass
@@ -4412,14 +4412,14 @@ class TempPreviewRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.id is not None:
-            result['Id'] = self.id
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
         return self
 
 
