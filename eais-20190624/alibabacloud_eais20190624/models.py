@@ -13,6 +13,10 @@ class AttachEaiRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(AttachEaiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -34,32 +38,36 @@ class AttachEaiRequest(TeaModel):
 
 
 class AttachEaiResponseBody(TeaModel):
-    def __init__(self, request_id=None, client_instance_id=None, elastic_accelerated_instance_id=None):
+    def __init__(self, request_id=None, elastic_accelerated_instance_id=None, client_instance_id=None):
         self.request_id = request_id  # type: str
-        self.client_instance_id = client_instance_id  # type: str
         self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(AttachEaiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.client_instance_id is not None:
-            result['ClientInstanceId'] = self.client_instance_id
         if self.elastic_accelerated_instance_id is not None:
             result['ElasticAcceleratedInstanceId'] = self.elastic_accelerated_instance_id
+        if self.client_instance_id is not None:
+            result['ClientInstanceId'] = self.client_instance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ClientInstanceId') is not None:
-            self.client_instance_id = m.get('ClientInstanceId')
         if m.get('ElasticAcceleratedInstanceId') is not None:
             self.elastic_accelerated_instance_id = m.get('ElasticAcceleratedInstanceId')
+        if m.get('ClientInstanceId') is not None:
+            self.client_instance_id = m.get('ClientInstanceId')
         return self
 
 
@@ -75,6 +83,10 @@ class AttachEaiResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(AttachEaiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -106,6 +118,10 @@ class CreateEaiRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateEaiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -139,27 +155,31 @@ class CreateEaiRequest(TeaModel):
 
 
 class CreateEaiResponseBody(TeaModel):
-    def __init__(self, request_id=None, elastic_accelerated_instance_id=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, elastic_accelerated_instance_id=None, request_id=None):
         self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateEaiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.elastic_accelerated_instance_id is not None:
             result['ElasticAcceleratedInstanceId'] = self.elastic_accelerated_instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ElasticAcceleratedInstanceId') is not None:
             self.elastic_accelerated_instance_id = m.get('ElasticAcceleratedInstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -175,6 +195,10 @@ class CreateEaiResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateEaiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -218,6 +242,10 @@ class CreateEaiAllRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(CreateEaiAllRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -287,32 +315,36 @@ class CreateEaiAllRequest(TeaModel):
 
 
 class CreateEaiAllResponseBody(TeaModel):
-    def __init__(self, request_id=None, client_instance_id=None, elastic_accelerated_instance_id=None):
+    def __init__(self, request_id=None, elastic_accelerated_instance_id=None, client_instance_id=None):
         self.request_id = request_id  # type: str
-        self.client_instance_id = client_instance_id  # type: str
         self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
+        self.client_instance_id = client_instance_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateEaiAllResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.client_instance_id is not None:
-            result['ClientInstanceId'] = self.client_instance_id
         if self.elastic_accelerated_instance_id is not None:
             result['ElasticAcceleratedInstanceId'] = self.elastic_accelerated_instance_id
+        if self.client_instance_id is not None:
+            result['ClientInstanceId'] = self.client_instance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ClientInstanceId') is not None:
-            self.client_instance_id = m.get('ClientInstanceId')
         if m.get('ElasticAcceleratedInstanceId') is not None:
             self.elastic_accelerated_instance_id = m.get('ElasticAcceleratedInstanceId')
+        if m.get('ClientInstanceId') is not None:
+            self.client_instance_id = m.get('ClientInstanceId')
         return self
 
 
@@ -328,6 +360,10 @@ class CreateEaiAllResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateEaiAllResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -355,6 +391,10 @@ class DeleteEaiRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DeleteEaiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -383,6 +423,10 @@ class DeleteEaiResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DeleteEaiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -407,6 +451,10 @@ class DeleteEaiResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteEaiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -434,6 +482,10 @@ class DeleteEaiAllRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DeleteEaiAllRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -462,6 +514,10 @@ class DeleteEaiAllResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DeleteEaiAllResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -486,6 +542,10 @@ class DeleteEaiAllResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteEaiAllResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -516,6 +576,10 @@ class DescribeEaisRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DescribeEaisRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -545,27 +609,31 @@ class DescribeEaisRequest(TeaModel):
 
 
 class DescribeEaisResponseBodyInstancesInstanceTagsTag(TeaModel):
-    def __init__(self, tag_value=None, tag_key=None):
-        self.tag_value = tag_value  # type: str
+    def __init__(self, tag_key=None, tag_value=None):
         self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeEaisResponseBodyInstancesInstanceTagsTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
         return self
 
 
@@ -580,6 +648,10 @@ class DescribeEaisResponseBodyInstancesInstanceTags(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeEaisResponseBodyInstancesInstanceTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Tag'] = []
         if self.tag is not None:
@@ -598,42 +670,36 @@ class DescribeEaisResponseBodyInstancesInstanceTags(TeaModel):
 
 
 class DescribeEaisResponseBodyInstancesInstance(TeaModel):
-    def __init__(self, status=None, creation_time=None, client_instance_type=None, client_instance_id=None,
-                 tags=None, instance_type=None, region_id=None, client_instance_name=None, description=None,
-                 elastic_accelerated_instance_id=None, instance_name=None, zone_id=None):
+    def __init__(self, status=None, creation_time=None, client_instance_name=None, description=None,
+                 elastic_accelerated_instance_id=None, instance_name=None, client_instance_type=None, client_instance_id=None, zone_id=None,
+                 instance_type=None, region_id=None, tags=None):
         self.status = status  # type: str
         self.creation_time = creation_time  # type: str
-        self.client_instance_type = client_instance_type  # type: str
-        self.client_instance_id = client_instance_id  # type: str
-        self.tags = tags  # type: DescribeEaisResponseBodyInstancesInstanceTags
-        self.instance_type = instance_type  # type: str
-        self.region_id = region_id  # type: str
         self.client_instance_name = client_instance_name  # type: str
         self.description = description  # type: str
         self.elastic_accelerated_instance_id = elastic_accelerated_instance_id  # type: str
         self.instance_name = instance_name  # type: str
+        self.client_instance_type = client_instance_type  # type: str
+        self.client_instance_id = client_instance_id  # type: str
         self.zone_id = zone_id  # type: str
+        self.instance_type = instance_type  # type: str
+        self.region_id = region_id  # type: str
+        self.tags = tags  # type: DescribeEaisResponseBodyInstancesInstanceTags
 
     def validate(self):
         if self.tags:
             self.tags.validate()
 
     def to_map(self):
+        _map = super(DescribeEaisResponseBodyInstancesInstance, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
-        if self.client_instance_type is not None:
-            result['ClientInstanceType'] = self.client_instance_type
-        if self.client_instance_id is not None:
-            result['ClientInstanceId'] = self.client_instance_id
-        if self.tags is not None:
-            result['Tags'] = self.tags.to_map()
-        if self.instance_type is not None:
-            result['InstanceType'] = self.instance_type
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.client_instance_name is not None:
             result['ClientInstanceName'] = self.client_instance_name
         if self.description is not None:
@@ -642,8 +708,18 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
             result['ElasticAcceleratedInstanceId'] = self.elastic_accelerated_instance_id
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
+        if self.client_instance_type is not None:
+            result['ClientInstanceType'] = self.client_instance_type
+        if self.client_instance_id is not None:
+            result['ClientInstanceId'] = self.client_instance_id
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         return result
 
     def from_map(self, m=None):
@@ -652,17 +728,6 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
             self.status = m.get('Status')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
-        if m.get('ClientInstanceType') is not None:
-            self.client_instance_type = m.get('ClientInstanceType')
-        if m.get('ClientInstanceId') is not None:
-            self.client_instance_id = m.get('ClientInstanceId')
-        if m.get('Tags') is not None:
-            temp_model = DescribeEaisResponseBodyInstancesInstanceTags()
-            self.tags = temp_model.from_map(m['Tags'])
-        if m.get('InstanceType') is not None:
-            self.instance_type = m.get('InstanceType')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('ClientInstanceName') is not None:
             self.client_instance_name = m.get('ClientInstanceName')
         if m.get('Description') is not None:
@@ -671,8 +736,19 @@ class DescribeEaisResponseBodyInstancesInstance(TeaModel):
             self.elastic_accelerated_instance_id = m.get('ElasticAcceleratedInstanceId')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
+        if m.get('ClientInstanceType') is not None:
+            self.client_instance_type = m.get('ClientInstanceType')
+        if m.get('ClientInstanceId') is not None:
+            self.client_instance_id = m.get('ClientInstanceId')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Tags') is not None:
+            temp_model = DescribeEaisResponseBodyInstancesInstanceTags()
+            self.tags = temp_model.from_map(m['Tags'])
         return self
 
 
@@ -687,6 +763,10 @@ class DescribeEaisResponseBodyInstances(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeEaisResponseBodyInstances, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Instance'] = []
         if self.instance is not None:
@@ -705,44 +785,48 @@ class DescribeEaisResponseBodyInstances(TeaModel):
 
 
 class DescribeEaisResponseBody(TeaModel):
-    def __init__(self, instances=None, total_count=None, request_id=None, page_size=None, page_number=None):
-        self.instances = instances  # type: DescribeEaisResponseBodyInstances
-        self.total_count = total_count  # type: int
+    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, instances=None):
         self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+        self.instances = instances  # type: DescribeEaisResponseBodyInstances
 
     def validate(self):
         if self.instances:
             self.instances.validate()
 
     def to_map(self):
+        _map = super(DescribeEaisResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.instances is not None:
-            result['Instances'] = self.instances.to_map()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        if self.instances is not None:
+            result['Instances'] = self.instances.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         if m.get('Instances') is not None:
             temp_model = DescribeEaisResponseBodyInstances()
             self.instances = temp_model.from_map(m['Instances'])
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         return self
 
 
@@ -758,6 +842,10 @@ class DescribeEaisResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeEaisResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -776,30 +864,34 @@ class DescribeEaisResponse(TeaModel):
 
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
-    def __init__(self, local_name=None, region_endpoint=None, region_id=None):
-        self.local_name = local_name  # type: str
+    def __init__(self, region_endpoint=None, local_name=None, region_id=None):
         self.region_endpoint = region_endpoint  # type: str
+        self.local_name = local_name  # type: str
         self.region_id = region_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegionsRegion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.local_name is not None:
-            result['LocalName'] = self.local_name
         if self.region_endpoint is not None:
             result['RegionEndpoint'] = self.region_endpoint
+        if self.local_name is not None:
+            result['LocalName'] = self.local_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('LocalName') is not None:
-            self.local_name = m.get('LocalName')
         if m.get('RegionEndpoint') is not None:
             self.region_endpoint = m.get('RegionEndpoint')
+        if m.get('LocalName') is not None:
+            self.local_name = m.get('LocalName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -816,6 +908,10 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegions, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Region'] = []
         if self.region is not None:
@@ -843,6 +939,10 @@ class DescribeRegionsResponseBody(TeaModel):
             self.regions.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -872,6 +972,10 @@ class DescribeRegionsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -898,6 +1002,10 @@ class DetachEaiRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DetachEaiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -922,6 +1030,10 @@ class DetachEaiResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DetachEaiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -946,6 +1058,10 @@ class DetachEaiResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetachEaiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -972,6 +1088,10 @@ class GetPrivateIpRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetPrivateIpRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
@@ -997,6 +1117,10 @@ class GetPrivateIpResponseBody(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetPrivateIpResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1025,6 +1149,10 @@ class GetPrivateIpResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetPrivateIpResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers

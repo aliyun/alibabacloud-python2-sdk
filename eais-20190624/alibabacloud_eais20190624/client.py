@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -85,7 +87,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.AttachEaiResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.AttachEaiResponse(),
             self.do_rpcrequest('AttachEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -98,7 +101,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.CreateEaiResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaiResponse(),
             self.do_rpcrequest('CreateEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -111,7 +115,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.CreateEaiAllResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaiAllResponse(),
             self.do_rpcrequest('CreateEaiAll', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -124,7 +129,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.DeleteEaiResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.DeleteEaiResponse(),
             self.do_rpcrequest('DeleteEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -137,7 +143,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.DeleteEaiAllResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.DeleteEaiAllResponse(),
             self.do_rpcrequest('DeleteEaiAll', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -150,7 +157,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.DescribeEaisResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.DescribeEaisResponse(),
             self.do_rpcrequest('DescribeEais', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -160,7 +168,8 @@ class Client(OpenApiClient):
 
     def describe_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return eais_20190624_models.DescribeRegionsResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.DescribeRegionsResponse(),
             self.do_rpcrequest('DescribeRegions', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -173,7 +182,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.DetachEaiResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.DetachEaiResponse(),
             self.do_rpcrequest('DetachEai', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -186,7 +196,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return eais_20190624_models.GetPrivateIpResponse().from_map(
+        return TeaCore.from_map(
+            eais_20190624_models.GetPrivateIpResponse(),
             self.do_rpcrequest('GetPrivateIp', '2019-06-24', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
