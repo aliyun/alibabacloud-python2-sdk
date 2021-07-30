@@ -1,0 +1,4614 @@
+# -*- coding: utf-8 -*-
+# This file is auto-generated, don't edit it. Thanks.
+from Tea.model import TeaModel
+
+
+class BindAliasRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None, alias_name=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+        self.alias_name = alias_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindAliasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        return self
+
+
+class BindAliasResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindAliasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindAliasResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindAliasResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindAliasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindAliasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BindPhoneRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None, phone_number=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+        self.phone_number = phone_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindPhoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        return self
+
+
+class BindPhoneResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindPhoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindPhoneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindPhoneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindPhoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindPhoneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BindTagRequest(TeaModel):
+    def __init__(self, app_key=None, client_key=None, key_type=None, tag_name=None):
+        self.app_key = app_key  # type: long
+        self.client_key = client_key  # type: str
+        self.key_type = key_type  # type: str
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindTagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.client_key is not None:
+            result['ClientKey'] = self.client_key
+        if self.key_type is not None:
+            result['KeyType'] = self.key_type
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('ClientKey') is not None:
+            self.client_key = m.get('ClientKey')
+        if m.get('KeyType') is not None:
+            self.key_type = m.get('KeyType')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class BindTagResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindTagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindTagResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindTagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CancelPushRequest(TeaModel):
+    def __init__(self, app_key=None, message_id=None):
+        self.app_key = app_key  # type: long
+        self.message_id = message_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelPushRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        return self
+
+
+class CancelPushResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelPushResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CancelPushResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CancelPushResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelPushResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CancelPushResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckCertificateRequest(TeaModel):
+    def __init__(self, app_key=None):
+        self.app_key = app_key  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        return self
+
+
+class CheckCertificateResponseBodyProductionCertInfo(TeaModel):
+    def __init__(self, status=None, exipre_time=None):
+        self.status = status  # type: str
+        self.exipre_time = exipre_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckCertificateResponseBodyProductionCertInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.exipre_time is not None:
+            result['ExipreTime'] = self.exipre_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('ExipreTime') is not None:
+            self.exipre_time = m.get('ExipreTime')
+        return self
+
+
+class CheckCertificateResponseBodyDevelopmentCertInfo(TeaModel):
+    def __init__(self, status=None, exipre_time=None):
+        self.status = status  # type: str
+        self.exipre_time = exipre_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckCertificateResponseBodyDevelopmentCertInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.exipre_time is not None:
+            result['ExipreTime'] = self.exipre_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('ExipreTime') is not None:
+            self.exipre_time = m.get('ExipreTime')
+        return self
+
+
+class CheckCertificateResponseBody(TeaModel):
+    def __init__(self, request_id=None, android=None, ios=None, production_cert_info=None,
+                 development_cert_info=None):
+        self.request_id = request_id  # type: str
+        self.android = android  # type: bool
+        self.ios = ios  # type: bool
+        self.production_cert_info = production_cert_info  # type: CheckCertificateResponseBodyProductionCertInfo
+        self.development_cert_info = development_cert_info  # type: CheckCertificateResponseBodyDevelopmentCertInfo
+
+    def validate(self):
+        if self.production_cert_info:
+            self.production_cert_info.validate()
+        if self.development_cert_info:
+            self.development_cert_info.validate()
+
+    def to_map(self):
+        _map = super(CheckCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.android is not None:
+            result['Android'] = self.android
+        if self.ios is not None:
+            result['IOS'] = self.ios
+        if self.production_cert_info is not None:
+            result['ProductionCertInfo'] = self.production_cert_info.to_map()
+        if self.development_cert_info is not None:
+            result['DevelopmentCertInfo'] = self.development_cert_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Android') is not None:
+            self.android = m.get('Android')
+        if m.get('IOS') is not None:
+            self.ios = m.get('IOS')
+        if m.get('ProductionCertInfo') is not None:
+            temp_model = CheckCertificateResponseBodyProductionCertInfo()
+            self.production_cert_info = temp_model.from_map(m['ProductionCertInfo'])
+        if m.get('DevelopmentCertInfo') is not None:
+            temp_model = CheckCertificateResponseBodyDevelopmentCertInfo()
+            self.development_cert_info = temp_model.from_map(m['DevelopmentCertInfo'])
+        return self
+
+
+class CheckCertificateResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CheckCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CheckCertificateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckDeviceRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDeviceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class CheckDeviceResponseBody(TeaModel):
+    def __init__(self, available=None, request_id=None):
+        self.available = available  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDeviceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available is not None:
+            result['Available'] = self.available
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Available') is not None:
+            self.available = m.get('Available')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckDeviceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CheckDeviceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckDeviceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CheckDeviceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckDevicesRequest(TeaModel):
+    def __init__(self, app_key=None, device_ids=None):
+        self.app_key = app_key  # type: long
+        self.device_ids = device_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDevicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_ids is not None:
+            result['DeviceIds'] = self.device_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceIds') is not None:
+            self.device_ids = m.get('DeviceIds')
+        return self
+
+
+class CheckDevicesResponseBodyDeviceCheckInfosDeviceCheckInfo(TeaModel):
+    def __init__(self, device_id=None, available=None):
+        self.device_id = device_id  # type: str
+        self.available = available  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDevicesResponseBodyDeviceCheckInfosDeviceCheckInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.available is not None:
+            result['Available'] = self.available
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('Available') is not None:
+            self.available = m.get('Available')
+        return self
+
+
+class CheckDevicesResponseBodyDeviceCheckInfos(TeaModel):
+    def __init__(self, device_check_info=None):
+        self.device_check_info = device_check_info  # type: list[CheckDevicesResponseBodyDeviceCheckInfosDeviceCheckInfo]
+
+    def validate(self):
+        if self.device_check_info:
+            for k in self.device_check_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CheckDevicesResponseBodyDeviceCheckInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DeviceCheckInfo'] = []
+        if self.device_check_info is not None:
+            for k in self.device_check_info:
+                result['DeviceCheckInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.device_check_info = []
+        if m.get('DeviceCheckInfo') is not None:
+            for k in m.get('DeviceCheckInfo'):
+                temp_model = CheckDevicesResponseBodyDeviceCheckInfosDeviceCheckInfo()
+                self.device_check_info.append(temp_model.from_map(k))
+        return self
+
+
+class CheckDevicesResponseBody(TeaModel):
+    def __init__(self, request_id=None, device_check_infos=None):
+        self.request_id = request_id  # type: str
+        self.device_check_infos = device_check_infos  # type: CheckDevicesResponseBodyDeviceCheckInfos
+
+    def validate(self):
+        if self.device_check_infos:
+            self.device_check_infos.validate()
+
+    def to_map(self):
+        _map = super(CheckDevicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.device_check_infos is not None:
+            result['DeviceCheckInfos'] = self.device_check_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('DeviceCheckInfos') is not None:
+            temp_model = CheckDevicesResponseBodyDeviceCheckInfos()
+            self.device_check_infos = temp_model.from_map(m['DeviceCheckInfos'])
+        return self
+
+
+class CheckDevicesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CheckDevicesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckDevicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CheckDevicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CompleteContinuouslyPushRequest(TeaModel):
+    def __init__(self, app_key=None, message_id=None):
+        self.app_key = app_key  # type: long
+        self.message_id = message_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CompleteContinuouslyPushRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        return self
+
+
+class CompleteContinuouslyPushResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CompleteContinuouslyPushResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CompleteContinuouslyPushResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CompleteContinuouslyPushResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CompleteContinuouslyPushResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CompleteContinuouslyPushResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ContinuouslyPushRequest(TeaModel):
+    def __init__(self, app_key=None, message_id=None, target=None, target_value=None):
+        self.app_key = app_key  # type: long
+        self.message_id = message_id  # type: str
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ContinuouslyPushRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        return self
+
+
+class ContinuouslyPushResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ContinuouslyPushResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ContinuouslyPushResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ContinuouslyPushResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ContinuouslyPushResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ContinuouslyPushResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSummaryAppsResponseBodySummaryAppInfosSummaryAppInfo(TeaModel):
+    def __init__(self, app_name=None, app_key=None):
+        self.app_name = app_name  # type: str
+        self.app_key = app_key  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSummaryAppsResponseBodySummaryAppInfosSummaryAppInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        return self
+
+
+class ListSummaryAppsResponseBodySummaryAppInfos(TeaModel):
+    def __init__(self, summary_app_info=None):
+        self.summary_app_info = summary_app_info  # type: list[ListSummaryAppsResponseBodySummaryAppInfosSummaryAppInfo]
+
+    def validate(self):
+        if self.summary_app_info:
+            for k in self.summary_app_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSummaryAppsResponseBodySummaryAppInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SummaryAppInfo'] = []
+        if self.summary_app_info is not None:
+            for k in self.summary_app_info:
+                result['SummaryAppInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.summary_app_info = []
+        if m.get('SummaryAppInfo') is not None:
+            for k in m.get('SummaryAppInfo'):
+                temp_model = ListSummaryAppsResponseBodySummaryAppInfosSummaryAppInfo()
+                self.summary_app_info.append(temp_model.from_map(k))
+        return self
+
+
+class ListSummaryAppsResponseBody(TeaModel):
+    def __init__(self, request_id=None, summary_app_infos=None):
+        self.request_id = request_id  # type: str
+        self.summary_app_infos = summary_app_infos  # type: ListSummaryAppsResponseBodySummaryAppInfos
+
+    def validate(self):
+        if self.summary_app_infos:
+            self.summary_app_infos.validate()
+
+    def to_map(self):
+        _map = super(ListSummaryAppsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.summary_app_infos is not None:
+            result['SummaryAppInfos'] = self.summary_app_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SummaryAppInfos') is not None:
+            temp_model = ListSummaryAppsResponseBodySummaryAppInfos()
+            self.summary_app_infos = temp_model.from_map(m['SummaryAppInfos'])
+        return self
+
+
+class ListSummaryAppsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListSummaryAppsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSummaryAppsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListSummaryAppsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListTagsRequest(TeaModel):
+    def __init__(self, app_key=None):
+        self.app_key = app_key  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        return self
+
+
+class ListTagsResponseBodyTagInfosTagInfo(TeaModel):
+    def __init__(self, tag_name=None):
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTagsResponseBodyTagInfosTagInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class ListTagsResponseBodyTagInfos(TeaModel):
+    def __init__(self, tag_info=None):
+        self.tag_info = tag_info  # type: list[ListTagsResponseBodyTagInfosTagInfo]
+
+    def validate(self):
+        if self.tag_info:
+            for k in self.tag_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTagsResponseBodyTagInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['TagInfo'] = []
+        if self.tag_info is not None:
+            for k in self.tag_info:
+                result['TagInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag_info = []
+        if m.get('TagInfo') is not None:
+            for k in m.get('TagInfo'):
+                temp_model = ListTagsResponseBodyTagInfosTagInfo()
+                self.tag_info.append(temp_model.from_map(k))
+        return self
+
+
+class ListTagsResponseBody(TeaModel):
+    def __init__(self, request_id=None, tag_infos=None):
+        self.request_id = request_id  # type: str
+        self.tag_infos = tag_infos  # type: ListTagsResponseBodyTagInfos
+
+    def validate(self):
+        if self.tag_infos:
+            self.tag_infos.validate()
+
+    def to_map(self):
+        _map = super(ListTagsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.tag_infos is not None:
+            result['TagInfos'] = self.tag_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TagInfos') is not None:
+            temp_model = ListTagsResponseBodyTagInfos()
+            self.tag_infos = temp_model.from_map(m['TagInfos'])
+        return self
+
+
+class ListTagsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListTagsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTagsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListTagsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MassPushRequestPushTask(TeaModel):
+    def __init__(self, job_key=None, i_ossilent_notification=None, i_osnotification_collapse_id=None,
+                 android_render_style=None, store_offline=None, i_ossubtitle=None, i_osnotification_category=None,
+                 android_notification_channel=None, android_notification_huawei_channel=None, i_osapns_env=None, i_osbadge_auto_increment=None,
+                 android_xiao_mi_notify_title=None, android_notification_xiaomi_channel=None, android_xiao_mi_activity=None,
+                 android_popup_title=None, i_osremind_body=None, android_activity=None, android_notify_type=None,
+                 android_big_body=None, i_osmutable_content=None, target=None, android_open_url=None, android_big_title=None,
+                 android_notification_notify_id=None, expire_time=None, android_notification_vivo_channel=None, device_type=None,
+                 android_open_type=None, android_popup_activity=None, android_remind=None, android_popup_body=None,
+                 android_ext_parameters=None, i_osext_parameters=None, android_xiao_mi_notify_body=None, body=None,
+                 android_notification_bar_type=None, android_notification_bar_priority=None, android_xiaomi_big_picture_url=None,
+                 target_value=None, i_osmusic=None, i_osremind=None, push_type=None, send_speed=None, i_osbadge=None, title=None,
+                 push_time=None, android_music=None):
+        self.job_key = job_key  # type: str
+        self.i_ossilent_notification = i_ossilent_notification  # type: bool
+        self.i_osnotification_collapse_id = i_osnotification_collapse_id  # type: str
+        self.android_render_style = android_render_style  # type: str
+        self.store_offline = store_offline  # type: bool
+        self.i_ossubtitle = i_ossubtitle  # type: str
+        self.i_osnotification_category = i_osnotification_category  # type: str
+        self.android_notification_channel = android_notification_channel  # type: str
+        self.android_notification_huawei_channel = android_notification_huawei_channel  # type: str
+        self.i_osapns_env = i_osapns_env  # type: str
+        self.i_osbadge_auto_increment = i_osbadge_auto_increment  # type: bool
+        self.android_xiao_mi_notify_title = android_xiao_mi_notify_title  # type: str
+        self.android_notification_xiaomi_channel = android_notification_xiaomi_channel  # type: str
+        self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
+        self.android_popup_title = android_popup_title  # type: str
+        self.i_osremind_body = i_osremind_body  # type: str
+        self.android_activity = android_activity  # type: str
+        self.android_notify_type = android_notify_type  # type: str
+        self.android_big_body = android_big_body  # type: str
+        self.i_osmutable_content = i_osmutable_content  # type: bool
+        self.target = target  # type: str
+        self.android_open_url = android_open_url  # type: str
+        self.android_big_title = android_big_title  # type: str
+        self.android_notification_notify_id = android_notification_notify_id  # type: int
+        self.expire_time = expire_time  # type: str
+        self.android_notification_vivo_channel = android_notification_vivo_channel  # type: str
+        self.device_type = device_type  # type: str
+        self.android_open_type = android_open_type  # type: str
+        self.android_popup_activity = android_popup_activity  # type: str
+        self.android_remind = android_remind  # type: bool
+        self.android_popup_body = android_popup_body  # type: str
+        self.android_ext_parameters = android_ext_parameters  # type: str
+        self.i_osext_parameters = i_osext_parameters  # type: str
+        self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
+        self.body = body  # type: str
+        self.android_notification_bar_type = android_notification_bar_type  # type: int
+        self.android_notification_bar_priority = android_notification_bar_priority  # type: int
+        self.android_xiaomi_big_picture_url = android_xiaomi_big_picture_url  # type: str
+        self.target_value = target_value  # type: str
+        self.i_osmusic = i_osmusic  # type: str
+        self.i_osremind = i_osremind  # type: bool
+        self.push_type = push_type  # type: str
+        self.send_speed = send_speed  # type: int
+        self.i_osbadge = i_osbadge  # type: int
+        self.title = title  # type: str
+        self.push_time = push_time  # type: str
+        self.android_music = android_music  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MassPushRequestPushTask, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        if self.i_ossilent_notification is not None:
+            result['iOSSilentNotification'] = self.i_ossilent_notification
+        if self.i_osnotification_collapse_id is not None:
+            result['iOSNotificationCollapseId'] = self.i_osnotification_collapse_id
+        if self.android_render_style is not None:
+            result['AndroidRenderStyle'] = self.android_render_style
+        if self.store_offline is not None:
+            result['StoreOffline'] = self.store_offline
+        if self.i_ossubtitle is not None:
+            result['iOSSubtitle'] = self.i_ossubtitle
+        if self.i_osnotification_category is not None:
+            result['iOSNotificationCategory'] = self.i_osnotification_category
+        if self.android_notification_channel is not None:
+            result['AndroidNotificationChannel'] = self.android_notification_channel
+        if self.android_notification_huawei_channel is not None:
+            result['AndroidNotificationHuaweiChannel'] = self.android_notification_huawei_channel
+        if self.i_osapns_env is not None:
+            result['iOSApnsEnv'] = self.i_osapns_env
+        if self.i_osbadge_auto_increment is not None:
+            result['iOSBadgeAutoIncrement'] = self.i_osbadge_auto_increment
+        if self.android_xiao_mi_notify_title is not None:
+            result['AndroidXiaoMiNotifyTitle'] = self.android_xiao_mi_notify_title
+        if self.android_notification_xiaomi_channel is not None:
+            result['AndroidNotificationXiaomiChannel'] = self.android_notification_xiaomi_channel
+        if self.android_xiao_mi_activity is not None:
+            result['AndroidXiaoMiActivity'] = self.android_xiao_mi_activity
+        if self.android_popup_title is not None:
+            result['AndroidPopupTitle'] = self.android_popup_title
+        if self.i_osremind_body is not None:
+            result['iOSRemindBody'] = self.i_osremind_body
+        if self.android_activity is not None:
+            result['AndroidActivity'] = self.android_activity
+        if self.android_notify_type is not None:
+            result['AndroidNotifyType'] = self.android_notify_type
+        if self.android_big_body is not None:
+            result['AndroidBigBody'] = self.android_big_body
+        if self.i_osmutable_content is not None:
+            result['iOSMutableContent'] = self.i_osmutable_content
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.android_open_url is not None:
+            result['AndroidOpenUrl'] = self.android_open_url
+        if self.android_big_title is not None:
+            result['AndroidBigTitle'] = self.android_big_title
+        if self.android_notification_notify_id is not None:
+            result['AndroidNotificationNotifyId'] = self.android_notification_notify_id
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.android_notification_vivo_channel is not None:
+            result['AndroidNotificationVivoChannel'] = self.android_notification_vivo_channel
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.android_open_type is not None:
+            result['AndroidOpenType'] = self.android_open_type
+        if self.android_popup_activity is not None:
+            result['AndroidPopupActivity'] = self.android_popup_activity
+        if self.android_remind is not None:
+            result['AndroidRemind'] = self.android_remind
+        if self.android_popup_body is not None:
+            result['AndroidPopupBody'] = self.android_popup_body
+        if self.android_ext_parameters is not None:
+            result['AndroidExtParameters'] = self.android_ext_parameters
+        if self.i_osext_parameters is not None:
+            result['iOSExtParameters'] = self.i_osext_parameters
+        if self.android_xiao_mi_notify_body is not None:
+            result['AndroidXiaoMiNotifyBody'] = self.android_xiao_mi_notify_body
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.android_notification_bar_type is not None:
+            result['AndroidNotificationBarType'] = self.android_notification_bar_type
+        if self.android_notification_bar_priority is not None:
+            result['AndroidNotificationBarPriority'] = self.android_notification_bar_priority
+        if self.android_xiaomi_big_picture_url is not None:
+            result['AndroidXiaomiBigPictureUrl'] = self.android_xiaomi_big_picture_url
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.i_osmusic is not None:
+            result['iOSMusic'] = self.i_osmusic
+        if self.i_osremind is not None:
+            result['iOSRemind'] = self.i_osremind
+        if self.push_type is not None:
+            result['PushType'] = self.push_type
+        if self.send_speed is not None:
+            result['SendSpeed'] = self.send_speed
+        if self.i_osbadge is not None:
+            result['iOSBadge'] = self.i_osbadge
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.push_time is not None:
+            result['PushTime'] = self.push_time
+        if self.android_music is not None:
+            result['AndroidMusic'] = self.android_music
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        if m.get('iOSSilentNotification') is not None:
+            self.i_ossilent_notification = m.get('iOSSilentNotification')
+        if m.get('iOSNotificationCollapseId') is not None:
+            self.i_osnotification_collapse_id = m.get('iOSNotificationCollapseId')
+        if m.get('AndroidRenderStyle') is not None:
+            self.android_render_style = m.get('AndroidRenderStyle')
+        if m.get('StoreOffline') is not None:
+            self.store_offline = m.get('StoreOffline')
+        if m.get('iOSSubtitle') is not None:
+            self.i_ossubtitle = m.get('iOSSubtitle')
+        if m.get('iOSNotificationCategory') is not None:
+            self.i_osnotification_category = m.get('iOSNotificationCategory')
+        if m.get('AndroidNotificationChannel') is not None:
+            self.android_notification_channel = m.get('AndroidNotificationChannel')
+        if m.get('AndroidNotificationHuaweiChannel') is not None:
+            self.android_notification_huawei_channel = m.get('AndroidNotificationHuaweiChannel')
+        if m.get('iOSApnsEnv') is not None:
+            self.i_osapns_env = m.get('iOSApnsEnv')
+        if m.get('iOSBadgeAutoIncrement') is not None:
+            self.i_osbadge_auto_increment = m.get('iOSBadgeAutoIncrement')
+        if m.get('AndroidXiaoMiNotifyTitle') is not None:
+            self.android_xiao_mi_notify_title = m.get('AndroidXiaoMiNotifyTitle')
+        if m.get('AndroidNotificationXiaomiChannel') is not None:
+            self.android_notification_xiaomi_channel = m.get('AndroidNotificationXiaomiChannel')
+        if m.get('AndroidXiaoMiActivity') is not None:
+            self.android_xiao_mi_activity = m.get('AndroidXiaoMiActivity')
+        if m.get('AndroidPopupTitle') is not None:
+            self.android_popup_title = m.get('AndroidPopupTitle')
+        if m.get('iOSRemindBody') is not None:
+            self.i_osremind_body = m.get('iOSRemindBody')
+        if m.get('AndroidActivity') is not None:
+            self.android_activity = m.get('AndroidActivity')
+        if m.get('AndroidNotifyType') is not None:
+            self.android_notify_type = m.get('AndroidNotifyType')
+        if m.get('AndroidBigBody') is not None:
+            self.android_big_body = m.get('AndroidBigBody')
+        if m.get('iOSMutableContent') is not None:
+            self.i_osmutable_content = m.get('iOSMutableContent')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('AndroidOpenUrl') is not None:
+            self.android_open_url = m.get('AndroidOpenUrl')
+        if m.get('AndroidBigTitle') is not None:
+            self.android_big_title = m.get('AndroidBigTitle')
+        if m.get('AndroidNotificationNotifyId') is not None:
+            self.android_notification_notify_id = m.get('AndroidNotificationNotifyId')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('AndroidNotificationVivoChannel') is not None:
+            self.android_notification_vivo_channel = m.get('AndroidNotificationVivoChannel')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('AndroidOpenType') is not None:
+            self.android_open_type = m.get('AndroidOpenType')
+        if m.get('AndroidPopupActivity') is not None:
+            self.android_popup_activity = m.get('AndroidPopupActivity')
+        if m.get('AndroidRemind') is not None:
+            self.android_remind = m.get('AndroidRemind')
+        if m.get('AndroidPopupBody') is not None:
+            self.android_popup_body = m.get('AndroidPopupBody')
+        if m.get('AndroidExtParameters') is not None:
+            self.android_ext_parameters = m.get('AndroidExtParameters')
+        if m.get('iOSExtParameters') is not None:
+            self.i_osext_parameters = m.get('iOSExtParameters')
+        if m.get('AndroidXiaoMiNotifyBody') is not None:
+            self.android_xiao_mi_notify_body = m.get('AndroidXiaoMiNotifyBody')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('AndroidNotificationBarType') is not None:
+            self.android_notification_bar_type = m.get('AndroidNotificationBarType')
+        if m.get('AndroidNotificationBarPriority') is not None:
+            self.android_notification_bar_priority = m.get('AndroidNotificationBarPriority')
+        if m.get('AndroidXiaomiBigPictureUrl') is not None:
+            self.android_xiaomi_big_picture_url = m.get('AndroidXiaomiBigPictureUrl')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('iOSMusic') is not None:
+            self.i_osmusic = m.get('iOSMusic')
+        if m.get('iOSRemind') is not None:
+            self.i_osremind = m.get('iOSRemind')
+        if m.get('PushType') is not None:
+            self.push_type = m.get('PushType')
+        if m.get('SendSpeed') is not None:
+            self.send_speed = m.get('SendSpeed')
+        if m.get('iOSBadge') is not None:
+            self.i_osbadge = m.get('iOSBadge')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('PushTime') is not None:
+            self.push_time = m.get('PushTime')
+        if m.get('AndroidMusic') is not None:
+            self.android_music = m.get('AndroidMusic')
+        return self
+
+
+class MassPushRequest(TeaModel):
+    def __init__(self, app_key=None, push_task=None):
+        self.app_key = app_key  # type: long
+        self.push_task = push_task  # type: list[MassPushRequestPushTask]
+
+    def validate(self):
+        if self.push_task:
+            for k in self.push_task:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(MassPushRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        result['PushTask'] = []
+        if self.push_task is not None:
+            for k in self.push_task:
+                result['PushTask'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        self.push_task = []
+        if m.get('PushTask') is not None:
+            for k in m.get('PushTask'):
+                temp_model = MassPushRequestPushTask()
+                self.push_task.append(temp_model.from_map(k))
+        return self
+
+
+class MassPushResponseBodyMessageIds(TeaModel):
+    def __init__(self, message_id=None):
+        self.message_id = message_id  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MassPushResponseBodyMessageIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        return self
+
+
+class MassPushResponseBody(TeaModel):
+    def __init__(self, request_id=None, message_ids=None):
+        self.request_id = request_id  # type: str
+        self.message_ids = message_ids  # type: MassPushResponseBodyMessageIds
+
+    def validate(self):
+        if self.message_ids:
+            self.message_ids.validate()
+
+    def to_map(self):
+        _map = super(MassPushResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.message_ids is not None:
+            result['MessageIds'] = self.message_ids.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('MessageIds') is not None:
+            temp_model = MassPushResponseBodyMessageIds()
+            self.message_ids = temp_model.from_map(m['MessageIds'])
+        return self
+
+
+class MassPushResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: MassPushResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MassPushResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = MassPushResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushRequest(TeaModel):
+    def __init__(self, app_key=None, push_type=None, device_type=None, target=None, target_value=None, title=None,
+                 body=None, job_key=None, send_speed=None, store_offline=None, push_time=None, expire_time=None,
+                 i_osapns_env=None, i_osremind=None, i_osremind_body=None, i_osbadge=None, i_osbadge_auto_increment=None,
+                 i_ossilent_notification=None, i_osmusic=None, i_ossubtitle=None, i_osnotification_category=None, i_osmutable_content=None,
+                 i_osext_parameters=None, android_notify_type=None, android_open_type=None, android_activity=None, android_music=None,
+                 android_open_url=None, android_xiao_mi_activity=None, android_xiao_mi_notify_title=None,
+                 android_xiao_mi_notify_body=None, android_popup_activity=None, android_popup_title=None, android_popup_body=None,
+                 android_notification_bar_type=None, android_notification_bar_priority=None, android_ext_parameters=None, android_remind=None,
+                 android_notification_channel=None, android_notification_xiaomi_channel=None, sms_template_name=None, sms_sign_name=None,
+                 sms_params=None, sms_delay_secs=None, sms_send_policy=None, android_notification_vivo_channel=None,
+                 android_notification_huawei_channel=None, android_notification_notify_id=None, i_osnotification_collapse_id=None,
+                 android_render_style=None, android_big_title=None, android_big_body=None, android_xiaomi_big_picture_url=None):
+        self.app_key = app_key  # type: long
+        self.push_type = push_type  # type: str
+        self.device_type = device_type  # type: str
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+        self.title = title  # type: str
+        self.body = body  # type: str
+        self.job_key = job_key  # type: str
+        self.send_speed = send_speed  # type: int
+        self.store_offline = store_offline  # type: bool
+        self.push_time = push_time  # type: str
+        self.expire_time = expire_time  # type: str
+        self.i_osapns_env = i_osapns_env  # type: str
+        self.i_osremind = i_osremind  # type: bool
+        self.i_osremind_body = i_osremind_body  # type: str
+        self.i_osbadge = i_osbadge  # type: int
+        self.i_osbadge_auto_increment = i_osbadge_auto_increment  # type: bool
+        self.i_ossilent_notification = i_ossilent_notification  # type: bool
+        self.i_osmusic = i_osmusic  # type: str
+        self.i_ossubtitle = i_ossubtitle  # type: str
+        self.i_osnotification_category = i_osnotification_category  # type: str
+        self.i_osmutable_content = i_osmutable_content  # type: bool
+        self.i_osext_parameters = i_osext_parameters  # type: str
+        self.android_notify_type = android_notify_type  # type: str
+        self.android_open_type = android_open_type  # type: str
+        self.android_activity = android_activity  # type: str
+        self.android_music = android_music  # type: str
+        self.android_open_url = android_open_url  # type: str
+        self.android_xiao_mi_activity = android_xiao_mi_activity  # type: str
+        self.android_xiao_mi_notify_title = android_xiao_mi_notify_title  # type: str
+        self.android_xiao_mi_notify_body = android_xiao_mi_notify_body  # type: str
+        self.android_popup_activity = android_popup_activity  # type: str
+        self.android_popup_title = android_popup_title  # type: str
+        self.android_popup_body = android_popup_body  # type: str
+        self.android_notification_bar_type = android_notification_bar_type  # type: int
+        self.android_notification_bar_priority = android_notification_bar_priority  # type: int
+        self.android_ext_parameters = android_ext_parameters  # type: str
+        self.android_remind = android_remind  # type: bool
+        self.android_notification_channel = android_notification_channel  # type: str
+        self.android_notification_xiaomi_channel = android_notification_xiaomi_channel  # type: str
+        self.sms_template_name = sms_template_name  # type: str
+        self.sms_sign_name = sms_sign_name  # type: str
+        self.sms_params = sms_params  # type: str
+        self.sms_delay_secs = sms_delay_secs  # type: int
+        self.sms_send_policy = sms_send_policy  # type: int
+        self.android_notification_vivo_channel = android_notification_vivo_channel  # type: str
+        self.android_notification_huawei_channel = android_notification_huawei_channel  # type: str
+        self.android_notification_notify_id = android_notification_notify_id  # type: int
+        self.i_osnotification_collapse_id = i_osnotification_collapse_id  # type: str
+        self.android_render_style = android_render_style  # type: int
+        self.android_big_title = android_big_title  # type: str
+        self.android_big_body = android_big_body  # type: str
+        self.android_xiaomi_big_picture_url = android_xiaomi_big_picture_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.push_type is not None:
+            result['PushType'] = self.push_type
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        if self.send_speed is not None:
+            result['SendSpeed'] = self.send_speed
+        if self.store_offline is not None:
+            result['StoreOffline'] = self.store_offline
+        if self.push_time is not None:
+            result['PushTime'] = self.push_time
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.i_osapns_env is not None:
+            result['iOSApnsEnv'] = self.i_osapns_env
+        if self.i_osremind is not None:
+            result['iOSRemind'] = self.i_osremind
+        if self.i_osremind_body is not None:
+            result['iOSRemindBody'] = self.i_osremind_body
+        if self.i_osbadge is not None:
+            result['iOSBadge'] = self.i_osbadge
+        if self.i_osbadge_auto_increment is not None:
+            result['iOSBadgeAutoIncrement'] = self.i_osbadge_auto_increment
+        if self.i_ossilent_notification is not None:
+            result['iOSSilentNotification'] = self.i_ossilent_notification
+        if self.i_osmusic is not None:
+            result['iOSMusic'] = self.i_osmusic
+        if self.i_ossubtitle is not None:
+            result['iOSSubtitle'] = self.i_ossubtitle
+        if self.i_osnotification_category is not None:
+            result['iOSNotificationCategory'] = self.i_osnotification_category
+        if self.i_osmutable_content is not None:
+            result['iOSMutableContent'] = self.i_osmutable_content
+        if self.i_osext_parameters is not None:
+            result['iOSExtParameters'] = self.i_osext_parameters
+        if self.android_notify_type is not None:
+            result['AndroidNotifyType'] = self.android_notify_type
+        if self.android_open_type is not None:
+            result['AndroidOpenType'] = self.android_open_type
+        if self.android_activity is not None:
+            result['AndroidActivity'] = self.android_activity
+        if self.android_music is not None:
+            result['AndroidMusic'] = self.android_music
+        if self.android_open_url is not None:
+            result['AndroidOpenUrl'] = self.android_open_url
+        if self.android_xiao_mi_activity is not None:
+            result['AndroidXiaoMiActivity'] = self.android_xiao_mi_activity
+        if self.android_xiao_mi_notify_title is not None:
+            result['AndroidXiaoMiNotifyTitle'] = self.android_xiao_mi_notify_title
+        if self.android_xiao_mi_notify_body is not None:
+            result['AndroidXiaoMiNotifyBody'] = self.android_xiao_mi_notify_body
+        if self.android_popup_activity is not None:
+            result['AndroidPopupActivity'] = self.android_popup_activity
+        if self.android_popup_title is not None:
+            result['AndroidPopupTitle'] = self.android_popup_title
+        if self.android_popup_body is not None:
+            result['AndroidPopupBody'] = self.android_popup_body
+        if self.android_notification_bar_type is not None:
+            result['AndroidNotificationBarType'] = self.android_notification_bar_type
+        if self.android_notification_bar_priority is not None:
+            result['AndroidNotificationBarPriority'] = self.android_notification_bar_priority
+        if self.android_ext_parameters is not None:
+            result['AndroidExtParameters'] = self.android_ext_parameters
+        if self.android_remind is not None:
+            result['AndroidRemind'] = self.android_remind
+        if self.android_notification_channel is not None:
+            result['AndroidNotificationChannel'] = self.android_notification_channel
+        if self.android_notification_xiaomi_channel is not None:
+            result['AndroidNotificationXiaomiChannel'] = self.android_notification_xiaomi_channel
+        if self.sms_template_name is not None:
+            result['SmsTemplateName'] = self.sms_template_name
+        if self.sms_sign_name is not None:
+            result['SmsSignName'] = self.sms_sign_name
+        if self.sms_params is not None:
+            result['SmsParams'] = self.sms_params
+        if self.sms_delay_secs is not None:
+            result['SmsDelaySecs'] = self.sms_delay_secs
+        if self.sms_send_policy is not None:
+            result['SmsSendPolicy'] = self.sms_send_policy
+        if self.android_notification_vivo_channel is not None:
+            result['AndroidNotificationVivoChannel'] = self.android_notification_vivo_channel
+        if self.android_notification_huawei_channel is not None:
+            result['AndroidNotificationHuaweiChannel'] = self.android_notification_huawei_channel
+        if self.android_notification_notify_id is not None:
+            result['AndroidNotificationNotifyId'] = self.android_notification_notify_id
+        if self.i_osnotification_collapse_id is not None:
+            result['iOSNotificationCollapseId'] = self.i_osnotification_collapse_id
+        if self.android_render_style is not None:
+            result['AndroidRenderStyle'] = self.android_render_style
+        if self.android_big_title is not None:
+            result['AndroidBigTitle'] = self.android_big_title
+        if self.android_big_body is not None:
+            result['AndroidBigBody'] = self.android_big_body
+        if self.android_xiaomi_big_picture_url is not None:
+            result['AndroidXiaomiBigPictureUrl'] = self.android_xiaomi_big_picture_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('PushType') is not None:
+            self.push_type = m.get('PushType')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        if m.get('SendSpeed') is not None:
+            self.send_speed = m.get('SendSpeed')
+        if m.get('StoreOffline') is not None:
+            self.store_offline = m.get('StoreOffline')
+        if m.get('PushTime') is not None:
+            self.push_time = m.get('PushTime')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('iOSApnsEnv') is not None:
+            self.i_osapns_env = m.get('iOSApnsEnv')
+        if m.get('iOSRemind') is not None:
+            self.i_osremind = m.get('iOSRemind')
+        if m.get('iOSRemindBody') is not None:
+            self.i_osremind_body = m.get('iOSRemindBody')
+        if m.get('iOSBadge') is not None:
+            self.i_osbadge = m.get('iOSBadge')
+        if m.get('iOSBadgeAutoIncrement') is not None:
+            self.i_osbadge_auto_increment = m.get('iOSBadgeAutoIncrement')
+        if m.get('iOSSilentNotification') is not None:
+            self.i_ossilent_notification = m.get('iOSSilentNotification')
+        if m.get('iOSMusic') is not None:
+            self.i_osmusic = m.get('iOSMusic')
+        if m.get('iOSSubtitle') is not None:
+            self.i_ossubtitle = m.get('iOSSubtitle')
+        if m.get('iOSNotificationCategory') is not None:
+            self.i_osnotification_category = m.get('iOSNotificationCategory')
+        if m.get('iOSMutableContent') is not None:
+            self.i_osmutable_content = m.get('iOSMutableContent')
+        if m.get('iOSExtParameters') is not None:
+            self.i_osext_parameters = m.get('iOSExtParameters')
+        if m.get('AndroidNotifyType') is not None:
+            self.android_notify_type = m.get('AndroidNotifyType')
+        if m.get('AndroidOpenType') is not None:
+            self.android_open_type = m.get('AndroidOpenType')
+        if m.get('AndroidActivity') is not None:
+            self.android_activity = m.get('AndroidActivity')
+        if m.get('AndroidMusic') is not None:
+            self.android_music = m.get('AndroidMusic')
+        if m.get('AndroidOpenUrl') is not None:
+            self.android_open_url = m.get('AndroidOpenUrl')
+        if m.get('AndroidXiaoMiActivity') is not None:
+            self.android_xiao_mi_activity = m.get('AndroidXiaoMiActivity')
+        if m.get('AndroidXiaoMiNotifyTitle') is not None:
+            self.android_xiao_mi_notify_title = m.get('AndroidXiaoMiNotifyTitle')
+        if m.get('AndroidXiaoMiNotifyBody') is not None:
+            self.android_xiao_mi_notify_body = m.get('AndroidXiaoMiNotifyBody')
+        if m.get('AndroidPopupActivity') is not None:
+            self.android_popup_activity = m.get('AndroidPopupActivity')
+        if m.get('AndroidPopupTitle') is not None:
+            self.android_popup_title = m.get('AndroidPopupTitle')
+        if m.get('AndroidPopupBody') is not None:
+            self.android_popup_body = m.get('AndroidPopupBody')
+        if m.get('AndroidNotificationBarType') is not None:
+            self.android_notification_bar_type = m.get('AndroidNotificationBarType')
+        if m.get('AndroidNotificationBarPriority') is not None:
+            self.android_notification_bar_priority = m.get('AndroidNotificationBarPriority')
+        if m.get('AndroidExtParameters') is not None:
+            self.android_ext_parameters = m.get('AndroidExtParameters')
+        if m.get('AndroidRemind') is not None:
+            self.android_remind = m.get('AndroidRemind')
+        if m.get('AndroidNotificationChannel') is not None:
+            self.android_notification_channel = m.get('AndroidNotificationChannel')
+        if m.get('AndroidNotificationXiaomiChannel') is not None:
+            self.android_notification_xiaomi_channel = m.get('AndroidNotificationXiaomiChannel')
+        if m.get('SmsTemplateName') is not None:
+            self.sms_template_name = m.get('SmsTemplateName')
+        if m.get('SmsSignName') is not None:
+            self.sms_sign_name = m.get('SmsSignName')
+        if m.get('SmsParams') is not None:
+            self.sms_params = m.get('SmsParams')
+        if m.get('SmsDelaySecs') is not None:
+            self.sms_delay_secs = m.get('SmsDelaySecs')
+        if m.get('SmsSendPolicy') is not None:
+            self.sms_send_policy = m.get('SmsSendPolicy')
+        if m.get('AndroidNotificationVivoChannel') is not None:
+            self.android_notification_vivo_channel = m.get('AndroidNotificationVivoChannel')
+        if m.get('AndroidNotificationHuaweiChannel') is not None:
+            self.android_notification_huawei_channel = m.get('AndroidNotificationHuaweiChannel')
+        if m.get('AndroidNotificationNotifyId') is not None:
+            self.android_notification_notify_id = m.get('AndroidNotificationNotifyId')
+        if m.get('iOSNotificationCollapseId') is not None:
+            self.i_osnotification_collapse_id = m.get('iOSNotificationCollapseId')
+        if m.get('AndroidRenderStyle') is not None:
+            self.android_render_style = m.get('AndroidRenderStyle')
+        if m.get('AndroidBigTitle') is not None:
+            self.android_big_title = m.get('AndroidBigTitle')
+        if m.get('AndroidBigBody') is not None:
+            self.android_big_body = m.get('AndroidBigBody')
+        if m.get('AndroidXiaomiBigPictureUrl') is not None:
+            self.android_xiaomi_big_picture_url = m.get('AndroidXiaomiBigPictureUrl')
+        return self
+
+
+class PushResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PushResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PushResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PushResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushMessageToAndroidRequest(TeaModel):
+    def __init__(self, app_key=None, target=None, target_value=None, title=None, body=None, job_key=None):
+        self.app_key = app_key  # type: long
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+        self.title = title  # type: str
+        self.body = body  # type: str
+        self.job_key = job_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushMessageToAndroidRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        return self
+
+
+class PushMessageToAndroidResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushMessageToAndroidResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PushMessageToAndroidResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PushMessageToAndroidResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushMessageToAndroidResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PushMessageToAndroidResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushMessageToiOSRequest(TeaModel):
+    def __init__(self, app_key=None, target=None, target_value=None, title=None, body=None, job_key=None):
+        self.app_key = app_key  # type: long
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+        self.title = title  # type: str
+        self.body = body  # type: str
+        self.job_key = job_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushMessageToiOSRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        return self
+
+
+class PushMessageToiOSResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushMessageToiOSResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PushMessageToiOSResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PushMessageToiOSResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushMessageToiOSResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PushMessageToiOSResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushNoticeToAndroidRequest(TeaModel):
+    def __init__(self, app_key=None, target=None, target_value=None, title=None, body=None, job_key=None,
+                 ext_parameters=None):
+        self.app_key = app_key  # type: long
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+        self.title = title  # type: str
+        self.body = body  # type: str
+        self.job_key = job_key  # type: str
+        self.ext_parameters = ext_parameters  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushNoticeToAndroidRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        if self.ext_parameters is not None:
+            result['ExtParameters'] = self.ext_parameters
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        if m.get('ExtParameters') is not None:
+            self.ext_parameters = m.get('ExtParameters')
+        return self
+
+
+class PushNoticeToAndroidResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushNoticeToAndroidResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PushNoticeToAndroidResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PushNoticeToAndroidResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushNoticeToAndroidResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PushNoticeToAndroidResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PushNoticeToiOSRequest(TeaModel):
+    def __init__(self, app_key=None, target=None, target_value=None, apns_env=None, title=None, body=None,
+                 job_key=None, ext_parameters=None):
+        self.app_key = app_key  # type: long
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+        self.apns_env = apns_env  # type: str
+        self.title = title  # type: str
+        self.body = body  # type: str
+        self.job_key = job_key  # type: str
+        self.ext_parameters = ext_parameters  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushNoticeToiOSRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        if self.apns_env is not None:
+            result['ApnsEnv'] = self.apns_env
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.job_key is not None:
+            result['JobKey'] = self.job_key
+        if self.ext_parameters is not None:
+            result['ExtParameters'] = self.ext_parameters
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        if m.get('ApnsEnv') is not None:
+            self.apns_env = m.get('ApnsEnv')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('JobKey') is not None:
+            self.job_key = m.get('JobKey')
+        if m.get('ExtParameters') is not None:
+            self.ext_parameters = m.get('ExtParameters')
+        return self
+
+
+class PushNoticeToiOSResponseBody(TeaModel):
+    def __init__(self, message_id=None, request_id=None):
+        self.message_id = message_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PushNoticeToiOSResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class PushNoticeToiOSResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: PushNoticeToiOSResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(PushNoticeToiOSResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = PushNoticeToiOSResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryAliasesRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryAliasesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class QueryAliasesResponseBodyAliasInfosAliasInfo(TeaModel):
+    def __init__(self, alias_name=None):
+        self.alias_name = alias_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryAliasesResponseBodyAliasInfosAliasInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        return self
+
+
+class QueryAliasesResponseBodyAliasInfos(TeaModel):
+    def __init__(self, alias_info=None):
+        self.alias_info = alias_info  # type: list[QueryAliasesResponseBodyAliasInfosAliasInfo]
+
+    def validate(self):
+        if self.alias_info:
+            for k in self.alias_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryAliasesResponseBodyAliasInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AliasInfo'] = []
+        if self.alias_info is not None:
+            for k in self.alias_info:
+                result['AliasInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.alias_info = []
+        if m.get('AliasInfo') is not None:
+            for k in m.get('AliasInfo'):
+                temp_model = QueryAliasesResponseBodyAliasInfosAliasInfo()
+                self.alias_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryAliasesResponseBody(TeaModel):
+    def __init__(self, request_id=None, alias_infos=None):
+        self.request_id = request_id  # type: str
+        self.alias_infos = alias_infos  # type: QueryAliasesResponseBodyAliasInfos
+
+    def validate(self):
+        if self.alias_infos:
+            self.alias_infos.validate()
+
+    def to_map(self):
+        _map = super(QueryAliasesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.alias_infos is not None:
+            result['AliasInfos'] = self.alias_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('AliasInfos') is not None:
+            temp_model = QueryAliasesResponseBodyAliasInfos()
+            self.alias_infos = temp_model.from_map(m['AliasInfos'])
+        return self
+
+
+class QueryAliasesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryAliasesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryAliasesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryAliasesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDeviceCountRequest(TeaModel):
+    def __init__(self, app_key=None, target=None, target_value=None):
+        self.app_key = app_key  # type: long
+        self.target = target  # type: str
+        self.target_value = target_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.target_value is not None:
+            result['TargetValue'] = self.target_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('TargetValue') is not None:
+            self.target_value = m.get('TargetValue')
+        return self
+
+
+class QueryDeviceCountResponseBody(TeaModel):
+    def __init__(self, device_count=None, request_id=None):
+        self.device_count = device_count  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_count is not None:
+            result['DeviceCount'] = self.device_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceCount') is not None:
+            self.device_count = m.get('DeviceCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryDeviceCountResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDeviceCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceCountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDeviceInfoRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class QueryDeviceInfoResponseBodyDeviceInfo(TeaModel):
+    def __init__(self, account=None, last_online_time=None, phone_number=None, push_enabled=None, device_type=None,
+                 device_id=None, online=None, tags=None, device_token=None, alias=None):
+        self.account = account  # type: str
+        self.last_online_time = last_online_time  # type: str
+        self.phone_number = phone_number  # type: str
+        self.push_enabled = push_enabled  # type: bool
+        self.device_type = device_type  # type: str
+        self.device_id = device_id  # type: str
+        self.online = online  # type: bool
+        self.tags = tags  # type: str
+        self.device_token = device_token  # type: str
+        self.alias = alias  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceInfoResponseBodyDeviceInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.last_online_time is not None:
+            result['LastOnlineTime'] = self.last_online_time
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.push_enabled is not None:
+            result['PushEnabled'] = self.push_enabled
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.online is not None:
+            result['Online'] = self.online
+        if self.tags is not None:
+            result['Tags'] = self.tags
+        if self.device_token is not None:
+            result['DeviceToken'] = self.device_token
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('LastOnlineTime') is not None:
+            self.last_online_time = m.get('LastOnlineTime')
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PushEnabled') is not None:
+            self.push_enabled = m.get('PushEnabled')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('Online') is not None:
+            self.online = m.get('Online')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
+        if m.get('DeviceToken') is not None:
+            self.device_token = m.get('DeviceToken')
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        return self
+
+
+class QueryDeviceInfoResponseBody(TeaModel):
+    def __init__(self, request_id=None, device_info=None):
+        self.request_id = request_id  # type: str
+        self.device_info = device_info  # type: QueryDeviceInfoResponseBodyDeviceInfo
+
+    def validate(self):
+        if self.device_info:
+            self.device_info.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.device_info is not None:
+            result['DeviceInfo'] = self.device_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('DeviceInfo') is not None:
+            temp_model = QueryDeviceInfoResponseBodyDeviceInfo()
+            self.device_info = temp_model.from_map(m['DeviceInfo'])
+        return self
+
+
+class QueryDeviceInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDeviceInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDevicesByAccountRequest(TeaModel):
+    def __init__(self, app_key=None, account=None):
+        self.app_key = app_key  # type: long
+        self.account = account  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDevicesByAccountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.account is not None:
+            result['Account'] = self.account
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        return self
+
+
+class QueryDevicesByAccountResponseBodyDeviceIds(TeaModel):
+    def __init__(self, device_id=None):
+        self.device_id = device_id  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDevicesByAccountResponseBodyDeviceIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class QueryDevicesByAccountResponseBody(TeaModel):
+    def __init__(self, request_id=None, device_ids=None):
+        self.request_id = request_id  # type: str
+        self.device_ids = device_ids  # type: QueryDevicesByAccountResponseBodyDeviceIds
+
+    def validate(self):
+        if self.device_ids:
+            self.device_ids.validate()
+
+    def to_map(self):
+        _map = super(QueryDevicesByAccountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.device_ids is not None:
+            result['DeviceIds'] = self.device_ids.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('DeviceIds') is not None:
+            temp_model = QueryDevicesByAccountResponseBodyDeviceIds()
+            self.device_ids = temp_model.from_map(m['DeviceIds'])
+        return self
+
+
+class QueryDevicesByAccountResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDevicesByAccountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDevicesByAccountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDevicesByAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDevicesByAliasRequest(TeaModel):
+    def __init__(self, app_key=None, alias=None):
+        self.app_key = app_key  # type: long
+        self.alias = alias  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDevicesByAliasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        return self
+
+
+class QueryDevicesByAliasResponseBodyDeviceIds(TeaModel):
+    def __init__(self, device_id=None):
+        self.device_id = device_id  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDevicesByAliasResponseBodyDeviceIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class QueryDevicesByAliasResponseBody(TeaModel):
+    def __init__(self, request_id=None, device_ids=None):
+        self.request_id = request_id  # type: str
+        self.device_ids = device_ids  # type: QueryDevicesByAliasResponseBodyDeviceIds
+
+    def validate(self):
+        if self.device_ids:
+            self.device_ids.validate()
+
+    def to_map(self):
+        _map = super(QueryDevicesByAliasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.device_ids is not None:
+            result['DeviceIds'] = self.device_ids.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('DeviceIds') is not None:
+            temp_model = QueryDevicesByAliasResponseBodyDeviceIds()
+            self.device_ids = temp_model.from_map(m['DeviceIds'])
+        return self
+
+
+class QueryDevicesByAliasResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDevicesByAliasResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDevicesByAliasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDevicesByAliasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryDeviceStatRequest(TeaModel):
+    def __init__(self, app_key=None, start_time=None, end_time=None, device_type=None, query_type=None):
+        self.app_key = app_key  # type: long
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.device_type = device_type  # type: str
+        self.query_type = query_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceStatRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        return self
+
+
+class QueryDeviceStatResponseBodyAppDeviceStatsAppDeviceStat(TeaModel):
+    def __init__(self, time=None, device_type=None, count=None):
+        self.time = time  # type: str
+        self.device_type = device_type  # type: str
+        self.count = count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryDeviceStatResponseBodyAppDeviceStatsAppDeviceStat, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class QueryDeviceStatResponseBodyAppDeviceStats(TeaModel):
+    def __init__(self, app_device_stat=None):
+        self.app_device_stat = app_device_stat  # type: list[QueryDeviceStatResponseBodyAppDeviceStatsAppDeviceStat]
+
+    def validate(self):
+        if self.app_device_stat:
+            for k in self.app_device_stat:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceStatResponseBodyAppDeviceStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AppDeviceStat'] = []
+        if self.app_device_stat is not None:
+            for k in self.app_device_stat:
+                result['AppDeviceStat'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.app_device_stat = []
+        if m.get('AppDeviceStat') is not None:
+            for k in m.get('AppDeviceStat'):
+                temp_model = QueryDeviceStatResponseBodyAppDeviceStatsAppDeviceStat()
+                self.app_device_stat.append(temp_model.from_map(k))
+        return self
+
+
+class QueryDeviceStatResponseBody(TeaModel):
+    def __init__(self, request_id=None, app_device_stats=None):
+        self.request_id = request_id  # type: str
+        self.app_device_stats = app_device_stats  # type: QueryDeviceStatResponseBodyAppDeviceStats
+
+    def validate(self):
+        if self.app_device_stats:
+            self.app_device_stats.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceStatResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.app_device_stats is not None:
+            result['AppDeviceStats'] = self.app_device_stats.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('AppDeviceStats') is not None:
+            temp_model = QueryDeviceStatResponseBodyAppDeviceStats()
+            self.app_device_stats = temp_model.from_map(m['AppDeviceStats'])
+        return self
+
+
+class QueryDeviceStatResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryDeviceStatResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryDeviceStatResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryDeviceStatResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryPushRecordsRequest(TeaModel):
+    def __init__(self, app_key=None, start_time=None, end_time=None, push_type=None, target=None, source=None,
+                 keyword=None, next_token=None, page_size=None, page=None):
+        self.app_key = app_key  # type: long
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.push_type = push_type  # type: str
+        self.target = target  # type: str
+        self.source = source  # type: str
+        self.keyword = keyword  # type: str
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+        self.page = page  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.push_type is not None:
+            result['PushType'] = self.push_type
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.page is not None:
+            result['Page'] = self.page
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('PushType') is not None:
+            self.push_type = m.get('PushType')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        return self
+
+
+class QueryPushRecordsResponseBodyPushInfosPushInfo(TeaModel):
+    def __init__(self, status=None, message_id=None, app_key=None, device_type=None, push_type=None, body=None,
+                 title=None, source=None, push_time=None, target=None):
+        self.status = status  # type: str
+        self.message_id = message_id  # type: str
+        self.app_key = app_key  # type: long
+        self.device_type = device_type  # type: str
+        self.push_type = push_type  # type: str
+        self.body = body  # type: str
+        self.title = title  # type: str
+        self.source = source  # type: str
+        self.push_time = push_time  # type: str
+        self.target = target  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushRecordsResponseBodyPushInfosPushInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_type is not None:
+            result['DeviceType'] = self.device_type
+        if self.push_type is not None:
+            result['PushType'] = self.push_type
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.push_time is not None:
+            result['PushTime'] = self.push_time
+        if self.target is not None:
+            result['Target'] = self.target
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceType') is not None:
+            self.device_type = m.get('DeviceType')
+        if m.get('PushType') is not None:
+            self.push_type = m.get('PushType')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('PushTime') is not None:
+            self.push_time = m.get('PushTime')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        return self
+
+
+class QueryPushRecordsResponseBodyPushInfos(TeaModel):
+    def __init__(self, push_info=None):
+        self.push_info = push_info  # type: list[QueryPushRecordsResponseBodyPushInfosPushInfo]
+
+    def validate(self):
+        if self.push_info:
+            for k in self.push_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryPushRecordsResponseBodyPushInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PushInfo'] = []
+        if self.push_info is not None:
+            for k in self.push_info:
+                result['PushInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.push_info = []
+        if m.get('PushInfo') is not None:
+            for k in m.get('PushInfo'):
+                temp_model = QueryPushRecordsResponseBodyPushInfosPushInfo()
+                self.push_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPushRecordsResponseBody(TeaModel):
+    def __init__(self, next_token=None, page_size=None, request_id=None, total=None, page=None, push_infos=None):
+        self.next_token = next_token  # type: str
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total = total  # type: int
+        self.page = page  # type: int
+        self.push_infos = push_infos  # type: QueryPushRecordsResponseBodyPushInfos
+
+    def validate(self):
+        if self.push_infos:
+            self.push_infos.validate()
+
+    def to_map(self):
+        _map = super(QueryPushRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total is not None:
+            result['Total'] = self.total
+        if self.page is not None:
+            result['Page'] = self.page
+        if self.push_infos is not None:
+            result['PushInfos'] = self.push_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        if m.get('Page') is not None:
+            self.page = m.get('Page')
+        if m.get('PushInfos') is not None:
+            temp_model = QueryPushRecordsResponseBodyPushInfos()
+            self.push_infos = temp_model.from_map(m['PushInfos'])
+        return self
+
+
+class QueryPushRecordsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryPushRecordsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryPushRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryPushRecordsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryPushStatByAppRequest(TeaModel):
+    def __init__(self, app_key=None, start_time=None, end_time=None, granularity=None):
+        self.app_key = app_key  # type: long
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.granularity = granularity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushStatByAppRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.granularity is not None:
+            result['Granularity'] = self.granularity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Granularity') is not None:
+            self.granularity = m.get('Granularity')
+        return self
+
+
+class QueryPushStatByAppResponseBodyAppPushStatsAppPushStat(TeaModel):
+    def __init__(self, time=None, deleted_count=None, opened_count=None, sms_receive_success_count=None,
+                 sms_skip_count=None, sms_receive_failed_count=None, sms_failed_count=None, received_count=None, sent_count=None,
+                 sms_sent_count=None, accept_count=None):
+        self.time = time  # type: str
+        self.deleted_count = deleted_count  # type: long
+        self.opened_count = opened_count  # type: long
+        self.sms_receive_success_count = sms_receive_success_count  # type: long
+        self.sms_skip_count = sms_skip_count  # type: long
+        self.sms_receive_failed_count = sms_receive_failed_count  # type: long
+        self.sms_failed_count = sms_failed_count  # type: long
+        self.received_count = received_count  # type: long
+        self.sent_count = sent_count  # type: long
+        self.sms_sent_count = sms_sent_count  # type: long
+        self.accept_count = accept_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushStatByAppResponseBodyAppPushStatsAppPushStat, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.deleted_count is not None:
+            result['DeletedCount'] = self.deleted_count
+        if self.opened_count is not None:
+            result['OpenedCount'] = self.opened_count
+        if self.sms_receive_success_count is not None:
+            result['SmsReceiveSuccessCount'] = self.sms_receive_success_count
+        if self.sms_skip_count is not None:
+            result['SmsSkipCount'] = self.sms_skip_count
+        if self.sms_receive_failed_count is not None:
+            result['SmsReceiveFailedCount'] = self.sms_receive_failed_count
+        if self.sms_failed_count is not None:
+            result['SmsFailedCount'] = self.sms_failed_count
+        if self.received_count is not None:
+            result['ReceivedCount'] = self.received_count
+        if self.sent_count is not None:
+            result['SentCount'] = self.sent_count
+        if self.sms_sent_count is not None:
+            result['SmsSentCount'] = self.sms_sent_count
+        if self.accept_count is not None:
+            result['AcceptCount'] = self.accept_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('DeletedCount') is not None:
+            self.deleted_count = m.get('DeletedCount')
+        if m.get('OpenedCount') is not None:
+            self.opened_count = m.get('OpenedCount')
+        if m.get('SmsReceiveSuccessCount') is not None:
+            self.sms_receive_success_count = m.get('SmsReceiveSuccessCount')
+        if m.get('SmsSkipCount') is not None:
+            self.sms_skip_count = m.get('SmsSkipCount')
+        if m.get('SmsReceiveFailedCount') is not None:
+            self.sms_receive_failed_count = m.get('SmsReceiveFailedCount')
+        if m.get('SmsFailedCount') is not None:
+            self.sms_failed_count = m.get('SmsFailedCount')
+        if m.get('ReceivedCount') is not None:
+            self.received_count = m.get('ReceivedCount')
+        if m.get('SentCount') is not None:
+            self.sent_count = m.get('SentCount')
+        if m.get('SmsSentCount') is not None:
+            self.sms_sent_count = m.get('SmsSentCount')
+        if m.get('AcceptCount') is not None:
+            self.accept_count = m.get('AcceptCount')
+        return self
+
+
+class QueryPushStatByAppResponseBodyAppPushStats(TeaModel):
+    def __init__(self, app_push_stat=None):
+        self.app_push_stat = app_push_stat  # type: list[QueryPushStatByAppResponseBodyAppPushStatsAppPushStat]
+
+    def validate(self):
+        if self.app_push_stat:
+            for k in self.app_push_stat:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByAppResponseBodyAppPushStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AppPushStat'] = []
+        if self.app_push_stat is not None:
+            for k in self.app_push_stat:
+                result['AppPushStat'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.app_push_stat = []
+        if m.get('AppPushStat') is not None:
+            for k in m.get('AppPushStat'):
+                temp_model = QueryPushStatByAppResponseBodyAppPushStatsAppPushStat()
+                self.app_push_stat.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPushStatByAppResponseBody(TeaModel):
+    def __init__(self, request_id=None, app_push_stats=None):
+        self.request_id = request_id  # type: str
+        self.app_push_stats = app_push_stats  # type: QueryPushStatByAppResponseBodyAppPushStats
+
+    def validate(self):
+        if self.app_push_stats:
+            self.app_push_stats.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByAppResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.app_push_stats is not None:
+            result['AppPushStats'] = self.app_push_stats.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('AppPushStats') is not None:
+            temp_model = QueryPushStatByAppResponseBodyAppPushStats()
+            self.app_push_stats = temp_model.from_map(m['AppPushStats'])
+        return self
+
+
+class QueryPushStatByAppResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryPushStatByAppResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByAppResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryPushStatByAppResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryPushStatByMsgRequest(TeaModel):
+    def __init__(self, app_key=None, message_id=None):
+        self.app_key = app_key  # type: long
+        self.message_id = message_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushStatByMsgRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        return self
+
+
+class QueryPushStatByMsgResponseBodyPushStatsPushStat(TeaModel):
+    def __init__(self, message_id=None, deleted_count=None, opened_count=None, sms_receive_success_count=None,
+                 sms_skip_count=None, sms_receive_failed_count=None, sms_failed_count=None, received_count=None, sent_count=None,
+                 sms_sent_count=None, accept_count=None):
+        self.message_id = message_id  # type: str
+        self.deleted_count = deleted_count  # type: long
+        self.opened_count = opened_count  # type: long
+        self.sms_receive_success_count = sms_receive_success_count  # type: long
+        self.sms_skip_count = sms_skip_count  # type: long
+        self.sms_receive_failed_count = sms_receive_failed_count  # type: long
+        self.sms_failed_count = sms_failed_count  # type: long
+        self.received_count = received_count  # type: long
+        self.sent_count = sent_count  # type: long
+        self.sms_sent_count = sms_sent_count  # type: long
+        self.accept_count = accept_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryPushStatByMsgResponseBodyPushStatsPushStat, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        if self.deleted_count is not None:
+            result['DeletedCount'] = self.deleted_count
+        if self.opened_count is not None:
+            result['OpenedCount'] = self.opened_count
+        if self.sms_receive_success_count is not None:
+            result['SmsReceiveSuccessCount'] = self.sms_receive_success_count
+        if self.sms_skip_count is not None:
+            result['SmsSkipCount'] = self.sms_skip_count
+        if self.sms_receive_failed_count is not None:
+            result['SmsReceiveFailedCount'] = self.sms_receive_failed_count
+        if self.sms_failed_count is not None:
+            result['SmsFailedCount'] = self.sms_failed_count
+        if self.received_count is not None:
+            result['ReceivedCount'] = self.received_count
+        if self.sent_count is not None:
+            result['SentCount'] = self.sent_count
+        if self.sms_sent_count is not None:
+            result['SmsSentCount'] = self.sms_sent_count
+        if self.accept_count is not None:
+            result['AcceptCount'] = self.accept_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        if m.get('DeletedCount') is not None:
+            self.deleted_count = m.get('DeletedCount')
+        if m.get('OpenedCount') is not None:
+            self.opened_count = m.get('OpenedCount')
+        if m.get('SmsReceiveSuccessCount') is not None:
+            self.sms_receive_success_count = m.get('SmsReceiveSuccessCount')
+        if m.get('SmsSkipCount') is not None:
+            self.sms_skip_count = m.get('SmsSkipCount')
+        if m.get('SmsReceiveFailedCount') is not None:
+            self.sms_receive_failed_count = m.get('SmsReceiveFailedCount')
+        if m.get('SmsFailedCount') is not None:
+            self.sms_failed_count = m.get('SmsFailedCount')
+        if m.get('ReceivedCount') is not None:
+            self.received_count = m.get('ReceivedCount')
+        if m.get('SentCount') is not None:
+            self.sent_count = m.get('SentCount')
+        if m.get('SmsSentCount') is not None:
+            self.sms_sent_count = m.get('SmsSentCount')
+        if m.get('AcceptCount') is not None:
+            self.accept_count = m.get('AcceptCount')
+        return self
+
+
+class QueryPushStatByMsgResponseBodyPushStats(TeaModel):
+    def __init__(self, push_stat=None):
+        self.push_stat = push_stat  # type: list[QueryPushStatByMsgResponseBodyPushStatsPushStat]
+
+    def validate(self):
+        if self.push_stat:
+            for k in self.push_stat:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByMsgResponseBodyPushStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PushStat'] = []
+        if self.push_stat is not None:
+            for k in self.push_stat:
+                result['PushStat'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.push_stat = []
+        if m.get('PushStat') is not None:
+            for k in m.get('PushStat'):
+                temp_model = QueryPushStatByMsgResponseBodyPushStatsPushStat()
+                self.push_stat.append(temp_model.from_map(k))
+        return self
+
+
+class QueryPushStatByMsgResponseBody(TeaModel):
+    def __init__(self, request_id=None, push_stats=None):
+        self.request_id = request_id  # type: str
+        self.push_stats = push_stats  # type: QueryPushStatByMsgResponseBodyPushStats
+
+    def validate(self):
+        if self.push_stats:
+            self.push_stats.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByMsgResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.push_stats is not None:
+            result['PushStats'] = self.push_stats.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('PushStats') is not None:
+            temp_model = QueryPushStatByMsgResponseBodyPushStats()
+            self.push_stats = temp_model.from_map(m['PushStats'])
+        return self
+
+
+class QueryPushStatByMsgResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryPushStatByMsgResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryPushStatByMsgResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryPushStatByMsgResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryTagsRequest(TeaModel):
+    def __init__(self, app_key=None, client_key=None, key_type=None):
+        self.app_key = app_key  # type: long
+        self.client_key = client_key  # type: str
+        self.key_type = key_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryTagsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.client_key is not None:
+            result['ClientKey'] = self.client_key
+        if self.key_type is not None:
+            result['KeyType'] = self.key_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('ClientKey') is not None:
+            self.client_key = m.get('ClientKey')
+        if m.get('KeyType') is not None:
+            self.key_type = m.get('KeyType')
+        return self
+
+
+class QueryTagsResponseBodyTagInfosTagInfo(TeaModel):
+    def __init__(self, tag_name=None):
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryTagsResponseBodyTagInfosTagInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class QueryTagsResponseBodyTagInfos(TeaModel):
+    def __init__(self, tag_info=None):
+        self.tag_info = tag_info  # type: list[QueryTagsResponseBodyTagInfosTagInfo]
+
+    def validate(self):
+        if self.tag_info:
+            for k in self.tag_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryTagsResponseBodyTagInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['TagInfo'] = []
+        if self.tag_info is not None:
+            for k in self.tag_info:
+                result['TagInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tag_info = []
+        if m.get('TagInfo') is not None:
+            for k in m.get('TagInfo'):
+                temp_model = QueryTagsResponseBodyTagInfosTagInfo()
+                self.tag_info.append(temp_model.from_map(k))
+        return self
+
+
+class QueryTagsResponseBody(TeaModel):
+    def __init__(self, request_id=None, tag_infos=None):
+        self.request_id = request_id  # type: str
+        self.tag_infos = tag_infos  # type: QueryTagsResponseBodyTagInfos
+
+    def validate(self):
+        if self.tag_infos:
+            self.tag_infos.validate()
+
+    def to_map(self):
+        _map = super(QueryTagsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.tag_infos is not None:
+            result['TagInfos'] = self.tag_infos.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TagInfos') is not None:
+            temp_model = QueryTagsResponseBodyTagInfos()
+            self.tag_infos = temp_model.from_map(m['TagInfos'])
+        return self
+
+
+class QueryTagsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryTagsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryTagsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryTagsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryUniqueDeviceStatRequest(TeaModel):
+    def __init__(self, app_key=None, start_time=None, end_time=None, granularity=None):
+        self.app_key = app_key  # type: long
+        self.start_time = start_time  # type: str
+        self.end_time = end_time  # type: str
+        self.granularity = granularity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryUniqueDeviceStatRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.granularity is not None:
+            result['Granularity'] = self.granularity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Granularity') is not None:
+            self.granularity = m.get('Granularity')
+        return self
+
+
+class QueryUniqueDeviceStatResponseBodyAppDeviceStatsAppDeviceStat(TeaModel):
+    def __init__(self, time=None, count=None):
+        self.time = time  # type: str
+        self.count = count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryUniqueDeviceStatResponseBodyAppDeviceStatsAppDeviceStat, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class QueryUniqueDeviceStatResponseBodyAppDeviceStats(TeaModel):
+    def __init__(self, app_device_stat=None):
+        self.app_device_stat = app_device_stat  # type: list[QueryUniqueDeviceStatResponseBodyAppDeviceStatsAppDeviceStat]
+
+    def validate(self):
+        if self.app_device_stat:
+            for k in self.app_device_stat:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryUniqueDeviceStatResponseBodyAppDeviceStats, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AppDeviceStat'] = []
+        if self.app_device_stat is not None:
+            for k in self.app_device_stat:
+                result['AppDeviceStat'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.app_device_stat = []
+        if m.get('AppDeviceStat') is not None:
+            for k in m.get('AppDeviceStat'):
+                temp_model = QueryUniqueDeviceStatResponseBodyAppDeviceStatsAppDeviceStat()
+                self.app_device_stat.append(temp_model.from_map(k))
+        return self
+
+
+class QueryUniqueDeviceStatResponseBody(TeaModel):
+    def __init__(self, request_id=None, app_device_stats=None):
+        self.request_id = request_id  # type: str
+        self.app_device_stats = app_device_stats  # type: QueryUniqueDeviceStatResponseBodyAppDeviceStats
+
+    def validate(self):
+        if self.app_device_stats:
+            self.app_device_stats.validate()
+
+    def to_map(self):
+        _map = super(QueryUniqueDeviceStatResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.app_device_stats is not None:
+            result['AppDeviceStats'] = self.app_device_stats.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('AppDeviceStats') is not None:
+            temp_model = QueryUniqueDeviceStatResponseBodyAppDeviceStats()
+            self.app_device_stats = temp_model.from_map(m['AppDeviceStats'])
+        return self
+
+
+class QueryUniqueDeviceStatResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryUniqueDeviceStatResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryUniqueDeviceStatResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryUniqueDeviceStatResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RemoveTagRequest(TeaModel):
+    def __init__(self, app_key=None, tag_name=None):
+        self.app_key = app_key  # type: long
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveTagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class RemoveTagResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RemoveTagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RemoveTagResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RemoveTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RemoveTagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RemoveTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UnbindAliasRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None, alias_name=None, unbind_all=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+        self.alias_name = alias_name  # type: str
+        self.unbind_all = unbind_all  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindAliasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.unbind_all is not None:
+            result['UnbindAll'] = self.unbind_all
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('UnbindAll') is not None:
+            self.unbind_all = m.get('UnbindAll')
+        return self
+
+
+class UnbindAliasResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindAliasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnbindAliasResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UnbindAliasResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindAliasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UnbindAliasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UnbindPhoneRequest(TeaModel):
+    def __init__(self, app_key=None, device_id=None):
+        self.app_key = app_key  # type: long
+        self.device_id = device_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindPhoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        return self
+
+
+class UnbindPhoneResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindPhoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnbindPhoneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UnbindPhoneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindPhoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UnbindPhoneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UnbindTagRequest(TeaModel):
+    def __init__(self, app_key=None, client_key=None, key_type=None, tag_name=None):
+        self.app_key = app_key  # type: long
+        self.client_key = client_key  # type: str
+        self.key_type = key_type  # type: str
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindTagRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.client_key is not None:
+            result['ClientKey'] = self.client_key
+        if self.key_type is not None:
+            result['KeyType'] = self.key_type
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('ClientKey') is not None:
+            self.client_key = m.get('ClientKey')
+        if m.get('KeyType') is not None:
+            self.key_type = m.get('KeyType')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class UnbindTagResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UnbindTagResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UnbindTagResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UnbindTagResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UnbindTagResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UnbindTagResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
