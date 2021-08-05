@@ -30,6 +30,20 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def verify_domain_owner_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.VerifyDomainOwnerResponse(),
+            self.do_rpcrequest('VerifyDomainOwner', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def verify_domain_owner(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.verify_domain_owner_with_options(request, runtime)
+
     def create_live_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -279,6 +293,48 @@ class Client(OpenApiClient):
     def get_live_domain_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_live_domain_status_with_options(request, runtime)
+
+    def send_custom_message_to_all_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.SendCustomMessageToAllResponse(),
+            self.do_rpcrequest('SendCustomMessageToAll', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def send_custom_message_to_all(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_custom_message_to_all_with_options(request, runtime)
+
+    def get_domain_owner_verify_content_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetDomainOwnerVerifyContentResponse(),
+            self.do_rpcrequest('GetDomainOwnerVerifyContent', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_domain_owner_verify_content(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_domain_owner_verify_content_with_options(request, runtime)
+
+    def send_custom_message_to_users_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.SendCustomMessageToUsersResponse(),
+            self.do_rpcrequest('SendCustomMessageToUsers', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def send_custom_message_to_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_custom_message_to_users_with_options(request, runtime)
 
     def get_auth_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
