@@ -156,6 +156,24 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_room_with_options(request, runtime)
 
+    def send_comment_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imp_20210630_models.SendCommentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.SendCommentResponse(),
+            self.do_rpcrequest('SendComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def send_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.send_comment_with_options(request, runtime)
+
     def create_app_template_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = imp_20210630_models.CreateAppTemplateShrinkRequest()
@@ -187,6 +205,20 @@ class Client(OpenApiClient):
     def get_conference(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_conference_with_options(request, runtime)
+
+    def ban_comment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.BanCommentResponse(),
+            self.do_rpcrequest('BanComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def ban_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ban_comment_with_options(request, runtime)
 
     def reject_link_mic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -230,6 +262,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_member_with_options(request, runtime)
 
+    def cancel_ban_all_comment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.CancelBanAllCommentResponse(),
+            self.do_rpcrequest('CancelBanAllComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def cancel_ban_all_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_ban_all_comment_with_options(request, runtime)
+
     def list_rooms_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -271,6 +317,20 @@ class Client(OpenApiClient):
     def list_conference_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_conference_users_with_options(request, runtime)
+
+    def cancel_ban_comment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.CancelBanCommentResponse(),
+            self.do_rpcrequest('CancelBanComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def cancel_ban_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_ban_comment_with_options(request, runtime)
 
     def list_app_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -489,6 +549,20 @@ class Client(OpenApiClient):
     def send_custom_message_to_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.send_custom_message_to_users_with_options(request, runtime)
+
+    def ban_all_comment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.BanAllCommentResponse(),
+            self.do_rpcrequest('BanAllComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def ban_all_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ban_all_comment_with_options(request, runtime)
 
     def get_auth_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
