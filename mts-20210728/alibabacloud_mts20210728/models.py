@@ -1318,8 +1318,8 @@ class SubmitTraceAbResponse(TeaModel):
 
 
 class SubmitCopyrightJobRequest(TeaModel):
-    def __init__(self, call_back=None, description=None, input=None, level=None, message=None, output=None,
-                 user_data=None):
+    def __init__(self, call_back=None, description=None, input=None, level=None, message=None, start_time=None,
+                 total_time=None, output=None, user_data=None):
         # 任务结果回调url
         self.call_back = call_back  # type: str
         # 水印信息描述
@@ -1330,6 +1330,10 @@ class SubmitCopyrightJobRequest(TeaModel):
         self.level = level  # type: long
         # 水印信息
         self.message = message  # type: str
+        # 水印起始时间(单位是秒)，不填写默认为0
+        self.start_time = start_time  # type: long
+        # 水印结束时间(单位是秒)，不填默认为60000
+        self.total_time = total_time  # type: long
         # 输出的视频，oss三元组
         self.output = output  # type: str
         # 用户自定义数据
@@ -1354,6 +1358,10 @@ class SubmitCopyrightJobRequest(TeaModel):
             result['Level'] = self.level
         if self.message is not None:
             result['Message'] = self.message
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.total_time is not None:
+            result['TotalTime'] = self.total_time
         if self.output is not None:
             result['Output'] = self.output
         if self.user_data is not None:
@@ -1372,6 +1380,10 @@ class SubmitCopyrightJobRequest(TeaModel):
             self.level = m.get('Level')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TotalTime') is not None:
+            self.total_time = m.get('TotalTime')
         if m.get('Output') is not None:
             self.output = m.get('Output')
         if m.get('UserData') is not None:
