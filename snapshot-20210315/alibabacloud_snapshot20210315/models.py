@@ -42,7 +42,7 @@ class GetSnapshotInfoRequest(TeaModel):
 
 class GetSnapshotInfoResponseBody(TeaModel):
     def __init__(self, volume_size=None, block_size=None, block_count=None, valid_block_count=None, status=None,
-                 create_time=None, encrypted=None):
+                 create_time=None, encrypted=None, format=None):
         # 快照大小，单位 GB，最小 1GB
         self.volume_size = volume_size  # type: long
         # 快照数据快大小，单位 Bytes
@@ -57,6 +57,8 @@ class GetSnapshotInfoResponseBody(TeaModel):
         self.create_time = create_time  # type: long
         # 快照是否为加密快照
         self.encrypted = encrypted  # type: bool
+        # 快照格式。"FORMAT_VHD", "FORMAT_RAW", "FORMAT_INVALID"
+        self.format = format  # type: str
 
     def validate(self):
         pass
@@ -81,6 +83,8 @@ class GetSnapshotInfoResponseBody(TeaModel):
             result['CreateTime'] = self.create_time
         if self.encrypted is not None:
             result['Encrypted'] = self.encrypted
+        if self.format is not None:
+            result['Format'] = self.format
         return result
 
     def from_map(self, m=None):
@@ -99,6 +103,8 @@ class GetSnapshotInfoResponseBody(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Encrypted') is not None:
             self.encrypted = m.get('Encrypted')
+        if m.get('Format') is not None:
+            self.format = m.get('Format')
         return self
 
 
