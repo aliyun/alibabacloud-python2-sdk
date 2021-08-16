@@ -100,8 +100,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_apply_link_mic_users_with_options(request, runtime)
 
-    def list_room_lives_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def list_room_lives_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imp_20210630_models.ListRoomLivesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.room_id_list):
+            request.room_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.room_id_list, 'RoomIdList', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )

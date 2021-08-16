@@ -575,7 +575,7 @@ class ListApplyLinkMicUsersResponse(TeaModel):
 
 
 class ListRoomLivesRequest(TeaModel):
-    def __init__(self, app_id=None, room_id=None, status=None, query_timestamp=None, size=None):
+    def __init__(self, app_id=None, room_id=None, status=None, query_timestamp=None, size=None, room_id_list=None):
         # 应用唯一标识，可以包含小写字母、数字，长度为6个字符。
         self.app_id = app_id  # type: str
         # 房间ID，最大长度36个字符。
@@ -586,6 +586,8 @@ class ListRoomLivesRequest(TeaModel):
         self.query_timestamp = query_timestamp  # type: long
         # 拉取直播数量。
         self.size = size  # type: int
+        # 房间ID列表，可指定多个房间id，过滤优先级高于RoomId。
+        self.room_id_list = room_id_list  # type: list[str]
 
     def validate(self):
         pass
@@ -606,6 +608,8 @@ class ListRoomLivesRequest(TeaModel):
             result['QueryTimestamp'] = self.query_timestamp
         if self.size is not None:
             result['Size'] = self.size
+        if self.room_id_list is not None:
+            result['RoomIdList'] = self.room_id_list
         return result
 
     def from_map(self, m=None):
@@ -620,6 +624,64 @@ class ListRoomLivesRequest(TeaModel):
             self.query_timestamp = m.get('QueryTimestamp')
         if m.get('Size') is not None:
             self.size = m.get('Size')
+        if m.get('RoomIdList') is not None:
+            self.room_id_list = m.get('RoomIdList')
+        return self
+
+
+class ListRoomLivesShrinkRequest(TeaModel):
+    def __init__(self, app_id=None, room_id=None, status=None, query_timestamp=None, size=None,
+                 room_id_list_shrink=None):
+        # 应用唯一标识，可以包含小写字母、数字，长度为6个字符。
+        self.app_id = app_id  # type: str
+        # 房间ID，最大长度36个字符。
+        self.room_id = room_id  # type: str
+        # 直播状态筛选条件，0-直播 1-下播，不传则返回全部状态
+        self.status = status  # type: int
+        # 拉取在这个时间戳之前创建的直播，单位毫秒，不传则默认拉取最新创建的。
+        self.query_timestamp = query_timestamp  # type: long
+        # 拉取直播数量。
+        self.size = size  # type: int
+        # 房间ID列表，可指定多个房间id，过滤优先级高于RoomId。
+        self.room_id_list_shrink = room_id_list_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListRoomLivesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.room_id is not None:
+            result['RoomId'] = self.room_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.query_timestamp is not None:
+            result['QueryTimestamp'] = self.query_timestamp
+        if self.size is not None:
+            result['Size'] = self.size
+        if self.room_id_list_shrink is not None:
+            result['RoomIdList'] = self.room_id_list_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('RoomId') is not None:
+            self.room_id = m.get('RoomId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('QueryTimestamp') is not None:
+            self.query_timestamp = m.get('QueryTimestamp')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        if m.get('RoomIdList') is not None:
+            self.room_id_list_shrink = m.get('RoomIdList')
         return self
 
 
@@ -1621,9 +1683,11 @@ class SendCommentResponse(TeaModel):
 
 
 class CreateAppTemplateRequest(TeaModel):
-    def __init__(self, app_template_name=None, component_list=None):
+    def __init__(self, app_template_name=None, sence=None, component_list=None):
         # 应用模板名称
         self.app_template_name = app_template_name  # type: str
+        # 应用模板场景，电商business，课堂classroom
+        self.sence = sence  # type: str
         # 组件列表
         self.component_list = component_list  # type: list[str]
 
@@ -1638,6 +1702,8 @@ class CreateAppTemplateRequest(TeaModel):
         result = dict()
         if self.app_template_name is not None:
             result['AppTemplateName'] = self.app_template_name
+        if self.sence is not None:
+            result['Sence'] = self.sence
         if self.component_list is not None:
             result['ComponentList'] = self.component_list
         return result
@@ -1646,15 +1712,19 @@ class CreateAppTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('AppTemplateName') is not None:
             self.app_template_name = m.get('AppTemplateName')
+        if m.get('Sence') is not None:
+            self.sence = m.get('Sence')
         if m.get('ComponentList') is not None:
             self.component_list = m.get('ComponentList')
         return self
 
 
 class CreateAppTemplateShrinkRequest(TeaModel):
-    def __init__(self, app_template_name=None, component_list_shrink=None):
+    def __init__(self, app_template_name=None, sence=None, component_list_shrink=None):
         # 应用模板名称
         self.app_template_name = app_template_name  # type: str
+        # 应用模板场景，电商business，课堂classroom
+        self.sence = sence  # type: str
         # 组件列表
         self.component_list_shrink = component_list_shrink  # type: str
 
@@ -1669,6 +1739,8 @@ class CreateAppTemplateShrinkRequest(TeaModel):
         result = dict()
         if self.app_template_name is not None:
             result['AppTemplateName'] = self.app_template_name
+        if self.sence is not None:
+            result['Sence'] = self.sence
         if self.component_list_shrink is not None:
             result['ComponentList'] = self.component_list_shrink
         return result
@@ -1677,6 +1749,8 @@ class CreateAppTemplateShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('AppTemplateName') is not None:
             self.app_template_name = m.get('AppTemplateName')
+        if m.get('Sence') is not None:
+            self.sence = m.get('Sence')
         if m.get('ComponentList') is not None:
             self.component_list_shrink = m.get('ComponentList')
         return self
@@ -3486,6 +3560,155 @@ class ListComponentsRequest(TeaModel):
         return self
 
 
+class ListComponentsResponseBodyResultConfigGroup(TeaModel):
+    def __init__(self, key=None, value=None, category=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+        self.category = category  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBodyResultConfigGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        if self.category is not None:
+            result['Category'] = self.category
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        return self
+
+
+class ListComponentsResponseBodyResultSceneListComponentCategoryList(TeaModel):
+    def __init__(self, component_type=None, component_name=None, in_use=None):
+        # 组件类型
+        self.component_type = component_type  # type: str
+        # 组件名称
+        self.component_name = component_name  # type: str
+        # 是否使用
+        self.in_use = in_use  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBodyResultSceneListComponentCategoryList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.component_type is not None:
+            result['ComponentType'] = self.component_type
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.in_use is not None:
+            result['InUse'] = self.in_use
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ComponentType') is not None:
+            self.component_type = m.get('ComponentType')
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('InUse') is not None:
+            self.in_use = m.get('InUse')
+        return self
+
+
+class ListComponentsResponseBodyResultSceneListComponentCategory(TeaModel):
+    def __init__(self, type=None, list=None):
+        # 组件类别
+        self.type = type  # type: str
+        # 类别下的组件列表
+        self.list = list  # type: list[ListComponentsResponseBodyResultSceneListComponentCategoryList]
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBodyResultSceneListComponentCategory, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['Type'] = self.type
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = ListComponentsResponseBodyResultSceneListComponentCategoryList()
+                self.list.append(temp_model.from_map(k))
+        return self
+
+
+class ListComponentsResponseBodyResultSceneList(TeaModel):
+    def __init__(self, scene=None, component_category=None):
+        # 场景类别
+        self.scene = scene  # type: str
+        # 组件信息
+        self.component_category = component_category  # type: list[ListComponentsResponseBodyResultSceneListComponentCategory]
+
+    def validate(self):
+        if self.component_category:
+            for k in self.component_category:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentsResponseBodyResultSceneList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        result['ComponentCategory'] = []
+        if self.component_category is not None:
+            for k in self.component_category:
+                result['ComponentCategory'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        self.component_category = []
+        if m.get('ComponentCategory') is not None:
+            for k in m.get('ComponentCategory'):
+                temp_model = ListComponentsResponseBodyResultSceneListComponentCategory()
+                self.component_category.append(temp_model.from_map(k))
+        return self
+
+
 class ListComponentsResponseBodyResultComponentCategoryList(TeaModel):
     def __init__(self, component_type=None, component_name=None, in_use=None):
         # 组件类型
@@ -3562,54 +3785,26 @@ class ListComponentsResponseBodyResultComponentCategory(TeaModel):
         return self
 
 
-class ListComponentsResponseBodyResultConfigGroup(TeaModel):
-    def __init__(self, key=None, value=None, category=None):
-        self.key = key  # type: str
-        self.value = value  # type: str
-        self.category = category  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListComponentsResponseBodyResultConfigGroup, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.key is not None:
-            result['Key'] = self.key
-        if self.value is not None:
-            result['Value'] = self.value
-        if self.category is not None:
-            result['Category'] = self.category
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Key') is not None:
-            self.key = m.get('Key')
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
-        if m.get('Category') is not None:
-            self.category = m.get('Category')
-        return self
-
-
 class ListComponentsResponseBodyResult(TeaModel):
-    def __init__(self, component_category=None, config_group=None):
-        # 组件信息
-        self.component_category = component_category  # type: list[ListComponentsResponseBodyResultComponentCategory]
+    def __init__(self, config_group=None, scene_list=None, component_category=None):
         # 配置信息
         self.config_group = config_group  # type: list[ListComponentsResponseBodyResultConfigGroup]
+        # 场景列表
+        self.scene_list = scene_list  # type: list[ListComponentsResponseBodyResultSceneList]
+        # 组件信息
+        self.component_category = component_category  # type: list[ListComponentsResponseBodyResultComponentCategory]
 
     def validate(self):
-        if self.component_category:
-            for k in self.component_category:
-                if k:
-                    k.validate()
         if self.config_group:
             for k in self.config_group:
+                if k:
+                    k.validate()
+        if self.scene_list:
+            for k in self.scene_list:
+                if k:
+                    k.validate()
+        if self.component_category:
+            for k in self.component_category:
                 if k:
                     k.validate()
 
@@ -3619,28 +3814,37 @@ class ListComponentsResponseBodyResult(TeaModel):
             return _map
 
         result = dict()
-        result['ComponentCategory'] = []
-        if self.component_category is not None:
-            for k in self.component_category:
-                result['ComponentCategory'].append(k.to_map() if k else None)
         result['ConfigGroup'] = []
         if self.config_group is not None:
             for k in self.config_group:
                 result['ConfigGroup'].append(k.to_map() if k else None)
+        result['SceneList'] = []
+        if self.scene_list is not None:
+            for k in self.scene_list:
+                result['SceneList'].append(k.to_map() if k else None)
+        result['ComponentCategory'] = []
+        if self.component_category is not None:
+            for k in self.component_category:
+                result['ComponentCategory'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        self.component_category = []
-        if m.get('ComponentCategory') is not None:
-            for k in m.get('ComponentCategory'):
-                temp_model = ListComponentsResponseBodyResultComponentCategory()
-                self.component_category.append(temp_model.from_map(k))
         self.config_group = []
         if m.get('ConfigGroup') is not None:
             for k in m.get('ConfigGroup'):
                 temp_model = ListComponentsResponseBodyResultConfigGroup()
                 self.config_group.append(temp_model.from_map(k))
+        self.scene_list = []
+        if m.get('SceneList') is not None:
+            for k in m.get('SceneList'):
+                temp_model = ListComponentsResponseBodyResultSceneList()
+                self.scene_list.append(temp_model.from_map(k))
+        self.component_category = []
+        if m.get('ComponentCategory') is not None:
+            for k in m.get('ComponentCategory'):
+                temp_model = ListComponentsResponseBodyResultComponentCategory()
+                self.component_category.append(temp_model.from_map(k))
         return self
 
 
@@ -4611,11 +4815,13 @@ class DeleteLiveResponse(TeaModel):
 
 
 class GetLiveDomainStatusRequest(TeaModel):
-    def __init__(self, app_id=None, live_domain_list=None):
+    def __init__(self, app_id=None, live_domain_list=None, live_domain_type=None):
         # 应用唯一标识
         self.app_id = app_id  # type: str
         # 直播域名列表
         self.live_domain_list = live_domain_list  # type: list[str]
+        # 直播域名类型，推流域名: push, 拉流域名: pull, 回放域名: palyback
+        self.live_domain_type = live_domain_type  # type: str
 
     def validate(self):
         pass
@@ -4630,6 +4836,8 @@ class GetLiveDomainStatusRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.live_domain_list is not None:
             result['LiveDomainList'] = self.live_domain_list
+        if self.live_domain_type is not None:
+            result['LiveDomainType'] = self.live_domain_type
         return result
 
     def from_map(self, m=None):
@@ -4638,15 +4846,19 @@ class GetLiveDomainStatusRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('LiveDomainList') is not None:
             self.live_domain_list = m.get('LiveDomainList')
+        if m.get('LiveDomainType') is not None:
+            self.live_domain_type = m.get('LiveDomainType')
         return self
 
 
 class GetLiveDomainStatusShrinkRequest(TeaModel):
-    def __init__(self, app_id=None, live_domain_list_shrink=None):
+    def __init__(self, app_id=None, live_domain_list_shrink=None, live_domain_type=None):
         # 应用唯一标识
         self.app_id = app_id  # type: str
         # 直播域名列表
         self.live_domain_list_shrink = live_domain_list_shrink  # type: str
+        # 直播域名类型，推流域名: push, 拉流域名: pull, 回放域名: palyback
+        self.live_domain_type = live_domain_type  # type: str
 
     def validate(self):
         pass
@@ -4661,6 +4873,8 @@ class GetLiveDomainStatusShrinkRequest(TeaModel):
             result['AppId'] = self.app_id
         if self.live_domain_list_shrink is not None:
             result['LiveDomainList'] = self.live_domain_list_shrink
+        if self.live_domain_type is not None:
+            result['LiveDomainType'] = self.live_domain_type
         return result
 
     def from_map(self, m=None):
@@ -4669,6 +4883,8 @@ class GetLiveDomainStatusShrinkRequest(TeaModel):
             self.app_id = m.get('AppId')
         if m.get('LiveDomainList') is not None:
             self.live_domain_list_shrink = m.get('LiveDomainList')
+        if m.get('LiveDomainType') is not None:
+            self.live_domain_type = m.get('LiveDomainType')
         return self
 
 
