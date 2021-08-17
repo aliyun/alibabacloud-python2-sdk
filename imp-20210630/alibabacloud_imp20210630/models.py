@@ -6112,7 +6112,7 @@ class GetLiveResponseBodyResultPlayUrlInfoList(TeaModel):
 class GetLiveResponseBodyResult(TeaModel):
     def __init__(self, anchor_id=None, live_id=None, title=None, playback_url=None, create_time=None, end_time=None,
                  duration=None, push_url=None, live_url=None, status=None, introduction=None, room_id=None, app_id=None,
-                 user_id=None, code_level=None, play_url_info_list=None):
+                 user_id=None, code_level=None, play_url_info_list=None, cover_url=None, user_define_field=None):
         # 主播ID
         self.anchor_id = anchor_id  # type: str
         # 直播资源的唯一标识ID
@@ -6145,6 +6145,10 @@ class GetLiveResponseBodyResult(TeaModel):
         self.code_level = code_level  # type: int
         # 多分辨率多协议播放信息
         self.play_url_info_list = play_url_info_list  # type: list[GetLiveResponseBodyResultPlayUrlInfoList]
+        # 封面图片
+        self.cover_url = cover_url  # type: str
+        # 用户自定义数据存储
+        self.user_define_field = user_define_field  # type: str
 
     def validate(self):
         if self.play_url_info_list:
@@ -6192,6 +6196,10 @@ class GetLiveResponseBodyResult(TeaModel):
         if self.play_url_info_list is not None:
             for k in self.play_url_info_list:
                 result['PlayUrlInfoList'].append(k.to_map() if k else None)
+        if self.cover_url is not None:
+            result['CoverUrl'] = self.cover_url
+        if self.user_define_field is not None:
+            result['UserDefineField'] = self.user_define_field
         return result
 
     def from_map(self, m=None):
@@ -6231,6 +6239,10 @@ class GetLiveResponseBodyResult(TeaModel):
             for k in m.get('PlayUrlInfoList'):
                 temp_model = GetLiveResponseBodyResultPlayUrlInfoList()
                 self.play_url_info_list.append(temp_model.from_map(k))
+        if m.get('CoverUrl') is not None:
+            self.cover_url = m.get('CoverUrl')
+        if m.get('UserDefineField') is not None:
+            self.user_define_field = m.get('UserDefineField')
         return self
 
 
