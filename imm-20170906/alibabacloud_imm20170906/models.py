@@ -1,22 +1,25 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class CompareImageFacesRequest(TeaModel):
     def __init__(self, project=None, set_id=None, image_uri_a=None, image_uri_b=None, face_id_a=None, face_id_b=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri_a = TeaConverter.to_unicode(image_uri_a)  # type: unicode
-        self.image_uri_b = TeaConverter.to_unicode(image_uri_b)  # type: unicode
-        self.face_id_a = TeaConverter.to_unicode(face_id_a)  # type: unicode
-        self.face_id_b = TeaConverter.to_unicode(face_id_b)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri_a = image_uri_a  # type: str
+        self.image_uri_b = image_uri_b  # type: str
+        self.face_id_a = face_id_a  # type: str
+        self.face_id_b = face_id_b  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CompareImageFacesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -50,37 +53,41 @@ class CompareImageFacesRequest(TeaModel):
 
 
 class CompareImageFacesResponseBodyFaceAFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceAFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
@@ -93,6 +100,10 @@ class CompareImageFacesResponseBodyFaceAFaceAttributes(TeaModel):
             self.face_boundary.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceAFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.face_boundary is not None:
             result['FaceBoundary'] = self.face_boundary.to_map()
@@ -108,7 +119,7 @@ class CompareImageFacesResponseBodyFaceAFaceAttributes(TeaModel):
 
 class CompareImageFacesResponseBodyFaceA(TeaModel):
     def __init__(self, face_id=None, face_attributes=None):
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
+        self.face_id = face_id  # type: str
         self.face_attributes = face_attributes  # type: CompareImageFacesResponseBodyFaceAFaceAttributes
 
     def validate(self):
@@ -116,6 +127,10 @@ class CompareImageFacesResponseBodyFaceA(TeaModel):
             self.face_attributes.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceA, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.face_id is not None:
             result['FaceId'] = self.face_id
@@ -134,37 +149,41 @@ class CompareImageFacesResponseBodyFaceA(TeaModel):
 
 
 class CompareImageFacesResponseBodyFaceBFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceBFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
@@ -177,6 +196,10 @@ class CompareImageFacesResponseBodyFaceBFaceAttributes(TeaModel):
             self.face_boundary.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceBFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.face_boundary is not None:
             result['FaceBoundary'] = self.face_boundary.to_map()
@@ -192,7 +215,7 @@ class CompareImageFacesResponseBodyFaceBFaceAttributes(TeaModel):
 
 class CompareImageFacesResponseBodyFaceB(TeaModel):
     def __init__(self, face_id=None, face_attributes=None):
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
+        self.face_id = face_id  # type: str
         self.face_attributes = face_attributes  # type: CompareImageFacesResponseBodyFaceBFaceAttributes
 
     def validate(self):
@@ -200,6 +223,10 @@ class CompareImageFacesResponseBodyFaceB(TeaModel):
             self.face_attributes.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBodyFaceB, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.face_id is not None:
             result['FaceId'] = self.face_id
@@ -219,9 +246,9 @@ class CompareImageFacesResponseBodyFaceB(TeaModel):
 
 class CompareImageFacesResponseBody(TeaModel):
     def __init__(self, request_id=None, similarity=None, set_id=None, face_a=None, face_b=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.similarity = similarity  # type: float
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.set_id = set_id  # type: str
         self.face_a = face_a  # type: CompareImageFacesResponseBodyFaceA
         self.face_b = face_b  # type: CompareImageFacesResponseBodyFaceB
 
@@ -232,6 +259,10 @@ class CompareImageFacesResponseBody(TeaModel):
             self.face_b.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -264,7 +295,7 @@ class CompareImageFacesResponseBody(TeaModel):
 
 class CompareImageFacesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CompareImageFacesResponseBody
 
     def validate(self):
@@ -274,6 +305,10 @@ class CompareImageFacesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CompareImageFacesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -296,22 +331,22 @@ class ConvertOfficeFormatRequest(TeaModel):
                  end_page=None, max_sheet_row=None, max_sheet_col=None, max_sheet_count=None, sheet_one_page=None,
                  model_id=None, password=None, tgt_file_prefix=None, tgt_file_suffix=None, tgt_file_pages=None,
                  fit_to_pages_tall=None, fit_to_pages_wide=None, pdf_vector=None, hidecomments=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.tgt_type = TeaConverter.to_unicode(tgt_type)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.src_type = TeaConverter.to_unicode(src_type)  # type: unicode
+        self.project = project  # type: str
+        self.src_uri = src_uri  # type: str
+        self.tgt_type = tgt_type  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.src_type = src_type  # type: str
         self.start_page = start_page  # type: long
         self.end_page = end_page  # type: long
         self.max_sheet_row = max_sheet_row  # type: long
         self.max_sheet_col = max_sheet_col  # type: long
         self.max_sheet_count = max_sheet_count  # type: long
         self.sheet_one_page = sheet_one_page  # type: bool
-        self.model_id = TeaConverter.to_unicode(model_id)  # type: unicode
-        self.password = TeaConverter.to_unicode(password)  # type: unicode
-        self.tgt_file_prefix = TeaConverter.to_unicode(tgt_file_prefix)  # type: unicode
-        self.tgt_file_suffix = TeaConverter.to_unicode(tgt_file_suffix)  # type: unicode
-        self.tgt_file_pages = TeaConverter.to_unicode(tgt_file_pages)  # type: unicode
+        self.model_id = model_id  # type: str
+        self.password = password  # type: str
+        self.tgt_file_prefix = tgt_file_prefix  # type: str
+        self.tgt_file_suffix = tgt_file_suffix  # type: str
+        self.tgt_file_pages = tgt_file_pages  # type: str
         self.fit_to_pages_tall = fit_to_pages_tall  # type: bool
         self.fit_to_pages_wide = fit_to_pages_wide  # type: bool
         self.pdf_vector = pdf_vector  # type: bool
@@ -321,6 +356,10 @@ class ConvertOfficeFormatRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ConvertOfficeFormatRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -412,12 +451,16 @@ class ConvertOfficeFormatRequest(TeaModel):
 class ConvertOfficeFormatResponseBody(TeaModel):
     def __init__(self, page_count=None, request_id=None):
         self.page_count = page_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ConvertOfficeFormatResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.page_count is not None:
             result['PageCount'] = self.page_count
@@ -436,7 +479,7 @@ class ConvertOfficeFormatResponseBody(TeaModel):
 
 class ConvertOfficeFormatResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ConvertOfficeFormatResponseBody
 
     def validate(self):
@@ -446,6 +489,10 @@ class ConvertOfficeFormatResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ConvertOfficeFormatResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -466,17 +513,21 @@ class ConvertOfficeFormatResponse(TeaModel):
 class CreateGrabFrameTaskRequest(TeaModel):
     def __init__(self, project=None, video_uri=None, notify_topic_name=None, notify_endpoint=None, target_list=None,
                  custom_message=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.target_list = TeaConverter.to_unicode(target_list)  # type: unicode
-        self.custom_message = TeaConverter.to_unicode(custom_message)  # type: unicode
+        self.project = project  # type: str
+        self.video_uri = video_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.target_list = target_list  # type: str
+        self.custom_message = custom_message  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateGrabFrameTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -510,38 +561,42 @@ class CreateGrabFrameTaskRequest(TeaModel):
 
 
 class CreateGrabFrameTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateGrabFrameTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateGrabFrameTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateGrabFrameTaskResponseBody
 
     def validate(self):
@@ -551,6 +606,10 @@ class CreateGrabFrameTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateGrabFrameTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -570,15 +629,19 @@ class CreateGrabFrameTaskResponse(TeaModel):
 
 class CreateGroupFacesJobRequest(TeaModel):
     def __init__(self, project=None, set_id=None, notify_topic_name=None, notify_endpoint=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateGroupFacesJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -605,15 +668,19 @@ class CreateGroupFacesJobRequest(TeaModel):
 
 class CreateGroupFacesJobResponseBody(TeaModel):
     def __init__(self, job_type=None, request_id=None, set_id=None, job_id=None):
-        self.job_type = TeaConverter.to_unicode(job_type)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+        self.job_type = job_type  # type: str
+        self.request_id = request_id  # type: str
+        self.set_id = set_id  # type: str
+        self.job_id = job_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateGroupFacesJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.job_type is not None:
             result['JobType'] = self.job_type
@@ -640,7 +707,7 @@ class CreateGroupFacesJobResponseBody(TeaModel):
 
 class CreateGroupFacesJobResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateGroupFacesJobResponseBody
 
     def validate(self):
@@ -650,6 +717,10 @@ class CreateGroupFacesJobResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateGroupFacesJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -669,16 +740,20 @@ class CreateGroupFacesJobResponse(TeaModel):
 
 class CreateImageProcessTaskRequest(TeaModel):
     def __init__(self, project=None, image_uri=None, notify_topic_name=None, notify_endpoint=None, target_list=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.target_list = TeaConverter.to_unicode(target_list)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.target_list = target_list  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateImageProcessTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -708,38 +783,42 @@ class CreateImageProcessTaskRequest(TeaModel):
 
 
 class CreateImageProcessTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateImageProcessTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateImageProcessTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateImageProcessTaskResponseBody
 
     def validate(self):
@@ -749,6 +828,10 @@ class CreateImageProcessTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateImageProcessTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -768,15 +851,19 @@ class CreateImageProcessTaskResponse(TeaModel):
 
 class CreateMediaComplexTaskRequest(TeaModel):
     def __init__(self, project=None, parameters=None, notify_topic_name=None, notify_endpoint=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
+        self.project = project  # type: str
+        self.parameters = parameters  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateMediaComplexTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -802,38 +889,42 @@ class CreateMediaComplexTaskRequest(TeaModel):
 
 
 class CreateMediaComplexTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateMediaComplexTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateMediaComplexTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateMediaComplexTaskResponseBody
 
     def validate(self):
@@ -843,6 +934,10 @@ class CreateMediaComplexTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateMediaComplexTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -862,18 +957,23 @@ class CreateMediaComplexTaskResponse(TeaModel):
 
 class CreateMergeFaceGroupsJobRequest(TeaModel):
     def __init__(self, project=None, set_id=None, notify_topic_name=None, notify_endpoint=None, group_id_from=None,
-                 group_id_to=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.group_id_from = TeaConverter.to_unicode(group_id_from)  # type: unicode
-        self.group_id_to = TeaConverter.to_unicode(group_id_to)  # type: unicode
+                 group_id_to=None, custom_message=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.group_id_from = group_id_from  # type: str
+        self.group_id_to = group_id_to  # type: str
+        self.custom_message = custom_message  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateMergeFaceGroupsJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -887,6 +987,8 @@ class CreateMergeFaceGroupsJobRequest(TeaModel):
             result['GroupIdFrom'] = self.group_id_from
         if self.group_id_to is not None:
             result['GroupIdTo'] = self.group_id_to
+        if self.custom_message is not None:
+            result['CustomMessage'] = self.custom_message
         return result
 
     def from_map(self, m=None):
@@ -903,23 +1005,29 @@ class CreateMergeFaceGroupsJobRequest(TeaModel):
             self.group_id_from = m.get('GroupIdFrom')
         if m.get('GroupIdTo') is not None:
             self.group_id_to = m.get('GroupIdTo')
+        if m.get('CustomMessage') is not None:
+            self.custom_message = m.get('CustomMessage')
         return self
 
 
 class CreateMergeFaceGroupsJobResponseBody(TeaModel):
     def __init__(self, group_id_from=None, job_type=None, request_id=None, set_id=None, group_id_to=None,
                  job_id=None):
-        self.group_id_from = TeaConverter.to_unicode(group_id_from)  # type: unicode
-        self.job_type = TeaConverter.to_unicode(job_type)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.group_id_to = TeaConverter.to_unicode(group_id_to)  # type: unicode
-        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+        self.group_id_from = group_id_from  # type: str
+        self.job_type = job_type  # type: str
+        self.request_id = request_id  # type: str
+        self.set_id = set_id  # type: str
+        self.group_id_to = group_id_to  # type: str
+        self.job_id = job_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateMergeFaceGroupsJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.group_id_from is not None:
             result['GroupIdFrom'] = self.group_id_from
@@ -954,7 +1062,7 @@ class CreateMergeFaceGroupsJobResponseBody(TeaModel):
 
 class CreateMergeFaceGroupsJobResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateMergeFaceGroupsJobResponseBody
 
     def validate(self):
@@ -964,6 +1072,10 @@ class CreateMergeFaceGroupsJobResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateMergeFaceGroupsJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -986,36 +1098,41 @@ class CreateOfficeConversionTaskRequest(TeaModel):
                  notify_endpoint=None, src_type=None, start_page=None, end_page=None, max_sheet_row=None, max_sheet_col=None,
                  max_sheet_count=None, sheet_one_page=None, model_id=None, password=None, tgt_file_prefix=None,
                  tgt_file_suffix=None, tgt_file_pages=None, fit_to_pages_tall=None, fit_to_pages_wide=None, idempotent_token=None,
-                 pdf_vector=None, hidecomments=None, display_dpi=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.tgt_type = TeaConverter.to_unicode(tgt_type)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.src_type = TeaConverter.to_unicode(src_type)  # type: unicode
+                 pdf_vector=None, hidecomments=None, display_dpi=None, user_data=None):
+        self.project = project  # type: str
+        self.src_uri = src_uri  # type: str
+        self.tgt_type = tgt_type  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.src_type = src_type  # type: str
         self.start_page = start_page  # type: long
         self.end_page = end_page  # type: long
         self.max_sheet_row = max_sheet_row  # type: long
         self.max_sheet_col = max_sheet_col  # type: long
         self.max_sheet_count = max_sheet_count  # type: long
         self.sheet_one_page = sheet_one_page  # type: bool
-        self.model_id = TeaConverter.to_unicode(model_id)  # type: unicode
-        self.password = TeaConverter.to_unicode(password)  # type: unicode
-        self.tgt_file_prefix = TeaConverter.to_unicode(tgt_file_prefix)  # type: unicode
-        self.tgt_file_suffix = TeaConverter.to_unicode(tgt_file_suffix)  # type: unicode
-        self.tgt_file_pages = TeaConverter.to_unicode(tgt_file_pages)  # type: unicode
+        self.model_id = model_id  # type: str
+        self.password = password  # type: str
+        self.tgt_file_prefix = tgt_file_prefix  # type: str
+        self.tgt_file_suffix = tgt_file_suffix  # type: str
+        self.tgt_file_pages = tgt_file_pages  # type: str
         self.fit_to_pages_tall = fit_to_pages_tall  # type: bool
         self.fit_to_pages_wide = fit_to_pages_wide  # type: bool
-        self.idempotent_token = TeaConverter.to_unicode(idempotent_token)  # type: unicode
+        self.idempotent_token = idempotent_token  # type: str
         self.pdf_vector = pdf_vector  # type: bool
         self.hidecomments = hidecomments  # type: bool
         self.display_dpi = display_dpi  # type: int
+        self.user_data = user_data  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateOfficeConversionTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1065,6 +1182,8 @@ class CreateOfficeConversionTaskRequest(TeaModel):
             result['Hidecomments'] = self.hidecomments
         if self.display_dpi is not None:
             result['DisplayDpi'] = self.display_dpi
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
         return result
 
     def from_map(self, m=None):
@@ -1117,22 +1236,28 @@ class CreateOfficeConversionTaskRequest(TeaModel):
             self.hidecomments = m.get('Hidecomments')
         if m.get('DisplayDpi') is not None:
             self.display_dpi = m.get('DisplayDpi')
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
         return self
 
 
 class CreateOfficeConversionTaskResponseBody(TeaModel):
     def __init__(self, status=None, task_id=None, request_id=None, percent=None, create_time=None, tgt_loc=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.status = status  # type: str
+        self.task_id = task_id  # type: str
+        self.request_id = request_id  # type: str
         self.percent = percent  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.tgt_loc = TeaConverter.to_unicode(tgt_loc)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.tgt_loc = tgt_loc  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateOfficeConversionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -1167,7 +1292,7 @@ class CreateOfficeConversionTaskResponseBody(TeaModel):
 
 class CreateOfficeConversionTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateOfficeConversionTaskResponseBody
 
     def validate(self):
@@ -1177,6 +1302,10 @@ class CreateOfficeConversionTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateOfficeConversionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1196,14 +1325,18 @@ class CreateOfficeConversionTaskResponse(TeaModel):
 
 class CreateSetRequest(TeaModel):
     def __init__(self, project=None, set_id=None, set_name=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.set_name = set_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateSetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1225,69 +1358,73 @@ class CreateSetRequest(TeaModel):
 
 
 class CreateSetResponseBody(TeaModel):
-    def __init__(self, modify_time=None, video_count=None, image_count=None, request_id=None, create_time=None,
-                 set_name=None, set_id=None, video_length=None, face_count=None):
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+    def __init__(self, video_count=None, request_id=None, create_time=None, video_length=None, set_id=None,
+                 image_count=None, face_count=None, set_name=None, modify_time=None):
         self.video_count = video_count  # type: int
-        self.image_count = image_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
         self.video_length = video_length  # type: int
+        self.set_id = set_id  # type: str
+        self.image_count = image_count  # type: int
         self.face_count = face_count  # type: int
+        self.set_name = set_name  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateSetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.video_count is not None:
             result['VideoCount'] = self.video_count
-        if self.image_count is not None:
-            result['ImageCount'] = self.image_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.set_name is not None:
-            result['SetName'] = self.set_name
-        if self.set_id is not None:
-            result['SetId'] = self.set_id
         if self.video_length is not None:
             result['VideoLength'] = self.video_length
+        if self.set_id is not None:
+            result['SetId'] = self.set_id
+        if self.image_count is not None:
+            result['ImageCount'] = self.image_count
         if self.face_count is not None:
             result['FaceCount'] = self.face_count
+        if self.set_name is not None:
+            result['SetName'] = self.set_name
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('VideoCount') is not None:
             self.video_count = m.get('VideoCount')
-        if m.get('ImageCount') is not None:
-            self.image_count = m.get('ImageCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('SetName') is not None:
-            self.set_name = m.get('SetName')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         if m.get('VideoLength') is not None:
             self.video_length = m.get('VideoLength')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
+        if m.get('ImageCount') is not None:
+            self.image_count = m.get('ImageCount')
         if m.get('FaceCount') is not None:
             self.face_count = m.get('FaceCount')
+        if m.get('SetName') is not None:
+            self.set_name = m.get('SetName')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         return self
 
 
 class CreateSetResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateSetResponseBody
 
     def validate(self):
@@ -1297,6 +1434,10 @@ class CreateSetResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateSetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1314,146 +1455,25 @@ class CreateSetResponse(TeaModel):
         return self
 
 
-class CreateStreamAnalyseTaskRequest(TeaModel):
-    def __init__(self, project=None, stream_uri=None, grab_type=None, start_time=None, end_time=None, save_type=None,
-                 interval=None, tgt_uri=None, notify_topic_name=None, notify_endpoint=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.stream_uri = TeaConverter.to_unicode(stream_uri)  # type: unicode
-        self.grab_type = TeaConverter.to_unicode(grab_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.save_type = save_type  # type: bool
-        self.interval = TeaConverter.to_unicode(interval)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.project is not None:
-            result['Project'] = self.project
-        if self.stream_uri is not None:
-            result['StreamUri'] = self.stream_uri
-        if self.grab_type is not None:
-            result['GrabType'] = self.grab_type
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.save_type is not None:
-            result['SaveType'] = self.save_type
-        if self.interval is not None:
-            result['Interval'] = self.interval
-        if self.tgt_uri is not None:
-            result['TgtUri'] = self.tgt_uri
-        if self.notify_topic_name is not None:
-            result['NotifyTopicName'] = self.notify_topic_name
-        if self.notify_endpoint is not None:
-            result['NotifyEndpoint'] = self.notify_endpoint
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Project') is not None:
-            self.project = m.get('Project')
-        if m.get('StreamUri') is not None:
-            self.stream_uri = m.get('StreamUri')
-        if m.get('GrabType') is not None:
-            self.grab_type = m.get('GrabType')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('SaveType') is not None:
-            self.save_type = m.get('SaveType')
-        if m.get('Interval') is not None:
-            self.interval = m.get('Interval')
-        if m.get('TgtUri') is not None:
-            self.tgt_uri = m.get('TgtUri')
-        if m.get('NotifyTopicName') is not None:
-            self.notify_topic_name = m.get('NotifyTopicName')
-        if m.get('NotifyEndpoint') is not None:
-            self.notify_endpoint = m.get('NotifyEndpoint')
-        return self
-
-
-class CreateStreamAnalyseTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.task_type is not None:
-            result['TaskType'] = self.task_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TaskType') is not None:
-            self.task_type = m.get('TaskType')
-        return self
-
-
-class CreateStreamAnalyseTaskResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
-        self.body = body  # type: CreateStreamAnalyseTaskResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateStreamAnalyseTaskResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateVideoAbstractTaskRequest(TeaModel):
     def __init__(self, project=None, video_uri=None, notify_topic_name=None, notify_endpoint=None,
                  target_video_uri=None, target_clips_uri=None, abstract_length=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.target_video_uri = TeaConverter.to_unicode(target_video_uri)  # type: unicode
-        self.target_clips_uri = TeaConverter.to_unicode(target_clips_uri)  # type: unicode
+        self.project = project  # type: str
+        self.video_uri = video_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.target_video_uri = target_video_uri  # type: str
+        self.target_clips_uri = target_clips_uri  # type: str
         self.abstract_length = abstract_length  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoAbstractTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1491,38 +1511,42 @@ class CreateVideoAbstractTaskRequest(TeaModel):
 
 
 class CreateVideoAbstractTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoAbstractTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateVideoAbstractTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateVideoAbstractTaskResponseBody
 
     def validate(self):
@@ -1532,6 +1556,10 @@ class CreateVideoAbstractTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateVideoAbstractTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1550,38 +1578,26 @@ class CreateVideoAbstractTaskResponse(TeaModel):
 
 
 class CreateVideoAnalyseTaskRequest(TeaModel):
-    def __init__(self, project=None, video_uri=None, grab_type=None, start_time=None, end_time=None, save_type=None,
-                 interval=None, tgt_uri=None, notify_topic_name=None, notify_endpoint=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.grab_type = TeaConverter.to_unicode(grab_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.save_type = save_type  # type: bool
-        self.interval = TeaConverter.to_unicode(interval)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
+    def __init__(self, project=None, video_uri=None, tgt_uri=None, notify_topic_name=None, notify_endpoint=None):
+        self.project = project  # type: str
+        self.video_uri = video_uri  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoAnalyseTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
         if self.video_uri is not None:
             result['VideoUri'] = self.video_uri
-        if self.grab_type is not None:
-            result['GrabType'] = self.grab_type
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.save_type is not None:
-            result['SaveType'] = self.save_type
-        if self.interval is not None:
-            result['Interval'] = self.interval
         if self.tgt_uri is not None:
             result['TgtUri'] = self.tgt_uri
         if self.notify_topic_name is not None:
@@ -1596,16 +1612,6 @@ class CreateVideoAnalyseTaskRequest(TeaModel):
             self.project = m.get('Project')
         if m.get('VideoUri') is not None:
             self.video_uri = m.get('VideoUri')
-        if m.get('GrabType') is not None:
-            self.grab_type = m.get('GrabType')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('SaveType') is not None:
-            self.save_type = m.get('SaveType')
-        if m.get('Interval') is not None:
-            self.interval = m.get('Interval')
         if m.get('TgtUri') is not None:
             self.tgt_uri = m.get('TgtUri')
         if m.get('NotifyTopicName') is not None:
@@ -1616,38 +1622,42 @@ class CreateVideoAnalyseTaskRequest(TeaModel):
 
 
 class CreateVideoAnalyseTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoAnalyseTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateVideoAnalyseTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateVideoAnalyseTaskResponseBody
 
     def validate(self):
@@ -1657,6 +1667,10 @@ class CreateVideoAnalyseTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateVideoAnalyseTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1676,19 +1690,24 @@ class CreateVideoAnalyseTaskResponse(TeaModel):
 
 class CreateVideoCompressTaskRequest(TeaModel):
     def __init__(self, project=None, video_uri=None, notify_topic_name=None, notify_endpoint=None, target_list=None,
-                 custom_message=None, target_container=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.target_list = TeaConverter.to_unicode(target_list)  # type: unicode
-        self.custom_message = TeaConverter.to_unicode(custom_message)  # type: unicode
-        self.target_container = TeaConverter.to_unicode(target_container)  # type: unicode
+                 custom_message=None, target_container=None, target_segment=None):
+        self.project = project  # type: str
+        self.video_uri = video_uri  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.target_list = target_list  # type: str
+        self.custom_message = custom_message  # type: str
+        self.target_container = target_container  # type: str
+        self.target_segment = target_segment  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoCompressTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1704,6 +1723,8 @@ class CreateVideoCompressTaskRequest(TeaModel):
             result['CustomMessage'] = self.custom_message
         if self.target_container is not None:
             result['TargetContainer'] = self.target_container
+        if self.target_segment is not None:
+            result['TargetSegment'] = self.target_segment
         return result
 
     def from_map(self, m=None):
@@ -1722,19 +1743,25 @@ class CreateVideoCompressTaskRequest(TeaModel):
             self.custom_message = m.get('CustomMessage')
         if m.get('TargetContainer') is not None:
             self.target_container = m.get('TargetContainer')
+        if m.get('TargetSegment') is not None:
+            self.target_segment = m.get('TargetSegment')
         return self
 
 
 class CreateVideoCompressTaskResponseBody(TeaModel):
     def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.task_id = task_id  # type: str
+        self.request_id = request_id  # type: str
+        self.task_type = task_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoCompressTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.task_id is not None:
             result['TaskId'] = self.task_id
@@ -1757,7 +1784,7 @@ class CreateVideoCompressTaskResponseBody(TeaModel):
 
 class CreateVideoCompressTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateVideoCompressTaskResponseBody
 
     def validate(self):
@@ -1767,6 +1794,10 @@ class CreateVideoCompressTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateVideoCompressTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1787,21 +1818,25 @@ class CreateVideoCompressTaskResponse(TeaModel):
 class CreateVideoProduceTaskRequest(TeaModel):
     def __init__(self, project=None, images=None, notify_topic_name=None, notify_endpoint=None, target_uri=None,
                  custom_message=None, music=None, width=None, height=None, template_name=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.images = TeaConverter.to_unicode(images)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.target_uri = TeaConverter.to_unicode(target_uri)  # type: unicode
-        self.custom_message = TeaConverter.to_unicode(custom_message)  # type: unicode
-        self.music = TeaConverter.to_unicode(music)  # type: unicode
+        self.project = project  # type: str
+        self.images = images  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.target_uri = target_uri  # type: str
+        self.custom_message = custom_message  # type: str
+        self.music = music  # type: str
         self.width = width  # type: int
         self.height = height  # type: int
-        self.template_name = TeaConverter.to_unicode(template_name)  # type: unicode
+        self.template_name = template_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoProduceTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1851,38 +1886,42 @@ class CreateVideoProduceTaskRequest(TeaModel):
 
 
 class CreateVideoProduceTaskResponseBody(TeaModel):
-    def __init__(self, task_id=None, request_id=None, task_type=None):
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+    def __init__(self, task_type=None, request_id=None, task_id=None):
+        self.task_type = task_type  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateVideoProduceTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class CreateVideoProduceTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateVideoProduceTaskResponseBody
 
     def validate(self):
@@ -1892,6 +1931,10 @@ class CreateVideoProduceTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateVideoProduceTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1911,19 +1954,22 @@ class CreateVideoProduceTaskResponse(TeaModel):
 
 class DecodeBlindWatermarkRequest(TeaModel):
     def __init__(self, project=None, image_uri=None, original_image_uri=None, target_uri=None, image_quality=None,
-                 model=None, watermark_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.original_image_uri = TeaConverter.to_unicode(original_image_uri)  # type: unicode
-        self.target_uri = TeaConverter.to_unicode(target_uri)  # type: unicode
+                 model=None):
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
+        self.original_image_uri = original_image_uri  # type: str
+        self.target_uri = target_uri  # type: str
         self.image_quality = image_quality  # type: int
-        self.model = TeaConverter.to_unicode(model)  # type: unicode
-        self.watermark_type = TeaConverter.to_unicode(watermark_type)  # type: unicode
+        self.model = model  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DecodeBlindWatermarkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -1937,8 +1983,6 @@ class DecodeBlindWatermarkRequest(TeaModel):
             result['ImageQuality'] = self.image_quality
         if self.model is not None:
             result['Model'] = self.model
-        if self.watermark_type is not None:
-            result['WatermarkType'] = self.watermark_type
         return result
 
     def from_map(self, m=None):
@@ -1955,44 +1999,46 @@ class DecodeBlindWatermarkRequest(TeaModel):
             self.image_quality = m.get('ImageQuality')
         if m.get('Model') is not None:
             self.model = m.get('Model')
-        if m.get('WatermarkType') is not None:
-            self.watermark_type = m.get('WatermarkType')
         return self
 
 
 class DecodeBlindWatermarkResponseBody(TeaModel):
-    def __init__(self, request_id=None, content=None, target_uri=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
-        self.target_uri = TeaConverter.to_unicode(target_uri)  # type: unicode
+    def __init__(self, request_id=None, target_uri=None, content=None):
+        self.request_id = request_id  # type: str
+        self.target_uri = target_uri  # type: str
+        self.content = content  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DecodeBlindWatermarkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.content is not None:
-            result['Content'] = self.content
         if self.target_uri is not None:
             result['TargetUri'] = self.target_uri
+        if self.content is not None:
+            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         if m.get('TargetUri') is not None:
             self.target_uri = m.get('TargetUri')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         return self
 
 
 class DecodeBlindWatermarkResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DecodeBlindWatermarkResponseBody
 
     def validate(self):
@@ -2002,6 +2048,10 @@ class DecodeBlindWatermarkResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DecodeBlindWatermarkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2021,14 +2071,18 @@ class DecodeBlindWatermarkResponse(TeaModel):
 
 class DeleteImageRequest(TeaModel):
     def __init__(self, project=None, set_id=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2051,14 +2105,18 @@ class DeleteImageRequest(TeaModel):
 
 class DeleteImageResponseBody(TeaModel):
     def __init__(self, request_id=None, set_id=None, image_uri=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2081,7 +2139,7 @@ class DeleteImageResponseBody(TeaModel):
 
 class DeleteImageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteImageResponseBody
 
     def validate(self):
@@ -2091,6 +2149,10 @@ class DeleteImageResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2110,14 +2172,18 @@ class DeleteImageResponse(TeaModel):
 
 class DeleteImageJobRequest(TeaModel):
     def __init__(self, project=None, job_type=None, job_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.job_type = TeaConverter.to_unicode(job_type)  # type: unicode
-        self.job_id = TeaConverter.to_unicode(job_id)  # type: unicode
+        self.project = project  # type: str
+        self.job_type = job_type  # type: str
+        self.job_id = job_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteImageJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2140,12 +2206,16 @@ class DeleteImageJobRequest(TeaModel):
 
 class DeleteImageJobResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteImageJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2160,7 +2230,7 @@ class DeleteImageJobResponseBody(TeaModel):
 
 class DeleteImageJobResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteImageJobResponseBody
 
     def validate(self):
@@ -2170,6 +2240,10 @@ class DeleteImageJobResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteImageJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2189,13 +2263,17 @@ class DeleteImageJobResponse(TeaModel):
 
 class DeleteOfficeConversionTaskRequest(TeaModel):
     def __init__(self, project=None, task_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.project = project  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteOfficeConversionTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2214,12 +2292,16 @@ class DeleteOfficeConversionTaskRequest(TeaModel):
 
 class DeleteOfficeConversionTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteOfficeConversionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2234,7 +2316,7 @@ class DeleteOfficeConversionTaskResponseBody(TeaModel):
 
 class DeleteOfficeConversionTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteOfficeConversionTaskResponseBody
 
     def validate(self):
@@ -2244,6 +2326,10 @@ class DeleteOfficeConversionTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteOfficeConversionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2263,12 +2349,16 @@ class DeleteOfficeConversionTaskResponse(TeaModel):
 
 class DeleteProjectRequest(TeaModel):
     def __init__(self, project=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
+        self.project = project  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2283,12 +2373,16 @@ class DeleteProjectRequest(TeaModel):
 
 class DeleteProjectResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2303,7 +2397,7 @@ class DeleteProjectResponseBody(TeaModel):
 
 class DeleteProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteProjectResponseBody
 
     def validate(self):
@@ -2313,6 +2407,10 @@ class DeleteProjectResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2332,13 +2430,17 @@ class DeleteProjectResponse(TeaModel):
 
 class DeleteSetRequest(TeaModel):
     def __init__(self, project=None, set_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteSetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2356,33 +2458,37 @@ class DeleteSetRequest(TeaModel):
 
 
 class DeleteSetResponseBody(TeaModel):
-    def __init__(self, request_id=None, set_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+    def __init__(self, set_id=None, request_id=None):
+        self.set_id = set_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteSetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('SetId') is not None:
             self.set_id = m.get('SetId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
 class DeleteSetResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteSetResponseBody
 
     def validate(self):
@@ -2392,6 +2498,10 @@ class DeleteSetResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteSetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2411,15 +2521,19 @@ class DeleteSetResponse(TeaModel):
 
 class DeleteVideoRequest(TeaModel):
     def __init__(self, project=None, set_id=None, video_uri=None, resources=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.video_uri = video_uri  # type: str
         self.resources = resources  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2446,14 +2560,18 @@ class DeleteVideoRequest(TeaModel):
 
 class DeleteVideoResponseBody(TeaModel):
     def __init__(self, request_id=None, video_uri=None, set_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.video_uri = video_uri  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteVideoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2476,7 +2594,7 @@ class DeleteVideoResponseBody(TeaModel):
 
 class DeleteVideoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteVideoResponseBody
 
     def validate(self):
@@ -2486,6 +2604,10 @@ class DeleteVideoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2505,14 +2627,18 @@ class DeleteVideoResponse(TeaModel):
 
 class DeleteVideoTaskRequest(TeaModel):
     def __init__(self, project=None, task_type=None, task_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.project = project  # type: str
+        self.task_type = task_type  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteVideoTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2535,12 +2661,16 @@ class DeleteVideoTaskRequest(TeaModel):
 
 class DeleteVideoTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteVideoTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2555,7 +2685,7 @@ class DeleteVideoTaskResponseBody(TeaModel):
 
 class DeleteVideoTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteVideoTaskResponseBody
 
     def validate(self):
@@ -2565,6 +2695,10 @@ class DeleteVideoTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteVideoTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2583,27 +2717,31 @@ class DeleteVideoTaskResponse(TeaModel):
 
 
 class DescribeRegionsResponseBodyRegionsRegion(TeaModel):
-    def __init__(self, project_types=None, region_id=None):
-        self.project_types = project_types  # type: list[unicode]
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+    def __init__(self, region_id=None, project_types=None):
+        self.region_id = region_id  # type: str
+        self.project_types = project_types  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegionsRegion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.project_types is not None:
-            result['ProjectTypes'] = self.project_types
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.project_types is not None:
+            result['ProjectTypes'] = self.project_types
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ProjectTypes') is not None:
-            self.project_types = m.get('ProjectTypes')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ProjectTypes') is not None:
+            self.project_types = m.get('ProjectTypes')
         return self
 
 
@@ -2618,6 +2756,10 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegions, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['Region'] = []
         if self.region is not None:
@@ -2637,7 +2779,7 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, request_id=None, regions=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.regions = regions  # type: DescribeRegionsResponseBodyRegions
 
     def validate(self):
@@ -2645,6 +2787,10 @@ class DescribeRegionsResponseBody(TeaModel):
             self.regions.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -2664,7 +2810,7 @@ class DescribeRegionsResponseBody(TeaModel):
 
 class DescribeRegionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
@@ -2674,6 +2820,10 @@ class DescribeRegionsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DescribeRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2693,13 +2843,17 @@ class DescribeRegionsResponse(TeaModel):
 
 class DetectImageBodiesRequest(TeaModel):
     def __init__(self, project=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageBodiesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -2717,37 +2871,41 @@ class DetectImageBodiesRequest(TeaModel):
 
 
 class DetectImageBodiesResponseBodyBodiesBodyBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageBodiesResponseBodyBodiesBodyBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
@@ -2761,6 +2919,10 @@ class DetectImageBodiesResponseBodyBodies(TeaModel):
             self.body_boundary.validate()
 
     def to_map(self):
+        _map = super(DetectImageBodiesResponseBodyBodies, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.body_confidence is not None:
             result['BodyConfidence'] = self.body_confidence
@@ -2779,10 +2941,10 @@ class DetectImageBodiesResponseBodyBodies(TeaModel):
 
 
 class DetectImageBodiesResponseBody(TeaModel):
-    def __init__(self, request_id=None, bodies=None, image_uri=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, bodies=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.bodies = bodies  # type: list[DetectImageBodiesResponseBodyBodies]
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
 
     def validate(self):
         if self.bodies:
@@ -2791,19 +2953,25 @@ class DetectImageBodiesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectImageBodiesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.image_uri is not None:
+            result['ImageUri'] = self.image_uri
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Bodies'] = []
         if self.bodies is not None:
             for k in self.bodies:
                 result['Bodies'].append(k.to_map() if k else None)
-        if self.image_uri is not None:
-            result['ImageUri'] = self.image_uri
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ImageUri') is not None:
+            self.image_uri = m.get('ImageUri')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.bodies = []
@@ -2811,14 +2979,12 @@ class DetectImageBodiesResponseBody(TeaModel):
             for k in m.get('Bodies'):
                 temp_model = DetectImageBodiesResponseBodyBodies()
                 self.bodies.append(temp_model.from_map(k))
-        if m.get('ImageUri') is not None:
-            self.image_uri = m.get('ImageUri')
         return self
 
 
 class DetectImageBodiesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectImageBodiesResponseBody
 
     def validate(self):
@@ -2828,6 +2994,10 @@ class DetectImageBodiesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectImageBodiesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -2846,22 +3016,23 @@ class DetectImageBodiesResponse(TeaModel):
 
 
 class DetectImageFacesRequest(TeaModel):
-    def __init__(self, project=None, image_uri=None, real_uid=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.real_uid = TeaConverter.to_unicode(real_uid)  # type: unicode
+    def __init__(self, project=None, image_uri=None):
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageFacesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
-        if self.real_uid is not None:
-            result['RealUid'] = self.real_uid
         return result
 
     def from_map(self, m=None):
@@ -2870,43 +3041,45 @@ class DetectImageFacesRequest(TeaModel):
             self.project = m.get('Project')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
-        if m.get('RealUid') is not None:
-            self.real_uid = m.get('RealUid')
         return self
 
 
 class DetectImageFacesResponseBodyFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBodyFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
@@ -2920,6 +3093,10 @@ class DetectImageFacesResponseBodyFacesFaceAttributesHeadPose(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBodyFacesFaceAttributesHeadPose, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.pitch is not None:
             result['Pitch'] = self.pitch
@@ -2942,15 +3119,15 @@ class DetectImageFacesResponseBodyFacesFaceAttributesHeadPose(TeaModel):
 
 class DetectImageFacesResponseBodyFacesFaceAttributes(TeaModel):
     def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
-                 mask_confidence=None, face_boundary=None, head_pose=None, beard=None):
+                 mask_confidence=None, beard=None, face_boundary=None, head_pose=None):
         self.glasses_confidence = glasses_confidence  # type: float
-        self.glasses = TeaConverter.to_unicode(glasses)  # type: unicode
-        self.mask = TeaConverter.to_unicode(mask)  # type: unicode
+        self.glasses = glasses  # type: str
+        self.mask = mask  # type: str
         self.beard_confidence = beard_confidence  # type: float
         self.mask_confidence = mask_confidence  # type: float
+        self.beard = beard  # type: str
         self.face_boundary = face_boundary  # type: DetectImageFacesResponseBodyFacesFaceAttributesFaceBoundary
         self.head_pose = head_pose  # type: DetectImageFacesResponseBodyFacesFaceAttributesHeadPose
-        self.beard = TeaConverter.to_unicode(beard)  # type: unicode
 
     def validate(self):
         if self.face_boundary:
@@ -2959,6 +3136,10 @@ class DetectImageFacesResponseBodyFacesFaceAttributes(TeaModel):
             self.head_pose.validate()
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBodyFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.glasses_confidence is not None:
             result['GlassesConfidence'] = self.glasses_confidence
@@ -2970,12 +3151,12 @@ class DetectImageFacesResponseBodyFacesFaceAttributes(TeaModel):
             result['BeardConfidence'] = self.beard_confidence
         if self.mask_confidence is not None:
             result['MaskConfidence'] = self.mask_confidence
+        if self.beard is not None:
+            result['Beard'] = self.beard
         if self.face_boundary is not None:
             result['FaceBoundary'] = self.face_boundary.to_map()
         if self.head_pose is not None:
             result['HeadPose'] = self.head_pose.to_map()
-        if self.beard is not None:
-            result['Beard'] = self.beard
         return result
 
     def from_map(self, m=None):
@@ -2990,14 +3171,14 @@ class DetectImageFacesResponseBodyFacesFaceAttributes(TeaModel):
             self.beard_confidence = m.get('BeardConfidence')
         if m.get('MaskConfidence') is not None:
             self.mask_confidence = m.get('MaskConfidence')
+        if m.get('Beard') is not None:
+            self.beard = m.get('Beard')
         if m.get('FaceBoundary') is not None:
             temp_model = DetectImageFacesResponseBodyFacesFaceAttributesFaceBoundary()
             self.face_boundary = temp_model.from_map(m['FaceBoundary'])
         if m.get('HeadPose') is not None:
             temp_model = DetectImageFacesResponseBodyFacesFaceAttributesHeadPose()
             self.head_pose = temp_model.from_map(m['HeadPose'])
-        if m.get('Beard') is not None:
-            self.beard = m.get('Beard')
         return self
 
 
@@ -3015,6 +3196,10 @@ class DetectImageFacesResponseBodyFacesEmotionDetails(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBodyFacesEmotionDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.happy is not None:
             result['HAPPY'] = self.happy
@@ -3052,21 +3237,21 @@ class DetectImageFacesResponseBodyFacesEmotionDetails(TeaModel):
 
 
 class DetectImageFacesResponseBodyFaces(TeaModel):
-    def __init__(self, attractive_confidence=None, gender=None, gender_confidence=None, face_id=None,
-                 face_attributes=None, face_quality=None, emotion=None, age=None, face_confidence=None, emotion_confidence=None,
-                 attractive=None, age_confidence=None, emotion_details=None):
-        self.attractive_confidence = attractive_confidence  # type: float
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.gender_confidence = gender_confidence  # type: float
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.face_attributes = face_attributes  # type: DetectImageFacesResponseBodyFacesFaceAttributes
-        self.face_quality = face_quality  # type: float
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.age = age  # type: int
-        self.face_confidence = face_confidence  # type: float
+    def __init__(self, emotion_confidence=None, attractive=None, attractive_confidence=None, gender=None,
+                 age_confidence=None, gender_confidence=None, face_id=None, face_quality=None, emotion=None, age=None,
+                 face_confidence=None, face_attributes=None, emotion_details=None):
         self.emotion_confidence = emotion_confidence  # type: float
         self.attractive = attractive  # type: float
+        self.attractive_confidence = attractive_confidence  # type: float
+        self.gender = gender  # type: str
         self.age_confidence = age_confidence  # type: float
+        self.gender_confidence = gender_confidence  # type: float
+        self.face_id = face_id  # type: str
+        self.face_quality = face_quality  # type: float
+        self.emotion = emotion  # type: str
+        self.age = age  # type: int
+        self.face_confidence = face_confidence  # type: float
+        self.face_attributes = face_attributes  # type: DetectImageFacesResponseBodyFacesFaceAttributes
         self.emotion_details = emotion_details  # type: DetectImageFacesResponseBodyFacesEmotionDetails
 
     def validate(self):
@@ -3076,17 +3261,25 @@ class DetectImageFacesResponseBodyFaces(TeaModel):
             self.emotion_details.validate()
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBodyFaces, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.emotion_confidence is not None:
+            result['EmotionConfidence'] = self.emotion_confidence
+        if self.attractive is not None:
+            result['Attractive'] = self.attractive
         if self.attractive_confidence is not None:
             result['AttractiveConfidence'] = self.attractive_confidence
         if self.gender is not None:
             result['Gender'] = self.gender
+        if self.age_confidence is not None:
+            result['AgeConfidence'] = self.age_confidence
         if self.gender_confidence is not None:
             result['GenderConfidence'] = self.gender_confidence
         if self.face_id is not None:
             result['FaceId'] = self.face_id
-        if self.face_attributes is not None:
-            result['FaceAttributes'] = self.face_attributes.to_map()
         if self.face_quality is not None:
             result['FaceQuality'] = self.face_quality
         if self.emotion is not None:
@@ -3095,29 +3288,28 @@ class DetectImageFacesResponseBodyFaces(TeaModel):
             result['Age'] = self.age
         if self.face_confidence is not None:
             result['FaceConfidence'] = self.face_confidence
-        if self.emotion_confidence is not None:
-            result['EmotionConfidence'] = self.emotion_confidence
-        if self.attractive is not None:
-            result['Attractive'] = self.attractive
-        if self.age_confidence is not None:
-            result['AgeConfidence'] = self.age_confidence
+        if self.face_attributes is not None:
+            result['FaceAttributes'] = self.face_attributes.to_map()
         if self.emotion_details is not None:
             result['EmotionDetails'] = self.emotion_details.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EmotionConfidence') is not None:
+            self.emotion_confidence = m.get('EmotionConfidence')
+        if m.get('Attractive') is not None:
+            self.attractive = m.get('Attractive')
         if m.get('AttractiveConfidence') is not None:
             self.attractive_confidence = m.get('AttractiveConfidence')
         if m.get('Gender') is not None:
             self.gender = m.get('Gender')
+        if m.get('AgeConfidence') is not None:
+            self.age_confidence = m.get('AgeConfidence')
         if m.get('GenderConfidence') is not None:
             self.gender_confidence = m.get('GenderConfidence')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
-        if m.get('FaceAttributes') is not None:
-            temp_model = DetectImageFacesResponseBodyFacesFaceAttributes()
-            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         if m.get('FaceQuality') is not None:
             self.face_quality = m.get('FaceQuality')
         if m.get('Emotion') is not None:
@@ -3126,12 +3318,9 @@ class DetectImageFacesResponseBodyFaces(TeaModel):
             self.age = m.get('Age')
         if m.get('FaceConfidence') is not None:
             self.face_confidence = m.get('FaceConfidence')
-        if m.get('EmotionConfidence') is not None:
-            self.emotion_confidence = m.get('EmotionConfidence')
-        if m.get('Attractive') is not None:
-            self.attractive = m.get('Attractive')
-        if m.get('AgeConfidence') is not None:
-            self.age_confidence = m.get('AgeConfidence')
+        if m.get('FaceAttributes') is not None:
+            temp_model = DetectImageFacesResponseBodyFacesFaceAttributes()
+            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         if m.get('EmotionDetails') is not None:
             temp_model = DetectImageFacesResponseBodyFacesEmotionDetails()
             self.emotion_details = temp_model.from_map(m['EmotionDetails'])
@@ -3139,9 +3328,9 @@ class DetectImageFacesResponseBodyFaces(TeaModel):
 
 
 class DetectImageFacesResponseBody(TeaModel):
-    def __init__(self, request_id=None, image_uri=None, faces=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, faces=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.faces = faces  # type: list[DetectImageFacesResponseBodyFaces]
 
     def validate(self):
@@ -3151,11 +3340,15 @@ class DetectImageFacesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectImageFacesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Faces'] = []
         if self.faces is not None:
             for k in self.faces:
@@ -3164,10 +3357,10 @@ class DetectImageFacesResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.faces = []
         if m.get('Faces') is not None:
             for k in m.get('Faces'):
@@ -3178,7 +3371,7 @@ class DetectImageFacesResponseBody(TeaModel):
 
 class DetectImageFacesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectImageFacesResponseBody
 
     def validate(self):
@@ -3188,6 +3381,10 @@ class DetectImageFacesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectImageFacesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3207,13 +3404,17 @@ class DetectImageFacesResponse(TeaModel):
 
 class DetectImageLogosRequest(TeaModel):
     def __init__(self, project=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageLogosRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -3231,77 +3432,85 @@ class DetectImageLogosRequest(TeaModel):
 
 
 class DetectImageLogosResponseBodyLogosLogoBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageLogosResponseBodyLogosLogoBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
 class DetectImageLogosResponseBodyLogos(TeaModel):
-    def __init__(self, logo_confidence=None, logo_boundary=None, logo_name=None):
+    def __init__(self, logo_confidence=None, logo_name=None, logo_boundary=None):
         self.logo_confidence = logo_confidence  # type: float
+        self.logo_name = logo_name  # type: str
         self.logo_boundary = logo_boundary  # type: DetectImageLogosResponseBodyLogosLogoBoundary
-        self.logo_name = TeaConverter.to_unicode(logo_name)  # type: unicode
 
     def validate(self):
         if self.logo_boundary:
             self.logo_boundary.validate()
 
     def to_map(self):
+        _map = super(DetectImageLogosResponseBodyLogos, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.logo_confidence is not None:
             result['LogoConfidence'] = self.logo_confidence
-        if self.logo_boundary is not None:
-            result['LogoBoundary'] = self.logo_boundary.to_map()
         if self.logo_name is not None:
             result['LogoName'] = self.logo_name
+        if self.logo_boundary is not None:
+            result['LogoBoundary'] = self.logo_boundary.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('LogoConfidence') is not None:
             self.logo_confidence = m.get('LogoConfidence')
+        if m.get('LogoName') is not None:
+            self.logo_name = m.get('LogoName')
         if m.get('LogoBoundary') is not None:
             temp_model = DetectImageLogosResponseBodyLogosLogoBoundary()
             self.logo_boundary = temp_model.from_map(m['LogoBoundary'])
-        if m.get('LogoName') is not None:
-            self.logo_name = m.get('LogoName')
         return self
 
 
 class DetectImageLogosResponseBody(TeaModel):
-    def __init__(self, request_id=None, logos=None, image_uri=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, logos=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.logos = logos  # type: list[DetectImageLogosResponseBodyLogos]
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
 
     def validate(self):
         if self.logos:
@@ -3310,19 +3519,25 @@ class DetectImageLogosResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectImageLogosResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.image_uri is not None:
+            result['ImageUri'] = self.image_uri
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Logos'] = []
         if self.logos is not None:
             for k in self.logos:
                 result['Logos'].append(k.to_map() if k else None)
-        if self.image_uri is not None:
-            result['ImageUri'] = self.image_uri
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ImageUri') is not None:
+            self.image_uri = m.get('ImageUri')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.logos = []
@@ -3330,14 +3545,12 @@ class DetectImageLogosResponseBody(TeaModel):
             for k in m.get('Logos'):
                 temp_model = DetectImageLogosResponseBodyLogos()
                 self.logos.append(temp_model.from_map(k))
-        if m.get('ImageUri') is not None:
-            self.image_uri = m.get('ImageUri')
         return self
 
 
 class DetectImageLogosResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectImageLogosResponseBody
 
     def validate(self):
@@ -3347,6 +3560,10 @@ class DetectImageLogosResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectImageLogosResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3366,13 +3583,17 @@ class DetectImageLogosResponse(TeaModel):
 
 class DetectImageQRCodesRequest(TeaModel):
     def __init__(self, project=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageQRCodesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -3390,43 +3611,47 @@ class DetectImageQRCodesRequest(TeaModel):
 
 
 class DetectImageQRCodesResponseBodyQRCodesQRCodeBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageQRCodesResponseBodyQRCodesQRCodeBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
 class DetectImageQRCodesResponseBodyQRCodes(TeaModel):
     def __init__(self, content=None, qrcode_boundary=None):
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
+        self.content = content  # type: str
         self.qrcode_boundary = qrcode_boundary  # type: DetectImageQRCodesResponseBodyQRCodesQRCodeBoundary
 
     def validate(self):
@@ -3434,6 +3659,10 @@ class DetectImageQRCodesResponseBodyQRCodes(TeaModel):
             self.qrcode_boundary.validate()
 
     def to_map(self):
+        _map = super(DetectImageQRCodesResponseBodyQRCodes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.content is not None:
             result['Content'] = self.content
@@ -3452,9 +3681,9 @@ class DetectImageQRCodesResponseBodyQRCodes(TeaModel):
 
 
 class DetectImageQRCodesResponseBody(TeaModel):
-    def __init__(self, request_id=None, image_uri=None, qrcodes=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, qrcodes=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.qrcodes = qrcodes  # type: list[DetectImageQRCodesResponseBodyQRCodes]
 
     def validate(self):
@@ -3464,11 +3693,15 @@ class DetectImageQRCodesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectImageQRCodesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['QRCodes'] = []
         if self.qrcodes is not None:
             for k in self.qrcodes:
@@ -3477,10 +3710,10 @@ class DetectImageQRCodesResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.qrcodes = []
         if m.get('QRCodes') is not None:
             for k in m.get('QRCodes'):
@@ -3491,7 +3724,7 @@ class DetectImageQRCodesResponseBody(TeaModel):
 
 class DetectImageQRCodesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectImageQRCodesResponseBody
 
     def validate(self):
@@ -3501,6 +3734,10 @@ class DetectImageQRCodesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectImageQRCodesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3519,22 +3756,23 @@ class DetectImageQRCodesResponse(TeaModel):
 
 
 class DetectImageTagsRequest(TeaModel):
-    def __init__(self, project=None, image_uri=None, real_uid=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.real_uid = TeaConverter.to_unicode(real_uid)  # type: unicode
+    def __init__(self, project=None, image_uri=None):
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageTagsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
-        if self.real_uid is not None:
-            result['RealUid'] = self.real_uid
         return result
 
     def from_map(self, m=None):
@@ -3543,25 +3781,27 @@ class DetectImageTagsRequest(TeaModel):
             self.project = m.get('Project')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
-        if m.get('RealUid') is not None:
-            self.real_uid = m.get('RealUid')
         return self
 
 
 class DetectImageTagsResponseBodyTags(TeaModel):
     def __init__(self, parent_tag_en_name=None, tag_name=None, tag_confidence=None, tag_en_name=None,
                  tag_level=None, parent_tag_name=None):
-        self.parent_tag_en_name = TeaConverter.to_unicode(parent_tag_en_name)  # type: unicode
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
+        self.parent_tag_en_name = parent_tag_en_name  # type: str
+        self.tag_name = tag_name  # type: str
         self.tag_confidence = tag_confidence  # type: float
-        self.tag_en_name = TeaConverter.to_unicode(tag_en_name)  # type: unicode
+        self.tag_en_name = tag_en_name  # type: str
         self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
+        self.parent_tag_name = parent_tag_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectImageTagsResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.parent_tag_en_name is not None:
             result['ParentTagEnName'] = self.parent_tag_en_name
@@ -3595,9 +3835,9 @@ class DetectImageTagsResponseBodyTags(TeaModel):
 
 
 class DetectImageTagsResponseBody(TeaModel):
-    def __init__(self, request_id=None, image_uri=None, tags=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, tags=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.tags = tags  # type: list[DetectImageTagsResponseBodyTags]
 
     def validate(self):
@@ -3607,11 +3847,15 @@ class DetectImageTagsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectImageTagsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Tags'] = []
         if self.tags is not None:
             for k in self.tags:
@@ -3620,10 +3864,10 @@ class DetectImageTagsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.tags = []
         if m.get('Tags') is not None:
             for k in m.get('Tags'):
@@ -3634,7 +3878,7 @@ class DetectImageTagsResponseBody(TeaModel):
 
 class DetectImageTagsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectImageTagsResponseBody
 
     def validate(self):
@@ -3644,6 +3888,10 @@ class DetectImageTagsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectImageTagsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3663,13 +3911,17 @@ class DetectImageTagsResponse(TeaModel):
 
 class DetectQRCodesRequest(TeaModel):
     def __init__(self, project=None, src_uris=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_uris = TeaConverter.to_unicode(src_uris)  # type: unicode
+        self.project = project  # type: str
+        self.src_uris = src_uris  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectQRCodesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -3687,70 +3939,78 @@ class DetectQRCodesRequest(TeaModel):
 
 
 class DetectQRCodesResponseBodySuccessDetailsQRCodesQRCodesRectangle(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = TeaConverter.to_unicode(top)  # type: unicode
-        self.width = TeaConverter.to_unicode(width)  # type: unicode
-        self.height = TeaConverter.to_unicode(height)  # type: unicode
-        self.left = TeaConverter.to_unicode(left)  # type: unicode
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: str
+        self.top = top  # type: str
+        self.width = width  # type: str
+        self.height = height  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectQRCodesResponseBodySuccessDetailsQRCodesQRCodesRectangle, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
 class DetectQRCodesResponseBodySuccessDetailsQRCodes(TeaModel):
-    def __init__(self, qrcodes_rectangle=None, content=None):
+    def __init__(self, content=None, qrcodes_rectangle=None):
+        self.content = content  # type: str
         self.qrcodes_rectangle = qrcodes_rectangle  # type: DetectQRCodesResponseBodySuccessDetailsQRCodesQRCodesRectangle
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
 
     def validate(self):
         if self.qrcodes_rectangle:
             self.qrcodes_rectangle.validate()
 
     def to_map(self):
+        _map = super(DetectQRCodesResponseBodySuccessDetailsQRCodes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.qrcodes_rectangle is not None:
-            result['QRCodesRectangle'] = self.qrcodes_rectangle.to_map()
         if self.content is not None:
             result['Content'] = self.content
+        if self.qrcodes_rectangle is not None:
+            result['QRCodesRectangle'] = self.qrcodes_rectangle.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         if m.get('QRCodesRectangle') is not None:
             temp_model = DetectQRCodesResponseBodySuccessDetailsQRCodesQRCodesRectangle()
             self.qrcodes_rectangle = temp_model.from_map(m['QRCodesRectangle'])
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
 class DetectQRCodesResponseBodySuccessDetails(TeaModel):
     def __init__(self, src_uri=None, qrcodes=None):
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
+        self.src_uri = src_uri  # type: str
         self.qrcodes = qrcodes  # type: list[DetectQRCodesResponseBodySuccessDetailsQRCodes]
 
     def validate(self):
@@ -3760,6 +4020,10 @@ class DetectQRCodesResponseBodySuccessDetails(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectQRCodesResponseBodySuccessDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.src_uri is not None:
             result['SrcUri'] = self.src_uri
@@ -3783,14 +4047,18 @@ class DetectQRCodesResponseBodySuccessDetails(TeaModel):
 
 class DetectQRCodesResponseBodyFailDetails(TeaModel):
     def __init__(self, error_message=None, src_uri=None, error_code=None):
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.error_code = TeaConverter.to_unicode(error_code)  # type: unicode
+        self.error_message = error_message  # type: str
+        self.src_uri = src_uri  # type: str
+        self.error_code = error_code  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DetectQRCodesResponseBodyFailDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.error_message is not None:
             result['ErrorMessage'] = self.error_message
@@ -3812,9 +4080,9 @@ class DetectQRCodesResponseBodyFailDetails(TeaModel):
 
 
 class DetectQRCodesResponseBody(TeaModel):
-    def __init__(self, success_details=None, request_id=None, fail_details=None):
+    def __init__(self, request_id=None, success_details=None, fail_details=None):
+        self.request_id = request_id  # type: str
         self.success_details = success_details  # type: list[DetectQRCodesResponseBodySuccessDetails]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
         self.fail_details = fail_details  # type: list[DetectQRCodesResponseBodyFailDetails]
 
     def validate(self):
@@ -3828,13 +4096,17 @@ class DetectQRCodesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(DetectQRCodesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['SuccessDetails'] = []
         if self.success_details is not None:
             for k in self.success_details:
                 result['SuccessDetails'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['FailDetails'] = []
         if self.fail_details is not None:
             for k in self.fail_details:
@@ -3843,13 +4115,13 @@ class DetectQRCodesResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.success_details = []
         if m.get('SuccessDetails') is not None:
             for k in m.get('SuccessDetails'):
                 temp_model = DetectQRCodesResponseBodySuccessDetails()
                 self.success_details.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.fail_details = []
         if m.get('FailDetails') is not None:
             for k in m.get('FailDetails'):
@@ -3860,7 +4132,7 @@ class DetectQRCodesResponseBody(TeaModel):
 
 class DetectQRCodesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DetectQRCodesResponseBody
 
     def validate(self):
@@ -3870,6 +4142,10 @@ class DetectQRCodesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DetectQRCodesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -3889,21 +4165,24 @@ class DetectQRCodesResponse(TeaModel):
 
 class EncodeBlindWatermarkRequest(TeaModel):
     def __init__(self, project=None, image_uri=None, watermark_uri=None, target_uri=None, image_quality=None,
-                 content=None, target_image_type=None, model=None, watermark_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.watermark_uri = TeaConverter.to_unicode(watermark_uri)  # type: unicode
-        self.target_uri = TeaConverter.to_unicode(target_uri)  # type: unicode
-        self.image_quality = TeaConverter.to_unicode(image_quality)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
-        self.target_image_type = TeaConverter.to_unicode(target_image_type)  # type: unicode
-        self.model = TeaConverter.to_unicode(model)  # type: unicode
-        self.watermark_type = TeaConverter.to_unicode(watermark_type)  # type: unicode
+                 content=None, target_image_type=None, model=None):
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
+        self.watermark_uri = watermark_uri  # type: str
+        self.target_uri = target_uri  # type: str
+        self.image_quality = image_quality  # type: str
+        self.content = content  # type: str
+        self.target_image_type = target_image_type  # type: str
+        self.model = model  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EncodeBlindWatermarkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -3921,8 +4200,6 @@ class EncodeBlindWatermarkRequest(TeaModel):
             result['TargetImageType'] = self.target_image_type
         if self.model is not None:
             result['Model'] = self.model
-        if self.watermark_type is not None:
-            result['WatermarkType'] = self.watermark_type
         return result
 
     def from_map(self, m=None):
@@ -3943,44 +4220,46 @@ class EncodeBlindWatermarkRequest(TeaModel):
             self.target_image_type = m.get('TargetImageType')
         if m.get('Model') is not None:
             self.model = m.get('Model')
-        if m.get('WatermarkType') is not None:
-            self.watermark_type = m.get('WatermarkType')
         return self
 
 
 class EncodeBlindWatermarkResponseBody(TeaModel):
-    def __init__(self, request_id=None, content=None, target_uri=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.content = TeaConverter.to_unicode(content)  # type: unicode
-        self.target_uri = TeaConverter.to_unicode(target_uri)  # type: unicode
+    def __init__(self, request_id=None, target_uri=None, content=None):
+        self.request_id = request_id  # type: str
+        self.target_uri = target_uri  # type: str
+        self.content = content  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EncodeBlindWatermarkResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.content is not None:
-            result['Content'] = self.content
         if self.target_uri is not None:
             result['TargetUri'] = self.target_uri
+        if self.content is not None:
+            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         if m.get('TargetUri') is not None:
             self.target_uri = m.get('TargetUri')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         return self
 
 
 class EncodeBlindWatermarkResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: EncodeBlindWatermarkResponseBody
 
     def validate(self):
@@ -3990,6 +4269,10 @@ class EncodeBlindWatermarkResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(EncodeBlindWatermarkResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -4014,40 +4297,44 @@ class FindImagesRequest(TeaModel):
                  order_by=None, order=None, marker=None, location_boundary=None, remarks_cprefix=None, remarks_dprefix=None,
                  external_id=None, group_id=None, limit=None, faces_modify_time_range=None, tags_modify_time_range=None,
                  address_line_contents_match=None, remarks_array_ain=None, remarks_array_bin=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_size_range = TeaConverter.to_unicode(image_size_range)  # type: unicode
-        self.image_time_range = TeaConverter.to_unicode(image_time_range)  # type: unicode
-        self.create_time_range = TeaConverter.to_unicode(create_time_range)  # type: unicode
-        self.modify_time_range = TeaConverter.to_unicode(modify_time_range)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.source_uri_prefix = TeaConverter.to_unicode(source_uri_prefix)  # type: unicode
-        self.remarks_aprefix = TeaConverter.to_unicode(remarks_aprefix)  # type: unicode
-        self.remarks_bprefix = TeaConverter.to_unicode(remarks_bprefix)  # type: unicode
-        self.tag_names = TeaConverter.to_unicode(tag_names)  # type: unicode
-        self.ocrcontents_match = TeaConverter.to_unicode(ocrcontents_match)  # type: unicode
-        self.age_range = TeaConverter.to_unicode(age_range)  # type: unicode
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.order_by = TeaConverter.to_unicode(order_by)  # type: unicode
-        self.order = TeaConverter.to_unicode(order)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
-        self.location_boundary = TeaConverter.to_unicode(location_boundary)  # type: unicode
-        self.remarks_cprefix = TeaConverter.to_unicode(remarks_cprefix)  # type: unicode
-        self.remarks_dprefix = TeaConverter.to_unicode(remarks_dprefix)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_size_range = image_size_range  # type: str
+        self.image_time_range = image_time_range  # type: str
+        self.create_time_range = create_time_range  # type: str
+        self.modify_time_range = modify_time_range  # type: str
+        self.source_type = source_type  # type: str
+        self.source_uri_prefix = source_uri_prefix  # type: str
+        self.remarks_aprefix = remarks_aprefix  # type: str
+        self.remarks_bprefix = remarks_bprefix  # type: str
+        self.tag_names = tag_names  # type: str
+        self.ocrcontents_match = ocrcontents_match  # type: str
+        self.age_range = age_range  # type: str
+        self.gender = gender  # type: str
+        self.emotion = emotion  # type: str
+        self.order_by = order_by  # type: str
+        self.order = order  # type: str
+        self.marker = marker  # type: str
+        self.location_boundary = location_boundary  # type: str
+        self.remarks_cprefix = remarks_cprefix  # type: str
+        self.remarks_dprefix = remarks_dprefix  # type: str
+        self.external_id = external_id  # type: str
+        self.group_id = group_id  # type: str
         self.limit = limit  # type: int
-        self.faces_modify_time_range = TeaConverter.to_unicode(faces_modify_time_range)  # type: unicode
-        self.tags_modify_time_range = TeaConverter.to_unicode(tags_modify_time_range)  # type: unicode
-        self.address_line_contents_match = TeaConverter.to_unicode(address_line_contents_match)  # type: unicode
-        self.remarks_array_ain = TeaConverter.to_unicode(remarks_array_ain)  # type: unicode
-        self.remarks_array_bin = TeaConverter.to_unicode(remarks_array_bin)  # type: unicode
+        self.faces_modify_time_range = faces_modify_time_range  # type: str
+        self.tags_modify_time_range = tags_modify_time_range  # type: str
+        self.address_line_contents_match = address_line_contents_match  # type: str
+        self.remarks_array_ain = remarks_array_ain  # type: str
+        self.remarks_array_bin = remarks_array_bin  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(FindImagesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -4172,276 +4459,78 @@ class FindImagesRequest(TeaModel):
         return self
 
 
-class FindImagesResponseBodyImagesTags(TeaModel):
-    def __init__(self, tag_confidence=None, tag_name=None, tag_level=None, parent_tag_name=None):
-        self.tag_confidence = tag_confidence  # type: float
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
-        self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.tag_confidence is not None:
-            result['TagConfidence'] = self.tag_confidence
-        if self.tag_name is not None:
-            result['TagName'] = self.tag_name
-        if self.tag_level is not None:
-            result['TagLevel'] = self.tag_level
-        if self.parent_tag_name is not None:
-            result['ParentTagName'] = self.parent_tag_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagConfidence') is not None:
-            self.tag_confidence = m.get('TagConfidence')
-        if m.get('TagName') is not None:
-            self.tag_name = m.get('TagName')
-        if m.get('TagLevel') is not None:
-            self.tag_level = m.get('TagLevel')
-        if m.get('ParentTagName') is not None:
-            self.parent_tag_name = m.get('ParentTagName')
-        return self
-
-
-class FindImagesResponseBodyImagesOCROCRBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+class FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
-class FindImagesResponseBodyImagesOCR(TeaModel):
-    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
-        self.ocrconfidence = ocrconfidence  # type: float
-        self.ocrcontents = TeaConverter.to_unicode(ocrcontents)  # type: unicode
-        self.ocrboundary = ocrboundary  # type: FindImagesResponseBodyImagesOCROCRBoundary
+class FindImagesResponseBodyImagesCroppingSuggestion(TeaModel):
+    def __init__(self, score=None, aspect_ratio=None, cropping_boundary=None):
+        self.score = score  # type: float
+        self.aspect_ratio = aspect_ratio  # type: str
+        self.cropping_boundary = cropping_boundary  # type: FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary
 
     def validate(self):
-        if self.ocrboundary:
-            self.ocrboundary.validate()
+        if self.cropping_boundary:
+            self.cropping_boundary.validate()
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesCroppingSuggestion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.ocrconfidence is not None:
-            result['OCRConfidence'] = self.ocrconfidence
-        if self.ocrcontents is not None:
-            result['OCRContents'] = self.ocrcontents
-        if self.ocrboundary is not None:
-            result['OCRBoundary'] = self.ocrboundary.to_map()
+        if self.score is not None:
+            result['Score'] = self.score
+        if self.aspect_ratio is not None:
+            result['AspectRatio'] = self.aspect_ratio
+        if self.cropping_boundary is not None:
+            result['CroppingBoundary'] = self.cropping_boundary.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OCRConfidence') is not None:
-            self.ocrconfidence = m.get('OCRConfidence')
-        if m.get('OCRContents') is not None:
-            self.ocrcontents = m.get('OCRContents')
-        if m.get('OCRBoundary') is not None:
-            temp_model = FindImagesResponseBodyImagesOCROCRBoundary()
-            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
-        return self
-
-
-class FindImagesResponseBodyImagesAddress(TeaModel):
-    def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
-        self.township = TeaConverter.to_unicode(township)  # type: unicode
-        self.district = TeaConverter.to_unicode(district)  # type: unicode
-        self.address_line = TeaConverter.to_unicode(address_line)  # type: unicode
-        self.country = TeaConverter.to_unicode(country)  # type: unicode
-        self.city = TeaConverter.to_unicode(city)  # type: unicode
-        self.province = TeaConverter.to_unicode(province)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.township is not None:
-            result['Township'] = self.township
-        if self.district is not None:
-            result['District'] = self.district
-        if self.address_line is not None:
-            result['AddressLine'] = self.address_line
-        if self.country is not None:
-            result['Country'] = self.country
-        if self.city is not None:
-            result['City'] = self.city
-        if self.province is not None:
-            result['Province'] = self.province
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Township') is not None:
-            self.township = m.get('Township')
-        if m.get('District') is not None:
-            self.district = m.get('District')
-        if m.get('AddressLine') is not None:
-            self.address_line = m.get('AddressLine')
-        if m.get('Country') is not None:
-            self.country = m.get('Country')
-        if m.get('City') is not None:
-            self.city = m.get('City')
-        if m.get('Province') is not None:
-            self.province = m.get('Province')
-        return self
-
-
-class FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class FindImagesResponseBodyImagesFacesFaceAttributesHeadPose(TeaModel):
-    def __init__(self, pitch=None, roll=None, yaw=None):
-        self.pitch = pitch  # type: float
-        self.roll = roll  # type: float
-        self.yaw = yaw  # type: float
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.pitch is not None:
-            result['Pitch'] = self.pitch
-        if self.roll is not None:
-            result['Roll'] = self.roll
-        if self.yaw is not None:
-            result['Yaw'] = self.yaw
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Pitch') is not None:
-            self.pitch = m.get('Pitch')
-        if m.get('Roll') is not None:
-            self.roll = m.get('Roll')
-        if m.get('Yaw') is not None:
-            self.yaw = m.get('Yaw')
-        return self
-
-
-class FindImagesResponseBodyImagesFacesFaceAttributes(TeaModel):
-    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
-                 mask_confidence=None, face_boundary=None, head_pose=None, beard=None):
-        self.glasses_confidence = glasses_confidence  # type: float
-        self.glasses = TeaConverter.to_unicode(glasses)  # type: unicode
-        self.mask = TeaConverter.to_unicode(mask)  # type: unicode
-        self.beard_confidence = beard_confidence  # type: float
-        self.mask_confidence = mask_confidence  # type: float
-        self.face_boundary = face_boundary  # type: FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary
-        self.head_pose = head_pose  # type: FindImagesResponseBodyImagesFacesFaceAttributesHeadPose
-        self.beard = TeaConverter.to_unicode(beard)  # type: unicode
-
-    def validate(self):
-        if self.face_boundary:
-            self.face_boundary.validate()
-        if self.head_pose:
-            self.head_pose.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.glasses_confidence is not None:
-            result['GlassesConfidence'] = self.glasses_confidence
-        if self.glasses is not None:
-            result['Glasses'] = self.glasses
-        if self.mask is not None:
-            result['Mask'] = self.mask
-        if self.beard_confidence is not None:
-            result['BeardConfidence'] = self.beard_confidence
-        if self.mask_confidence is not None:
-            result['MaskConfidence'] = self.mask_confidence
-        if self.face_boundary is not None:
-            result['FaceBoundary'] = self.face_boundary.to_map()
-        if self.head_pose is not None:
-            result['HeadPose'] = self.head_pose.to_map()
-        if self.beard is not None:
-            result['Beard'] = self.beard
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('GlassesConfidence') is not None:
-            self.glasses_confidence = m.get('GlassesConfidence')
-        if m.get('Glasses') is not None:
-            self.glasses = m.get('Glasses')
-        if m.get('Mask') is not None:
-            self.mask = m.get('Mask')
-        if m.get('BeardConfidence') is not None:
-            self.beard_confidence = m.get('BeardConfidence')
-        if m.get('MaskConfidence') is not None:
-            self.mask_confidence = m.get('MaskConfidence')
-        if m.get('FaceBoundary') is not None:
-            temp_model = FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary()
-            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
-        if m.get('HeadPose') is not None:
-            temp_model = FindImagesResponseBodyImagesFacesFaceAttributesHeadPose()
-            self.head_pose = temp_model.from_map(m['HeadPose'])
-        if m.get('Beard') is not None:
-            self.beard = m.get('Beard')
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        if m.get('AspectRatio') is not None:
+            self.aspect_ratio = m.get('AspectRatio')
+        if m.get('CroppingBoundary') is not None:
+            temp_model = FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary()
+            self.cropping_boundary = temp_model.from_map(m['CroppingBoundary'])
         return self
 
 
@@ -4459,6 +4548,10 @@ class FindImagesResponseBodyImagesFacesEmotionDetails(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesFacesEmotionDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.happy is not None:
             result['HAPPY'] = self.happy
@@ -4495,39 +4588,185 @@ class FindImagesResponseBodyImagesFacesEmotionDetails(TeaModel):
         return self
 
 
-class FindImagesResponseBodyImagesFaces(TeaModel):
-    def __init__(self, gender=None, face_id=None, gender_confidence=None, face_attributes=None, face_quality=None,
-                 emotion=None, age=None, face_confidence=None, emotion_confidence=None, attractive=None, group_id=None,
-                 emotion_details=None):
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.gender_confidence = gender_confidence  # type: float
-        self.face_attributes = face_attributes  # type: FindImagesResponseBodyImagesFacesFaceAttributes
-        self.face_quality = face_quality  # type: float
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.age = age  # type: int
-        self.face_confidence = face_confidence  # type: float
-        self.emotion_confidence = emotion_confidence  # type: float
-        self.attractive = attractive  # type: float
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.emotion_details = emotion_details  # type: FindImagesResponseBodyImagesFacesEmotionDetails
+class FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
 
     def validate(self):
-        if self.face_attributes:
-            self.face_attributes.validate()
-        if self.emotion_details:
-            self.emotion_details.validate()
+        pass
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class FindImagesResponseBodyImagesFacesFaceAttributesHeadPose(TeaModel):
+    def __init__(self, pitch=None, roll=None, yaw=None):
+        self.pitch = pitch  # type: float
+        self.roll = roll  # type: float
+        self.yaw = yaw  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesFacesFaceAttributesHeadPose, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pitch is not None:
+            result['Pitch'] = self.pitch
+        if self.roll is not None:
+            result['Roll'] = self.roll
+        if self.yaw is not None:
+            result['Yaw'] = self.yaw
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Pitch') is not None:
+            self.pitch = m.get('Pitch')
+        if m.get('Roll') is not None:
+            self.roll = m.get('Roll')
+        if m.get('Yaw') is not None:
+            self.yaw = m.get('Yaw')
+        return self
+
+
+class FindImagesResponseBodyImagesFacesFaceAttributes(TeaModel):
+    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
+                 mask_confidence=None, beard=None, face_boundary=None, head_pose=None):
+        self.glasses_confidence = glasses_confidence  # type: float
+        self.glasses = glasses  # type: str
+        self.mask = mask  # type: str
+        self.beard_confidence = beard_confidence  # type: float
+        self.mask_confidence = mask_confidence  # type: float
+        self.beard = beard  # type: str
+        self.face_boundary = face_boundary  # type: FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary
+        self.head_pose = head_pose  # type: FindImagesResponseBodyImagesFacesFaceAttributesHeadPose
+
+    def validate(self):
+        if self.face_boundary:
+            self.face_boundary.validate()
+        if self.head_pose:
+            self.head_pose.validate()
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.glasses_confidence is not None:
+            result['GlassesConfidence'] = self.glasses_confidence
+        if self.glasses is not None:
+            result['Glasses'] = self.glasses
+        if self.mask is not None:
+            result['Mask'] = self.mask
+        if self.beard_confidence is not None:
+            result['BeardConfidence'] = self.beard_confidence
+        if self.mask_confidence is not None:
+            result['MaskConfidence'] = self.mask_confidence
+        if self.beard is not None:
+            result['Beard'] = self.beard
+        if self.face_boundary is not None:
+            result['FaceBoundary'] = self.face_boundary.to_map()
+        if self.head_pose is not None:
+            result['HeadPose'] = self.head_pose.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlassesConfidence') is not None:
+            self.glasses_confidence = m.get('GlassesConfidence')
+        if m.get('Glasses') is not None:
+            self.glasses = m.get('Glasses')
+        if m.get('Mask') is not None:
+            self.mask = m.get('Mask')
+        if m.get('BeardConfidence') is not None:
+            self.beard_confidence = m.get('BeardConfidence')
+        if m.get('MaskConfidence') is not None:
+            self.mask_confidence = m.get('MaskConfidence')
+        if m.get('Beard') is not None:
+            self.beard = m.get('Beard')
+        if m.get('FaceBoundary') is not None:
+            temp_model = FindImagesResponseBodyImagesFacesFaceAttributesFaceBoundary()
+            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
+        if m.get('HeadPose') is not None:
+            temp_model = FindImagesResponseBodyImagesFacesFaceAttributesHeadPose()
+            self.head_pose = temp_model.from_map(m['HeadPose'])
+        return self
+
+
+class FindImagesResponseBodyImagesFaces(TeaModel):
+    def __init__(self, emotion_confidence=None, attractive=None, group_id=None, gender=None, face_id=None,
+                 gender_confidence=None, face_quality=None, emotion=None, age=None, face_confidence=None, emotion_details=None,
+                 face_attributes=None):
+        self.emotion_confidence = emotion_confidence  # type: float
+        self.attractive = attractive  # type: float
+        self.group_id = group_id  # type: str
+        self.gender = gender  # type: str
+        self.face_id = face_id  # type: str
+        self.gender_confidence = gender_confidence  # type: float
+        self.face_quality = face_quality  # type: float
+        self.emotion = emotion  # type: str
+        self.age = age  # type: int
+        self.face_confidence = face_confidence  # type: float
+        self.emotion_details = emotion_details  # type: FindImagesResponseBodyImagesFacesEmotionDetails
+        self.face_attributes = face_attributes  # type: FindImagesResponseBodyImagesFacesFaceAttributes
+
+    def validate(self):
+        if self.emotion_details:
+            self.emotion_details.validate()
+        if self.face_attributes:
+            self.face_attributes.validate()
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesFaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.emotion_confidence is not None:
+            result['EmotionConfidence'] = self.emotion_confidence
+        if self.attractive is not None:
+            result['Attractive'] = self.attractive
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
         if self.gender is not None:
             result['Gender'] = self.gender
         if self.face_id is not None:
             result['FaceId'] = self.face_id
         if self.gender_confidence is not None:
             result['GenderConfidence'] = self.gender_confidence
-        if self.face_attributes is not None:
-            result['FaceAttributes'] = self.face_attributes.to_map()
         if self.face_quality is not None:
             result['FaceQuality'] = self.face_quality
         if self.emotion is not None:
@@ -4536,27 +4775,26 @@ class FindImagesResponseBodyImagesFaces(TeaModel):
             result['Age'] = self.age
         if self.face_confidence is not None:
             result['FaceConfidence'] = self.face_confidence
-        if self.emotion_confidence is not None:
-            result['EmotionConfidence'] = self.emotion_confidence
-        if self.attractive is not None:
-            result['Attractive'] = self.attractive
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
         if self.emotion_details is not None:
             result['EmotionDetails'] = self.emotion_details.to_map()
+        if self.face_attributes is not None:
+            result['FaceAttributes'] = self.face_attributes.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EmotionConfidence') is not None:
+            self.emotion_confidence = m.get('EmotionConfidence')
+        if m.get('Attractive') is not None:
+            self.attractive = m.get('Attractive')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
         if m.get('Gender') is not None:
             self.gender = m.get('Gender')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
         if m.get('GenderConfidence') is not None:
             self.gender_confidence = m.get('GenderConfidence')
-        if m.get('FaceAttributes') is not None:
-            temp_model = FindImagesResponseBodyImagesFacesFaceAttributes()
-            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         if m.get('FaceQuality') is not None:
             self.face_quality = m.get('FaceQuality')
         if m.get('Emotion') is not None:
@@ -4565,15 +4803,126 @@ class FindImagesResponseBodyImagesFaces(TeaModel):
             self.age = m.get('Age')
         if m.get('FaceConfidence') is not None:
             self.face_confidence = m.get('FaceConfidence')
-        if m.get('EmotionConfidence') is not None:
-            self.emotion_confidence = m.get('EmotionConfidence')
-        if m.get('Attractive') is not None:
-            self.attractive = m.get('Attractive')
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
         if m.get('EmotionDetails') is not None:
             temp_model = FindImagesResponseBodyImagesFacesEmotionDetails()
             self.emotion_details = temp_model.from_map(m['EmotionDetails'])
+        if m.get('FaceAttributes') is not None:
+            temp_model = FindImagesResponseBodyImagesFacesFaceAttributes()
+            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
+        return self
+
+
+class FindImagesResponseBodyImagesTags(TeaModel):
+    def __init__(self, tag_level=None, parent_tag_name=None, tag_confidence=None, tag_name=None):
+        self.tag_level = tag_level  # type: int
+        self.parent_tag_name = parent_tag_name  # type: str
+        self.tag_confidence = tag_confidence  # type: float
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_level is not None:
+            result['TagLevel'] = self.tag_level
+        if self.parent_tag_name is not None:
+            result['ParentTagName'] = self.parent_tag_name
+        if self.tag_confidence is not None:
+            result['TagConfidence'] = self.tag_confidence
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagLevel') is not None:
+            self.tag_level = m.get('TagLevel')
+        if m.get('ParentTagName') is not None:
+            self.parent_tag_name = m.get('ParentTagName')
+        if m.get('TagConfidence') is not None:
+            self.tag_confidence = m.get('TagConfidence')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class FindImagesResponseBodyImagesOCROCRBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesOCROCRBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class FindImagesResponseBodyImagesOCR(TeaModel):
+    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
+        self.ocrconfidence = ocrconfidence  # type: float
+        self.ocrcontents = ocrcontents  # type: str
+        self.ocrboundary = ocrboundary  # type: FindImagesResponseBodyImagesOCROCRBoundary
+
+    def validate(self):
+        if self.ocrboundary:
+            self.ocrboundary.validate()
+
+    def to_map(self):
+        _map = super(FindImagesResponseBodyImagesOCR, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ocrconfidence is not None:
+            result['OCRConfidence'] = self.ocrconfidence
+        if self.ocrcontents is not None:
+            result['OCRContents'] = self.ocrcontents
+        if self.ocrboundary is not None:
+            result['OCRBoundary'] = self.ocrboundary.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OCRConfidence') is not None:
+            self.ocrconfidence = m.get('OCRConfidence')
+        if m.get('OCRContents') is not None:
+            self.ocrcontents = m.get('OCRContents')
+        if m.get('OCRBoundary') is not None:
+            temp_model = FindImagesResponseBodyImagesOCROCRBoundary()
+            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
         return self
 
 
@@ -4595,6 +4944,10 @@ class FindImagesResponseBodyImagesImageQuality(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesImageQuality, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.overall_score is not None:
             result['OverallScore'] = self.overall_score
@@ -4643,131 +4996,121 @@ class FindImagesResponseBodyImagesImageQuality(TeaModel):
         return self
 
 
-class FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
+class FindImagesResponseBodyImagesAddress(TeaModel):
+    def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
+        self.township = township  # type: str
+        self.district = district  # type: str
+        self.address_line = address_line  # type: str
+        self.country = country  # type: str
+        self.city = city  # type: str
+        self.province = province  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImagesAddress, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
+        if self.township is not None:
+            result['Township'] = self.township
+        if self.district is not None:
+            result['District'] = self.district
+        if self.address_line is not None:
+            result['AddressLine'] = self.address_line
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.city is not None:
+            result['City'] = self.city
+        if self.province is not None:
+            result['Province'] = self.province
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class FindImagesResponseBodyImagesCroppingSuggestion(TeaModel):
-    def __init__(self, score=None, cropping_boundary=None, aspect_ratio=None):
-        self.score = score  # type: float
-        self.cropping_boundary = cropping_boundary  # type: FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary
-        self.aspect_ratio = TeaConverter.to_unicode(aspect_ratio)  # type: unicode
-
-    def validate(self):
-        if self.cropping_boundary:
-            self.cropping_boundary.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.score is not None:
-            result['Score'] = self.score
-        if self.cropping_boundary is not None:
-            result['CroppingBoundary'] = self.cropping_boundary.to_map()
-        if self.aspect_ratio is not None:
-            result['AspectRatio'] = self.aspect_ratio
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Score') is not None:
-            self.score = m.get('Score')
-        if m.get('CroppingBoundary') is not None:
-            temp_model = FindImagesResponseBodyImagesCroppingSuggestionCroppingBoundary()
-            self.cropping_boundary = temp_model.from_map(m['CroppingBoundary'])
-        if m.get('AspectRatio') is not None:
-            self.aspect_ratio = m.get('AspectRatio')
+        if m.get('Township') is not None:
+            self.township = m.get('Township')
+        if m.get('District') is not None:
+            self.district = m.get('District')
+        if m.get('AddressLine') is not None:
+            self.address_line = m.get('AddressLine')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
         return self
 
 
 class FindImagesResponseBodyImages(TeaModel):
     def __init__(self, cropping_suggestion_status=None, image_quality_modify_time=None, tags_fail_reason=None,
-                 remarks_c=None, create_time=None, source_type=None, faces_fail_reason=None, tags=None,
-                 faces_modify_time=None, image_time=None, ocrmodify_time=None, address_modify_time=None, ocr=None,
-                 image_quality_fail_reason=None, faces_status=None, image_height=None, remarks_array_a=None, address=None, external_id=None,
-                 source_uri=None, modify_time=None, file_size=None, source_position=None, faces=None,
-                 image_quality_status=None, ocrfail_reason=None, address_fail_reason=None, image_quality=None,
-                 cropping_suggestion_modify_time=None, image_format=None, image_width=None, remarks_array_b=None, cropping_suggestion=None,
-                 orientation=None, remarks_d=None, tags_status=None, cropping_suggestion_fail_reason=None, remarks_a=None,
-                 image_uri=None, tags_modify_time=None, ocrstatus=None, address_status=None, exif=None, location=None,
-                 remarks_b=None):
-        self.cropping_suggestion_status = TeaConverter.to_unicode(cropping_suggestion_status)  # type: unicode
-        self.image_quality_modify_time = TeaConverter.to_unicode(image_quality_modify_time)  # type: unicode
-        self.tags_fail_reason = TeaConverter.to_unicode(tags_fail_reason)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.faces_fail_reason = TeaConverter.to_unicode(faces_fail_reason)  # type: unicode
-        self.tags = tags  # type: list[FindImagesResponseBodyImagesTags]
-        self.faces_modify_time = TeaConverter.to_unicode(faces_modify_time)  # type: unicode
-        self.image_time = TeaConverter.to_unicode(image_time)  # type: unicode
-        self.ocrmodify_time = TeaConverter.to_unicode(ocrmodify_time)  # type: unicode
-        self.address_modify_time = TeaConverter.to_unicode(address_modify_time)  # type: unicode
-        self.ocr = ocr  # type: list[FindImagesResponseBodyImagesOCR]
-        self.image_quality_fail_reason = TeaConverter.to_unicode(image_quality_fail_reason)  # type: unicode
-        self.faces_status = TeaConverter.to_unicode(faces_status)  # type: unicode
+                 remarks_c=None, create_time=None, source_type=None, faces_fail_reason=None, faces_modify_time=None,
+                 image_time=None, ocrmodify_time=None, address_modify_time=None, image_quality_fail_reason=None,
+                 faces_status=None, remarks_array_a=None, image_height=None, external_id=None, source_uri=None, file_size=None,
+                 modify_time=None, source_position=None, image_quality_status=None, ocrfail_reason=None,
+                 address_fail_reason=None, cropping_suggestion_modify_time=None, image_format=None, image_width=None,
+                 remarks_array_b=None, orientation=None, remarks_d=None, tags_status=None, cropping_suggestion_fail_reason=None,
+                 remarks_a=None, image_uri=None, tags_modify_time=None, ocrstatus=None, address_status=None, exif=None,
+                 location=None, remarks_b=None, cropping_suggestion=None, faces=None, tags=None, ocr=None, image_quality=None,
+                 address=None):
+        self.cropping_suggestion_status = cropping_suggestion_status  # type: str
+        self.image_quality_modify_time = image_quality_modify_time  # type: str
+        self.tags_fail_reason = tags_fail_reason  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.create_time = create_time  # type: str
+        self.source_type = source_type  # type: str
+        self.faces_fail_reason = faces_fail_reason  # type: str
+        self.faces_modify_time = faces_modify_time  # type: str
+        self.image_time = image_time  # type: str
+        self.ocrmodify_time = ocrmodify_time  # type: str
+        self.address_modify_time = address_modify_time  # type: str
+        self.image_quality_fail_reason = image_quality_fail_reason  # type: str
+        self.faces_status = faces_status  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
         self.image_height = image_height  # type: int
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.address = address  # type: FindImagesResponseBodyImagesAddress
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.external_id = external_id  # type: str
+        self.source_uri = source_uri  # type: str
         self.file_size = file_size  # type: int
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.faces = faces  # type: list[FindImagesResponseBodyImagesFaces]
-        self.image_quality_status = TeaConverter.to_unicode(image_quality_status)  # type: unicode
-        self.ocrfail_reason = TeaConverter.to_unicode(ocrfail_reason)  # type: unicode
-        self.address_fail_reason = TeaConverter.to_unicode(address_fail_reason)  # type: unicode
-        self.image_quality = image_quality  # type: FindImagesResponseBodyImagesImageQuality
-        self.cropping_suggestion_modify_time = TeaConverter.to_unicode(cropping_suggestion_modify_time)  # type: unicode
-        self.image_format = TeaConverter.to_unicode(image_format)  # type: unicode
+        self.modify_time = modify_time  # type: str
+        self.source_position = source_position  # type: str
+        self.image_quality_status = image_quality_status  # type: str
+        self.ocrfail_reason = ocrfail_reason  # type: str
+        self.address_fail_reason = address_fail_reason  # type: str
+        self.cropping_suggestion_modify_time = cropping_suggestion_modify_time  # type: str
+        self.image_format = image_format  # type: str
         self.image_width = image_width  # type: int
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.orientation = orientation  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.tags_status = tags_status  # type: str
+        self.cropping_suggestion_fail_reason = cropping_suggestion_fail_reason  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.image_uri = image_uri  # type: str
+        self.tags_modify_time = tags_modify_time  # type: str
+        self.ocrstatus = ocrstatus  # type: str
+        self.address_status = address_status  # type: str
+        self.exif = exif  # type: str
+        self.location = location  # type: str
+        self.remarks_b = remarks_b  # type: str
         self.cropping_suggestion = cropping_suggestion  # type: list[FindImagesResponseBodyImagesCroppingSuggestion]
-        self.orientation = TeaConverter.to_unicode(orientation)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.tags_status = TeaConverter.to_unicode(tags_status)  # type: unicode
-        self.cropping_suggestion_fail_reason = TeaConverter.to_unicode(cropping_suggestion_fail_reason)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.tags_modify_time = TeaConverter.to_unicode(tags_modify_time)  # type: unicode
-        self.ocrstatus = TeaConverter.to_unicode(ocrstatus)  # type: unicode
-        self.address_status = TeaConverter.to_unicode(address_status)  # type: unicode
-        self.exif = TeaConverter.to_unicode(exif)  # type: unicode
-        self.location = TeaConverter.to_unicode(location)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.faces = faces  # type: list[FindImagesResponseBodyImagesFaces]
+        self.tags = tags  # type: list[FindImagesResponseBodyImagesTags]
+        self.ocr = ocr  # type: list[FindImagesResponseBodyImagesOCR]
+        self.image_quality = image_quality  # type: FindImagesResponseBodyImagesImageQuality
+        self.address = address  # type: FindImagesResponseBodyImagesAddress
 
     def validate(self):
+        if self.cropping_suggestion:
+            for k in self.cropping_suggestion:
+                if k:
+                    k.validate()
+        if self.faces:
+            for k in self.faces:
+                if k:
+                    k.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -4776,20 +5119,16 @@ class FindImagesResponseBodyImages(TeaModel):
             for k in self.ocr:
                 if k:
                     k.validate()
-        if self.address:
-            self.address.validate()
-        if self.faces:
-            for k in self.faces:
-                if k:
-                    k.validate()
         if self.image_quality:
             self.image_quality.validate()
-        if self.cropping_suggestion:
-            for k in self.cropping_suggestion:
-                if k:
-                    k.validate()
+        if self.address:
+            self.address.validate()
 
     def to_map(self):
+        _map = super(FindImagesResponseBodyImages, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cropping_suggestion_status is not None:
             result['CroppingSuggestionStatus'] = self.cropping_suggestion_status
@@ -4805,10 +5144,6 @@ class FindImagesResponseBodyImages(TeaModel):
             result['SourceType'] = self.source_type
         if self.faces_fail_reason is not None:
             result['FacesFailReason'] = self.faces_fail_reason
-        result['Tags'] = []
-        if self.tags is not None:
-            for k in self.tags:
-                result['Tags'].append(k.to_map() if k else None)
         if self.faces_modify_time is not None:
             result['FacesModifyTime'] = self.faces_modify_time
         if self.image_time is not None:
@@ -4817,42 +5152,30 @@ class FindImagesResponseBodyImages(TeaModel):
             result['OCRModifyTime'] = self.ocrmodify_time
         if self.address_modify_time is not None:
             result['AddressModifyTime'] = self.address_modify_time
-        result['OCR'] = []
-        if self.ocr is not None:
-            for k in self.ocr:
-                result['OCR'].append(k.to_map() if k else None)
         if self.image_quality_fail_reason is not None:
             result['ImageQualityFailReason'] = self.image_quality_fail_reason
         if self.faces_status is not None:
             result['FacesStatus'] = self.faces_status
-        if self.image_height is not None:
-            result['ImageHeight'] = self.image_height
         if self.remarks_array_a is not None:
             result['RemarksArrayA'] = self.remarks_array_a
-        if self.address is not None:
-            result['Address'] = self.address.to_map()
+        if self.image_height is not None:
+            result['ImageHeight'] = self.image_height
         if self.external_id is not None:
             result['ExternalId'] = self.external_id
         if self.source_uri is not None:
             result['SourceUri'] = self.source_uri
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.file_size is not None:
             result['FileSize'] = self.file_size
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         if self.source_position is not None:
             result['SourcePosition'] = self.source_position
-        result['Faces'] = []
-        if self.faces is not None:
-            for k in self.faces:
-                result['Faces'].append(k.to_map() if k else None)
         if self.image_quality_status is not None:
             result['ImageQualityStatus'] = self.image_quality_status
         if self.ocrfail_reason is not None:
             result['OCRFailReason'] = self.ocrfail_reason
         if self.address_fail_reason is not None:
             result['AddressFailReason'] = self.address_fail_reason
-        if self.image_quality is not None:
-            result['ImageQuality'] = self.image_quality.to_map()
         if self.cropping_suggestion_modify_time is not None:
             result['CroppingSuggestionModifyTime'] = self.cropping_suggestion_modify_time
         if self.image_format is not None:
@@ -4861,10 +5184,6 @@ class FindImagesResponseBodyImages(TeaModel):
             result['ImageWidth'] = self.image_width
         if self.remarks_array_b is not None:
             result['RemarksArrayB'] = self.remarks_array_b
-        result['CroppingSuggestion'] = []
-        if self.cropping_suggestion is not None:
-            for k in self.cropping_suggestion:
-                result['CroppingSuggestion'].append(k.to_map() if k else None)
         if self.orientation is not None:
             result['Orientation'] = self.orientation
         if self.remarks_d is not None:
@@ -4889,6 +5208,26 @@ class FindImagesResponseBodyImages(TeaModel):
             result['Location'] = self.location
         if self.remarks_b is not None:
             result['RemarksB'] = self.remarks_b
+        result['CroppingSuggestion'] = []
+        if self.cropping_suggestion is not None:
+            for k in self.cropping_suggestion:
+                result['CroppingSuggestion'].append(k.to_map() if k else None)
+        result['Faces'] = []
+        if self.faces is not None:
+            for k in self.faces:
+                result['Faces'].append(k.to_map() if k else None)
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        result['OCR'] = []
+        if self.ocr is not None:
+            for k in self.ocr:
+                result['OCR'].append(k.to_map() if k else None)
+        if self.image_quality is not None:
+            result['ImageQuality'] = self.image_quality.to_map()
+        if self.address is not None:
+            result['Address'] = self.address.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4907,11 +5246,6 @@ class FindImagesResponseBodyImages(TeaModel):
             self.source_type = m.get('SourceType')
         if m.get('FacesFailReason') is not None:
             self.faces_fail_reason = m.get('FacesFailReason')
-        self.tags = []
-        if m.get('Tags') is not None:
-            for k in m.get('Tags'):
-                temp_model = FindImagesResponseBodyImagesTags()
-                self.tags.append(temp_model.from_map(k))
         if m.get('FacesModifyTime') is not None:
             self.faces_modify_time = m.get('FacesModifyTime')
         if m.get('ImageTime') is not None:
@@ -4920,46 +5254,30 @@ class FindImagesResponseBodyImages(TeaModel):
             self.ocrmodify_time = m.get('OCRModifyTime')
         if m.get('AddressModifyTime') is not None:
             self.address_modify_time = m.get('AddressModifyTime')
-        self.ocr = []
-        if m.get('OCR') is not None:
-            for k in m.get('OCR'):
-                temp_model = FindImagesResponseBodyImagesOCR()
-                self.ocr.append(temp_model.from_map(k))
         if m.get('ImageQualityFailReason') is not None:
             self.image_quality_fail_reason = m.get('ImageQualityFailReason')
         if m.get('FacesStatus') is not None:
             self.faces_status = m.get('FacesStatus')
-        if m.get('ImageHeight') is not None:
-            self.image_height = m.get('ImageHeight')
         if m.get('RemarksArrayA') is not None:
             self.remarks_array_a = m.get('RemarksArrayA')
-        if m.get('Address') is not None:
-            temp_model = FindImagesResponseBodyImagesAddress()
-            self.address = temp_model.from_map(m['Address'])
+        if m.get('ImageHeight') is not None:
+            self.image_height = m.get('ImageHeight')
         if m.get('ExternalId') is not None:
             self.external_id = m.get('ExternalId')
         if m.get('SourceUri') is not None:
             self.source_uri = m.get('SourceUri')
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('FileSize') is not None:
             self.file_size = m.get('FileSize')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         if m.get('SourcePosition') is not None:
             self.source_position = m.get('SourcePosition')
-        self.faces = []
-        if m.get('Faces') is not None:
-            for k in m.get('Faces'):
-                temp_model = FindImagesResponseBodyImagesFaces()
-                self.faces.append(temp_model.from_map(k))
         if m.get('ImageQualityStatus') is not None:
             self.image_quality_status = m.get('ImageQualityStatus')
         if m.get('OCRFailReason') is not None:
             self.ocrfail_reason = m.get('OCRFailReason')
         if m.get('AddressFailReason') is not None:
             self.address_fail_reason = m.get('AddressFailReason')
-        if m.get('ImageQuality') is not None:
-            temp_model = FindImagesResponseBodyImagesImageQuality()
-            self.image_quality = temp_model.from_map(m['ImageQuality'])
         if m.get('CroppingSuggestionModifyTime') is not None:
             self.cropping_suggestion_modify_time = m.get('CroppingSuggestionModifyTime')
         if m.get('ImageFormat') is not None:
@@ -4968,11 +5286,6 @@ class FindImagesResponseBodyImages(TeaModel):
             self.image_width = m.get('ImageWidth')
         if m.get('RemarksArrayB') is not None:
             self.remarks_array_b = m.get('RemarksArrayB')
-        self.cropping_suggestion = []
-        if m.get('CroppingSuggestion') is not None:
-            for k in m.get('CroppingSuggestion'):
-                temp_model = FindImagesResponseBodyImagesCroppingSuggestion()
-                self.cropping_suggestion.append(temp_model.from_map(k))
         if m.get('Orientation') is not None:
             self.orientation = m.get('Orientation')
         if m.get('RemarksD') is not None:
@@ -4997,15 +5310,41 @@ class FindImagesResponseBodyImages(TeaModel):
             self.location = m.get('Location')
         if m.get('RemarksB') is not None:
             self.remarks_b = m.get('RemarksB')
+        self.cropping_suggestion = []
+        if m.get('CroppingSuggestion') is not None:
+            for k in m.get('CroppingSuggestion'):
+                temp_model = FindImagesResponseBodyImagesCroppingSuggestion()
+                self.cropping_suggestion.append(temp_model.from_map(k))
+        self.faces = []
+        if m.get('Faces') is not None:
+            for k in m.get('Faces'):
+                temp_model = FindImagesResponseBodyImagesFaces()
+                self.faces.append(temp_model.from_map(k))
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = FindImagesResponseBodyImagesTags()
+                self.tags.append(temp_model.from_map(k))
+        self.ocr = []
+        if m.get('OCR') is not None:
+            for k in m.get('OCR'):
+                temp_model = FindImagesResponseBodyImagesOCR()
+                self.ocr.append(temp_model.from_map(k))
+        if m.get('ImageQuality') is not None:
+            temp_model = FindImagesResponseBodyImagesImageQuality()
+            self.image_quality = temp_model.from_map(m['ImageQuality'])
+        if m.get('Address') is not None:
+            temp_model = FindImagesResponseBodyImagesAddress()
+            self.address = temp_model.from_map(m['Address'])
         return self
 
 
 class FindImagesResponseBody(TeaModel):
-    def __init__(self, request_id=None, images=None, next_marker=None, set_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, request_id=None, next_marker=None, set_id=None, images=None):
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
+        self.set_id = set_id  # type: str
         self.images = images  # type: list[FindImagesResponseBodyImages]
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
 
     def validate(self):
         if self.images:
@@ -5014,38 +5353,42 @@ class FindImagesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(FindImagesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        result['Images'] = []
-        if self.images is not None:
-            for k in self.images:
-                result['Images'].append(k.to_map() if k else None)
         if self.next_marker is not None:
             result['NextMarker'] = self.next_marker
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        result['Images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['Images'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
         self.images = []
         if m.get('Images') is not None:
             for k in m.get('Images'):
                 temp_model = FindImagesResponseBodyImages()
                 self.images.append(temp_model.from_map(k))
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         return self
 
 
 class FindImagesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: FindImagesResponseBody
 
     def validate(self):
@@ -5055,6 +5398,10 @@ class FindImagesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(FindImagesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5075,18 +5422,22 @@ class FindImagesResponse(TeaModel):
 class FindSimilarFacesRequest(TeaModel):
     def __init__(self, project=None, set_id=None, image_uri=None, face_id=None, limit=None, min_similarity=None,
                  response_format=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
+        self.face_id = face_id  # type: str
         self.limit = limit  # type: int
         self.min_similarity = min_similarity  # type: float
-        self.response_format = TeaConverter.to_unicode(response_format)  # type: unicode
+        self.response_format = response_format  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(FindSimilarFacesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -5123,95 +5474,42 @@ class FindSimilarFacesRequest(TeaModel):
         return self
 
 
-class FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class FindSimilarFacesResponseBodyFacesFaceAttributes(TeaModel):
-    def __init__(self, face_boundary=None):
-        self.face_boundary = face_boundary  # type: FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary
-
-    def validate(self):
-        if self.face_boundary:
-            self.face_boundary.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.face_boundary is not None:
-            result['FaceBoundary'] = self.face_boundary.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('FaceBoundary') is not None:
-            temp_model = FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary()
-            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
-        return self
-
-
 class FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
@@ -5224,6 +5522,10 @@ class FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes(TeaModel):
             self.face_boundary.validate()
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.face_boundary is not None:
             result['FaceBoundary'] = self.face_boundary.to_map()
@@ -5238,107 +5540,180 @@ class FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes(TeaModel):
 
 
 class FindSimilarFacesResponseBodyFacesSimilarFaces(TeaModel):
-    def __init__(self, face_id=None, image_uri=None, external_id=None, face_attributes=None, similarity=None):
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.face_attributes = face_attributes  # type: FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes
+    def __init__(self, external_id=None, similarity=None, face_id=None, image_uri=None, face_attributes=None):
+        self.external_id = external_id  # type: str
         self.similarity = similarity  # type: float
+        self.face_id = face_id  # type: str
+        self.image_uri = image_uri  # type: str
+        self.face_attributes = face_attributes  # type: FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes
 
     def validate(self):
         if self.face_attributes:
             self.face_attributes.validate()
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFacesSimilarFaces, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.similarity is not None:
+            result['Similarity'] = self.similarity
         if self.face_id is not None:
             result['FaceId'] = self.face_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
-        if self.external_id is not None:
-            result['ExternalId'] = self.external_id
         if self.face_attributes is not None:
             result['FaceAttributes'] = self.face_attributes.to_map()
-        if self.similarity is not None:
-            result['Similarity'] = self.similarity
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('Similarity') is not None:
+            self.similarity = m.get('Similarity')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
-        if m.get('ExternalId') is not None:
-            self.external_id = m.get('ExternalId')
         if m.get('FaceAttributes') is not None:
             temp_model = FindSimilarFacesResponseBodyFacesSimilarFacesFaceAttributes()
             self.face_attributes = temp_model.from_map(m['FaceAttributes'])
-        if m.get('Similarity') is not None:
-            self.similarity = m.get('Similarity')
+        return self
+
+
+class FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class FindSimilarFacesResponseBodyFacesFaceAttributes(TeaModel):
+    def __init__(self, face_boundary=None):
+        self.face_boundary = face_boundary  # type: FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary
+
+    def validate(self):
+        if self.face_boundary:
+            self.face_boundary.validate()
+
+    def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.face_boundary is not None:
+            result['FaceBoundary'] = self.face_boundary.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FaceBoundary') is not None:
+            temp_model = FindSimilarFacesResponseBodyFacesFaceAttributesFaceBoundary()
+            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
         return self
 
 
 class FindSimilarFacesResponseBodyFaces(TeaModel):
-    def __init__(self, face_id=None, image_uri=None, external_id=None, face_attributes=None, similarity=None,
-                 similar_faces=None):
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.face_attributes = face_attributes  # type: FindSimilarFacesResponseBodyFacesFaceAttributes
+    def __init__(self, external_id=None, similarity=None, face_id=None, image_uri=None, similar_faces=None,
+                 face_attributes=None):
+        self.external_id = external_id  # type: str
         self.similarity = similarity  # type: float
+        self.face_id = face_id  # type: str
+        self.image_uri = image_uri  # type: str
         self.similar_faces = similar_faces  # type: list[FindSimilarFacesResponseBodyFacesSimilarFaces]
+        self.face_attributes = face_attributes  # type: FindSimilarFacesResponseBodyFacesFaceAttributes
 
     def validate(self):
-        if self.face_attributes:
-            self.face_attributes.validate()
         if self.similar_faces:
             for k in self.similar_faces:
                 if k:
                     k.validate()
+        if self.face_attributes:
+            self.face_attributes.validate()
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponseBodyFaces, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.similarity is not None:
+            result['Similarity'] = self.similarity
         if self.face_id is not None:
             result['FaceId'] = self.face_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
-        if self.external_id is not None:
-            result['ExternalId'] = self.external_id
-        if self.face_attributes is not None:
-            result['FaceAttributes'] = self.face_attributes.to_map()
-        if self.similarity is not None:
-            result['Similarity'] = self.similarity
         result['SimilarFaces'] = []
         if self.similar_faces is not None:
             for k in self.similar_faces:
                 result['SimilarFaces'].append(k.to_map() if k else None)
+        if self.face_attributes is not None:
+            result['FaceAttributes'] = self.face_attributes.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('Similarity') is not None:
+            self.similarity = m.get('Similarity')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
-        if m.get('ExternalId') is not None:
-            self.external_id = m.get('ExternalId')
-        if m.get('FaceAttributes') is not None:
-            temp_model = FindSimilarFacesResponseBodyFacesFaceAttributes()
-            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
-        if m.get('Similarity') is not None:
-            self.similarity = m.get('Similarity')
         self.similar_faces = []
         if m.get('SimilarFaces') is not None:
             for k in m.get('SimilarFaces'):
                 temp_model = FindSimilarFacesResponseBodyFacesSimilarFaces()
                 self.similar_faces.append(temp_model.from_map(k))
+        if m.get('FaceAttributes') is not None:
+            temp_model = FindSimilarFacesResponseBodyFacesFaceAttributes()
+            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         return self
 
 
 class FindSimilarFacesResponseBody(TeaModel):
     def __init__(self, request_id=None, faces=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.faces = faces  # type: list[FindSimilarFacesResponseBodyFaces]
 
     def validate(self):
@@ -5348,6 +5723,10 @@ class FindSimilarFacesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -5371,7 +5750,7 @@ class FindSimilarFacesResponseBody(TeaModel):
 
 class FindSimilarFacesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: FindSimilarFacesResponseBody
 
     def validate(self):
@@ -5381,6 +5760,10 @@ class FindSimilarFacesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(FindSimilarFacesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5400,15 +5783,19 @@ class FindSimilarFacesResponse(TeaModel):
 
 class GetContentKeyRequest(TeaModel):
     def __init__(self, project=None, version_id=None, drmserver_id=None, key_ids=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
-        self.drmserver_id = TeaConverter.to_unicode(drmserver_id)  # type: unicode
-        self.key_ids = TeaConverter.to_unicode(key_ids)  # type: unicode
+        self.project = project  # type: str
+        self.version_id = version_id  # type: str
+        self.drmserver_id = drmserver_id  # type: str
+        self.key_ids = key_ids  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetContentKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -5435,14 +5822,18 @@ class GetContentKeyRequest(TeaModel):
 
 class GetContentKeyResponseBody(TeaModel):
     def __init__(self, version_id=None, request_id=None, key_infos=None):
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.key_infos = TeaConverter.to_unicode(key_infos)  # type: unicode
+        self.version_id = version_id  # type: str
+        self.request_id = request_id  # type: str
+        self.key_infos = key_infos  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetContentKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.version_id is not None:
             result['VersionId'] = self.version_id
@@ -5465,7 +5856,7 @@ class GetContentKeyResponseBody(TeaModel):
 
 class GetContentKeyResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetContentKeyResponseBody
 
     def validate(self):
@@ -5475,6 +5866,10 @@ class GetContentKeyResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetContentKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5494,14 +5889,18 @@ class GetContentKeyResponse(TeaModel):
 
 class GetDRMLicenseRequest(TeaModel):
     def __init__(self, project=None, drmtype=None, drmlicense=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.drmtype = TeaConverter.to_unicode(drmtype)  # type: unicode
-        self.drmlicense = TeaConverter.to_unicode(drmlicense)  # type: unicode
+        self.project = project  # type: str
+        self.drmtype = drmtype  # type: str
+        self.drmlicense = drmlicense  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetDRMLicenseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -5524,14 +5923,18 @@ class GetDRMLicenseRequest(TeaModel):
 
 class GetDRMLicenseResponseBody(TeaModel):
     def __init__(self, request_id=None, device_info=None, drmdata=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.device_info = TeaConverter.to_unicode(device_info)  # type: unicode
-        self.drmdata = TeaConverter.to_unicode(drmdata)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.device_info = device_info  # type: str
+        self.drmdata = drmdata  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetDRMLicenseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -5554,7 +5957,7 @@ class GetDRMLicenseResponseBody(TeaModel):
 
 class GetDRMLicenseResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetDRMLicenseResponseBody
 
     def validate(self):
@@ -5564,6 +5967,10 @@ class GetDRMLicenseResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetDRMLicenseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -5583,14 +5990,18 @@ class GetDRMLicenseResponse(TeaModel):
 
 class GetImageRequest(TeaModel):
     def __init__(self, project=None, set_id=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -5629,6 +6040,10 @@ class GetImageResponseBodyImageQuality(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyImageQuality, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.overall_score is not None:
             result['OverallScore'] = self.overall_score
@@ -5679,17 +6094,21 @@ class GetImageResponseBodyImageQuality(TeaModel):
 
 class GetImageResponseBodyAddress(TeaModel):
     def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
-        self.township = TeaConverter.to_unicode(township)  # type: unicode
-        self.district = TeaConverter.to_unicode(district)  # type: unicode
-        self.address_line = TeaConverter.to_unicode(address_line)  # type: unicode
-        self.country = TeaConverter.to_unicode(country)  # type: unicode
-        self.city = TeaConverter.to_unicode(city)  # type: unicode
-        self.province = TeaConverter.to_unicode(province)  # type: unicode
+        self.township = township  # type: str
+        self.district = district  # type: str
+        self.address_line = address_line  # type: str
+        self.country = country  # type: str
+        self.city = city  # type: str
+        self.province = province  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyAddress, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.township is not None:
             result['Township'] = self.township
@@ -5724,15 +6143,19 @@ class GetImageResponseBodyAddress(TeaModel):
 
 class GetImageResponseBodyTags(TeaModel):
     def __init__(self, tag_name=None, tag_confidence=None, tag_level=None, parent_tag_name=None):
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
+        self.tag_name = tag_name  # type: str
         self.tag_confidence = tag_confidence  # type: float
         self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
+        self.parent_tag_name = parent_tag_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tag_name is not None:
             result['TagName'] = self.tag_name
@@ -5768,6 +6191,10 @@ class GetImageResponseBodyFacesFaceAttributesFaceBoundary(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.top is not None:
             result['Top'] = self.top
@@ -5802,6 +6229,10 @@ class GetImageResponseBodyFacesFaceAttributesHeadPose(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyFacesFaceAttributesHeadPose, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.pitch is not None:
             result['Pitch'] = self.pitch
@@ -5826,13 +6257,13 @@ class GetImageResponseBodyFacesFaceAttributes(TeaModel):
     def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
                  mask_confidence=None, face_boundary=None, head_pose=None, beard=None):
         self.glasses_confidence = glasses_confidence  # type: float
-        self.glasses = TeaConverter.to_unicode(glasses)  # type: unicode
-        self.mask = TeaConverter.to_unicode(mask)  # type: unicode
+        self.glasses = glasses  # type: str
+        self.mask = mask  # type: str
         self.beard_confidence = beard_confidence  # type: float
         self.mask_confidence = mask_confidence  # type: float
         self.face_boundary = face_boundary  # type: GetImageResponseBodyFacesFaceAttributesFaceBoundary
         self.head_pose = head_pose  # type: GetImageResponseBodyFacesFaceAttributesHeadPose
-        self.beard = TeaConverter.to_unicode(beard)  # type: unicode
+        self.beard = beard  # type: str
 
     def validate(self):
         if self.face_boundary:
@@ -5841,6 +6272,10 @@ class GetImageResponseBodyFacesFaceAttributes(TeaModel):
             self.head_pose.validate()
 
     def to_map(self):
+        _map = super(GetImageResponseBodyFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.glasses_confidence is not None:
             result['GlassesConfidence'] = self.glasses_confidence
@@ -5897,6 +6332,10 @@ class GetImageResponseBodyFacesEmotionDetails(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyFacesEmotionDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.happy is not None:
             result['HAPPY'] = self.happy
@@ -5937,17 +6376,17 @@ class GetImageResponseBodyFaces(TeaModel):
     def __init__(self, gender=None, gender_confidence=None, face_id=None, face_attributes=None, face_quality=None,
                  emotion=None, age=None, face_confidence=None, emotion_confidence=None, attractive=None, group_id=None,
                  emotion_details=None):
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
+        self.gender = gender  # type: str
         self.gender_confidence = gender_confidence  # type: float
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
+        self.face_id = face_id  # type: str
         self.face_attributes = face_attributes  # type: GetImageResponseBodyFacesFaceAttributes
         self.face_quality = face_quality  # type: float
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.age = TeaConverter.to_unicode(age)  # type: unicode
+        self.emotion = emotion  # type: str
+        self.age = age  # type: str
         self.face_confidence = face_confidence  # type: float
         self.emotion_confidence = emotion_confidence  # type: float
         self.attractive = attractive  # type: float
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+        self.group_id = group_id  # type: str
         self.emotion_details = emotion_details  # type: GetImageResponseBodyFacesEmotionDetails
 
     def validate(self):
@@ -5957,6 +6396,10 @@ class GetImageResponseBodyFaces(TeaModel):
             self.emotion_details.validate()
 
     def to_map(self):
+        _map = super(GetImageResponseBodyFaces, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.gender is not None:
             result['Gender'] = self.gender
@@ -6026,6 +6469,10 @@ class GetImageResponseBodyCroppingSuggestionCroppingBoundary(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyCroppingSuggestionCroppingBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.top is not None:
             result['Top'] = self.top
@@ -6054,13 +6501,17 @@ class GetImageResponseBodyCroppingSuggestion(TeaModel):
     def __init__(self, score=None, cropping_boundary=None, aspect_ratio=None):
         self.score = score  # type: float
         self.cropping_boundary = cropping_boundary  # type: GetImageResponseBodyCroppingSuggestionCroppingBoundary
-        self.aspect_ratio = TeaConverter.to_unicode(aspect_ratio)  # type: unicode
+        self.aspect_ratio = aspect_ratio  # type: str
 
     def validate(self):
         if self.cropping_boundary:
             self.cropping_boundary.validate()
 
     def to_map(self):
+        _map = super(GetImageResponseBodyCroppingSuggestion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.score is not None:
             result['Score'] = self.score
@@ -6093,6 +6544,10 @@ class GetImageResponseBodyOCROCRBoundary(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageResponseBodyOCROCRBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.top is not None:
             result['Top'] = self.top
@@ -6120,7 +6575,7 @@ class GetImageResponseBodyOCROCRBoundary(TeaModel):
 class GetImageResponseBodyOCR(TeaModel):
     def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
         self.ocrconfidence = ocrconfidence  # type: float
-        self.ocrcontents = TeaConverter.to_unicode(ocrcontents)  # type: unicode
+        self.ocrcontents = ocrcontents  # type: str
         self.ocrboundary = ocrboundary  # type: GetImageResponseBodyOCROCRBoundary
 
     def validate(self):
@@ -6128,6 +6583,10 @@ class GetImageResponseBodyOCR(TeaModel):
             self.ocrboundary.validate()
 
     def to_map(self):
+        _map = super(GetImageResponseBodyOCR, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.ocrconfidence is not None:
             result['OCRConfidence'] = self.ocrconfidence
@@ -6161,51 +6620,51 @@ class GetImageResponseBody(TeaModel):
                  image_height=None, image_quality_status=None, tags_status=None, ocrfail_reason=None, set_id=None,
                  file_size=None, location=None, ocr=None):
         self.image_quality = image_quality  # type: GetImageResponseBodyImageQuality
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.modify_time = modify_time  # type: str
         self.address = address  # type: GetImageResponseBodyAddress
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.faces_fail_reason = TeaConverter.to_unicode(faces_fail_reason)  # type: unicode
-        self.cropping_suggestion_status = TeaConverter.to_unicode(cropping_suggestion_status)  # type: unicode
-        self.cropping_suggestion_fail_reason = TeaConverter.to_unicode(cropping_suggestion_fail_reason)  # type: unicode
-        self.address_fail_reason = TeaConverter.to_unicode(address_fail_reason)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.address_modify_time = TeaConverter.to_unicode(address_modify_time)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.image_format = TeaConverter.to_unicode(image_format)  # type: unicode
-        self.tags_fail_reason = TeaConverter.to_unicode(tags_fail_reason)  # type: unicode
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
-        self.faces_modify_time = TeaConverter.to_unicode(faces_modify_time)  # type: unicode
-        self.exif = TeaConverter.to_unicode(exif)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
+        self.source_type = source_type  # type: str
+        self.source_uri = source_uri  # type: str
+        self.faces_fail_reason = faces_fail_reason  # type: str
+        self.cropping_suggestion_status = cropping_suggestion_status  # type: str
+        self.cropping_suggestion_fail_reason = cropping_suggestion_fail_reason  # type: str
+        self.address_fail_reason = address_fail_reason  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.address_modify_time = address_modify_time  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.image_format = image_format  # type: str
+        self.tags_fail_reason = tags_fail_reason  # type: str
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.faces_modify_time = faces_modify_time  # type: str
+        self.exif = exif  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
         self.image_width = image_width  # type: int
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.source_position = source_position  # type: str
         self.tags = tags  # type: list[GetImageResponseBodyTags]
         self.faces = faces  # type: list[GetImageResponseBodyFaces]
-        self.address_status = TeaConverter.to_unicode(address_status)  # type: unicode
-        self.faces_status = TeaConverter.to_unicode(faces_status)  # type: unicode
-        self.image_quality_modify_time = TeaConverter.to_unicode(image_quality_modify_time)  # type: unicode
+        self.address_status = address_status  # type: str
+        self.faces_status = faces_status  # type: str
+        self.image_quality_modify_time = image_quality_modify_time  # type: str
         self.cropping_suggestion = cropping_suggestion  # type: list[GetImageResponseBodyCroppingSuggestion]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.tags_modify_time = TeaConverter.to_unicode(tags_modify_time)  # type: unicode
-        self.image_quality_fail_reason = TeaConverter.to_unicode(image_quality_fail_reason)  # type: unicode
-        self.orientation = TeaConverter.to_unicode(orientation)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.ocrstatus = TeaConverter.to_unicode(ocrstatus)  # type: unicode
-        self.ocrmodify_time = TeaConverter.to_unicode(ocrmodify_time)  # type: unicode
-        self.image_time = TeaConverter.to_unicode(image_time)  # type: unicode
-        self.cropping_suggestion_modify_time = TeaConverter.to_unicode(cropping_suggestion_modify_time)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
+        self.external_id = external_id  # type: str
+        self.tags_modify_time = tags_modify_time  # type: str
+        self.image_quality_fail_reason = image_quality_fail_reason  # type: str
+        self.orientation = orientation  # type: str
+        self.image_uri = image_uri  # type: str
+        self.ocrstatus = ocrstatus  # type: str
+        self.ocrmodify_time = ocrmodify_time  # type: str
+        self.image_time = image_time  # type: str
+        self.cropping_suggestion_modify_time = cropping_suggestion_modify_time  # type: str
         self.image_height = image_height  # type: int
-        self.image_quality_status = TeaConverter.to_unicode(image_quality_status)  # type: unicode
-        self.tags_status = TeaConverter.to_unicode(tags_status)  # type: unicode
-        self.ocrfail_reason = TeaConverter.to_unicode(ocrfail_reason)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.image_quality_status = image_quality_status  # type: str
+        self.tags_status = tags_status  # type: str
+        self.ocrfail_reason = ocrfail_reason  # type: str
+        self.set_id = set_id  # type: str
         self.file_size = file_size  # type: int
-        self.location = TeaConverter.to_unicode(location)  # type: unicode
+        self.location = location  # type: str
         self.ocr = ocr  # type: list[GetImageResponseBodyOCR]
 
     def validate(self):
@@ -6231,6 +6690,10 @@ class GetImageResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.image_quality is not None:
             result['ImageQuality'] = self.image_quality.to_map()
@@ -6451,7 +6914,7 @@ class GetImageResponseBody(TeaModel):
 
 class GetImageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetImageResponseBody
 
     def validate(self):
@@ -6461,6 +6924,10 @@ class GetImageResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6480,14 +6947,18 @@ class GetImageResponse(TeaModel):
 
 class GetImageCroppingSuggestionsRequest(TeaModel):
     def __init__(self, project=None, image_uri=None, aspect_ratios=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.aspect_ratios = TeaConverter.to_unicode(aspect_ratios)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
+        self.aspect_ratios = aspect_ratios  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageCroppingSuggestionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -6509,76 +6980,84 @@ class GetImageCroppingSuggestionsRequest(TeaModel):
 
 
 class GetImageCroppingSuggestionsResponseBodyCroppingSuggestionsCroppingBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageCroppingSuggestionsResponseBodyCroppingSuggestionsCroppingBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
 class GetImageCroppingSuggestionsResponseBodyCroppingSuggestions(TeaModel):
-    def __init__(self, score=None, cropping_boundary=None, aspect_ratio=None):
+    def __init__(self, score=None, aspect_ratio=None, cropping_boundary=None):
         self.score = score  # type: float
+        self.aspect_ratio = aspect_ratio  # type: str
         self.cropping_boundary = cropping_boundary  # type: GetImageCroppingSuggestionsResponseBodyCroppingSuggestionsCroppingBoundary
-        self.aspect_ratio = TeaConverter.to_unicode(aspect_ratio)  # type: unicode
 
     def validate(self):
         if self.cropping_boundary:
             self.cropping_boundary.validate()
 
     def to_map(self):
+        _map = super(GetImageCroppingSuggestionsResponseBodyCroppingSuggestions, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.score is not None:
             result['Score'] = self.score
-        if self.cropping_boundary is not None:
-            result['CroppingBoundary'] = self.cropping_boundary.to_map()
         if self.aspect_ratio is not None:
             result['AspectRatio'] = self.aspect_ratio
+        if self.cropping_boundary is not None:
+            result['CroppingBoundary'] = self.cropping_boundary.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Score') is not None:
             self.score = m.get('Score')
+        if m.get('AspectRatio') is not None:
+            self.aspect_ratio = m.get('AspectRatio')
         if m.get('CroppingBoundary') is not None:
             temp_model = GetImageCroppingSuggestionsResponseBodyCroppingSuggestionsCroppingBoundary()
             self.cropping_boundary = temp_model.from_map(m['CroppingBoundary'])
-        if m.get('AspectRatio') is not None:
-            self.aspect_ratio = m.get('AspectRatio')
         return self
 
 
 class GetImageCroppingSuggestionsResponseBody(TeaModel):
-    def __init__(self, request_id=None, image_uri=None, cropping_suggestions=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+    def __init__(self, image_uri=None, request_id=None, cropping_suggestions=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.cropping_suggestions = cropping_suggestions  # type: list[GetImageCroppingSuggestionsResponseBodyCroppingSuggestions]
 
     def validate(self):
@@ -6588,11 +7067,15 @@ class GetImageCroppingSuggestionsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetImageCroppingSuggestionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['CroppingSuggestions'] = []
         if self.cropping_suggestions is not None:
             for k in self.cropping_suggestions:
@@ -6601,10 +7084,10 @@ class GetImageCroppingSuggestionsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ImageUri') is not None:
             self.image_uri = m.get('ImageUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.cropping_suggestions = []
         if m.get('CroppingSuggestions') is not None:
             for k in m.get('CroppingSuggestions'):
@@ -6615,7 +7098,7 @@ class GetImageCroppingSuggestionsResponseBody(TeaModel):
 
 class GetImageCroppingSuggestionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetImageCroppingSuggestionsResponseBody
 
     def validate(self):
@@ -6625,6 +7108,10 @@ class GetImageCroppingSuggestionsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetImageCroppingSuggestionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6644,13 +7131,17 @@ class GetImageCroppingSuggestionsResponse(TeaModel):
 
 class GetImageQualityRequest(TeaModel):
     def __init__(self, project=None, image_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
+        self.project = project  # type: str
+        self.image_uri = image_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetImageQualityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -6685,6 +7176,10 @@ class GetImageQualityResponseBodyImageQuality(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetImageQualityResponseBodyImageQuality, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.overall_score is not None:
             result['OverallScore'] = self.overall_score
@@ -6734,40 +7229,44 @@ class GetImageQualityResponseBodyImageQuality(TeaModel):
 
 
 class GetImageQualityResponseBody(TeaModel):
-    def __init__(self, image_quality=None, request_id=None, image_uri=None):
+    def __init__(self, image_uri=None, request_id=None, image_quality=None):
+        self.image_uri = image_uri  # type: str
+        self.request_id = request_id  # type: str
         self.image_quality = image_quality  # type: GetImageQualityResponseBodyImageQuality
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
 
     def validate(self):
         if self.image_quality:
             self.image_quality.validate()
 
     def to_map(self):
+        _map = super(GetImageQualityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.image_quality is not None:
-            result['ImageQuality'] = self.image_quality.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.image_uri is not None:
             result['ImageUri'] = self.image_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.image_quality is not None:
+            result['ImageQuality'] = self.image_quality.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ImageUri') is not None:
+            self.image_uri = m.get('ImageUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('ImageQuality') is not None:
             temp_model = GetImageQualityResponseBodyImageQuality()
             self.image_quality = temp_model.from_map(m['ImageQuality'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ImageUri') is not None:
-            self.image_uri = m.get('ImageUri')
         return self
 
 
 class GetImageQualityResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetImageQualityResponseBody
 
     def validate(self):
@@ -6777,6 +7276,10 @@ class GetImageQualityResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetImageQualityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -6796,13 +7299,17 @@ class GetImageQualityResponse(TeaModel):
 
 class GetMediaMetaRequest(TeaModel):
     def __init__(self, project=None, media_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.media_uri = TeaConverter.to_unicode(media_uri)  # type: unicode
+        self.project = project  # type: str
+        self.media_uri = media_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -6822,19 +7329,23 @@ class GetMediaMetaRequest(TeaModel):
 class GetMediaMetaResponseBodyMediaMetaMediaFormatTag(TeaModel):
     def __init__(self, creation_time=None, album=None, album_artist=None, performer=None, composer=None, artist=None,
                  title=None, language=None):
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
-        self.album = TeaConverter.to_unicode(album)  # type: unicode
-        self.album_artist = TeaConverter.to_unicode(album_artist)  # type: unicode
-        self.performer = TeaConverter.to_unicode(performer)  # type: unicode
-        self.composer = TeaConverter.to_unicode(composer)  # type: unicode
-        self.artist = TeaConverter.to_unicode(artist)  # type: unicode
-        self.title = TeaConverter.to_unicode(title)  # type: unicode
-        self.language = TeaConverter.to_unicode(language)  # type: unicode
+        self.creation_time = creation_time  # type: str
+        self.album = album  # type: str
+        self.album_artist = album_artist  # type: str
+        self.performer = performer  # type: str
+        self.composer = composer  # type: str
+        self.artist = artist  # type: str
+        self.title = title  # type: str
+        self.language = language  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaFormatTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
@@ -6877,17 +7388,21 @@ class GetMediaMetaResponseBodyMediaMetaMediaFormatTag(TeaModel):
 
 class GetMediaMetaResponseBodyMediaMetaMediaFormatAddress(TeaModel):
     def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
-        self.township = TeaConverter.to_unicode(township)  # type: unicode
-        self.district = TeaConverter.to_unicode(district)  # type: unicode
-        self.address_line = TeaConverter.to_unicode(address_line)  # type: unicode
-        self.country = TeaConverter.to_unicode(country)  # type: unicode
-        self.city = TeaConverter.to_unicode(city)  # type: unicode
-        self.province = TeaConverter.to_unicode(province)  # type: unicode
+        self.township = township  # type: str
+        self.district = district  # type: str
+        self.address_line = address_line  # type: str
+        self.country = country  # type: str
+        self.city = city  # type: str
+        self.province = province  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaFormatAddress, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.township is not None:
             result['Township'] = self.township
@@ -6924,18 +7439,18 @@ class GetMediaMetaResponseBodyMediaMetaMediaFormat(TeaModel):
     def __init__(self, creation_time=None, number_programs=None, number_streams=None, tag=None, bitrate=None,
                  start_time=None, size=None, address=None, format_long_name=None, duration=None, format_name=None,
                  location=None):
-        self.creation_time = TeaConverter.to_unicode(creation_time)  # type: unicode
+        self.creation_time = creation_time  # type: str
         self.number_programs = number_programs  # type: int
         self.number_streams = number_streams  # type: int
         self.tag = tag  # type: GetMediaMetaResponseBodyMediaMetaMediaFormatTag
-        self.bitrate = TeaConverter.to_unicode(bitrate)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.size = TeaConverter.to_unicode(size)  # type: unicode
+        self.bitrate = bitrate  # type: str
+        self.start_time = start_time  # type: str
+        self.size = size  # type: str
         self.address = address  # type: GetMediaMetaResponseBodyMediaMetaMediaFormatAddress
-        self.format_long_name = TeaConverter.to_unicode(format_long_name)  # type: unicode
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.format_name = TeaConverter.to_unicode(format_name)  # type: unicode
-        self.location = TeaConverter.to_unicode(location)  # type: unicode
+        self.format_long_name = format_long_name  # type: str
+        self.duration = duration  # type: str
+        self.format_name = format_name  # type: str
+        self.location = location  # type: str
 
     def validate(self):
         if self.tag:
@@ -6944,6 +7459,10 @@ class GetMediaMetaResponseBodyMediaMetaMediaFormat(TeaModel):
             self.address.validate()
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaFormat, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
@@ -7008,33 +7527,37 @@ class GetMediaMetaResponseBodyMediaMetaMediaStreamsVideoStreams(TeaModel):
                  frame_rrate=None, profile=None, start_time=None, frames=None, codec_name=None, width=None, duration=None,
                  display_aspect_ratio=None, codec_tag=None, codec_time_base=None, time_base=None, level=None, pixel_format=None):
         self.index = index  # type: int
-        self.codec_long_name = TeaConverter.to_unicode(codec_long_name)  # type: unicode
+        self.codec_long_name = codec_long_name  # type: str
         self.height = height  # type: int
-        self.sample_aspect_ratio = TeaConverter.to_unicode(sample_aspect_ratio)  # type: unicode
-        self.average_frame_rate = TeaConverter.to_unicode(average_frame_rate)  # type: unicode
-        self.bitrate = TeaConverter.to_unicode(bitrate)  # type: unicode
-        self.rotate = TeaConverter.to_unicode(rotate)  # type: unicode
-        self.codec_tag_string = TeaConverter.to_unicode(codec_tag_string)  # type: unicode
-        self.language = TeaConverter.to_unicode(language)  # type: unicode
+        self.sample_aspect_ratio = sample_aspect_ratio  # type: str
+        self.average_frame_rate = average_frame_rate  # type: str
+        self.bitrate = bitrate  # type: str
+        self.rotate = rotate  # type: str
+        self.codec_tag_string = codec_tag_string  # type: str
+        self.language = language  # type: str
         self.has_bframes = has_bframes  # type: int
-        self.frame_rrate = TeaConverter.to_unicode(frame_rrate)  # type: unicode
-        self.profile = TeaConverter.to_unicode(profile)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.frames = TeaConverter.to_unicode(frames)  # type: unicode
-        self.codec_name = TeaConverter.to_unicode(codec_name)  # type: unicode
+        self.frame_rrate = frame_rrate  # type: str
+        self.profile = profile  # type: str
+        self.start_time = start_time  # type: str
+        self.frames = frames  # type: str
+        self.codec_name = codec_name  # type: str
         self.width = width  # type: int
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.display_aspect_ratio = TeaConverter.to_unicode(display_aspect_ratio)  # type: unicode
-        self.codec_tag = TeaConverter.to_unicode(codec_tag)  # type: unicode
-        self.codec_time_base = TeaConverter.to_unicode(codec_time_base)  # type: unicode
-        self.time_base = TeaConverter.to_unicode(time_base)  # type: unicode
+        self.duration = duration  # type: str
+        self.display_aspect_ratio = display_aspect_ratio  # type: str
+        self.codec_tag = codec_tag  # type: str
+        self.codec_time_base = codec_time_base  # type: str
+        self.time_base = time_base  # type: str
         self.level = level  # type: int
-        self.pixel_format = TeaConverter.to_unicode(pixel_format)  # type: unicode
+        self.pixel_format = pixel_format  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaStreamsVideoStreams, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.index is not None:
             result['Index'] = self.index
@@ -7140,26 +7663,30 @@ class GetMediaMetaResponseBodyMediaMetaMediaStreamsAudioStreams(TeaModel):
                  bitrate=None, codec_tag_string=None, language=None, start_time=None, sample_format=None, frames=None,
                  codec_name=None, duration=None, codec_tag=None, codec_time_base=None, time_base=None):
         self.index = index  # type: int
-        self.sample_rate = TeaConverter.to_unicode(sample_rate)  # type: unicode
-        self.channel_layout = TeaConverter.to_unicode(channel_layout)  # type: unicode
-        self.codec_long_name = TeaConverter.to_unicode(codec_long_name)  # type: unicode
+        self.sample_rate = sample_rate  # type: str
+        self.channel_layout = channel_layout  # type: str
+        self.codec_long_name = codec_long_name  # type: str
         self.channels = channels  # type: int
-        self.bitrate = TeaConverter.to_unicode(bitrate)  # type: unicode
-        self.codec_tag_string = TeaConverter.to_unicode(codec_tag_string)  # type: unicode
-        self.language = TeaConverter.to_unicode(language)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.sample_format = TeaConverter.to_unicode(sample_format)  # type: unicode
-        self.frames = TeaConverter.to_unicode(frames)  # type: unicode
-        self.codec_name = TeaConverter.to_unicode(codec_name)  # type: unicode
-        self.duration = TeaConverter.to_unicode(duration)  # type: unicode
-        self.codec_tag = TeaConverter.to_unicode(codec_tag)  # type: unicode
-        self.codec_time_base = TeaConverter.to_unicode(codec_time_base)  # type: unicode
-        self.time_base = TeaConverter.to_unicode(time_base)  # type: unicode
+        self.bitrate = bitrate  # type: str
+        self.codec_tag_string = codec_tag_string  # type: str
+        self.language = language  # type: str
+        self.start_time = start_time  # type: str
+        self.sample_format = sample_format  # type: str
+        self.frames = frames  # type: str
+        self.codec_name = codec_name  # type: str
+        self.duration = duration  # type: str
+        self.codec_tag = codec_tag  # type: str
+        self.codec_time_base = codec_time_base  # type: str
+        self.time_base = time_base  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaStreamsAudioStreams, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.index is not None:
             result['Index'] = self.index
@@ -7235,12 +7762,16 @@ class GetMediaMetaResponseBodyMediaMetaMediaStreamsAudioStreams(TeaModel):
 class GetMediaMetaResponseBodyMediaMetaMediaStreamsSubtitleStreams(TeaModel):
     def __init__(self, index=None, language=None):
         self.index = index  # type: int
-        self.language = TeaConverter.to_unicode(language)  # type: unicode
+        self.language = language  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaStreamsSubtitleStreams, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.index is not None:
             result['Index'] = self.index
@@ -7278,6 +7809,10 @@ class GetMediaMetaResponseBodyMediaMetaMediaStreams(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMetaMediaStreams, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         result['VideoStreams'] = []
         if self.video_streams is not None:
@@ -7325,6 +7860,10 @@ class GetMediaMetaResponseBodyMediaMeta(TeaModel):
             self.media_streams.validate()
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBodyMediaMeta, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.media_format is not None:
             result['MediaFormat'] = self.media_format.to_map()
@@ -7345,8 +7884,8 @@ class GetMediaMetaResponseBodyMediaMeta(TeaModel):
 
 class GetMediaMetaResponseBody(TeaModel):
     def __init__(self, media_uri=None, request_id=None, media_meta=None):
-        self.media_uri = TeaConverter.to_unicode(media_uri)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.media_uri = media_uri  # type: str
+        self.request_id = request_id  # type: str
         self.media_meta = media_meta  # type: GetMediaMetaResponseBodyMediaMeta
 
     def validate(self):
@@ -7354,6 +7893,10 @@ class GetMediaMetaResponseBody(TeaModel):
             self.media_meta.validate()
 
     def to_map(self):
+        _map = super(GetMediaMetaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.media_uri is not None:
             result['MediaUri'] = self.media_uri
@@ -7377,7 +7920,7 @@ class GetMediaMetaResponseBody(TeaModel):
 
 class GetMediaMetaResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetMediaMetaResponseBody
 
     def validate(self):
@@ -7387,6 +7930,10 @@ class GetMediaMetaResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetMediaMetaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7406,13 +7953,17 @@ class GetMediaMetaResponse(TeaModel):
 
 class GetOfficeConversionTaskRequest(TeaModel):
     def __init__(self, project=None, task_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.project = project  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetOfficeConversionTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -7431,12 +7982,16 @@ class GetOfficeConversionTaskRequest(TeaModel):
 
 class GetOfficeConversionTaskResponseBodyFailDetail(TeaModel):
     def __init__(self, code=None):
-        self.code = TeaConverter.to_unicode(code)  # type: unicode
+        self.code = code  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetOfficeConversionTaskResponseBodyFailDetail, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
@@ -7450,102 +8005,106 @@ class GetOfficeConversionTaskResponseBodyFailDetail(TeaModel):
 
 
 class GetOfficeConversionTaskResponseBody(TeaModel):
-    def __init__(self, status=None, fail_detail=None, tgt_type=None, task_id=None, request_id=None, percent=None,
-                 create_time=None, external_id=None, image_spec=None, notify_endpoint=None, tgt_uri=None, finish_time=None,
-                 page_count=None, notify_topic_name=None, src_uri=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.fail_detail = fail_detail  # type: GetOfficeConversionTaskResponseBodyFailDetail
-        self.tgt_type = TeaConverter.to_unicode(tgt_type)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, status=None, percent=None, finish_time=None, create_time=None, page_count=None,
+                 notify_topic_name=None, request_id=None, notify_endpoint=None, src_uri=None, tgt_type=None, tgt_uri=None,
+                 image_spec=None, external_id=None, task_id=None, fail_detail=None):
+        self.status = status  # type: str
         self.percent = percent  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.image_spec = TeaConverter.to_unicode(image_spec)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.finish_time = TeaConverter.to_unicode(finish_time)  # type: unicode
+        self.finish_time = finish_time  # type: str
+        self.create_time = create_time  # type: str
         self.page_count = page_count  # type: int
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.request_id = request_id  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.src_uri = src_uri  # type: str
+        self.tgt_type = tgt_type  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.image_spec = image_spec  # type: str
+        self.external_id = external_id  # type: str
+        self.task_id = task_id  # type: str
+        self.fail_detail = fail_detail  # type: GetOfficeConversionTaskResponseBodyFailDetail
 
     def validate(self):
         if self.fail_detail:
             self.fail_detail.validate()
 
     def to_map(self):
+        _map = super(GetOfficeConversionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
-        if self.fail_detail is not None:
-            result['FailDetail'] = self.fail_detail.to_map()
-        if self.tgt_type is not None:
-            result['TgtType'] = self.tgt_type
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.percent is not None:
             result['Percent'] = self.percent
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.external_id is not None:
-            result['ExternalID'] = self.external_id
-        if self.image_spec is not None:
-            result['ImageSpec'] = self.image_spec
-        if self.notify_endpoint is not None:
-            result['NotifyEndpoint'] = self.notify_endpoint
-        if self.tgt_uri is not None:
-            result['TgtUri'] = self.tgt_uri
         if self.finish_time is not None:
             result['FinishTime'] = self.finish_time
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.page_count is not None:
             result['PageCount'] = self.page_count
         if self.notify_topic_name is not None:
             result['NotifyTopicName'] = self.notify_topic_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.notify_endpoint is not None:
+            result['NotifyEndpoint'] = self.notify_endpoint
         if self.src_uri is not None:
             result['SrcUri'] = self.src_uri
+        if self.tgt_type is not None:
+            result['TgtType'] = self.tgt_type
+        if self.tgt_uri is not None:
+            result['TgtUri'] = self.tgt_uri
+        if self.image_spec is not None:
+            result['ImageSpec'] = self.image_spec
+        if self.external_id is not None:
+            result['ExternalID'] = self.external_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.fail_detail is not None:
+            result['FailDetail'] = self.fail_detail.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Status') is not None:
             self.status = m.get('Status')
-        if m.get('FailDetail') is not None:
-            temp_model = GetOfficeConversionTaskResponseBodyFailDetail()
-            self.fail_detail = temp_model.from_map(m['FailDetail'])
-        if m.get('TgtType') is not None:
-            self.tgt_type = m.get('TgtType')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Percent') is not None:
             self.percent = m.get('Percent')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('ExternalID') is not None:
-            self.external_id = m.get('ExternalID')
-        if m.get('ImageSpec') is not None:
-            self.image_spec = m.get('ImageSpec')
-        if m.get('NotifyEndpoint') is not None:
-            self.notify_endpoint = m.get('NotifyEndpoint')
-        if m.get('TgtUri') is not None:
-            self.tgt_uri = m.get('TgtUri')
         if m.get('FinishTime') is not None:
             self.finish_time = m.get('FinishTime')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('PageCount') is not None:
             self.page_count = m.get('PageCount')
         if m.get('NotifyTopicName') is not None:
             self.notify_topic_name = m.get('NotifyTopicName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('NotifyEndpoint') is not None:
+            self.notify_endpoint = m.get('NotifyEndpoint')
         if m.get('SrcUri') is not None:
             self.src_uri = m.get('SrcUri')
+        if m.get('TgtType') is not None:
+            self.tgt_type = m.get('TgtType')
+        if m.get('TgtUri') is not None:
+            self.tgt_uri = m.get('TgtUri')
+        if m.get('ImageSpec') is not None:
+            self.image_spec = m.get('ImageSpec')
+        if m.get('ExternalID') is not None:
+            self.external_id = m.get('ExternalID')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('FailDetail') is not None:
+            temp_model = GetOfficeConversionTaskResponseBodyFailDetail()
+            self.fail_detail = temp_model.from_map(m['FailDetail'])
         return self
 
 
 class GetOfficeConversionTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetOfficeConversionTaskResponseBody
 
     def validate(self):
@@ -7555,6 +8114,10 @@ class GetOfficeConversionTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetOfficeConversionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7575,21 +8138,25 @@ class GetOfficeConversionTaskResponse(TeaModel):
 class GetOfficeEditURLRequest(TeaModel):
     def __init__(self, project=None, src_uri=None, src_type=None, file_id=None, tgt_uri=None, user_id=None,
                  user_name=None, notify_endpoint=None, notify_topic_name=None, file_name=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.src_type = TeaConverter.to_unicode(src_type)  # type: unicode
-        self.file_id = TeaConverter.to_unicode(file_id)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.user_id = TeaConverter.to_unicode(user_id)  # type: unicode
-        self.user_name = TeaConverter.to_unicode(user_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.file_name = TeaConverter.to_unicode(file_name)  # type: unicode
+        self.project = project  # type: str
+        self.src_uri = src_uri  # type: str
+        self.src_type = src_type  # type: str
+        self.file_id = file_id  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.user_id = user_id  # type: str
+        self.user_name = user_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.file_name = file_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetOfficeEditURLRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -7639,54 +8206,58 @@ class GetOfficeEditURLRequest(TeaModel):
 
 
 class GetOfficeEditURLResponseBody(TeaModel):
-    def __init__(self, refresh_token=None, request_id=None, edit_url=None, access_token=None,
-                 refresh_token_expired_time=None, access_token_expired_time=None):
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.edit_url = TeaConverter.to_unicode(edit_url)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+    def __init__(self, request_id=None, access_token_expired_time=None, edit_url=None, access_token=None,
+                 refresh_token=None, refresh_token_expired_time=None):
+        self.request_id = request_id  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
+        self.edit_url = edit_url  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token = refresh_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetOfficeEditURLResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.refresh_token is not None:
-            result['RefreshToken'] = self.refresh_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.access_token_expired_time is not None:
+            result['AccessTokenExpiredTime'] = self.access_token_expired_time
         if self.edit_url is not None:
             result['EditURL'] = self.edit_url
         if self.access_token is not None:
             result['AccessToken'] = self.access_token
+        if self.refresh_token is not None:
+            result['RefreshToken'] = self.refresh_token
         if self.refresh_token_expired_time is not None:
             result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
-        if self.access_token_expired_time is not None:
-            result['AccessTokenExpiredTime'] = self.access_token_expired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RefreshToken') is not None:
-            self.refresh_token = m.get('RefreshToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('AccessTokenExpiredTime') is not None:
+            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
         if m.get('EditURL') is not None:
             self.edit_url = m.get('EditURL')
         if m.get('AccessToken') is not None:
             self.access_token = m.get('AccessToken')
+        if m.get('RefreshToken') is not None:
+            self.refresh_token = m.get('RefreshToken')
         if m.get('RefreshTokenExpiredTime') is not None:
             self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
-        if m.get('AccessTokenExpiredTime') is not None:
-            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
         return self
 
 
 class GetOfficeEditURLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetOfficeEditURLResponseBody
 
     def validate(self):
@@ -7696,6 +8267,10 @@ class GetOfficeEditURLResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetOfficeEditURLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7717,13 +8292,13 @@ class GetOfficePreviewURLRequest(TeaModel):
     def __init__(self, project=None, src_uri=None, src_type=None, watermark_type=None, watermark_value=None,
                  watermark_fill_style=None, watermark_font=None, watermark_rotate=None, watermark_horizontal=None,
                  watermark_vertical=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.src_type = TeaConverter.to_unicode(src_type)  # type: unicode
+        self.project = project  # type: str
+        self.src_uri = src_uri  # type: str
+        self.src_type = src_type  # type: str
         self.watermark_type = watermark_type  # type: int
-        self.watermark_value = TeaConverter.to_unicode(watermark_value)  # type: unicode
-        self.watermark_fill_style = TeaConverter.to_unicode(watermark_fill_style)  # type: unicode
-        self.watermark_font = TeaConverter.to_unicode(watermark_font)  # type: unicode
+        self.watermark_value = watermark_value  # type: str
+        self.watermark_fill_style = watermark_fill_style  # type: str
+        self.watermark_font = watermark_font  # type: str
         self.watermark_rotate = watermark_rotate  # type: float
         self.watermark_horizontal = watermark_horizontal  # type: int
         self.watermark_vertical = watermark_vertical  # type: int
@@ -7732,6 +8307,10 @@ class GetOfficePreviewURLRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(GetOfficePreviewURLRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -7781,54 +8360,58 @@ class GetOfficePreviewURLRequest(TeaModel):
 
 
 class GetOfficePreviewURLResponseBody(TeaModel):
-    def __init__(self, preview_url=None, refresh_token=None, request_id=None, access_token=None,
-                 refresh_token_expired_time=None, access_token_expired_time=None):
-        self.preview_url = TeaConverter.to_unicode(preview_url)  # type: unicode
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+    def __init__(self, request_id=None, preview_url=None, access_token_expired_time=None, access_token=None,
+                 refresh_token=None, refresh_token_expired_time=None):
+        self.request_id = request_id  # type: str
+        self.preview_url = preview_url  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token = refresh_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetOfficePreviewURLResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.preview_url is not None:
-            result['PreviewURL'] = self.preview_url
-        if self.refresh_token is not None:
-            result['RefreshToken'] = self.refresh_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.access_token is not None:
-            result['AccessToken'] = self.access_token
-        if self.refresh_token_expired_time is not None:
-            result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
+        if self.preview_url is not None:
+            result['PreviewURL'] = self.preview_url
         if self.access_token_expired_time is not None:
             result['AccessTokenExpiredTime'] = self.access_token_expired_time
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.refresh_token is not None:
+            result['RefreshToken'] = self.refresh_token
+        if self.refresh_token_expired_time is not None:
+            result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PreviewURL') is not None:
-            self.preview_url = m.get('PreviewURL')
-        if m.get('RefreshToken') is not None:
-            self.refresh_token = m.get('RefreshToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('AccessToken') is not None:
-            self.access_token = m.get('AccessToken')
-        if m.get('RefreshTokenExpiredTime') is not None:
-            self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
+        if m.get('PreviewURL') is not None:
+            self.preview_url = m.get('PreviewURL')
         if m.get('AccessTokenExpiredTime') is not None:
             self.access_token_expired_time = m.get('AccessTokenExpiredTime')
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('RefreshToken') is not None:
+            self.refresh_token = m.get('RefreshToken')
+        if m.get('RefreshTokenExpiredTime') is not None:
+            self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
         return self
 
 
 class GetOfficePreviewURLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetOfficePreviewURLResponseBody
 
     def validate(self):
@@ -7838,6 +8421,10 @@ class GetOfficePreviewURLResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetOfficePreviewURLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7857,12 +8444,16 @@ class GetOfficePreviewURLResponse(TeaModel):
 
 class GetProjectRequest(TeaModel):
     def __init__(self, project=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
+        self.project = project  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -7876,74 +8467,78 @@ class GetProjectRequest(TeaModel):
 
 
 class GetProjectResponseBody(TeaModel):
-    def __init__(self, project=None, modify_time=None, type=None, cu=None, service_role=None, request_id=None,
-                 endpoint=None, create_time=None, region_id=None, billing_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+    def __init__(self, type=None, request_id=None, cu=None, create_time=None, endpoint=None, service_role=None,
+                 project=None, region_id=None, billing_type=None, modify_time=None):
+        self.type = type  # type: str
+        self.request_id = request_id  # type: str
         self.cu = cu  # type: int
-        self.service_role = TeaConverter.to_unicode(service_role)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.endpoint = TeaConverter.to_unicode(endpoint)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.endpoint = endpoint  # type: str
+        self.service_role = service_role  # type: str
+        self.project = project  # type: str
+        self.region_id = region_id  # type: str
+        self.billing_type = billing_type  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.project is not None:
-            result['Project'] = self.project
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.type is not None:
             result['Type'] = self.type
-        if self.cu is not None:
-            result['CU'] = self.cu
-        if self.service_role is not None:
-            result['ServiceRole'] = self.service_role
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.endpoint is not None:
-            result['Endpoint'] = self.endpoint
+        if self.cu is not None:
+            result['CU'] = self.cu
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.endpoint is not None:
+            result['Endpoint'] = self.endpoint
+        if self.service_role is not None:
+            result['ServiceRole'] = self.service_role
+        if self.project is not None:
+            result['Project'] = self.project
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.billing_type is not None:
             result['BillingType'] = self.billing_type
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Project') is not None:
-            self.project = m.get('Project')
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('Type') is not None:
             self.type = m.get('Type')
-        if m.get('CU') is not None:
-            self.cu = m.get('CU')
-        if m.get('ServiceRole') is not None:
-            self.service_role = m.get('ServiceRole')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Endpoint') is not None:
-            self.endpoint = m.get('Endpoint')
+        if m.get('CU') is not None:
+            self.cu = m.get('CU')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('Endpoint') is not None:
+            self.endpoint = m.get('Endpoint')
+        if m.get('ServiceRole') is not None:
+            self.service_role = m.get('ServiceRole')
+        if m.get('Project') is not None:
+            self.project = m.get('Project')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('BillingType') is not None:
             self.billing_type = m.get('BillingType')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         return self
 
 
 class GetProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetProjectResponseBody
 
     def validate(self):
@@ -7953,6 +8548,10 @@ class GetProjectResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -7972,13 +8571,17 @@ class GetProjectResponse(TeaModel):
 
 class GetSetRequest(TeaModel):
     def __init__(self, project=None, set_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetSetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -7996,69 +8599,73 @@ class GetSetRequest(TeaModel):
 
 
 class GetSetResponseBody(TeaModel):
-    def __init__(self, modify_time=None, video_count=None, image_count=None, request_id=None, create_time=None,
-                 set_name=None, set_id=None, video_length=None, face_count=None):
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+    def __init__(self, video_count=None, request_id=None, create_time=None, video_length=None, set_id=None,
+                 image_count=None, face_count=None, set_name=None, modify_time=None):
         self.video_count = video_count  # type: int
-        self.image_count = image_count  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
         self.video_length = video_length  # type: int
+        self.set_id = set_id  # type: str
+        self.image_count = image_count  # type: int
         self.face_count = face_count  # type: int
+        self.set_name = set_name  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetSetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.video_count is not None:
             result['VideoCount'] = self.video_count
-        if self.image_count is not None:
-            result['ImageCount'] = self.image_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.set_name is not None:
-            result['SetName'] = self.set_name
-        if self.set_id is not None:
-            result['SetId'] = self.set_id
         if self.video_length is not None:
             result['VideoLength'] = self.video_length
+        if self.set_id is not None:
+            result['SetId'] = self.set_id
+        if self.image_count is not None:
+            result['ImageCount'] = self.image_count
         if self.face_count is not None:
             result['FaceCount'] = self.face_count
+        if self.set_name is not None:
+            result['SetName'] = self.set_name
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('VideoCount') is not None:
             self.video_count = m.get('VideoCount')
-        if m.get('ImageCount') is not None:
-            self.image_count = m.get('ImageCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('SetName') is not None:
-            self.set_name = m.get('SetName')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         if m.get('VideoLength') is not None:
             self.video_length = m.get('VideoLength')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
+        if m.get('ImageCount') is not None:
+            self.image_count = m.get('ImageCount')
         if m.get('FaceCount') is not None:
             self.face_count = m.get('FaceCount')
+        if m.get('SetName') is not None:
+            self.set_name = m.get('SetName')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         return self
 
 
 class GetSetResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetSetResponseBody
 
     def validate(self):
@@ -8068,6 +8675,10 @@ class GetSetResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetSetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8087,14 +8698,18 @@ class GetSetResponse(TeaModel):
 
 class GetVideoRequest(TeaModel):
     def __init__(self, project=None, set_id=None, video_uri=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.video_uri = video_uri  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -8117,15 +8732,19 @@ class GetVideoRequest(TeaModel):
 
 class GetVideoResponseBodyVideoTags(TeaModel):
     def __init__(self, tag_name=None, tag_confidence=None, tag_level=None, parent_tag_name=None):
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
+        self.tag_name = tag_name  # type: str
         self.tag_confidence = tag_confidence  # type: float
         self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
+        self.parent_tag_name = parent_tag_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoResponseBodyVideoTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tag_name is not None:
             result['TagName'] = self.tag_name
@@ -8159,44 +8778,44 @@ class GetVideoResponseBody(TeaModel):
                  process_modify_time=None, video_sttmodify_time=None, process_fail_reason=None, create_time=None, external_id=None,
                  video_sttfail_reason=None, video_uri=None, video_frame_tags_fail_reason=None, video_format=None, video_sttstatus=None,
                  video_faces_modify_time=None, video_tags=None, video_duration=None, set_id=None, video_tags_status=None, file_size=None):
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.process_status = TeaConverter.to_unicode(process_status)  # type: unicode
+        self.modify_time = modify_time  # type: str
+        self.process_status = process_status  # type: str
         self.video_width = video_width  # type: int
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.video_info = TeaConverter.to_unicode(video_info)  # type: unicode
-        self.video_frame_tags_modify_time = TeaConverter.to_unicode(video_frame_tags_modify_time)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.video_faces_fail_reason = TeaConverter.to_unicode(video_faces_fail_reason)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.video_faces_status = TeaConverter.to_unicode(video_faces_status)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.video_ocrmodify_time = TeaConverter.to_unicode(video_ocrmodify_time)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
+        self.source_type = source_type  # type: str
+        self.source_uri = source_uri  # type: str
+        self.video_info = video_info  # type: str
+        self.video_frame_tags_modify_time = video_frame_tags_modify_time  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.video_faces_fail_reason = video_faces_fail_reason  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.video_faces_status = video_faces_status  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.video_ocrmodify_time = video_ocrmodify_time  # type: str
+        self.remarks_d = remarks_d  # type: str
         self.video_height = video_height  # type: int
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.video_ocrfail_reason = TeaConverter.to_unicode(video_ocrfail_reason)  # type: unicode
-        self.video_frame_tags_status = TeaConverter.to_unicode(video_frame_tags_status)  # type: unicode
-        self.video_tags_fail_reason = TeaConverter.to_unicode(video_tags_fail_reason)  # type: unicode
-        self.video_tags_modify_time = TeaConverter.to_unicode(video_tags_modify_time)  # type: unicode
-        self.video_ocrstatus = TeaConverter.to_unicode(video_ocrstatus)  # type: unicode
+        self.source_position = source_position  # type: str
+        self.video_ocrfail_reason = video_ocrfail_reason  # type: str
+        self.video_frame_tags_status = video_frame_tags_status  # type: str
+        self.video_tags_fail_reason = video_tags_fail_reason  # type: str
+        self.video_tags_modify_time = video_tags_modify_time  # type: str
+        self.video_ocrstatus = video_ocrstatus  # type: str
         self.video_frames = video_frames  # type: int
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.process_modify_time = TeaConverter.to_unicode(process_modify_time)  # type: unicode
-        self.video_sttmodify_time = TeaConverter.to_unicode(video_sttmodify_time)  # type: unicode
-        self.process_fail_reason = TeaConverter.to_unicode(process_fail_reason)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.video_sttfail_reason = TeaConverter.to_unicode(video_sttfail_reason)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.video_frame_tags_fail_reason = TeaConverter.to_unicode(video_frame_tags_fail_reason)  # type: unicode
-        self.video_format = TeaConverter.to_unicode(video_format)  # type: unicode
-        self.video_sttstatus = TeaConverter.to_unicode(video_sttstatus)  # type: unicode
-        self.video_faces_modify_time = TeaConverter.to_unicode(video_faces_modify_time)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.process_modify_time = process_modify_time  # type: str
+        self.video_sttmodify_time = video_sttmodify_time  # type: str
+        self.process_fail_reason = process_fail_reason  # type: str
+        self.create_time = create_time  # type: str
+        self.external_id = external_id  # type: str
+        self.video_sttfail_reason = video_sttfail_reason  # type: str
+        self.video_uri = video_uri  # type: str
+        self.video_frame_tags_fail_reason = video_frame_tags_fail_reason  # type: str
+        self.video_format = video_format  # type: str
+        self.video_sttstatus = video_sttstatus  # type: str
+        self.video_faces_modify_time = video_faces_modify_time  # type: str
         self.video_tags = video_tags  # type: list[GetVideoResponseBodyVideoTags]
         self.video_duration = video_duration  # type: float
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_tags_status = TeaConverter.to_unicode(video_tags_status)  # type: unicode
+        self.set_id = set_id  # type: str
+        self.video_tags_status = video_tags_status  # type: str
         self.file_size = file_size  # type: int
 
     def validate(self):
@@ -8206,6 +8825,10 @@ class GetVideoResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(GetVideoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
@@ -8377,7 +9000,7 @@ class GetVideoResponseBody(TeaModel):
 
 class GetVideoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoResponseBody
 
     def validate(self):
@@ -8387,6 +9010,10 @@ class GetVideoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8406,14 +9033,18 @@ class GetVideoResponse(TeaModel):
 
 class GetVideoTaskRequest(TeaModel):
     def __init__(self, project=None, task_type=None, task_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.project = project  # type: str
+        self.task_type = task_type  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -8438,23 +9069,27 @@ class GetVideoTaskResponseBody(TeaModel):
     def __init__(self, status=None, progress=None, notify_endpoint=None, parameters=None, task_id=None,
                  end_time=None, request_id=None, task_type=None, start_time=None, notify_topic_name=None, error_message=None,
                  result=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         self.progress = progress  # type: int
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.result = TeaConverter.to_unicode(result)  # type: unicode
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.parameters = parameters  # type: str
+        self.task_id = task_id  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.task_type = task_type  # type: str
+        self.start_time = start_time  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.error_message = error_message  # type: str
+        self.result = result  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVideoTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -8513,7 +9148,7 @@ class GetVideoTaskResponseBody(TeaModel):
 
 class GetVideoTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVideoTaskResponseBody
 
     def validate(self):
@@ -8523,6 +9158,10 @@ class GetVideoTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVideoTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8542,20 +9181,26 @@ class GetVideoTaskResponse(TeaModel):
 
 class GetWebofficeURLRequest(TeaModel):
     def __init__(self, project=None, src_type=None, file_id=None, user=None, permission=None, file=None,
-                 notify_endpoint=None, notify_topic_name=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.src_type = TeaConverter.to_unicode(src_type)  # type: unicode
-        self.file_id = TeaConverter.to_unicode(file_id)  # type: unicode
-        self.user = TeaConverter.to_unicode(user)  # type: unicode
-        self.permission = TeaConverter.to_unicode(permission)  # type: unicode
-        self.file = TeaConverter.to_unicode(file)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
+                 notify_endpoint=None, notify_topic_name=None, watermark=None, hidecmb=None):
+        self.project = project  # type: str
+        self.src_type = src_type  # type: str
+        self.file_id = file_id  # type: str
+        self.user = user  # type: str
+        self.permission = permission  # type: str
+        self.file = file  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.watermark = watermark  # type: str
+        self.hidecmb = hidecmb  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetWebofficeURLRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -8573,6 +9218,10 @@ class GetWebofficeURLRequest(TeaModel):
             result['NotifyEndpoint'] = self.notify_endpoint
         if self.notify_topic_name is not None:
             result['NotifyTopicName'] = self.notify_topic_name
+        if self.watermark is not None:
+            result['Watermark'] = self.watermark
+        if self.hidecmb is not None:
+            result['Hidecmb'] = self.hidecmb
         return result
 
     def from_map(self, m=None):
@@ -8593,23 +9242,31 @@ class GetWebofficeURLRequest(TeaModel):
             self.notify_endpoint = m.get('NotifyEndpoint')
         if m.get('NotifyTopicName') is not None:
             self.notify_topic_name = m.get('NotifyTopicName')
+        if m.get('Watermark') is not None:
+            self.watermark = m.get('Watermark')
+        if m.get('Hidecmb') is not None:
+            self.hidecmb = m.get('Hidecmb')
         return self
 
 
 class GetWebofficeURLResponseBody(TeaModel):
     def __init__(self, refresh_token=None, request_id=None, access_token=None, refresh_token_expired_time=None,
                  weboffice_url=None, access_token_expired_time=None):
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.weboffice_url = TeaConverter.to_unicode(weboffice_url)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+        self.refresh_token = refresh_token  # type: str
+        self.request_id = request_id  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
+        self.weboffice_url = weboffice_url  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetWebofficeURLResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.refresh_token is not None:
             result['RefreshToken'] = self.refresh_token
@@ -8644,7 +9301,7 @@ class GetWebofficeURLResponseBody(TeaModel):
 
 class GetWebofficeURLResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetWebofficeURLResponseBody
 
     def validate(self):
@@ -8654,6 +9311,10 @@ class GetWebofficeURLResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetWebofficeURLResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8673,29 +9334,32 @@ class GetWebofficeURLResponse(TeaModel):
 
 class IndexImageRequest(TeaModel):
     def __init__(self, project=None, set_id=None, image_uri=None, remarks_a=None, remarks_b=None, source_type=None,
-                 source_uri=None, source_position=None, remarks_c=None, remarks_d=None, external_id=None, real_uid=None,
-                 notify_endpoint=None, notify_topic_name=None, remarks_array_a=None, remarks_array_b=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.real_uid = TeaConverter.to_unicode(real_uid)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
+                 source_uri=None, source_position=None, remarks_c=None, remarks_d=None, external_id=None, notify_endpoint=None,
+                 notify_topic_name=None, remarks_array_a=None, remarks_array_b=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.source_type = source_type  # type: str
+        self.source_uri = source_uri  # type: str
+        self.source_position = source_position  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.external_id = external_id  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_array_b = remarks_array_b  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(IndexImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -8719,8 +9383,6 @@ class IndexImageRequest(TeaModel):
             result['RemarksD'] = self.remarks_d
         if self.external_id is not None:
             result['ExternalId'] = self.external_id
-        if self.real_uid is not None:
-            result['RealUid'] = self.real_uid
         if self.notify_endpoint is not None:
             result['NotifyEndpoint'] = self.notify_endpoint
         if self.notify_topic_name is not None:
@@ -8755,8 +9417,6 @@ class IndexImageRequest(TeaModel):
             self.remarks_d = m.get('RemarksD')
         if m.get('ExternalId') is not None:
             self.external_id = m.get('ExternalId')
-        if m.get('RealUid') is not None:
-            self.real_uid = m.get('RealUid')
         if m.get('NotifyEndpoint') is not None:
             self.notify_endpoint = m.get('NotifyEndpoint')
         if m.get('NotifyTopicName') is not None:
@@ -8772,23 +9432,27 @@ class IndexImageResponseBody(TeaModel):
     def __init__(self, remarks_array_b=None, modify_time=None, remarks_c=None, remarks_d=None, request_id=None,
                  create_time=None, external_id=None, remarks_array_a=None, remarks_a=None, image_uri=None, set_id=None,
                  remarks_b=None):
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.modify_time = modify_time  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
+        self.external_id = external_id  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.image_uri = image_uri  # type: str
+        self.set_id = set_id  # type: str
+        self.remarks_b = remarks_b  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(IndexImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.remarks_array_b is not None:
             result['RemarksArrayB'] = self.remarks_array_b
@@ -8847,7 +9511,7 @@ class IndexImageResponseBody(TeaModel):
 
 class IndexImageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: IndexImageResponseBody
 
     def validate(self):
@@ -8857,6 +9521,10 @@ class IndexImageResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(IndexImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -8875,30 +9543,28 @@ class IndexImageResponse(TeaModel):
 
 
 class IndexVideoRequest(TeaModel):
-    def __init__(self, project=None, set_id=None, video_uri=None, remarks_a=None, remarks_b=None, grab_type=None,
-                 start_time=None, end_time=None, save_type=None, interval=None, tgt_uri=None, remarks_c=None, remarks_d=None,
-                 external_id=None, notify_topic_name=None, notify_endpoint=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.grab_type = TeaConverter.to_unicode(grab_type)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.save_type = save_type  # type: bool
-        self.interval = TeaConverter.to_unicode(interval)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
+    def __init__(self, project=None, set_id=None, video_uri=None, remarks_a=None, remarks_b=None, tgt_uri=None,
+                 remarks_c=None, remarks_d=None, external_id=None, notify_topic_name=None, notify_endpoint=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.video_uri = video_uri  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.external_id = external_id  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(IndexVideoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -8910,16 +9576,6 @@ class IndexVideoRequest(TeaModel):
             result['RemarksA'] = self.remarks_a
         if self.remarks_b is not None:
             result['RemarksB'] = self.remarks_b
-        if self.grab_type is not None:
-            result['GrabType'] = self.grab_type
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.save_type is not None:
-            result['SaveType'] = self.save_type
-        if self.interval is not None:
-            result['Interval'] = self.interval
         if self.tgt_uri is not None:
             result['TgtUri'] = self.tgt_uri
         if self.remarks_c is not None:
@@ -8946,16 +9602,6 @@ class IndexVideoRequest(TeaModel):
             self.remarks_a = m.get('RemarksA')
         if m.get('RemarksB') is not None:
             self.remarks_b = m.get('RemarksB')
-        if m.get('GrabType') is not None:
-            self.grab_type = m.get('GrabType')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('SaveType') is not None:
-            self.save_type = m.get('SaveType')
-        if m.get('Interval') is not None:
-            self.interval = m.get('Interval')
         if m.get('TgtUri') is not None:
             self.tgt_uri = m.get('TgtUri')
         if m.get('RemarksC') is not None:
@@ -8974,21 +9620,25 @@ class IndexVideoRequest(TeaModel):
 class IndexVideoResponseBody(TeaModel):
     def __init__(self, modify_time=None, request_id=None, create_time=None, external_id=None, video_uri=None,
                  remarks_a=None, remarks_b=None, remarks_c=None, remarks_d=None, set_id=None):
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.modify_time = modify_time  # type: str
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
+        self.external_id = external_id  # type: str
+        self.video_uri = video_uri  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(IndexVideoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
@@ -9039,7 +9689,7 @@ class IndexVideoResponseBody(TeaModel):
 
 class IndexVideoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: IndexVideoResponseBody
 
     def validate(self):
@@ -9049,6 +9699,10 @@ class IndexVideoResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(IndexVideoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9070,24 +9724,28 @@ class ListFaceGroupsRequest(TeaModel):
     def __init__(self, project=None, set_id=None, marker=None, limit=None, order=None, order_by=None,
                  remarks_aquery=None, remarks_bquery=None, remarks_cquery=None, remarks_dquery=None, remarks_array_aquery=None,
                  remarks_array_bquery=None, external_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.marker = marker  # type: str
         self.limit = limit  # type: int
-        self.order = TeaConverter.to_unicode(order)  # type: unicode
-        self.order_by = TeaConverter.to_unicode(order_by)  # type: unicode
-        self.remarks_aquery = TeaConverter.to_unicode(remarks_aquery)  # type: unicode
-        self.remarks_bquery = TeaConverter.to_unicode(remarks_bquery)  # type: unicode
-        self.remarks_cquery = TeaConverter.to_unicode(remarks_cquery)  # type: unicode
-        self.remarks_dquery = TeaConverter.to_unicode(remarks_dquery)  # type: unicode
-        self.remarks_array_aquery = TeaConverter.to_unicode(remarks_array_aquery)  # type: unicode
-        self.remarks_array_bquery = TeaConverter.to_unicode(remarks_array_bquery)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
+        self.order = order  # type: str
+        self.order_by = order_by  # type: str
+        self.remarks_aquery = remarks_aquery  # type: str
+        self.remarks_bquery = remarks_bquery  # type: str
+        self.remarks_cquery = remarks_cquery  # type: str
+        self.remarks_dquery = remarks_dquery  # type: str
+        self.remarks_array_aquery = remarks_array_aquery  # type: str
+        self.remarks_array_bquery = remarks_array_bquery  # type: str
+        self.external_id = external_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListFaceGroupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -9159,6 +9817,10 @@ class ListFaceGroupsResponseBodyFaceGroupsGroupCoverFaceFaceBoundary(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ListFaceGroupsResponseBodyFaceGroupsGroupCoverFaceFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.top is not None:
             result['Top'] = self.top
@@ -9184,34 +9846,54 @@ class ListFaceGroupsResponseBodyFaceGroupsGroupCoverFaceFaceBoundary(TeaModel):
 
 
 class ListFaceGroupsResponseBodyFaceGroupsGroupCoverFace(TeaModel):
-    def __init__(self, image_uri=None, face_id=None, face_boundary=None):
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
+    def __init__(self, face_id=None, image_uri=None, face_boundary=None, external_id=None, image_height=None,
+                 image_width=None):
+        self.face_id = face_id  # type: str
+        self.image_uri = image_uri  # type: str
         self.face_boundary = face_boundary  # type: ListFaceGroupsResponseBodyFaceGroupsGroupCoverFaceFaceBoundary
+        self.external_id = external_id  # type: str
+        self.image_height = image_height  # type: long
+        self.image_width = image_width  # type: long
 
     def validate(self):
         if self.face_boundary:
             self.face_boundary.validate()
 
     def to_map(self):
+        _map = super(ListFaceGroupsResponseBodyFaceGroupsGroupCoverFace, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.image_uri is not None:
-            result['ImageUri'] = self.image_uri
         if self.face_id is not None:
             result['FaceId'] = self.face_id
+        if self.image_uri is not None:
+            result['ImageUri'] = self.image_uri
         if self.face_boundary is not None:
             result['FaceBoundary'] = self.face_boundary.to_map()
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.image_height is not None:
+            result['ImageHeight'] = self.image_height
+        if self.image_width is not None:
+            result['ImageWidth'] = self.image_width
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ImageUri') is not None:
-            self.image_uri = m.get('ImageUri')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
+        if m.get('ImageUri') is not None:
+            self.image_uri = m.get('ImageUri')
         if m.get('FaceBoundary') is not None:
             temp_model = ListFaceGroupsResponseBodyFaceGroupsGroupCoverFaceFaceBoundary()
             self.face_boundary = temp_model.from_map(m['FaceBoundary'])
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('ImageHeight') is not None:
+            self.image_height = m.get('ImageHeight')
+        if m.get('ImageWidth') is not None:
+            self.image_width = m.get('ImageWidth')
         return self
 
 
@@ -9220,30 +9902,34 @@ class ListFaceGroupsResponseBodyFaceGroups(TeaModel):
                  remarks_array_b=None, remarks_d=None, max_age=None, group_id=None, group_name=None, remarks_a=None,
                  average_age=None, remarks_array_a=None, min_age=None, image_count=None, external_id=None, remarks_b=None,
                  modify_time=None):
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
+        self.gender = gender  # type: str
+        self.create_time = create_time  # type: str
+        self.remarks_c = remarks_c  # type: str
         self.group_cover_face = group_cover_face  # type: ListFaceGroupsResponseBodyFaceGroupsGroupCoverFace
         self.face_count = face_count  # type: int
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.remarks_d = remarks_d  # type: str
         self.max_age = max_age  # type: float
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.group_name = TeaConverter.to_unicode(group_name)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
+        self.group_id = group_id  # type: str
+        self.group_name = group_name  # type: str
+        self.remarks_a = remarks_a  # type: str
         self.average_age = average_age  # type: float
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
+        self.remarks_array_a = remarks_array_a  # type: str
         self.min_age = min_age  # type: float
         self.image_count = image_count  # type: int
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.external_id = external_id  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         if self.group_cover_face:
             self.group_cover_face.validate()
 
     def to_map(self):
+        _map = super(ListFaceGroupsResponseBodyFaceGroups, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.gender is not None:
             result['Gender'] = self.gender
@@ -9327,8 +10013,8 @@ class ListFaceGroupsResponseBodyFaceGroups(TeaModel):
 
 class ListFaceGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None, next_marker=None, face_groups=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
         self.face_groups = face_groups  # type: list[ListFaceGroupsResponseBodyFaceGroups]
 
     def validate(self):
@@ -9338,6 +10024,10 @@ class ListFaceGroupsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListFaceGroupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -9365,7 +10055,7 @@ class ListFaceGroupsResponseBody(TeaModel):
 
 class ListFaceGroupsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListFaceGroupsResponseBody
 
     def validate(self):
@@ -9375,6 +10065,10 @@ class ListFaceGroupsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListFaceGroupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -9394,16 +10088,20 @@ class ListFaceGroupsResponse(TeaModel):
 
 class ListImagesRequest(TeaModel):
     def __init__(self, project=None, set_id=None, create_time_start=None, marker=None, limit=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.create_time_start = create_time_start  # type: str
+        self.marker = marker  # type: str
         self.limit = limit  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListImagesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -9432,276 +10130,78 @@ class ListImagesRequest(TeaModel):
         return self
 
 
-class ListImagesResponseBodyImagesTags(TeaModel):
-    def __init__(self, tag_confidence=None, tag_name=None, tag_level=None, parent_tag_name=None):
-        self.tag_confidence = tag_confidence  # type: float
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
-        self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.tag_confidence is not None:
-            result['TagConfidence'] = self.tag_confidence
-        if self.tag_name is not None:
-            result['TagName'] = self.tag_name
-        if self.tag_level is not None:
-            result['TagLevel'] = self.tag_level
-        if self.parent_tag_name is not None:
-            result['ParentTagName'] = self.parent_tag_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagConfidence') is not None:
-            self.tag_confidence = m.get('TagConfidence')
-        if m.get('TagName') is not None:
-            self.tag_name = m.get('TagName')
-        if m.get('TagLevel') is not None:
-            self.tag_level = m.get('TagLevel')
-        if m.get('ParentTagName') is not None:
-            self.parent_tag_name = m.get('ParentTagName')
-        return self
-
-
-class ListImagesResponseBodyImagesOCROCRBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
+class ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
         self.top = top  # type: int
         self.width = width  # type: int
         self.height = height  # type: int
-        self.left = left  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
         if self.top is not None:
             result['Top'] = self.top
         if self.width is not None:
             result['Width'] = self.width
         if self.height is not None:
             result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
         if m.get('Top') is not None:
             self.top = m.get('Top')
         if m.get('Width') is not None:
             self.width = m.get('Width')
         if m.get('Height') is not None:
             self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
         return self
 
 
-class ListImagesResponseBodyImagesOCR(TeaModel):
-    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
-        self.ocrconfidence = ocrconfidence  # type: float
-        self.ocrcontents = TeaConverter.to_unicode(ocrcontents)  # type: unicode
-        self.ocrboundary = ocrboundary  # type: ListImagesResponseBodyImagesOCROCRBoundary
+class ListImagesResponseBodyImagesCroppingSuggestion(TeaModel):
+    def __init__(self, score=None, aspect_ratio=None, cropping_boundary=None):
+        self.score = score  # type: float
+        self.aspect_ratio = aspect_ratio  # type: str
+        self.cropping_boundary = cropping_boundary  # type: ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary
 
     def validate(self):
-        if self.ocrboundary:
-            self.ocrboundary.validate()
+        if self.cropping_boundary:
+            self.cropping_boundary.validate()
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesCroppingSuggestion, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.ocrconfidence is not None:
-            result['OCRConfidence'] = self.ocrconfidence
-        if self.ocrcontents is not None:
-            result['OCRContents'] = self.ocrcontents
-        if self.ocrboundary is not None:
-            result['OCRBoundary'] = self.ocrboundary.to_map()
+        if self.score is not None:
+            result['Score'] = self.score
+        if self.aspect_ratio is not None:
+            result['AspectRatio'] = self.aspect_ratio
+        if self.cropping_boundary is not None:
+            result['CroppingBoundary'] = self.cropping_boundary.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OCRConfidence') is not None:
-            self.ocrconfidence = m.get('OCRConfidence')
-        if m.get('OCRContents') is not None:
-            self.ocrcontents = m.get('OCRContents')
-        if m.get('OCRBoundary') is not None:
-            temp_model = ListImagesResponseBodyImagesOCROCRBoundary()
-            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
-        return self
-
-
-class ListImagesResponseBodyImagesAddress(TeaModel):
-    def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
-        self.township = TeaConverter.to_unicode(township)  # type: unicode
-        self.district = TeaConverter.to_unicode(district)  # type: unicode
-        self.address_line = TeaConverter.to_unicode(address_line)  # type: unicode
-        self.country = TeaConverter.to_unicode(country)  # type: unicode
-        self.city = TeaConverter.to_unicode(city)  # type: unicode
-        self.province = TeaConverter.to_unicode(province)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.township is not None:
-            result['Township'] = self.township
-        if self.district is not None:
-            result['District'] = self.district
-        if self.address_line is not None:
-            result['AddressLine'] = self.address_line
-        if self.country is not None:
-            result['Country'] = self.country
-        if self.city is not None:
-            result['City'] = self.city
-        if self.province is not None:
-            result['Province'] = self.province
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Township') is not None:
-            self.township = m.get('Township')
-        if m.get('District') is not None:
-            self.district = m.get('District')
-        if m.get('AddressLine') is not None:
-            self.address_line = m.get('AddressLine')
-        if m.get('Country') is not None:
-            self.country = m.get('Country')
-        if m.get('City') is not None:
-            self.city = m.get('City')
-        if m.get('Province') is not None:
-            self.province = m.get('Province')
-        return self
-
-
-class ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class ListImagesResponseBodyImagesFacesFaceAttributesHeadPose(TeaModel):
-    def __init__(self, pitch=None, roll=None, yaw=None):
-        self.pitch = pitch  # type: float
-        self.roll = roll  # type: float
-        self.yaw = yaw  # type: float
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.pitch is not None:
-            result['Pitch'] = self.pitch
-        if self.roll is not None:
-            result['Roll'] = self.roll
-        if self.yaw is not None:
-            result['Yaw'] = self.yaw
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Pitch') is not None:
-            self.pitch = m.get('Pitch')
-        if m.get('Roll') is not None:
-            self.roll = m.get('Roll')
-        if m.get('Yaw') is not None:
-            self.yaw = m.get('Yaw')
-        return self
-
-
-class ListImagesResponseBodyImagesFacesFaceAttributes(TeaModel):
-    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
-                 mask_confidence=None, face_boundary=None, head_pose=None, beard=None):
-        self.glasses_confidence = glasses_confidence  # type: float
-        self.glasses = TeaConverter.to_unicode(glasses)  # type: unicode
-        self.mask = TeaConverter.to_unicode(mask)  # type: unicode
-        self.beard_confidence = beard_confidence  # type: float
-        self.mask_confidence = mask_confidence  # type: float
-        self.face_boundary = face_boundary  # type: ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary
-        self.head_pose = head_pose  # type: ListImagesResponseBodyImagesFacesFaceAttributesHeadPose
-        self.beard = TeaConverter.to_unicode(beard)  # type: unicode
-
-    def validate(self):
-        if self.face_boundary:
-            self.face_boundary.validate()
-        if self.head_pose:
-            self.head_pose.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.glasses_confidence is not None:
-            result['GlassesConfidence'] = self.glasses_confidence
-        if self.glasses is not None:
-            result['Glasses'] = self.glasses
-        if self.mask is not None:
-            result['Mask'] = self.mask
-        if self.beard_confidence is not None:
-            result['BeardConfidence'] = self.beard_confidence
-        if self.mask_confidence is not None:
-            result['MaskConfidence'] = self.mask_confidence
-        if self.face_boundary is not None:
-            result['FaceBoundary'] = self.face_boundary.to_map()
-        if self.head_pose is not None:
-            result['HeadPose'] = self.head_pose.to_map()
-        if self.beard is not None:
-            result['Beard'] = self.beard
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('GlassesConfidence') is not None:
-            self.glasses_confidence = m.get('GlassesConfidence')
-        if m.get('Glasses') is not None:
-            self.glasses = m.get('Glasses')
-        if m.get('Mask') is not None:
-            self.mask = m.get('Mask')
-        if m.get('BeardConfidence') is not None:
-            self.beard_confidence = m.get('BeardConfidence')
-        if m.get('MaskConfidence') is not None:
-            self.mask_confidence = m.get('MaskConfidence')
-        if m.get('FaceBoundary') is not None:
-            temp_model = ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary()
-            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
-        if m.get('HeadPose') is not None:
-            temp_model = ListImagesResponseBodyImagesFacesFaceAttributesHeadPose()
-            self.head_pose = temp_model.from_map(m['HeadPose'])
-        if m.get('Beard') is not None:
-            self.beard = m.get('Beard')
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        if m.get('AspectRatio') is not None:
+            self.aspect_ratio = m.get('AspectRatio')
+        if m.get('CroppingBoundary') is not None:
+            temp_model = ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary()
+            self.cropping_boundary = temp_model.from_map(m['CroppingBoundary'])
         return self
 
 
@@ -9719,6 +10219,10 @@ class ListImagesResponseBodyImagesFacesEmotionDetails(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesFacesEmotionDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.happy is not None:
             result['HAPPY'] = self.happy
@@ -9755,39 +10259,185 @@ class ListImagesResponseBodyImagesFacesEmotionDetails(TeaModel):
         return self
 
 
-class ListImagesResponseBodyImagesFaces(TeaModel):
-    def __init__(self, gender=None, face_id=None, gender_confidence=None, face_attributes=None, face_quality=None,
-                 emotion=None, age=None, face_confidence=None, emotion_confidence=None, attractive=None, group_id=None,
-                 emotion_details=None):
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.gender_confidence = gender_confidence  # type: float
-        self.face_attributes = face_attributes  # type: ListImagesResponseBodyImagesFacesFaceAttributes
-        self.face_quality = face_quality  # type: float
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.age = age  # type: int
-        self.face_confidence = face_confidence  # type: float
-        self.emotion_confidence = emotion_confidence  # type: float
-        self.attractive = attractive  # type: float
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.emotion_details = emotion_details  # type: ListImagesResponseBodyImagesFacesEmotionDetails
+class ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
 
     def validate(self):
-        if self.face_attributes:
-            self.face_attributes.validate()
-        if self.emotion_details:
-            self.emotion_details.validate()
+        pass
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class ListImagesResponseBodyImagesFacesFaceAttributesHeadPose(TeaModel):
+    def __init__(self, pitch=None, roll=None, yaw=None):
+        self.pitch = pitch  # type: float
+        self.roll = roll  # type: float
+        self.yaw = yaw  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesFacesFaceAttributesHeadPose, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pitch is not None:
+            result['Pitch'] = self.pitch
+        if self.roll is not None:
+            result['Roll'] = self.roll
+        if self.yaw is not None:
+            result['Yaw'] = self.yaw
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Pitch') is not None:
+            self.pitch = m.get('Pitch')
+        if m.get('Roll') is not None:
+            self.roll = m.get('Roll')
+        if m.get('Yaw') is not None:
+            self.yaw = m.get('Yaw')
+        return self
+
+
+class ListImagesResponseBodyImagesFacesFaceAttributes(TeaModel):
+    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
+                 mask_confidence=None, beard=None, face_boundary=None, head_pose=None):
+        self.glasses_confidence = glasses_confidence  # type: float
+        self.glasses = glasses  # type: str
+        self.mask = mask  # type: str
+        self.beard_confidence = beard_confidence  # type: float
+        self.mask_confidence = mask_confidence  # type: float
+        self.beard = beard  # type: str
+        self.face_boundary = face_boundary  # type: ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary
+        self.head_pose = head_pose  # type: ListImagesResponseBodyImagesFacesFaceAttributesHeadPose
+
+    def validate(self):
+        if self.face_boundary:
+            self.face_boundary.validate()
+        if self.head_pose:
+            self.head_pose.validate()
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.glasses_confidence is not None:
+            result['GlassesConfidence'] = self.glasses_confidence
+        if self.glasses is not None:
+            result['Glasses'] = self.glasses
+        if self.mask is not None:
+            result['Mask'] = self.mask
+        if self.beard_confidence is not None:
+            result['BeardConfidence'] = self.beard_confidence
+        if self.mask_confidence is not None:
+            result['MaskConfidence'] = self.mask_confidence
+        if self.beard is not None:
+            result['Beard'] = self.beard
+        if self.face_boundary is not None:
+            result['FaceBoundary'] = self.face_boundary.to_map()
+        if self.head_pose is not None:
+            result['HeadPose'] = self.head_pose.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlassesConfidence') is not None:
+            self.glasses_confidence = m.get('GlassesConfidence')
+        if m.get('Glasses') is not None:
+            self.glasses = m.get('Glasses')
+        if m.get('Mask') is not None:
+            self.mask = m.get('Mask')
+        if m.get('BeardConfidence') is not None:
+            self.beard_confidence = m.get('BeardConfidence')
+        if m.get('MaskConfidence') is not None:
+            self.mask_confidence = m.get('MaskConfidence')
+        if m.get('Beard') is not None:
+            self.beard = m.get('Beard')
+        if m.get('FaceBoundary') is not None:
+            temp_model = ListImagesResponseBodyImagesFacesFaceAttributesFaceBoundary()
+            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
+        if m.get('HeadPose') is not None:
+            temp_model = ListImagesResponseBodyImagesFacesFaceAttributesHeadPose()
+            self.head_pose = temp_model.from_map(m['HeadPose'])
+        return self
+
+
+class ListImagesResponseBodyImagesFaces(TeaModel):
+    def __init__(self, emotion_confidence=None, attractive=None, group_id=None, gender=None, face_id=None,
+                 gender_confidence=None, face_quality=None, emotion=None, age=None, face_confidence=None, emotion_details=None,
+                 face_attributes=None):
+        self.emotion_confidence = emotion_confidence  # type: float
+        self.attractive = attractive  # type: float
+        self.group_id = group_id  # type: str
+        self.gender = gender  # type: str
+        self.face_id = face_id  # type: str
+        self.gender_confidence = gender_confidence  # type: float
+        self.face_quality = face_quality  # type: float
+        self.emotion = emotion  # type: str
+        self.age = age  # type: int
+        self.face_confidence = face_confidence  # type: float
+        self.emotion_details = emotion_details  # type: ListImagesResponseBodyImagesFacesEmotionDetails
+        self.face_attributes = face_attributes  # type: ListImagesResponseBodyImagesFacesFaceAttributes
+
+    def validate(self):
+        if self.emotion_details:
+            self.emotion_details.validate()
+        if self.face_attributes:
+            self.face_attributes.validate()
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesFaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.emotion_confidence is not None:
+            result['EmotionConfidence'] = self.emotion_confidence
+        if self.attractive is not None:
+            result['Attractive'] = self.attractive
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
         if self.gender is not None:
             result['Gender'] = self.gender
         if self.face_id is not None:
             result['FaceId'] = self.face_id
         if self.gender_confidence is not None:
             result['GenderConfidence'] = self.gender_confidence
-        if self.face_attributes is not None:
-            result['FaceAttributes'] = self.face_attributes.to_map()
         if self.face_quality is not None:
             result['FaceQuality'] = self.face_quality
         if self.emotion is not None:
@@ -9796,27 +10446,26 @@ class ListImagesResponseBodyImagesFaces(TeaModel):
             result['Age'] = self.age
         if self.face_confidence is not None:
             result['FaceConfidence'] = self.face_confidence
-        if self.emotion_confidence is not None:
-            result['EmotionConfidence'] = self.emotion_confidence
-        if self.attractive is not None:
-            result['Attractive'] = self.attractive
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
         if self.emotion_details is not None:
             result['EmotionDetails'] = self.emotion_details.to_map()
+        if self.face_attributes is not None:
+            result['FaceAttributes'] = self.face_attributes.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EmotionConfidence') is not None:
+            self.emotion_confidence = m.get('EmotionConfidence')
+        if m.get('Attractive') is not None:
+            self.attractive = m.get('Attractive')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
         if m.get('Gender') is not None:
             self.gender = m.get('Gender')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
         if m.get('GenderConfidence') is not None:
             self.gender_confidence = m.get('GenderConfidence')
-        if m.get('FaceAttributes') is not None:
-            temp_model = ListImagesResponseBodyImagesFacesFaceAttributes()
-            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         if m.get('FaceQuality') is not None:
             self.face_quality = m.get('FaceQuality')
         if m.get('Emotion') is not None:
@@ -9825,15 +10474,126 @@ class ListImagesResponseBodyImagesFaces(TeaModel):
             self.age = m.get('Age')
         if m.get('FaceConfidence') is not None:
             self.face_confidence = m.get('FaceConfidence')
-        if m.get('EmotionConfidence') is not None:
-            self.emotion_confidence = m.get('EmotionConfidence')
-        if m.get('Attractive') is not None:
-            self.attractive = m.get('Attractive')
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
         if m.get('EmotionDetails') is not None:
             temp_model = ListImagesResponseBodyImagesFacesEmotionDetails()
             self.emotion_details = temp_model.from_map(m['EmotionDetails'])
+        if m.get('FaceAttributes') is not None:
+            temp_model = ListImagesResponseBodyImagesFacesFaceAttributes()
+            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
+        return self
+
+
+class ListImagesResponseBodyImagesTags(TeaModel):
+    def __init__(self, tag_level=None, parent_tag_name=None, tag_confidence=None, tag_name=None):
+        self.tag_level = tag_level  # type: int
+        self.parent_tag_name = parent_tag_name  # type: str
+        self.tag_confidence = tag_confidence  # type: float
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_level is not None:
+            result['TagLevel'] = self.tag_level
+        if self.parent_tag_name is not None:
+            result['ParentTagName'] = self.parent_tag_name
+        if self.tag_confidence is not None:
+            result['TagConfidence'] = self.tag_confidence
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagLevel') is not None:
+            self.tag_level = m.get('TagLevel')
+        if m.get('ParentTagName') is not None:
+            self.parent_tag_name = m.get('ParentTagName')
+        if m.get('TagConfidence') is not None:
+            self.tag_confidence = m.get('TagConfidence')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class ListImagesResponseBodyImagesOCROCRBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesOCROCRBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class ListImagesResponseBodyImagesOCR(TeaModel):
+    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
+        self.ocrconfidence = ocrconfidence  # type: float
+        self.ocrcontents = ocrcontents  # type: str
+        self.ocrboundary = ocrboundary  # type: ListImagesResponseBodyImagesOCROCRBoundary
+
+    def validate(self):
+        if self.ocrboundary:
+            self.ocrboundary.validate()
+
+    def to_map(self):
+        _map = super(ListImagesResponseBodyImagesOCR, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ocrconfidence is not None:
+            result['OCRConfidence'] = self.ocrconfidence
+        if self.ocrcontents is not None:
+            result['OCRContents'] = self.ocrcontents
+        if self.ocrboundary is not None:
+            result['OCRBoundary'] = self.ocrboundary.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OCRConfidence') is not None:
+            self.ocrconfidence = m.get('OCRConfidence')
+        if m.get('OCRContents') is not None:
+            self.ocrcontents = m.get('OCRContents')
+        if m.get('OCRBoundary') is not None:
+            temp_model = ListImagesResponseBodyImagesOCROCRBoundary()
+            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
         return self
 
 
@@ -9855,6 +10615,10 @@ class ListImagesResponseBodyImagesImageQuality(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesImageQuality, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.overall_score is not None:
             result['OverallScore'] = self.overall_score
@@ -9903,131 +10667,121 @@ class ListImagesResponseBodyImagesImageQuality(TeaModel):
         return self
 
 
-class ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
+class ListImagesResponseBodyImagesAddress(TeaModel):
+    def __init__(self, township=None, district=None, address_line=None, country=None, city=None, province=None):
+        self.township = township  # type: str
+        self.district = district  # type: str
+        self.address_line = address_line  # type: str
+        self.country = country  # type: str
+        self.city = city  # type: str
+        self.province = province  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImagesAddress, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
+        if self.township is not None:
+            result['Township'] = self.township
+        if self.district is not None:
+            result['District'] = self.district
+        if self.address_line is not None:
+            result['AddressLine'] = self.address_line
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.city is not None:
+            result['City'] = self.city
+        if self.province is not None:
+            result['Province'] = self.province
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class ListImagesResponseBodyImagesCroppingSuggestion(TeaModel):
-    def __init__(self, score=None, cropping_boundary=None, aspect_ratio=None):
-        self.score = score  # type: float
-        self.cropping_boundary = cropping_boundary  # type: ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary
-        self.aspect_ratio = TeaConverter.to_unicode(aspect_ratio)  # type: unicode
-
-    def validate(self):
-        if self.cropping_boundary:
-            self.cropping_boundary.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.score is not None:
-            result['Score'] = self.score
-        if self.cropping_boundary is not None:
-            result['CroppingBoundary'] = self.cropping_boundary.to_map()
-        if self.aspect_ratio is not None:
-            result['AspectRatio'] = self.aspect_ratio
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Score') is not None:
-            self.score = m.get('Score')
-        if m.get('CroppingBoundary') is not None:
-            temp_model = ListImagesResponseBodyImagesCroppingSuggestionCroppingBoundary()
-            self.cropping_boundary = temp_model.from_map(m['CroppingBoundary'])
-        if m.get('AspectRatio') is not None:
-            self.aspect_ratio = m.get('AspectRatio')
+        if m.get('Township') is not None:
+            self.township = m.get('Township')
+        if m.get('District') is not None:
+            self.district = m.get('District')
+        if m.get('AddressLine') is not None:
+            self.address_line = m.get('AddressLine')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
         return self
 
 
 class ListImagesResponseBodyImages(TeaModel):
     def __init__(self, cropping_suggestion_status=None, image_quality_modify_time=None, tags_fail_reason=None,
-                 remarks_c=None, create_time=None, source_type=None, faces_fail_reason=None, tags=None,
-                 faces_modify_time=None, image_time=None, ocrmodify_time=None, address_modify_time=None, ocr=None,
-                 image_quality_fail_reason=None, faces_status=None, image_height=None, remarks_array_a=None, address=None, external_id=None,
-                 source_uri=None, modify_time=None, file_size=None, source_position=None, faces=None,
-                 image_quality_status=None, ocrfail_reason=None, address_fail_reason=None, image_quality=None,
-                 cropping_suggestion_modify_time=None, image_format=None, image_width=None, remarks_array_b=None, cropping_suggestion=None,
-                 orientation=None, remarks_d=None, tags_status=None, cropping_suggestion_fail_reason=None, remarks_a=None,
-                 image_uri=None, tags_modify_time=None, ocrstatus=None, address_status=None, exif=None, location=None,
-                 remarks_b=None):
-        self.cropping_suggestion_status = TeaConverter.to_unicode(cropping_suggestion_status)  # type: unicode
-        self.image_quality_modify_time = TeaConverter.to_unicode(image_quality_modify_time)  # type: unicode
-        self.tags_fail_reason = TeaConverter.to_unicode(tags_fail_reason)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.faces_fail_reason = TeaConverter.to_unicode(faces_fail_reason)  # type: unicode
-        self.tags = tags  # type: list[ListImagesResponseBodyImagesTags]
-        self.faces_modify_time = TeaConverter.to_unicode(faces_modify_time)  # type: unicode
-        self.image_time = TeaConverter.to_unicode(image_time)  # type: unicode
-        self.ocrmodify_time = TeaConverter.to_unicode(ocrmodify_time)  # type: unicode
-        self.address_modify_time = TeaConverter.to_unicode(address_modify_time)  # type: unicode
-        self.ocr = ocr  # type: list[ListImagesResponseBodyImagesOCR]
-        self.image_quality_fail_reason = TeaConverter.to_unicode(image_quality_fail_reason)  # type: unicode
-        self.faces_status = TeaConverter.to_unicode(faces_status)  # type: unicode
+                 remarks_c=None, create_time=None, source_type=None, faces_fail_reason=None, faces_modify_time=None,
+                 image_time=None, ocrmodify_time=None, address_modify_time=None, image_quality_fail_reason=None,
+                 faces_status=None, remarks_array_a=None, image_height=None, external_id=None, source_uri=None, file_size=None,
+                 modify_time=None, source_position=None, image_quality_status=None, ocrfail_reason=None,
+                 address_fail_reason=None, cropping_suggestion_modify_time=None, image_format=None, image_width=None,
+                 remarks_array_b=None, orientation=None, remarks_d=None, tags_status=None, cropping_suggestion_fail_reason=None,
+                 remarks_a=None, image_uri=None, tags_modify_time=None, ocrstatus=None, address_status=None, exif=None,
+                 location=None, remarks_b=None, cropping_suggestion=None, faces=None, tags=None, ocr=None, image_quality=None,
+                 address=None):
+        self.cropping_suggestion_status = cropping_suggestion_status  # type: str
+        self.image_quality_modify_time = image_quality_modify_time  # type: str
+        self.tags_fail_reason = tags_fail_reason  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.create_time = create_time  # type: str
+        self.source_type = source_type  # type: str
+        self.faces_fail_reason = faces_fail_reason  # type: str
+        self.faces_modify_time = faces_modify_time  # type: str
+        self.image_time = image_time  # type: str
+        self.ocrmodify_time = ocrmodify_time  # type: str
+        self.address_modify_time = address_modify_time  # type: str
+        self.image_quality_fail_reason = image_quality_fail_reason  # type: str
+        self.faces_status = faces_status  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
         self.image_height = image_height  # type: int
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.address = address  # type: ListImagesResponseBodyImagesAddress
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.external_id = external_id  # type: str
+        self.source_uri = source_uri  # type: str
         self.file_size = file_size  # type: int
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.faces = faces  # type: list[ListImagesResponseBodyImagesFaces]
-        self.image_quality_status = TeaConverter.to_unicode(image_quality_status)  # type: unicode
-        self.ocrfail_reason = TeaConverter.to_unicode(ocrfail_reason)  # type: unicode
-        self.address_fail_reason = TeaConverter.to_unicode(address_fail_reason)  # type: unicode
-        self.image_quality = image_quality  # type: ListImagesResponseBodyImagesImageQuality
-        self.cropping_suggestion_modify_time = TeaConverter.to_unicode(cropping_suggestion_modify_time)  # type: unicode
-        self.image_format = TeaConverter.to_unicode(image_format)  # type: unicode
+        self.modify_time = modify_time  # type: str
+        self.source_position = source_position  # type: str
+        self.image_quality_status = image_quality_status  # type: str
+        self.ocrfail_reason = ocrfail_reason  # type: str
+        self.address_fail_reason = address_fail_reason  # type: str
+        self.cropping_suggestion_modify_time = cropping_suggestion_modify_time  # type: str
+        self.image_format = image_format  # type: str
         self.image_width = image_width  # type: int
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.orientation = orientation  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.tags_status = tags_status  # type: str
+        self.cropping_suggestion_fail_reason = cropping_suggestion_fail_reason  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.image_uri = image_uri  # type: str
+        self.tags_modify_time = tags_modify_time  # type: str
+        self.ocrstatus = ocrstatus  # type: str
+        self.address_status = address_status  # type: str
+        self.exif = exif  # type: str
+        self.location = location  # type: str
+        self.remarks_b = remarks_b  # type: str
         self.cropping_suggestion = cropping_suggestion  # type: list[ListImagesResponseBodyImagesCroppingSuggestion]
-        self.orientation = TeaConverter.to_unicode(orientation)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.tags_status = TeaConverter.to_unicode(tags_status)  # type: unicode
-        self.cropping_suggestion_fail_reason = TeaConverter.to_unicode(cropping_suggestion_fail_reason)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.tags_modify_time = TeaConverter.to_unicode(tags_modify_time)  # type: unicode
-        self.ocrstatus = TeaConverter.to_unicode(ocrstatus)  # type: unicode
-        self.address_status = TeaConverter.to_unicode(address_status)  # type: unicode
-        self.exif = TeaConverter.to_unicode(exif)  # type: unicode
-        self.location = TeaConverter.to_unicode(location)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.faces = faces  # type: list[ListImagesResponseBodyImagesFaces]
+        self.tags = tags  # type: list[ListImagesResponseBodyImagesTags]
+        self.ocr = ocr  # type: list[ListImagesResponseBodyImagesOCR]
+        self.image_quality = image_quality  # type: ListImagesResponseBodyImagesImageQuality
+        self.address = address  # type: ListImagesResponseBodyImagesAddress
 
     def validate(self):
+        if self.cropping_suggestion:
+            for k in self.cropping_suggestion:
+                if k:
+                    k.validate()
+        if self.faces:
+            for k in self.faces:
+                if k:
+                    k.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -10036,20 +10790,16 @@ class ListImagesResponseBodyImages(TeaModel):
             for k in self.ocr:
                 if k:
                     k.validate()
-        if self.address:
-            self.address.validate()
-        if self.faces:
-            for k in self.faces:
-                if k:
-                    k.validate()
         if self.image_quality:
             self.image_quality.validate()
-        if self.cropping_suggestion:
-            for k in self.cropping_suggestion:
-                if k:
-                    k.validate()
+        if self.address:
+            self.address.validate()
 
     def to_map(self):
+        _map = super(ListImagesResponseBodyImages, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.cropping_suggestion_status is not None:
             result['CroppingSuggestionStatus'] = self.cropping_suggestion_status
@@ -10065,10 +10815,6 @@ class ListImagesResponseBodyImages(TeaModel):
             result['SourceType'] = self.source_type
         if self.faces_fail_reason is not None:
             result['FacesFailReason'] = self.faces_fail_reason
-        result['Tags'] = []
-        if self.tags is not None:
-            for k in self.tags:
-                result['Tags'].append(k.to_map() if k else None)
         if self.faces_modify_time is not None:
             result['FacesModifyTime'] = self.faces_modify_time
         if self.image_time is not None:
@@ -10077,42 +10823,30 @@ class ListImagesResponseBodyImages(TeaModel):
             result['OCRModifyTime'] = self.ocrmodify_time
         if self.address_modify_time is not None:
             result['AddressModifyTime'] = self.address_modify_time
-        result['OCR'] = []
-        if self.ocr is not None:
-            for k in self.ocr:
-                result['OCR'].append(k.to_map() if k else None)
         if self.image_quality_fail_reason is not None:
             result['ImageQualityFailReason'] = self.image_quality_fail_reason
         if self.faces_status is not None:
             result['FacesStatus'] = self.faces_status
-        if self.image_height is not None:
-            result['ImageHeight'] = self.image_height
         if self.remarks_array_a is not None:
             result['RemarksArrayA'] = self.remarks_array_a
-        if self.address is not None:
-            result['Address'] = self.address.to_map()
+        if self.image_height is not None:
+            result['ImageHeight'] = self.image_height
         if self.external_id is not None:
             result['ExternalId'] = self.external_id
         if self.source_uri is not None:
             result['SourceUri'] = self.source_uri
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.file_size is not None:
             result['FileSize'] = self.file_size
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         if self.source_position is not None:
             result['SourcePosition'] = self.source_position
-        result['Faces'] = []
-        if self.faces is not None:
-            for k in self.faces:
-                result['Faces'].append(k.to_map() if k else None)
         if self.image_quality_status is not None:
             result['ImageQualityStatus'] = self.image_quality_status
         if self.ocrfail_reason is not None:
             result['OCRFailReason'] = self.ocrfail_reason
         if self.address_fail_reason is not None:
             result['AddressFailReason'] = self.address_fail_reason
-        if self.image_quality is not None:
-            result['ImageQuality'] = self.image_quality.to_map()
         if self.cropping_suggestion_modify_time is not None:
             result['CroppingSuggestionModifyTime'] = self.cropping_suggestion_modify_time
         if self.image_format is not None:
@@ -10121,10 +10855,6 @@ class ListImagesResponseBodyImages(TeaModel):
             result['ImageWidth'] = self.image_width
         if self.remarks_array_b is not None:
             result['RemarksArrayB'] = self.remarks_array_b
-        result['CroppingSuggestion'] = []
-        if self.cropping_suggestion is not None:
-            for k in self.cropping_suggestion:
-                result['CroppingSuggestion'].append(k.to_map() if k else None)
         if self.orientation is not None:
             result['Orientation'] = self.orientation
         if self.remarks_d is not None:
@@ -10149,6 +10879,26 @@ class ListImagesResponseBodyImages(TeaModel):
             result['Location'] = self.location
         if self.remarks_b is not None:
             result['RemarksB'] = self.remarks_b
+        result['CroppingSuggestion'] = []
+        if self.cropping_suggestion is not None:
+            for k in self.cropping_suggestion:
+                result['CroppingSuggestion'].append(k.to_map() if k else None)
+        result['Faces'] = []
+        if self.faces is not None:
+            for k in self.faces:
+                result['Faces'].append(k.to_map() if k else None)
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        result['OCR'] = []
+        if self.ocr is not None:
+            for k in self.ocr:
+                result['OCR'].append(k.to_map() if k else None)
+        if self.image_quality is not None:
+            result['ImageQuality'] = self.image_quality.to_map()
+        if self.address is not None:
+            result['Address'] = self.address.to_map()
         return result
 
     def from_map(self, m=None):
@@ -10167,11 +10917,6 @@ class ListImagesResponseBodyImages(TeaModel):
             self.source_type = m.get('SourceType')
         if m.get('FacesFailReason') is not None:
             self.faces_fail_reason = m.get('FacesFailReason')
-        self.tags = []
-        if m.get('Tags') is not None:
-            for k in m.get('Tags'):
-                temp_model = ListImagesResponseBodyImagesTags()
-                self.tags.append(temp_model.from_map(k))
         if m.get('FacesModifyTime') is not None:
             self.faces_modify_time = m.get('FacesModifyTime')
         if m.get('ImageTime') is not None:
@@ -10180,46 +10925,30 @@ class ListImagesResponseBodyImages(TeaModel):
             self.ocrmodify_time = m.get('OCRModifyTime')
         if m.get('AddressModifyTime') is not None:
             self.address_modify_time = m.get('AddressModifyTime')
-        self.ocr = []
-        if m.get('OCR') is not None:
-            for k in m.get('OCR'):
-                temp_model = ListImagesResponseBodyImagesOCR()
-                self.ocr.append(temp_model.from_map(k))
         if m.get('ImageQualityFailReason') is not None:
             self.image_quality_fail_reason = m.get('ImageQualityFailReason')
         if m.get('FacesStatus') is not None:
             self.faces_status = m.get('FacesStatus')
-        if m.get('ImageHeight') is not None:
-            self.image_height = m.get('ImageHeight')
         if m.get('RemarksArrayA') is not None:
             self.remarks_array_a = m.get('RemarksArrayA')
-        if m.get('Address') is not None:
-            temp_model = ListImagesResponseBodyImagesAddress()
-            self.address = temp_model.from_map(m['Address'])
+        if m.get('ImageHeight') is not None:
+            self.image_height = m.get('ImageHeight')
         if m.get('ExternalId') is not None:
             self.external_id = m.get('ExternalId')
         if m.get('SourceUri') is not None:
             self.source_uri = m.get('SourceUri')
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('FileSize') is not None:
             self.file_size = m.get('FileSize')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         if m.get('SourcePosition') is not None:
             self.source_position = m.get('SourcePosition')
-        self.faces = []
-        if m.get('Faces') is not None:
-            for k in m.get('Faces'):
-                temp_model = ListImagesResponseBodyImagesFaces()
-                self.faces.append(temp_model.from_map(k))
         if m.get('ImageQualityStatus') is not None:
             self.image_quality_status = m.get('ImageQualityStatus')
         if m.get('OCRFailReason') is not None:
             self.ocrfail_reason = m.get('OCRFailReason')
         if m.get('AddressFailReason') is not None:
             self.address_fail_reason = m.get('AddressFailReason')
-        if m.get('ImageQuality') is not None:
-            temp_model = ListImagesResponseBodyImagesImageQuality()
-            self.image_quality = temp_model.from_map(m['ImageQuality'])
         if m.get('CroppingSuggestionModifyTime') is not None:
             self.cropping_suggestion_modify_time = m.get('CroppingSuggestionModifyTime')
         if m.get('ImageFormat') is not None:
@@ -10228,11 +10957,6 @@ class ListImagesResponseBodyImages(TeaModel):
             self.image_width = m.get('ImageWidth')
         if m.get('RemarksArrayB') is not None:
             self.remarks_array_b = m.get('RemarksArrayB')
-        self.cropping_suggestion = []
-        if m.get('CroppingSuggestion') is not None:
-            for k in m.get('CroppingSuggestion'):
-                temp_model = ListImagesResponseBodyImagesCroppingSuggestion()
-                self.cropping_suggestion.append(temp_model.from_map(k))
         if m.get('Orientation') is not None:
             self.orientation = m.get('Orientation')
         if m.get('RemarksD') is not None:
@@ -10257,15 +10981,41 @@ class ListImagesResponseBodyImages(TeaModel):
             self.location = m.get('Location')
         if m.get('RemarksB') is not None:
             self.remarks_b = m.get('RemarksB')
+        self.cropping_suggestion = []
+        if m.get('CroppingSuggestion') is not None:
+            for k in m.get('CroppingSuggestion'):
+                temp_model = ListImagesResponseBodyImagesCroppingSuggestion()
+                self.cropping_suggestion.append(temp_model.from_map(k))
+        self.faces = []
+        if m.get('Faces') is not None:
+            for k in m.get('Faces'):
+                temp_model = ListImagesResponseBodyImagesFaces()
+                self.faces.append(temp_model.from_map(k))
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListImagesResponseBodyImagesTags()
+                self.tags.append(temp_model.from_map(k))
+        self.ocr = []
+        if m.get('OCR') is not None:
+            for k in m.get('OCR'):
+                temp_model = ListImagesResponseBodyImagesOCR()
+                self.ocr.append(temp_model.from_map(k))
+        if m.get('ImageQuality') is not None:
+            temp_model = ListImagesResponseBodyImagesImageQuality()
+            self.image_quality = temp_model.from_map(m['ImageQuality'])
+        if m.get('Address') is not None:
+            temp_model = ListImagesResponseBodyImagesAddress()
+            self.address = temp_model.from_map(m['Address'])
         return self
 
 
 class ListImagesResponseBody(TeaModel):
-    def __init__(self, request_id=None, images=None, next_marker=None, set_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, request_id=None, next_marker=None, set_id=None, images=None):
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
+        self.set_id = set_id  # type: str
         self.images = images  # type: list[ListImagesResponseBodyImages]
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
 
     def validate(self):
         if self.images:
@@ -10274,38 +11024,42 @@ class ListImagesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListImagesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        result['Images'] = []
-        if self.images is not None:
-            for k in self.images:
-                result['Images'].append(k.to_map() if k else None)
         if self.next_marker is not None:
             result['NextMarker'] = self.next_marker
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        result['Images'] = []
+        if self.images is not None:
+            for k in self.images:
+                result['Images'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
         self.images = []
         if m.get('Images') is not None:
             for k in m.get('Images'):
                 temp_model = ListImagesResponseBodyImages()
                 self.images.append(temp_model.from_map(k))
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         return self
 
 
 class ListImagesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListImagesResponseBody
 
     def validate(self):
@@ -10315,6 +11069,10 @@ class ListImagesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListImagesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10334,14 +11092,18 @@ class ListImagesResponse(TeaModel):
 
 class ListOfficeConversionTaskRequest(TeaModel):
     def __init__(self, project=None, marker=None, max_keys=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.marker = marker  # type: str
         self.max_keys = max_keys  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListOfficeConversionTaskRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -10364,26 +11126,30 @@ class ListOfficeConversionTaskRequest(TeaModel):
 
 class ListOfficeConversionTaskResponseBodyTasks(TeaModel):
     def __init__(self, status=None, percent=None, finish_time=None, create_time=None, page_count=None,
-                 notify_topic_name=None, notify_endpoint=None, tgt_uri=None, tgt_type=None, src_uri=None, image_spec=None,
+                 notify_topic_name=None, notify_endpoint=None, src_uri=None, tgt_type=None, tgt_uri=None, image_spec=None,
                  external_id=None, task_id=None):
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
+        self.status = status  # type: str
         self.percent = percent  # type: int
-        self.finish_time = TeaConverter.to_unicode(finish_time)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
+        self.finish_time = finish_time  # type: str
+        self.create_time = create_time  # type: str
         self.page_count = page_count  # type: int
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.tgt_uri = TeaConverter.to_unicode(tgt_uri)  # type: unicode
-        self.tgt_type = TeaConverter.to_unicode(tgt_type)  # type: unicode
-        self.src_uri = TeaConverter.to_unicode(src_uri)  # type: unicode
-        self.image_spec = TeaConverter.to_unicode(image_spec)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
+        self.notify_topic_name = notify_topic_name  # type: str
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.src_uri = src_uri  # type: str
+        self.tgt_type = tgt_type  # type: str
+        self.tgt_uri = tgt_uri  # type: str
+        self.image_spec = image_spec  # type: str
+        self.external_id = external_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListOfficeConversionTaskResponseBodyTasks, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.status is not None:
             result['Status'] = self.status
@@ -10399,12 +11165,12 @@ class ListOfficeConversionTaskResponseBodyTasks(TeaModel):
             result['NotifyTopicName'] = self.notify_topic_name
         if self.notify_endpoint is not None:
             result['NotifyEndpoint'] = self.notify_endpoint
-        if self.tgt_uri is not None:
-            result['TgtUri'] = self.tgt_uri
-        if self.tgt_type is not None:
-            result['TgtType'] = self.tgt_type
         if self.src_uri is not None:
             result['SrcUri'] = self.src_uri
+        if self.tgt_type is not None:
+            result['TgtType'] = self.tgt_type
+        if self.tgt_uri is not None:
+            result['TgtUri'] = self.tgt_uri
         if self.image_spec is not None:
             result['ImageSpec'] = self.image_spec
         if self.external_id is not None:
@@ -10429,12 +11195,12 @@ class ListOfficeConversionTaskResponseBodyTasks(TeaModel):
             self.notify_topic_name = m.get('NotifyTopicName')
         if m.get('NotifyEndpoint') is not None:
             self.notify_endpoint = m.get('NotifyEndpoint')
-        if m.get('TgtUri') is not None:
-            self.tgt_uri = m.get('TgtUri')
-        if m.get('TgtType') is not None:
-            self.tgt_type = m.get('TgtType')
         if m.get('SrcUri') is not None:
             self.src_uri = m.get('SrcUri')
+        if m.get('TgtType') is not None:
+            self.tgt_type = m.get('TgtType')
+        if m.get('TgtUri') is not None:
+            self.tgt_uri = m.get('TgtUri')
         if m.get('ImageSpec') is not None:
             self.image_spec = m.get('ImageSpec')
         if m.get('ExternalID') is not None:
@@ -10445,10 +11211,10 @@ class ListOfficeConversionTaskResponseBodyTasks(TeaModel):
 
 
 class ListOfficeConversionTaskResponseBody(TeaModel):
-    def __init__(self, tasks=None, request_id=None, next_marker=None):
+    def __init__(self, next_marker=None, request_id=None, tasks=None):
+        self.next_marker = next_marker  # type: str
+        self.request_id = request_id  # type: str
         self.tasks = tasks  # type: list[ListOfficeConversionTaskResponseBodyTasks]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
 
     def validate(self):
         if self.tasks:
@@ -10457,34 +11223,38 @@ class ListOfficeConversionTaskResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListOfficeConversionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.next_marker is not None:
+            result['NextMarker'] = self.next_marker
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Tasks'] = []
         if self.tasks is not None:
             for k in self.tasks:
                 result['Tasks'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.next_marker is not None:
-            result['NextMarker'] = self.next_marker
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.tasks = []
         if m.get('Tasks') is not None:
             for k in m.get('Tasks'):
                 temp_model = ListOfficeConversionTaskResponseBodyTasks()
                 self.tasks.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
         return self
 
 
 class ListOfficeConversionTaskResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListOfficeConversionTaskResponseBody
 
     def validate(self):
@@ -10494,6 +11264,10 @@ class ListOfficeConversionTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListOfficeConversionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10513,12 +11287,16 @@ class ListOfficeConversionTaskResponse(TeaModel):
 
 class ListProjectAPIsRequest(TeaModel):
     def __init__(self, project=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
+        self.project = project  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListProjectAPIsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -10533,14 +11311,18 @@ class ListProjectAPIsRequest(TeaModel):
 
 class ListProjectAPIsResponseBody(TeaModel):
     def __init__(self, project=None, request_id=None, apis=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.apis = apis  # type: list[unicode]
+        self.project = project  # type: str
+        self.request_id = request_id  # type: str
+        self.apis = apis  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListProjectAPIsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -10563,7 +11345,7 @@ class ListProjectAPIsResponseBody(TeaModel):
 
 class ListProjectAPIsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListProjectAPIsResponseBody
 
     def validate(self):
@@ -10573,6 +11355,10 @@ class ListProjectAPIsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListProjectAPIsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10592,13 +11378,17 @@ class ListProjectAPIsResponse(TeaModel):
 
 class ListProjectsRequest(TeaModel):
     def __init__(self, marker=None, max_keys=None):
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.marker = marker  # type: str
         self.max_keys = max_keys  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListProjectsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.marker is not None:
             result['Marker'] = self.marker
@@ -10618,20 +11408,24 @@ class ListProjectsRequest(TeaModel):
 class ListProjectsResponseBodyProjects(TeaModel):
     def __init__(self, type=None, cu=None, create_time=None, service_role=None, endpoint=None, project=None,
                  region_id=None, billing_type=None, modify_time=None):
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.type = type  # type: str
         self.cu = cu  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.service_role = TeaConverter.to_unicode(service_role)  # type: unicode
-        self.endpoint = TeaConverter.to_unicode(endpoint)  # type: unicode
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.service_role = service_role  # type: str
+        self.endpoint = endpoint  # type: str
+        self.project = project  # type: str
+        self.region_id = region_id  # type: str
+        self.billing_type = billing_type  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListProjectsResponseBodyProjects, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.type is not None:
             result['Type'] = self.type
@@ -10677,10 +11471,10 @@ class ListProjectsResponseBodyProjects(TeaModel):
 
 
 class ListProjectsResponseBody(TeaModel):
-    def __init__(self, request_id=None, projects=None, next_marker=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, next_marker=None, request_id=None, projects=None):
+        self.next_marker = next_marker  # type: str
+        self.request_id = request_id  # type: str
         self.projects = projects  # type: list[ListProjectsResponseBodyProjects]
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
 
     def validate(self):
         if self.projects:
@@ -10689,19 +11483,25 @@ class ListProjectsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListProjectsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.next_marker is not None:
+            result['NextMarker'] = self.next_marker
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Projects'] = []
         if self.projects is not None:
             for k in self.projects:
                 result['Projects'].append(k.to_map() if k else None)
-        if self.next_marker is not None:
-            result['NextMarker'] = self.next_marker
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.projects = []
@@ -10709,14 +11509,12 @@ class ListProjectsResponseBody(TeaModel):
             for k in m.get('Projects'):
                 temp_model = ListProjectsResponseBodyProjects()
                 self.projects.append(temp_model.from_map(k))
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
         return self
 
 
 class ListProjectsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListProjectsResponseBody
 
     def validate(self):
@@ -10726,6 +11524,10 @@ class ListProjectsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListProjectsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10745,13 +11547,17 @@ class ListProjectsResponse(TeaModel):
 
 class ListSetsRequest(TeaModel):
     def __init__(self, project=None, marker=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.marker = marker  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListSetsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -10772,18 +11578,22 @@ class ListSetsResponseBodySets(TeaModel):
     def __init__(self, video_count=None, create_time=None, video_length=None, set_id=None, image_count=None,
                  face_count=None, set_name=None, modify_time=None):
         self.video_count = video_count  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
+        self.create_time = create_time  # type: str
         self.video_length = video_length  # type: int
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.set_id = set_id  # type: str
         self.image_count = image_count  # type: int
         self.face_count = face_count  # type: int
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.set_name = set_name  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListSetsResponseBodySets, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.video_count is not None:
             result['VideoCount'] = self.video_count
@@ -10825,10 +11635,10 @@ class ListSetsResponseBodySets(TeaModel):
 
 
 class ListSetsResponseBody(TeaModel):
-    def __init__(self, request_id=None, sets=None, next_marker=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, next_marker=None, request_id=None, sets=None):
+        self.next_marker = next_marker  # type: str
+        self.request_id = request_id  # type: str
         self.sets = sets  # type: list[ListSetsResponseBodySets]
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
 
     def validate(self):
         if self.sets:
@@ -10837,19 +11647,25 @@ class ListSetsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListSetsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.next_marker is not None:
+            result['NextMarker'] = self.next_marker
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Sets'] = []
         if self.sets is not None:
             for k in self.sets:
                 result['Sets'].append(k.to_map() if k else None)
-        if self.next_marker is not None:
-            result['NextMarker'] = self.next_marker
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.sets = []
@@ -10857,14 +11673,12 @@ class ListSetsResponseBody(TeaModel):
             for k in m.get('Sets'):
                 temp_model = ListSetsResponseBodySets()
                 self.sets.append(temp_model.from_map(k))
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
         return self
 
 
 class ListSetsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListSetsResponseBody
 
     def validate(self):
@@ -10874,6 +11688,10 @@ class ListSetsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListSetsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -10893,13 +11711,17 @@ class ListSetsResponse(TeaModel):
 
 class ListSetTagsRequest(TeaModel):
     def __init__(self, project=None, set_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListSetTagsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -10917,39 +11739,43 @@ class ListSetTagsRequest(TeaModel):
 
 
 class ListSetTagsResponseBodyTags(TeaModel):
-    def __init__(self, tag_name=None, tag_count=None, tag_level=None):
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
-        self.tag_count = tag_count  # type: int
+    def __init__(self, tag_level=None, tag_name=None, tag_count=None):
         self.tag_level = tag_level  # type: int
+        self.tag_name = tag_name  # type: str
+        self.tag_count = tag_count  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListSetTagsResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.tag_level is not None:
+            result['TagLevel'] = self.tag_level
         if self.tag_name is not None:
             result['TagName'] = self.tag_name
         if self.tag_count is not None:
             result['TagCount'] = self.tag_count
-        if self.tag_level is not None:
-            result['TagLevel'] = self.tag_level
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('TagLevel') is not None:
+            self.tag_level = m.get('TagLevel')
         if m.get('TagName') is not None:
             self.tag_name = m.get('TagName')
         if m.get('TagCount') is not None:
             self.tag_count = m.get('TagCount')
-        if m.get('TagLevel') is not None:
-            self.tag_level = m.get('TagLevel')
         return self
 
 
 class ListSetTagsResponseBody(TeaModel):
-    def __init__(self, request_id=None, set_id=None, tags=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+    def __init__(self, set_id=None, request_id=None, tags=None):
+        self.set_id = set_id  # type: str
+        self.request_id = request_id  # type: str
         self.tags = tags  # type: list[ListSetTagsResponseBodyTags]
 
     def validate(self):
@@ -10959,11 +11785,15 @@ class ListSetTagsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListSetTagsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Tags'] = []
         if self.tags is not None:
             for k in self.tags:
@@ -10972,10 +11802,10 @@ class ListSetTagsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('SetId') is not None:
             self.set_id = m.get('SetId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.tags = []
         if m.get('Tags') is not None:
             for k in m.get('Tags'):
@@ -10986,7 +11816,7 @@ class ListSetTagsResponseBody(TeaModel):
 
 class ListSetTagsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListSetTagsResponseBody
 
     def validate(self):
@@ -10996,6 +11826,10 @@ class ListSetTagsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListSetTagsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11015,15 +11849,19 @@ class ListSetTagsResponse(TeaModel):
 
 class ListVideoAudiosRequest(TeaModel):
     def __init__(self, project=None, set_id=None, video_uri=None, marker=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.video_uri = video_uri  # type: str
+        self.marker = marker  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideoAudiosRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -11052,20 +11890,24 @@ class ListVideoAudiosResponseBodyAudiosAudioTexts(TeaModel):
     def __init__(self, end_time=None, library=None, confidence=None, begin_time=None, channel_id=None,
                  emotion_value=None, speech_rate=None, text=None, person=None, silence_duration=None):
         self.end_time = end_time  # type: float
-        self.library = TeaConverter.to_unicode(library)  # type: unicode
+        self.library = library  # type: str
         self.confidence = confidence  # type: float
         self.begin_time = begin_time  # type: float
         self.channel_id = channel_id  # type: int
         self.emotion_value = emotion_value  # type: float
         self.speech_rate = speech_rate  # type: int
-        self.text = TeaConverter.to_unicode(text)  # type: unicode
-        self.person = TeaConverter.to_unicode(person)  # type: unicode
+        self.text = text  # type: str
+        self.person = person  # type: str
         self.silence_duration = silence_duration  # type: float
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideoAudiosResponseBodyAudiosAudioTexts, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
@@ -11115,33 +11957,33 @@ class ListVideoAudiosResponseBodyAudiosAudioTexts(TeaModel):
 
 
 class ListVideoAudiosResponseBodyAudios(TeaModel):
-    def __init__(self, source_position=None, create_time=None, remarks_c=None, audio_duration=None,
-                 source_type=None, audio_texts_status=None, audio_format=None, remarks_d=None, process_modify_time=None,
-                 process_fail_reason=None, audio_uri=None, audio_rate=None, audio_texts_modify_time=None, remarks_a=None,
-                 audio_texts=None, external_id=None, source_uri=None, process_status=None, audio_texts_fail_reason=None,
-                 remarks_b=None, file_size=None, modify_time=None):
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
+    def __init__(self, source_position=None, remarks_c=None, create_time=None, source_type=None,
+                 audio_duration=None, audio_texts_status=None, audio_format=None, remarks_d=None, process_fail_reason=None,
+                 process_modify_time=None, audio_rate=None, audio_uri=None, audio_texts_modify_time=None, remarks_a=None,
+                 external_id=None, source_uri=None, process_status=None, audio_texts_fail_reason=None, remarks_b=None,
+                 file_size=None, modify_time=None, audio_texts=None):
+        self.source_position = source_position  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.create_time = create_time  # type: str
+        self.source_type = source_type  # type: str
         self.audio_duration = audio_duration  # type: float
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.audio_texts_status = TeaConverter.to_unicode(audio_texts_status)  # type: unicode
-        self.audio_format = TeaConverter.to_unicode(audio_format)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.process_modify_time = TeaConverter.to_unicode(process_modify_time)  # type: unicode
-        self.process_fail_reason = TeaConverter.to_unicode(process_fail_reason)  # type: unicode
-        self.audio_uri = TeaConverter.to_unicode(audio_uri)  # type: unicode
+        self.audio_texts_status = audio_texts_status  # type: str
+        self.audio_format = audio_format  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.process_fail_reason = process_fail_reason  # type: str
+        self.process_modify_time = process_modify_time  # type: str
         self.audio_rate = audio_rate  # type: int
-        self.audio_texts_modify_time = TeaConverter.to_unicode(audio_texts_modify_time)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.audio_texts = audio_texts  # type: list[ListVideoAudiosResponseBodyAudiosAudioTexts]
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.process_status = TeaConverter.to_unicode(process_status)  # type: unicode
-        self.audio_texts_fail_reason = TeaConverter.to_unicode(audio_texts_fail_reason)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.audio_uri = audio_uri  # type: str
+        self.audio_texts_modify_time = audio_texts_modify_time  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.external_id = external_id  # type: str
+        self.source_uri = source_uri  # type: str
+        self.process_status = process_status  # type: str
+        self.audio_texts_fail_reason = audio_texts_fail_reason  # type: str
+        self.remarks_b = remarks_b  # type: str
         self.file_size = file_size  # type: int
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
+        self.modify_time = modify_time  # type: str
+        self.audio_texts = audio_texts  # type: list[ListVideoAudiosResponseBodyAudiosAudioTexts]
 
     def validate(self):
         if self.audio_texts:
@@ -11150,39 +11992,39 @@ class ListVideoAudiosResponseBodyAudios(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideoAudiosResponseBodyAudios, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.source_position is not None:
             result['SourcePosition'] = self.source_position
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
         if self.remarks_c is not None:
             result['RemarksC'] = self.remarks_c
-        if self.audio_duration is not None:
-            result['AudioDuration'] = self.audio_duration
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.source_type is not None:
             result['SourceType'] = self.source_type
+        if self.audio_duration is not None:
+            result['AudioDuration'] = self.audio_duration
         if self.audio_texts_status is not None:
             result['AudioTextsStatus'] = self.audio_texts_status
         if self.audio_format is not None:
             result['AudioFormat'] = self.audio_format
         if self.remarks_d is not None:
             result['RemarksD'] = self.remarks_d
-        if self.process_modify_time is not None:
-            result['ProcessModifyTime'] = self.process_modify_time
         if self.process_fail_reason is not None:
             result['ProcessFailReason'] = self.process_fail_reason
-        if self.audio_uri is not None:
-            result['AudioUri'] = self.audio_uri
+        if self.process_modify_time is not None:
+            result['ProcessModifyTime'] = self.process_modify_time
         if self.audio_rate is not None:
             result['AudioRate'] = self.audio_rate
+        if self.audio_uri is not None:
+            result['AudioUri'] = self.audio_uri
         if self.audio_texts_modify_time is not None:
             result['AudioTextsModifyTime'] = self.audio_texts_modify_time
         if self.remarks_a is not None:
             result['RemarksA'] = self.remarks_a
-        result['AudioTexts'] = []
-        if self.audio_texts is not None:
-            for k in self.audio_texts:
-                result['AudioTexts'].append(k.to_map() if k else None)
         if self.external_id is not None:
             result['ExternalId'] = self.external_id
         if self.source_uri is not None:
@@ -11197,43 +12039,42 @@ class ListVideoAudiosResponseBodyAudios(TeaModel):
             result['FileSize'] = self.file_size
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        result['AudioTexts'] = []
+        if self.audio_texts is not None:
+            for k in self.audio_texts:
+                result['AudioTexts'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('SourcePosition') is not None:
             self.source_position = m.get('SourcePosition')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
         if m.get('RemarksC') is not None:
             self.remarks_c = m.get('RemarksC')
-        if m.get('AudioDuration') is not None:
-            self.audio_duration = m.get('AudioDuration')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('SourceType') is not None:
             self.source_type = m.get('SourceType')
+        if m.get('AudioDuration') is not None:
+            self.audio_duration = m.get('AudioDuration')
         if m.get('AudioTextsStatus') is not None:
             self.audio_texts_status = m.get('AudioTextsStatus')
         if m.get('AudioFormat') is not None:
             self.audio_format = m.get('AudioFormat')
         if m.get('RemarksD') is not None:
             self.remarks_d = m.get('RemarksD')
-        if m.get('ProcessModifyTime') is not None:
-            self.process_modify_time = m.get('ProcessModifyTime')
         if m.get('ProcessFailReason') is not None:
             self.process_fail_reason = m.get('ProcessFailReason')
-        if m.get('AudioUri') is not None:
-            self.audio_uri = m.get('AudioUri')
+        if m.get('ProcessModifyTime') is not None:
+            self.process_modify_time = m.get('ProcessModifyTime')
         if m.get('AudioRate') is not None:
             self.audio_rate = m.get('AudioRate')
+        if m.get('AudioUri') is not None:
+            self.audio_uri = m.get('AudioUri')
         if m.get('AudioTextsModifyTime') is not None:
             self.audio_texts_modify_time = m.get('AudioTextsModifyTime')
         if m.get('RemarksA') is not None:
             self.remarks_a = m.get('RemarksA')
-        self.audio_texts = []
-        if m.get('AudioTexts') is not None:
-            for k in m.get('AudioTexts'):
-                temp_model = ListVideoAudiosResponseBodyAudiosAudioTexts()
-                self.audio_texts.append(temp_model.from_map(k))
         if m.get('ExternalId') is not None:
             self.external_id = m.get('ExternalId')
         if m.get('SourceUri') is not None:
@@ -11248,16 +12089,21 @@ class ListVideoAudiosResponseBodyAudios(TeaModel):
             self.file_size = m.get('FileSize')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        self.audio_texts = []
+        if m.get('AudioTexts') is not None:
+            for k in m.get('AudioTexts'):
+                temp_model = ListVideoAudiosResponseBodyAudiosAudioTexts()
+                self.audio_texts.append(temp_model.from_map(k))
         return self
 
 
 class ListVideoAudiosResponseBody(TeaModel):
-    def __init__(self, request_id=None, audios=None, video_uri=None, next_marker=None, set_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, video_uri=None, request_id=None, next_marker=None, set_id=None, audios=None):
+        self.video_uri = video_uri  # type: str
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
+        self.set_id = set_id  # type: str
         self.audios = audios  # type: list[ListVideoAudiosResponseBodyAudios]
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
 
     def validate(self):
         if self.audios:
@@ -11266,42 +12112,46 @@ class ListVideoAudiosResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideoAudiosResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        result['Audios'] = []
-        if self.audios is not None:
-            for k in self.audios:
-                result['Audios'].append(k.to_map() if k else None)
         if self.video_uri is not None:
             result['VideoUri'] = self.video_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.next_marker is not None:
             result['NextMarker'] = self.next_marker
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        result['Audios'] = []
+        if self.audios is not None:
+            for k in self.audios:
+                result['Audios'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('VideoUri') is not None:
+            self.video_uri = m.get('VideoUri')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
         self.audios = []
         if m.get('Audios') is not None:
             for k in m.get('Audios'):
                 temp_model = ListVideoAudiosResponseBodyAudios()
                 self.audios.append(temp_model.from_map(k))
-        if m.get('VideoUri') is not None:
-            self.video_uri = m.get('VideoUri')
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         return self
 
 
 class ListVideoAudiosResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListVideoAudiosResponseBody
 
     def validate(self):
@@ -11311,6 +12161,10 @@ class ListVideoAudiosResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListVideoAudiosResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -11330,15 +12184,19 @@ class ListVideoAudiosResponse(TeaModel):
 
 class ListVideoFramesRequest(TeaModel):
     def __init__(self, project=None, set_id=None, video_uri=None, marker=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.video_uri = video_uri  # type: str
+        self.marker = marker  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideoFramesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -11363,234 +12221,6 @@ class ListVideoFramesRequest(TeaModel):
         return self
 
 
-class ListVideoFramesResponseBodyFramesTags(TeaModel):
-    def __init__(self, tag_confidence=None, tag_name=None, tag_level=None, parent_tag_name=None):
-        self.tag_confidence = tag_confidence  # type: float
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
-        self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.tag_confidence is not None:
-            result['TagConfidence'] = self.tag_confidence
-        if self.tag_name is not None:
-            result['TagName'] = self.tag_name
-        if self.tag_level is not None:
-            result['TagLevel'] = self.tag_level
-        if self.parent_tag_name is not None:
-            result['ParentTagName'] = self.parent_tag_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagConfidence') is not None:
-            self.tag_confidence = m.get('TagConfidence')
-        if m.get('TagName') is not None:
-            self.tag_name = m.get('TagName')
-        if m.get('TagLevel') is not None:
-            self.tag_level = m.get('TagLevel')
-        if m.get('ParentTagName') is not None:
-            self.parent_tag_name = m.get('ParentTagName')
-        return self
-
-
-class ListVideoFramesResponseBodyFramesOCROCRBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class ListVideoFramesResponseBodyFramesOCR(TeaModel):
-    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
-        self.ocrconfidence = ocrconfidence  # type: float
-        self.ocrcontents = TeaConverter.to_unicode(ocrcontents)  # type: unicode
-        self.ocrboundary = ocrboundary  # type: ListVideoFramesResponseBodyFramesOCROCRBoundary
-
-    def validate(self):
-        if self.ocrboundary:
-            self.ocrboundary.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.ocrconfidence is not None:
-            result['OCRConfidence'] = self.ocrconfidence
-        if self.ocrcontents is not None:
-            result['OCRContents'] = self.ocrcontents
-        if self.ocrboundary is not None:
-            result['OCRBoundary'] = self.ocrboundary.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OCRConfidence') is not None:
-            self.ocrconfidence = m.get('OCRConfidence')
-        if m.get('OCRContents') is not None:
-            self.ocrcontents = m.get('OCRContents')
-        if m.get('OCRBoundary') is not None:
-            temp_model = ListVideoFramesResponseBodyFramesOCROCRBoundary()
-            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
-        return self
-
-
-class ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary(TeaModel):
-    def __init__(self, top=None, width=None, height=None, left=None):
-        self.top = top  # type: int
-        self.width = width  # type: int
-        self.height = height  # type: int
-        self.left = left  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.top is not None:
-            result['Top'] = self.top
-        if self.width is not None:
-            result['Width'] = self.width
-        if self.height is not None:
-            result['Height'] = self.height
-        if self.left is not None:
-            result['Left'] = self.left
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Top') is not None:
-            self.top = m.get('Top')
-        if m.get('Width') is not None:
-            self.width = m.get('Width')
-        if m.get('Height') is not None:
-            self.height = m.get('Height')
-        if m.get('Left') is not None:
-            self.left = m.get('Left')
-        return self
-
-
-class ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose(TeaModel):
-    def __init__(self, pitch=None, roll=None, yaw=None):
-        self.pitch = pitch  # type: float
-        self.roll = roll  # type: float
-        self.yaw = yaw  # type: float
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        result = dict()
-        if self.pitch is not None:
-            result['Pitch'] = self.pitch
-        if self.roll is not None:
-            result['Roll'] = self.roll
-        if self.yaw is not None:
-            result['Yaw'] = self.yaw
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Pitch') is not None:
-            self.pitch = m.get('Pitch')
-        if m.get('Roll') is not None:
-            self.roll = m.get('Roll')
-        if m.get('Yaw') is not None:
-            self.yaw = m.get('Yaw')
-        return self
-
-
-class ListVideoFramesResponseBodyFramesFacesFaceAttributes(TeaModel):
-    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
-                 mask_confidence=None, face_boundary=None, head_pose=None, beard=None):
-        self.glasses_confidence = glasses_confidence  # type: float
-        self.glasses = TeaConverter.to_unicode(glasses)  # type: unicode
-        self.mask = TeaConverter.to_unicode(mask)  # type: unicode
-        self.beard_confidence = beard_confidence  # type: float
-        self.mask_confidence = mask_confidence  # type: float
-        self.face_boundary = face_boundary  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary
-        self.head_pose = head_pose  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose
-        self.beard = TeaConverter.to_unicode(beard)  # type: unicode
-
-    def validate(self):
-        if self.face_boundary:
-            self.face_boundary.validate()
-        if self.head_pose:
-            self.head_pose.validate()
-
-    def to_map(self):
-        result = dict()
-        if self.glasses_confidence is not None:
-            result['GlassesConfidence'] = self.glasses_confidence
-        if self.glasses is not None:
-            result['Glasses'] = self.glasses
-        if self.mask is not None:
-            result['Mask'] = self.mask
-        if self.beard_confidence is not None:
-            result['BeardConfidence'] = self.beard_confidence
-        if self.mask_confidence is not None:
-            result['MaskConfidence'] = self.mask_confidence
-        if self.face_boundary is not None:
-            result['FaceBoundary'] = self.face_boundary.to_map()
-        if self.head_pose is not None:
-            result['HeadPose'] = self.head_pose.to_map()
-        if self.beard is not None:
-            result['Beard'] = self.beard
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('GlassesConfidence') is not None:
-            self.glasses_confidence = m.get('GlassesConfidence')
-        if m.get('Glasses') is not None:
-            self.glasses = m.get('Glasses')
-        if m.get('Mask') is not None:
-            self.mask = m.get('Mask')
-        if m.get('BeardConfidence') is not None:
-            self.beard_confidence = m.get('BeardConfidence')
-        if m.get('MaskConfidence') is not None:
-            self.mask_confidence = m.get('MaskConfidence')
-        if m.get('FaceBoundary') is not None:
-            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary()
-            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
-        if m.get('HeadPose') is not None:
-            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose()
-            self.head_pose = temp_model.from_map(m['HeadPose'])
-        if m.get('Beard') is not None:
-            self.beard = m.get('Beard')
-        return self
-
-
 class ListVideoFramesResponseBodyFramesFacesEmotionDetails(TeaModel):
     def __init__(self, happy=None, surprised=None, calm=None, disgusted=None, angry=None, sad=None, scared=None):
         self.happy = happy  # type: float
@@ -11605,6 +12235,10 @@ class ListVideoFramesResponseBodyFramesFacesEmotionDetails(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesFacesEmotionDetails, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.happy is not None:
             result['HAPPY'] = self.happy
@@ -11641,39 +12275,185 @@ class ListVideoFramesResponseBodyFramesFacesEmotionDetails(TeaModel):
         return self
 
 
-class ListVideoFramesResponseBodyFramesFaces(TeaModel):
-    def __init__(self, gender=None, face_id=None, gender_confidence=None, face_attributes=None, face_quality=None,
-                 emotion=None, age=None, face_confidence=None, emotion_confidence=None, attractive=None, group_id=None,
-                 emotion_details=None):
-        self.gender = TeaConverter.to_unicode(gender)  # type: unicode
-        self.face_id = TeaConverter.to_unicode(face_id)  # type: unicode
-        self.gender_confidence = gender_confidence  # type: float
-        self.face_attributes = face_attributes  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributes
-        self.face_quality = face_quality  # type: float
-        self.emotion = TeaConverter.to_unicode(emotion)  # type: unicode
-        self.age = age  # type: int
-        self.face_confidence = face_confidence  # type: float
-        self.emotion_confidence = emotion_confidence  # type: float
-        self.attractive = attractive  # type: float
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.emotion_details = emotion_details  # type: ListVideoFramesResponseBodyFramesFacesEmotionDetails
+class ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
 
     def validate(self):
-        if self.face_attributes:
-            self.face_attributes.validate()
-        if self.emotion_details:
-            self.emotion_details.validate()
+        pass
 
     def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose(TeaModel):
+    def __init__(self, pitch=None, roll=None, yaw=None):
+        self.pitch = pitch  # type: float
+        self.roll = roll  # type: float
+        self.yaw = yaw  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pitch is not None:
+            result['Pitch'] = self.pitch
+        if self.roll is not None:
+            result['Roll'] = self.roll
+        if self.yaw is not None:
+            result['Yaw'] = self.yaw
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Pitch') is not None:
+            self.pitch = m.get('Pitch')
+        if m.get('Roll') is not None:
+            self.roll = m.get('Roll')
+        if m.get('Yaw') is not None:
+            self.yaw = m.get('Yaw')
+        return self
+
+
+class ListVideoFramesResponseBodyFramesFacesFaceAttributes(TeaModel):
+    def __init__(self, glasses_confidence=None, glasses=None, mask=None, beard_confidence=None,
+                 mask_confidence=None, beard=None, face_boundary=None, head_pose=None):
+        self.glasses_confidence = glasses_confidence  # type: float
+        self.glasses = glasses  # type: str
+        self.mask = mask  # type: str
+        self.beard_confidence = beard_confidence  # type: float
+        self.mask_confidence = mask_confidence  # type: float
+        self.beard = beard  # type: str
+        self.face_boundary = face_boundary  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary
+        self.head_pose = head_pose  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose
+
+    def validate(self):
+        if self.face_boundary:
+            self.face_boundary.validate()
+        if self.head_pose:
+            self.head_pose.validate()
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesFacesFaceAttributes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.glasses_confidence is not None:
+            result['GlassesConfidence'] = self.glasses_confidence
+        if self.glasses is not None:
+            result['Glasses'] = self.glasses
+        if self.mask is not None:
+            result['Mask'] = self.mask
+        if self.beard_confidence is not None:
+            result['BeardConfidence'] = self.beard_confidence
+        if self.mask_confidence is not None:
+            result['MaskConfidence'] = self.mask_confidence
+        if self.beard is not None:
+            result['Beard'] = self.beard
+        if self.face_boundary is not None:
+            result['FaceBoundary'] = self.face_boundary.to_map()
+        if self.head_pose is not None:
+            result['HeadPose'] = self.head_pose.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GlassesConfidence') is not None:
+            self.glasses_confidence = m.get('GlassesConfidence')
+        if m.get('Glasses') is not None:
+            self.glasses = m.get('Glasses')
+        if m.get('Mask') is not None:
+            self.mask = m.get('Mask')
+        if m.get('BeardConfidence') is not None:
+            self.beard_confidence = m.get('BeardConfidence')
+        if m.get('MaskConfidence') is not None:
+            self.mask_confidence = m.get('MaskConfidence')
+        if m.get('Beard') is not None:
+            self.beard = m.get('Beard')
+        if m.get('FaceBoundary') is not None:
+            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributesFaceBoundary()
+            self.face_boundary = temp_model.from_map(m['FaceBoundary'])
+        if m.get('HeadPose') is not None:
+            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributesHeadPose()
+            self.head_pose = temp_model.from_map(m['HeadPose'])
+        return self
+
+
+class ListVideoFramesResponseBodyFramesFaces(TeaModel):
+    def __init__(self, emotion_confidence=None, attractive=None, group_id=None, gender=None, face_id=None,
+                 gender_confidence=None, face_quality=None, emotion=None, age=None, face_confidence=None, emotion_details=None,
+                 face_attributes=None):
+        self.emotion_confidence = emotion_confidence  # type: float
+        self.attractive = attractive  # type: float
+        self.group_id = group_id  # type: str
+        self.gender = gender  # type: str
+        self.face_id = face_id  # type: str
+        self.gender_confidence = gender_confidence  # type: float
+        self.face_quality = face_quality  # type: float
+        self.emotion = emotion  # type: str
+        self.age = age  # type: int
+        self.face_confidence = face_confidence  # type: float
+        self.emotion_details = emotion_details  # type: ListVideoFramesResponseBodyFramesFacesEmotionDetails
+        self.face_attributes = face_attributes  # type: ListVideoFramesResponseBodyFramesFacesFaceAttributes
+
+    def validate(self):
+        if self.emotion_details:
+            self.emotion_details.validate()
+        if self.face_attributes:
+            self.face_attributes.validate()
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesFaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.emotion_confidence is not None:
+            result['EmotionConfidence'] = self.emotion_confidence
+        if self.attractive is not None:
+            result['Attractive'] = self.attractive
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
         if self.gender is not None:
             result['Gender'] = self.gender
         if self.face_id is not None:
             result['FaceId'] = self.face_id
         if self.gender_confidence is not None:
             result['GenderConfidence'] = self.gender_confidence
-        if self.face_attributes is not None:
-            result['FaceAttributes'] = self.face_attributes.to_map()
         if self.face_quality is not None:
             result['FaceQuality'] = self.face_quality
         if self.emotion is not None:
@@ -11682,27 +12462,26 @@ class ListVideoFramesResponseBodyFramesFaces(TeaModel):
             result['Age'] = self.age
         if self.face_confidence is not None:
             result['FaceConfidence'] = self.face_confidence
-        if self.emotion_confidence is not None:
-            result['EmotionConfidence'] = self.emotion_confidence
-        if self.attractive is not None:
-            result['Attractive'] = self.attractive
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
         if self.emotion_details is not None:
             result['EmotionDetails'] = self.emotion_details.to_map()
+        if self.face_attributes is not None:
+            result['FaceAttributes'] = self.face_attributes.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EmotionConfidence') is not None:
+            self.emotion_confidence = m.get('EmotionConfidence')
+        if m.get('Attractive') is not None:
+            self.attractive = m.get('Attractive')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
         if m.get('Gender') is not None:
             self.gender = m.get('Gender')
         if m.get('FaceId') is not None:
             self.face_id = m.get('FaceId')
         if m.get('GenderConfidence') is not None:
             self.gender_confidence = m.get('GenderConfidence')
-        if m.get('FaceAttributes') is not None:
-            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributes()
-            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
         if m.get('FaceQuality') is not None:
             self.face_quality = m.get('FaceQuality')
         if m.get('Emotion') is not None:
@@ -11711,58 +12490,173 @@ class ListVideoFramesResponseBodyFramesFaces(TeaModel):
             self.age = m.get('Age')
         if m.get('FaceConfidence') is not None:
             self.face_confidence = m.get('FaceConfidence')
-        if m.get('EmotionConfidence') is not None:
-            self.emotion_confidence = m.get('EmotionConfidence')
-        if m.get('Attractive') is not None:
-            self.attractive = m.get('Attractive')
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
         if m.get('EmotionDetails') is not None:
             temp_model = ListVideoFramesResponseBodyFramesFacesEmotionDetails()
             self.emotion_details = temp_model.from_map(m['EmotionDetails'])
+        if m.get('FaceAttributes') is not None:
+            temp_model = ListVideoFramesResponseBodyFramesFacesFaceAttributes()
+            self.face_attributes = temp_model.from_map(m['FaceAttributes'])
+        return self
+
+
+class ListVideoFramesResponseBodyFramesTags(TeaModel):
+    def __init__(self, tag_level=None, parent_tag_name=None, tag_confidence=None, tag_name=None):
+        self.tag_level = tag_level  # type: int
+        self.parent_tag_name = parent_tag_name  # type: str
+        self.tag_confidence = tag_confidence  # type: float
+        self.tag_name = tag_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tag_level is not None:
+            result['TagLevel'] = self.tag_level
+        if self.parent_tag_name is not None:
+            result['ParentTagName'] = self.parent_tag_name
+        if self.tag_confidence is not None:
+            result['TagConfidence'] = self.tag_confidence
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TagLevel') is not None:
+            self.tag_level = m.get('TagLevel')
+        if m.get('ParentTagName') is not None:
+            self.parent_tag_name = m.get('ParentTagName')
+        if m.get('TagConfidence') is not None:
+            self.tag_confidence = m.get('TagConfidence')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        return self
+
+
+class ListVideoFramesResponseBodyFramesOCROCRBoundary(TeaModel):
+    def __init__(self, left=None, top=None, width=None, height=None):
+        self.left = left  # type: int
+        self.top = top  # type: int
+        self.width = width  # type: int
+        self.height = height  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesOCROCRBoundary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.left is not None:
+            result['Left'] = self.left
+        if self.top is not None:
+            result['Top'] = self.top
+        if self.width is not None:
+            result['Width'] = self.width
+        if self.height is not None:
+            result['Height'] = self.height
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Left') is not None:
+            self.left = m.get('Left')
+        if m.get('Top') is not None:
+            self.top = m.get('Top')
+        if m.get('Width') is not None:
+            self.width = m.get('Width')
+        if m.get('Height') is not None:
+            self.height = m.get('Height')
+        return self
+
+
+class ListVideoFramesResponseBodyFramesOCR(TeaModel):
+    def __init__(self, ocrconfidence=None, ocrcontents=None, ocrboundary=None):
+        self.ocrconfidence = ocrconfidence  # type: float
+        self.ocrcontents = ocrcontents  # type: str
+        self.ocrboundary = ocrboundary  # type: ListVideoFramesResponseBodyFramesOCROCRBoundary
+
+    def validate(self):
+        if self.ocrboundary:
+            self.ocrboundary.validate()
+
+    def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFramesOCR, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ocrconfidence is not None:
+            result['OCRConfidence'] = self.ocrconfidence
+        if self.ocrcontents is not None:
+            result['OCRContents'] = self.ocrcontents
+        if self.ocrboundary is not None:
+            result['OCRBoundary'] = self.ocrboundary.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OCRConfidence') is not None:
+            self.ocrconfidence = m.get('OCRConfidence')
+        if m.get('OCRContents') is not None:
+            self.ocrcontents = m.get('OCRContents')
+        if m.get('OCRBoundary') is not None:
+            temp_model = ListVideoFramesResponseBodyFramesOCROCRBoundary()
+            self.ocrboundary = temp_model.from_map(m['OCRBoundary'])
         return self
 
 
 class ListVideoFramesResponseBodyFrames(TeaModel):
     def __init__(self, tags_fail_reason=None, remarks_c=None, create_time=None, source_type=None,
-                 faces_fail_reason=None, tags=None, faces_modify_time=None, image_time=None, ocrmodify_time=None, ocr=None,
-                 faces_status=None, image_height=None, external_id=None, source_uri=None, file_size=None, modify_time=None,
-                 source_position=None, faces=None, ocrfail_reason=None, image_format=None, image_width=None, orientation=None,
-                 remarks_d=None, tags_status=None, remarks_a=None, image_uri=None, tags_modify_time=None, ocrstatus=None,
-                 exif=None, location=None, remarks_b=None):
-        self.tags_fail_reason = TeaConverter.to_unicode(tags_fail_reason)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.faces_fail_reason = TeaConverter.to_unicode(faces_fail_reason)  # type: unicode
-        self.tags = tags  # type: list[ListVideoFramesResponseBodyFramesTags]
-        self.faces_modify_time = TeaConverter.to_unicode(faces_modify_time)  # type: unicode
-        self.image_time = TeaConverter.to_unicode(image_time)  # type: unicode
-        self.ocrmodify_time = TeaConverter.to_unicode(ocrmodify_time)  # type: unicode
-        self.ocr = ocr  # type: list[ListVideoFramesResponseBodyFramesOCR]
-        self.faces_status = TeaConverter.to_unicode(faces_status)  # type: unicode
+                 faces_fail_reason=None, faces_modify_time=None, image_time=None, ocrmodify_time=None, faces_status=None,
+                 image_height=None, external_id=None, source_uri=None, modify_time=None, file_size=None, source_position=None,
+                 ocrfail_reason=None, image_format=None, image_width=None, orientation=None, remarks_d=None, tags_status=None,
+                 remarks_a=None, image_uri=None, tags_modify_time=None, ocrstatus=None, exif=None, location=None,
+                 remarks_b=None, faces=None, tags=None, ocr=None):
+        self.tags_fail_reason = tags_fail_reason  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.create_time = create_time  # type: str
+        self.source_type = source_type  # type: str
+        self.faces_fail_reason = faces_fail_reason  # type: str
+        self.faces_modify_time = faces_modify_time  # type: str
+        self.image_time = image_time  # type: str
+        self.ocrmodify_time = ocrmodify_time  # type: str
+        self.faces_status = faces_status  # type: str
         self.image_height = image_height  # type: int
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
+        self.external_id = external_id  # type: str
+        self.source_uri = source_uri  # type: str
+        self.modify_time = modify_time  # type: str
         self.file_size = file_size  # type: int
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.faces = faces  # type: list[ListVideoFramesResponseBodyFramesFaces]
-        self.ocrfail_reason = TeaConverter.to_unicode(ocrfail_reason)  # type: unicode
-        self.image_format = TeaConverter.to_unicode(image_format)  # type: unicode
+        self.source_position = source_position  # type: str
+        self.ocrfail_reason = ocrfail_reason  # type: str
+        self.image_format = image_format  # type: str
         self.image_width = image_width  # type: int
-        self.orientation = TeaConverter.to_unicode(orientation)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.tags_status = TeaConverter.to_unicode(tags_status)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.tags_modify_time = TeaConverter.to_unicode(tags_modify_time)  # type: unicode
-        self.ocrstatus = TeaConverter.to_unicode(ocrstatus)  # type: unicode
-        self.exif = TeaConverter.to_unicode(exif)  # type: unicode
-        self.location = TeaConverter.to_unicode(location)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.orientation = orientation  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.tags_status = tags_status  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.image_uri = image_uri  # type: str
+        self.tags_modify_time = tags_modify_time  # type: str
+        self.ocrstatus = ocrstatus  # type: str
+        self.exif = exif  # type: str
+        self.location = location  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.faces = faces  # type: list[ListVideoFramesResponseBodyFramesFaces]
+        self.tags = tags  # type: list[ListVideoFramesResponseBodyFramesTags]
+        self.ocr = ocr  # type: list[ListVideoFramesResponseBodyFramesOCR]
 
     def validate(self):
+        if self.faces:
+            for k in self.faces:
+                if k:
+                    k.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -11771,12 +12665,12 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             for k in self.ocr:
                 if k:
                     k.validate()
-        if self.faces:
-            for k in self.faces:
-                if k:
-                    k.validate()
 
     def to_map(self):
+        _map = super(ListVideoFramesResponseBodyFrames, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.tags_fail_reason is not None:
             result['TagsFailReason'] = self.tags_fail_reason
@@ -11788,20 +12682,12 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             result['SourceType'] = self.source_type
         if self.faces_fail_reason is not None:
             result['FacesFailReason'] = self.faces_fail_reason
-        result['Tags'] = []
-        if self.tags is not None:
-            for k in self.tags:
-                result['Tags'].append(k.to_map() if k else None)
         if self.faces_modify_time is not None:
             result['FacesModifyTime'] = self.faces_modify_time
         if self.image_time is not None:
             result['ImageTime'] = self.image_time
         if self.ocrmodify_time is not None:
             result['OCRModifyTime'] = self.ocrmodify_time
-        result['OCR'] = []
-        if self.ocr is not None:
-            for k in self.ocr:
-                result['OCR'].append(k.to_map() if k else None)
         if self.faces_status is not None:
             result['FacesStatus'] = self.faces_status
         if self.image_height is not None:
@@ -11810,16 +12696,12 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             result['ExternalId'] = self.external_id
         if self.source_uri is not None:
             result['SourceUri'] = self.source_uri
-        if self.file_size is not None:
-            result['FileSize'] = self.file_size
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.file_size is not None:
+            result['FileSize'] = self.file_size
         if self.source_position is not None:
             result['SourcePosition'] = self.source_position
-        result['Faces'] = []
-        if self.faces is not None:
-            for k in self.faces:
-                result['Faces'].append(k.to_map() if k else None)
         if self.ocrfail_reason is not None:
             result['OCRFailReason'] = self.ocrfail_reason
         if self.image_format is not None:
@@ -11846,6 +12728,18 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             result['Location'] = self.location
         if self.remarks_b is not None:
             result['RemarksB'] = self.remarks_b
+        result['Faces'] = []
+        if self.faces is not None:
+            for k in self.faces:
+                result['Faces'].append(k.to_map() if k else None)
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        result['OCR'] = []
+        if self.ocr is not None:
+            for k in self.ocr:
+                result['OCR'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -11860,22 +12754,12 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             self.source_type = m.get('SourceType')
         if m.get('FacesFailReason') is not None:
             self.faces_fail_reason = m.get('FacesFailReason')
-        self.tags = []
-        if m.get('Tags') is not None:
-            for k in m.get('Tags'):
-                temp_model = ListVideoFramesResponseBodyFramesTags()
-                self.tags.append(temp_model.from_map(k))
         if m.get('FacesModifyTime') is not None:
             self.faces_modify_time = m.get('FacesModifyTime')
         if m.get('ImageTime') is not None:
             self.image_time = m.get('ImageTime')
         if m.get('OCRModifyTime') is not None:
             self.ocrmodify_time = m.get('OCRModifyTime')
-        self.ocr = []
-        if m.get('OCR') is not None:
-            for k in m.get('OCR'):
-                temp_model = ListVideoFramesResponseBodyFramesOCR()
-                self.ocr.append(temp_model.from_map(k))
         if m.get('FacesStatus') is not None:
             self.faces_status = m.get('FacesStatus')
         if m.get('ImageHeight') is not None:
@@ -11884,17 +12768,12 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             self.external_id = m.get('ExternalId')
         if m.get('SourceUri') is not None:
             self.source_uri = m.get('SourceUri')
-        if m.get('FileSize') is not None:
-            self.file_size = m.get('FileSize')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('FileSize') is not None:
+            self.file_size = m.get('FileSize')
         if m.get('SourcePosition') is not None:
             self.source_position = m.get('SourcePosition')
-        self.faces = []
-        if m.get('Faces') is not None:
-            for k in m.get('Faces'):
-                temp_model = ListVideoFramesResponseBodyFramesFaces()
-                self.faces.append(temp_model.from_map(k))
         if m.get('OCRFailReason') is not None:
             self.ocrfail_reason = m.get('OCRFailReason')
         if m.get('ImageFormat') is not None:
@@ -11921,16 +12800,31 @@ class ListVideoFramesResponseBodyFrames(TeaModel):
             self.location = m.get('Location')
         if m.get('RemarksB') is not None:
             self.remarks_b = m.get('RemarksB')
+        self.faces = []
+        if m.get('Faces') is not None:
+            for k in m.get('Faces'):
+                temp_model = ListVideoFramesResponseBodyFramesFaces()
+                self.faces.append(temp_model.from_map(k))
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListVideoFramesResponseBodyFramesTags()
+                self.tags.append(temp_model.from_map(k))
+        self.ocr = []
+        if m.get('OCR') is not None:
+            for k in m.get('OCR'):
+                temp_model = ListVideoFramesResponseBodyFramesOCR()
+                self.ocr.append(temp_model.from_map(k))
         return self
 
 
 class ListVideoFramesResponseBody(TeaModel):
-    def __init__(self, frames=None, request_id=None, video_uri=None, next_marker=None, set_id=None):
+    def __init__(self, video_uri=None, request_id=None, next_marker=None, set_id=None, frames=None):
+        self.video_uri = video_uri  # type: str
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
+        self.set_id = set_id  # type: str
         self.frames = frames  # type: list[ListVideoFramesResponseBodyFrames]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
 
     def validate(self):
         if self.frames:
@@ -11939,42 +12833,46 @@ class ListVideoFramesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideoFramesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        result['Frames'] = []
-        if self.frames is not None:
-            for k in self.frames:
-                result['Frames'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.video_uri is not None:
             result['VideoUri'] = self.video_uri
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.next_marker is not None:
             result['NextMarker'] = self.next_marker
         if self.set_id is not None:
             result['SetId'] = self.set_id
+        result['Frames'] = []
+        if self.frames is not None:
+            for k in self.frames:
+                result['Frames'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('VideoUri') is not None:
+            self.video_uri = m.get('VideoUri')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
         self.frames = []
         if m.get('Frames') is not None:
             for k in m.get('Frames'):
                 temp_model = ListVideoFramesResponseBodyFrames()
                 self.frames.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('VideoUri') is not None:
-            self.video_uri = m.get('VideoUri')
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         return self
 
 
 class ListVideoFramesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListVideoFramesResponseBody
 
     def validate(self):
@@ -11984,6 +12882,10 @@ class ListVideoFramesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListVideoFramesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12003,15 +12905,19 @@ class ListVideoFramesResponse(TeaModel):
 
 class ListVideosRequest(TeaModel):
     def __init__(self, project=None, set_id=None, create_time_start=None, marker=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.create_time_start = TeaConverter.to_unicode(create_time_start)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.create_time_start = create_time_start  # type: str
+        self.marker = marker  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideosRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12037,70 +12943,74 @@ class ListVideosRequest(TeaModel):
 
 
 class ListVideosResponseBodyVideosVideoTags(TeaModel):
-    def __init__(self, tag_name=None, tag_confidence=None, tag_level=None, parent_tag_name=None):
-        self.tag_name = TeaConverter.to_unicode(tag_name)  # type: unicode
-        self.tag_confidence = tag_confidence  # type: float
+    def __init__(self, tag_level=None, parent_tag_name=None, tag_name=None, tag_confidence=None):
         self.tag_level = tag_level  # type: int
-        self.parent_tag_name = TeaConverter.to_unicode(parent_tag_name)  # type: unicode
+        self.parent_tag_name = parent_tag_name  # type: str
+        self.tag_name = tag_name  # type: str
+        self.tag_confidence = tag_confidence  # type: float
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideosResponseBodyVideosVideoTags, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.tag_name is not None:
-            result['TagName'] = self.tag_name
-        if self.tag_confidence is not None:
-            result['TagConfidence'] = self.tag_confidence
         if self.tag_level is not None:
             result['TagLevel'] = self.tag_level
         if self.parent_tag_name is not None:
             result['ParentTagName'] = self.parent_tag_name
+        if self.tag_name is not None:
+            result['TagName'] = self.tag_name
+        if self.tag_confidence is not None:
+            result['TagConfidence'] = self.tag_confidence
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TagName') is not None:
-            self.tag_name = m.get('TagName')
-        if m.get('TagConfidence') is not None:
-            self.tag_confidence = m.get('TagConfidence')
         if m.get('TagLevel') is not None:
             self.tag_level = m.get('TagLevel')
         if m.get('ParentTagName') is not None:
             self.parent_tag_name = m.get('ParentTagName')
+        if m.get('TagName') is not None:
+            self.tag_name = m.get('TagName')
+        if m.get('TagConfidence') is not None:
+            self.tag_confidence = m.get('TagConfidence')
         return self
 
 
 class ListVideosResponseBodyVideos(TeaModel):
     def __init__(self, create_time=None, remarks_c=None, video_tags_fail_reason=None, source_type=None,
-                 video_duration=None, video_tags=None, process_modify_time=None, video_frames=None, video_tags_status=None,
-                 external_id=None, source_uri=None, file_size=None, modify_time=None, source_position=None, video_width=None,
-                 video_format=None, video_height=None, remarks_d=None, video_uri=None, process_fail_reason=None,
-                 video_tags_modify_time=None, remarks_a=None, process_status=None, remarks_b=None):
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.video_tags_fail_reason = TeaConverter.to_unicode(video_tags_fail_reason)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
+                 video_duration=None, process_modify_time=None, video_frames=None, video_tags_status=None, external_id=None,
+                 source_uri=None, modify_time=None, file_size=None, source_position=None, video_width=None, video_height=None,
+                 video_format=None, remarks_d=None, video_uri=None, video_tags_modify_time=None, process_fail_reason=None,
+                 remarks_a=None, process_status=None, remarks_b=None, video_tags=None):
+        self.create_time = create_time  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.video_tags_fail_reason = video_tags_fail_reason  # type: str
+        self.source_type = source_type  # type: str
         self.video_duration = video_duration  # type: float
-        self.video_tags = video_tags  # type: list[ListVideosResponseBodyVideosVideoTags]
-        self.process_modify_time = TeaConverter.to_unicode(process_modify_time)  # type: unicode
+        self.process_modify_time = process_modify_time  # type: str
         self.video_frames = video_frames  # type: int
-        self.video_tags_status = TeaConverter.to_unicode(video_tags_status)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
+        self.video_tags_status = video_tags_status  # type: str
+        self.external_id = external_id  # type: str
+        self.source_uri = source_uri  # type: str
+        self.modify_time = modify_time  # type: str
         self.file_size = file_size  # type: int
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
+        self.source_position = source_position  # type: str
         self.video_width = video_width  # type: int
-        self.video_format = TeaConverter.to_unicode(video_format)  # type: unicode
         self.video_height = video_height  # type: int
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.video_uri = TeaConverter.to_unicode(video_uri)  # type: unicode
-        self.process_fail_reason = TeaConverter.to_unicode(process_fail_reason)  # type: unicode
-        self.video_tags_modify_time = TeaConverter.to_unicode(video_tags_modify_time)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.process_status = TeaConverter.to_unicode(process_status)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.video_format = video_format  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.video_uri = video_uri  # type: str
+        self.video_tags_modify_time = video_tags_modify_time  # type: str
+        self.process_fail_reason = process_fail_reason  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.process_status = process_status  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.video_tags = video_tags  # type: list[ListVideosResponseBodyVideosVideoTags]
 
     def validate(self):
         if self.video_tags:
@@ -12109,6 +13019,10 @@ class ListVideosResponseBodyVideos(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideosResponseBodyVideos, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
@@ -12120,10 +13034,6 @@ class ListVideosResponseBodyVideos(TeaModel):
             result['SourceType'] = self.source_type
         if self.video_duration is not None:
             result['VideoDuration'] = self.video_duration
-        result['VideoTags'] = []
-        if self.video_tags is not None:
-            for k in self.video_tags:
-                result['VideoTags'].append(k.to_map() if k else None)
         if self.process_modify_time is not None:
             result['ProcessModifyTime'] = self.process_modify_time
         if self.video_frames is not None:
@@ -12134,32 +13044,36 @@ class ListVideosResponseBodyVideos(TeaModel):
             result['ExternalId'] = self.external_id
         if self.source_uri is not None:
             result['SourceUri'] = self.source_uri
-        if self.file_size is not None:
-            result['FileSize'] = self.file_size
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.file_size is not None:
+            result['FileSize'] = self.file_size
         if self.source_position is not None:
             result['SourcePosition'] = self.source_position
         if self.video_width is not None:
             result['VideoWidth'] = self.video_width
-        if self.video_format is not None:
-            result['VideoFormat'] = self.video_format
         if self.video_height is not None:
             result['VideoHeight'] = self.video_height
+        if self.video_format is not None:
+            result['VideoFormat'] = self.video_format
         if self.remarks_d is not None:
             result['RemarksD'] = self.remarks_d
         if self.video_uri is not None:
             result['VideoUri'] = self.video_uri
-        if self.process_fail_reason is not None:
-            result['ProcessFailReason'] = self.process_fail_reason
         if self.video_tags_modify_time is not None:
             result['VideoTagsModifyTime'] = self.video_tags_modify_time
+        if self.process_fail_reason is not None:
+            result['ProcessFailReason'] = self.process_fail_reason
         if self.remarks_a is not None:
             result['RemarksA'] = self.remarks_a
         if self.process_status is not None:
             result['ProcessStatus'] = self.process_status
         if self.remarks_b is not None:
             result['RemarksB'] = self.remarks_b
+        result['VideoTags'] = []
+        if self.video_tags is not None:
+            for k in self.video_tags:
+                result['VideoTags'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -12174,11 +13088,6 @@ class ListVideosResponseBodyVideos(TeaModel):
             self.source_type = m.get('SourceType')
         if m.get('VideoDuration') is not None:
             self.video_duration = m.get('VideoDuration')
-        self.video_tags = []
-        if m.get('VideoTags') is not None:
-            for k in m.get('VideoTags'):
-                temp_model = ListVideosResponseBodyVideosVideoTags()
-                self.video_tags.append(temp_model.from_map(k))
         if m.get('ProcessModifyTime') is not None:
             self.process_modify_time = m.get('ProcessModifyTime')
         if m.get('VideoFrames') is not None:
@@ -12189,40 +13098,45 @@ class ListVideosResponseBodyVideos(TeaModel):
             self.external_id = m.get('ExternalId')
         if m.get('SourceUri') is not None:
             self.source_uri = m.get('SourceUri')
-        if m.get('FileSize') is not None:
-            self.file_size = m.get('FileSize')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('FileSize') is not None:
+            self.file_size = m.get('FileSize')
         if m.get('SourcePosition') is not None:
             self.source_position = m.get('SourcePosition')
         if m.get('VideoWidth') is not None:
             self.video_width = m.get('VideoWidth')
-        if m.get('VideoFormat') is not None:
-            self.video_format = m.get('VideoFormat')
         if m.get('VideoHeight') is not None:
             self.video_height = m.get('VideoHeight')
+        if m.get('VideoFormat') is not None:
+            self.video_format = m.get('VideoFormat')
         if m.get('RemarksD') is not None:
             self.remarks_d = m.get('RemarksD')
         if m.get('VideoUri') is not None:
             self.video_uri = m.get('VideoUri')
-        if m.get('ProcessFailReason') is not None:
-            self.process_fail_reason = m.get('ProcessFailReason')
         if m.get('VideoTagsModifyTime') is not None:
             self.video_tags_modify_time = m.get('VideoTagsModifyTime')
+        if m.get('ProcessFailReason') is not None:
+            self.process_fail_reason = m.get('ProcessFailReason')
         if m.get('RemarksA') is not None:
             self.remarks_a = m.get('RemarksA')
         if m.get('ProcessStatus') is not None:
             self.process_status = m.get('ProcessStatus')
         if m.get('RemarksB') is not None:
             self.remarks_b = m.get('RemarksB')
+        self.video_tags = []
+        if m.get('VideoTags') is not None:
+            for k in m.get('VideoTags'):
+                temp_model = ListVideosResponseBodyVideosVideoTags()
+                self.video_tags.append(temp_model.from_map(k))
         return self
 
 
 class ListVideosResponseBody(TeaModel):
     def __init__(self, request_id=None, next_marker=None, set_id=None, videos=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+        self.request_id = request_id  # type: str
+        self.next_marker = next_marker  # type: str
+        self.set_id = set_id  # type: str
         self.videos = videos  # type: list[ListVideosResponseBodyVideos]
 
     def validate(self):
@@ -12232,6 +13146,10 @@ class ListVideosResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideosResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -12263,7 +13181,7 @@ class ListVideosResponseBody(TeaModel):
 
 class ListVideosResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListVideosResponseBody
 
     def validate(self):
@@ -12273,6 +13191,10 @@ class ListVideosResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListVideosResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12292,15 +13214,19 @@ class ListVideosResponse(TeaModel):
 
 class ListVideoTasksRequest(TeaModel):
     def __init__(self, project=None, marker=None, max_keys=None, task_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.marker = TeaConverter.to_unicode(marker)  # type: unicode
+        self.project = project  # type: str
+        self.marker = marker  # type: str
         self.max_keys = max_keys  # type: int
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.task_type = task_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideoTasksRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12328,22 +13254,26 @@ class ListVideoTasksRequest(TeaModel):
 class ListVideoTasksResponseBodyTasks(TeaModel):
     def __init__(self, end_time=None, status=None, start_time=None, task_type=None, progress=None,
                  notify_endpoint=None, error_message=None, parameters=None, result=None, task_id=None, notify_topic_name=None):
-        self.end_time = TeaConverter.to_unicode(end_time)  # type: unicode
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        self.start_time = TeaConverter.to_unicode(start_time)  # type: unicode
-        self.task_type = TeaConverter.to_unicode(task_type)  # type: unicode
+        self.end_time = end_time  # type: str
+        self.status = status  # type: str
+        self.start_time = start_time  # type: str
+        self.task_type = task_type  # type: str
         self.progress = progress  # type: int
-        self.notify_endpoint = TeaConverter.to_unicode(notify_endpoint)  # type: unicode
-        self.error_message = TeaConverter.to_unicode(error_message)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
-        self.result = TeaConverter.to_unicode(result)  # type: unicode
-        self.task_id = TeaConverter.to_unicode(task_id)  # type: unicode
-        self.notify_topic_name = TeaConverter.to_unicode(notify_topic_name)  # type: unicode
+        self.notify_endpoint = notify_endpoint  # type: str
+        self.error_message = error_message  # type: str
+        self.parameters = parameters  # type: str
+        self.result = result  # type: str
+        self.task_id = task_id  # type: str
+        self.notify_topic_name = notify_topic_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVideoTasksResponseBodyTasks, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
@@ -12397,10 +13327,10 @@ class ListVideoTasksResponseBodyTasks(TeaModel):
 
 
 class ListVideoTasksResponseBody(TeaModel):
-    def __init__(self, tasks=None, request_id=None, next_marker=None):
+    def __init__(self, next_marker=None, request_id=None, tasks=None):
+        self.next_marker = next_marker  # type: str
+        self.request_id = request_id  # type: str
         self.tasks = tasks  # type: list[ListVideoTasksResponseBodyTasks]
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.next_marker = TeaConverter.to_unicode(next_marker)  # type: unicode
 
     def validate(self):
         if self.tasks:
@@ -12409,34 +13339,38 @@ class ListVideoTasksResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVideoTasksResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.next_marker is not None:
+            result['NextMarker'] = self.next_marker
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Tasks'] = []
         if self.tasks is not None:
             for k in self.tasks:
                 result['Tasks'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.next_marker is not None:
-            result['NextMarker'] = self.next_marker
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NextMarker') is not None:
+            self.next_marker = m.get('NextMarker')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.tasks = []
         if m.get('Tasks') is not None:
             for k in m.get('Tasks'):
                 temp_model = ListVideoTasksResponseBodyTasks()
                 self.tasks.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('NextMarker') is not None:
-            self.next_marker = m.get('NextMarker')
         return self
 
 
 class ListVideoTasksResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListVideoTasksResponseBody
 
     def validate(self):
@@ -12446,6 +13380,10 @@ class ListVideoTasksResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListVideoTasksResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12471,6 +13409,10 @@ class OpenImmServiceRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(OpenImmServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
@@ -12484,33 +13426,37 @@ class OpenImmServiceRequest(TeaModel):
 
 
 class OpenImmServiceResponseBody(TeaModel):
-    def __init__(self, request_id=None, order_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.order_id = TeaConverter.to_unicode(order_id)  # type: unicode
+    def __init__(self, order_id=None, request_id=None):
+        self.order_id = order_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(OpenImmServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.order_id is not None:
             result['OrderId'] = self.order_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
 class OpenImmServiceResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: OpenImmServiceResponseBody
 
     def validate(self):
@@ -12520,6 +13466,10 @@ class OpenImmServiceResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(OpenImmServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12538,28 +13488,23 @@ class OpenImmServiceResponse(TeaModel):
 
 
 class PutProjectRequest(TeaModel):
-    def __init__(self, project=None, service_role=None, cu=None, type=None, billing_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.service_role = TeaConverter.to_unicode(service_role)  # type: unicode
-        self.cu = cu  # type: int
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
+    def __init__(self, project=None, service_role=None):
+        self.project = project  # type: str
+        self.service_role = service_role  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(PutProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
         if self.service_role is not None:
             result['ServiceRole'] = self.service_role
-        if self.cu is not None:
-            result['CU'] = self.cu
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.billing_type is not None:
-            result['BillingType'] = self.billing_type
         return result
 
     def from_map(self, m=None):
@@ -12568,33 +13513,31 @@ class PutProjectRequest(TeaModel):
             self.project = m.get('Project')
         if m.get('ServiceRole') is not None:
             self.service_role = m.get('ServiceRole')
-        if m.get('CU') is not None:
-            self.cu = m.get('CU')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('BillingType') is not None:
-            self.billing_type = m.get('BillingType')
         return self
 
 
 class PutProjectResponseBody(TeaModel):
     def __init__(self, project=None, modify_time=None, type=None, cu=None, service_role=None, request_id=None,
                  endpoint=None, create_time=None, region_id=None, billing_type=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+        self.project = project  # type: str
+        self.modify_time = modify_time  # type: str
+        self.type = type  # type: str
         self.cu = cu  # type: int
-        self.service_role = TeaConverter.to_unicode(service_role)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.endpoint = TeaConverter.to_unicode(endpoint)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.billing_type = TeaConverter.to_unicode(billing_type)  # type: unicode
+        self.service_role = service_role  # type: str
+        self.request_id = request_id  # type: str
+        self.endpoint = endpoint  # type: str
+        self.create_time = create_time  # type: str
+        self.region_id = region_id  # type: str
+        self.billing_type = billing_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(PutProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12645,7 +13588,7 @@ class PutProjectResponseBody(TeaModel):
 
 class PutProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: PutProjectResponseBody
 
     def validate(self):
@@ -12655,6 +13598,10 @@ class PutProjectResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(PutProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12674,14 +13621,18 @@ class PutProjectResponse(TeaModel):
 
 class RefreshOfficeEditTokenRequest(TeaModel):
     def __init__(self, project=None, access_token=None, refresh_token=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
+        self.project = project  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token = refresh_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshOfficeEditTokenRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12703,49 +13654,53 @@ class RefreshOfficeEditTokenRequest(TeaModel):
 
 
 class RefreshOfficeEditTokenResponseBody(TeaModel):
-    def __init__(self, refresh_token=None, request_id=None, access_token=None, refresh_token_expired_time=None,
-                 access_token_expired_time=None):
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+    def __init__(self, request_id=None, access_token_expired_time=None, refresh_token=None, access_token=None,
+                 refresh_token_expired_time=None):
+        self.request_id = request_id  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
+        self.refresh_token = refresh_token  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshOfficeEditTokenResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.refresh_token is not None:
-            result['RefreshToken'] = self.refresh_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.access_token_expired_time is not None:
+            result['AccessTokenExpiredTime'] = self.access_token_expired_time
+        if self.refresh_token is not None:
+            result['RefreshToken'] = self.refresh_token
         if self.access_token is not None:
             result['AccessToken'] = self.access_token
         if self.refresh_token_expired_time is not None:
             result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
-        if self.access_token_expired_time is not None:
-            result['AccessTokenExpiredTime'] = self.access_token_expired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RefreshToken') is not None:
-            self.refresh_token = m.get('RefreshToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('AccessTokenExpiredTime') is not None:
+            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
+        if m.get('RefreshToken') is not None:
+            self.refresh_token = m.get('RefreshToken')
         if m.get('AccessToken') is not None:
             self.access_token = m.get('AccessToken')
         if m.get('RefreshTokenExpiredTime') is not None:
             self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
-        if m.get('AccessTokenExpiredTime') is not None:
-            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
         return self
 
 
 class RefreshOfficeEditTokenResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RefreshOfficeEditTokenResponseBody
 
     def validate(self):
@@ -12755,6 +13710,10 @@ class RefreshOfficeEditTokenResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RefreshOfficeEditTokenResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12774,14 +13733,18 @@ class RefreshOfficeEditTokenResponse(TeaModel):
 
 class RefreshOfficePreviewTokenRequest(TeaModel):
     def __init__(self, project=None, access_token=None, refresh_token=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
+        self.project = project  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token = refresh_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshOfficePreviewTokenRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12803,49 +13766,53 @@ class RefreshOfficePreviewTokenRequest(TeaModel):
 
 
 class RefreshOfficePreviewTokenResponseBody(TeaModel):
-    def __init__(self, refresh_token=None, request_id=None, access_token=None, refresh_token_expired_time=None,
-                 access_token_expired_time=None):
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+    def __init__(self, request_id=None, access_token_expired_time=None, refresh_token=None, access_token=None,
+                 refresh_token_expired_time=None):
+        self.request_id = request_id  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
+        self.refresh_token = refresh_token  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshOfficePreviewTokenResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.refresh_token is not None:
-            result['RefreshToken'] = self.refresh_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.access_token_expired_time is not None:
+            result['AccessTokenExpiredTime'] = self.access_token_expired_time
+        if self.refresh_token is not None:
+            result['RefreshToken'] = self.refresh_token
         if self.access_token is not None:
             result['AccessToken'] = self.access_token
         if self.refresh_token_expired_time is not None:
             result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
-        if self.access_token_expired_time is not None:
-            result['AccessTokenExpiredTime'] = self.access_token_expired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RefreshToken') is not None:
-            self.refresh_token = m.get('RefreshToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('AccessTokenExpiredTime') is not None:
+            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
+        if m.get('RefreshToken') is not None:
+            self.refresh_token = m.get('RefreshToken')
         if m.get('AccessToken') is not None:
             self.access_token = m.get('AccessToken')
         if m.get('RefreshTokenExpiredTime') is not None:
             self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
-        if m.get('AccessTokenExpiredTime') is not None:
-            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
         return self
 
 
 class RefreshOfficePreviewTokenResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RefreshOfficePreviewTokenResponseBody
 
     def validate(self):
@@ -12855,6 +13822,10 @@ class RefreshOfficePreviewTokenResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RefreshOfficePreviewTokenResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12874,14 +13845,18 @@ class RefreshOfficePreviewTokenResponse(TeaModel):
 
 class RefreshWebofficeTokenRequest(TeaModel):
     def __init__(self, project=None, access_token=None, refresh_token=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
+        self.project = project  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token = refresh_token  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshWebofficeTokenRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -12903,49 +13878,53 @@ class RefreshWebofficeTokenRequest(TeaModel):
 
 
 class RefreshWebofficeTokenResponseBody(TeaModel):
-    def __init__(self, refresh_token=None, request_id=None, access_token=None, refresh_token_expired_time=None,
-                 access_token_expired_time=None):
-        self.refresh_token = TeaConverter.to_unicode(refresh_token)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.access_token = TeaConverter.to_unicode(access_token)  # type: unicode
-        self.refresh_token_expired_time = TeaConverter.to_unicode(refresh_token_expired_time)  # type: unicode
-        self.access_token_expired_time = TeaConverter.to_unicode(access_token_expired_time)  # type: unicode
+    def __init__(self, request_id=None, access_token_expired_time=None, refresh_token=None, access_token=None,
+                 refresh_token_expired_time=None):
+        self.request_id = request_id  # type: str
+        self.access_token_expired_time = access_token_expired_time  # type: str
+        self.refresh_token = refresh_token  # type: str
+        self.access_token = access_token  # type: str
+        self.refresh_token_expired_time = refresh_token_expired_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(RefreshWebofficeTokenResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.refresh_token is not None:
-            result['RefreshToken'] = self.refresh_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.access_token_expired_time is not None:
+            result['AccessTokenExpiredTime'] = self.access_token_expired_time
+        if self.refresh_token is not None:
+            result['RefreshToken'] = self.refresh_token
         if self.access_token is not None:
             result['AccessToken'] = self.access_token
         if self.refresh_token_expired_time is not None:
             result['RefreshTokenExpiredTime'] = self.refresh_token_expired_time
-        if self.access_token_expired_time is not None:
-            result['AccessTokenExpiredTime'] = self.access_token_expired_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RefreshToken') is not None:
-            self.refresh_token = m.get('RefreshToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('AccessTokenExpiredTime') is not None:
+            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
+        if m.get('RefreshToken') is not None:
+            self.refresh_token = m.get('RefreshToken')
         if m.get('AccessToken') is not None:
             self.access_token = m.get('AccessToken')
         if m.get('RefreshTokenExpiredTime') is not None:
             self.refresh_token_expired_time = m.get('RefreshTokenExpiredTime')
-        if m.get('AccessTokenExpiredTime') is not None:
-            self.access_token_expired_time = m.get('AccessTokenExpiredTime')
         return self
 
 
 class RefreshWebofficeTokenResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: RefreshWebofficeTokenResponseBody
 
     def validate(self):
@@ -12955,6 +13934,10 @@ class RefreshWebofficeTokenResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(RefreshWebofficeTokenResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -12975,24 +13958,29 @@ class RefreshWebofficeTokenResponse(TeaModel):
 class UpdateFaceGroupRequest(TeaModel):
     def __init__(self, project=None, set_id=None, group_id=None, group_name=None, group_cover_face_id=None,
                  remarks_a=None, remarks_b=None, remarks_c=None, remarks_d=None, remarks_array_a=None, remarks_array_b=None,
-                 external_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
-        self.group_name = TeaConverter.to_unicode(group_name)  # type: unicode
-        self.group_cover_face_id = TeaConverter.to_unicode(group_cover_face_id)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
+                 external_id=None, reset_items=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.group_id = group_id  # type: str
+        self.group_name = group_name  # type: str
+        self.group_cover_face_id = group_cover_face_id  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.external_id = external_id  # type: str
+        self.reset_items = reset_items  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateFaceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -13018,6 +14006,8 @@ class UpdateFaceGroupRequest(TeaModel):
             result['RemarksArrayB'] = self.remarks_array_b
         if self.external_id is not None:
             result['ExternalId'] = self.external_id
+        if self.reset_items is not None:
+            result['ResetItems'] = self.reset_items
         return result
 
     def from_map(self, m=None):
@@ -13046,42 +14036,48 @@ class UpdateFaceGroupRequest(TeaModel):
             self.remarks_array_b = m.get('RemarksArrayB')
         if m.get('ExternalId') is not None:
             self.external_id = m.get('ExternalId')
+        if m.get('ResetItems') is not None:
+            self.reset_items = m.get('ResetItems')
         return self
 
 
 class UpdateFaceGroupResponseBody(TeaModel):
-    def __init__(self, request_id=None, set_id=None, group_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.group_id = TeaConverter.to_unicode(group_id)  # type: unicode
+    def __init__(self, request_id=None, group_id=None, set_id=None):
+        self.request_id = request_id  # type: str
+        self.group_id = group_id  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateFaceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.set_id is not None:
-            result['SetId'] = self.set_id
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.set_id is not None:
+            result['SetId'] = self.set_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('SetId') is not None:
-            self.set_id = m.get('SetId')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
         return self
 
 
 class UpdateFaceGroupResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateFaceGroupResponseBody
 
     def validate(self):
@@ -13091,6 +14087,10 @@ class UpdateFaceGroupResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpdateFaceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13108,28 +14108,65 @@ class UpdateFaceGroupResponse(TeaModel):
         return self
 
 
-class UpdateImageRequest(TeaModel):
-    def __init__(self, project=None, set_id=None, image_uri=None, remarks_a=None, remarks_b=None, source_type=None,
-                 source_uri=None, source_position=None, remarks_c=None, remarks_d=None, external_id=None, remarks_array_a=None,
-                 remarks_array_b=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
-        self.source_type = TeaConverter.to_unicode(source_type)  # type: unicode
-        self.source_uri = TeaConverter.to_unicode(source_uri)  # type: unicode
-        self.source_position = TeaConverter.to_unicode(source_position)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
+class UpdateImageRequestFaces(TeaModel):
+    def __init__(self, face_id=None, group_id=None):
+        self.face_id = face_id  # type: str
+        self.group_id = group_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateImageRequestFaces, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.face_id is not None:
+            result['FaceId'] = self.face_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FaceId') is not None:
+            self.face_id = m.get('FaceId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        return self
+
+
+class UpdateImageRequest(TeaModel):
+    def __init__(self, project=None, set_id=None, image_uri=None, remarks_a=None, remarks_b=None, source_type=None,
+                 source_uri=None, source_position=None, remarks_c=None, remarks_d=None, external_id=None, remarks_array_a=None,
+                 remarks_array_b=None, faces=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.source_type = source_type  # type: str
+        self.source_uri = source_uri  # type: str
+        self.source_position = source_position  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.external_id = external_id  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.faces = faces  # type: list[UpdateImageRequestFaces]
+
+    def validate(self):
+        if self.faces:
+            for k in self.faces:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -13157,6 +14194,10 @@ class UpdateImageRequest(TeaModel):
             result['RemarksArrayA'] = self.remarks_array_a
         if self.remarks_array_b is not None:
             result['RemarksArrayB'] = self.remarks_array_b
+        result['Faces'] = []
+        if self.faces is not None:
+            for k in self.faces:
+                result['Faces'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -13187,6 +14228,102 @@ class UpdateImageRequest(TeaModel):
             self.remarks_array_a = m.get('RemarksArrayA')
         if m.get('RemarksArrayB') is not None:
             self.remarks_array_b = m.get('RemarksArrayB')
+        self.faces = []
+        if m.get('Faces') is not None:
+            for k in m.get('Faces'):
+                temp_model = UpdateImageRequestFaces()
+                self.faces.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateImageShrinkRequest(TeaModel):
+    def __init__(self, project=None, set_id=None, image_uri=None, remarks_a=None, remarks_b=None, source_type=None,
+                 source_uri=None, source_position=None, remarks_c=None, remarks_d=None, external_id=None, remarks_array_a=None,
+                 remarks_array_b=None, faces_shrink=None):
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.image_uri = image_uri  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.remarks_b = remarks_b  # type: str
+        self.source_type = source_type  # type: str
+        self.source_uri = source_uri  # type: str
+        self.source_position = source_position  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.external_id = external_id  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.faces_shrink = faces_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateImageShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project is not None:
+            result['Project'] = self.project
+        if self.set_id is not None:
+            result['SetId'] = self.set_id
+        if self.image_uri is not None:
+            result['ImageUri'] = self.image_uri
+        if self.remarks_a is not None:
+            result['RemarksA'] = self.remarks_a
+        if self.remarks_b is not None:
+            result['RemarksB'] = self.remarks_b
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.source_uri is not None:
+            result['SourceUri'] = self.source_uri
+        if self.source_position is not None:
+            result['SourcePosition'] = self.source_position
+        if self.remarks_c is not None:
+            result['RemarksC'] = self.remarks_c
+        if self.remarks_d is not None:
+            result['RemarksD'] = self.remarks_d
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.remarks_array_a is not None:
+            result['RemarksArrayA'] = self.remarks_array_a
+        if self.remarks_array_b is not None:
+            result['RemarksArrayB'] = self.remarks_array_b
+        if self.faces_shrink is not None:
+            result['Faces'] = self.faces_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Project') is not None:
+            self.project = m.get('Project')
+        if m.get('SetId') is not None:
+            self.set_id = m.get('SetId')
+        if m.get('ImageUri') is not None:
+            self.image_uri = m.get('ImageUri')
+        if m.get('RemarksA') is not None:
+            self.remarks_a = m.get('RemarksA')
+        if m.get('RemarksB') is not None:
+            self.remarks_b = m.get('RemarksB')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('SourceUri') is not None:
+            self.source_uri = m.get('SourceUri')
+        if m.get('SourcePosition') is not None:
+            self.source_position = m.get('SourcePosition')
+        if m.get('RemarksC') is not None:
+            self.remarks_c = m.get('RemarksC')
+        if m.get('RemarksD') is not None:
+            self.remarks_d = m.get('RemarksD')
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('RemarksArrayA') is not None:
+            self.remarks_array_a = m.get('RemarksArrayA')
+        if m.get('RemarksArrayB') is not None:
+            self.remarks_array_b = m.get('RemarksArrayB')
+        if m.get('Faces') is not None:
+            self.faces_shrink = m.get('Faces')
         return self
 
 
@@ -13194,23 +14331,27 @@ class UpdateImageResponseBody(TeaModel):
     def __init__(self, remarks_array_b=None, modify_time=None, remarks_c=None, remarks_d=None, request_id=None,
                  create_time=None, external_id=None, remarks_array_a=None, remarks_a=None, image_uri=None, set_id=None,
                  remarks_b=None):
-        self.remarks_array_b = TeaConverter.to_unicode(remarks_array_b)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.remarks_c = TeaConverter.to_unicode(remarks_c)  # type: unicode
-        self.remarks_d = TeaConverter.to_unicode(remarks_d)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.external_id = TeaConverter.to_unicode(external_id)  # type: unicode
-        self.remarks_array_a = TeaConverter.to_unicode(remarks_array_a)  # type: unicode
-        self.remarks_a = TeaConverter.to_unicode(remarks_a)  # type: unicode
-        self.image_uri = TeaConverter.to_unicode(image_uri)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.remarks_b = TeaConverter.to_unicode(remarks_b)  # type: unicode
+        self.remarks_array_b = remarks_array_b  # type: str
+        self.modify_time = modify_time  # type: str
+        self.remarks_c = remarks_c  # type: str
+        self.remarks_d = remarks_d  # type: str
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
+        self.external_id = external_id  # type: str
+        self.remarks_array_a = remarks_array_a  # type: str
+        self.remarks_a = remarks_a  # type: str
+        self.image_uri = image_uri  # type: str
+        self.set_id = set_id  # type: str
+        self.remarks_b = remarks_b  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.remarks_array_b is not None:
             result['RemarksArrayB'] = self.remarks_array_b
@@ -13269,7 +14410,7 @@ class UpdateImageResponseBody(TeaModel):
 
 class UpdateImageResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateImageResponseBody
 
     def validate(self):
@@ -13279,6 +14420,10 @@ class UpdateImageResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpdateImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13298,14 +14443,18 @@ class UpdateImageResponse(TeaModel):
 
 class UpdateProjectRequest(TeaModel):
     def __init__(self, project=None, new_cu=None, new_service_role=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
+        self.project = project  # type: str
         self.new_cu = new_cu  # type: int
-        self.new_service_role = TeaConverter.to_unicode(new_service_role)  # type: unicode
+        self.new_service_role = new_service_role  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -13327,64 +14476,68 @@ class UpdateProjectRequest(TeaModel):
 
 
 class UpdateProjectResponseBody(TeaModel):
-    def __init__(self, project=None, modify_time=None, type=None, cu=None, service_role=None, request_id=None,
-                 create_time=None, region_id=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.type = TeaConverter.to_unicode(type)  # type: unicode
+    def __init__(self, type=None, request_id=None, cu=None, create_time=None, service_role=None, project=None,
+                 region_id=None, modify_time=None):
+        self.type = type  # type: str
+        self.request_id = request_id  # type: str
         self.cu = cu  # type: int
-        self.service_role = TeaConverter.to_unicode(service_role)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.service_role = service_role  # type: str
+        self.project = project  # type: str
+        self.region_id = region_id  # type: str
+        self.modify_time = modify_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.project is not None:
-            result['Project'] = self.project
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.type is not None:
             result['Type'] = self.type
-        if self.cu is not None:
-            result['CU'] = self.cu
-        if self.service_role is not None:
-            result['ServiceRole'] = self.service_role
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.cu is not None:
+            result['CU'] = self.cu
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.service_role is not None:
+            result['ServiceRole'] = self.service_role
+        if self.project is not None:
+            result['Project'] = self.project
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Project') is not None:
-            self.project = m.get('Project')
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('Type') is not None:
             self.type = m.get('Type')
-        if m.get('CU') is not None:
-            self.cu = m.get('CU')
-        if m.get('ServiceRole') is not None:
-            self.service_role = m.get('ServiceRole')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('CU') is not None:
+            self.cu = m.get('CU')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('ServiceRole') is not None:
+            self.service_role = m.get('ServiceRole')
+        if m.get('Project') is not None:
+            self.project = m.get('Project')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         return self
 
 
 class UpdateProjectResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateProjectResponseBody
 
     def validate(self):
@@ -13394,6 +14547,10 @@ class UpdateProjectResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpdateProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -13413,14 +14570,18 @@ class UpdateProjectResponse(TeaModel):
 
 class UpdateSetRequest(TeaModel):
     def __init__(self, project=None, set_id=None, set_name=None):
-        self.project = TeaConverter.to_unicode(project)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
+        self.project = project  # type: str
+        self.set_id = set_id  # type: str
+        self.set_name = set_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateSetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.project is not None:
             result['Project'] = self.project
@@ -13442,40 +14603,44 @@ class UpdateSetRequest(TeaModel):
 
 
 class UpdateSetResponseBody(TeaModel):
-    def __init__(self, modify_time=None, request_id=None, create_time=None, set_name=None, set_id=None):
-        self.modify_time = TeaConverter.to_unicode(modify_time)  # type: unicode
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.set_name = TeaConverter.to_unicode(set_name)  # type: unicode
-        self.set_id = TeaConverter.to_unicode(set_id)  # type: unicode
+    def __init__(self, request_id=None, create_time=None, set_name=None, modify_time=None, set_id=None):
+        self.request_id = request_id  # type: str
+        self.create_time = create_time  # type: str
+        self.set_name = set_name  # type: str
+        self.modify_time = modify_time  # type: str
+        self.set_id = set_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateSetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.modify_time is not None:
-            result['ModifyTime'] = self.modify_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.set_name is not None:
             result['SetName'] = self.set_name
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
         if self.set_id is not None:
             result['SetId'] = self.set_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ModifyTime') is not None:
-            self.modify_time = m.get('ModifyTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('SetName') is not None:
             self.set_name = m.get('SetName')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
         if m.get('SetId') is not None:
             self.set_id = m.get('SetId')
         return self
@@ -13483,7 +14648,7 @@ class UpdateSetResponseBody(TeaModel):
 
 class UpdateSetResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateSetResponseBody
 
     def validate(self):
@@ -13493,6 +14658,10 @@ class UpdateSetResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpdateSetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers

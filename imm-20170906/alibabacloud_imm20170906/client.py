@@ -2,12 +2,15 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_imm20170906 import models as imm_20170906_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -35,7 +38,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CompareImageFacesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CompareImageFacesResponse(),
             self.do_rpcrequest('CompareImageFaces', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -48,7 +52,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ConvertOfficeFormatResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ConvertOfficeFormatResponse(),
             self.do_rpcrequest('ConvertOfficeFormat', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -61,7 +66,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateGrabFrameTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateGrabFrameTaskResponse(),
             self.do_rpcrequest('CreateGrabFrameTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -74,7 +80,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateGroupFacesJobResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateGroupFacesJobResponse(),
             self.do_rpcrequest('CreateGroupFacesJob', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -87,7 +94,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateImageProcessTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateImageProcessTaskResponse(),
             self.do_rpcrequest('CreateImageProcessTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -100,7 +108,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateMediaComplexTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateMediaComplexTaskResponse(),
             self.do_rpcrequest('CreateMediaComplexTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -113,7 +122,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateMergeFaceGroupsJobResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateMergeFaceGroupsJobResponse(),
             self.do_rpcrequest('CreateMergeFaceGroupsJob', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -126,7 +136,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateOfficeConversionTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateOfficeConversionTaskResponse(),
             self.do_rpcrequest('CreateOfficeConversionTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -139,7 +150,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateSetResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateSetResponse(),
             self.do_rpcrequest('CreateSet', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -147,25 +159,13 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_set_with_options(request, runtime)
 
-    def create_stream_analyse_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return imm_20170906_models.CreateStreamAnalyseTaskResponse().from_map(
-            self.do_rpcrequest('CreateStreamAnalyseTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_stream_analyse_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_stream_analyse_task_with_options(request, runtime)
-
     def create_video_abstract_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateVideoAbstractTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateVideoAbstractTaskResponse(),
             self.do_rpcrequest('CreateVideoAbstractTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -178,7 +178,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateVideoAnalyseTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateVideoAnalyseTaskResponse(),
             self.do_rpcrequest('CreateVideoAnalyseTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -191,7 +192,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateVideoCompressTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateVideoCompressTaskResponse(),
             self.do_rpcrequest('CreateVideoCompressTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -204,7 +206,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.CreateVideoProduceTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.CreateVideoProduceTaskResponse(),
             self.do_rpcrequest('CreateVideoProduceTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -217,7 +220,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DecodeBlindWatermarkResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DecodeBlindWatermarkResponse(),
             self.do_rpcrequest('DecodeBlindWatermark', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -230,7 +234,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteImageResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteImageResponse(),
             self.do_rpcrequest('DeleteImage', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -243,7 +248,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteImageJobResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteImageJobResponse(),
             self.do_rpcrequest('DeleteImageJob', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -256,7 +262,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteOfficeConversionTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteOfficeConversionTaskResponse(),
             self.do_rpcrequest('DeleteOfficeConversionTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -269,7 +276,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteProjectResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteProjectResponse(),
             self.do_rpcrequest('DeleteProject', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -282,7 +290,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteSetResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteSetResponse(),
             self.do_rpcrequest('DeleteSet', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -295,7 +304,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteVideoResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteVideoResponse(),
             self.do_rpcrequest('DeleteVideo', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -308,7 +318,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DeleteVideoTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DeleteVideoTaskResponse(),
             self.do_rpcrequest('DeleteVideoTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -318,7 +329,8 @@ class Client(OpenApiClient):
 
     def describe_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
-        return imm_20170906_models.DescribeRegionsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DescribeRegionsResponse(),
             self.do_rpcrequest('DescribeRegions', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -331,7 +343,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectImageBodiesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectImageBodiesResponse(),
             self.do_rpcrequest('DetectImageBodies', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -344,7 +357,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectImageFacesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectImageFacesResponse(),
             self.do_rpcrequest('DetectImageFaces', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -357,7 +371,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectImageLogosResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectImageLogosResponse(),
             self.do_rpcrequest('DetectImageLogos', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -370,7 +385,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectImageQRCodesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectImageQRCodesResponse(),
             self.do_rpcrequest('DetectImageQRCodes', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -383,7 +399,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectImageTagsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectImageTagsResponse(),
             self.do_rpcrequest('DetectImageTags', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -396,7 +413,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.DetectQRCodesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.DetectQRCodesResponse(),
             self.do_rpcrequest('DetectQRCodes', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -409,7 +427,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.EncodeBlindWatermarkResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.EncodeBlindWatermarkResponse(),
             self.do_rpcrequest('EncodeBlindWatermark', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -422,7 +441,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.FindImagesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.FindImagesResponse(),
             self.do_rpcrequest('FindImages', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -435,7 +455,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.FindSimilarFacesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.FindSimilarFacesResponse(),
             self.do_rpcrequest('FindSimilarFaces', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -448,7 +469,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetContentKeyResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetContentKeyResponse(),
             self.do_rpcrequest('GetContentKey', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -461,7 +483,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetDRMLicenseResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetDRMLicenseResponse(),
             self.do_rpcrequest('GetDRMLicense', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -474,7 +497,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetImageResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetImageResponse(),
             self.do_rpcrequest('GetImage', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -487,7 +511,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetImageCroppingSuggestionsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetImageCroppingSuggestionsResponse(),
             self.do_rpcrequest('GetImageCroppingSuggestions', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -500,7 +525,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetImageQualityResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetImageQualityResponse(),
             self.do_rpcrequest('GetImageQuality', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -513,7 +539,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetMediaMetaResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetMediaMetaResponse(),
             self.do_rpcrequest('GetMediaMeta', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -526,7 +553,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetOfficeConversionTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetOfficeConversionTaskResponse(),
             self.do_rpcrequest('GetOfficeConversionTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -539,7 +567,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetOfficeEditURLResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetOfficeEditURLResponse(),
             self.do_rpcrequest('GetOfficeEditURL', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -552,7 +581,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetOfficePreviewURLResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetOfficePreviewURLResponse(),
             self.do_rpcrequest('GetOfficePreviewURL', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -565,7 +595,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetProjectResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetProjectResponse(),
             self.do_rpcrequest('GetProject', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -578,7 +609,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetSetResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetSetResponse(),
             self.do_rpcrequest('GetSet', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -591,7 +623,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetVideoResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetVideoResponse(),
             self.do_rpcrequest('GetVideo', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -604,7 +637,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetVideoTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetVideoTaskResponse(),
             self.do_rpcrequest('GetVideoTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -617,7 +651,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.GetWebofficeURLResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.GetWebofficeURLResponse(),
             self.do_rpcrequest('GetWebofficeURL', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -630,7 +665,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.IndexImageResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.IndexImageResponse(),
             self.do_rpcrequest('IndexImage', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -643,7 +679,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.IndexVideoResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.IndexVideoResponse(),
             self.do_rpcrequest('IndexVideo', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -656,7 +693,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListFaceGroupsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListFaceGroupsResponse(),
             self.do_rpcrequest('ListFaceGroups', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -669,7 +707,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListImagesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListImagesResponse(),
             self.do_rpcrequest('ListImages', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -682,7 +721,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListOfficeConversionTaskResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListOfficeConversionTaskResponse(),
             self.do_rpcrequest('ListOfficeConversionTask', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -695,7 +735,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListProjectAPIsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListProjectAPIsResponse(),
             self.do_rpcrequest('ListProjectAPIs', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -708,7 +749,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListProjectsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListProjectsResponse(),
             self.do_rpcrequest('ListProjects', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -721,7 +763,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListSetsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListSetsResponse(),
             self.do_rpcrequest('ListSets', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -734,7 +777,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListSetTagsResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListSetTagsResponse(),
             self.do_rpcrequest('ListSetTags', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -747,7 +791,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListVideoAudiosResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListVideoAudiosResponse(),
             self.do_rpcrequest('ListVideoAudios', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -760,7 +805,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListVideoFramesResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListVideoFramesResponse(),
             self.do_rpcrequest('ListVideoFrames', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -773,7 +819,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListVideosResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListVideosResponse(),
             self.do_rpcrequest('ListVideos', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -786,7 +833,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.ListVideoTasksResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.ListVideoTasksResponse(),
             self.do_rpcrequest('ListVideoTasks', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -799,7 +847,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.OpenImmServiceResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.OpenImmServiceResponse(),
             self.do_rpcrequest('OpenImmService', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -812,7 +861,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.PutProjectResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.PutProjectResponse(),
             self.do_rpcrequest('PutProject', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -825,7 +875,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.RefreshOfficeEditTokenResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.RefreshOfficeEditTokenResponse(),
             self.do_rpcrequest('RefreshOfficeEditToken', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -838,7 +889,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.RefreshOfficePreviewTokenResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.RefreshOfficePreviewTokenResponse(),
             self.do_rpcrequest('RefreshOfficePreviewToken', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -851,7 +903,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.RefreshWebofficeTokenResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.RefreshWebofficeTokenResponse(),
             self.do_rpcrequest('RefreshWebofficeToken', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -864,7 +917,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.UpdateFaceGroupResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.UpdateFaceGroupResponse(),
             self.do_rpcrequest('UpdateFaceGroup', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -872,12 +926,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_face_group_with_options(request, runtime)
 
-    def update_image_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def update_image_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imm_20170906_models.UpdateImageShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.faces):
+            request.faces_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.faces, 'Faces', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.UpdateImageResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.UpdateImageResponse(),
             self.do_rpcrequest('UpdateImage', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -890,7 +949,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.UpdateProjectResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.UpdateProjectResponse(),
             self.do_rpcrequest('UpdateProject', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -903,7 +963,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return imm_20170906_models.UpdateSetResponse().from_map(
+        return TeaCore.from_map(
+            imm_20170906_models.UpdateSetResponse(),
             self.do_rpcrequest('UpdateSet', '2017-09-06', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
