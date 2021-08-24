@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_tdsr20200101_py2.
 
-Created on 23/08/2021
+Created on 24/08/2021
 
 @author: Alibaba Cloud SDK
 """

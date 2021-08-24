@@ -4971,16 +4971,12 @@ class GetHotspotTagRequest(TeaModel):
 
 
 class GetHotspotTagResponseBody(TeaModel):
-    def __init__(self, request_id=None, code=None, success=None, message=None, data=None):
-        # 请求ID，与入参requestId对应
+    def __init__(self, request_id=None, object_string=None, data=None, err_message=None, success=None):
         self.request_id = request_id  # type: str
-        # 返回码
-        self.code = code  # type: long
-        # 是否请求成功
-        self.success = success  # type: bool
-        # 错误消息
-        self.message = message  # type: str
+        self.object_string = object_string  # type: str
         self.data = data  # type: str
+        self.err_message = err_message  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -4993,28 +4989,28 @@ class GetHotspotTagResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.success is not None:
-            result['Success'] = self.success
-        if self.message is not None:
-            result['Message'] = self.message
+        if self.object_string is not None:
+            result['ObjectString'] = self.object_string
         if self.data is not None:
             result['Data'] = self.data
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
+        if m.get('ObjectString') is not None:
+            self.object_string = m.get('ObjectString')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
