@@ -98,6 +98,29 @@ class Client(OpenApiClient):
             self.do_roarequest('CreateMergeRequest', '2020-04-14', 'HTTPS', 'POST', 'AK', '/api/v4/projects/%s/merge_requests' % TeaConverter.to_unicode(project_id), 'json', req, runtime)
         )
 
+    def delete_repository_member_with_extern_uid(self, project_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_repository_member_with_extern_uid_with_options(project_id, request, headers, runtime)
+
+    def delete_repository_member_with_extern_uid_with_options(self, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['AccessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['OrganizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.extern_user_id):
+            query['ExternUserId'] = request.extern_user_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            codeup_20200414_models.DeleteRepositoryMemberWithExternUidResponse(),
+            self.do_roarequest('DeleteRepositoryMemberWithExternUid', '2020-04-14', 'HTTPS', 'POST', 'AK', '/api/v4/projects/%s/members/remove' % TeaConverter.to_unicode(project_id), 'json', req, runtime)
+        )
+
     def delete_repository(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
