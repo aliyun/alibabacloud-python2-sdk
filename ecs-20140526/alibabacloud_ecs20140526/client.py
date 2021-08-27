@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -77,7 +79,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AcceptInquiredSystemEventResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AcceptInquiredSystemEventResponse(),
             self.do_rpcrequest('AcceptInquiredSystemEvent', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -90,7 +93,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ActivateRouterInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ActivateRouterInterfaceResponse(),
             self.do_rpcrequest('ActivateRouterInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -103,7 +107,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AddBandwidthPackageIpsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AddBandwidthPackageIpsResponse(),
             self.do_rpcrequest('AddBandwidthPackageIps', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -116,7 +121,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AddTagsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AddTagsResponse(),
             self.do_rpcrequest('AddTags', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -129,7 +135,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AllocateDedicatedHostsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AllocateDedicatedHostsResponse(),
             self.do_rpcrequest('AllocateDedicatedHosts', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -142,7 +149,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AllocateEipAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AllocateEipAddressResponse(),
             self.do_rpcrequest('AllocateEipAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -155,7 +163,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AllocatePublicIpAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AllocatePublicIpAddressResponse(),
             self.do_rpcrequest('AllocatePublicIpAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -168,7 +177,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ApplyAutoSnapshotPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ApplyAutoSnapshotPolicyResponse(),
             self.do_rpcrequest('ApplyAutoSnapshotPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -181,7 +191,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AssignIpv6AddressesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AssignIpv6AddressesResponse(),
             self.do_rpcrequest('AssignIpv6Addresses', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -194,7 +205,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AssignPrivateIpAddressesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AssignPrivateIpAddressesResponse(),
             self.do_rpcrequest('AssignPrivateIpAddresses', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -207,7 +219,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AssociateEipAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AssociateEipAddressResponse(),
             self.do_rpcrequest('AssociateEipAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -220,7 +233,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AssociateHaVipResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AssociateHaVipResponse(),
             self.do_rpcrequest('AssociateHaVip', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -233,7 +247,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AttachClassicLinkVpcResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AttachClassicLinkVpcResponse(),
             self.do_rpcrequest('AttachClassicLinkVpc', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -246,7 +261,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AttachDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AttachDiskResponse(),
             self.do_rpcrequest('AttachDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -259,7 +275,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AttachInstanceRamRoleResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AttachInstanceRamRoleResponse(),
             self.do_rpcrequest('AttachInstanceRamRole', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -272,7 +289,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AttachKeyPairResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AttachKeyPairResponse(),
             self.do_rpcrequest('AttachKeyPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -285,7 +303,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AttachNetworkInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AttachNetworkInterfaceResponse(),
             self.do_rpcrequest('AttachNetworkInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -298,7 +317,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AuthorizeSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AuthorizeSecurityGroupResponse(),
             self.do_rpcrequest('AuthorizeSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -311,7 +331,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.AuthorizeSecurityGroupEgressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.AuthorizeSecurityGroupEgressResponse(),
             self.do_rpcrequest('AuthorizeSecurityGroupEgress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -324,7 +345,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelAutoSnapshotPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelAutoSnapshotPolicyResponse(),
             self.do_rpcrequest('CancelAutoSnapshotPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -337,7 +359,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelCopyImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelCopyImageResponse(),
             self.do_rpcrequest('CancelCopyImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -350,7 +373,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelImagePipelineExecutionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelImagePipelineExecutionResponse(),
             self.do_rpcrequest('CancelImagePipelineExecution', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -363,7 +387,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelPhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelPhysicalConnectionResponse(),
             self.do_rpcrequest('CancelPhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -376,7 +401,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelSimulatedSystemEventsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelSimulatedSystemEventsResponse(),
             self.do_rpcrequest('CancelSimulatedSystemEvents', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -389,7 +415,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CancelTaskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CancelTaskResponse(),
             self.do_rpcrequest('CancelTask', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -402,7 +429,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ConnectRouterInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ConnectRouterInterfaceResponse(),
             self.do_rpcrequest('ConnectRouterInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -415,7 +443,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ConvertNatPublicIpToEipResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ConvertNatPublicIpToEipResponse(),
             self.do_rpcrequest('ConvertNatPublicIpToEip', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -428,7 +457,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CopyImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CopyImageResponse(),
             self.do_rpcrequest('CopyImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -441,7 +471,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CopySnapshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CopySnapshotResponse(),
             self.do_rpcrequest('CopySnapshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -454,7 +485,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateActivationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateActivationResponse(),
             self.do_rpcrequest('CreateActivation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -467,7 +499,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateAutoProvisioningGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateAutoProvisioningGroupResponse(),
             self.do_rpcrequest('CreateAutoProvisioningGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -480,7 +513,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateAutoSnapshotPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateAutoSnapshotPolicyResponse(),
             self.do_rpcrequest('CreateAutoSnapshotPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -493,7 +527,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateCapacityReservationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateCapacityReservationResponse(),
             self.do_rpcrequest('CreateCapacityReservation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -506,7 +541,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateCommandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateCommandResponse(),
             self.do_rpcrequest('CreateCommand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -514,12 +550,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_command_with_options(request, runtime)
 
+    def create_dedicated_block_storage_cluster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDedicatedBlockStorageClusterResponse(),
+            self.do_rpcrequest('CreateDedicatedBlockStorageCluster', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_dedicated_block_storage_cluster(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dedicated_block_storage_cluster_with_options(request, runtime)
+
     def create_dedicated_host_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateDedicatedHostClusterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDedicatedHostClusterResponse(),
             self.do_rpcrequest('CreateDedicatedHostCluster', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -532,7 +583,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateDemandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDemandResponse(),
             self.do_rpcrequest('CreateDemand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -545,7 +597,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateDeploymentSetResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDeploymentSetResponse(),
             self.do_rpcrequest('CreateDeploymentSet', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -558,7 +611,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDiskResponse(),
             self.do_rpcrequest('CreateDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -566,12 +620,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_disk_with_options(request, runtime)
 
+    def create_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateDiskReplicaPairResponse(),
+            self.do_rpcrequest('CreateDiskReplicaPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_disk_replica_pair_with_options(request, runtime)
+
     def create_elasticity_assurance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateElasticityAssuranceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateElasticityAssuranceResponse(),
             self.do_rpcrequest('CreateElasticityAssurance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -584,7 +653,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateForwardEntryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateForwardEntryResponse(),
             self.do_rpcrequest('CreateForwardEntry', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -597,7 +667,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateHaVipResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateHaVipResponse(),
             self.do_rpcrequest('CreateHaVip', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -610,7 +681,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateHpcClusterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateHpcClusterResponse(),
             self.do_rpcrequest('CreateHpcCluster', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -623,7 +695,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateImageResponse(),
             self.do_rpcrequest('CreateImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -636,7 +709,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateImageComponentResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateImageComponentResponse(),
             self.do_rpcrequest('CreateImageComponent', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -649,7 +723,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateImagePipelineResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateImagePipelineResponse(),
             self.do_rpcrequest('CreateImagePipeline', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -662,7 +737,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateInstanceResponse(),
             self.do_rpcrequest('CreateInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -675,7 +751,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateKeyPairResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateKeyPairResponse(),
             self.do_rpcrequest('CreateKeyPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -688,7 +765,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateLaunchTemplateResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateLaunchTemplateResponse(),
             self.do_rpcrequest('CreateLaunchTemplate', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -701,7 +779,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateLaunchTemplateVersionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateLaunchTemplateVersionResponse(),
             self.do_rpcrequest('CreateLaunchTemplateVersion', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -714,7 +793,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateNatGatewayResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateNatGatewayResponse(),
             self.do_rpcrequest('CreateNatGateway', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -727,7 +807,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateNetworkInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateNetworkInterfaceResponse(),
             self.do_rpcrequest('CreateNetworkInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -740,7 +821,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateNetworkInterfacePermissionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateNetworkInterfacePermissionResponse(),
             self.do_rpcrequest('CreateNetworkInterfacePermission', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -753,7 +835,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreatePhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreatePhysicalConnectionResponse(),
             self.do_rpcrequest('CreatePhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -761,12 +844,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_physical_connection_with_options(request, runtime)
 
+    def create_prefix_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.CreatePrefixListResponse(),
+            self.do_rpcrequest('CreatePrefixList', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_prefix_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_prefix_list_with_options(request, runtime)
+
     def create_resource_02with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateResource02Response().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateResource02Response(),
             self.do_rpcrequest('CreateResource02', '2014-05-26', 'HTTPS', 'PUT', 'AK', 'json', req, runtime)
         )
 
@@ -779,7 +877,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateRouteEntryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateRouteEntryResponse(),
             self.do_rpcrequest('CreateRouteEntry', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -792,7 +891,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateRouterInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateRouterInterfaceResponse(),
             self.do_rpcrequest('CreateRouterInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -805,7 +905,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateSecurityGroupResponse(),
             self.do_rpcrequest('CreateSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -818,7 +919,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateSimulatedSystemEventsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateSimulatedSystemEventsResponse(),
             self.do_rpcrequest('CreateSimulatedSystemEvents', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -831,7 +933,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateSnapshotResponse(),
             self.do_rpcrequest('CreateSnapshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -844,7 +947,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateSnapshotGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateSnapshotGroupResponse(),
             self.do_rpcrequest('CreateSnapshotGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -857,7 +961,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateStorageSetResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateStorageSetResponse(),
             self.do_rpcrequest('CreateStorageSet', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -870,7 +975,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateVirtualBorderRouterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateVirtualBorderRouterResponse(),
             self.do_rpcrequest('CreateVirtualBorderRouter', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -883,7 +989,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateVpcResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateVpcResponse(),
             self.do_rpcrequest('CreateVpc', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -896,7 +1003,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.CreateVSwitchResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.CreateVSwitchResponse(),
             self.do_rpcrequest('CreateVSwitch', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -909,7 +1017,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeactivateRouterInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeactivateRouterInterfaceResponse(),
             self.do_rpcrequest('DeactivateRouterInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -922,7 +1031,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteActivationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteActivationResponse(),
             self.do_rpcrequest('DeleteActivation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -935,7 +1045,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteAutoProvisioningGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteAutoProvisioningGroupResponse(),
             self.do_rpcrequest('DeleteAutoProvisioningGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -948,7 +1059,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteAutoSnapshotPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteAutoSnapshotPolicyResponse(),
             self.do_rpcrequest('DeleteAutoSnapshotPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -961,7 +1073,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteBandwidthPackageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteBandwidthPackageResponse(),
             self.do_rpcrequest('DeleteBandwidthPackage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -974,7 +1087,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteCommandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteCommandResponse(),
             self.do_rpcrequest('DeleteCommand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -987,7 +1101,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteDedicatedHostClusterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteDedicatedHostClusterResponse(),
             self.do_rpcrequest('DeleteDedicatedHostCluster', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1000,7 +1115,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteDemandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteDemandResponse(),
             self.do_rpcrequest('DeleteDemand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1013,7 +1129,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteDeploymentSetResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteDeploymentSetResponse(),
             self.do_rpcrequest('DeleteDeploymentSet', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1026,7 +1143,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteDiskResponse(),
             self.do_rpcrequest('DeleteDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1034,12 +1152,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_disk_with_options(request, runtime)
 
+    def delete_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteDiskReplicaPairResponse(),
+            self.do_rpcrequest('DeleteDiskReplicaPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_disk_replica_pair_with_options(request, runtime)
+
     def delete_forward_entry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteForwardEntryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteForwardEntryResponse(),
             self.do_rpcrequest('DeleteForwardEntry', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1052,7 +1185,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteHaVipResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteHaVipResponse(),
             self.do_rpcrequest('DeleteHaVip', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1065,7 +1199,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteHpcClusterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteHpcClusterResponse(),
             self.do_rpcrequest('DeleteHpcCluster', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1078,7 +1213,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteImageResponse(),
             self.do_rpcrequest('DeleteImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1091,7 +1227,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteImageComponentResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteImageComponentResponse(),
             self.do_rpcrequest('DeleteImageComponent', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1104,7 +1241,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteImagePipelineResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteImagePipelineResponse(),
             self.do_rpcrequest('DeleteImagePipeline', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1117,7 +1255,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteInstanceResponse(),
             self.do_rpcrequest('DeleteInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1130,7 +1269,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteInstancesResponse(),
             self.do_rpcrequest('DeleteInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1143,7 +1283,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteKeyPairsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteKeyPairsResponse(),
             self.do_rpcrequest('DeleteKeyPairs', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1156,7 +1297,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteLaunchTemplateResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteLaunchTemplateResponse(),
             self.do_rpcrequest('DeleteLaunchTemplate', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1169,7 +1311,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteLaunchTemplateVersionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteLaunchTemplateVersionResponse(),
             self.do_rpcrequest('DeleteLaunchTemplateVersion', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1182,7 +1325,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteNatGatewayResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteNatGatewayResponse(),
             self.do_rpcrequest('DeleteNatGateway', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1195,7 +1339,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteNetworkInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteNetworkInterfaceResponse(),
             self.do_rpcrequest('DeleteNetworkInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1208,7 +1353,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteNetworkInterfacePermissionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteNetworkInterfacePermissionResponse(),
             self.do_rpcrequest('DeleteNetworkInterfacePermission', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1221,7 +1367,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeletePhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeletePhysicalConnectionResponse(),
             self.do_rpcrequest('DeletePhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1229,12 +1376,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_physical_connection_with_options(request, runtime)
 
+    def delete_prefix_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DeletePrefixListResponse(),
+            self.do_rpcrequest('DeletePrefixList', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_prefix_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_prefix_list_with_options(request, runtime)
+
+    def delete_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteReplicaPairResponse(),
+            self.do_rpcrequest('DeleteReplicaPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_replica_pair_with_options(request, runtime)
+
     def delete_route_entry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteRouteEntryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteRouteEntryResponse(),
             self.do_rpcrequest('DeleteRouteEntry', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1247,7 +1423,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteRouterInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteRouterInterfaceResponse(),
             self.do_rpcrequest('DeleteRouterInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1260,7 +1437,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteSecurityGroupResponse(),
             self.do_rpcrequest('DeleteSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1273,7 +1451,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteSnapshotResponse(),
             self.do_rpcrequest('DeleteSnapshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1286,7 +1465,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteSnapshotGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteSnapshotGroupResponse(),
             self.do_rpcrequest('DeleteSnapshotGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1299,7 +1479,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteStorageSetResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteStorageSetResponse(),
             self.do_rpcrequest('DeleteStorageSet', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1312,7 +1493,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteVirtualBorderRouterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteVirtualBorderRouterResponse(),
             self.do_rpcrequest('DeleteVirtualBorderRouter', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1325,7 +1507,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteVpcResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteVpcResponse(),
             self.do_rpcrequest('DeleteVpc', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1338,7 +1521,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeleteVSwitchResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeleteVSwitchResponse(),
             self.do_rpcrequest('DeleteVSwitch', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1351,7 +1535,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DeregisterManagedInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DeregisterManagedInstanceResponse(),
             self.do_rpcrequest('DeregisterManagedInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1364,7 +1549,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAccessPointsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAccessPointsResponse(),
             self.do_rpcrequest('DescribeAccessPoints', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1377,7 +1563,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAccountAttributesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAccountAttributesResponse(),
             self.do_rpcrequest('DescribeAccountAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1390,7 +1577,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeActivationsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeActivationsResponse(),
             self.do_rpcrequest('DescribeActivations', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1403,7 +1591,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAutoProvisioningGroupHistoryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAutoProvisioningGroupHistoryResponse(),
             self.do_rpcrequest('DescribeAutoProvisioningGroupHistory', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1416,7 +1605,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAutoProvisioningGroupInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAutoProvisioningGroupInstancesResponse(),
             self.do_rpcrequest('DescribeAutoProvisioningGroupInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1429,7 +1619,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAutoProvisioningGroupsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAutoProvisioningGroupsResponse(),
             self.do_rpcrequest('DescribeAutoProvisioningGroups', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1442,7 +1633,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAutoSnapshotPolicyExResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAutoSnapshotPolicyExResponse(),
             self.do_rpcrequest('DescribeAutoSnapshotPolicyEx', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1455,7 +1647,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeAvailableResourceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeAvailableResourceResponse(),
             self.do_rpcrequest('DescribeAvailableResource', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1468,7 +1661,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeBandwidthLimitationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeBandwidthLimitationResponse(),
             self.do_rpcrequest('DescribeBandwidthLimitation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1481,7 +1675,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeBandwidthPackagesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeBandwidthPackagesResponse(),
             self.do_rpcrequest('DescribeBandwidthPackages', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1494,7 +1689,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeCapacityReservationInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeCapacityReservationInstancesResponse(),
             self.do_rpcrequest('DescribeCapacityReservationInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1507,7 +1703,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeCapacityReservationsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeCapacityReservationsResponse(),
             self.do_rpcrequest('DescribeCapacityReservations', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1520,7 +1717,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeClassicLinkInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeClassicLinkInstancesResponse(),
             self.do_rpcrequest('DescribeClassicLinkInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1533,7 +1731,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeCloudAssistantStatusResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeCloudAssistantStatusResponse(),
             self.do_rpcrequest('DescribeCloudAssistantStatus', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1546,7 +1745,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeClustersResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeClustersResponse(),
             self.do_rpcrequest('DescribeClusters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1559,7 +1759,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeCommandsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeCommandsResponse(),
             self.do_rpcrequest('DescribeCommands', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1567,12 +1768,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_commands_with_options(request, runtime)
 
+    def describe_dedicated_block_storage_clusters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDedicatedBlockStorageClustersResponse(),
+            self.do_rpcrequest('DescribeDedicatedBlockStorageClusters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dedicated_block_storage_clusters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dedicated_block_storage_clusters_with_options(request, runtime)
+
     def describe_dedicated_host_auto_renew_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDedicatedHostAutoRenewResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDedicatedHostAutoRenewResponse(),
             self.do_rpcrequest('DescribeDedicatedHostAutoRenew', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1585,7 +1801,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDedicatedHostClustersResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDedicatedHostClustersResponse(),
             self.do_rpcrequest('DescribeDedicatedHostClusters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1598,7 +1815,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDedicatedHostsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDedicatedHostsResponse(),
             self.do_rpcrequest('DescribeDedicatedHosts', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1611,7 +1829,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDedicatedHostTypesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDedicatedHostTypesResponse(),
             self.do_rpcrequest('DescribeDedicatedHostTypes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1624,7 +1843,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDemandsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDemandsResponse(),
             self.do_rpcrequest('DescribeDemands', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1637,7 +1857,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDeploymentSetsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDeploymentSetsResponse(),
             self.do_rpcrequest('DescribeDeploymentSets', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1650,7 +1871,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDeploymentSetSupportedInstanceTypeFamilyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDeploymentSetSupportedInstanceTypeFamilyResponse(),
             self.do_rpcrequest('DescribeDeploymentSetSupportedInstanceTypeFamily', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1663,7 +1885,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDiskMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDiskMonitorDataResponse(),
             self.do_rpcrequest('DescribeDiskMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1671,12 +1894,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_monitor_data_with_options(request, runtime)
 
+    def describe_disk_replica_pairs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDiskReplicaPairsResponse(),
+            self.do_rpcrequest('DescribeDiskReplicaPairs', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_disk_replica_pairs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_disk_replica_pairs_with_options(request, runtime)
+
     def describe_disks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDisksResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDisksResponse(),
             self.do_rpcrequest('DescribeDisks', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1689,7 +1927,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeDisksFullStatusResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeDisksFullStatusResponse(),
             self.do_rpcrequest('DescribeDisksFullStatus', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1702,7 +1941,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeEipAddressesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeEipAddressesResponse(),
             self.do_rpcrequest('DescribeEipAddresses', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1715,7 +1955,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeEipMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeEipMonitorDataResponse(),
             self.do_rpcrequest('DescribeEipMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1728,7 +1969,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeElasticityAssuranceInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeElasticityAssuranceInstancesResponse(),
             self.do_rpcrequest('DescribeElasticityAssuranceInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1741,7 +1983,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeElasticityAssurancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeElasticityAssurancesResponse(),
             self.do_rpcrequest('DescribeElasticityAssurances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1754,7 +1997,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeEniMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeEniMonitorDataResponse(),
             self.do_rpcrequest('DescribeEniMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1767,7 +2011,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeForwardTableEntriesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeForwardTableEntriesResponse(),
             self.do_rpcrequest('DescribeForwardTableEntries', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1780,7 +2025,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeHaVipsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeHaVipsResponse(),
             self.do_rpcrequest('DescribeHaVips', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1793,7 +2039,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeHpcClustersResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeHpcClustersResponse(),
             self.do_rpcrequest('DescribeHpcClusters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1806,7 +2053,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImageComponentsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImageComponentsResponse(),
             self.do_rpcrequest('DescribeImageComponents', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1819,7 +2067,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImageFromFamilyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImageFromFamilyResponse(),
             self.do_rpcrequest('DescribeImageFromFamily', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1832,7 +2081,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImagePipelineExecutionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImagePipelineExecutionsResponse(),
             self.do_rpcrequest('DescribeImagePipelineExecutions', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1845,7 +2095,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImagePipelinesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImagePipelinesResponse(),
             self.do_rpcrequest('DescribeImagePipelines', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1858,7 +2109,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImagesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImagesResponse(),
             self.do_rpcrequest('DescribeImages', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1871,7 +2123,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImageSharePermissionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImageSharePermissionResponse(),
             self.do_rpcrequest('DescribeImageSharePermission', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1884,7 +2137,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeImageSupportInstanceTypesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeImageSupportInstanceTypesResponse(),
             self.do_rpcrequest('DescribeImageSupportInstanceTypes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1897,7 +2151,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceAttachmentAttributesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceAttachmentAttributesResponse(),
             self.do_rpcrequest('DescribeInstanceAttachmentAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1910,7 +2165,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceAttributeResponse(),
             self.do_rpcrequest('DescribeInstanceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1923,7 +2179,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceAutoRenewAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceAutoRenewAttributeResponse(),
             self.do_rpcrequest('DescribeInstanceAutoRenewAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1936,7 +2193,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceHistoryEventsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceHistoryEventsResponse(),
             self.do_rpcrequest('DescribeInstanceHistoryEvents', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1949,7 +2207,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceMaintenanceAttributesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceMaintenanceAttributesResponse(),
             self.do_rpcrequest('DescribeInstanceMaintenanceAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1962,7 +2221,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceModificationPriceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceModificationPriceResponse(),
             self.do_rpcrequest('DescribeInstanceModificationPrice', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1975,7 +2235,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceMonitorDataResponse(),
             self.do_rpcrequest('DescribeInstanceMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -1988,7 +2249,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceRamRoleResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceRamRoleResponse(),
             self.do_rpcrequest('DescribeInstanceRamRole', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2001,7 +2263,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstancesResponse(),
             self.do_rpcrequest('DescribeInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2014,7 +2277,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstancesFullStatusResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstancesFullStatusResponse(),
             self.do_rpcrequest('DescribeInstancesFullStatus', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2027,7 +2291,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceStatusResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceStatusResponse(),
             self.do_rpcrequest('DescribeInstanceStatus', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2040,7 +2305,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceTopologyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceTopologyResponse(),
             self.do_rpcrequest('DescribeInstanceTopology', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2053,7 +2319,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceTypeFamiliesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceTypeFamiliesResponse(),
             self.do_rpcrequest('DescribeInstanceTypeFamilies', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2066,7 +2333,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceTypesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceTypesResponse(),
             self.do_rpcrequest('DescribeInstanceTypes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2079,7 +2347,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceVncPasswdResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceVncPasswdResponse(),
             self.do_rpcrequest('DescribeInstanceVncPasswd', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2092,7 +2361,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInstanceVncUrlResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInstanceVncUrlResponse(),
             self.do_rpcrequest('DescribeInstanceVncUrl', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2105,7 +2375,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInvocationResultsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInvocationResultsResponse(),
             self.do_rpcrequest('DescribeInvocationResults', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2118,7 +2389,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeInvocationsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeInvocationsResponse(),
             self.do_rpcrequest('DescribeInvocations', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2131,7 +2403,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeKeyPairsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeKeyPairsResponse(),
             self.do_rpcrequest('DescribeKeyPairs', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2144,7 +2417,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeLaunchTemplatesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeLaunchTemplatesResponse(),
             self.do_rpcrequest('DescribeLaunchTemplates', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2157,7 +2431,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeLaunchTemplateVersionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeLaunchTemplateVersionsResponse(),
             self.do_rpcrequest('DescribeLaunchTemplateVersions', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2170,7 +2445,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeLimitationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeLimitationResponse(),
             self.do_rpcrequest('DescribeLimitation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2183,7 +2459,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeManagedInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeManagedInstancesResponse(),
             self.do_rpcrequest('DescribeManagedInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2196,7 +2473,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeNatGatewaysResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeNatGatewaysResponse(),
             self.do_rpcrequest('DescribeNatGateways', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2209,7 +2487,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeNetworkInterfaceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeNetworkInterfaceAttributeResponse(),
             self.do_rpcrequest('DescribeNetworkInterfaceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2222,7 +2501,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeNetworkInterfacePermissionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeNetworkInterfacePermissionsResponse(),
             self.do_rpcrequest('DescribeNetworkInterfacePermissions', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2235,7 +2515,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeNetworkInterfacesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeNetworkInterfacesResponse(),
             self.do_rpcrequest('DescribeNetworkInterfaces', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2248,7 +2529,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeNewProjectEipMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeNewProjectEipMonitorDataResponse(),
             self.do_rpcrequest('DescribeNewProjectEipMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2261,7 +2543,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribePhysicalConnectionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribePhysicalConnectionsResponse(),
             self.do_rpcrequest('DescribePhysicalConnections', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2269,12 +2552,55 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_physical_connections_with_options(request, runtime)
 
+    def describe_prefix_list_associations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribePrefixListAssociationsResponse(),
+            self.do_rpcrequest('DescribePrefixListAssociations', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_prefix_list_associations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_prefix_list_associations_with_options(request, runtime)
+
+    def describe_prefix_list_attributes_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribePrefixListAttributesResponse(),
+            self.do_rpcrequest('DescribePrefixListAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_prefix_list_attributes(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_prefix_list_attributes_with_options(request, runtime)
+
+    def describe_prefix_lists_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribePrefixListsResponse(),
+            self.do_rpcrequest('DescribePrefixLists', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_prefix_lists(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_prefix_lists_with_options(request, runtime)
+
     def describe_price_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribePriceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribePriceResponse(),
             self.do_rpcrequest('DescribePrice', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2287,7 +2613,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeRecommendInstanceTypeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeRecommendInstanceTypeResponse(),
             self.do_rpcrequest('DescribeRecommendInstanceType', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2300,7 +2627,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeRegionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeRegionsResponse(),
             self.do_rpcrequest('DescribeRegions', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2313,7 +2641,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeRenewalPriceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeRenewalPriceResponse(),
             self.do_rpcrequest('DescribeRenewalPrice', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2326,7 +2655,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeReservedInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeReservedInstancesResponse(),
             self.do_rpcrequest('DescribeReservedInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2339,7 +2669,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeResourceByTagsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeResourceByTagsResponse(),
             self.do_rpcrequest('DescribeResourceByTags', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2352,7 +2683,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeResourcesModificationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeResourcesModificationResponse(),
             self.do_rpcrequest('DescribeResourcesModification', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2365,7 +2697,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeRouterInterfacesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeRouterInterfacesResponse(),
             self.do_rpcrequest('DescribeRouterInterfaces', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2378,7 +2711,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeRouteTablesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeRouteTablesResponse(),
             self.do_rpcrequest('DescribeRouteTables', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2391,7 +2725,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSecurityGroupAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSecurityGroupAttributeResponse(),
             self.do_rpcrequest('DescribeSecurityGroupAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2404,7 +2739,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSecurityGroupReferencesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSecurityGroupReferencesResponse(),
             self.do_rpcrequest('DescribeSecurityGroupReferences', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2417,7 +2753,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSecurityGroupsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSecurityGroupsResponse(),
             self.do_rpcrequest('DescribeSecurityGroups', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2430,7 +2767,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSendFileResultsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSendFileResultsResponse(),
             self.do_rpcrequest('DescribeSendFileResults', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2443,7 +2781,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotGroupsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotGroupsResponse(),
             self.do_rpcrequest('DescribeSnapshotGroups', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2456,7 +2795,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotLinksResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotLinksResponse(),
             self.do_rpcrequest('DescribeSnapshotLinks', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2469,7 +2809,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotMonitorDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotMonitorDataResponse(),
             self.do_rpcrequest('DescribeSnapshotMonitorData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2482,7 +2823,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotPackageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotPackageResponse(),
             self.do_rpcrequest('DescribeSnapshotPackage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2495,7 +2837,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotsResponse(),
             self.do_rpcrequest('DescribeSnapshots', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2508,7 +2851,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSnapshotsUsageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSnapshotsUsageResponse(),
             self.do_rpcrequest('DescribeSnapshotsUsage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2521,7 +2865,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSpotAdviceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSpotAdviceResponse(),
             self.do_rpcrequest('DescribeSpotAdvice', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2534,7 +2879,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeSpotPriceHistoryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeSpotPriceHistoryResponse(),
             self.do_rpcrequest('DescribeSpotPriceHistory', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2547,7 +2893,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeStorageCapacityUnitsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeStorageCapacityUnitsResponse(),
             self.do_rpcrequest('DescribeStorageCapacityUnits', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2560,7 +2907,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeStorageSetDetailsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeStorageSetDetailsResponse(),
             self.do_rpcrequest('DescribeStorageSetDetails', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2573,7 +2921,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeStorageSetsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeStorageSetsResponse(),
             self.do_rpcrequest('DescribeStorageSets', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2586,7 +2935,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeTagsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeTagsResponse(),
             self.do_rpcrequest('DescribeTags', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2599,7 +2949,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeTaskAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeTaskAttributeResponse(),
             self.do_rpcrequest('DescribeTaskAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2612,7 +2963,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeTasksResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeTasksResponse(),
             self.do_rpcrequest('DescribeTasks', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2625,7 +2977,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeUserBusinessBehaviorResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeUserBusinessBehaviorResponse(),
             self.do_rpcrequest('DescribeUserBusinessBehavior', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2638,7 +2991,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeUserDataResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeUserDataResponse(),
             self.do_rpcrequest('DescribeUserData', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2651,7 +3005,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeVirtualBorderRoutersResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeVirtualBorderRoutersResponse(),
             self.do_rpcrequest('DescribeVirtualBorderRouters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2664,7 +3019,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeVirtualBorderRoutersForPhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeVirtualBorderRoutersForPhysicalConnectionResponse(),
             self.do_rpcrequest('DescribeVirtualBorderRoutersForPhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2677,7 +3033,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeVpcsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeVpcsResponse(),
             self.do_rpcrequest('DescribeVpcs', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2690,7 +3047,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeVRoutersResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeVRoutersResponse(),
             self.do_rpcrequest('DescribeVRouters', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2703,7 +3061,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeVSwitchesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeVSwitchesResponse(),
             self.do_rpcrequest('DescribeVSwitches', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2716,7 +3075,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DescribeZonesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DescribeZonesResponse(),
             self.do_rpcrequest('DescribeZones', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2729,7 +3089,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DetachClassicLinkVpcResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DetachClassicLinkVpcResponse(),
             self.do_rpcrequest('DetachClassicLinkVpc', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2742,7 +3103,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DetachDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DetachDiskResponse(),
             self.do_rpcrequest('DetachDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2755,7 +3117,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DetachInstanceRamRoleResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DetachInstanceRamRoleResponse(),
             self.do_rpcrequest('DetachInstanceRamRole', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2768,7 +3131,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DetachKeyPairResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DetachKeyPairResponse(),
             self.do_rpcrequest('DetachKeyPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2781,7 +3145,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DetachNetworkInterfaceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DetachNetworkInterfaceResponse(),
             self.do_rpcrequest('DetachNetworkInterface', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2794,7 +3159,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.DisableActivationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.DisableActivationResponse(),
             self.do_rpcrequest('DisableActivation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2807,7 +3173,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.EipFillParamsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.EipFillParamsResponse(),
             self.do_rpcrequest('EipFillParams', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2820,7 +3187,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.EipFillProductResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.EipFillProductResponse(),
             self.do_rpcrequest('EipFillProduct', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2833,7 +3201,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.EipNotifyPaidResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.EipNotifyPaidResponse(),
             self.do_rpcrequest('EipNotifyPaid', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2846,7 +3215,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.EnablePhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.EnablePhysicalConnectionResponse(),
             self.do_rpcrequest('EnablePhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2859,7 +3229,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ExportImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ExportImageResponse(),
             self.do_rpcrequest('ExportImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2872,7 +3243,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ExportSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ExportSnapshotResponse(),
             self.do_rpcrequest('ExportSnapshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2885,7 +3257,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.GetInstanceConsoleOutputResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.GetInstanceConsoleOutputResponse(),
             self.do_rpcrequest('GetInstanceConsoleOutput', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2898,7 +3271,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.GetInstanceScreenshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.GetInstanceScreenshotResponse(),
             self.do_rpcrequest('GetInstanceScreenshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2911,7 +3285,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ImportImageResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ImportImageResponse(),
             self.do_rpcrequest('ImportImage', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2924,7 +3299,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ImportKeyPairResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ImportKeyPairResponse(),
             self.do_rpcrequest('ImportKeyPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2937,7 +3313,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ImportSnapshotResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ImportSnapshotResponse(),
             self.do_rpcrequest('ImportSnapshot', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2950,7 +3327,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.InstallCloudAssistantResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.InstallCloudAssistantResponse(),
             self.do_rpcrequest('InstallCloudAssistant', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2967,7 +3345,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.InvokeCommandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.InvokeCommandResponse(),
             self.do_rpcrequest('InvokeCommand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2980,7 +3359,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.JoinResourceGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.JoinResourceGroupResponse(),
             self.do_rpcrequest('JoinResourceGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -2993,7 +3373,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.JoinSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.JoinSecurityGroupResponse(),
             self.do_rpcrequest('JoinSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3006,7 +3387,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.LeaveSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.LeaveSecurityGroupResponse(),
             self.do_rpcrequest('LeaveSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3019,7 +3401,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ListTagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ListTagResourcesResponse(),
             self.do_rpcrequest('ListTagResources', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3032,7 +3415,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyAutoProvisioningGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyAutoProvisioningGroupResponse(),
             self.do_rpcrequest('ModifyAutoProvisioningGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3045,7 +3429,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyAutoSnapshotPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyAutoSnapshotPolicyResponse(),
             self.do_rpcrequest('ModifyAutoSnapshotPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3058,7 +3443,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyAutoSnapshotPolicyExResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyAutoSnapshotPolicyExResponse(),
             self.do_rpcrequest('ModifyAutoSnapshotPolicyEx', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3071,7 +3457,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyBandwidthPackageSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyBandwidthPackageSpecResponse(),
             self.do_rpcrequest('ModifyBandwidthPackageSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3084,7 +3471,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyCapacityReservationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyCapacityReservationResponse(),
             self.do_rpcrequest('ModifyCapacityReservation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3097,7 +3485,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyCommandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyCommandResponse(),
             self.do_rpcrequest('ModifyCommand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3110,7 +3499,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDedicatedHostAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDedicatedHostAttributeResponse(),
             self.do_rpcrequest('ModifyDedicatedHostAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3123,7 +3513,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDedicatedHostAutoReleaseTimeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDedicatedHostAutoReleaseTimeResponse(),
             self.do_rpcrequest('ModifyDedicatedHostAutoReleaseTime', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3136,7 +3527,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDedicatedHostAutoRenewAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDedicatedHostAutoRenewAttributeResponse(),
             self.do_rpcrequest('ModifyDedicatedHostAutoRenewAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3149,7 +3541,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDedicatedHostClusterAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDedicatedHostClusterAttributeResponse(),
             self.do_rpcrequest('ModifyDedicatedHostClusterAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3162,7 +3555,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDedicatedHostsChargeTypeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDedicatedHostsChargeTypeResponse(),
             self.do_rpcrequest('ModifyDedicatedHostsChargeType', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3175,7 +3569,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDemandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDemandResponse(),
             self.do_rpcrequest('ModifyDemand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3188,7 +3583,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDeploymentSetAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDeploymentSetAttributeResponse(),
             self.do_rpcrequest('ModifyDeploymentSetAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3201,7 +3597,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDiskAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDiskAttributeResponse(),
             self.do_rpcrequest('ModifyDiskAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3214,7 +3611,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDiskChargeTypeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDiskChargeTypeResponse(),
             self.do_rpcrequest('ModifyDiskChargeType', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3227,7 +3625,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyDiskSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyDiskSpecResponse(),
             self.do_rpcrequest('ModifyDiskSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3240,7 +3639,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyEipAddressAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyEipAddressAttributeResponse(),
             self.do_rpcrequest('ModifyEipAddressAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3253,7 +3653,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyElasticityAssuranceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyElasticityAssuranceResponse(),
             self.do_rpcrequest('ModifyElasticityAssurance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3266,7 +3667,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyForwardEntryResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyForwardEntryResponse(),
             self.do_rpcrequest('ModifyForwardEntry', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3279,7 +3681,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyHaVipAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyHaVipAttributeResponse(),
             self.do_rpcrequest('ModifyHaVipAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3292,7 +3695,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyHpcClusterAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyHpcClusterAttributeResponse(),
             self.do_rpcrequest('ModifyHpcClusterAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3305,7 +3709,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyImageAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyImageAttributeResponse(),
             self.do_rpcrequest('ModifyImageAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3318,7 +3723,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyImageShareGroupPermissionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyImageShareGroupPermissionResponse(),
             self.do_rpcrequest('ModifyImageShareGroupPermission', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3331,7 +3737,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyImageSharePermissionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyImageSharePermissionResponse(),
             self.do_rpcrequest('ModifyImageSharePermission', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3344,7 +3751,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceAttachmentAttributesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceAttachmentAttributesResponse(),
             self.do_rpcrequest('ModifyInstanceAttachmentAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3357,7 +3765,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceAttributeResponse(),
             self.do_rpcrequest('ModifyInstanceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3370,7 +3779,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceAutoReleaseTimeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceAutoReleaseTimeResponse(),
             self.do_rpcrequest('ModifyInstanceAutoReleaseTime', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3383,7 +3793,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceAutoRenewAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceAutoRenewAttributeResponse(),
             self.do_rpcrequest('ModifyInstanceAutoRenewAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3396,7 +3807,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceChargeTypeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceChargeTypeResponse(),
             self.do_rpcrequest('ModifyInstanceChargeType', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3409,7 +3821,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceDeploymentResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceDeploymentResponse(),
             self.do_rpcrequest('ModifyInstanceDeployment', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3422,7 +3835,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceMaintenanceAttributesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceMaintenanceAttributesResponse(),
             self.do_rpcrequest('ModifyInstanceMaintenanceAttributes', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3435,7 +3849,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceMetadataOptionsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceMetadataOptionsResponse(),
             self.do_rpcrequest('ModifyInstanceMetadataOptions', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3448,7 +3863,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceNetworkSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceNetworkSpecResponse(),
             self.do_rpcrequest('ModifyInstanceNetworkSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3461,7 +3877,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceSpecResponse(),
             self.do_rpcrequest('ModifyInstanceSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3474,7 +3891,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceVncPasswdResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceVncPasswdResponse(),
             self.do_rpcrequest('ModifyInstanceVncPasswd', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3487,7 +3905,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyInstanceVpcAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyInstanceVpcAttributeResponse(),
             self.do_rpcrequest('ModifyInstanceVpcAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3500,7 +3919,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyLaunchTemplateDefaultVersionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyLaunchTemplateDefaultVersionResponse(),
             self.do_rpcrequest('ModifyLaunchTemplateDefaultVersion', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3513,7 +3933,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyManagedInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyManagedInstanceResponse(),
             self.do_rpcrequest('ModifyManagedInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3526,7 +3947,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyNetworkInterfaceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyNetworkInterfaceAttributeResponse(),
             self.do_rpcrequest('ModifyNetworkInterfaceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3539,7 +3961,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyPhysicalConnectionAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyPhysicalConnectionAttributeResponse(),
             self.do_rpcrequest('ModifyPhysicalConnectionAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3547,12 +3970,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_physical_connection_attribute_with_options(request, runtime)
 
+    def modify_prefix_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyPrefixListResponse(),
+            self.do_rpcrequest('ModifyPrefixList', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_prefix_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_prefix_list_with_options(request, runtime)
+
     def modify_prepay_instance_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyPrepayInstanceSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyPrepayInstanceSpecResponse(),
             self.do_rpcrequest('ModifyPrepayInstanceSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3565,7 +4003,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyReservedInstanceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyReservedInstanceAttributeResponse(),
             self.do_rpcrequest('ModifyReservedInstanceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3578,7 +4017,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyReservedInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyReservedInstancesResponse(),
             self.do_rpcrequest('ModifyReservedInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3591,7 +4031,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyRouterInterfaceAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyRouterInterfaceAttributeResponse(),
             self.do_rpcrequest('ModifyRouterInterfaceAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3604,7 +4045,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyRouterInterfaceSpecResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyRouterInterfaceSpecResponse(),
             self.do_rpcrequest('ModifyRouterInterfaceSpec', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3617,7 +4059,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySecurityGroupAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySecurityGroupAttributeResponse(),
             self.do_rpcrequest('ModifySecurityGroupAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3630,7 +4073,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySecurityGroupEgressRuleResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySecurityGroupEgressRuleResponse(),
             self.do_rpcrequest('ModifySecurityGroupEgressRule', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3643,7 +4087,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySecurityGroupPolicyResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySecurityGroupPolicyResponse(),
             self.do_rpcrequest('ModifySecurityGroupPolicy', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3656,7 +4101,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySecurityGroupRuleResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySecurityGroupRuleResponse(),
             self.do_rpcrequest('ModifySecurityGroupRule', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3669,7 +4115,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySnapshotAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySnapshotAttributeResponse(),
             self.do_rpcrequest('ModifySnapshotAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3682,7 +4129,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifySnapshotGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifySnapshotGroupResponse(),
             self.do_rpcrequest('ModifySnapshotGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3695,7 +4143,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyStorageCapacityUnitAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyStorageCapacityUnitAttributeResponse(),
             self.do_rpcrequest('ModifyStorageCapacityUnitAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3708,7 +4157,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyStorageSetAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyStorageSetAttributeResponse(),
             self.do_rpcrequest('ModifyStorageSetAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3721,7 +4171,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyUserBusinessBehaviorResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyUserBusinessBehaviorResponse(),
             self.do_rpcrequest('ModifyUserBusinessBehavior', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3734,7 +4185,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyVirtualBorderRouterAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyVirtualBorderRouterAttributeResponse(),
             self.do_rpcrequest('ModifyVirtualBorderRouterAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3747,7 +4199,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyVpcAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyVpcAttributeResponse(),
             self.do_rpcrequest('ModifyVpcAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3760,7 +4213,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyVRouterAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyVRouterAttributeResponse(),
             self.do_rpcrequest('ModifyVRouterAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3773,7 +4227,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ModifyVSwitchAttributeResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ModifyVSwitchAttributeResponse(),
             self.do_rpcrequest('ModifyVSwitchAttribute', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3786,7 +4241,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.PurchaseReservedInstancesOfferingResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.PurchaseReservedInstancesOfferingResponse(),
             self.do_rpcrequest('PurchaseReservedInstancesOffering', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3799,7 +4255,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.PurchaseStorageCapacityUnitResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.PurchaseStorageCapacityUnitResponse(),
             self.do_rpcrequest('PurchaseStorageCapacityUnit', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3812,7 +4269,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReActivateInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReActivateInstancesResponse(),
             self.do_rpcrequest('ReActivateInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3825,7 +4283,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RebootInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RebootInstanceResponse(),
             self.do_rpcrequest('RebootInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3838,7 +4297,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RebootInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RebootInstancesResponse(),
             self.do_rpcrequest('RebootInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3851,7 +4311,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RecoverVirtualBorderRouterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RecoverVirtualBorderRouterResponse(),
             self.do_rpcrequest('RecoverVirtualBorderRouter', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3864,7 +4325,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RedeployDedicatedHostResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RedeployDedicatedHostResponse(),
             self.do_rpcrequest('RedeployDedicatedHost', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3877,7 +4339,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RedeployInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RedeployInstanceResponse(),
             self.do_rpcrequest('RedeployInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3890,7 +4353,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReInitDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReInitDiskResponse(),
             self.do_rpcrequest('ReInitDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3903,7 +4367,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReleaseCapacityReservationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReleaseCapacityReservationResponse(),
             self.do_rpcrequest('ReleaseCapacityReservation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3916,7 +4381,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReleaseDedicatedHostResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReleaseDedicatedHostResponse(),
             self.do_rpcrequest('ReleaseDedicatedHost', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3929,7 +4395,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReleaseEipAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReleaseEipAddressResponse(),
             self.do_rpcrequest('ReleaseEipAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3942,7 +4409,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReleasePublicIpAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReleasePublicIpAddressResponse(),
             self.do_rpcrequest('ReleasePublicIpAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3955,7 +4423,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RemoveBandwidthPackageIpsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RemoveBandwidthPackageIpsResponse(),
             self.do_rpcrequest('RemoveBandwidthPackageIps', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3968,7 +4437,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RemoveTagsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RemoveTagsResponse(),
             self.do_rpcrequest('RemoveTags', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3981,7 +4451,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RenewDedicatedHostsResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RenewDedicatedHostsResponse(),
             self.do_rpcrequest('RenewDedicatedHosts', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -3994,7 +4465,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RenewInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RenewInstanceResponse(),
             self.do_rpcrequest('RenewInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4007,7 +4479,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReplaceSystemDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReplaceSystemDiskResponse(),
             self.do_rpcrequest('ReplaceSystemDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4020,7 +4493,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ReportInstancesStatusResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ReportInstancesStatusResponse(),
             self.do_rpcrequest('ReportInstancesStatus', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4033,7 +4507,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ResetDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ResetDiskResponse(),
             self.do_rpcrequest('ResetDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4046,7 +4521,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ResetDisksResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ResetDisksResponse(),
             self.do_rpcrequest('ResetDisks', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4059,7 +4535,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.ResizeDiskResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.ResizeDiskResponse(),
             self.do_rpcrequest('ResizeDisk', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4072,7 +4549,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RevokeSecurityGroupResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RevokeSecurityGroupResponse(),
             self.do_rpcrequest('RevokeSecurityGroup', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4085,7 +4563,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RevokeSecurityGroupEgressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RevokeSecurityGroupEgressResponse(),
             self.do_rpcrequest('RevokeSecurityGroupEgress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4102,7 +4581,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RunCommandResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RunCommandResponse(),
             self.do_rpcrequest('RunCommand', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4115,7 +4595,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.RunInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.RunInstancesResponse(),
             self.do_rpcrequest('RunInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4128,7 +4609,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.SendFileResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.SendFileResponse(),
             self.do_rpcrequest('SendFile', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4136,12 +4618,27 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.send_file_with_options(request, runtime)
 
+    def start_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.StartDiskReplicaPairResponse(),
+            self.do_rpcrequest('StartDiskReplicaPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def start_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_disk_replica_pair_with_options(request, runtime)
+
     def start_elasticity_assurance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StartElasticityAssuranceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StartElasticityAssuranceResponse(),
             self.do_rpcrequest('StartElasticityAssurance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4154,7 +4651,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StartImagePipelineExecutionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StartImagePipelineExecutionResponse(),
             self.do_rpcrequest('StartImagePipelineExecution', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4167,7 +4665,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StartInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StartInstanceResponse(),
             self.do_rpcrequest('StartInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4180,7 +4679,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StartInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StartInstancesResponse(),
             self.do_rpcrequest('StartInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4188,12 +4688,41 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_instances_with_options(request, runtime)
 
+    def start_terminal_session_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.StartTerminalSessionResponse(),
+            self.do_rpcrequest('StartTerminalSession', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def start_terminal_session(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_terminal_session_with_options(request, runtime)
+
+    def stop_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ecs_20140526_models.StopDiskReplicaPairResponse(),
+            self.do_rpcrequest('StopDiskReplicaPair', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def stop_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_disk_replica_pair_with_options(request, runtime)
+
     def stop_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StopInstanceResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StopInstanceResponse(),
             self.do_rpcrequest('StopInstance', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4206,7 +4735,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StopInstancesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StopInstancesResponse(),
             self.do_rpcrequest('StopInstances', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4219,7 +4749,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.StopInvocationResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.StopInvocationResponse(),
             self.do_rpcrequest('StopInvocation', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4232,7 +4763,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.TagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.TagResourcesResponse(),
             self.do_rpcrequest('TagResources', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4245,7 +4777,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.TerminatePhysicalConnectionResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.TerminatePhysicalConnectionResponse(),
             self.do_rpcrequest('TerminatePhysicalConnection', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4258,7 +4791,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.TerminateVirtualBorderRouterResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.TerminateVirtualBorderRouterResponse(),
             self.do_rpcrequest('TerminateVirtualBorderRouter', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4271,7 +4805,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.UnassignIpv6AddressesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.UnassignIpv6AddressesResponse(),
             self.do_rpcrequest('UnassignIpv6Addresses', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4284,7 +4819,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.UnassignPrivateIpAddressesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.UnassignPrivateIpAddressesResponse(),
             self.do_rpcrequest('UnassignPrivateIpAddresses', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4297,7 +4833,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.UnassociateEipAddressResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.UnassociateEipAddressResponse(),
             self.do_rpcrequest('UnassociateEipAddress', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4310,7 +4847,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.UnassociateHaVipResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.UnassociateHaVipResponse(),
             self.do_rpcrequest('UnassociateHaVip', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -4323,7 +4861,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return ecs_20140526_models.UntagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            ecs_20140526_models.UntagResourcesResponse(),
             self.do_rpcrequest('UntagResources', '2014-05-26', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
