@@ -304,8 +304,9 @@ class Client(OpenApiClient):
 
     def delete_agent_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=query
         )
         return TeaCore.from_map(
             aiccs_20191015_models.DeleteAgentResponse(),
