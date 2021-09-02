@@ -107,8 +107,11 @@ class CreateSignatureResponseBodyData(TeaModel):
 
 class CreateSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: CreateSignatureResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -176,8 +179,11 @@ class CreateSignatureResponse(TeaModel):
 
 class DeleteTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: str
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -242,8 +248,9 @@ class DeleteTemplateResponse(TeaModel):
 
 
 class CreateTemplateRequest(TeaModel):
-    def __init__(self, content=None, description=None, name=None, process_instance_id=None):
-        # 模板内容，请注意控制总字数在70个字以内，超出部分按长短信收费，按67个字为单位记一条短信，必须在结尾添加"回T退订"
+    def __init__(self, content=None, description=None, name=None, process_instance_id=None, signature_id=None,
+                 type=None):
+        # 模板内容，请注意控制总字数在70个字以内，超出部分按长短信收费，按67个字为单位记一条短信，必须在结尾添加”回T退订“
         self.content = content  # type: str
         # 申请说明
         self.description = description  # type: str
@@ -251,6 +258,14 @@ class CreateTemplateRequest(TeaModel):
         self.name = name  # type: str
         # 无需填写
         self.process_instance_id = process_instance_id  # type: str
+        # 签名ID
+        self.signature_id = signature_id  # type: str
+        # 模板类型：
+        # 0：验证码。
+        # 1：短信通知。
+        # 2：推广短信。
+        # 3：国际/港澳台消息。
+        self.type = type  # type: int
 
     def validate(self):
         pass
@@ -269,6 +284,10 @@ class CreateTemplateRequest(TeaModel):
             result['Name'] = self.name
         if self.process_instance_id is not None:
             result['ProcessInstanceID'] = self.process_instance_id
+        if self.signature_id is not None:
+            result['SignatureID'] = self.signature_id
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
@@ -281,6 +300,10 @@ class CreateTemplateRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('ProcessInstanceID') is not None:
             self.process_instance_id = m.get('ProcessInstanceID')
+        if m.get('SignatureID') is not None:
+            self.signature_id = m.get('SignatureID')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -351,8 +374,11 @@ class CreateTemplateResponseBodyData(TeaModel):
 
 class CreateTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: CreateTemplateResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -579,8 +605,11 @@ class ListTemplatesResponseBodyData(TeaModel):
 
 class ListTemplatesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: ListTemplatesResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -648,8 +677,11 @@ class ListTemplatesResponse(TeaModel):
 
 class DeleteScheduleResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: str
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -792,8 +824,11 @@ class GetTemplateResponseBodyData(TeaModel):
 
 class GetTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: GetTemplateResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -1007,8 +1042,11 @@ class ListSignaturesResponseBodyData(TeaModel):
 
 class ListSignaturesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: ListSignaturesResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -1077,7 +1115,7 @@ class ListSignaturesResponse(TeaModel):
 class GetSignatureResponseBodyData(TeaModel):
     def __init__(self, certificates=None, created_time=None, description=None, id=None, name=None,
                  power_of_attorney=None, reason=None, status=None, updated_time=None):
-        # 签名归属方的三证合一，OSS地址
+        # 签名归属方的三证合一，OSS地址，必须以https开头，使用前需要授权
         self.certificates = certificates  # type: str
         # 创建时间 (UTC+8)
         self.created_time = created_time  # type: str
@@ -1087,7 +1125,7 @@ class GetSignatureResponseBodyData(TeaModel):
         self.id = id  # type: str
         # 签名名称
         self.name = name  # type: str
-        # 授权委托书(Power of attorney)， OSS地址
+        # 授权委托书(Power of attorney)， OSS地址，必须以https或oss开头，使用前需要授权，同上
         self.power_of_attorney = power_of_attorney  # type: str
         # 审核结果说明
         self.reason = reason  # type: str
@@ -1153,8 +1191,11 @@ class GetSignatureResponseBodyData(TeaModel):
 
 class GetSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: GetSignatureResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -1225,8 +1266,9 @@ class CreateScheduleRequest(TeaModel):
                  partition=None, phone_number_column=None, send_time=None, signature_id=None, template_code_column=None,
                  template_id=None):
         # 数据源地址
-        # - 0: endpoint/project/table:column
-        # - 1: oss地址
+        # - 0: project/table
+        # MaxCompute项目名和表名，使用前需要授权
+        # - 1: oss地址 https://bucket.endpoint/path/to/file
         # OSS地址，必须以https开头，使用前需要授权，如 https://bucket.endpoint/path/to/file
         self.data_address = data_address  # type: str
         # 数据源类型
@@ -1392,8 +1434,11 @@ class CreateScheduleResponseBodyData(TeaModel):
 
 class CreateScheduleResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: CreateScheduleResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -1629,8 +1674,11 @@ class ListSchedulesResponseBodyData(TeaModel):
 
 class ListSchedulesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: ListSchedulesResponseBodyData
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
@@ -1698,8 +1746,11 @@ class ListSchedulesResponse(TeaModel):
 
 class DeleteSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None):
+        # 返回数据
         self.data = data  # type: str
+        # 错误码
         self.error_code = error_code  # type: int
+        # 错误信息
         self.error_message = error_message  # type: str
 
     def validate(self):
