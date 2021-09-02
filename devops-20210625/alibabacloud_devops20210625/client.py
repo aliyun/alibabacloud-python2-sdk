@@ -229,6 +229,39 @@ class Client(OpenApiClient):
             self.do_roarequest('ResetSshKey', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
         )
 
+    def create_workspace(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workspace_with_options(request, headers, runtime)
+
+    def create_workspace_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.workspace_template):
+            body['workspaceTemplate'] = request.workspace_template
+        if not UtilClient.is_unset(request.code_url):
+            body['codeUrl'] = request.code_url
+        if not UtilClient.is_unset(request.code_version):
+            body['codeVersion'] = request.code_version
+        if not UtilClient.is_unset(request.file_path):
+            body['filePath'] = request.file_path
+        if not UtilClient.is_unset(request.reuse):
+            body['reuse'] = request.reuse
+        if not UtilClient.is_unset(request.resource_identifier):
+            body['resourceIdentifier'] = request.resource_identifier
+        if not UtilClient.is_unset(request.request_from):
+            body['requestFrom'] = request.request_from
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateWorkspaceResponse(),
+            self.do_roarequest_with_form('CreateWorkspace', '2021-06-25', 'HTTPS', 'POST', 'AK', '/api/workspaces', 'json', req, runtime)
+        )
+
     def list_service_connections(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -404,6 +437,37 @@ class Client(OpenApiClient):
             self.do_roarequest_with_form('StartPipelineRun', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organizations/%s/pipelines/%s/run' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
         )
 
+    def list_workspaces(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_workspaces_with_options(request, headers, runtime)
+
+    def list_workspaces_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = devops_20210625_models.ListWorkspacesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.status_list):
+            request.status_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.status_list, 'statusList', 'simple')
+        if not UtilClient.is_unset(tmp_req.workspace_template_list):
+            request.workspace_template_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.workspace_template_list, 'workspaceTemplateList', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.max_results):
+            query['maxResults'] = request.max_results
+        if not UtilClient.is_unset(request.status_list_shrink):
+            query['statusList'] = request.status_list_shrink
+        if not UtilClient.is_unset(request.workspace_template_list_shrink):
+            query['workspaceTemplateList'] = request.workspace_template_list_shrink
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListWorkspacesResponse(),
+            self.do_roarequest('ListWorkspaces', '2021-06-25', 'HTTPS', 'GET', 'AK', '/api/workspaces', 'json', req, runtime)
+        )
+
     def get_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -469,6 +533,20 @@ class Client(OpenApiClient):
             self.do_roarequest('DeleteVariableGroup', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
         )
 
+    def get_workspace(self, workspace_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_workspace_with_options(workspace_id, headers, runtime)
+
+    def get_workspace_with_options(self, workspace_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkspaceResponse(),
+            self.do_roarequest('GetWorkspace', '2021-06-25', 'HTTPS', 'GET', 'AK', '/api/workspaces/%s' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
+        )
+
     def create_ssh_key(self, organization_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -495,6 +573,20 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             devops_20210625_models.DeleteHostGroupResponse(),
             self.do_roarequest('DeleteHostGroup', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+        )
+
+    def release_workspace(self, workspace_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.release_workspace_with_options(workspace_id, headers, runtime)
+
+    def release_workspace_with_options(self, workspace_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ReleaseWorkspaceResponse(),
+            self.do_roarequest('ReleaseWorkspace', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/api/workspaces/%s/release' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
         )
 
     def list_variable_groups(self, organization_id, request):
@@ -534,6 +626,20 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             devops_20210625_models.DeletePipelineResponse(),
             self.do_roarequest('DeletePipeline', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
+        )
+
+    def frozen_workspace(self, workspace_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.frozen_workspace_with_options(workspace_id, headers, runtime)
+
+    def frozen_workspace_with_options(self, workspace_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.FrozenWorkspaceResponse(),
+            self.do_roarequest('FrozenWorkspace', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/api/workspaces/%s/frozen' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
         )
 
     def list_pipeline_runs(self, organization_id, pipeline_id, request):
