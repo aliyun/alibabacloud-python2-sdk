@@ -2762,6 +2762,158 @@ class UpdateMergeRequestCommentResponse(TeaModel):
         return self
 
 
+class TriggerRepositoryMirrorSyncRequest(TeaModel):
+    def __init__(self, access_token=None, organization_id=None, account=None, token=None):
+        # 个人访问令牌。 使用阿里云AK+SK或使用STS临时授权方式不需要传该字段
+        self.access_token = access_token  # type: str
+        # 企业标识，也称企业id，字符串形式，可在云效访问链接中获取，如 https://devops.aliyun.com/organization/\
+        self.organization_id = organization_id  # type: str
+        # 远程同步库克隆账号
+        self.account = account  # type: str
+        # 远程同步库克隆令牌
+        self.token = token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TriggerRepositoryMirrorSyncRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.organization_id is not None:
+            result['OrganizationId'] = self.organization_id
+        if self.account is not None:
+            result['Account'] = self.account
+        if self.token is not None:
+            result['Token'] = self.token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('OrganizationId') is not None:
+            self.organization_id = m.get('OrganizationId')
+        if m.get('Account') is not None:
+            self.account = m.get('Account')
+        if m.get('Token') is not None:
+            self.token = m.get('Token')
+        return self
+
+
+class TriggerRepositoryMirrorSyncResponseBodyResult(TeaModel):
+    def __init__(self, result=None):
+        # 仓库同步触发结果
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TriggerRepositoryMirrorSyncResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class TriggerRepositoryMirrorSyncResponseBody(TeaModel):
+    def __init__(self, error_message=None, request_id=None, success=None, error_code=None, result=None):
+        # 错误信息
+        self.error_message = error_message  # type: str
+        # 请求ID
+        self.request_id = request_id  # type: str
+        # 请求结果
+        self.success = success  # type: bool
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 响应结果
+        self.result = result  # type: TriggerRepositoryMirrorSyncResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(TriggerRepositoryMirrorSyncResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Result') is not None:
+            temp_model = TriggerRepositoryMirrorSyncResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class TriggerRepositoryMirrorSyncResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: TriggerRepositoryMirrorSyncResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TriggerRepositoryMirrorSyncResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = TriggerRepositoryMirrorSyncResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteBranchRequest(TeaModel):
     def __init__(self, access_token=None, branch_name=None, organization_id=None, sub_user_id=None):
         self.access_token = access_token  # type: str
@@ -15233,6 +15385,275 @@ class CreateBranchResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateBranchResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetOrganizationRepositorySettingRequest(TeaModel):
+    def __init__(self, access_token=None, organization_id=None):
+        # 个人访问令牌。 使用阿里云AK+SK或使用STS临时授权方式不需要传该字段
+        self.access_token = access_token  # type: str
+        # 企业标识，也称企业id，字符串形式，可在云效访问链接中获取，如 https://devops.aliyun.com/organization/\
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['AccessToken'] = self.access_token
+        if self.organization_id is not None:
+            result['OrganizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessToken') is not None:
+            self.access_token = m.get('AccessToken')
+        if m.get('OrganizationId') is not None:
+            self.organization_id = m.get('OrganizationId')
+        return self
+
+
+class GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadMethodList(TeaModel):
+    def __init__(self, permission_code=None, allowed=None):
+        # 权限码。ssh-clone：SSH克隆；http-clone：HTTP克隆；download：下载ZIP/TAR
+        self.permission_code = permission_code  # type: str
+        # 是否允许
+        self.allowed = allowed  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadMethodList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.permission_code is not None:
+            result['PermissionCode'] = self.permission_code
+        if self.allowed is not None:
+            result['Allowed'] = self.allowed
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PermissionCode') is not None:
+            self.permission_code = m.get('PermissionCode')
+        if m.get('Allowed') is not None:
+            self.allowed = m.get('Allowed')
+        return self
+
+
+class GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadRoleList(TeaModel):
+    def __init__(self, role_code=None, allowed=None):
+        # 角色Code。5：企业外部成员；9999：企业成员（含管理员）
+        self.role_code = role_code  # type: long
+        # 是否允许
+        self.allowed = allowed  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadRoleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.role_code is not None:
+            result['RoleCode'] = self.role_code
+        if self.allowed is not None:
+            result['Allowed'] = self.allowed
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RoleCode') is not None:
+            self.role_code = m.get('RoleCode')
+        if m.get('Allowed') is not None:
+            self.allowed = m.get('Allowed')
+        return self
+
+
+class GetOrganizationRepositorySettingResponseBodyResult(TeaModel):
+    def __init__(self, group_required=None, repo_visibility_level=None, repo_creator_identity=None,
+                 repo_admin_access_visibility_level=None, repo_admin_operation=None, open_clone_download_control=None,
+                 org_clone_download_method_list=None, org_clone_download_role_list=None, force_push_forbidden=None):
+        # 创建库是否必选代码组
+        self.group_required = group_required  # type: bool
+        # 创建代码库允许使用的可见性选项。0：允许私有；10：允许企业可见
+        self.repo_visibility_level = repo_visibility_level  # type: list[long]
+        # 允许创建代码库的角色。5：企业外部成员；15：企业成员；60：企业管理员
+        self.repo_creator_identity = repo_creator_identity  # type: list[long]
+        # 库公开性调整设置。0：允许库管理员调整公开性为私有；10：允许库管理员调整公开性为企业可见
+        self.repo_admin_access_visibility_level = repo_admin_access_visibility_level  # type: list[long]
+        # 库管理员允许操作。1：允许库管理员删除代码库；2：未使用保留操作
+        self.repo_admin_operation = repo_admin_operation  # type: list[long]
+        # 开启克隆下载限制
+        self.open_clone_download_control = open_clone_download_control  # type: bool
+        # 克隆下载限制方法列表
+        self.org_clone_download_method_list = org_clone_download_method_list  # type: list[GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadMethodList]
+        # 克隆下载限制角色列表
+        self.org_clone_download_role_list = org_clone_download_role_list  # type: list[GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadRoleList]
+        # 禁止强制推送（Force Push）
+        self.force_push_forbidden = force_push_forbidden  # type: bool
+
+    def validate(self):
+        if self.org_clone_download_method_list:
+            for k in self.org_clone_download_method_list:
+                if k:
+                    k.validate()
+        if self.org_clone_download_role_list:
+            for k in self.org_clone_download_role_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_required is not None:
+            result['GroupRequired'] = self.group_required
+        if self.repo_visibility_level is not None:
+            result['RepoVisibilityLevel'] = self.repo_visibility_level
+        if self.repo_creator_identity is not None:
+            result['RepoCreatorIdentity'] = self.repo_creator_identity
+        if self.repo_admin_access_visibility_level is not None:
+            result['RepoAdminAccessVisibilityLevel'] = self.repo_admin_access_visibility_level
+        if self.repo_admin_operation is not None:
+            result['RepoAdminOperation'] = self.repo_admin_operation
+        if self.open_clone_download_control is not None:
+            result['OpenCloneDownloadControl'] = self.open_clone_download_control
+        result['OrgCloneDownloadMethodList'] = []
+        if self.org_clone_download_method_list is not None:
+            for k in self.org_clone_download_method_list:
+                result['OrgCloneDownloadMethodList'].append(k.to_map() if k else None)
+        result['OrgCloneDownloadRoleList'] = []
+        if self.org_clone_download_role_list is not None:
+            for k in self.org_clone_download_role_list:
+                result['OrgCloneDownloadRoleList'].append(k.to_map() if k else None)
+        if self.force_push_forbidden is not None:
+            result['ForcePushForbidden'] = self.force_push_forbidden
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupRequired') is not None:
+            self.group_required = m.get('GroupRequired')
+        if m.get('RepoVisibilityLevel') is not None:
+            self.repo_visibility_level = m.get('RepoVisibilityLevel')
+        if m.get('RepoCreatorIdentity') is not None:
+            self.repo_creator_identity = m.get('RepoCreatorIdentity')
+        if m.get('RepoAdminAccessVisibilityLevel') is not None:
+            self.repo_admin_access_visibility_level = m.get('RepoAdminAccessVisibilityLevel')
+        if m.get('RepoAdminOperation') is not None:
+            self.repo_admin_operation = m.get('RepoAdminOperation')
+        if m.get('OpenCloneDownloadControl') is not None:
+            self.open_clone_download_control = m.get('OpenCloneDownloadControl')
+        self.org_clone_download_method_list = []
+        if m.get('OrgCloneDownloadMethodList') is not None:
+            for k in m.get('OrgCloneDownloadMethodList'):
+                temp_model = GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadMethodList()
+                self.org_clone_download_method_list.append(temp_model.from_map(k))
+        self.org_clone_download_role_list = []
+        if m.get('OrgCloneDownloadRoleList') is not None:
+            for k in m.get('OrgCloneDownloadRoleList'):
+                temp_model = GetOrganizationRepositorySettingResponseBodyResultOrgCloneDownloadRoleList()
+                self.org_clone_download_role_list.append(temp_model.from_map(k))
+        if m.get('ForcePushForbidden') is not None:
+            self.force_push_forbidden = m.get('ForcePushForbidden')
+        return self
+
+
+class GetOrganizationRepositorySettingResponseBody(TeaModel):
+    def __init__(self, error_message=None, request_id=None, success=None, error_code=None, result=None):
+        # 错误信息
+        self.error_message = error_message  # type: str
+        # 请求ID
+        self.request_id = request_id  # type: str
+        # 请求结果
+        self.success = success  # type: bool
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 响应结果
+        self.result = result  # type: GetOrganizationRepositorySettingResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('Result') is not None:
+            temp_model = GetOrganizationRepositorySettingResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class GetOrganizationRepositorySettingResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetOrganizationRepositorySettingResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetOrganizationRepositorySettingResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetOrganizationRepositorySettingResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

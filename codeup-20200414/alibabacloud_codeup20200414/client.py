@@ -228,6 +228,31 @@ class Client(OpenApiClient):
             self.do_roarequest('UpdateMergeRequestComment', '2020-04-14', 'HTTPS', 'PUT', 'AK', '/api/v3/projects/%s/merge_requests/%s/notes/%s' % (TeaConverter.to_unicode(project_id), TeaConverter.to_unicode(merge_request_id), TeaConverter.to_unicode(note_id)), 'json', req, runtime)
         )
 
+    def trigger_repository_mirror_sync(self, project_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.trigger_repository_mirror_sync_with_options(project_id, request, headers, runtime)
+
+    def trigger_repository_mirror_sync_with_options(self, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['AccessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['OrganizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.account):
+            query['Account'] = request.account
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            codeup_20200414_models.TriggerRepositoryMirrorSyncResponse(),
+            self.do_roarequest('TriggerRepositoryMirrorSync', '2020-04-14', 'HTTPS', 'POST', 'AK', '/api/v4/projects/%s/mirror' % TeaConverter.to_unicode(project_id), 'json', req, runtime)
+        )
+
     def delete_branch(self, project_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1540,6 +1565,27 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             codeup_20200414_models.CreateBranchResponse(),
             self.do_roarequest('CreateBranch', '2020-04-14', 'HTTPS', 'POST', 'AK', '/api/v3/projects/%s/repository/branches' % TeaConverter.to_unicode(project_id), 'json', req, runtime)
+        )
+
+    def get_organization_repository_setting(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_organization_repository_setting_with_options(request, headers, runtime)
+
+    def get_organization_repository_setting_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['AccessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['OrganizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            codeup_20200414_models.GetOrganizationRepositorySettingResponse(),
+            self.do_roarequest('GetOrganizationRepositorySetting', '2020-04-14', 'HTTPS', 'GET', 'AK', '/api/v4/organization/settings/repo', 'json', req, runtime)
         )
 
     def list_group_repositories(self, identity, request):
