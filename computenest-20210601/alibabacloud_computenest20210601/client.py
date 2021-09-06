@@ -30,19 +30,75 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def continue_deploy_service_instance_with_options(self, request, runtime):
+    def delete_service_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            compute_nest_20210601_models.ContinueDeployServiceInstanceResponse(),
-            self.do_rpcrequest('ContinueDeployServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            compute_nest_20210601_models.DeleteServiceInstancesResponse(),
+            self.do_rpcrequest('DeleteServiceInstances', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def continue_deploy_service_instance(self, request):
+    def delete_service_instances(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.continue_deploy_service_instance_with_options(request, runtime)
+        return self.delete_service_instances_with_options(request, runtime)
+
+    def get_service_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            compute_nest_20210601_models.GetServiceInstanceResponse(),
+            self.do_rpcrequest('GetServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_service_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_instance_with_options(request, runtime)
+
+    def list_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            compute_nest_20210601_models.ListPoliciesResponse(),
+            self.do_rpcrequest('ListPolicies', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_policies_with_options(request, runtime)
+
+    def list_inuse_services_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            compute_nest_20210601_models.ListInuseServicesResponse(),
+            self.do_rpcrequest('ListInuseServices', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_inuse_services(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_inuse_services_with_options(request, runtime)
+
+    def describe_regions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            compute_nest_20210601_models.DescribeRegionsResponse(),
+            self.do_rpcrequest('DescribeRegions', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_regions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_regions_with_options(request, runtime)
 
     def create_service_instance_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -62,47 +118,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_service_instance_with_options(request, runtime)
 
-    def delete_service_instances_with_options(self, request, runtime):
+    def continue_deploy_service_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            compute_nest_20210601_models.DeleteServiceInstancesResponse(),
-            self.do_rpcrequest('DeleteServiceInstances', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            compute_nest_20210601_models.ContinueDeployServiceInstanceResponse(),
+            self.do_rpcrequest('ContinueDeployServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def delete_service_instances(self, request):
+    def continue_deploy_service_instance(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.delete_service_instances_with_options(request, runtime)
-
-    def deploy_service_instance_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            compute_nest_20210601_models.DeployServiceInstanceResponse(),
-            self.do_rpcrequest('DeployServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def deploy_service_instance(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.deploy_service_instance_with_options(request, runtime)
-
-    def describe_regions_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            compute_nest_20210601_models.DescribeRegionsResponse(),
-            self.do_rpcrequest('DescribeRegions', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_regions(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_regions_with_options(request, runtime)
+        return self.continue_deploy_service_instance_with_options(request, runtime)
 
     def get_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -118,33 +146,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_service_with_options(request, runtime)
 
-    def get_service_instance_with_options(self, request, runtime):
+    def deploy_service_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            compute_nest_20210601_models.GetServiceInstanceResponse(),
-            self.do_rpcrequest('GetServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            compute_nest_20210601_models.DeployServiceInstanceResponse(),
+            self.do_rpcrequest('DeployServiceInstance', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def get_service_instance(self, request):
+    def deploy_service_instance(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.get_service_instance_with_options(request, runtime)
-
-    def list_inuse_services_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            compute_nest_20210601_models.ListInuseServicesResponse(),
-            self.do_rpcrequest('ListInuseServices', '2021-06-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_inuse_services(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_inuse_services_with_options(request, runtime)
+        return self.deploy_service_instance_with_options(request, runtime)
 
     def list_service_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
