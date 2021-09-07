@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_live-interaction20201214_py2.
 
-Created on 06/09/2021
+Created on 07/09/2021
 
 @author: Alibaba Cloud SDK
 """

@@ -410,24 +410,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_room_statistics_with_options(request, runtime)
 
-    def read_message_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = live_interaction_20201214_models.ReadMessageShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.request_params):
-            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            live_interaction_20201214_models.ReadMessageResponse(),
-            self.do_rpcrequest('ReadMessage', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def read_message(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.read_message_with_options(request, runtime)
-
     def add_group_members_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = live_interaction_20201214_models.AddGroupMembersShrinkRequest()
@@ -918,6 +900,24 @@ class Client(OpenApiClient):
     def list_callback_api_ids(self):
         runtime = util_models.RuntimeOptions()
         return self.list_callback_api_ids_with_options(runtime)
+
+    def set_message_read_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_interaction_20201214_models.SetMessageReadShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.request_params):
+            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            live_interaction_20201214_models.SetMessageReadResponse(),
+            self.do_rpcrequest('SetMessageRead', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def set_message_read(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_message_read_with_options(request, runtime)
 
     def update_msg_recall_interval_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
