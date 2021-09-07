@@ -399,6 +399,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_live_with_options(request, runtime)
 
+    def get_standard_room_jump_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetStandardRoomJumpUrlResponse(),
+            self.do_rpcrequest('GetStandardRoomJumpUrl', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_standard_room_jump_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_standard_room_jump_url_with_options(request, runtime)
+
     def delete_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
