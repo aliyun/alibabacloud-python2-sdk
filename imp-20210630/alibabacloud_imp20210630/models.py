@@ -4151,7 +4151,7 @@ class GetAppTemplateResponseBodyResultConfigList(TeaModel):
 
 class GetAppTemplateResponseBodyResult(TeaModel):
     def __init__(self, app_template_name=None, app_template_creator=None, status=None, component_list=None,
-                 create_time=None, sdk_info=None, config_list=None):
+                 create_time=None, sdk_info=None, config_list=None, scene=None, integration_mode=None, standard_room_info=None):
         # 应用模板名称
         self.app_template_name = app_template_name  # type: str
         # 应用模板创建者
@@ -4165,6 +4165,12 @@ class GetAppTemplateResponseBodyResult(TeaModel):
         self.sdk_info = sdk_info  # type: str
         # 配置列表
         self.config_list = config_list  # type: list[GetAppTemplateResponseBodyResultConfigList]
+        # 应用模板场景，电商business，课堂classroom
+        self.scene = scene  # type: str
+        # 集成方式：- 一体化SDK：paasSDK - 样板间：standardRoom
+        self.integration_mode = integration_mode  # type: str
+        # 样板间信息
+        self.standard_room_info = standard_room_info  # type: str
 
     def validate(self):
         if self.config_list:
@@ -4194,6 +4200,12 @@ class GetAppTemplateResponseBodyResult(TeaModel):
         if self.config_list is not None:
             for k in self.config_list:
                 result['ConfigList'].append(k.to_map() if k else None)
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
+        if self.standard_room_info is not None:
+            result['StandardRoomInfo'] = self.standard_room_info
         return result
 
     def from_map(self, m=None):
@@ -4215,6 +4227,12 @@ class GetAppTemplateResponseBodyResult(TeaModel):
             for k in m.get('ConfigList'):
                 temp_model = GetAppTemplateResponseBodyResultConfigList()
                 self.config_list.append(temp_model.from_map(k))
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
+        if m.get('StandardRoomInfo') is not None:
+            self.standard_room_info = m.get('StandardRoomInfo')
         return self
 
 
@@ -4532,11 +4550,13 @@ class SendCommentResponse(TeaModel):
 
 
 class CreateAppTemplateRequest(TeaModel):
-    def __init__(self, app_template_name=None, scene=None, component_list=None):
+    def __init__(self, app_template_name=None, scene=None, integration_mode=None, component_list=None):
         # 应用模板名称
         self.app_template_name = app_template_name  # type: str
         # 应用模板场景，电商business，课堂classroom
         self.scene = scene  # type: str
+        # 集成方式（一体化SDK：paasSDK，样板间：standardRoom）
+        self.integration_mode = integration_mode  # type: str
         # 组件列表
         self.component_list = component_list  # type: list[str]
 
@@ -4553,6 +4573,8 @@ class CreateAppTemplateRequest(TeaModel):
             result['AppTemplateName'] = self.app_template_name
         if self.scene is not None:
             result['Scene'] = self.scene
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
         if self.component_list is not None:
             result['ComponentList'] = self.component_list
         return result
@@ -4563,17 +4585,21 @@ class CreateAppTemplateRequest(TeaModel):
             self.app_template_name = m.get('AppTemplateName')
         if m.get('Scene') is not None:
             self.scene = m.get('Scene')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
         if m.get('ComponentList') is not None:
             self.component_list = m.get('ComponentList')
         return self
 
 
 class CreateAppTemplateShrinkRequest(TeaModel):
-    def __init__(self, app_template_name=None, scene=None, component_list_shrink=None):
+    def __init__(self, app_template_name=None, scene=None, integration_mode=None, component_list_shrink=None):
         # 应用模板名称
         self.app_template_name = app_template_name  # type: str
         # 应用模板场景，电商business，课堂classroom
         self.scene = scene  # type: str
+        # 集成方式（一体化SDK：paasSDK，样板间：standardRoom）
+        self.integration_mode = integration_mode  # type: str
         # 组件列表
         self.component_list_shrink = component_list_shrink  # type: str
 
@@ -4590,6 +4616,8 @@ class CreateAppTemplateShrinkRequest(TeaModel):
             result['AppTemplateName'] = self.app_template_name
         if self.scene is not None:
             result['Scene'] = self.scene
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
         if self.component_list_shrink is not None:
             result['ComponentList'] = self.component_list_shrink
         return result
@@ -4600,6 +4628,8 @@ class CreateAppTemplateShrinkRequest(TeaModel):
             self.app_template_name = m.get('AppTemplateName')
         if m.get('Scene') is not None:
             self.scene = m.get('Scene')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
         if m.get('ComponentList') is not None:
             self.component_list_shrink = m.get('ComponentList')
         return self
@@ -4945,11 +4975,15 @@ class RejectLinkMicResponse(TeaModel):
 
 
 class ListAppsRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None):
+    def __init__(self, page_number=None, page_size=None, status=None, integration_mode=None):
         # 查询页码，参数为空默认查询第1页。
         self.page_number = page_number  # type: int
         # 每页显示个数，参数为空默认显示个数为10。
         self.page_size = page_size  # type: int
+        # 应用状态
+        self.status = status  # type: str
+        # 集成方式：- 一体化SDK：paasSDK - 样板间：standardRoom
+        self.integration_mode = integration_mode  # type: str
 
     def validate(self):
         pass
@@ -4964,6 +4998,10 @@ class ListAppsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
         return result
 
     def from_map(self, m=None):
@@ -4972,12 +5010,17 @@ class ListAppsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
         return self
 
 
 class ListAppsResponseBodyResultAppInfoList(TeaModel):
     def __init__(self, app_id=None, app_name=None, app_template_id=None, app_template_name=None, app_key=None,
-                 app_status=None, create_time=None, component_list=None):
+                 app_status=None, app_config_status=None, create_time=None, integration_mode=None, standard_room_info=None,
+                 component_list=None):
         # 应用唯一标识符
         self.app_id = app_id  # type: str
         # 应用名称
@@ -4990,8 +5033,14 @@ class ListAppsResponseBodyResultAppInfoList(TeaModel):
         self.app_key = app_key  # type: str
         # 应用状态
         self.app_status = app_status  # type: str
+        # 应用配置状态
+        self.app_config_status = app_config_status  # type: str
         # 应用创建时间
         self.create_time = create_time  # type: str
+        # 集成方式：- 一体化SDK：paasSDK - 样板间：standardRoom
+        self.integration_mode = integration_mode  # type: str
+        # 样板间信息
+        self.standard_room_info = standard_room_info  # type: str
         # 应用组件列表
         self.component_list = component_list  # type: list[str]
 
@@ -5016,8 +5065,14 @@ class ListAppsResponseBodyResultAppInfoList(TeaModel):
             result['AppKey'] = self.app_key
         if self.app_status is not None:
             result['AppStatus'] = self.app_status
+        if self.app_config_status is not None:
+            result['AppConfigStatus'] = self.app_config_status
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
+        if self.standard_room_info is not None:
+            result['StandardRoomInfo'] = self.standard_room_info
         if self.component_list is not None:
             result['ComponentList'] = self.component_list
         return result
@@ -5036,8 +5091,14 @@ class ListAppsResponseBodyResultAppInfoList(TeaModel):
             self.app_key = m.get('AppKey')
         if m.get('AppStatus') is not None:
             self.app_status = m.get('AppStatus')
+        if m.get('AppConfigStatus') is not None:
+            self.app_config_status = m.get('AppConfigStatus')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
+        if m.get('StandardRoomInfo') is not None:
+            self.standard_room_info = m.get('StandardRoomInfo')
         if m.get('ComponentList') is not None:
             self.component_list = m.get('ComponentList')
         return self
@@ -5611,7 +5672,8 @@ class ListAppTemplatesResponseBodyResultAppTemplateInfoListConfigList(TeaModel):
 
 class ListAppTemplatesResponseBodyResultAppTemplateInfoList(TeaModel):
     def __init__(self, app_template_id=None, app_template_name=None, app_template_creator=None, status=None,
-                 component_list=None, create_time=None, sdk_info=None, config_list=None):
+                 component_list=None, create_time=None, sdk_info=None, config_list=None, scene=None, integration_mode=None,
+                 standard_room_info=None):
         # 应用模板唯一标识
         self.app_template_id = app_template_id  # type: str
         # 应用模板名称
@@ -5628,6 +5690,12 @@ class ListAppTemplatesResponseBodyResultAppTemplateInfoList(TeaModel):
         self.sdk_info = sdk_info  # type: str
         # 配置列表
         self.config_list = config_list  # type: list[ListAppTemplatesResponseBodyResultAppTemplateInfoListConfigList]
+        # 应用模板场景，电商business，课堂classroom
+        self.scene = scene  # type: str
+        # 集成方式：- 一体化SDK：paasSDK - 样板间：standardRoom
+        self.integration_mode = integration_mode  # type: str
+        # 样板间信息
+        self.standard_room_info = standard_room_info  # type: str
 
     def validate(self):
         if self.config_list:
@@ -5659,6 +5727,12 @@ class ListAppTemplatesResponseBodyResultAppTemplateInfoList(TeaModel):
         if self.config_list is not None:
             for k in self.config_list:
                 result['ConfigList'].append(k.to_map() if k else None)
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
+        if self.standard_room_info is not None:
+            result['StandardRoomInfo'] = self.standard_room_info
         return result
 
     def from_map(self, m=None):
@@ -5682,6 +5756,12 @@ class ListAppTemplatesResponseBodyResultAppTemplateInfoList(TeaModel):
             for k in m.get('ConfigList'):
                 temp_model = ListAppTemplatesResponseBodyResultAppTemplateInfoListConfigList()
                 self.config_list.append(temp_model.from_map(k))
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
+        if m.get('StandardRoomInfo') is not None:
+            self.standard_room_info = m.get('StandardRoomInfo')
         return self
 
 
@@ -6480,8 +6560,9 @@ class GetAppRequest(TeaModel):
 
 
 class GetAppResponseBodyResult(TeaModel):
-    def __init__(self, app_name=None, app_template_id=None, app_template_name=None, app_status=None, app_key=None,
-                 create_time=None, component_list=None):
+    def __init__(self, app_name=None, app_template_id=None, app_template_name=None, app_status=None,
+                 app_config_status=None, app_key=None, create_time=None, integration_mode=None, standard_room_info=None,
+                 component_list=None):
         # 应用名称
         self.app_name = app_name  # type: str
         # 模板唯一标识
@@ -6490,10 +6571,16 @@ class GetAppResponseBodyResult(TeaModel):
         self.app_template_name = app_template_name  # type: str
         # 应用状态
         self.app_status = app_status  # type: str
+        # 应用配置状态
+        self.app_config_status = app_config_status  # type: str
         # 应用Key
         self.app_key = app_key  # type: str
         # 创建时间
         self.create_time = create_time  # type: str
+        # 集成方式：- 一体化SDK：paasSDK - 样板间：standardRoom
+        self.integration_mode = integration_mode  # type: str
+        # 样板间信息
+        self.standard_room_info = standard_room_info  # type: str
         # 组件列表。
         self.component_list = component_list  # type: list[str]
 
@@ -6514,10 +6601,16 @@ class GetAppResponseBodyResult(TeaModel):
             result['AppTemplateName'] = self.app_template_name
         if self.app_status is not None:
             result['AppStatus'] = self.app_status
+        if self.app_config_status is not None:
+            result['AppConfigStatus'] = self.app_config_status
         if self.app_key is not None:
             result['AppKey'] = self.app_key
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.integration_mode is not None:
+            result['IntegrationMode'] = self.integration_mode
+        if self.standard_room_info is not None:
+            result['StandardRoomInfo'] = self.standard_room_info
         if self.component_list is not None:
             result['ComponentList'] = self.component_list
         return result
@@ -6532,10 +6625,16 @@ class GetAppResponseBodyResult(TeaModel):
             self.app_template_name = m.get('AppTemplateName')
         if m.get('AppStatus') is not None:
             self.app_status = m.get('AppStatus')
+        if m.get('AppConfigStatus') is not None:
+            self.app_config_status = m.get('AppConfigStatus')
         if m.get('AppKey') is not None:
             self.app_key = m.get('AppKey')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('IntegrationMode') is not None:
+            self.integration_mode = m.get('IntegrationMode')
+        if m.get('StandardRoomInfo') is not None:
+            self.standard_room_info = m.get('StandardRoomInfo')
         if m.get('ComponentList') is not None:
             self.component_list = m.get('ComponentList')
         return self
