@@ -103,6 +103,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_smart_jobs_with_options(request, runtime)
 
+    def get_live_editing_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetLiveEditingJobResponse(),
+            self.do_rpcrequest('GetLiveEditingJob', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_live_editing_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_live_editing_job_with_options(request, runtime)
+
     def describe_related_authorization_status_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
@@ -130,13 +144,12 @@ class Client(OpenApiClient):
 
     def add_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
             ice20201109_models.AddTemplateResponse(),
-            self.do_rpcrequest('AddTemplate', '2020-11-09', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.do_rpcrequest('AddTemplate', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
     def add_template(self, request):
@@ -335,6 +348,21 @@ class Client(OpenApiClient):
     def describe_ice_product_status(self):
         runtime = util_models.RuntimeOptions()
         return self.describe_ice_product_status_with_options(runtime)
+
+    def get_live_editing_index_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetLiveEditingIndexFileResponse(),
+            self.do_rpcrequest('GetLiveEditingIndexFile', '2020-11-09', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def get_live_editing_index_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_live_editing_index_file_with_options(request, runtime)
 
     def list_media_basic_infos_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -567,13 +595,12 @@ class Client(OpenApiClient):
 
     def update_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
             ice20201109_models.UpdateTemplateResponse(),
-            self.do_rpcrequest('UpdateTemplate', '2020-11-09', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.do_rpcrequest('UpdateTemplate', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
     def update_template(self, request):
@@ -717,6 +744,20 @@ class Client(OpenApiClient):
     def submit_h2vjob(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_h2vjob_with_options(request, runtime)
+
+    def submit_live_editing_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SubmitLiveEditingJobResponse(),
+            self.do_rpcrequest('SubmitLiveEditingJob', '2020-11-09', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def submit_live_editing_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_live_editing_job_with_options(request, runtime)
 
     def submit_pptcut_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
