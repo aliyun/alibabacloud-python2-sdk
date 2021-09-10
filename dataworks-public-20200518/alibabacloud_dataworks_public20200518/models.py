@@ -5839,12 +5839,14 @@ class DeleteFileRequest(TeaModel):
 
 
 class DeleteFileResponseBody(TeaModel):
-    def __init__(self, http_status_code=None, error_message=None, request_id=None, error_code=None, success=None):
+    def __init__(self, http_status_code=None, deployment_id=None, request_id=None, error_message=None, success=None,
+                 error_code=None):
         self.http_status_code = http_status_code  # type: int
-        self.error_message = error_message  # type: str
+        self.deployment_id = deployment_id  # type: long
         self.request_id = request_id  # type: str
-        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
         self.success = success  # type: bool
+        self.error_code = error_code  # type: str
 
     def validate(self):
         pass
@@ -5857,28 +5859,32 @@ class DeleteFileResponseBody(TeaModel):
         result = dict()
         if self.http_status_code is not None:
             result['HttpStatusCode'] = self.http_status_code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
+        if self.deployment_id is not None:
+            result['DeploymentId'] = self.deployment_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.error_code is not None:
-            result['ErrorCode'] = self.error_code
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
         if self.success is not None:
             result['Success'] = self.success
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('HttpStatusCode') is not None:
             self.http_status_code = m.get('HttpStatusCode')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
+        if m.get('DeploymentId') is not None:
+            self.deployment_id = m.get('DeploymentId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrorCode') is not None:
-            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
         return self
 
 
@@ -12539,11 +12545,12 @@ class GetDeploymentRequest(TeaModel):
 
 class GetDeploymentResponseBodyDataDeployment(TeaModel):
     def __init__(self, status=None, error_message=None, from_environment=None, to_environment=None,
-                 create_time=None, handler_id=None, creator_id=None, execute_time=None, name=None):
+                 checking_status=None, create_time=None, handler_id=None, creator_id=None, execute_time=None, name=None):
         self.status = status  # type: int
         self.error_message = error_message  # type: str
         self.from_environment = from_environment  # type: int
         self.to_environment = to_environment  # type: int
+        self.checking_status = checking_status  # type: int
         self.create_time = create_time  # type: long
         self.handler_id = handler_id  # type: str
         self.creator_id = creator_id  # type: str
@@ -12567,6 +12574,8 @@ class GetDeploymentResponseBodyDataDeployment(TeaModel):
             result['FromEnvironment'] = self.from_environment
         if self.to_environment is not None:
             result['ToEnvironment'] = self.to_environment
+        if self.checking_status is not None:
+            result['CheckingStatus'] = self.checking_status
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.handler_id is not None:
@@ -12589,6 +12598,8 @@ class GetDeploymentResponseBodyDataDeployment(TeaModel):
             self.from_environment = m.get('FromEnvironment')
         if m.get('ToEnvironment') is not None:
             self.to_environment = m.get('ToEnvironment')
+        if m.get('CheckingStatus') is not None:
+            self.checking_status = m.get('CheckingStatus')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('HandlerId') is not None:
@@ -12988,10 +12999,11 @@ class GetDISyncTaskResponse(TeaModel):
 
 
 class GetFileRequest(TeaModel):
-    def __init__(self, project_id=None, project_identifier=None, file_id=None):
+    def __init__(self, project_id=None, project_identifier=None, file_id=None, node_id=None):
         self.project_id = project_id  # type: long
         self.project_identifier = project_identifier  # type: str
         self.file_id = file_id  # type: long
+        self.node_id = node_id  # type: long
 
     def validate(self):
         pass
@@ -13008,6 +13020,8 @@ class GetFileRequest(TeaModel):
             result['ProjectIdentifier'] = self.project_identifier
         if self.file_id is not None:
             result['FileId'] = self.file_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
         return result
 
     def from_map(self, m=None):
@@ -13018,6 +13032,8 @@ class GetFileRequest(TeaModel):
             self.project_identifier = m.get('ProjectIdentifier')
         if m.get('FileId') is not None:
             self.file_id = m.get('FileId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
         return self
 
 
@@ -13961,7 +13977,7 @@ class GetInstanceRequest(TeaModel):
 class GetInstanceResponseBodyData(TeaModel):
     def __init__(self, status=None, cyc_time=None, begin_running_time=None, finish_time=None, create_time=None,
                  dag_id=None, priority=None, task_type=None, param_values=None, connection=None, baseline_id=None,
-                 dqc_type=None, dag_type=None, task_rerun_time=None, modify_time=None, repeatability=None,
+                 dqc_type=None, dag_type=None, business_id=None, task_rerun_time=None, modify_time=None, repeatability=None,
                  repeat_interval=None, instance_id=None, begin_wait_res_time=None, related_flow_id=None, bizdate=None,
                  node_name=None, begin_wait_time_time=None, dqc_description=None, node_id=None):
         self.status = status  # type: str
@@ -13977,6 +13993,7 @@ class GetInstanceResponseBodyData(TeaModel):
         self.baseline_id = baseline_id  # type: long
         self.dqc_type = dqc_type  # type: int
         self.dag_type = dag_type  # type: str
+        self.business_id = business_id  # type: long
         self.task_rerun_time = task_rerun_time  # type: int
         self.modify_time = modify_time  # type: long
         self.repeatability = repeatability  # type: bool
@@ -14025,6 +14042,8 @@ class GetInstanceResponseBodyData(TeaModel):
             result['DqcType'] = self.dqc_type
         if self.dag_type is not None:
             result['DagType'] = self.dag_type
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
         if self.task_rerun_time is not None:
             result['TaskRerunTime'] = self.task_rerun_time
         if self.modify_time is not None:
@@ -14079,6 +14098,8 @@ class GetInstanceResponseBodyData(TeaModel):
             self.dqc_type = m.get('DqcType')
         if m.get('DagType') is not None:
             self.dag_type = m.get('DagType')
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
         if m.get('TaskRerunTime') is not None:
             self.task_rerun_time = m.get('TaskRerunTime')
         if m.get('ModifyTime') is not None:
@@ -18745,7 +18766,7 @@ class GetNodeRequest(TeaModel):
 class GetNodeResponseBodyData(TeaModel):
     def __init__(self, scheduler_type=None, repeat_interval=None, repeatability=None, project_id=None,
                  program_type=None, priority=None, owner_id=None, connection=None, param_values=None, related_flow_id=None,
-                 dqc_type=None, baseline_id=None, description=None, node_name=None, res_group_name=None,
+                 dqc_type=None, baseline_id=None, description=None, node_name=None, res_group_name=None, business_id=None,
                  dqc_description=None, cron_express=None, node_id=None):
         self.scheduler_type = scheduler_type  # type: str
         self.repeat_interval = repeat_interval  # type: long
@@ -18762,6 +18783,7 @@ class GetNodeResponseBodyData(TeaModel):
         self.description = description  # type: str
         self.node_name = node_name  # type: str
         self.res_group_name = res_group_name  # type: str
+        self.business_id = business_id  # type: long
         self.dqc_description = dqc_description  # type: str
         self.cron_express = cron_express  # type: str
         self.node_id = node_id  # type: long
@@ -18805,6 +18827,8 @@ class GetNodeResponseBodyData(TeaModel):
             result['NodeName'] = self.node_name
         if self.res_group_name is not None:
             result['ResGroupName'] = self.res_group_name
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
         if self.dqc_description is not None:
             result['DqcDescription'] = self.dqc_description
         if self.cron_express is not None:
@@ -18845,6 +18869,8 @@ class GetNodeResponseBodyData(TeaModel):
             self.node_name = m.get('NodeName')
         if m.get('ResGroupName') is not None:
             self.res_group_name = m.get('ResGroupName')
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
         if m.get('DqcDescription') is not None:
             self.dqc_description = m.get('DqcDescription')
         if m.get('CronExpress') is not None:
@@ -29924,9 +29950,9 @@ class ListInstancesRequest(TeaModel):
 class ListInstancesResponseBodyDataInstances(TeaModel):
     def __init__(self, status=None, cyc_time=None, begin_running_time=None, finish_time=None, error_message=None,
                  create_time=None, dag_id=None, priority=None, task_type=None, param_values=None, connection=None,
-                 baseline_id=None, dqc_type=None, dag_type=None, task_rerun_time=None, modify_time=None, repeatability=None,
-                 repeat_interval=None, instance_id=None, begin_wait_res_time=None, related_flow_id=None, bizdate=None,
-                 node_name=None, begin_wait_time_time=None, dqc_description=None, node_id=None):
+                 baseline_id=None, dqc_type=None, dag_type=None, business_id=None, task_rerun_time=None, modify_time=None,
+                 repeatability=None, repeat_interval=None, instance_id=None, begin_wait_res_time=None, related_flow_id=None,
+                 bizdate=None, node_name=None, begin_wait_time_time=None, dqc_description=None, node_id=None):
         self.status = status  # type: str
         self.cyc_time = cyc_time  # type: long
         self.begin_running_time = begin_running_time  # type: long
@@ -29941,6 +29967,7 @@ class ListInstancesResponseBodyDataInstances(TeaModel):
         self.baseline_id = baseline_id  # type: long
         self.dqc_type = dqc_type  # type: int
         self.dag_type = dag_type  # type: str
+        self.business_id = business_id  # type: long
         self.task_rerun_time = task_rerun_time  # type: int
         self.modify_time = modify_time  # type: long
         self.repeatability = repeatability  # type: bool
@@ -29991,6 +30018,8 @@ class ListInstancesResponseBodyDataInstances(TeaModel):
             result['DqcType'] = self.dqc_type
         if self.dag_type is not None:
             result['DagType'] = self.dag_type
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
         if self.task_rerun_time is not None:
             result['TaskRerunTime'] = self.task_rerun_time
         if self.modify_time is not None:
@@ -30047,6 +30076,8 @@ class ListInstancesResponseBodyDataInstances(TeaModel):
             self.dqc_type = m.get('DqcType')
         if m.get('DagType') is not None:
             self.dag_type = m.get('DagType')
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
         if m.get('TaskRerunTime') is not None:
             self.task_rerun_time = m.get('TaskRerunTime')
         if m.get('ModifyTime') is not None:
@@ -30987,7 +31018,7 @@ class ListNodesRequest(TeaModel):
 class ListNodesResponseBodyDataNodes(TeaModel):
     def __init__(self, scheduler_type=None, repeat_interval=None, repeatability=None, project_id=None,
                  program_type=None, priority=None, owner_id=None, connection=None, param_values=None, related_flow_id=None,
-                 dqc_type=None, baseline_id=None, description=None, node_name=None, res_group_name=None,
+                 dqc_type=None, baseline_id=None, description=None, node_name=None, res_group_name=None, business_id=None,
                  dqc_description=None, cron_express=None, node_id=None):
         self.scheduler_type = scheduler_type  # type: str
         self.repeat_interval = repeat_interval  # type: long
@@ -31004,6 +31035,7 @@ class ListNodesResponseBodyDataNodes(TeaModel):
         self.description = description  # type: str
         self.node_name = node_name  # type: str
         self.res_group_name = res_group_name  # type: str
+        self.business_id = business_id  # type: long
         self.dqc_description = dqc_description  # type: str
         self.cron_express = cron_express  # type: str
         self.node_id = node_id  # type: long
@@ -31047,6 +31079,8 @@ class ListNodesResponseBodyDataNodes(TeaModel):
             result['NodeName'] = self.node_name
         if self.res_group_name is not None:
             result['ResGroupName'] = self.res_group_name
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
         if self.dqc_description is not None:
             result['DqcDescription'] = self.dqc_description
         if self.cron_express is not None:
@@ -31087,6 +31121,8 @@ class ListNodesResponseBodyDataNodes(TeaModel):
             self.node_name = m.get('NodeName')
         if m.get('ResGroupName') is not None:
             self.res_group_name = m.get('ResGroupName')
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
         if m.get('DqcDescription') is not None:
             self.dqc_description = m.get('DqcDescription')
         if m.get('CronExpress') is not None:
