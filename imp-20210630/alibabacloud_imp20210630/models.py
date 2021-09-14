@@ -459,7 +459,7 @@ class GetRoomResponseBodyResultRoomInfoPluginInstanceInfoList(TeaModel):
 
 class GetRoomResponseBodyResultRoomInfo(TeaModel):
     def __init__(self, room_id=None, title=None, create_time=None, notice=None, room_owner_id=None, uv=None,
-                 online_count=None, plugin_instance_info_list=None, app_id=None, template_id=None, extension=None):
+                 online_count=None, plugin_instance_info_list=None, app_id=None, template_id=None, extension=None, pv=None):
         # 房间唯一标识。
         self.room_id = room_id  # type: str
         # 房间标题。
@@ -482,6 +482,8 @@ class GetRoomResponseBodyResultRoomInfo(TeaModel):
         self.template_id = template_id  # type: str
         # 房间拓展字段。
         self.extension = extension  # type: dict[str, str]
+        # 访问用户人次。
+        self.pv = pv  # type: long
 
     def validate(self):
         if self.plugin_instance_info_list:
@@ -519,6 +521,8 @@ class GetRoomResponseBodyResultRoomInfo(TeaModel):
             result['TemplateId'] = self.template_id
         if self.extension is not None:
             result['Extension'] = self.extension
+        if self.pv is not None:
+            result['Pv'] = self.pv
         return result
 
     def from_map(self, m=None):
@@ -548,6 +552,8 @@ class GetRoomResponseBodyResultRoomInfo(TeaModel):
             self.template_id = m.get('TemplateId')
         if m.get('Extension') is not None:
             self.extension = m.get('Extension')
+        if m.get('Pv') is not None:
+            self.pv = m.get('Pv')
         return self
 
 
@@ -3742,7 +3748,7 @@ class ListRoomLivesShrinkRequest(TeaModel):
 
 class ListRoomLivesResponseBodyResultLiveList(TeaModel):
     def __init__(self, room_id=None, title=None, room_owner_id=None, notice=None, uv=None, app_id=None,
-                 extension=None, live_id=None, status=None):
+                 extension=None, live_id=None, status=None, pv=None, online_count=None):
         # 房间唯一标识。
         self.room_id = room_id  # type: str
         # 房间标题。
@@ -3761,6 +3767,10 @@ class ListRoomLivesResponseBodyResultLiveList(TeaModel):
         self.live_id = live_id  # type: str
         # 直播状态，0-在播 1-不在播。
         self.status = status  # type: int
+        # 用户访问人次。
+        self.pv = pv  # type: long
+        # 在线用户数。
+        self.online_count = online_count  # type: long
 
     def validate(self):
         pass
@@ -3789,6 +3799,10 @@ class ListRoomLivesResponseBodyResultLiveList(TeaModel):
             result['LiveId'] = self.live_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.pv is not None:
+            result['Pv'] = self.pv
+        if self.online_count is not None:
+            result['OnlineCount'] = self.online_count
         return result
 
     def from_map(self, m=None):
@@ -3811,6 +3825,10 @@ class ListRoomLivesResponseBodyResultLiveList(TeaModel):
             self.live_id = m.get('LiveId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Pv') is not None:
+            self.pv = m.get('Pv')
+        if m.get('OnlineCount') is not None:
+            self.online_count = m.get('OnlineCount')
         return self
 
 
