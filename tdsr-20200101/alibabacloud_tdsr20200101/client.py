@@ -718,20 +718,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.prediction_wall_line_with_options(request, runtime)
 
-    def get_policy_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetPolicyResponse(),
-            self.do_rpcrequest('GetPolicy', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_policy(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_policy_with_options(request, runtime)
-
     def get_scene_preview_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -745,6 +731,20 @@ class Client(OpenApiClient):
     def get_scene_preview_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_scene_preview_info_with_options(request, runtime)
+
+    def get_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.GetPolicyResponse(),
+            self.do_rpcrequest('GetPolicy', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_policy_with_options(request, runtime)
 
     def add_sub_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)

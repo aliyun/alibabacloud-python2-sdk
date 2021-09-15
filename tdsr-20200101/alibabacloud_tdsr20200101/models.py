@@ -752,9 +752,10 @@ class RectifyImageResponse(TeaModel):
 
 
 class LabelBuildRequest(TeaModel):
-    def __init__(self, scene_id=None):
+    def __init__(self, scene_id=None, mode=None):
         # 场景ID
         self.scene_id = scene_id  # type: str
+        self.mode = mode  # type: str
 
     def validate(self):
         pass
@@ -767,12 +768,16 @@ class LabelBuildRequest(TeaModel):
         result = dict()
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
+        if self.mode is not None:
+            result['Mode'] = self.mode
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
         return self
 
 
@@ -1465,10 +1470,10 @@ class DeleteFileRequest(TeaModel):
 
 
 class DeleteFileResponseBody(TeaModel):
-    def __init__(self, request_id=None, err_message=None, success=None):
+    def __init__(self, request_id=None, success=None, err_message=None):
         self.request_id = request_id  # type: str
-        self.err_message = err_message  # type: str
         self.success = success  # type: bool
+        self.err_message = err_message  # type: str
 
     def validate(self):
         pass
@@ -1481,20 +1486,20 @@ class DeleteFileResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
         if self.success is not None:
             result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
         return self
 
 
@@ -2012,11 +2017,11 @@ class PublishHotspotRequest(TeaModel):
 
 
 class PublishHotspotResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None, err_message=None, success=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, data=None, request_id=None, success=None, err_message=None):
         self.data = data  # type: dict[str, any]
-        self.err_message = err_message  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
+        self.err_message = err_message  # type: str
 
     def validate(self):
         pass
@@ -2027,26 +2032,26 @@ class PublishHotspotResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.data is not None:
             result['Data'] = self.data
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
         return self
 
 
@@ -2327,10 +2332,10 @@ class SaveHotspotTagRequest(TeaModel):
 
 
 class SaveHotspotTagResponseBody(TeaModel):
-    def __init__(self, request_id=None, err_message=None, success=None):
+    def __init__(self, request_id=None, success=None, err_message=None):
         self.request_id = request_id  # type: str
-        self.err_message = err_message  # type: str
         self.success = success  # type: bool
+        self.err_message = err_message  # type: str
 
     def validate(self):
         pass
@@ -2343,20 +2348,20 @@ class SaveHotspotTagResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
         if self.success is not None:
             result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
         return self
 
 
@@ -4010,10 +4015,10 @@ class SaveHotspotConfigRequest(TeaModel):
 
 
 class SaveHotspotConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None, err_message=None, success=None):
+    def __init__(self, request_id=None, success=None, err_message=None):
         self.request_id = request_id  # type: str
-        self.err_message = err_message  # type: str
         self.success = success  # type: bool
+        self.err_message = err_message  # type: str
 
     def validate(self):
         pass
@@ -4026,20 +4031,20 @@ class SaveHotspotConfigResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
         if self.success is not None:
             result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
         return self
 
 
@@ -4101,12 +4106,12 @@ class GetWindowConfigRequest(TeaModel):
 
 
 class GetWindowConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None, object_string=None, data=None, err_message=None, success=None):
-        self.request_id = request_id  # type: str
-        self.object_string = object_string  # type: str
+    def __init__(self, data=None, object_string=None, request_id=None, success=None, err_message=None):
         self.data = data  # type: dict[str, any]
-        self.err_message = err_message  # type: str
+        self.object_string = object_string  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
+        self.err_message = err_message  # type: str
 
     def validate(self):
         pass
@@ -4117,30 +4122,30 @@ class GetWindowConfigResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.object_string is not None:
-            result['ObjectString'] = self.object_string
         if self.data is not None:
             result['Data'] = self.data
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
+        if self.object_string is not None:
+            result['ObjectString'] = self.object_string
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ObjectString') is not None:
-            self.object_string = m.get('ObjectString')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
+        if m.get('ObjectString') is not None:
+            self.object_string = m.get('ObjectString')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
         return self
 
 
@@ -6261,112 +6266,6 @@ class PredictionWallLineResponse(TeaModel):
         return self
 
 
-class GetPolicyRequest(TeaModel):
-    def __init__(self, sub_scene_uuid=None, type=None):
-        self.sub_scene_uuid = sub_scene_uuid  # type: str
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetPolicyRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.sub_scene_uuid is not None:
-            result['SubSceneUuid'] = self.sub_scene_uuid
-        if self.type is not None:
-            result['Type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('SubSceneUuid') is not None:
-            self.sub_scene_uuid = m.get('SubSceneUuid')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        return self
-
-
-class GetPolicyResponseBody(TeaModel):
-    def __init__(self, request_id=None, object_string=None, data=None, err_message=None, success=None):
-        self.request_id = request_id  # type: str
-        self.object_string = object_string  # type: str
-        self.data = data  # type: dict[str, any]
-        self.err_message = err_message  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetPolicyResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.object_string is not None:
-            result['ObjectString'] = self.object_string
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.err_message is not None:
-            result['ErrMessage'] = self.err_message
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('ObjectString') is not None:
-            self.object_string = m.get('ObjectString')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('ErrMessage') is not None:
-            self.err_message = m.get('ErrMessage')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class GetPolicyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetPolicyResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetPolicyResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetPolicyResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetScenePreviewInfoRequest(TeaModel):
     def __init__(self, model_token=None, domain=None, enabled=None):
         # 模型token
@@ -6526,6 +6425,112 @@ class GetScenePreviewInfoResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetScenePreviewInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPolicyRequest(TeaModel):
+    def __init__(self, sub_scene_uuid=None, type=None):
+        self.sub_scene_uuid = sub_scene_uuid  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_scene_uuid is not None:
+            result['SubSceneUuid'] = self.sub_scene_uuid
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SubSceneUuid') is not None:
+            self.sub_scene_uuid = m.get('SubSceneUuid')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class GetPolicyResponseBody(TeaModel):
+    def __init__(self, data=None, object_string=None, request_id=None, success=None, err_message=None):
+        self.data = data  # type: dict[str, any]
+        self.object_string = object_string  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.err_message = err_message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.object_string is not None:
+            result['ObjectString'] = self.object_string
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.err_message is not None:
+            result['ErrMessage'] = self.err_message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('ObjectString') is not None:
+            self.object_string = m.get('ObjectString')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('ErrMessage') is not None:
+            self.err_message = m.get('ErrMessage')
+        return self
+
+
+class GetPolicyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
