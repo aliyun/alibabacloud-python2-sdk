@@ -55,6 +55,31 @@ class Client(OpenApiClient):
             self.do_roarequest('QueryAlarmDataList', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryAlarmDataList.json', 'json', req, runtime)
         )
 
+    def list_hotspot_message(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_hotspot_message_with_options(request, headers, runtime)
+
+    def list_hotspot_message_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.team_hash_id):
+            query['teamHashId'] = request.team_hash_id
+        if not UtilClient.is_unset(request.request_id):
+            query['requestId'] = request.request_id
+        body = {}
+        if not UtilClient.is_unset(request.hotspot_search_condition):
+            body['hotspotSearchCondition'] = request.hotspot_search_condition
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        return TeaCore.from_map(
+            yuqing_20210126_models.ListHotspotMessageResponse(),
+            self.do_roarequest_with_form('ListHotspotMessage', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/searchHotspotDetail.json', 'json', req, runtime)
+        )
+
     def get_analysis_component_result(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
