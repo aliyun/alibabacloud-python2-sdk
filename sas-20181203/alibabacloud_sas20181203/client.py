@@ -661,19 +661,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_policy_with_options(request, runtime)
 
-    def describe_backup_restore_count_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
+    def describe_backup_restore_count_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
             sas_20181203_models.DescribeBackupRestoreCountResponse(),
             self.do_rpcrequest('DescribeBackupRestoreCount', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def describe_backup_restore_count(self, request):
+    def describe_backup_restore_count(self):
         runtime = util_models.RuntimeOptions()
-        return self.describe_backup_restore_count_with_options(request, runtime)
+        return self.describe_backup_restore_count_with_options(runtime)
 
     def describe_brute_force_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1785,19 +1782,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_summary_info_with_options(request, runtime)
 
-    def describe_support_region_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
+    def describe_support_region_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
             sas_20181203_models.DescribeSupportRegionResponse(),
             self.do_rpcrequest('DescribeSupportRegion', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def describe_support_region(self, request):
+    def describe_support_region(self):
         runtime = util_models.RuntimeOptions()
-        return self.describe_support_region_with_options(request, runtime)
+        return self.describe_support_region_with_options(runtime)
 
     def describe_susp_event_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1919,19 +1913,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_uni_support_region_with_options(runtime)
 
-    def describe_user_backup_machines_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
+    def describe_user_backup_machines_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
             sas_20181203_models.DescribeUserBackupMachinesResponse(),
             self.do_rpcrequest('DescribeUserBackupMachines', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def describe_user_backup_machines(self, request):
+    def describe_user_backup_machines(self):
         runtime = util_models.RuntimeOptions()
-        return self.describe_user_backup_machines_with_options(request, runtime)
+        return self.describe_user_backup_machines_with_options(runtime)
 
     def describe_user_baseline_authorization_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2759,6 +2750,20 @@ class Client(OpenApiClient):
     def modify_web_lock_update_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_web_lock_update_config_with_options(request, runtime)
+
+    def operate_agent_client_install_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.OperateAgentClientInstallResponse(),
+            self.do_rpcrequest('OperateAgentClientInstall', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def operate_agent_client_install(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.operate_agent_client_install_with_options(request, runtime)
 
     def operate_suspicious_target_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
