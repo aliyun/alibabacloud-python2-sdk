@@ -1,3 +1,6 @@
+2021-09-26 Version: 2.6.0
+- LiveRoom features.
+
 2021-09-14 Version: 2.5.2
 - GetRoom add pv field.
 

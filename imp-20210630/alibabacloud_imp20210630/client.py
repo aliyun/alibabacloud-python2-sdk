@@ -86,6 +86,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_room_with_options(request, runtime)
 
+    def get_live_room_user_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetLiveRoomUserStatisticsResponse(),
+            self.do_rpcrequest('GetLiveRoomUserStatistics', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_live_room_user_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_live_room_user_statistics_with_options(request, runtime)
+
     def ban_comment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -639,6 +653,24 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_live_with_options(request, runtime)
 
+    def create_live_room_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imp_20210630_models.CreateLiveRoomShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.extension):
+            request.extension_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extension, 'Extension', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.CreateLiveRoomResponse(),
+            self.do_rpcrequest('CreateLiveRoom', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_live_room(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_live_room_with_options(request, runtime)
+
     def apply_link_mic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -680,6 +712,48 @@ class Client(OpenApiClient):
     def get_app(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_app_with_options(request, runtime)
+
+    def list_live_rooms_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.ListLiveRoomsResponse(),
+            self.do_rpcrequest('ListLiveRooms', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_live_rooms(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_live_rooms_with_options(request, runtime)
+
+    def stop_live_room_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.StopLiveRoomResponse(),
+            self.do_rpcrequest('StopLiveRoom', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def stop_live_room(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_live_room_with_options(request, runtime)
+
+    def get_live_room_statistics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetLiveRoomStatisticsResponse(),
+            self.do_rpcrequest('GetLiveRoomStatistics', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_live_room_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_live_room_statistics_with_options(request, runtime)
 
     def send_custom_message_to_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -768,3 +842,17 @@ class Client(OpenApiClient):
     def update_conference(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_conference_with_options(request, runtime)
+
+    def get_live_room_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetLiveRoomResponse(),
+            self.do_rpcrequest('GetLiveRoom', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_live_room(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_live_room_with_options(request, runtime)
