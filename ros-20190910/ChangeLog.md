@@ -1,3 +1,6 @@
+2021-09-27 Version: 1.1.2
+- Terraform stack supports custom of parallelism.
+
 2021-09-03 Version: 1.1.1
 - Fix type error of StackGroup and StackInstance parameters.
 

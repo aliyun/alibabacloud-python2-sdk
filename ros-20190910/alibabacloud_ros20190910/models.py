@@ -126,7 +126,7 @@ class ContinueCreateStackRequestParameters(TeaModel):
 class ContinueCreateStackRequest(TeaModel):
     def __init__(self, stack_id=None, region_id=None, ram_role_name=None, mode=None, template_body=None,
                  template_url=None, dry_run=None, template_id=None, template_version=None, recreating_resources=None,
-                 parameters=None):
+                 parameters=None, parallelism=None):
         self.stack_id = stack_id  # type: str
         self.region_id = region_id  # type: str
         self.ram_role_name = ram_role_name  # type: str
@@ -138,6 +138,7 @@ class ContinueCreateStackRequest(TeaModel):
         self.template_version = template_version  # type: str
         self.recreating_resources = recreating_resources  # type: list[str]
         self.parameters = parameters  # type: list[ContinueCreateStackRequestParameters]
+        self.parallelism = parallelism  # type: long
 
     def validate(self):
         if self.parameters:
@@ -175,6 +176,8 @@ class ContinueCreateStackRequest(TeaModel):
         if self.parameters is not None:
             for k in self.parameters:
                 result['Parameters'].append(k.to_map() if k else None)
+        if self.parallelism is not None:
+            result['Parallelism'] = self.parallelism
         return result
 
     def from_map(self, m=None):
@@ -204,6 +207,8 @@ class ContinueCreateStackRequest(TeaModel):
             for k in m.get('Parameters'):
                 temp_model = ContinueCreateStackRequestParameters()
                 self.parameters.append(temp_model.from_map(k))
+        if m.get('Parallelism') is not None:
+            self.parallelism = m.get('Parallelism')
         return self
 
 
@@ -616,7 +621,7 @@ class CreateStackRequest(TeaModel):
     def __init__(self, disable_rollback=None, template_body=None, stack_policy_url=None, timeout_in_minutes=None,
                  stack_policy_body=None, stack_name=None, region_id=None, client_token=None, template_url=None, ram_role_name=None,
                  deletion_protection=None, create_option=None, template_id=None, template_version=None, parameters=None,
-                 notification_urls=None, tags=None, resource_group_id=None):
+                 notification_urls=None, tags=None, resource_group_id=None, parallelism=None):
         self.disable_rollback = disable_rollback  # type: bool
         self.template_body = template_body  # type: str
         self.stack_policy_url = stack_policy_url  # type: str
@@ -635,6 +640,7 @@ class CreateStackRequest(TeaModel):
         self.notification_urls = notification_urls  # type: list[str]
         self.tags = tags  # type: list[CreateStackRequestTags]
         self.resource_group_id = resource_group_id  # type: str
+        self.parallelism = parallelism  # type: long
 
     def validate(self):
         if self.parameters:
@@ -692,6 +698,8 @@ class CreateStackRequest(TeaModel):
                 result['Tags'].append(k.to_map() if k else None)
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.parallelism is not None:
+            result['Parallelism'] = self.parallelism
         return result
 
     def from_map(self, m=None):
@@ -738,6 +746,8 @@ class CreateStackRequest(TeaModel):
                 self.tags.append(temp_model.from_map(k))
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Parallelism') is not None:
+            self.parallelism = m.get('Parallelism')
         return self
 
 
@@ -4394,7 +4404,7 @@ class GetStackGroupOperationResponseBodyStackGroupOperationDeploymentTargets(Tea
 class GetStackGroupOperationResponseBodyStackGroupOperation(TeaModel):
     def __init__(self, status=None, stack_group_id=None, action=None, create_time=None, retain_stacks=None,
                  stack_group_name=None, operation_id=None, operation_description=None, stack_group_drift_detection_detail=None,
-                 operation_preferences=None, end_time=None, execution_role_name=None, administrator_role_name=None,
+                 operation_preferences=None, end_time=None, execution_role_name=None, administration_role_name=None,
                  deployment_targets=None):
         self.status = status  # type: str
         self.stack_group_id = stack_group_id  # type: str
@@ -4408,7 +4418,7 @@ class GetStackGroupOperationResponseBodyStackGroupOperation(TeaModel):
         self.operation_preferences = operation_preferences  # type: GetStackGroupOperationResponseBodyStackGroupOperationOperationPreferences
         self.end_time = end_time  # type: str
         self.execution_role_name = execution_role_name  # type: str
-        self.administrator_role_name = administrator_role_name  # type: str
+        self.administration_role_name = administration_role_name  # type: str
         self.deployment_targets = deployment_targets  # type: GetStackGroupOperationResponseBodyStackGroupOperationDeploymentTargets
 
     def validate(self):
@@ -4449,8 +4459,8 @@ class GetStackGroupOperationResponseBodyStackGroupOperation(TeaModel):
             result['EndTime'] = self.end_time
         if self.execution_role_name is not None:
             result['ExecutionRoleName'] = self.execution_role_name
-        if self.administrator_role_name is not None:
-            result['AdministratorRoleName'] = self.administrator_role_name
+        if self.administration_role_name is not None:
+            result['AdministrationRoleName'] = self.administration_role_name
         if self.deployment_targets is not None:
             result['DeploymentTargets'] = self.deployment_targets.to_map()
         return result
@@ -4483,8 +4493,8 @@ class GetStackGroupOperationResponseBodyStackGroupOperation(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('ExecutionRoleName') is not None:
             self.execution_role_name = m.get('ExecutionRoleName')
-        if m.get('AdministratorRoleName') is not None:
-            self.administrator_role_name = m.get('AdministratorRoleName')
+        if m.get('AdministrationRoleName') is not None:
+            self.administration_role_name = m.get('AdministrationRoleName')
         if m.get('DeploymentTargets') is not None:
             temp_model = GetStackGroupOperationResponseBodyStackGroupOperationDeploymentTargets()
             self.deployment_targets = temp_model.from_map(m['DeploymentTargets'])
@@ -8750,7 +8760,7 @@ class PreviewStackRequestParameters(TeaModel):
 class PreviewStackRequest(TeaModel):
     def __init__(self, disable_rollback=None, timeout_in_minutes=None, template_body=None, stack_policy_url=None,
                  region_id=None, stack_policy_body=None, stack_name=None, client_token=None, template_url=None,
-                 template_id=None, template_version=None, parameters=None):
+                 template_id=None, template_version=None, parameters=None, parallelism=None):
         self.disable_rollback = disable_rollback  # type: bool
         self.timeout_in_minutes = timeout_in_minutes  # type: long
         self.template_body = template_body  # type: str
@@ -8763,6 +8773,7 @@ class PreviewStackRequest(TeaModel):
         self.template_id = template_id  # type: str
         self.template_version = template_version  # type: str
         self.parameters = parameters  # type: list[PreviewStackRequestParameters]
+        self.parallelism = parallelism  # type: long
 
     def validate(self):
         if self.parameters:
@@ -8802,6 +8813,8 @@ class PreviewStackRequest(TeaModel):
         if self.parameters is not None:
             for k in self.parameters:
                 result['Parameters'].append(k.to_map() if k else None)
+        if self.parallelism is not None:
+            result['Parallelism'] = self.parallelism
         return result
 
     def from_map(self, m=None):
@@ -8833,6 +8846,8 @@ class PreviewStackRequest(TeaModel):
             for k in m.get('Parameters'):
                 temp_model = PreviewStackRequestParameters()
                 self.parameters.append(temp_model.from_map(k))
+        if m.get('Parallelism') is not None:
+            self.parallelism = m.get('Parallelism')
         return self
 
 
@@ -9839,7 +9854,8 @@ class UpdateStackRequest(TeaModel):
     def __init__(self, stack_id=None, client_token=None, stack_policy_during_update_body=None,
                  timeout_in_minutes=None, template_body=None, stack_policy_url=None, stack_policy_during_update_url=None,
                  stack_policy_body=None, use_previous_parameters=None, region_id=None, disable_rollback=None, template_url=None,
-                 ram_role_name=None, replacement_option=None, template_id=None, template_version=None, parameters=None, tags=None):
+                 ram_role_name=None, replacement_option=None, template_id=None, template_version=None, parameters=None, tags=None,
+                 parallelism=None):
         self.stack_id = stack_id  # type: str
         self.client_token = client_token  # type: str
         self.stack_policy_during_update_body = stack_policy_during_update_body  # type: str
@@ -9858,6 +9874,7 @@ class UpdateStackRequest(TeaModel):
         self.template_version = template_version  # type: str
         self.parameters = parameters  # type: list[UpdateStackRequestParameters]
         self.tags = tags  # type: list[UpdateStackRequestTags]
+        self.parallelism = parallelism  # type: long
 
     def validate(self):
         if self.parameters:
@@ -9915,6 +9932,8 @@ class UpdateStackRequest(TeaModel):
         if self.tags is not None:
             for k in self.tags:
                 result['Tags'].append(k.to_map() if k else None)
+        if self.parallelism is not None:
+            result['Parallelism'] = self.parallelism
         return result
 
     def from_map(self, m=None):
@@ -9961,6 +9980,8 @@ class UpdateStackRequest(TeaModel):
             for k in m.get('Tags'):
                 temp_model = UpdateStackRequestTags()
                 self.tags.append(temp_model.from_map(k))
+        if m.get('Parallelism') is not None:
+            self.parallelism = m.get('Parallelism')
         return self
 
 
