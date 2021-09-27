@@ -37,6 +37,10 @@ class Client(OpenApiClient):
         return self.retry_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def retry_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
+        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -51,6 +55,9 @@ class Client(OpenApiClient):
         return self.list_resource_members_with_options(organization_id, resource_type, resource_id, headers, runtime)
 
     def list_resource_members_with_options(self, organization_id, resource_type, resource_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
+        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -65,6 +72,8 @@ class Client(OpenApiClient):
         return self.get_host_group_with_options(organization_id, id, headers, runtime)
 
     def get_host_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -79,6 +88,8 @@ class Client(OpenApiClient):
         return self.get_variable_group_with_options(organization_id, id, headers, runtime)
 
     def get_variable_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -94,6 +105,7 @@ class Client(OpenApiClient):
 
     def list_pipelines_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.pipeline_name):
             query['pipelineName'] = request.pipeline_name
@@ -131,6 +143,10 @@ class Client(OpenApiClient):
 
     def update_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
+        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
+        account_id = OpenApiUtilClient.get_encode_param(account_id)
         body = {}
         if not UtilClient.is_unset(request.role_name):
             body['roleName'] = request.role_name
@@ -150,6 +166,8 @@ class Client(OpenApiClient):
 
     def update_variable_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         body = {}
         if not UtilClient.is_unset(request.name):
             body['name'] = request.name
@@ -172,6 +190,10 @@ class Client(OpenApiClient):
         return self.delete_resource_member_with_options(organization_id, resource_type, resource_id, account_id, headers, runtime)
 
     def delete_resource_member_with_options(self, organization_id, resource_type, resource_id, account_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
+        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
+        account_id = OpenApiUtilClient.get_encode_param(account_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -187,6 +209,7 @@ class Client(OpenApiClient):
 
     def list_host_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.ids):
             query['ids'] = request.ids
@@ -221,6 +244,7 @@ class Client(OpenApiClient):
         return self.reset_ssh_key_with_options(organization_id, headers, runtime)
 
     def reset_ssh_key_with_options(self, organization_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -269,6 +293,7 @@ class Client(OpenApiClient):
 
     def list_service_connections_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.serice_connection_type):
             query['sericeConnectionType'] = request.serice_connection_type
@@ -288,6 +313,7 @@ class Client(OpenApiClient):
 
     def create_host_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.type):
             body['type'] = request.type
@@ -324,6 +350,9 @@ class Client(OpenApiClient):
         return self.stop_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def stop_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -339,6 +368,8 @@ class Client(OpenApiClient):
 
     def update_host_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         body = {}
         if not UtilClient.is_unset(request.type):
             body['type'] = request.type
@@ -376,6 +407,9 @@ class Client(OpenApiClient):
 
     def create_resource_member_with_options(self, organization_id, resource_type, resource_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        resource_type = OpenApiUtilClient.get_encode_param(resource_type)
+        resource_id = OpenApiUtilClient.get_encode_param(resource_id)
         body = {}
         if not UtilClient.is_unset(request.account_id):
             body['accountId'] = request.account_id
@@ -396,6 +430,10 @@ class Client(OpenApiClient):
         return self.skip_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def skip_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
+        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -404,12 +442,32 @@ class Client(OpenApiClient):
             self.do_roarequest('SkipPipelineJobRun', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/skip' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
         )
 
+    def get_organization_member(self, organization_id, account_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_organization_member_with_options(organization_id, account_id, headers, runtime)
+
+    def get_organization_member_with_options(self, organization_id, account_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        account_id = OpenApiUtilClient.get_encode_param(account_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetOrganizationMemberResponse(),
+            self.do_roarequest('GetOrganizationMember', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(account_id)), 'json', req, runtime)
+        )
+
     def stop_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.stop_pipeline_job_run_with_options(organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime)
 
     def stop_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
+        job_id = OpenApiUtilClient.get_encode_param(job_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -425,6 +483,8 @@ class Client(OpenApiClient):
 
     def start_pipeline_run_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         body = {}
         if not UtilClient.is_unset(request.params):
             body['params'] = request.params
@@ -474,6 +534,9 @@ class Client(OpenApiClient):
         return self.get_pipeline_run_with_options(organization_id, pipeline_id, pipeline_run_id, headers, runtime)
 
     def get_pipeline_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -488,6 +551,8 @@ class Client(OpenApiClient):
         return self.get_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def get_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -503,6 +568,7 @@ class Client(OpenApiClient):
 
     def create_variable_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         body = {}
         if not UtilClient.is_unset(request.name):
             body['name'] = request.name
@@ -525,6 +591,8 @@ class Client(OpenApiClient):
         return self.delete_variable_group_with_options(organization_id, id, headers, runtime)
 
     def delete_variable_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -539,6 +607,7 @@ class Client(OpenApiClient):
         return self.get_workspace_with_options(workspace_id, headers, runtime)
 
     def get_workspace_with_options(self, workspace_id, headers, runtime):
+        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -553,6 +622,7 @@ class Client(OpenApiClient):
         return self.create_ssh_key_with_options(organization_id, headers, runtime)
 
     def create_ssh_key_with_options(self, organization_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -567,6 +637,8 @@ class Client(OpenApiClient):
         return self.delete_host_group_with_options(organization_id, id, headers, runtime)
 
     def delete_host_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -581,12 +653,47 @@ class Client(OpenApiClient):
         return self.release_workspace_with_options(workspace_id, headers, runtime)
 
     def release_workspace_with_options(self, workspace_id, headers, runtime):
+        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
         return TeaCore.from_map(
             devops_20210625_models.ReleaseWorkspaceResponse(),
             self.do_roarequest('ReleaseWorkspace', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/api/workspaces/%s/release' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
+        )
+
+    def list_organization_members(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_organization_members_with_options(organization_id, request, headers, runtime)
+
+    def list_organization_members_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.organization_member_name):
+            query['organizationMemberName'] = request.organization_member_name
+        if not UtilClient.is_unset(request.provider):
+            query['provider'] = request.provider
+        if not UtilClient.is_unset(request.extern_uid):
+            query['externUid'] = request.extern_uid
+        if not UtilClient.is_unset(request.state):
+            query['state'] = request.state
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.max_results):
+            query['maxResults'] = request.max_results
+        if not UtilClient.is_unset(request.join_time_from):
+            query['joinTimeFrom'] = request.join_time_from
+        if not UtilClient.is_unset(request.join_time_to):
+            query['joinTimeTo'] = request.join_time_to
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListOrganizationMembersResponse(),
+            self.do_roarequest('ListOrganizationMembers', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/members' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
         )
 
     def list_variable_groups(self, organization_id, request):
@@ -596,6 +703,7 @@ class Client(OpenApiClient):
 
     def list_variable_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
         query = {}
         if not UtilClient.is_unset(request.page_sort):
             query['pageSort'] = request.page_sort
@@ -620,6 +728,8 @@ class Client(OpenApiClient):
         return self.delete_pipeline_with_options(organization_id, pipeline_id, headers, runtime)
 
     def delete_pipeline_with_options(self, organization_id, pipeline_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -634,6 +744,7 @@ class Client(OpenApiClient):
         return self.frozen_workspace_with_options(workspace_id, headers, runtime)
 
     def frozen_workspace_with_options(self, workspace_id, headers, runtime):
+        workspace_id = OpenApiUtilClient.get_encode_param(workspace_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -649,6 +760,8 @@ class Client(OpenApiClient):
 
     def list_pipeline_runs_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
         query = {}
         if not UtilClient.is_unset(request.start_time):
             query['startTime'] = request.start_time
