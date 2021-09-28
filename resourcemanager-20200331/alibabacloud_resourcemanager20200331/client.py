@@ -253,6 +253,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.decline_handshake_with_options(request, runtime)
 
+    def delete_account_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.DeleteAccountResponse(),
+            self.do_rpcrequest('DeleteAccount', '2020-03-31', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_account(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_account_with_options(request, runtime)
+
     def delete_control_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -878,6 +892,20 @@ class Client(OpenApiClient):
     def move_account(self, request):
         runtime = util_models.RuntimeOptions()
         return self.move_account_with_options(request, runtime)
+
+    def move_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.MoveResourcesResponse(),
+            self.do_rpcrequest('MoveResources', '2020-03-31', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def move_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.move_resources_with_options(request, runtime)
 
     def promote_resource_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
