@@ -536,6 +536,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.temp_preview_with_options(request, runtime)
 
+    def publish_scene_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.PublishSceneResponse(),
+            self.do_rpcrequest('PublishScene', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def publish_scene(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.publish_scene_with_options(request, runtime)
+
     def detail_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
