@@ -1111,6 +1111,21 @@ class Client(OpenApiClient):
             self.do_roarequest('GetEmonMonitorData', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/emon/projects/%s/metrics/query' % TeaConverter.to_unicode(project_id), 'json', req, runtime)
         )
 
+    def get_open_store_usage(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_open_store_usage_with_options(instance_id, headers, runtime)
+
+    def get_open_store_usage_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.GetOpenStoreUsageResponse(),
+            self.do_roarequest('GetOpenStoreUsage', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/instances/%s/openstore/usage' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+        )
+
     def get_region_configuration(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1375,15 +1390,20 @@ class Client(OpenApiClient):
             self.do_roarequest('ListAckNamespaces', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/ack-clusters/%s/namespaces' % TeaConverter.to_unicode(cluster_id), 'json', req, runtime)
         )
 
-    def list_all_node(self, instance_id):
+    def list_all_node(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_all_node_with_options(instance_id, headers, runtime)
+        return self.list_all_node_with_options(instance_id, request, headers, runtime)
 
-    def list_all_node_with_options(self, instance_id, headers, runtime):
+    def list_all_node_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        query = {}
+        if not UtilClient.is_unset(request.extended):
+            query['extended'] = request.extended
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         return TeaCore.from_map(
             elasticsearch_20170613_models.ListAllNodeResponse(),
@@ -1795,6 +1815,12 @@ class Client(OpenApiClient):
             query['name'] = request.name
         if not UtilClient.is_unset(request.is_managed):
             query['isManaged'] = request.is_managed
+        if not UtilClient.is_unset(request.is_openstore):
+            query['isOpenstore'] = request.is_openstore
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)

@@ -7231,6 +7231,102 @@ class GetEmonMonitorDataResponse(TeaModel):
         return self
 
 
+class GetOpenStoreUsageResponseBodyResult(TeaModel):
+    def __init__(self, last_day_usage=None, current_usage=None):
+        # 昨日使用容量
+        self.last_day_usage = last_day_usage  # type: long
+        # 当前使用量
+        self.current_usage = current_usage  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOpenStoreUsageResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.last_day_usage is not None:
+            result['lastDayUsage'] = self.last_day_usage
+        if self.current_usage is not None:
+            result['currentUsage'] = self.current_usage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('lastDayUsage') is not None:
+            self.last_day_usage = m.get('lastDayUsage')
+        if m.get('currentUsage') is not None:
+            self.current_usage = m.get('currentUsage')
+        return self
+
+
+class GetOpenStoreUsageResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result = result  # type: GetOpenStoreUsageResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetOpenStoreUsageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = GetOpenStoreUsageResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class GetOpenStoreUsageResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetOpenStoreUsageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetOpenStoreUsageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetOpenStoreUsageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetRegionConfigurationRequest(TeaModel):
     def __init__(self, zone_id=None):
         self.zone_id = zone_id  # type: str
@@ -9397,6 +9493,30 @@ class ListAckNamespacesResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListAckNamespacesResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListAllNodeRequest(TeaModel):
+    def __init__(self, extended=None):
+        self.extended = extended  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAllNodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extended is not None:
+            result['extended'] = self.extended
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('extended') is not None:
+            self.extended = m.get('extended')
         return self
 
 
@@ -13290,10 +13410,13 @@ class ListInstanceResponse(TeaModel):
 
 
 class ListInstanceIndicesRequest(TeaModel):
-    def __init__(self, all=None, name=None, is_managed=None):
+    def __init__(self, all=None, name=None, is_managed=None, is_openstore=None, page=None, size=None):
         self.all = all  # type: bool
         self.name = name  # type: str
         self.is_managed = is_managed  # type: bool
+        self.is_openstore = is_openstore  # type: bool
+        self.page = page  # type: int
+        self.size = size  # type: int
 
     def validate(self):
         pass
@@ -13310,6 +13433,12 @@ class ListInstanceIndicesRequest(TeaModel):
             result['name'] = self.name
         if self.is_managed is not None:
             result['isManaged'] = self.is_managed
+        if self.is_openstore is not None:
+            result['isOpenstore'] = self.is_openstore
+        if self.page is not None:
+            result['page'] = self.page
+        if self.size is not None:
+            result['size'] = self.size
         return result
 
     def from_map(self, m=None):
@@ -13320,13 +13449,21 @@ class ListInstanceIndicesRequest(TeaModel):
             self.name = m.get('name')
         if m.get('isManaged') is not None:
             self.is_managed = m.get('isManaged')
+        if m.get('isOpenstore') is not None:
+            self.is_openstore = m.get('isOpenstore')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('size') is not None:
+            self.size = m.get('size')
         return self
 
 
 class ListInstanceIndicesResponseBodyHeaders(TeaModel):
-    def __init__(self, x_managed_storage_size=None, x_managed_count=None):
+    def __init__(self, x_managed_storage_size=None, x_managed_count=None, x_ossstorage_size=None, x_osscount=None):
         self.x_managed_storage_size = x_managed_storage_size  # type: long
         self.x_managed_count = x_managed_count  # type: int
+        self.x_ossstorage_size = x_ossstorage_size  # type: long
+        self.x_osscount = x_osscount  # type: int
 
     def validate(self):
         pass
@@ -13341,6 +13478,10 @@ class ListInstanceIndicesResponseBodyHeaders(TeaModel):
             result['X-Managed-StorageSize'] = self.x_managed_storage_size
         if self.x_managed_count is not None:
             result['X-Managed-Count'] = self.x_managed_count
+        if self.x_ossstorage_size is not None:
+            result['X-OSS-StorageSize'] = self.x_ossstorage_size
+        if self.x_osscount is not None:
+            result['X-OSS-Count'] = self.x_osscount
         return result
 
     def from_map(self, m=None):
@@ -13349,17 +13490,24 @@ class ListInstanceIndicesResponseBodyHeaders(TeaModel):
             self.x_managed_storage_size = m.get('X-Managed-StorageSize')
         if m.get('X-Managed-Count') is not None:
             self.x_managed_count = m.get('X-Managed-Count')
+        if m.get('X-OSS-StorageSize') is not None:
+            self.x_ossstorage_size = m.get('X-OSS-StorageSize')
+        if m.get('X-OSS-Count') is not None:
+            self.x_osscount = m.get('X-OSS-Count')
         return self
 
 
 class ListInstanceIndicesResponseBodyResult(TeaModel):
-    def __init__(self, is_managed=None, create_time=None, size=None, managed_status=None, name=None, health=None):
+    def __init__(self, is_managed=None, create_time=None, size=None, managed_status=None, name=None, health=None,
+                 phase=None, ilm_explain=None):
         self.is_managed = is_managed  # type: str
         self.create_time = create_time  # type: str
         self.size = size  # type: long
         self.managed_status = managed_status  # type: str
         self.name = name  # type: str
         self.health = health  # type: str
+        self.phase = phase  # type: str
+        self.ilm_explain = ilm_explain  # type: str
 
     def validate(self):
         pass
@@ -13382,6 +13530,10 @@ class ListInstanceIndicesResponseBodyResult(TeaModel):
             result['name'] = self.name
         if self.health is not None:
             result['health'] = self.health
+        if self.phase is not None:
+            result['phase'] = self.phase
+        if self.ilm_explain is not None:
+            result['ilmExplain'] = self.ilm_explain
         return result
 
     def from_map(self, m=None):
@@ -13398,6 +13550,10 @@ class ListInstanceIndicesResponseBodyResult(TeaModel):
             self.name = m.get('name')
         if m.get('health') is not None:
             self.health = m.get('health')
+        if m.get('phase') is not None:
+            self.phase = m.get('phase')
+        if m.get('ilmExplain') is not None:
+            self.ilm_explain = m.get('ilmExplain')
         return self
 
 
