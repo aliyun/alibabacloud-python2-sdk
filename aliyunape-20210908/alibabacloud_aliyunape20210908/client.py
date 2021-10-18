@@ -34,36 +34,16 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = aliyunape_20210908_models.ExecuteShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.extend_param):
-            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
         if not UtilClient.is_unset(tmp_req.service_param):
             request.service_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.service_param, 'ServiceParam', 'json')
-        query = {}
-        query['AppName'] = request.app_name
-        query['Channel'] = request.channel
-        query['ExtendParam'] = request.extend_param_shrink
-        query['OrderId'] = request.order_id
-        query['RequestId'] = request.request_id
-        query['ServiceParam'] = request.service_param_shrink
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(tmp_req.extend_param):
+            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='Execute',
-            version='2021-09-08',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
         )
         return TeaCore.from_map(
             aliyunape_20210908_models.ExecuteResponse(),
-            self.call_api(params, req, runtime)
+            self.do_rpcrequest('Execute', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
     def execute(self, request):
@@ -74,38 +54,88 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = aliyunape_20210908_models.WeathermonitorProvinceHourShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.extend_param):
-            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
         if not UtilClient.is_unset(tmp_req.service_param):
             request.service_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.service_param, 'ServiceParam', 'json')
-        query = {}
-        query['AppName'] = request.app_name
-        query['Channel'] = request.channel
-        query['ExtendParam'] = request.extend_param_shrink
-        query['OrderId'] = request.order_id
-        query['RequestId'] = request.request_id
-        query['ServiceParam'] = request.service_param_shrink
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(tmp_req.extend_param):
+            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='WeathermonitorProvinceHour',
-            version='2021-09-08',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
         )
         return TeaCore.from_map(
             aliyunape_20210908_models.WeathermonitorProvinceHourResponse(),
-            self.call_api(params, req, runtime)
+            self.do_rpcrequest('WeathermonitorProvinceHour', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
     def weathermonitor_province_hour(self, request):
         runtime = util_models.RuntimeOptions()
         return self.weathermonitor_province_hour_with_options(request, runtime)
+
+    def weathermonitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.WeathermonitorResponse(),
+            self.do_rpcrequest('Weathermonitor', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def weathermonitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.weathermonitor_with_options(request, runtime)
+
+    def weatherforecast_time_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.WeatherforecastTimeResponse(),
+            self.do_rpcrequest('WeatherforecastTime', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def weatherforecast_time(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.weatherforecast_time_with_options(request, runtime)
+
+    def station_day_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.StationDayResponse(),
+            self.do_rpcrequest('StationDay', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def station_day(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.station_day_with_options(request, runtime)
+
+    def weatherforecast_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.WeatherforecastResponse(),
+            self.do_rpcrequest('Weatherforecast', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def weatherforecast(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.weatherforecast_with_options(request, runtime)
+
+    def historical_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.HistoricalResponse(),
+            self.do_rpcrequest('Historical', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def historical(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.historical_with_options(request, runtime)
