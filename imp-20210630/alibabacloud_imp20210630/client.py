@@ -30,20 +30,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_ice_project_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            imp_20210630_models.CreateIceProjectResponse(),
-            self.do_rpcrequest('CreateIceProject', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_ice_project(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_ice_project_with_options(request, runtime)
-
     def remove_member_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -57,6 +43,20 @@ class Client(OpenApiClient):
     def remove_member(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_member_with_options(request, runtime)
+
+    def delete_comment_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.DeleteCommentResponse(),
+            self.do_rpcrequest('DeleteComment', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_comment(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_comment_with_options(request, runtime)
 
     def list_apply_link_mic_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -127,6 +127,20 @@ class Client(OpenApiClient):
     def ban_comment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.ban_comment_with_options(request, runtime)
+
+    def get_standard_room_https_certificate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.GetStandardRoomHttpsCertificateResponse(),
+            self.do_rpcrequest('GetStandardRoomHttpsCertificate', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_standard_room_https_certificate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_standard_room_https_certificate_with_options(request, runtime)
 
     def list_live_rooms_by_id_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -202,6 +216,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_app_template_with_options(request, runtime)
 
+    def attach_standard_room_https_certificate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.AttachStandardRoomHttpsCertificateResponse(),
+            self.do_rpcrequest('AttachStandardRoomHttpsCertificate', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def attach_standard_room_https_certificate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.attach_standard_room_https_certificate_with_options(request, runtime)
+
     def update_app_template_config_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = imp_20210630_models.UpdateAppTemplateConfigShrinkRequest()
@@ -247,20 +275,6 @@ class Client(OpenApiClient):
     def update_class(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_class_with_options(request, runtime)
-
-    def register_ice_oss_media_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            imp_20210630_models.RegisterIceOssMediaResponse(),
-            self.do_rpcrequest('RegisterIceOssMedia', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def register_ice_oss_media(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.register_ice_oss_media_with_options(request, runtime)
 
     def create_conference_with_options(self, request, runtime):
         UtilClient.validate_model(request)
