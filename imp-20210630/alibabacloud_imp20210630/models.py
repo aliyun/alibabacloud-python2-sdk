@@ -9033,10 +9033,42 @@ class GetLiveResponseBodyResultPlayUrlInfoList(TeaModel):
         return self
 
 
+class GetLiveResponseBodyResultArtcInfo(TeaModel):
+    def __init__(self, artc_url=None, artc_h5url=None):
+        # 源码地址
+        self.artc_url = artc_url  # type: str
+        # 原画转码地址
+        self.artc_h5url = artc_h5url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetLiveResponseBodyResultArtcInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.artc_url is not None:
+            result['ArtcUrl'] = self.artc_url
+        if self.artc_h5url is not None:
+            result['ArtcH5Url'] = self.artc_h5url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArtcUrl') is not None:
+            self.artc_url = m.get('ArtcUrl')
+        if m.get('ArtcH5Url') is not None:
+            self.artc_h5url = m.get('ArtcH5Url')
+        return self
+
+
 class GetLiveResponseBodyResult(TeaModel):
     def __init__(self, anchor_id=None, live_id=None, title=None, playback_url=None, create_time=None, end_time=None,
                  duration=None, push_url=None, live_url=None, status=None, introduction=None, room_id=None, app_id=None,
-                 user_id=None, code_level=None, play_url_info_list=None, cover_url=None, user_define_field=None):
+                 user_id=None, code_level=None, play_url_info_list=None, cover_url=None, user_define_field=None,
+                 hls_url=None, artc_info=None):
         # 主播ID
         self.anchor_id = anchor_id  # type: str
         # 直播资源的唯一标识ID
@@ -9073,12 +9105,18 @@ class GetLiveResponseBodyResult(TeaModel):
         self.cover_url = cover_url  # type: str
         # 用户自定义数据存储
         self.user_define_field = user_define_field  # type: str
+        # hls播放地址
+        self.hls_url = hls_url  # type: str
+        # rts播流信息
+        self.artc_info = artc_info  # type: GetLiveResponseBodyResultArtcInfo
 
     def validate(self):
         if self.play_url_info_list:
             for k in self.play_url_info_list:
                 if k:
                     k.validate()
+        if self.artc_info:
+            self.artc_info.validate()
 
     def to_map(self):
         _map = super(GetLiveResponseBodyResult, self).to_map()
@@ -9124,6 +9162,10 @@ class GetLiveResponseBodyResult(TeaModel):
             result['CoverUrl'] = self.cover_url
         if self.user_define_field is not None:
             result['UserDefineField'] = self.user_define_field
+        if self.hls_url is not None:
+            result['HlsUrl'] = self.hls_url
+        if self.artc_info is not None:
+            result['ArtcInfo'] = self.artc_info.to_map()
         return result
 
     def from_map(self, m=None):
@@ -9167,6 +9209,11 @@ class GetLiveResponseBodyResult(TeaModel):
             self.cover_url = m.get('CoverUrl')
         if m.get('UserDefineField') is not None:
             self.user_define_field = m.get('UserDefineField')
+        if m.get('HlsUrl') is not None:
+            self.hls_url = m.get('HlsUrl')
+        if m.get('ArtcInfo') is not None:
+            temp_model = GetLiveResponseBodyResultArtcInfo()
+            self.artc_info = temp_model.from_map(m['ArtcInfo'])
         return self
 
 
