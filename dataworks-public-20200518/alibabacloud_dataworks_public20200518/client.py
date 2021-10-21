@@ -1028,6 +1028,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_disync_tasks_with_options(request, runtime)
 
+    def generate_disync_task_config_for_creating_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GenerateDISyncTaskConfigForCreatingResponse(),
+            self.do_rpcrequest('GenerateDISyncTaskConfigForCreating', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def generate_disync_task_config_for_creating(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_disync_task_config_for_creating_with_options(request, runtime)
+
+    def generate_disync_task_config_for_updating_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GenerateDISyncTaskConfigForUpdatingResponse(),
+            self.do_rpcrequest('GenerateDISyncTaskConfigForUpdating', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def generate_disync_task_config_for_updating(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_disync_task_config_for_updating_with_options(request, runtime)
+
     def get_baseline_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1252,6 +1280,21 @@ class Client(OpenApiClient):
     def get_disync_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_disync_task_with_options(request, runtime)
+
+    def get_disync_task_metric_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetDISyncTaskMetricInfoResponse(),
+            self.do_rpcrequest('GetDISyncTaskMetricInfo', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def get_disync_task_metric_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_disync_task_metric_info_with_options(request, runtime)
 
     def get_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2596,6 +2639,20 @@ class Client(OpenApiClient):
     def publish_data_service_api(self, request):
         runtime = util_models.RuntimeOptions()
         return self.publish_data_service_api_with_options(request, runtime)
+
+    def query_disync_task_config_process_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.QueryDISyncTaskConfigProcessResultResponse(),
+            self.do_rpcrequest('QueryDISyncTaskConfigProcessResult', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_disync_task_config_process_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_disync_task_config_process_result_with_options(request, runtime)
 
     def query_public_model_engine_with_options(self, request, runtime):
         UtilClient.validate_model(request)
