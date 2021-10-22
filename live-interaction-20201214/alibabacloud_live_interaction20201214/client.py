@@ -84,6 +84,24 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.import_message_with_options(request, runtime)
 
+    def unbind_interconnection_uid_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_interaction_20201214_models.UnbindInterconnectionUidShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.request_params):
+            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            live_interaction_20201214_models.UnbindInterconnectionUidResponse(),
+            self.do_rpcrequest('UnbindInterconnectionUid', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def unbind_interconnection_uid(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.unbind_interconnection_uid_with_options(request, runtime)
+
     def silence_all_group_members_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = live_interaction_20201214_models.SilenceAllGroupMembersShrinkRequest()
@@ -682,6 +700,24 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_media_upload_url_with_options(request, runtime)
 
+    def bind_interconnection_uid_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_interaction_20201214_models.BindInterconnectionUidShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.request_params):
+            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            live_interaction_20201214_models.BindInterconnectionUidResponse(),
+            self.do_rpcrequest('BindInterconnectionUid', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def bind_interconnection_uid(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_interconnection_uid_with_options(request, runtime)
+
     def get_media_url_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = live_interaction_20201214_models.GetMediaUrlShrinkRequest()
@@ -735,6 +771,24 @@ class Client(OpenApiClient):
     def update_callback_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_callback_config_with_options(request, runtime)
+
+    def bind_interconnection_cid_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_interaction_20201214_models.BindInterconnectionCidShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.request_params):
+            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            live_interaction_20201214_models.BindInterconnectionCidResponse(),
+            self.do_rpcrequest('BindInterconnectionCid', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def bind_interconnection_cid(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_interconnection_cid_with_options(request, runtime)
 
     def init_tenant_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -986,6 +1040,24 @@ class Client(OpenApiClient):
     def get_login_token(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_login_token_with_options(request, runtime)
+
+    def query_interconnection_cid_mapping_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = live_interaction_20201214_models.QueryInterconnectionCidMappingShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.request_params):
+            request.request_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.request_params), 'RequestParams', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            live_interaction_20201214_models.QueryInterconnectionCidMappingResponse(),
+            self.do_rpcrequest('QueryInterconnectionCidMapping', '2020-12-14', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_interconnection_cid_mapping(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_interconnection_cid_mapping_with_options(request, runtime)
 
     def dismiss_group_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
