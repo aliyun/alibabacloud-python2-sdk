@@ -1854,7 +1854,7 @@ class StopUpgradeTaskResponse(TeaModel):
 class CreateDbfsRequest(TeaModel):
     def __init__(self, region_id=None, fs_name=None, category=None, size_g=None, zone_id=None, client_token=None,
                  snapshot_id=None, delete_snapshot=None, performance_level=None, enable_raid=None,
-                 raid_stripe_unit_number=None, kmskey_id=None, encryption=None, used_scene=None):
+                 raid_stripe_unit_number=None, kmskey_id=None, encryption=None, used_scene=None, instance_type=None):
         self.region_id = region_id  # type: str
         self.fs_name = fs_name  # type: str
         self.category = category  # type: str
@@ -1869,6 +1869,7 @@ class CreateDbfsRequest(TeaModel):
         self.kmskey_id = kmskey_id  # type: str
         self.encryption = encryption  # type: bool
         self.used_scene = used_scene  # type: str
+        self.instance_type = instance_type  # type: str
 
     def validate(self):
         pass
@@ -1907,6 +1908,8 @@ class CreateDbfsRequest(TeaModel):
             result['Encryption'] = self.encryption
         if self.used_scene is not None:
             result['UsedScene'] = self.used_scene
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
         return result
 
     def from_map(self, m=None):
@@ -1939,6 +1942,8 @@ class CreateDbfsRequest(TeaModel):
             self.encryption = m.get('Encryption')
         if m.get('UsedScene') is not None:
             self.used_scene = m.get('UsedScene')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
         return self
 
 
