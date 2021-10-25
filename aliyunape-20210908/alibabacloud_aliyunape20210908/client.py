@@ -10,7 +10,6 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_aliyunape20210908 import models as aliyunape_20210908_models
 from alibabacloud_tea_util import models as util_models
-from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -29,46 +28,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
-
-    def execute_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = aliyunape_20210908_models.ExecuteShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.service_param):
-            request.service_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.service_param, 'ServiceParam', 'json')
-        if not UtilClient.is_unset(tmp_req.extend_param):
-            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            aliyunape_20210908_models.ExecuteResponse(),
-            self.do_rpcrequest('Execute', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def execute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.execute_with_options(request, runtime)
-
-    def weathermonitor_province_hour_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = aliyunape_20210908_models.WeathermonitorProvinceHourShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.service_param):
-            request.service_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.service_param, 'ServiceParam', 'json')
-        if not UtilClient.is_unset(tmp_req.extend_param):
-            request.extend_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.extend_param, 'ExtendParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            aliyunape_20210908_models.WeathermonitorProvinceHourResponse(),
-            self.do_rpcrequest('WeathermonitorProvinceHour', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def weathermonitor_province_hour(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.weathermonitor_province_hour_with_options(request, runtime)
 
     def weathermonitor_with_options(self, request, runtime):
         UtilClient.validate_model(request)
