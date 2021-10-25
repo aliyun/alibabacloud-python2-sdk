@@ -304,6 +304,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_live_with_options(request, runtime)
 
+    def list_comments_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            imp_20210630_models.ListCommentsResponse(),
+            self.do_rpcrequest('ListComments', '2021-06-30', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_comments(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_comments_with_options(request, runtime)
+
     def get_live_domain_status_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = imp_20210630_models.GetLiveDomainStatusShrinkRequest()
