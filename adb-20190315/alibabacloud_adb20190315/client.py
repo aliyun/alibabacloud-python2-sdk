@@ -10,6 +10,7 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_adb20190315 import models as adb_20190315_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -397,6 +398,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_attribute_with_options(request, runtime)
 
+    def describe_dbcluster_forecast_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDBClusterForecastResponse(),
+            self.do_rpcrequest('DescribeDBClusterForecast', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dbcluster_forecast(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbcluster_forecast_with_options(request, runtime)
+
+    def describe_dbcluster_health_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDBClusterHealthReportResponse(),
+            self.do_rpcrequest('DescribeDBClusterHealthReport', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dbcluster_health_report(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbcluster_health_report_with_options(request, runtime)
+
     def describe_dbcluster_net_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -467,6 +496,63 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbresource_pool_with_options(request, runtime)
 
+    def describe_diagnosis_dimensions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisDimensionsResponse(),
+            self.do_rpcrequest('DescribeDiagnosisDimensions', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_diagnosis_dimensions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_dimensions_with_options(request, runtime)
+
+    def describe_diagnosis_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisRecordsResponse(),
+            self.do_rpcrequest('DescribeDiagnosisRecords', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_diagnosis_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_records_with_options(request, runtime)
+
+    def describe_diagnosis_sqlinfo_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisSQLInfoResponse(),
+            self.do_rpcrequest('DescribeDiagnosisSQLInfo', '2019-03-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def describe_diagnosis_sqlinfo(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_sqlinfo_with_options(request, runtime)
+
+    def describe_download_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDownloadRecordsResponse(),
+            self.do_rpcrequest('DescribeDownloadRecords', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_download_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_download_records_with_options(request, runtime)
+
     def describe_elastic_daily_plan_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -523,6 +609,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_load_tasks_records_with_options(request, runtime)
 
+    def describe_maintenance_action_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeMaintenanceActionResponse(),
+            self.do_rpcrequest('DescribeMaintenanceAction', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_maintenance_action(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_maintenance_action_with_options(request, runtime)
+
     def describe_operator_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -536,6 +636,20 @@ class Client(OpenApiClient):
     def describe_operator_permission(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_operator_permission_with_options(request, runtime)
+
+    def describe_pattern_performance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribePatternPerformanceResponse(),
+            self.do_rpcrequest('DescribePatternPerformance', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_pattern_performance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_pattern_performance_with_options(request, runtime)
 
     def describe_process_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -607,6 +721,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_slow_log_trend_with_options(request, runtime)
 
+    def describe_sql_pattern_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeSqlPatternResponse(),
+            self.do_rpcrequest('DescribeSqlPattern', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_sql_pattern(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sql_pattern_with_options(request, runtime)
+
+    def describe_sqlpattern_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeSQLPatternAttributeResponse(),
+            self.do_rpcrequest('DescribeSQLPatternAttribute', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_sqlpattern_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sqlpattern_attribute_with_options(request, runtime)
+
+    def describe_sqlpatterns_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeSQLPatternsResponse(),
+            self.do_rpcrequest('DescribeSQLPatterns', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_sqlpatterns(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sqlpatterns_with_options(request, runtime)
+
     def describe_sqlplan_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -634,6 +790,20 @@ class Client(OpenApiClient):
     def describe_sqlplan_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlplan_task_with_options(request, runtime)
+
+    def describe_table_access_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeTableAccessCountResponse(),
+            self.do_rpcrequest('DescribeTableAccessCount', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_table_access_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_table_access_count_with_options(request, runtime)
 
     def describe_table_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -704,6 +874,20 @@ class Client(OpenApiClient):
     def describe_task_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_task_info_with_options(request, runtime)
+
+    def download_diagnosis_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DownloadDiagnosisRecordsResponse(),
+            self.do_rpcrequest('DownloadDiagnosisRecords', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def download_diagnosis_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.download_diagnosis_records_with_options(request, runtime)
 
     def grant_operator_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -928,6 +1112,20 @@ class Client(OpenApiClient):
     def modify_log_backup_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_log_backup_policy_with_options(request, runtime)
+
+    def modify_maintenance_action_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.ModifyMaintenanceActionResponse(),
+            self.do_rpcrequest('ModifyMaintenanceAction', '2019-03-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_maintenance_action(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_maintenance_action_with_options(request, runtime)
 
     def release_cluster_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
