@@ -2404,6 +2404,107 @@ class SaveHotspotTagResponse(TeaModel):
         return self
 
 
+class RecoveryOriginImageRequest(TeaModel):
+    def __init__(self, sub_scene_id=None):
+        # 子场景ID
+        self.sub_scene_id = sub_scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecoveryOriginImageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_scene_id is not None:
+            result['SubSceneId'] = self.sub_scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SubSceneId') is not None:
+            self.sub_scene_id = m.get('SubSceneId')
+        return self
+
+
+class RecoveryOriginImageResponseBody(TeaModel):
+    def __init__(self, request_id=None, code=None, success=None, message=None):
+        # 请求ID，与入参requestId对应
+        self.request_id = request_id  # type: str
+        # 返回码
+        self.code = code  # type: long
+        # 是否请求成功
+        self.success = success  # type: bool
+        # 错误消息
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecoveryOriginImageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class RecoveryOriginImageResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RecoveryOriginImageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RecoveryOriginImageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RecoveryOriginImageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteProjectRequest(TeaModel):
     def __init__(self, project_id=None):
         self.project_id = project_id  # type: str
@@ -3047,6 +3148,107 @@ class GetConnDataResponse(TeaModel):
         return self
 
 
+class RollbackSubSceneRequest(TeaModel):
+    def __init__(self, id=None):
+        # 子场景ID
+        self.id = id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RollbackSubSceneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        return self
+
+
+class RollbackSubSceneResponseBody(TeaModel):
+    def __init__(self, request_id=None, code=None, success=None, message=None):
+        # 请求ID，与入参requestId对应
+        self.request_id = request_id  # type: str
+        # 返回码
+        self.code = code  # type: long
+        # 是否请求成功
+        self.success = success  # type: bool
+        # 错误消息
+        self.message = message  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RollbackSubSceneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class RollbackSubSceneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RollbackSubSceneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RollbackSubSceneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RollbackSubSceneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class TempPreviewStatusRequest(TeaModel):
     def __init__(self, key=None):
         # 任务ID
@@ -3462,7 +3664,7 @@ class ListSubSceneRequest(TeaModel):
 
 class ListSubSceneResponseBodyList(TeaModel):
     def __init__(self, id=None, name=None, resource_id=None, url=None, cover_url=None, status=None, gmt_create=None,
-                 gmt_modified=None, resource_name=None, cubemap_path=None, deleted=None, origin_url=None):
+                 gmt_modified=None, resource_name=None, cubemap_path=None, deleted=None, origin_url=None, base_image_url=None):
         # 子场景ID
         self.id = id  # type: str
         # 子场景名称
@@ -3487,6 +3689,8 @@ class ListSubSceneResponseBodyList(TeaModel):
         self.deleted = deleted  # type: bool
         # 原图地址
         self.origin_url = origin_url  # type: str
+        # 2k基准图路径
+        self.base_image_url = base_image_url  # type: str
 
     def validate(self):
         pass
@@ -3521,6 +3725,8 @@ class ListSubSceneResponseBodyList(TeaModel):
             result['Deleted'] = self.deleted
         if self.origin_url is not None:
             result['OriginUrl'] = self.origin_url
+        if self.base_image_url is not None:
+            result['BaseImageUrl'] = self.base_image_url
         return result
 
     def from_map(self, m=None):
@@ -3549,6 +3755,8 @@ class ListSubSceneResponseBodyList(TeaModel):
             self.deleted = m.get('Deleted')
         if m.get('OriginUrl') is not None:
             self.origin_url = m.get('OriginUrl')
+        if m.get('BaseImageUrl') is not None:
+            self.base_image_url = m.get('BaseImageUrl')
         return self
 
 
@@ -5770,6 +5978,119 @@ class GetHotspotSceneDataResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetHotspotSceneDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AddMosaicsRequest(TeaModel):
+    def __init__(self, sub_scene_id=None, mark_position=None):
+        # 子场景ID
+        self.sub_scene_id = sub_scene_id  # type: str
+        # 马赛克位置数据
+        self.mark_position = mark_position  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMosaicsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.sub_scene_id is not None:
+            result['SubSceneId'] = self.sub_scene_id
+        if self.mark_position is not None:
+            result['MarkPosition'] = self.mark_position
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SubSceneId') is not None:
+            self.sub_scene_id = m.get('SubSceneId')
+        if m.get('MarkPosition') is not None:
+            self.mark_position = m.get('MarkPosition')
+        return self
+
+
+class AddMosaicsResponseBody(TeaModel):
+    def __init__(self, request_id=None, code=None, success=None, message=None, task_id=None):
+        # 请求ID，与入参requestId对应
+        self.request_id = request_id  # type: str
+        # 返回码
+        self.code = code  # type: long
+        # 是否请求成功
+        self.success = success  # type: bool
+        # 错误消息
+        self.message = message  # type: str
+        # 任务ID
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddMosaicsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class AddMosaicsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: AddMosaicsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddMosaicsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = AddMosaicsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

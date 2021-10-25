@@ -298,6 +298,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.save_hotspot_tag_with_options(request, runtime)
 
+    def recovery_origin_image_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.RecoveryOriginImageResponse(),
+            self.do_rpcrequest('RecoveryOriginImage', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def recovery_origin_image(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recovery_origin_image_with_options(request, runtime)
+
     def delete_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -367,6 +381,20 @@ class Client(OpenApiClient):
     def get_conn_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_conn_data_with_options(request, runtime)
+
+    def rollback_sub_scene_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.RollbackSubSceneResponse(),
+            self.do_rpcrequest('RollbackSubScene', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def rollback_sub_scene(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.rollback_sub_scene_with_options(request, runtime)
 
     def temp_preview_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -661,6 +689,20 @@ class Client(OpenApiClient):
     def get_hotspot_scene_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_hotspot_scene_data_with_options(request, runtime)
+
+    def add_mosaics_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.AddMosaicsResponse(),
+            self.do_rpcrequest('AddMosaics', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def add_mosaics(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_mosaics_with_options(request, runtime)
 
     def scene_publish_with_options(self, request, runtime):
         UtilClient.validate_model(request)
