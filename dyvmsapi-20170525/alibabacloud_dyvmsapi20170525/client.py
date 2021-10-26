@@ -267,6 +267,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.execute_call_task_with_options(request, runtime)
 
+    def get_call_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.GetCallInfoResponse(),
+            self.do_rpcrequest('GetCallInfo', '2017-05-25', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_call_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_call_info_with_options(request, runtime)
+
     def get_hotline_qualification_by_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
