@@ -28,20 +28,20 @@ class AcceptHandshakeRequest(TeaModel):
 
 
 class AcceptHandshakeResponseBodyHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -52,61 +52,61 @@ class AcceptHandshakeResponseBodyHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
 class AcceptHandshakeResponseBody(TeaModel):
-    def __init__(self, request_id=None, handshake=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, handshake=None, request_id=None):
         self.handshake = handshake  # type: AcceptHandshakeResponseBodyHandshake
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.handshake:
@@ -118,19 +118,19 @@ class AcceptHandshakeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.handshake is not None:
             result['Handshake'] = self.handshake.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Handshake') is not None:
             temp_model = AcceptHandshakeResponseBodyHandshake()
             self.handshake = temp_model.from_map(m['Handshake'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -254,13 +254,13 @@ class AttachControlPolicyResponse(TeaModel):
 
 
 class AttachPolicyRequest(TeaModel):
-    def __init__(self, resource_group_id=None, policy_type=None, policy_name=None, principal_type=None,
-                 principal_name=None):
-        self.resource_group_id = resource_group_id  # type: str
-        self.policy_type = policy_type  # type: str
+    def __init__(self, policy_name=None, policy_type=None, principal_name=None, principal_type=None,
+                 resource_group_id=None):
         self.policy_name = policy_name  # type: str
-        self.principal_type = principal_type  # type: str
+        self.policy_type = policy_type  # type: str
         self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -271,30 +271,30 @@ class AttachPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
-        if self.principal_type is not None:
-            result['PrincipalType'] = self.principal_type
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         if self.principal_name is not None:
             result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
-        if m.get('PrincipalType') is not None:
-            self.principal_type = m.get('PrincipalType')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         if m.get('PrincipalName') is not None:
             self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
@@ -461,20 +461,20 @@ class CancelHandshakeRequest(TeaModel):
 
 
 class CancelHandshakeResponseBodyHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -485,61 +485,61 @@ class CancelHandshakeResponseBodyHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
 class CancelHandshakeResponseBody(TeaModel):
-    def __init__(self, request_id=None, handshake=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, handshake=None, request_id=None):
         self.handshake = handshake  # type: CancelHandshakeResponseBodyHandshake
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.handshake:
@@ -551,19 +551,19 @@ class CancelHandshakeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.handshake is not None:
             result['Handshake'] = self.handshake.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Handshake') is not None:
             temp_model = CancelHandshakeResponseBodyHandshake()
             self.handshake = temp_model.from_map(m['Handshake'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -682,10 +682,10 @@ class CancelPromoteResourceAccountResponse(TeaModel):
 
 
 class CreateCloudAccountRequest(TeaModel):
-    def __init__(self, display_name=None, parent_folder_id=None, email=None, payer_account_id=None):
+    def __init__(self, display_name=None, email=None, parent_folder_id=None, payer_account_id=None):
         self.display_name = display_name  # type: str
-        self.parent_folder_id = parent_folder_id  # type: str
         self.email = email  # type: str
+        self.parent_folder_id = parent_folder_id  # type: str
         self.payer_account_id = payer_account_id  # type: str
 
     def validate(self):
@@ -699,10 +699,10 @@ class CreateCloudAccountRequest(TeaModel):
         result = dict()
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
         if self.email is not None:
             result['Email'] = self.email
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
         if self.payer_account_id is not None:
             result['PayerAccountId'] = self.payer_account_id
         return result
@@ -711,28 +711,28 @@ class CreateCloudAccountRequest(TeaModel):
         m = m or dict()
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
         if m.get('Email') is not None:
             self.email = m.get('Email')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
         if m.get('PayerAccountId') is not None:
             self.payer_account_id = m.get('PayerAccountId')
         return self
 
 
 class CreateCloudAccountResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 record_id=None, account_id=None, join_method=None, modify_time=None, account_name=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 modify_time=None, record_id=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.record_id = record_id  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
         self.modify_time = modify_time  # type: str
-        self.account_name = account_name  # type: str
+        self.record_id = record_id  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -743,50 +743,50 @@ class CreateCloudAccountResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.record_id is not None:
-            result['RecordId'] = self.record_id
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.record_id is not None:
+            result['RecordId'] = self.record_id
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('RecordId') is not None:
-            self.record_id = m.get('RecordId')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('RecordId') is not None:
+            self.record_id = m.get('RecordId')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -855,11 +855,11 @@ class CreateCloudAccountResponse(TeaModel):
 
 
 class CreateControlPolicyRequest(TeaModel):
-    def __init__(self, policy_name=None, description=None, effect_scope=None, policy_document=None):
-        self.policy_name = policy_name  # type: str
+    def __init__(self, description=None, effect_scope=None, policy_document=None, policy_name=None):
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
         self.policy_document = policy_document  # type: str
+        self.policy_name = policy_name  # type: str
 
     def validate(self):
         pass
@@ -870,40 +870,40 @@ class CreateControlPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
         if self.policy_document is not None:
             result['PolicyDocument'] = self.policy_document
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
         if m.get('PolicyDocument') is not None:
             self.policy_document = m.get('PolicyDocument')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         return self
 
 
 class CreateControlPolicyResponseBodyControlPolicy(TeaModel):
-    def __init__(self, update_date=None, description=None, effect_scope=None, attachment_count=None,
-                 policy_name=None, policy_id=None, create_date=None, policy_type=None):
-        self.update_date = update_date  # type: str
+    def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None, policy_id=None,
+                 policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: str
+        self.create_date = create_date  # type: str
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
-        self.attachment_count = attachment_count  # type: str
-        self.policy_name = policy_name  # type: str
         self.policy_id = policy_id  # type: str
-        self.create_date = create_date  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -914,42 +914,42 @@ class CreateControlPolicyResponseBodyControlPolicy(TeaModel):
             return _map
 
         result = dict()
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -1018,9 +1018,9 @@ class CreateControlPolicyResponse(TeaModel):
 
 
 class CreateFolderRequest(TeaModel):
-    def __init__(self, parent_folder_id=None, folder_name=None):
-        self.parent_folder_id = parent_folder_id  # type: str
+    def __init__(self, folder_name=None, parent_folder_id=None):
         self.folder_name = folder_name  # type: str
+        self.parent_folder_id = parent_folder_id  # type: str
 
     def validate(self):
         pass
@@ -1031,27 +1031,27 @@ class CreateFolderRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
         return self
 
 
 class CreateFolderResponseBodyFolder(TeaModel):
-    def __init__(self, folder_id=None, create_time=None, parent_folder_id=None, folder_name=None):
-        self.folder_id = folder_id  # type: str
+    def __init__(self, create_time=None, folder_id=None, folder_name=None, parent_folder_id=None):
         self.create_time = create_time  # type: str
-        self.parent_folder_id = parent_folder_id  # type: str
+        self.folder_id = folder_id  # type: str
         self.folder_name = folder_name  # type: str
+        self.parent_folder_id = parent_folder_id  # type: str
 
     def validate(self):
         pass
@@ -1062,33 +1062,33 @@ class CreateFolderResponseBodyFolder(TeaModel):
             return _map
 
         result = dict()
-        if self.folder_id is not None:
-            result['FolderId'] = self.folder_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FolderId') is not None:
-            self.folder_id = m.get('FolderId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
         return self
 
 
 class CreateFolderResponseBody(TeaModel):
-    def __init__(self, request_id=None, folder=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, folder=None, request_id=None):
         self.folder = folder  # type: CreateFolderResponseBodyFolder
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.folder:
@@ -1100,19 +1100,19 @@ class CreateFolderResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.folder is not None:
             result['Folder'] = self.folder.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Folder') is not None:
             temp_model = CreateFolderResponseBodyFolder()
             self.folder = temp_model.from_map(m['Folder'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -1150,10 +1150,10 @@ class CreateFolderResponse(TeaModel):
 
 
 class CreatePolicyRequest(TeaModel):
-    def __init__(self, policy_name=None, description=None, policy_document=None):
-        self.policy_name = policy_name  # type: str
+    def __init__(self, description=None, policy_document=None, policy_name=None):
         self.description = description  # type: str
         self.policy_document = policy_document  # type: str
+        self.policy_name = policy_name  # type: str
 
     def validate(self):
         pass
@@ -1164,31 +1164,31 @@ class CreatePolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.description is not None:
             result['Description'] = self.description
         if self.policy_document is not None:
             result['PolicyDocument'] = self.policy_document
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('PolicyDocument') is not None:
             self.policy_document = m.get('PolicyDocument')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         return self
 
 
 class CreatePolicyResponseBodyPolicy(TeaModel):
-    def __init__(self, default_version=None, description=None, policy_name=None, create_date=None, policy_type=None):
+    def __init__(self, create_date=None, default_version=None, description=None, policy_name=None, policy_type=None):
+        self.create_date = create_date  # type: str
         self.default_version = default_version  # type: str
         self.description = description  # type: str
         self.policy_name = policy_name  # type: str
-        self.create_date = create_date  # type: str
         self.policy_type = policy_type  # type: str
 
     def validate(self):
@@ -1200,28 +1200,28 @@ class CreatePolicyResponseBodyPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.default_version is not None:
             result['DefaultVersion'] = self.default_version
         if self.description is not None:
             result['Description'] = self.description
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DefaultVersion') is not None:
             self.default_version = m.get('DefaultVersion')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
         return self
@@ -1292,9 +1292,9 @@ class CreatePolicyResponse(TeaModel):
 
 
 class CreatePolicyVersionRequest(TeaModel):
-    def __init__(self, policy_name=None, policy_document=None, set_as_default=None):
-        self.policy_name = policy_name  # type: str
+    def __init__(self, policy_document=None, policy_name=None, set_as_default=None):
         self.policy_document = policy_document  # type: str
+        self.policy_name = policy_name  # type: str
         self.set_as_default = set_as_default  # type: bool
 
     def validate(self):
@@ -1306,30 +1306,30 @@ class CreatePolicyVersionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.policy_document is not None:
             result['PolicyDocument'] = self.policy_document
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.set_as_default is not None:
             result['SetAsDefault'] = self.set_as_default
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('PolicyDocument') is not None:
             self.policy_document = m.get('PolicyDocument')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('SetAsDefault') is not None:
             self.set_as_default = m.get('SetAsDefault')
         return self
 
 
 class CreatePolicyVersionResponseBodyPolicyVersion(TeaModel):
-    def __init__(self, is_default_version=None, version_id=None, create_date=None):
+    def __init__(self, create_date=None, is_default_version=None, version_id=None):
+        self.create_date = create_date  # type: str
         self.is_default_version = is_default_version  # type: bool
         self.version_id = version_id  # type: str
-        self.create_date = create_date  # type: str
 
     def validate(self):
         pass
@@ -1340,22 +1340,22 @@ class CreatePolicyVersionResponseBodyPolicyVersion(TeaModel):
             return _map
 
         result = dict()
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.is_default_version is not None:
             result['IsDefaultVersion'] = self.is_default_version
         if self.version_id is not None:
             result['VersionId'] = self.version_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('IsDefaultVersion') is not None:
             self.is_default_version = m.get('IsDefaultVersion')
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         return self
 
 
@@ -1424,11 +1424,11 @@ class CreatePolicyVersionResponse(TeaModel):
 
 
 class CreateResourceAccountRequest(TeaModel):
-    def __init__(self, display_name=None, parent_folder_id=None, payer_account_id=None, account_name_prefix=None):
+    def __init__(self, account_name_prefix=None, display_name=None, parent_folder_id=None, payer_account_id=None):
+        self.account_name_prefix = account_name_prefix  # type: str
         self.display_name = display_name  # type: str
         self.parent_folder_id = parent_folder_id  # type: str
         self.payer_account_id = payer_account_id  # type: str
-        self.account_name_prefix = account_name_prefix  # type: str
 
     def validate(self):
         pass
@@ -1439,42 +1439,42 @@ class CreateResourceAccountRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.account_name_prefix is not None:
+            result['AccountNamePrefix'] = self.account_name_prefix
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.parent_folder_id is not None:
             result['ParentFolderId'] = self.parent_folder_id
         if self.payer_account_id is not None:
             result['PayerAccountId'] = self.payer_account_id
-        if self.account_name_prefix is not None:
-            result['AccountNamePrefix'] = self.account_name_prefix
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountNamePrefix') is not None:
+            self.account_name_prefix = m.get('AccountNamePrefix')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('ParentFolderId') is not None:
             self.parent_folder_id = m.get('ParentFolderId')
         if m.get('PayerAccountId') is not None:
             self.payer_account_id = m.get('PayerAccountId')
-        if m.get('AccountNamePrefix') is not None:
-            self.account_name_prefix = m.get('AccountNamePrefix')
         return self
 
 
 class CreateResourceAccountResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 join_time=None, account_id=None, join_method=None, modify_time=None, account_name=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 join_time=None, modify_time=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
-        self.account_name = account_name  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -1485,50 +1485,50 @@ class CreateResourceAccountResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -1597,9 +1597,9 @@ class CreateResourceAccountResponse(TeaModel):
 
 
 class CreateResourceGroupRequest(TeaModel):
-    def __init__(self, name=None, display_name=None):
-        self.name = name  # type: str
+    def __init__(self, display_name=None, name=None):
         self.display_name = display_name  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -1610,25 +1610,25 @@ class CreateResourceGroupRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.name is not None:
-            result['Name'] = self.name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.name is not None:
+            result['Name'] = self.name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         return self
 
 
 class CreateResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(TeaModel):
-    def __init__(self, status=None, region_id=None):
-        self.status = status  # type: str
+    def __init__(self, region_id=None, status=None):
         self.region_id = region_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -1639,18 +1639,18 @@ class CreateResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(Tea
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -1687,15 +1687,15 @@ class CreateResourceGroupResponseBodyResourceGroupRegionStatuses(TeaModel):
 
 
 class CreateResourceGroupResponseBodyResourceGroup(TeaModel):
-    def __init__(self, display_name=None, status=None, region_statuses=None, account_id=None, name=None,
-                 create_date=None, id=None):
-        self.display_name = display_name  # type: str
-        self.status = status  # type: str
-        self.region_statuses = region_statuses  # type: CreateResourceGroupResponseBodyResourceGroupRegionStatuses
+    def __init__(self, account_id=None, create_date=None, display_name=None, id=None, name=None,
+                 region_statuses=None, status=None):
         self.account_id = account_id  # type: str
-        self.name = name  # type: str
         self.create_date = create_date  # type: str
+        self.display_name = display_name  # type: str
         self.id = id  # type: str
+        self.name = name  # type: str
+        self.region_statuses = region_statuses  # type: CreateResourceGroupResponseBodyResourceGroupRegionStatuses
+        self.status = status  # type: str
 
     def validate(self):
         if self.region_statuses:
@@ -1707,39 +1707,39 @@ class CreateResourceGroupResponseBodyResourceGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.region_statuses is not None:
-            result['RegionStatuses'] = self.region_statuses.to_map()
         if self.account_id is not None:
             result['AccountId'] = self.account_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_statuses is not None:
+            result['RegionStatuses'] = self.region_statuses.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('RegionStatuses') is not None:
             temp_model = CreateResourceGroupResponseBodyResourceGroupRegionStatuses()
             self.region_statuses = temp_model.from_map(m['RegionStatuses'])
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -1808,12 +1808,12 @@ class CreateResourceGroupResponse(TeaModel):
 
 
 class CreateRoleRequest(TeaModel):
-    def __init__(self, role_name=None, description=None, assume_role_policy_document=None,
-                 max_session_duration=None):
-        self.role_name = role_name  # type: str
-        self.description = description  # type: str
+    def __init__(self, assume_role_policy_document=None, description=None, max_session_duration=None,
+                 role_name=None):
         self.assume_role_policy_document = assume_role_policy_document  # type: str
+        self.description = description  # type: str
         self.max_session_duration = max_session_duration  # type: long
+        self.role_name = role_name  # type: str
 
     def validate(self):
         pass
@@ -1824,40 +1824,40 @@ class CreateRoleRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.description is not None:
-            result['Description'] = self.description
         if self.assume_role_policy_document is not None:
             result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
+        if self.description is not None:
+            result['Description'] = self.description
         if self.max_session_duration is not None:
             result['MaxSessionDuration'] = self.max_session_duration
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
         if m.get('AssumeRolePolicyDocument') is not None:
             self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('MaxSessionDuration') is not None:
             self.max_session_duration = m.get('MaxSessionDuration')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
         return self
 
 
 class CreateRoleResponseBodyRole(TeaModel):
-    def __init__(self, assume_role_policy_document=None, role_principal_name=None, description=None,
-                 max_session_duration=None, role_name=None, create_date=None, arn=None, role_id=None):
+    def __init__(self, arn=None, assume_role_policy_document=None, create_date=None, description=None,
+                 max_session_duration=None, role_id=None, role_name=None, role_principal_name=None):
+        self.arn = arn  # type: str
         self.assume_role_policy_document = assume_role_policy_document  # type: str
-        self.role_principal_name = role_principal_name  # type: str
+        self.create_date = create_date  # type: str
         self.description = description  # type: str
         self.max_session_duration = max_session_duration  # type: long
-        self.role_name = role_name  # type: str
-        self.create_date = create_date  # type: str
-        self.arn = arn  # type: str
         self.role_id = role_id  # type: str
+        self.role_name = role_name  # type: str
+        self.role_principal_name = role_principal_name  # type: str
 
     def validate(self):
         pass
@@ -1868,49 +1868,49 @@ class CreateRoleResponseBodyRole(TeaModel):
             return _map
 
         result = dict()
+        if self.arn is not None:
+            result['Arn'] = self.arn
         if self.assume_role_policy_document is not None:
             result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
-        if self.role_principal_name is not None:
-            result['RolePrincipalName'] = self.role_principal_name
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.description is not None:
             result['Description'] = self.description
         if self.max_session_duration is not None:
             result['MaxSessionDuration'] = self.max_session_duration
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
-        if self.arn is not None:
-            result['Arn'] = self.arn
         if self.role_id is not None:
             result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        if self.role_principal_name is not None:
+            result['RolePrincipalName'] = self.role_principal_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Arn') is not None:
+            self.arn = m.get('Arn')
         if m.get('AssumeRolePolicyDocument') is not None:
             self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
-        if m.get('RolePrincipalName') is not None:
-            self.role_principal_name = m.get('RolePrincipalName')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('MaxSessionDuration') is not None:
             self.max_session_duration = m.get('MaxSessionDuration')
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('Arn') is not None:
-            self.arn = m.get('Arn')
         if m.get('RoleId') is not None:
             self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        if m.get('RolePrincipalName') is not None:
+            self.role_principal_name = m.get('RolePrincipalName')
         return self
 
 
 class CreateRoleResponseBody(TeaModel):
-    def __init__(self, role=None, request_id=None):
-        self.role = role  # type: CreateRoleResponseBodyRole
+    def __init__(self, request_id=None, role=None):
         self.request_id = request_id  # type: str
+        self.role = role  # type: CreateRoleResponseBodyRole
 
     def validate(self):
         if self.role:
@@ -1922,19 +1922,19 @@ class CreateRoleResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.role is not None:
-            result['Role'] = self.role.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.role is not None:
+            result['Role'] = self.role.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Role') is not None:
             temp_model = CreateRoleResponseBodyRole()
             self.role = temp_model.from_map(m['Role'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
@@ -1972,10 +1972,10 @@ class CreateRoleResponse(TeaModel):
 
 
 class CreateServiceLinkedRoleRequest(TeaModel):
-    def __init__(self, service_name=None, custom_suffix=None, description=None):
-        self.service_name = service_name  # type: str
+    def __init__(self, custom_suffix=None, description=None, service_name=None):
         self.custom_suffix = custom_suffix  # type: str
         self.description = description  # type: str
+        self.service_name = service_name  # type: str
 
     def validate(self):
         pass
@@ -1986,36 +1986,36 @@ class CreateServiceLinkedRoleRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.service_name is not None:
-            result['ServiceName'] = self.service_name
         if self.custom_suffix is not None:
             result['CustomSuffix'] = self.custom_suffix
         if self.description is not None:
             result['Description'] = self.description
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ServiceName') is not None:
-            self.service_name = m.get('ServiceName')
         if m.get('CustomSuffix') is not None:
             self.custom_suffix = m.get('CustomSuffix')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
         return self
 
 
 class CreateServiceLinkedRoleResponseBodyRole(TeaModel):
-    def __init__(self, assume_role_policy_document=None, role_principal_name=None, description=None,
-                 role_name=None, create_date=None, arn=None, role_id=None, is_service_linked_role=None):
-        self.assume_role_policy_document = assume_role_policy_document  # type: str
-        self.role_principal_name = role_principal_name  # type: str
-        self.description = description  # type: str
-        self.role_name = role_name  # type: str
-        self.create_date = create_date  # type: str
+    def __init__(self, arn=None, assume_role_policy_document=None, create_date=None, description=None,
+                 is_service_linked_role=None, role_id=None, role_name=None, role_principal_name=None):
         self.arn = arn  # type: str
-        self.role_id = role_id  # type: str
+        self.assume_role_policy_document = assume_role_policy_document  # type: str
+        self.create_date = create_date  # type: str
+        self.description = description  # type: str
         self.is_service_linked_role = is_service_linked_role  # type: bool
+        self.role_id = role_id  # type: str
+        self.role_name = role_name  # type: str
+        self.role_principal_name = role_principal_name  # type: str
 
     def validate(self):
         pass
@@ -2026,49 +2026,49 @@ class CreateServiceLinkedRoleResponseBodyRole(TeaModel):
             return _map
 
         result = dict()
-        if self.assume_role_policy_document is not None:
-            result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
-        if self.role_principal_name is not None:
-            result['RolePrincipalName'] = self.role_principal_name
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         if self.arn is not None:
             result['Arn'] = self.arn
-        if self.role_id is not None:
-            result['RoleId'] = self.role_id
+        if self.assume_role_policy_document is not None:
+            result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
+        if self.description is not None:
+            result['Description'] = self.description
         if self.is_service_linked_role is not None:
             result['IsServiceLinkedRole'] = self.is_service_linked_role
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        if self.role_principal_name is not None:
+            result['RolePrincipalName'] = self.role_principal_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AssumeRolePolicyDocument') is not None:
-            self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
-        if m.get('RolePrincipalName') is not None:
-            self.role_principal_name = m.get('RolePrincipalName')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         if m.get('Arn') is not None:
             self.arn = m.get('Arn')
-        if m.get('RoleId') is not None:
-            self.role_id = m.get('RoleId')
+        if m.get('AssumeRolePolicyDocument') is not None:
+            self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('IsServiceLinkedRole') is not None:
             self.is_service_linked_role = m.get('IsServiceLinkedRole')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        if m.get('RolePrincipalName') is not None:
+            self.role_principal_name = m.get('RolePrincipalName')
         return self
 
 
 class CreateServiceLinkedRoleResponseBody(TeaModel):
-    def __init__(self, role=None, request_id=None):
-        self.role = role  # type: CreateServiceLinkedRoleResponseBodyRole
+    def __init__(self, request_id=None, role=None):
         self.request_id = request_id  # type: str
+        self.role = role  # type: CreateServiceLinkedRoleResponseBodyRole
 
     def validate(self):
         if self.role:
@@ -2080,19 +2080,19 @@ class CreateServiceLinkedRoleResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.role is not None:
-            result['Role'] = self.role.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.role is not None:
+            result['Role'] = self.role.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Role') is not None:
             temp_model = CreateServiceLinkedRoleResponseBodyRole()
             self.role = temp_model.from_map(m['Role'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
@@ -2154,20 +2154,20 @@ class DeclineHandshakeRequest(TeaModel):
 
 
 class DeclineHandshakeResponseBodyHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -2178,61 +2178,61 @@ class DeclineHandshakeResponseBodyHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
 class DeclineHandshakeResponseBody(TeaModel):
-    def __init__(self, request_id=None, handshake=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, handshake=None, request_id=None):
         self.handshake = handshake  # type: DeclineHandshakeResponseBodyHandshake
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.handshake:
@@ -2244,19 +2244,19 @@ class DeclineHandshakeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.handshake is not None:
             result['Handshake'] = self.handshake.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Handshake') is not None:
             temp_model = DeclineHandshakeResponseBodyHandshake()
             self.handshake = temp_model.from_map(m['Handshake'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -2728,9 +2728,9 @@ class DeleteResourceGroupRequest(TeaModel):
 
 
 class DeleteResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(TeaModel):
-    def __init__(self, status=None, region_id=None):
-        self.status = status  # type: str
+    def __init__(self, region_id=None, status=None):
         self.region_id = region_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -2741,18 +2741,18 @@ class DeleteResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(Tea
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -2789,15 +2789,15 @@ class DeleteResourceGroupResponseBodyResourceGroupRegionStatuses(TeaModel):
 
 
 class DeleteResourceGroupResponseBodyResourceGroup(TeaModel):
-    def __init__(self, display_name=None, status=None, region_statuses=None, account_id=None, name=None,
-                 create_date=None, id=None):
-        self.display_name = display_name  # type: str
-        self.status = status  # type: str
-        self.region_statuses = region_statuses  # type: DeleteResourceGroupResponseBodyResourceGroupRegionStatuses
+    def __init__(self, account_id=None, create_date=None, display_name=None, id=None, name=None,
+                 region_statuses=None, status=None):
         self.account_id = account_id  # type: str
-        self.name = name  # type: str
         self.create_date = create_date  # type: str
+        self.display_name = display_name  # type: str
         self.id = id  # type: str
+        self.name = name  # type: str
+        self.region_statuses = region_statuses  # type: DeleteResourceGroupResponseBodyResourceGroupRegionStatuses
+        self.status = status  # type: str
 
     def validate(self):
         if self.region_statuses:
@@ -2809,39 +2809,39 @@ class DeleteResourceGroupResponseBodyResourceGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.region_statuses is not None:
-            result['RegionStatuses'] = self.region_statuses.to_map()
         if self.account_id is not None:
             result['AccountId'] = self.account_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_statuses is not None:
+            result['RegionStatuses'] = self.region_statuses.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('RegionStatuses') is not None:
             temp_model = DeleteResourceGroupResponseBodyResourceGroupRegionStatuses()
             self.region_statuses = temp_model.from_map(m['RegionStatuses'])
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -3015,9 +3015,9 @@ class DeleteServiceLinkedRoleRequest(TeaModel):
 
 
 class DeleteServiceLinkedRoleResponseBody(TeaModel):
-    def __init__(self, request_id=None, deletion_task_id=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, deletion_task_id=None, request_id=None):
         self.deletion_task_id = deletion_task_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -3028,18 +3028,18 @@ class DeleteServiceLinkedRoleResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.deletion_task_id is not None:
             result['DeletionTaskId'] = self.deletion_task_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DeletionTaskId') is not None:
             self.deletion_task_id = m.get('DeletionTaskId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -3306,13 +3306,13 @@ class DetachControlPolicyResponse(TeaModel):
 
 
 class DetachPolicyRequest(TeaModel):
-    def __init__(self, resource_group_id=None, policy_type=None, policy_name=None, principal_type=None,
-                 principal_name=None):
-        self.resource_group_id = resource_group_id  # type: str
-        self.policy_type = policy_type  # type: str
+    def __init__(self, policy_name=None, policy_type=None, principal_name=None, principal_type=None,
+                 resource_group_id=None):
         self.policy_name = policy_name  # type: str
-        self.principal_type = principal_type  # type: str
+        self.policy_type = policy_type  # type: str
         self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -3323,30 +3323,30 @@ class DetachPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
-        if self.principal_type is not None:
-            result['PrincipalType'] = self.principal_type
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         if self.principal_name is not None:
             result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
-        if m.get('PrincipalType') is not None:
-            self.principal_type = m.get('PrincipalType')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         if m.get('PrincipalName') is not None:
             self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
@@ -3556,21 +3556,21 @@ class GetAccountRequest(TeaModel):
 
 
 class GetAccountResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 identity_information=None, join_time=None, account_id=None, join_method=None, modify_time=None, account_name=None,
-                 resource_directory_path=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None,
+                 identity_information=None, join_method=None, join_time=None, modify_time=None, resource_directory_id=None,
+                 resource_directory_path=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
         self.identity_information = identity_information  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
-        self.account_name = account_name  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
         self.resource_directory_path = resource_directory_path  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -3581,58 +3581,58 @@ class GetAccountResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.identity_information is not None:
             result['IdentityInformation'] = self.identity_information
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.resource_directory_path is not None:
             result['ResourceDirectoryPath'] = self.resource_directory_path
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('IdentityInformation') is not None:
             self.identity_information = m.get('IdentityInformation')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('ResourceDirectoryPath') is not None:
             self.resource_directory_path = m.get('ResourceDirectoryPath')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -3701,9 +3701,9 @@ class GetAccountResponse(TeaModel):
 
 
 class GetControlPolicyRequest(TeaModel):
-    def __init__(self, policy_id=None, language=None):
-        self.policy_id = policy_id  # type: str
+    def __init__(self, language=None, policy_id=None):
         self.language = language  # type: str
+        self.policy_id = policy_id  # type: str
 
     def validate(self):
         pass
@@ -3714,33 +3714,33 @@ class GetControlPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
         if self.language is not None:
             result['Language'] = self.language
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
         return self
 
 
 class GetControlPolicyResponseBodyControlPolicy(TeaModel):
-    def __init__(self, policy_document=None, update_date=None, description=None, effect_scope=None,
-                 attachment_count=None, policy_name=None, policy_id=None, create_date=None, policy_type=None):
-        self.policy_document = policy_document  # type: str
-        self.update_date = update_date  # type: str
+    def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None,
+                 policy_document=None, policy_id=None, policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: str
+        self.create_date = create_date  # type: str
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
-        self.attachment_count = attachment_count  # type: str
-        self.policy_name = policy_name  # type: str
+        self.policy_document = policy_document  # type: str
         self.policy_id = policy_id  # type: str
-        self.create_date = create_date  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -3751,46 +3751,46 @@ class GetControlPolicyResponseBodyControlPolicy(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_document is not None:
-            result['PolicyDocument'] = self.policy_document
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
+        if self.policy_document is not None:
+            result['PolicyDocument'] = self.policy_document
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyDocument') is not None:
-            self.policy_document = m.get('PolicyDocument')
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyDocument') is not None:
+            self.policy_document = m.get('PolicyDocument')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -3945,12 +3945,12 @@ class GetFolderRequest(TeaModel):
 
 
 class GetFolderResponseBodyFolder(TeaModel):
-    def __init__(self, folder_id=None, create_time=None, parent_folder_id=None, folder_name=None,
+    def __init__(self, create_time=None, folder_id=None, folder_name=None, parent_folder_id=None,
                  resource_directory_path=None):
-        self.folder_id = folder_id  # type: str
         self.create_time = create_time  # type: str
-        self.parent_folder_id = parent_folder_id  # type: str
+        self.folder_id = folder_id  # type: str
         self.folder_name = folder_name  # type: str
+        self.parent_folder_id = parent_folder_id  # type: str
         self.resource_directory_path = resource_directory_path  # type: str
 
     def validate(self):
@@ -3962,37 +3962,37 @@ class GetFolderResponseBodyFolder(TeaModel):
             return _map
 
         result = dict()
-        if self.folder_id is not None:
-            result['FolderId'] = self.folder_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
         if self.resource_directory_path is not None:
             result['ResourceDirectoryPath'] = self.resource_directory_path
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FolderId') is not None:
-            self.folder_id = m.get('FolderId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
         if m.get('ResourceDirectoryPath') is not None:
             self.resource_directory_path = m.get('ResourceDirectoryPath')
         return self
 
 
 class GetFolderResponseBody(TeaModel):
-    def __init__(self, request_id=None, folder=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, folder=None, request_id=None):
         self.folder = folder  # type: GetFolderResponseBodyFolder
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.folder:
@@ -4004,19 +4004,19 @@ class GetFolderResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.folder is not None:
             result['Folder'] = self.folder.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Folder') is not None:
             temp_model = GetFolderResponseBodyFolder()
             self.folder = temp_model.from_map(m['Folder'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4078,22 +4078,22 @@ class GetHandshakeRequest(TeaModel):
 
 
 class GetHandshakeResponseBodyHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, create_time=None, target_entity=None, master_account_id=None,
-                 handshake_id=None, master_account_real_name=None, resource_directory_id=None, invited_account_real_name=None,
-                 note=None, master_account_name=None, target_type=None, modify_time=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, invited_account_real_name=None,
+                 master_account_id=None, master_account_name=None, master_account_real_name=None, modify_time=None, note=None,
+                 resource_directory_id=None, status=None, target_entity=None, target_type=None):
         self.create_time = create_time  # type: str
-        self.target_entity = target_entity  # type: str
-        self.master_account_id = master_account_id  # type: str
+        self.expire_time = expire_time  # type: str
         self.handshake_id = handshake_id  # type: str
-        self.master_account_real_name = master_account_real_name  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
         self.invited_account_real_name = invited_account_real_name  # type: str
-        self.note = note  # type: str
+        self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
-        self.target_type = target_type  # type: str
+        self.master_account_real_name = master_account_real_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
+        self.target_type = target_type  # type: str
 
     def validate(self):
         pass
@@ -4104,69 +4104,69 @@ class GetHandshakeResponseBodyHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
-        if self.master_account_id is not None:
-            result['MasterAccountId'] = self.master_account_id
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
         if self.handshake_id is not None:
             result['HandshakeId'] = self.handshake_id
-        if self.master_account_real_name is not None:
-            result['MasterAccountRealName'] = self.master_account_real_name
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.invited_account_real_name is not None:
             result['InvitedAccountRealName'] = self.invited_account_real_name
-        if self.note is not None:
-            result['Note'] = self.note
+        if self.master_account_id is not None:
+            result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
-        if self.target_type is not None:
-            result['TargetType'] = self.target_type
+        if self.master_account_real_name is not None:
+            result['MasterAccountRealName'] = self.master_account_real_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
-        if m.get('MasterAccountId') is not None:
-            self.master_account_id = m.get('MasterAccountId')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
         if m.get('HandshakeId') is not None:
             self.handshake_id = m.get('HandshakeId')
-        if m.get('MasterAccountRealName') is not None:
-            self.master_account_real_name = m.get('MasterAccountRealName')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('InvitedAccountRealName') is not None:
             self.invited_account_real_name = m.get('InvitedAccountRealName')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
+        if m.get('MasterAccountId') is not None:
+            self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
-        if m.get('TargetType') is not None:
-            self.target_type = m.get('TargetType')
+        if m.get('MasterAccountRealName') is not None:
+            self.master_account_real_name = m.get('MasterAccountRealName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
         return self
 
 
 class GetHandshakeResponseBody(TeaModel):
-    def __init__(self, request_id=None, handshake=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, handshake=None, request_id=None):
         self.handshake = handshake  # type: GetHandshakeResponseBodyHandshake
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.handshake:
@@ -4178,19 +4178,19 @@ class GetHandshakeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.handshake is not None:
             result['Handshake'] = self.handshake.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Handshake') is not None:
             temp_model = GetHandshakeResponseBodyHandshake()
             self.handshake = temp_model.from_map(m['Handshake'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4252,10 +4252,10 @@ class GetPayerForAccountRequest(TeaModel):
 
 
 class GetPayerForAccountResponseBody(TeaModel):
-    def __init__(self, payer_account_name=None, request_id=None, payer_account_id=None):
+    def __init__(self, payer_account_id=None, payer_account_name=None, request_id=None):
+        self.payer_account_id = payer_account_id  # type: str
         self.payer_account_name = payer_account_name  # type: str
         self.request_id = request_id  # type: str
-        self.payer_account_id = payer_account_id  # type: str
 
     def validate(self):
         pass
@@ -4266,22 +4266,22 @@ class GetPayerForAccountResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.payer_account_id is not None:
+            result['PayerAccountId'] = self.payer_account_id
         if self.payer_account_name is not None:
             result['PayerAccountName'] = self.payer_account_name
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.payer_account_id is not None:
-            result['PayerAccountId'] = self.payer_account_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PayerAccountId') is not None:
+            self.payer_account_id = m.get('PayerAccountId')
         if m.get('PayerAccountName') is not None:
             self.payer_account_name = m.get('PayerAccountName')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PayerAccountId') is not None:
-            self.payer_account_id = m.get('PayerAccountId')
         return self
 
 
@@ -4319,10 +4319,10 @@ class GetPayerForAccountResponse(TeaModel):
 
 
 class GetPolicyRequest(TeaModel):
-    def __init__(self, policy_name=None, policy_type=None, language=None):
+    def __init__(self, language=None, policy_name=None, policy_type=None):
+        self.language = language  # type: str
         self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
-        self.language = language  # type: str
 
     def validate(self):
         pass
@@ -4333,36 +4333,36 @@ class GetPolicyRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.language is not None:
+            result['Language'] = self.language
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
-        if self.language is not None:
-            result['Language'] = self.language
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
         return self
 
 
 class GetPolicyResponseBodyPolicy(TeaModel):
-    def __init__(self, default_version=None, update_date=None, description=None, policy_document=None,
-                 attachment_count=None, policy_name=None, create_date=None, policy_type=None):
+    def __init__(self, attachment_count=None, create_date=None, default_version=None, description=None,
+                 policy_document=None, policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: int
+        self.create_date = create_date  # type: str
         self.default_version = default_version  # type: str
-        self.update_date = update_date  # type: str
         self.description = description  # type: str
         self.policy_document = policy_document  # type: str
-        self.attachment_count = attachment_count  # type: int
         self.policy_name = policy_name  # type: str
-        self.create_date = create_date  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -4373,42 +4373,42 @@ class GetPolicyResponseBodyPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.default_version is not None:
             result['DefaultVersion'] = self.default_version
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
         if self.description is not None:
             result['Description'] = self.description
         if self.policy_document is not None:
             result['PolicyDocument'] = self.policy_document
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DefaultVersion') is not None:
             self.default_version = m.get('DefaultVersion')
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('PolicyDocument') is not None:
             self.policy_document = m.get('PolicyDocument')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -4477,9 +4477,9 @@ class GetPolicyResponse(TeaModel):
 
 
 class GetPolicyVersionRequest(TeaModel):
-    def __init__(self, policy_type=None, policy_name=None, version_id=None):
-        self.policy_type = policy_type  # type: str
+    def __init__(self, policy_name=None, policy_type=None, version_id=None):
         self.policy_name = policy_name  # type: str
+        self.policy_type = policy_type  # type: str
         self.version_id = version_id  # type: str
 
     def validate(self):
@@ -4491,31 +4491,31 @@ class GetPolicyVersionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         if self.version_id is not None:
             result['VersionId'] = self.version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
         return self
 
 
 class GetPolicyVersionResponseBodyPolicyVersion(TeaModel):
-    def __init__(self, is_default_version=None, policy_document=None, version_id=None, create_date=None):
+    def __init__(self, create_date=None, is_default_version=None, policy_document=None, version_id=None):
+        self.create_date = create_date  # type: str
         self.is_default_version = is_default_version  # type: bool
         self.policy_document = policy_document  # type: str
         self.version_id = version_id  # type: str
-        self.create_date = create_date  # type: str
 
     def validate(self):
         pass
@@ -4526,26 +4526,26 @@ class GetPolicyVersionResponseBodyPolicyVersion(TeaModel):
             return _map
 
         result = dict()
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.is_default_version is not None:
             result['IsDefaultVersion'] = self.is_default_version
         if self.policy_document is not None:
             result['PolicyDocument'] = self.policy_document
         if self.version_id is not None:
             result['VersionId'] = self.version_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('IsDefaultVersion') is not None:
             self.is_default_version = m.get('IsDefaultVersion')
         if m.get('PolicyDocument') is not None:
             self.policy_document = m.get('PolicyDocument')
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         return self
 
 
@@ -4614,15 +4614,15 @@ class GetPolicyVersionResponse(TeaModel):
 
 
 class GetResourceDirectoryResponseBodyResourceDirectory(TeaModel):
-    def __init__(self, root_folder_id=None, resource_directory_id=None, create_time=None, master_account_id=None,
-                 master_account_name=None, control_policy_status=None, member_deletion_status=None):
-        self.root_folder_id = root_folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, control_policy_status=None, create_time=None, master_account_id=None,
+                 master_account_name=None, member_deletion_status=None, resource_directory_id=None, root_folder_id=None):
+        self.control_policy_status = control_policy_status  # type: str
         self.create_time = create_time  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
-        self.control_policy_status = control_policy_status  # type: str
         self.member_deletion_status = member_deletion_status  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.root_folder_id = root_folder_id  # type: str
 
     def validate(self):
         pass
@@ -4633,38 +4633,38 @@ class GetResourceDirectoryResponseBodyResourceDirectory(TeaModel):
             return _map
 
         result = dict()
-        if self.root_folder_id is not None:
-            result['RootFolderId'] = self.root_folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.control_policy_status is not None:
+            result['ControlPolicyStatus'] = self.control_policy_status
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
-        if self.control_policy_status is not None:
-            result['ControlPolicyStatus'] = self.control_policy_status
         if self.member_deletion_status is not None:
             result['MemberDeletionStatus'] = self.member_deletion_status
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.root_folder_id is not None:
+            result['RootFolderId'] = self.root_folder_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RootFolderId') is not None:
-            self.root_folder_id = m.get('RootFolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('ControlPolicyStatus') is not None:
+            self.control_policy_status = m.get('ControlPolicyStatus')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
-        if m.get('ControlPolicyStatus') is not None:
-            self.control_policy_status = m.get('ControlPolicyStatus')
         if m.get('MemberDeletionStatus') is not None:
             self.member_deletion_status = m.get('MemberDeletionStatus')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('RootFolderId') is not None:
+            self.root_folder_id = m.get('RootFolderId')
         return self
 
 
@@ -4757,9 +4757,9 @@ class GetResourceGroupRequest(TeaModel):
 
 
 class GetResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(TeaModel):
-    def __init__(self, status=None, region_id=None):
-        self.status = status  # type: str
+    def __init__(self, region_id=None, status=None):
         self.region_id = region_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -4770,18 +4770,18 @@ class GetResourceGroupResponseBodyResourceGroupRegionStatusesRegionStatus(TeaMod
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -4818,15 +4818,15 @@ class GetResourceGroupResponseBodyResourceGroupRegionStatuses(TeaModel):
 
 
 class GetResourceGroupResponseBodyResourceGroup(TeaModel):
-    def __init__(self, display_name=None, status=None, region_statuses=None, account_id=None, name=None,
-                 create_date=None, id=None):
-        self.display_name = display_name  # type: str
-        self.status = status  # type: str
-        self.region_statuses = region_statuses  # type: GetResourceGroupResponseBodyResourceGroupRegionStatuses
+    def __init__(self, account_id=None, create_date=None, display_name=None, id=None, name=None,
+                 region_statuses=None, status=None):
         self.account_id = account_id  # type: str
-        self.name = name  # type: str
         self.create_date = create_date  # type: str
+        self.display_name = display_name  # type: str
         self.id = id  # type: str
+        self.name = name  # type: str
+        self.region_statuses = region_statuses  # type: GetResourceGroupResponseBodyResourceGroupRegionStatuses
+        self.status = status  # type: str
 
     def validate(self):
         if self.region_statuses:
@@ -4838,39 +4838,39 @@ class GetResourceGroupResponseBodyResourceGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.region_statuses is not None:
-            result['RegionStatuses'] = self.region_statuses.to_map()
         if self.account_id is not None:
             result['AccountId'] = self.account_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.region_statuses is not None:
+            result['RegionStatuses'] = self.region_statuses.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('RegionStatuses') is not None:
             temp_model = GetResourceGroupResponseBodyResourceGroupRegionStatuses()
             self.region_statuses = temp_model.from_map(m['RegionStatuses'])
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -4939,9 +4939,9 @@ class GetResourceGroupResponse(TeaModel):
 
 
 class GetRoleRequest(TeaModel):
-    def __init__(self, role_name=None, language=None):
-        self.role_name = role_name  # type: str
+    def __init__(self, language=None, role_name=None):
         self.language = language  # type: str
+        self.role_name = role_name  # type: str
 
     def validate(self):
         pass
@@ -4952,25 +4952,25 @@ class GetRoleRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
         if self.language is not None:
             result['Language'] = self.language
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
         return self
 
 
 class GetRoleResponseBodyRoleLatestDeletionTask(TeaModel):
-    def __init__(self, deletion_task_id=None, create_date=None):
-        self.deletion_task_id = deletion_task_id  # type: str
+    def __init__(self, create_date=None, deletion_task_id=None):
         self.create_date = create_date  # type: str
+        self.deletion_task_id = deletion_task_id  # type: str
 
     def validate(self):
         pass
@@ -4981,36 +4981,36 @@ class GetRoleResponseBodyRoleLatestDeletionTask(TeaModel):
             return _map
 
         result = dict()
-        if self.deletion_task_id is not None:
-            result['DeletionTaskId'] = self.deletion_task_id
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.deletion_task_id is not None:
+            result['DeletionTaskId'] = self.deletion_task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DeletionTaskId') is not None:
-            self.deletion_task_id = m.get('DeletionTaskId')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
+        if m.get('DeletionTaskId') is not None:
+            self.deletion_task_id = m.get('DeletionTaskId')
         return self
 
 
 class GetRoleResponseBodyRole(TeaModel):
-    def __init__(self, assume_role_policy_document=None, role_principal_name=None, update_date=None,
-                 description=None, max_session_duration=None, latest_deletion_task=None, role_name=None, create_date=None,
-                 role_id=None, arn=None, is_service_linked_role=None):
+    def __init__(self, arn=None, assume_role_policy_document=None, create_date=None, description=None,
+                 is_service_linked_role=None, latest_deletion_task=None, max_session_duration=None, role_id=None, role_name=None,
+                 role_principal_name=None, update_date=None):
+        self.arn = arn  # type: str
         self.assume_role_policy_document = assume_role_policy_document  # type: str
+        self.create_date = create_date  # type: str
+        self.description = description  # type: str
+        self.is_service_linked_role = is_service_linked_role  # type: bool
+        self.latest_deletion_task = latest_deletion_task  # type: GetRoleResponseBodyRoleLatestDeletionTask
+        self.max_session_duration = max_session_duration  # type: long
+        self.role_id = role_id  # type: str
+        self.role_name = role_name  # type: str
         self.role_principal_name = role_principal_name  # type: str
         self.update_date = update_date  # type: str
-        self.description = description  # type: str
-        self.max_session_duration = max_session_duration  # type: long
-        self.latest_deletion_task = latest_deletion_task  # type: GetRoleResponseBodyRoleLatestDeletionTask
-        self.role_name = role_name  # type: str
-        self.create_date = create_date  # type: str
-        self.role_id = role_id  # type: str
-        self.arn = arn  # type: str
-        self.is_service_linked_role = is_service_linked_role  # type: bool
 
     def validate(self):
         if self.latest_deletion_task:
@@ -5022,62 +5022,62 @@ class GetRoleResponseBodyRole(TeaModel):
             return _map
 
         result = dict()
+        if self.arn is not None:
+            result['Arn'] = self.arn
         if self.assume_role_policy_document is not None:
             result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.is_service_linked_role is not None:
+            result['IsServiceLinkedRole'] = self.is_service_linked_role
+        if self.latest_deletion_task is not None:
+            result['LatestDeletionTask'] = self.latest_deletion_task.to_map()
+        if self.max_session_duration is not None:
+            result['MaxSessionDuration'] = self.max_session_duration
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
         if self.role_principal_name is not None:
             result['RolePrincipalName'] = self.role_principal_name
         if self.update_date is not None:
             result['UpdateDate'] = self.update_date
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.max_session_duration is not None:
-            result['MaxSessionDuration'] = self.max_session_duration
-        if self.latest_deletion_task is not None:
-            result['LatestDeletionTask'] = self.latest_deletion_task.to_map()
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
-        if self.role_id is not None:
-            result['RoleId'] = self.role_id
-        if self.arn is not None:
-            result['Arn'] = self.arn
-        if self.is_service_linked_role is not None:
-            result['IsServiceLinkedRole'] = self.is_service_linked_role
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Arn') is not None:
+            self.arn = m.get('Arn')
         if m.get('AssumeRolePolicyDocument') is not None:
             self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IsServiceLinkedRole') is not None:
+            self.is_service_linked_role = m.get('IsServiceLinkedRole')
+        if m.get('LatestDeletionTask') is not None:
+            temp_model = GetRoleResponseBodyRoleLatestDeletionTask()
+            self.latest_deletion_task = temp_model.from_map(m['LatestDeletionTask'])
+        if m.get('MaxSessionDuration') is not None:
+            self.max_session_duration = m.get('MaxSessionDuration')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
         if m.get('RolePrincipalName') is not None:
             self.role_principal_name = m.get('RolePrincipalName')
         if m.get('UpdateDate') is not None:
             self.update_date = m.get('UpdateDate')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('MaxSessionDuration') is not None:
-            self.max_session_duration = m.get('MaxSessionDuration')
-        if m.get('LatestDeletionTask') is not None:
-            temp_model = GetRoleResponseBodyRoleLatestDeletionTask()
-            self.latest_deletion_task = temp_model.from_map(m['LatestDeletionTask'])
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('RoleId') is not None:
-            self.role_id = m.get('RoleId')
-        if m.get('Arn') is not None:
-            self.arn = m.get('Arn')
-        if m.get('IsServiceLinkedRole') is not None:
-            self.is_service_linked_role = m.get('IsServiceLinkedRole')
         return self
 
 
 class GetRoleResponseBody(TeaModel):
-    def __init__(self, role=None, request_id=None):
-        self.role = role  # type: GetRoleResponseBodyRole
+    def __init__(self, request_id=None, role=None):
         self.request_id = request_id  # type: str
+        self.role = role  # type: GetRoleResponseBodyRole
 
     def validate(self):
         if self.role:
@@ -5089,19 +5089,19 @@ class GetRoleResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.role is not None:
-            result['Role'] = self.role.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.role is not None:
+            result['Role'] = self.role.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Role') is not None:
             temp_model = GetRoleResponseBodyRole()
             self.role = temp_model.from_map(m['Role'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
@@ -5281,10 +5281,10 @@ class GetServiceLinkedRoleDeletionStatusResponseBodyReason(TeaModel):
 
 
 class GetServiceLinkedRoleDeletionStatusResponseBody(TeaModel):
-    def __init__(self, status=None, request_id=None, reason=None):
-        self.status = status  # type: str
-        self.request_id = request_id  # type: str
+    def __init__(self, reason=None, request_id=None, status=None):
         self.reason = reason  # type: GetServiceLinkedRoleDeletionStatusResponseBodyReason
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         if self.reason:
@@ -5296,23 +5296,23 @@ class GetServiceLinkedRoleDeletionStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.reason is not None:
             result['Reason'] = self.reason.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Reason') is not None:
             temp_model = GetServiceLinkedRoleDeletionStatusResponseBodyReason()
             self.reason = temp_model.from_map(m['Reason'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -5350,13 +5350,13 @@ class GetServiceLinkedRoleDeletionStatusResponse(TeaModel):
 
 
 class InitResourceDirectoryResponseBodyResourceDirectory(TeaModel):
-    def __init__(self, root_folder_id=None, resource_directory_id=None, create_time=None, master_account_id=None,
-                 master_account_name=None):
-        self.root_folder_id = root_folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, master_account_id=None, master_account_name=None,
+                 resource_directory_id=None, root_folder_id=None):
         self.create_time = create_time  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.root_folder_id = root_folder_id  # type: str
 
     def validate(self):
         pass
@@ -5367,30 +5367,30 @@ class InitResourceDirectoryResponseBodyResourceDirectory(TeaModel):
             return _map
 
         result = dict()
-        if self.root_folder_id is not None:
-            result['RootFolderId'] = self.root_folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.root_folder_id is not None:
+            result['RootFolderId'] = self.root_folder_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RootFolderId') is not None:
-            self.root_folder_id = m.get('RootFolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('RootFolderId') is not None:
+            self.root_folder_id = m.get('RootFolderId')
         return self
 
 
@@ -5459,10 +5459,10 @@ class InitResourceDirectoryResponse(TeaModel):
 
 
 class InviteAccountToResourceDirectoryRequest(TeaModel):
-    def __init__(self, target_entity=None, target_type=None, note=None):
+    def __init__(self, note=None, target_entity=None, target_type=None):
+        self.note = note  # type: str
         self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.note = note  # type: str
 
     def validate(self):
         pass
@@ -5473,40 +5473,40 @@ class InviteAccountToResourceDirectoryRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.note is not None:
+            result['Note'] = self.note
         if self.target_entity is not None:
             result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.note is not None:
-            result['Note'] = self.note
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
         if m.get('TargetEntity') is not None:
             self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
         return self
 
 
 class InviteAccountToResourceDirectoryResponseBodyHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -5517,61 +5517,61 @@ class InviteAccountToResourceDirectoryResponseBodyHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
 class InviteAccountToResourceDirectoryResponseBody(TeaModel):
-    def __init__(self, request_id=None, handshake=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, handshake=None, request_id=None):
         self.handshake = handshake  # type: InviteAccountToResourceDirectoryResponseBodyHandshake
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.handshake:
@@ -5583,19 +5583,19 @@ class InviteAccountToResourceDirectoryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.handshake is not None:
             result['Handshake'] = self.handshake.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Handshake') is not None:
             temp_model = InviteAccountToResourceDirectoryResponseBodyHandshake()
             self.handshake = temp_model.from_map(m['Handshake'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -5662,17 +5662,17 @@ class ListAccountsRequest(TeaModel):
 
 
 class ListAccountsResponseBodyAccountsAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 join_time=None, account_id=None, join_method=None, modify_time=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, display_name=None, folder_id=None, join_method=None, join_time=None,
+                 modify_time=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -5683,46 +5683,46 @@ class ListAccountsResponseBodyAccountsAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -5759,12 +5759,12 @@ class ListAccountsResponseBodyAccounts(TeaModel):
 
 
 class ListAccountsResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, accounts=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, accounts=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.accounts = accounts  # type: ListAccountsResponseBodyAccounts
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.accounts:
@@ -5776,31 +5776,31 @@ class ListAccountsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.accounts is not None:
             result['Accounts'] = self.accounts.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Accounts') is not None:
             temp_model = ListAccountsResponseBodyAccounts()
             self.accounts = temp_model.from_map(m['Accounts'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -5838,11 +5838,11 @@ class ListAccountsResponse(TeaModel):
 
 
 class ListAccountsForParentRequest(TeaModel):
-    def __init__(self, parent_folder_id=None, query_keyword=None, page_number=None, page_size=None):
-        self.parent_folder_id = parent_folder_id  # type: str
-        self.query_keyword = query_keyword  # type: str
+    def __init__(self, page_number=None, page_size=None, parent_folder_id=None, query_keyword=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.parent_folder_id = parent_folder_id  # type: str
+        self.query_keyword = query_keyword  # type: str
 
     def validate(self):
         pass
@@ -5853,41 +5853,41 @@ class ListAccountsForParentRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
-        if self.query_keyword is not None:
-            result['QueryKeyword'] = self.query_keyword
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
+        if self.query_keyword is not None:
+            result['QueryKeyword'] = self.query_keyword
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
-        if m.get('QueryKeyword') is not None:
-            self.query_keyword = m.get('QueryKeyword')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
+        if m.get('QueryKeyword') is not None:
+            self.query_keyword = m.get('QueryKeyword')
         return self
 
 
 class ListAccountsForParentResponseBodyAccountsAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 join_time=None, account_id=None, join_method=None, modify_time=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, display_name=None, folder_id=None, join_method=None, join_time=None,
+                 modify_time=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -5898,46 +5898,46 @@ class ListAccountsForParentResponseBodyAccountsAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -5974,12 +5974,12 @@ class ListAccountsForParentResponseBodyAccounts(TeaModel):
 
 
 class ListAccountsForParentResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, accounts=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, accounts=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.accounts = accounts  # type: ListAccountsForParentResponseBodyAccounts
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.accounts:
@@ -5991,31 +5991,31 @@ class ListAccountsForParentResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.accounts is not None:
             result['Accounts'] = self.accounts.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Accounts') is not None:
             temp_model = ListAccountsForParentResponseBodyAccounts()
             self.accounts = temp_model.from_map(m['Accounts'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -6077,9 +6077,9 @@ class ListAncestorsRequest(TeaModel):
 
 
 class ListAncestorsResponseBodyFoldersFolder(TeaModel):
-    def __init__(self, folder_id=None, create_time=None, folder_name=None):
-        self.folder_id = folder_id  # type: str
+    def __init__(self, create_time=None, folder_id=None, folder_name=None):
         self.create_time = create_time  # type: str
+        self.folder_id = folder_id  # type: str
         self.folder_name = folder_name  # type: str
 
     def validate(self):
@@ -6091,20 +6091,20 @@ class ListAncestorsResponseBodyFoldersFolder(TeaModel):
             return _map
 
         result = dict()
-        if self.folder_id is not None:
-            result['FolderId'] = self.folder_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FolderId') is not None:
-            self.folder_id = m.get('FolderId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
         return self
@@ -6143,9 +6143,9 @@ class ListAncestorsResponseBodyFolders(TeaModel):
 
 
 class ListAncestorsResponseBody(TeaModel):
-    def __init__(self, request_id=None, folders=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, folders=None, request_id=None):
         self.folders = folders  # type: ListAncestorsResponseBodyFolders
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.folders:
@@ -6157,19 +6157,19 @@ class ListAncestorsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.folders is not None:
             result['Folders'] = self.folders.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Folders') is not None:
             temp_model = ListAncestorsResponseBodyFolders()
             self.folders = temp_model.from_map(m['Folders'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -6207,11 +6207,11 @@ class ListAncestorsResponse(TeaModel):
 
 
 class ListControlPoliciesRequest(TeaModel):
-    def __init__(self, policy_type=None, page_number=None, page_size=None, language=None):
-        self.policy_type = policy_type  # type: str
+    def __init__(self, language=None, page_number=None, page_size=None, policy_type=None):
+        self.language = language  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.language = language  # type: str
+        self.policy_type = policy_type  # type: str
 
     def validate(self):
         pass
@@ -6222,40 +6222,40 @@ class ListControlPoliciesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
+        if self.language is not None:
+            result['Language'] = self.language
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.language is not None:
-            result['Language'] = self.language
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         return self
 
 
 class ListControlPoliciesResponseBodyControlPoliciesControlPolicy(TeaModel):
-    def __init__(self, update_date=None, description=None, effect_scope=None, attachment_count=None,
-                 policy_name=None, policy_id=None, create_date=None, policy_type=None):
-        self.update_date = update_date  # type: str
+    def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None, policy_id=None,
+                 policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: str
+        self.create_date = create_date  # type: str
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
-        self.attachment_count = attachment_count  # type: str
-        self.policy_name = policy_name  # type: str
         self.policy_id = policy_id  # type: str
-        self.create_date = create_date  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -6266,42 +6266,42 @@ class ListControlPoliciesResponseBodyControlPoliciesControlPolicy(TeaModel):
             return _map
 
         result = dict()
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -6338,12 +6338,12 @@ class ListControlPoliciesResponseBodyControlPolicies(TeaModel):
 
 
 class ListControlPoliciesResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, control_policies=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, control_policies=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.control_policies = control_policies  # type: ListControlPoliciesResponseBodyControlPolicies
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.control_policies:
@@ -6355,31 +6355,31 @@ class ListControlPoliciesResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.control_policies is not None:
             result['ControlPolicies'] = self.control_policies.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('ControlPolicies') is not None:
             temp_model = ListControlPoliciesResponseBodyControlPolicies()
             self.control_policies = temp_model.from_map(m['ControlPolicies'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -6417,9 +6417,9 @@ class ListControlPoliciesResponse(TeaModel):
 
 
 class ListControlPolicyAttachmentsForTargetRequest(TeaModel):
-    def __init__(self, target_id=None, language=None):
-        self.target_id = target_id  # type: str
+    def __init__(self, language=None, target_id=None):
         self.language = language  # type: str
+        self.target_id = target_id  # type: str
 
     def validate(self):
         pass
@@ -6430,29 +6430,29 @@ class ListControlPolicyAttachmentsForTargetRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.target_id is not None:
-            result['TargetId'] = self.target_id
         if self.language is not None:
             result['Language'] = self.language
+        if self.target_id is not None:
+            result['TargetId'] = self.target_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TargetId') is not None:
-            self.target_id = m.get('TargetId')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('TargetId') is not None:
+            self.target_id = m.get('TargetId')
         return self
 
 
 class ListControlPolicyAttachmentsForTargetResponseBodyControlPolicyAttachmentsControlPolicyAttachment(TeaModel):
-    def __init__(self, description=None, effect_scope=None, policy_name=None, policy_id=None, attach_date=None,
+    def __init__(self, attach_date=None, description=None, effect_scope=None, policy_id=None, policy_name=None,
                  policy_type=None):
+        self.attach_date = attach_date  # type: str
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
-        self.policy_name = policy_name  # type: str
         self.policy_id = policy_id  # type: str
-        self.attach_date = attach_date  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
 
     def validate(self):
@@ -6464,32 +6464,32 @@ class ListControlPolicyAttachmentsForTargetResponseBodyControlPolicyAttachmentsC
             return _map
 
         result = dict()
+        if self.attach_date is not None:
+            result['AttachDate'] = self.attach_date
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
-        if self.attach_date is not None:
-            result['AttachDate'] = self.attach_date
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttachDate') is not None:
+            self.attach_date = m.get('AttachDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
-        if m.get('AttachDate') is not None:
-            self.attach_date = m.get('AttachDate')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
         return self
@@ -6528,9 +6528,9 @@ class ListControlPolicyAttachmentsForTargetResponseBodyControlPolicyAttachments(
 
 
 class ListControlPolicyAttachmentsForTargetResponseBody(TeaModel):
-    def __init__(self, request_id=None, control_policy_attachments=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, control_policy_attachments=None, request_id=None):
         self.control_policy_attachments = control_policy_attachments  # type: ListControlPolicyAttachmentsForTargetResponseBodyControlPolicyAttachments
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.control_policy_attachments:
@@ -6542,19 +6542,19 @@ class ListControlPolicyAttachmentsForTargetResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.control_policy_attachments is not None:
             result['ControlPolicyAttachments'] = self.control_policy_attachments.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ControlPolicyAttachments') is not None:
             temp_model = ListControlPolicyAttachmentsForTargetResponseBodyControlPolicyAttachments()
             self.control_policy_attachments = temp_model.from_map(m['ControlPolicyAttachments'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -6592,7 +6592,9 @@ class ListControlPolicyAttachmentsForTargetResponse(TeaModel):
 
 
 class ListDelegatedAdministratorsRequest(TeaModel):
-    def __init__(self, service_principal=None):
+    def __init__(self, page_number=None, page_size=None, service_principal=None):
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
         self.service_principal = service_principal  # type: str
 
     def validate(self):
@@ -6604,25 +6606,33 @@ class ListDelegatedAdministratorsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.service_principal is not None:
             result['ServicePrincipal'] = self.service_principal
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('ServicePrincipal') is not None:
             self.service_principal = m.get('ServicePrincipal')
         return self
 
 
 class ListDelegatedAdministratorsResponseBodyAccountsAccount(TeaModel):
-    def __init__(self, account_id=None, display_name=None, join_method=None, service_principal=None,
-                 delegation_enabled_time=None):
+    def __init__(self, account_id=None, delegation_enabled_time=None, display_name=None, join_method=None,
+                 service_principal=None):
         self.account_id = account_id  # type: str
+        self.delegation_enabled_time = delegation_enabled_time  # type: str
         self.display_name = display_name  # type: str
         self.join_method = join_method  # type: str
         self.service_principal = service_principal  # type: str
-        self.delegation_enabled_time = delegation_enabled_time  # type: str
 
     def validate(self):
         pass
@@ -6635,28 +6645,28 @@ class ListDelegatedAdministratorsResponseBodyAccountsAccount(TeaModel):
         result = dict()
         if self.account_id is not None:
             result['AccountId'] = self.account_id
+        if self.delegation_enabled_time is not None:
+            result['DelegationEnabledTime'] = self.delegation_enabled_time
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
         if self.service_principal is not None:
             result['ServicePrincipal'] = self.service_principal
-        if self.delegation_enabled_time is not None:
-            result['DelegationEnabledTime'] = self.delegation_enabled_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AccountId') is not None:
             self.account_id = m.get('AccountId')
+        if m.get('DelegationEnabledTime') is not None:
+            self.delegation_enabled_time = m.get('DelegationEnabledTime')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
         if m.get('ServicePrincipal') is not None:
             self.service_principal = m.get('ServicePrincipal')
-        if m.get('DelegationEnabledTime') is not None:
-            self.delegation_enabled_time = m.get('DelegationEnabledTime')
         return self
 
 
@@ -6693,9 +6703,12 @@ class ListDelegatedAdministratorsResponseBodyAccounts(TeaModel):
 
 
 class ListDelegatedAdministratorsResponseBody(TeaModel):
-    def __init__(self, request_id=None, accounts=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, accounts=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.accounts = accounts  # type: ListDelegatedAdministratorsResponseBodyAccounts
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.accounts:
@@ -6707,19 +6720,31 @@ class ListDelegatedAdministratorsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.accounts is not None:
             result['Accounts'] = self.accounts.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Accounts') is not None:
             temp_model = ListDelegatedAdministratorsResponseBodyAccounts()
             self.accounts = temp_model.from_map(m['Accounts'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -6842,9 +6867,9 @@ class ListDelegatedServicesForAccountResponseBodyDelegatedServices(TeaModel):
 
 
 class ListDelegatedServicesForAccountResponseBody(TeaModel):
-    def __init__(self, request_id=None, delegated_services=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, delegated_services=None, request_id=None):
         self.delegated_services = delegated_services  # type: ListDelegatedServicesForAccountResponseBodyDelegatedServices
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.delegated_services:
@@ -6856,19 +6881,19 @@ class ListDelegatedServicesForAccountResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.delegated_services is not None:
             result['DelegatedServices'] = self.delegated_services.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DelegatedServices') is not None:
             temp_model = ListDelegatedServicesForAccountResponseBodyDelegatedServices()
             self.delegated_services = temp_model.from_map(m['DelegatedServices'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -6906,11 +6931,11 @@ class ListDelegatedServicesForAccountResponse(TeaModel):
 
 
 class ListFoldersForParentRequest(TeaModel):
-    def __init__(self, parent_folder_id=None, query_keyword=None, page_number=None, page_size=None):
-        self.parent_folder_id = parent_folder_id  # type: str
-        self.query_keyword = query_keyword  # type: str
+    def __init__(self, page_number=None, page_size=None, parent_folder_id=None, query_keyword=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.parent_folder_id = parent_folder_id  # type: str
+        self.query_keyword = query_keyword  # type: str
 
     def validate(self):
         pass
@@ -6921,33 +6946,33 @@ class ListFoldersForParentRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
-        if self.query_keyword is not None:
-            result['QueryKeyword'] = self.query_keyword
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
+        if self.query_keyword is not None:
+            result['QueryKeyword'] = self.query_keyword
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
-        if m.get('QueryKeyword') is not None:
-            self.query_keyword = m.get('QueryKeyword')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
+        if m.get('QueryKeyword') is not None:
+            self.query_keyword = m.get('QueryKeyword')
         return self
 
 
 class ListFoldersForParentResponseBodyFoldersFolder(TeaModel):
-    def __init__(self, folder_id=None, create_time=None, folder_name=None):
-        self.folder_id = folder_id  # type: str
+    def __init__(self, create_time=None, folder_id=None, folder_name=None):
         self.create_time = create_time  # type: str
+        self.folder_id = folder_id  # type: str
         self.folder_name = folder_name  # type: str
 
     def validate(self):
@@ -6959,20 +6984,20 @@ class ListFoldersForParentResponseBodyFoldersFolder(TeaModel):
             return _map
 
         result = dict()
-        if self.folder_id is not None:
-            result['FolderId'] = self.folder_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FolderId') is not None:
-            self.folder_id = m.get('FolderId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
         return self
@@ -7011,12 +7036,12 @@ class ListFoldersForParentResponseBodyFolders(TeaModel):
 
 
 class ListFoldersForParentResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, folders=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, folders=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.folders = folders  # type: ListFoldersForParentResponseBodyFolders
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.folders:
@@ -7028,31 +7053,31 @@ class ListFoldersForParentResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.folders is not None:
             result['Folders'] = self.folders.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Folders') is not None:
             temp_model = ListFoldersForParentResponseBodyFolders()
             self.folders = temp_model.from_map(m['Folders'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7119,20 +7144,20 @@ class ListHandshakesForAccountRequest(TeaModel):
 
 
 class ListHandshakesForAccountResponseBodyHandshakesHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -7143,54 +7168,54 @@ class ListHandshakesForAccountResponseBodyHandshakesHandshake(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
@@ -7227,12 +7252,12 @@ class ListHandshakesForAccountResponseBodyHandshakes(TeaModel):
 
 
 class ListHandshakesForAccountResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, handshakes=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, handshakes=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.handshakes = handshakes  # type: ListHandshakesForAccountResponseBodyHandshakes
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.handshakes:
@@ -7244,31 +7269,31 @@ class ListHandshakesForAccountResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.handshakes is not None:
             result['Handshakes'] = self.handshakes.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Handshakes') is not None:
             temp_model = ListHandshakesForAccountResponseBodyHandshakes()
             self.handshakes = temp_model.from_map(m['Handshakes'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7335,20 +7360,20 @@ class ListHandshakesForResourceDirectoryRequest(TeaModel):
 
 
 class ListHandshakesForResourceDirectoryResponseBodyHandshakesHandshake(TeaModel):
-    def __init__(self, status=None, expire_time=None, resource_directory_id=None, create_time=None, note=None,
-                 target_entity=None, master_account_id=None, master_account_name=None, modify_time=None, target_type=None,
-                 handshake_id=None):
-        self.status = status  # type: str
-        self.expire_time = expire_time  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
+    def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
+                 master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
+                 target_type=None):
         self.create_time = create_time  # type: str
-        self.note = note  # type: str
-        self.target_entity = target_entity  # type: str
+        self.expire_time = expire_time  # type: str
+        self.handshake_id = handshake_id  # type: str
         self.master_account_id = master_account_id  # type: str
         self.master_account_name = master_account_name  # type: str
         self.modify_time = modify_time  # type: str
+        self.note = note  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.target_entity = target_entity  # type: str
         self.target_type = target_type  # type: str
-        self.handshake_id = handshake_id  # type: str
 
     def validate(self):
         pass
@@ -7359,54 +7384,54 @@ class ListHandshakesForResourceDirectoryResponseBodyHandshakesHandshake(TeaModel
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.note is not None:
-            result['Note'] = self.note
-        if self.target_entity is not None:
-            result['TargetEntity'] = self.target_entity
+        if self.expire_time is not None:
+            result['ExpireTime'] = self.expire_time
+        if self.handshake_id is not None:
+            result['HandshakeId'] = self.handshake_id
         if self.master_account_id is not None:
             result['MasterAccountId'] = self.master_account_id
         if self.master_account_name is not None:
             result['MasterAccountName'] = self.master_account_name
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.note is not None:
+            result['Note'] = self.note
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.target_entity is not None:
+            result['TargetEntity'] = self.target_entity
         if self.target_type is not None:
             result['TargetType'] = self.target_type
-        if self.handshake_id is not None:
-            result['HandshakeId'] = self.handshake_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('Note') is not None:
-            self.note = m.get('Note')
-        if m.get('TargetEntity') is not None:
-            self.target_entity = m.get('TargetEntity')
+        if m.get('ExpireTime') is not None:
+            self.expire_time = m.get('ExpireTime')
+        if m.get('HandshakeId') is not None:
+            self.handshake_id = m.get('HandshakeId')
         if m.get('MasterAccountId') is not None:
             self.master_account_id = m.get('MasterAccountId')
         if m.get('MasterAccountName') is not None:
             self.master_account_name = m.get('MasterAccountName')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('Note') is not None:
+            self.note = m.get('Note')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TargetEntity') is not None:
+            self.target_entity = m.get('TargetEntity')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
-        if m.get('HandshakeId') is not None:
-            self.handshake_id = m.get('HandshakeId')
         return self
 
 
@@ -7443,12 +7468,12 @@ class ListHandshakesForResourceDirectoryResponseBodyHandshakes(TeaModel):
 
 
 class ListHandshakesForResourceDirectoryResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, handshakes=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, handshakes=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.handshakes = handshakes  # type: ListHandshakesForResourceDirectoryResponseBodyHandshakes
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.handshakes:
@@ -7460,31 +7485,31 @@ class ListHandshakesForResourceDirectoryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.handshakes is not None:
             result['Handshakes'] = self.handshakes.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Handshakes') is not None:
             temp_model = ListHandshakesForResourceDirectoryResponseBodyHandshakes()
             self.handshakes = temp_model.from_map(m['Handshakes'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7522,11 +7547,11 @@ class ListHandshakesForResourceDirectoryResponse(TeaModel):
 
 
 class ListPoliciesRequest(TeaModel):
-    def __init__(self, policy_type=None, page_number=None, page_size=None, language=None):
-        self.policy_type = policy_type  # type: str
+    def __init__(self, language=None, page_number=None, page_size=None, policy_type=None):
+        self.language = language  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.language = language  # type: str
+        self.policy_type = policy_type  # type: str
 
     def validate(self):
         pass
@@ -7537,39 +7562,39 @@ class ListPoliciesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
+        if self.language is not None:
+            result['Language'] = self.language
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.language is not None:
-            result['Language'] = self.language
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         return self
 
 
 class ListPoliciesResponseBodyPoliciesPolicy(TeaModel):
-    def __init__(self, default_version=None, description=None, update_date=None, attachment_count=None,
-                 policy_name=None, create_date=None, policy_type=None):
+    def __init__(self, attachment_count=None, create_date=None, default_version=None, description=None,
+                 policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: int
+        self.create_date = create_date  # type: str
         self.default_version = default_version  # type: str
         self.description = description  # type: str
-        self.update_date = update_date  # type: str
-        self.attachment_count = attachment_count  # type: int
         self.policy_name = policy_name  # type: str
-        self.create_date = create_date  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -7580,38 +7605,38 @@ class ListPoliciesResponseBodyPoliciesPolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.default_version is not None:
             result['DefaultVersion'] = self.default_version
         if self.description is not None:
             result['Description'] = self.description
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('DefaultVersion') is not None:
             self.default_version = m.get('DefaultVersion')
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -7648,12 +7673,12 @@ class ListPoliciesResponseBodyPolicies(TeaModel):
 
 
 class ListPoliciesResponseBody(TeaModel):
-    def __init__(self, total_count=None, policies=None, request_id=None, page_size=None, page_number=None):
-        self.total_count = total_count  # type: int
+    def __init__(self, page_number=None, page_size=None, policies=None, request_id=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.policies = policies  # type: ListPoliciesResponseBodyPolicies
         self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.policies:
@@ -7665,31 +7690,31 @@ class ListPoliciesResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.policies is not None:
             result['Policies'] = self.policies.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('Policies') is not None:
             temp_model = ListPoliciesResponseBodyPolicies()
             self.policies = temp_model.from_map(m['Policies'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7727,16 +7752,16 @@ class ListPoliciesResponse(TeaModel):
 
 
 class ListPolicyAttachmentsRequest(TeaModel):
-    def __init__(self, resource_group_id=None, policy_type=None, policy_name=None, principal_type=None,
-                 principal_name=None, page_number=None, page_size=None, language=None):
-        self.resource_group_id = resource_group_id  # type: str
-        self.policy_type = policy_type  # type: str
-        self.policy_name = policy_name  # type: str
-        self.principal_type = principal_type  # type: str
-        self.principal_name = principal_name  # type: str
+    def __init__(self, language=None, page_number=None, page_size=None, policy_name=None, policy_type=None,
+                 principal_name=None, principal_type=None, resource_group_id=None):
+        self.language = language  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.language = language  # type: str
+        self.policy_name = policy_name  # type: str
+        self.policy_type = policy_type  # type: str
+        self.principal_name = principal_name  # type: str
+        self.principal_type = principal_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -7747,55 +7772,55 @@ class ListPolicyAttachmentsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
-        if self.principal_type is not None:
-            result['PrincipalType'] = self.principal_type
-        if self.principal_name is not None:
-            result['PrincipalName'] = self.principal_name
+        if self.language is not None:
+            result['Language'] = self.language
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.language is not None:
-            result['Language'] = self.language
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
+        if self.principal_type is not None:
+            result['PrincipalType'] = self.principal_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
-        if m.get('PrincipalType') is not None:
-            self.principal_type = m.get('PrincipalType')
-        if m.get('PrincipalName') is not None:
-            self.principal_name = m.get('PrincipalName')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
+        if m.get('PrincipalType') is not None:
+            self.principal_type = m.get('PrincipalType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
 class ListPolicyAttachmentsResponseBodyPolicyAttachmentsPolicyAttachment(TeaModel):
-    def __init__(self, description=None, resource_group_id=None, policy_name=None, principal_name=None,
-                 attach_date=None, policy_type=None, principal_type=None):
-        self.description = description  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.policy_name = policy_name  # type: str
-        self.principal_name = principal_name  # type: str
+    def __init__(self, attach_date=None, description=None, policy_name=None, policy_type=None, principal_name=None,
+                 principal_type=None, resource_group_id=None):
         self.attach_date = attach_date  # type: str
+        self.description = description  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
+        self.principal_name = principal_name  # type: str
         self.principal_type = principal_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -7806,38 +7831,38 @@ class ListPolicyAttachmentsResponseBodyPolicyAttachmentsPolicyAttachment(TeaMode
             return _map
 
         result = dict()
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
-        if self.principal_name is not None:
-            result['PrincipalName'] = self.principal_name
         if self.attach_date is not None:
             result['AttachDate'] = self.attach_date
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.principal_name is not None:
+            result['PrincipalName'] = self.principal_name
         if self.principal_type is not None:
             result['PrincipalType'] = self.principal_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
-        if m.get('PrincipalName') is not None:
-            self.principal_name = m.get('PrincipalName')
         if m.get('AttachDate') is not None:
             self.attach_date = m.get('AttachDate')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('PrincipalName') is not None:
+            self.principal_name = m.get('PrincipalName')
         if m.get('PrincipalType') is not None:
             self.principal_type = m.get('PrincipalType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
@@ -7874,12 +7899,12 @@ class ListPolicyAttachmentsResponseBodyPolicyAttachments(TeaModel):
 
 
 class ListPolicyAttachmentsResponseBody(TeaModel):
-    def __init__(self, total_count=None, policy_attachments=None, request_id=None, page_size=None, page_number=None):
-        self.total_count = total_count  # type: int
+    def __init__(self, page_number=None, page_size=None, policy_attachments=None, request_id=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.policy_attachments = policy_attachments  # type: ListPolicyAttachmentsResponseBodyPolicyAttachments
         self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.policy_attachments:
@@ -7891,31 +7916,31 @@ class ListPolicyAttachmentsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.policy_attachments is not None:
             result['PolicyAttachments'] = self.policy_attachments.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('PolicyAttachments') is not None:
             temp_model = ListPolicyAttachmentsResponseBodyPolicyAttachments()
             self.policy_attachments = temp_model.from_map(m['PolicyAttachments'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7953,9 +7978,9 @@ class ListPolicyAttachmentsResponse(TeaModel):
 
 
 class ListPolicyVersionsRequest(TeaModel):
-    def __init__(self, policy_type=None, policy_name=None):
-        self.policy_type = policy_type  # type: str
+    def __init__(self, policy_name=None, policy_type=None):
         self.policy_name = policy_name  # type: str
+        self.policy_type = policy_type  # type: str
 
     def validate(self):
         pass
@@ -7966,26 +7991,26 @@ class ListPolicyVersionsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_type is not None:
-            result['PolicyType'] = self.policy_type
         if self.policy_name is not None:
             result['PolicyName'] = self.policy_name
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyType') is not None:
-            self.policy_type = m.get('PolicyType')
         if m.get('PolicyName') is not None:
             self.policy_name = m.get('PolicyName')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
         return self
 
 
 class ListPolicyVersionsResponseBodyPolicyVersionsPolicyVersion(TeaModel):
-    def __init__(self, is_default_version=None, version_id=None, create_date=None):
+    def __init__(self, create_date=None, is_default_version=None, version_id=None):
+        self.create_date = create_date  # type: str
         self.is_default_version = is_default_version  # type: bool
         self.version_id = version_id  # type: str
-        self.create_date = create_date  # type: str
 
     def validate(self):
         pass
@@ -7996,22 +8021,22 @@ class ListPolicyVersionsResponseBodyPolicyVersionsPolicyVersion(TeaModel):
             return _map
 
         result = dict()
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.is_default_version is not None:
             result['IsDefaultVersion'] = self.is_default_version
         if self.version_id is not None:
             result['VersionId'] = self.version_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('IsDefaultVersion') is not None:
             self.is_default_version = m.get('IsDefaultVersion')
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
         return self
 
 
@@ -8048,9 +8073,9 @@ class ListPolicyVersionsResponseBodyPolicyVersions(TeaModel):
 
 
 class ListPolicyVersionsResponseBody(TeaModel):
-    def __init__(self, request_id=None, policy_versions=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, policy_versions=None, request_id=None):
         self.policy_versions = policy_versions  # type: ListPolicyVersionsResponseBodyPolicyVersions
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.policy_versions:
@@ -8062,19 +8087,19 @@ class ListPolicyVersionsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.policy_versions is not None:
             result['PolicyVersions'] = self.policy_versions.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('PolicyVersions') is not None:
             temp_model = ListPolicyVersionsResponseBodyPolicyVersions()
             self.policy_versions = temp_model.from_map(m['PolicyVersions'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -8112,10 +8137,10 @@ class ListPolicyVersionsResponse(TeaModel):
 
 
 class ListResourceGroupsRequest(TeaModel):
-    def __init__(self, status=None, page_number=None, page_size=None):
-        self.status = status  # type: str
+    def __init__(self, page_number=None, page_size=None, status=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -8126,33 +8151,33 @@ class ListResourceGroupsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
 class ListResourceGroupsResponseBodyResourceGroupsResourceGroup(TeaModel):
-    def __init__(self, display_name=None, status=None, account_id=None, name=None, create_date=None, id=None):
-        self.display_name = display_name  # type: str
-        self.status = status  # type: str
+    def __init__(self, account_id=None, create_date=None, display_name=None, id=None, name=None, status=None):
         self.account_id = account_id  # type: str
-        self.name = name  # type: str
         self.create_date = create_date  # type: str
+        self.display_name = display_name  # type: str
         self.id = id  # type: str
+        self.name = name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -8163,34 +8188,34 @@ class ListResourceGroupsResponseBodyResourceGroupsResourceGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.status is not None:
-            result['Status'] = self.status
         if self.account_id is not None:
             result['AccountId'] = self.account_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DisplayName') is not None:
-            self.display_name = m.get('DisplayName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('AccountId') is not None:
             self.account_id = m.get('AccountId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -8227,12 +8252,12 @@ class ListResourceGroupsResponseBodyResourceGroups(TeaModel):
 
 
 class ListResourceGroupsResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, resource_groups=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
+    def __init__(self, page_number=None, page_size=None, request_id=None, resource_groups=None, total_count=None):
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
         self.resource_groups = resource_groups  # type: ListResourceGroupsResponseBodyResourceGroups
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.resource_groups:
@@ -8244,31 +8269,31 @@ class ListResourceGroupsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.resource_groups is not None:
             result['ResourceGroups'] = self.resource_groups.to_map()
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('ResourceGroups') is not None:
             temp_model = ListResourceGroupsResponseBodyResourceGroups()
             self.resource_groups = temp_model.from_map(m['ResourceGroups'])
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -8306,15 +8331,15 @@ class ListResourceGroupsResponse(TeaModel):
 
 
 class ListResourcesRequest(TeaModel):
-    def __init__(self, resource_group_id=None, service=None, region=None, resource_type=None, resource_id=None,
-                 page_number=None, page_size=None):
-        self.resource_group_id = resource_group_id  # type: str
-        self.service = service  # type: str
-        self.region = region  # type: str
-        self.resource_type = resource_type  # type: str
-        self.resource_id = resource_id  # type: str
+    def __init__(self, page_number=None, page_size=None, region=None, resource_group_id=None, resource_id=None,
+                 resource_type=None, service=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.service = service  # type: str
 
     def validate(self):
         pass
@@ -8325,50 +8350,50 @@ class ListResourcesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.service is not None:
-            result['Service'] = self.service
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.service is not None:
+            result['Service'] = self.service
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Service') is not None:
-            self.service = m.get('Service')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
         return self
 
 
 class ListResourcesResponseBodyResourcesResource(TeaModel):
-    def __init__(self, service=None, resource_type=None, resource_group_id=None, resource_id=None, create_date=None,
-                 region_id=None):
-        self.service = service  # type: str
-        self.resource_type = resource_type  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_id = resource_id  # type: str
+    def __init__(self, create_date=None, region_id=None, resource_group_id=None, resource_id=None,
+                 resource_type=None, service=None):
         self.create_date = create_date  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.service = service  # type: str
 
     def validate(self):
         pass
@@ -8379,34 +8404,34 @@ class ListResourcesResponseBodyResourcesResource(TeaModel):
             return _map
 
         result = dict()
-        if self.service is not None:
-            result['Service'] = self.service
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.service is not None:
+            result['Service'] = self.service
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Service') is not None:
-            self.service = m.get('Service')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
         return self
 
 
@@ -8443,12 +8468,12 @@ class ListResourcesResponseBodyResources(TeaModel):
 
 
 class ListResourcesResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, resources=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
+    def __init__(self, page_number=None, page_size=None, request_id=None, resources=None, total_count=None):
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
         self.resources = resources  # type: ListResourcesResponseBodyResources
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.resources:
@@ -8460,31 +8485,31 @@ class ListResourcesResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.resources is not None:
             result['Resources'] = self.resources.to_map()
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Resources') is not None:
             temp_model = ListResourcesResponseBodyResources()
             self.resources = temp_model.from_map(m['Resources'])
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -8522,10 +8547,10 @@ class ListResourcesResponse(TeaModel):
 
 
 class ListRolesRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, language=None):
+    def __init__(self, language=None, page_number=None, page_size=None):
+        self.language = language  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.language = language  # type: str
 
     def validate(self):
         pass
@@ -8536,29 +8561,29 @@ class ListRolesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.language is not None:
+            result['Language'] = self.language
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.language is not None:
-            result['Language'] = self.language
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Language') is not None:
-            self.language = m.get('Language')
         return self
 
 
 class ListRolesResponseBodyRolesRoleLatestDeletionTask(TeaModel):
-    def __init__(self, deletion_task_id=None, create_date=None):
-        self.deletion_task_id = deletion_task_id  # type: str
+    def __init__(self, create_date=None, deletion_task_id=None):
         self.create_date = create_date  # type: str
+        self.deletion_task_id = deletion_task_id  # type: str
 
     def validate(self):
         pass
@@ -8569,34 +8594,35 @@ class ListRolesResponseBodyRolesRoleLatestDeletionTask(TeaModel):
             return _map
 
         result = dict()
-        if self.deletion_task_id is not None:
-            result['DeletionTaskId'] = self.deletion_task_id
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.deletion_task_id is not None:
+            result['DeletionTaskId'] = self.deletion_task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DeletionTaskId') is not None:
-            self.deletion_task_id = m.get('DeletionTaskId')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
+        if m.get('DeletionTaskId') is not None:
+            self.deletion_task_id = m.get('DeletionTaskId')
         return self
 
 
 class ListRolesResponseBodyRolesRole(TeaModel):
-    def __init__(self, role_principal_name=None, update_date=None, description=None, max_session_duration=None,
-                 latest_deletion_task=None, role_name=None, create_date=None, role_id=None, arn=None, is_service_linked_role=None):
+    def __init__(self, arn=None, create_date=None, description=None, is_service_linked_role=None,
+                 latest_deletion_task=None, max_session_duration=None, role_id=None, role_name=None, role_principal_name=None,
+                 update_date=None):
+        self.arn = arn  # type: str
+        self.create_date = create_date  # type: str
+        self.description = description  # type: str
+        self.is_service_linked_role = is_service_linked_role  # type: bool
+        self.latest_deletion_task = latest_deletion_task  # type: ListRolesResponseBodyRolesRoleLatestDeletionTask
+        self.max_session_duration = max_session_duration  # type: long
+        self.role_id = role_id  # type: str
+        self.role_name = role_name  # type: str
         self.role_principal_name = role_principal_name  # type: str
         self.update_date = update_date  # type: str
-        self.description = description  # type: str
-        self.max_session_duration = max_session_duration  # type: long
-        self.latest_deletion_task = latest_deletion_task  # type: ListRolesResponseBodyRolesRoleLatestDeletionTask
-        self.role_name = role_name  # type: str
-        self.create_date = create_date  # type: str
-        self.role_id = role_id  # type: str
-        self.arn = arn  # type: str
-        self.is_service_linked_role = is_service_linked_role  # type: bool
 
     def validate(self):
         if self.latest_deletion_task:
@@ -8608,51 +8634,51 @@ class ListRolesResponseBodyRolesRole(TeaModel):
             return _map
 
         result = dict()
+        if self.arn is not None:
+            result['Arn'] = self.arn
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.is_service_linked_role is not None:
+            result['IsServiceLinkedRole'] = self.is_service_linked_role
+        if self.latest_deletion_task is not None:
+            result['LatestDeletionTask'] = self.latest_deletion_task.to_map()
+        if self.max_session_duration is not None:
+            result['MaxSessionDuration'] = self.max_session_duration
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
         if self.role_principal_name is not None:
             result['RolePrincipalName'] = self.role_principal_name
         if self.update_date is not None:
             result['UpdateDate'] = self.update_date
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.max_session_duration is not None:
-            result['MaxSessionDuration'] = self.max_session_duration
-        if self.latest_deletion_task is not None:
-            result['LatestDeletionTask'] = self.latest_deletion_task.to_map()
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
-        if self.role_id is not None:
-            result['RoleId'] = self.role_id
-        if self.arn is not None:
-            result['Arn'] = self.arn
-        if self.is_service_linked_role is not None:
-            result['IsServiceLinkedRole'] = self.is_service_linked_role
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Arn') is not None:
+            self.arn = m.get('Arn')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('IsServiceLinkedRole') is not None:
+            self.is_service_linked_role = m.get('IsServiceLinkedRole')
+        if m.get('LatestDeletionTask') is not None:
+            temp_model = ListRolesResponseBodyRolesRoleLatestDeletionTask()
+            self.latest_deletion_task = temp_model.from_map(m['LatestDeletionTask'])
+        if m.get('MaxSessionDuration') is not None:
+            self.max_session_duration = m.get('MaxSessionDuration')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
         if m.get('RolePrincipalName') is not None:
             self.role_principal_name = m.get('RolePrincipalName')
         if m.get('UpdateDate') is not None:
             self.update_date = m.get('UpdateDate')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('MaxSessionDuration') is not None:
-            self.max_session_duration = m.get('MaxSessionDuration')
-        if m.get('LatestDeletionTask') is not None:
-            temp_model = ListRolesResponseBodyRolesRoleLatestDeletionTask()
-            self.latest_deletion_task = temp_model.from_map(m['LatestDeletionTask'])
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('RoleId') is not None:
-            self.role_id = m.get('RoleId')
-        if m.get('Arn') is not None:
-            self.arn = m.get('Arn')
-        if m.get('IsServiceLinkedRole') is not None:
-            self.is_service_linked_role = m.get('IsServiceLinkedRole')
         return self
 
 
@@ -8689,12 +8715,12 @@ class ListRolesResponseBodyRoles(TeaModel):
 
 
 class ListRolesResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, roles=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
+    def __init__(self, page_number=None, page_size=None, request_id=None, roles=None, total_count=None):
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
         self.roles = roles  # type: ListRolesResponseBodyRoles
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.roles:
@@ -8706,31 +8732,31 @@ class ListRolesResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.roles is not None:
             result['Roles'] = self.roles.to_map()
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Roles') is not None:
             temp_model = ListRolesResponseBodyRoles()
             self.roles = temp_model.from_map(m['Roles'])
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -8768,10 +8794,10 @@ class ListRolesResponse(TeaModel):
 
 
 class ListTargetAttachmentsForControlPolicyRequest(TeaModel):
-    def __init__(self, policy_id=None, page_number=None, page_size=None):
-        self.policy_id = policy_id  # type: str
+    def __init__(self, page_number=None, page_size=None, policy_id=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.policy_id = policy_id  # type: str
 
     def validate(self):
         pass
@@ -8782,30 +8808,30 @@ class ListTargetAttachmentsForControlPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
         return self
 
 
 class ListTargetAttachmentsForControlPolicyResponseBodyTargetAttachmentsTargetAttachment(TeaModel):
-    def __init__(self, target_id=None, target_name=None, attach_date=None, target_type=None):
+    def __init__(self, attach_date=None, target_id=None, target_name=None, target_type=None):
+        self.attach_date = attach_date  # type: str
         self.target_id = target_id  # type: str
         self.target_name = target_name  # type: str
-        self.attach_date = attach_date  # type: str
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -8817,24 +8843,24 @@ class ListTargetAttachmentsForControlPolicyResponseBodyTargetAttachmentsTargetAt
             return _map
 
         result = dict()
+        if self.attach_date is not None:
+            result['AttachDate'] = self.attach_date
         if self.target_id is not None:
             result['TargetId'] = self.target_id
         if self.target_name is not None:
             result['TargetName'] = self.target_name
-        if self.attach_date is not None:
-            result['AttachDate'] = self.attach_date
         if self.target_type is not None:
             result['TargetType'] = self.target_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AttachDate') is not None:
+            self.attach_date = m.get('AttachDate')
         if m.get('TargetId') is not None:
             self.target_id = m.get('TargetId')
         if m.get('TargetName') is not None:
             self.target_name = m.get('TargetName')
-        if m.get('AttachDate') is not None:
-            self.attach_date = m.get('AttachDate')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
         return self
@@ -8873,12 +8899,12 @@ class ListTargetAttachmentsForControlPolicyResponseBodyTargetAttachments(TeaMode
 
 
 class ListTargetAttachmentsForControlPolicyResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None, target_attachments=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
+    def __init__(self, page_number=None, page_size=None, request_id=None, target_attachments=None, total_count=None):
         self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
         self.target_attachments = target_attachments  # type: ListTargetAttachmentsForControlPolicyResponseBodyTargetAttachments
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.target_attachments:
@@ -8890,31 +8916,31 @@ class ListTargetAttachmentsForControlPolicyResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.target_attachments is not None:
             result['TargetAttachments'] = self.target_attachments.to_map()
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TargetAttachments') is not None:
             temp_model = ListTargetAttachmentsForControlPolicyResponseBodyTargetAttachments()
             self.target_attachments = temp_model.from_map(m['TargetAttachments'])
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -8952,10 +8978,10 @@ class ListTargetAttachmentsForControlPolicyResponse(TeaModel):
 
 
 class ListTrustedServiceStatusRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, admin_account_id=None):
+    def __init__(self, admin_account_id=None, page_number=None, page_size=None):
+        self.admin_account_id = admin_account_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.admin_account_id = admin_account_id  # type: str
 
     def validate(self):
         pass
@@ -8966,29 +8992,29 @@ class ListTrustedServiceStatusRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.admin_account_id is not None:
+            result['AdminAccountId'] = self.admin_account_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.admin_account_id is not None:
-            result['AdminAccountId'] = self.admin_account_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AdminAccountId') is not None:
+            self.admin_account_id = m.get('AdminAccountId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('AdminAccountId') is not None:
-            self.admin_account_id = m.get('AdminAccountId')
         return self
 
 
 class ListTrustedServiceStatusResponseBodyEnabledServicePrincipalsEnabledServicePrincipal(TeaModel):
-    def __init__(self, service_principal=None, enable_time=None):
-        self.service_principal = service_principal  # type: str
+    def __init__(self, enable_time=None, service_principal=None):
         self.enable_time = enable_time  # type: str
+        self.service_principal = service_principal  # type: str
 
     def validate(self):
         pass
@@ -8999,18 +9025,18 @@ class ListTrustedServiceStatusResponseBodyEnabledServicePrincipalsEnabledService
             return _map
 
         result = dict()
-        if self.service_principal is not None:
-            result['ServicePrincipal'] = self.service_principal
         if self.enable_time is not None:
             result['EnableTime'] = self.enable_time
+        if self.service_principal is not None:
+            result['ServicePrincipal'] = self.service_principal
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ServicePrincipal') is not None:
-            self.service_principal = m.get('ServicePrincipal')
         if m.get('EnableTime') is not None:
             self.enable_time = m.get('EnableTime')
+        if m.get('ServicePrincipal') is not None:
+            self.service_principal = m.get('ServicePrincipal')
         return self
 
 
@@ -9047,13 +9073,13 @@ class ListTrustedServiceStatusResponseBodyEnabledServicePrincipals(TeaModel):
 
 
 class ListTrustedServiceStatusResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, page_size=None, page_number=None,
-                 enabled_service_principals=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
+    def __init__(self, enabled_service_principals=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
         self.enabled_service_principals = enabled_service_principals  # type: ListTrustedServiceStatusResponseBodyEnabledServicePrincipals
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.enabled_service_principals:
@@ -9065,31 +9091,31 @@ class ListTrustedServiceStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.enabled_service_principals is not None:
             result['EnabledServicePrincipals'] = self.enabled_service_principals.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('EnabledServicePrincipals') is not None:
             temp_model = ListTrustedServiceStatusResponseBodyEnabledServicePrincipals()
             self.enabled_service_principals = temp_model.from_map(m['EnabledServicePrincipals'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -9213,10 +9239,10 @@ class MoveAccountResponse(TeaModel):
 
 
 class MoveResourcesRequestResources(TeaModel):
-    def __init__(self, resource_id=None, resource_type=None, region_id=None, service=None):
+    def __init__(self, region_id=None, resource_id=None, resource_type=None, service=None):
+        self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: str
         self.resource_type = resource_type  # type: str
-        self.region_id = region_id  # type: str
         self.service = service  # type: str
 
     def validate(self):
@@ -9228,24 +9254,24 @@ class MoveResourcesRequestResources(TeaModel):
             return _map
 
         result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.service is not None:
             result['Service'] = self.service
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('Service') is not None:
             self.service = m.get('Service')
         return self
@@ -9289,16 +9315,16 @@ class MoveResourcesRequest(TeaModel):
 
 
 class MoveResourcesResponseBodyResponses(TeaModel):
-    def __init__(self, service=None, resource_id=None, resource_type=None, request_id=None, status=None,
-                 error_code=None, error_msg=None, region_id=None):
-        self.service = service  # type: str
-        self.resource_id = resource_id  # type: str
-        self.resource_type = resource_type  # type: str
-        self.request_id = request_id  # type: str
-        self.status = status  # type: str
+    def __init__(self, error_code=None, error_msg=None, region_id=None, request_id=None, resource_id=None,
+                 resource_type=None, service=None, status=None):
         self.error_code = error_code  # type: str
         self.error_msg = error_msg  # type: str
         self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.service = service  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -9309,42 +9335,42 @@ class MoveResourcesResponseBodyResponses(TeaModel):
             return _map
 
         result = dict()
-        if self.service is not None:
-            result['Service'] = self.service
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.status is not None:
-            result['Status'] = self.status
         if self.error_code is not None:
             result['ErrorCode'] = self.error_code
         if self.error_msg is not None:
             result['ErrorMsg'] = self.error_msg
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.service is not None:
+            result['Service'] = self.service
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Service') is not None:
-            self.service = m.get('Service')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ErrorCode') is not None:
             self.error_code = m.get('ErrorCode')
         if m.get('ErrorMsg') is not None:
             self.error_msg = m.get('ErrorMsg')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('Service') is not None:
+            self.service = m.get('Service')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -9449,19 +9475,19 @@ class PromoteResourceAccountRequest(TeaModel):
 
 
 class PromoteResourceAccountResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 record_id=None, join_time=None, account_id=None, join_method=None, account_name=None, modify_time=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 join_time=None, modify_time=None, record_id=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.record_id = record_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
-        self.account_name = account_name  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
+        self.record_id = record_id  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -9472,54 +9498,54 @@ class PromoteResourceAccountResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.record_id is not None:
-            result['RecordId'] = self.record_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.record_id is not None:
+            result['RecordId'] = self.record_id
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('RecordId') is not None:
-            self.record_id = m.get('RecordId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('RecordId') is not None:
+            self.record_id = m.get('RecordId')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -9779,19 +9805,19 @@ class ResendCreateCloudAccountEmailRequest(TeaModel):
 
 
 class ResendCreateCloudAccountEmailResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 record_id=None, join_time=None, account_id=None, join_method=None, account_name=None, modify_time=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 join_time=None, modify_time=None, record_id=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.record_id = record_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
-        self.account_name = account_name  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
+        self.record_id = record_id  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -9802,54 +9828,54 @@ class ResendCreateCloudAccountEmailResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.record_id is not None:
-            result['RecordId'] = self.record_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.record_id is not None:
+            result['RecordId'] = self.record_id
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('RecordId') is not None:
-            self.record_id = m.get('RecordId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('RecordId') is not None:
+            self.record_id = m.get('RecordId')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -9942,19 +9968,19 @@ class ResendPromoteResourceAccountEmailRequest(TeaModel):
 
 
 class ResendPromoteResourceAccountEmailResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 record_id=None, join_time=None, account_id=None, join_method=None, account_name=None, modify_time=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 join_time=None, modify_time=None, record_id=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.record_id = record_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
-        self.account_name = account_name  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
+        self.record_id = record_id  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -9965,54 +9991,54 @@ class ResendPromoteResourceAccountEmailResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.record_id is not None:
-            result['RecordId'] = self.record_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
+        if self.record_id is not None:
+            result['RecordId'] = self.record_id
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('RecordId') is not None:
-            self.record_id = m.get('RecordId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
+        if m.get('RecordId') is not None:
+            self.record_id = m.get('RecordId')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -10167,10 +10193,10 @@ class SetDefaultPolicyVersionResponse(TeaModel):
 
 
 class UpdateAccountRequest(TeaModel):
-    def __init__(self, new_display_name=None, new_account_type=None, account_id=None):
-        self.new_display_name = new_display_name  # type: str
-        self.new_account_type = new_account_type  # type: str
+    def __init__(self, account_id=None, new_account_type=None, new_display_name=None):
         self.account_id = account_id  # type: str
+        self.new_account_type = new_account_type  # type: str
+        self.new_display_name = new_display_name  # type: str
 
     def validate(self):
         pass
@@ -10181,38 +10207,38 @@ class UpdateAccountRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.new_display_name is not None:
-            result['NewDisplayName'] = self.new_display_name
-        if self.new_account_type is not None:
-            result['NewAccountType'] = self.new_account_type
         if self.account_id is not None:
             result['AccountId'] = self.account_id
+        if self.new_account_type is not None:
+            result['NewAccountType'] = self.new_account_type
+        if self.new_display_name is not None:
+            result['NewDisplayName'] = self.new_display_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('NewDisplayName') is not None:
-            self.new_display_name = m.get('NewDisplayName')
-        if m.get('NewAccountType') is not None:
-            self.new_account_type = m.get('NewAccountType')
         if m.get('AccountId') is not None:
             self.account_id = m.get('AccountId')
+        if m.get('NewAccountType') is not None:
+            self.new_account_type = m.get('NewAccountType')
+        if m.get('NewDisplayName') is not None:
+            self.new_display_name = m.get('NewDisplayName')
         return self
 
 
 class UpdateAccountResponseBodyAccount(TeaModel):
-    def __init__(self, status=None, type=None, display_name=None, folder_id=None, resource_directory_id=None,
-                 join_time=None, account_id=None, join_method=None, modify_time=None, account_name=None):
-        self.status = status  # type: str
-        self.type = type  # type: str
+    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
+                 join_time=None, modify_time=None, resource_directory_id=None, status=None, type=None):
+        self.account_id = account_id  # type: str
+        self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
-        self.resource_directory_id = resource_directory_id  # type: str
-        self.join_time = join_time  # type: str
-        self.account_id = account_id  # type: str
         self.join_method = join_method  # type: str
+        self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
-        self.account_name = account_name  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.status = status  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -10223,50 +10249,50 @@ class UpdateAccountResponseBodyAccount(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.type is not None:
-            result['Type'] = self.type
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.account_name is not None:
+            result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
-        if self.resource_directory_id is not None:
-            result['ResourceDirectoryId'] = self.resource_directory_id
-        if self.join_time is not None:
-            result['JoinTime'] = self.join_time
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
         if self.join_method is not None:
             result['JoinMethod'] = self.join_method
+        if self.join_time is not None:
+            result['JoinTime'] = self.join_time
         if self.modify_time is not None:
             result['ModifyTime'] = self.modify_time
-        if self.account_name is not None:
-            result['AccountName'] = self.account_name
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AccountName') is not None:
+            self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
-        if m.get('ResourceDirectoryId') is not None:
-            self.resource_directory_id = m.get('ResourceDirectoryId')
-        if m.get('JoinTime') is not None:
-            self.join_time = m.get('JoinTime')
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
         if m.get('JoinMethod') is not None:
             self.join_method = m.get('JoinMethod')
+        if m.get('JoinTime') is not None:
+            self.join_time = m.get('JoinTime')
         if m.get('ModifyTime') is not None:
             self.modify_time = m.get('ModifyTime')
-        if m.get('AccountName') is not None:
-            self.account_name = m.get('AccountName')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -10335,11 +10361,11 @@ class UpdateAccountResponse(TeaModel):
 
 
 class UpdateControlPolicyRequest(TeaModel):
-    def __init__(self, policy_id=None, new_policy_name=None, new_description=None, new_policy_document=None):
-        self.policy_id = policy_id  # type: str
-        self.new_policy_name = new_policy_name  # type: str
+    def __init__(self, new_description=None, new_policy_document=None, new_policy_name=None, policy_id=None):
         self.new_description = new_description  # type: str
         self.new_policy_document = new_policy_document  # type: str
+        self.new_policy_name = new_policy_name  # type: str
+        self.policy_id = policy_id  # type: str
 
     def validate(self):
         pass
@@ -10350,40 +10376,40 @@ class UpdateControlPolicyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
-        if self.new_policy_name is not None:
-            result['NewPolicyName'] = self.new_policy_name
         if self.new_description is not None:
             result['NewDescription'] = self.new_description
         if self.new_policy_document is not None:
             result['NewPolicyDocument'] = self.new_policy_document
+        if self.new_policy_name is not None:
+            result['NewPolicyName'] = self.new_policy_name
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
-        if m.get('NewPolicyName') is not None:
-            self.new_policy_name = m.get('NewPolicyName')
         if m.get('NewDescription') is not None:
             self.new_description = m.get('NewDescription')
         if m.get('NewPolicyDocument') is not None:
             self.new_policy_document = m.get('NewPolicyDocument')
+        if m.get('NewPolicyName') is not None:
+            self.new_policy_name = m.get('NewPolicyName')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
         return self
 
 
 class UpdateControlPolicyResponseBodyControlPolicy(TeaModel):
-    def __init__(self, update_date=None, description=None, effect_scope=None, attachment_count=None,
-                 policy_name=None, policy_id=None, create_date=None, policy_type=None):
-        self.update_date = update_date  # type: str
+    def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None, policy_id=None,
+                 policy_name=None, policy_type=None, update_date=None):
+        self.attachment_count = attachment_count  # type: str
+        self.create_date = create_date  # type: str
         self.description = description  # type: str
         self.effect_scope = effect_scope  # type: str
-        self.attachment_count = attachment_count  # type: str
-        self.policy_name = policy_name  # type: str
         self.policy_id = policy_id  # type: str
-        self.create_date = create_date  # type: str
+        self.policy_name = policy_name  # type: str
         self.policy_type = policy_type  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -10394,42 +10420,42 @@ class UpdateControlPolicyResponseBodyControlPolicy(TeaModel):
             return _map
 
         result = dict()
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
+        if self.attachment_count is not None:
+            result['AttachmentCount'] = self.attachment_count
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
         if self.description is not None:
             result['Description'] = self.description
         if self.effect_scope is not None:
             result['EffectScope'] = self.effect_scope
-        if self.attachment_count is not None:
-            result['AttachmentCount'] = self.attachment_count
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
         if self.policy_id is not None:
             result['PolicyId'] = self.policy_id
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
         if self.policy_type is not None:
             result['PolicyType'] = self.policy_type
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
+        if m.get('AttachmentCount') is not None:
+            self.attachment_count = m.get('AttachmentCount')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EffectScope') is not None:
             self.effect_scope = m.get('EffectScope')
-        if m.get('AttachmentCount') is not None:
-            self.attachment_count = m.get('AttachmentCount')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
         if m.get('PolicyId') is not None:
             self.policy_id = m.get('PolicyId')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
         if m.get('PolicyType') is not None:
             self.policy_type = m.get('PolicyType')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
@@ -10527,11 +10553,11 @@ class UpdateFolderRequest(TeaModel):
 
 
 class UpdateFolderResponseBodyFolder(TeaModel):
-    def __init__(self, folder_id=None, create_time=None, parent_folder_id=None, folder_name=None):
-        self.folder_id = folder_id  # type: str
+    def __init__(self, create_time=None, folder_id=None, folder_name=None, parent_folder_id=None):
         self.create_time = create_time  # type: str
-        self.parent_folder_id = parent_folder_id  # type: str
+        self.folder_id = folder_id  # type: str
         self.folder_name = folder_name  # type: str
+        self.parent_folder_id = parent_folder_id  # type: str
 
     def validate(self):
         pass
@@ -10542,33 +10568,33 @@ class UpdateFolderResponseBodyFolder(TeaModel):
             return _map
 
         result = dict()
-        if self.folder_id is not None:
-            result['FolderId'] = self.folder_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.parent_folder_id is not None:
-            result['ParentFolderId'] = self.parent_folder_id
+        if self.folder_id is not None:
+            result['FolderId'] = self.folder_id
         if self.folder_name is not None:
             result['FolderName'] = self.folder_name
+        if self.parent_folder_id is not None:
+            result['ParentFolderId'] = self.parent_folder_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FolderId') is not None:
-            self.folder_id = m.get('FolderId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('ParentFolderId') is not None:
-            self.parent_folder_id = m.get('ParentFolderId')
+        if m.get('FolderId') is not None:
+            self.folder_id = m.get('FolderId')
         if m.get('FolderName') is not None:
             self.folder_name = m.get('FolderName')
+        if m.get('ParentFolderId') is not None:
+            self.parent_folder_id = m.get('ParentFolderId')
         return self
 
 
 class UpdateFolderResponseBody(TeaModel):
-    def __init__(self, request_id=None, folder=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, folder=None, request_id=None):
         self.folder = folder  # type: UpdateFolderResponseBodyFolder
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.folder:
@@ -10580,19 +10606,19 @@ class UpdateFolderResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.folder is not None:
             result['Folder'] = self.folder.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Folder') is not None:
             temp_model = UpdateFolderResponseBodyFolder()
             self.folder = temp_model.from_map(m['Folder'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -10630,9 +10656,9 @@ class UpdateFolderResponse(TeaModel):
 
 
 class UpdateResourceGroupRequest(TeaModel):
-    def __init__(self, resource_group_id=None, new_display_name=None):
-        self.resource_group_id = resource_group_id  # type: str
+    def __init__(self, new_display_name=None, resource_group_id=None):
         self.new_display_name = new_display_name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -10643,28 +10669,28 @@ class UpdateResourceGroupRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.new_display_name is not None:
             result['NewDisplayName'] = self.new_display_name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('NewDisplayName') is not None:
             self.new_display_name = m.get('NewDisplayName')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
 class UpdateResourceGroupResponseBodyResourceGroup(TeaModel):
-    def __init__(self, display_name=None, account_id=None, name=None, create_date=None, id=None):
-        self.display_name = display_name  # type: str
+    def __init__(self, account_id=None, create_date=None, display_name=None, id=None, name=None):
         self.account_id = account_id  # type: str
-        self.name = name  # type: str
         self.create_date = create_date  # type: str
+        self.display_name = display_name  # type: str
         self.id = id  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -10675,30 +10701,30 @@ class UpdateResourceGroupResponseBodyResourceGroup(TeaModel):
             return _map
 
         result = dict()
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
         if self.account_id is not None:
             result['AccountId'] = self.account_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.create_date is not None:
             result['CreateDate'] = self.create_date
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
         if self.id is not None:
             result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DisplayName') is not None:
-            self.display_name = m.get('DisplayName')
         if m.get('AccountId') is not None:
             self.account_id = m.get('AccountId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('CreateDate') is not None:
             self.create_date = m.get('CreateDate')
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         return self
 
 
@@ -10767,12 +10793,12 @@ class UpdateResourceGroupResponse(TeaModel):
 
 
 class UpdateRoleRequest(TeaModel):
-    def __init__(self, role_name=None, new_assume_role_policy_document=None, new_max_session_duration=None,
-                 new_description=None):
-        self.role_name = role_name  # type: str
+    def __init__(self, new_assume_role_policy_document=None, new_description=None, new_max_session_duration=None,
+                 role_name=None):
         self.new_assume_role_policy_document = new_assume_role_policy_document  # type: str
-        self.new_max_session_duration = new_max_session_duration  # type: long
         self.new_description = new_description  # type: str
+        self.new_max_session_duration = new_max_session_duration  # type: long
+        self.role_name = role_name  # type: str
 
     def validate(self):
         pass
@@ -10783,41 +10809,41 @@ class UpdateRoleRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
         if self.new_assume_role_policy_document is not None:
             result['NewAssumeRolePolicyDocument'] = self.new_assume_role_policy_document
-        if self.new_max_session_duration is not None:
-            result['NewMaxSessionDuration'] = self.new_max_session_duration
         if self.new_description is not None:
             result['NewDescription'] = self.new_description
+        if self.new_max_session_duration is not None:
+            result['NewMaxSessionDuration'] = self.new_max_session_duration
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
         if m.get('NewAssumeRolePolicyDocument') is not None:
             self.new_assume_role_policy_document = m.get('NewAssumeRolePolicyDocument')
-        if m.get('NewMaxSessionDuration') is not None:
-            self.new_max_session_duration = m.get('NewMaxSessionDuration')
         if m.get('NewDescription') is not None:
             self.new_description = m.get('NewDescription')
+        if m.get('NewMaxSessionDuration') is not None:
+            self.new_max_session_duration = m.get('NewMaxSessionDuration')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
         return self
 
 
 class UpdateRoleResponseBodyRole(TeaModel):
-    def __init__(self, assume_role_policy_document=None, role_principal_name=None, description=None,
-                 update_date=None, max_session_duration=None, role_name=None, create_date=None, role_id=None, arn=None):
-        self.assume_role_policy_document = assume_role_policy_document  # type: str
-        self.role_principal_name = role_principal_name  # type: str
-        self.description = description  # type: str
-        self.update_date = update_date  # type: str
-        self.max_session_duration = max_session_duration  # type: long
-        self.role_name = role_name  # type: str
-        self.create_date = create_date  # type: str
-        self.role_id = role_id  # type: str
+    def __init__(self, arn=None, assume_role_policy_document=None, create_date=None, description=None,
+                 max_session_duration=None, role_id=None, role_name=None, role_principal_name=None, update_date=None):
         self.arn = arn  # type: str
+        self.assume_role_policy_document = assume_role_policy_document  # type: str
+        self.create_date = create_date  # type: str
+        self.description = description  # type: str
+        self.max_session_duration = max_session_duration  # type: long
+        self.role_id = role_id  # type: str
+        self.role_name = role_name  # type: str
+        self.role_principal_name = role_principal_name  # type: str
+        self.update_date = update_date  # type: str
 
     def validate(self):
         pass
@@ -10828,53 +10854,53 @@ class UpdateRoleResponseBodyRole(TeaModel):
             return _map
 
         result = dict()
-        if self.assume_role_policy_document is not None:
-            result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
-        if self.role_principal_name is not None:
-            result['RolePrincipalName'] = self.role_principal_name
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.update_date is not None:
-            result['UpdateDate'] = self.update_date
-        if self.max_session_duration is not None:
-            result['MaxSessionDuration'] = self.max_session_duration
-        if self.role_name is not None:
-            result['RoleName'] = self.role_name
-        if self.create_date is not None:
-            result['CreateDate'] = self.create_date
-        if self.role_id is not None:
-            result['RoleId'] = self.role_id
         if self.arn is not None:
             result['Arn'] = self.arn
+        if self.assume_role_policy_document is not None:
+            result['AssumeRolePolicyDocument'] = self.assume_role_policy_document
+        if self.create_date is not None:
+            result['CreateDate'] = self.create_date
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.max_session_duration is not None:
+            result['MaxSessionDuration'] = self.max_session_duration
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.role_name is not None:
+            result['RoleName'] = self.role_name
+        if self.role_principal_name is not None:
+            result['RolePrincipalName'] = self.role_principal_name
+        if self.update_date is not None:
+            result['UpdateDate'] = self.update_date
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AssumeRolePolicyDocument') is not None:
-            self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
-        if m.get('RolePrincipalName') is not None:
-            self.role_principal_name = m.get('RolePrincipalName')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('UpdateDate') is not None:
-            self.update_date = m.get('UpdateDate')
-        if m.get('MaxSessionDuration') is not None:
-            self.max_session_duration = m.get('MaxSessionDuration')
-        if m.get('RoleName') is not None:
-            self.role_name = m.get('RoleName')
-        if m.get('CreateDate') is not None:
-            self.create_date = m.get('CreateDate')
-        if m.get('RoleId') is not None:
-            self.role_id = m.get('RoleId')
         if m.get('Arn') is not None:
             self.arn = m.get('Arn')
+        if m.get('AssumeRolePolicyDocument') is not None:
+            self.assume_role_policy_document = m.get('AssumeRolePolicyDocument')
+        if m.get('CreateDate') is not None:
+            self.create_date = m.get('CreateDate')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('MaxSessionDuration') is not None:
+            self.max_session_duration = m.get('MaxSessionDuration')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('RoleName') is not None:
+            self.role_name = m.get('RoleName')
+        if m.get('RolePrincipalName') is not None:
+            self.role_principal_name = m.get('RolePrincipalName')
+        if m.get('UpdateDate') is not None:
+            self.update_date = m.get('UpdateDate')
         return self
 
 
 class UpdateRoleResponseBody(TeaModel):
-    def __init__(self, role=None, request_id=None):
-        self.role = role  # type: UpdateRoleResponseBodyRole
+    def __init__(self, request_id=None, role=None):
         self.request_id = request_id  # type: str
+        self.role = role  # type: UpdateRoleResponseBodyRole
 
     def validate(self):
         if self.role:
@@ -10886,19 +10912,19 @@ class UpdateRoleResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.role is not None:
-            result['Role'] = self.role.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.role is not None:
+            result['Role'] = self.role.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Role') is not None:
             temp_model = UpdateRoleResponseBodyRole()
             self.role = temp_model.from_map(m['Role'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         return self
 
 
