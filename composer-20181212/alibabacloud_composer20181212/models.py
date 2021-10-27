@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 # This file is auto-generated, don't edit it. Thanks.
 from Tea.model import TeaModel
-from Tea.converter import TeaConverter
 
 
 class CloneFlowRequest(TeaModel):
     def __init__(self, flow_id=None, version_id=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
+        self.version_id = version_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CloneFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -30,33 +33,37 @@ class CloneFlowRequest(TeaModel):
 
 
 class CloneFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, flow_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+    def __init__(self, flow_id=None, request_id=None):
+        self.flow_id = flow_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CloneFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
 class CloneFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CloneFlowResponseBody
 
     def validate(self):
@@ -66,6 +73,10 @@ class CloneFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CloneFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -84,73 +95,81 @@ class CloneFlowResponse(TeaModel):
 
 
 class CreateFlowRequest(TeaModel):
-    def __init__(self, flow_name=None, flow_description=None, definition=None, template_id=None, flow_source=None):
-        self.flow_name = TeaConverter.to_unicode(flow_name)  # type: unicode
-        self.flow_description = TeaConverter.to_unicode(flow_description)  # type: unicode
-        self.definition = TeaConverter.to_unicode(definition)  # type: unicode
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
-        self.flow_source = TeaConverter.to_unicode(flow_source)  # type: unicode
+    def __init__(self, definition=None, flow_description=None, flow_name=None, flow_source=None, template_id=None):
+        self.definition = definition  # type: str
+        self.flow_description = flow_description  # type: str
+        self.flow_name = flow_name  # type: str
+        self.flow_source = flow_source  # type: str
+        self.template_id = template_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.flow_name is not None:
-            result['FlowName'] = self.flow_name
-        if self.flow_description is not None:
-            result['FlowDescription'] = self.flow_description
         if self.definition is not None:
             result['Definition'] = self.definition
-        if self.template_id is not None:
-            result['TemplateId'] = self.template_id
+        if self.flow_description is not None:
+            result['FlowDescription'] = self.flow_description
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
         if self.flow_source is not None:
             result['FlowSource'] = self.flow_source
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FlowName') is not None:
-            self.flow_name = m.get('FlowName')
-        if m.get('FlowDescription') is not None:
-            self.flow_description = m.get('FlowDescription')
         if m.get('Definition') is not None:
             self.definition = m.get('Definition')
-        if m.get('TemplateId') is not None:
-            self.template_id = m.get('TemplateId')
+        if m.get('FlowDescription') is not None:
+            self.flow_description = m.get('FlowDescription')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
         if m.get('FlowSource') is not None:
             self.flow_source = m.get('FlowSource')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
         return self
 
 
 class CreateFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, flow_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+    def __init__(self, flow_id=None, request_id=None):
+        self.flow_id = flow_id  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(CreateFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
 class CreateFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: CreateFlowResponseBody
 
     def validate(self):
@@ -160,6 +179,10 @@ class CreateFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(CreateFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -179,12 +202,16 @@ class CreateFlowResponse(TeaModel):
 
 class DeleteFlowRequest(TeaModel):
     def __init__(self, flow_id=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -199,13 +226,17 @@ class DeleteFlowRequest(TeaModel):
 
 class DeleteFlowResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DeleteFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -224,7 +255,7 @@ class DeleteFlowResponseBody(TeaModel):
 
 class DeleteFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DeleteFlowResponseBody
 
     def validate(self):
@@ -234,6 +265,10 @@ class DeleteFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DeleteFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -253,12 +288,16 @@ class DeleteFlowResponse(TeaModel):
 
 class DisableFlowRequest(TeaModel):
     def __init__(self, flow_id=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DisableFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -272,38 +311,42 @@ class DisableFlowRequest(TeaModel):
 
 
 class DisableFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, flow_status=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, flow_status=None, request_id=None, success=None):
+        self.flow_status = flow_status  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
-        self.flow_status = TeaConverter.to_unicode(flow_status)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(DisableFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.flow_status is not None:
+            result['FlowStatus'] = self.flow_status
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
-        if self.flow_status is not None:
-            result['FlowStatus'] = self.flow_status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('FlowStatus') is not None:
+            self.flow_status = m.get('FlowStatus')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
-        if m.get('FlowStatus') is not None:
-            self.flow_status = m.get('FlowStatus')
         return self
 
 
 class DisableFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: DisableFlowResponseBody
 
     def validate(self):
@@ -313,6 +356,10 @@ class DisableFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(DisableFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -332,12 +379,16 @@ class DisableFlowResponse(TeaModel):
 
 class EnableFlowRequest(TeaModel):
     def __init__(self, flow_id=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EnableFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -351,38 +402,42 @@ class EnableFlowRequest(TeaModel):
 
 
 class EnableFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, flow_status=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+    def __init__(self, flow_status=None, request_id=None, success=None):
+        self.flow_status = flow_status  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
-        self.flow_status = TeaConverter.to_unicode(flow_status)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(EnableFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.flow_status is not None:
+            result['FlowStatus'] = self.flow_status
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
-        if self.flow_status is not None:
-            result['FlowStatus'] = self.flow_status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('FlowStatus') is not None:
+            self.flow_status = m.get('FlowStatus')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
-        if m.get('FlowStatus') is not None:
-            self.flow_status = m.get('FlowStatus')
         return self
 
 
 class EnableFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: EnableFlowResponseBody
 
     def validate(self):
@@ -392,6 +447,10 @@ class EnableFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(EnableFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -411,12 +470,16 @@ class EnableFlowResponse(TeaModel):
 
 class GetFlowRequest(TeaModel):
     def __init__(self, flow_id=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -430,90 +493,94 @@ class GetFlowRequest(TeaModel):
 
 
 class GetFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, flow_id=None, region_id=None, flow_name=None, flow_description=None,
-                 create_time=None, update_time=None, current_version_id=None, flow_status=None, definition=None,
-                 template_id=None, flow_source=None, flow_edit_mode=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.flow_name = TeaConverter.to_unicode(flow_name)  # type: unicode
-        self.flow_description = TeaConverter.to_unicode(flow_description)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
+    def __init__(self, create_time=None, current_version_id=None, definition=None, flow_description=None,
+                 flow_edit_mode=None, flow_id=None, flow_name=None, flow_source=None, flow_status=None, region_id=None,
+                 request_id=None, template_id=None, update_time=None):
+        self.create_time = create_time  # type: str
         self.current_version_id = current_version_id  # type: int
-        self.flow_status = TeaConverter.to_unicode(flow_status)  # type: unicode
-        self.definition = TeaConverter.to_unicode(definition)  # type: unicode
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
-        self.flow_source = TeaConverter.to_unicode(flow_source)  # type: unicode
-        self.flow_edit_mode = TeaConverter.to_unicode(flow_edit_mode)  # type: unicode
+        self.definition = definition  # type: str
+        self.flow_description = flow_description  # type: str
+        self.flow_edit_mode = flow_edit_mode  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+        self.flow_source = flow_source  # type: str
+        self.flow_status = flow_status  # type: str
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+        self.template_id = template_id  # type: str
+        self.update_time = update_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.flow_id is not None:
-            result['FlowId'] = self.flow_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.flow_name is not None:
-            result['FlowName'] = self.flow_name
-        if self.flow_description is not None:
-            result['FlowDescription'] = self.flow_description
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.update_time is not None:
-            result['UpdateTime'] = self.update_time
         if self.current_version_id is not None:
             result['CurrentVersionId'] = self.current_version_id
-        if self.flow_status is not None:
-            result['FlowStatus'] = self.flow_status
         if self.definition is not None:
             result['Definition'] = self.definition
-        if self.template_id is not None:
-            result['TemplateId'] = self.template_id
-        if self.flow_source is not None:
-            result['FlowSource'] = self.flow_source
+        if self.flow_description is not None:
+            result['FlowDescription'] = self.flow_description
         if self.flow_edit_mode is not None:
             result['FlowEditMode'] = self.flow_edit_mode
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.flow_source is not None:
+            result['FlowSource'] = self.flow_source
+        if self.flow_status is not None:
+            result['FlowStatus'] = self.flow_status
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('FlowId') is not None:
-            self.flow_id = m.get('FlowId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('FlowName') is not None:
-            self.flow_name = m.get('FlowName')
-        if m.get('FlowDescription') is not None:
-            self.flow_description = m.get('FlowDescription')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('UpdateTime') is not None:
-            self.update_time = m.get('UpdateTime')
         if m.get('CurrentVersionId') is not None:
             self.current_version_id = m.get('CurrentVersionId')
-        if m.get('FlowStatus') is not None:
-            self.flow_status = m.get('FlowStatus')
         if m.get('Definition') is not None:
             self.definition = m.get('Definition')
-        if m.get('TemplateId') is not None:
-            self.template_id = m.get('TemplateId')
-        if m.get('FlowSource') is not None:
-            self.flow_source = m.get('FlowSource')
+        if m.get('FlowDescription') is not None:
+            self.flow_description = m.get('FlowDescription')
         if m.get('FlowEditMode') is not None:
             self.flow_edit_mode = m.get('FlowEditMode')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('FlowSource') is not None:
+            self.flow_source = m.get('FlowSource')
+        if m.get('FlowStatus') is not None:
+            self.flow_status = m.get('FlowStatus')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
         return self
 
 
 class GetFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetFlowResponseBody
 
     def validate(self):
@@ -523,6 +590,10 @@ class GetFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -542,12 +613,16 @@ class GetFlowResponse(TeaModel):
 
 class GetTemplateRequest(TeaModel):
     def __init__(self, template_id=None):
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
+        self.template_id = template_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetTemplateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
@@ -561,106 +636,110 @@ class GetTemplateRequest(TeaModel):
 
 
 class GetTemplateResponseBody(TeaModel):
-    def __init__(self, request_id=None, region_id=None, template_id=None, template_name=None,
-                 template_description=None, template_tag=None, definition=None, create_time=None, update_time=None,
-                 template_connector=None, template_summary=None, template_summary_en=None, template_locale=None,
-                 template_version=None, template_overview=None, template_creator=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
-        self.template_name = TeaConverter.to_unicode(template_name)  # type: unicode
-        self.template_description = TeaConverter.to_unicode(template_description)  # type: unicode
-        self.template_tag = TeaConverter.to_unicode(template_tag)  # type: unicode
-        self.definition = TeaConverter.to_unicode(definition)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
-        self.template_connector = TeaConverter.to_unicode(template_connector)  # type: unicode
-        self.template_summary = TeaConverter.to_unicode(template_summary)  # type: unicode
-        self.template_summary_en = TeaConverter.to_unicode(template_summary_en)  # type: unicode
-        self.template_locale = TeaConverter.to_unicode(template_locale)  # type: unicode
+    def __init__(self, create_time=None, definition=None, region_id=None, request_id=None, template_connector=None,
+                 template_creator=None, template_description=None, template_id=None, template_locale=None, template_name=None,
+                 template_overview=None, template_summary=None, template_summary_en=None, template_tag=None, template_version=None,
+                 update_time=None):
+        self.create_time = create_time  # type: str
+        self.definition = definition  # type: str
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+        self.template_connector = template_connector  # type: str
+        self.template_creator = template_creator  # type: str
+        self.template_description = template_description  # type: str
+        self.template_id = template_id  # type: str
+        self.template_locale = template_locale  # type: str
+        self.template_name = template_name  # type: str
+        self.template_overview = template_overview  # type: str
+        self.template_summary = template_summary  # type: str
+        self.template_summary_en = template_summary_en  # type: str
+        self.template_tag = template_tag  # type: str
         self.template_version = template_version  # type: int
-        self.template_overview = TeaConverter.to_unicode(template_overview)  # type: unicode
-        self.template_creator = TeaConverter.to_unicode(template_creator)  # type: unicode
+        self.update_time = update_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.template_id is not None:
-            result['TemplateId'] = self.template_id
-        if self.template_name is not None:
-            result['TemplateName'] = self.template_name
-        if self.template_description is not None:
-            result['TemplateDescription'] = self.template_description
-        if self.template_tag is not None:
-            result['TemplateTag'] = self.template_tag
-        if self.definition is not None:
-            result['Definition'] = self.definition
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.update_time is not None:
-            result['UpdateTime'] = self.update_time
+        if self.definition is not None:
+            result['Definition'] = self.definition
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.template_connector is not None:
             result['TemplateConnector'] = self.template_connector
+        if self.template_creator is not None:
+            result['TemplateCreator'] = self.template_creator
+        if self.template_description is not None:
+            result['TemplateDescription'] = self.template_description
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_locale is not None:
+            result['TemplateLocale'] = self.template_locale
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
+        if self.template_overview is not None:
+            result['TemplateOverview'] = self.template_overview
         if self.template_summary is not None:
             result['TemplateSummary'] = self.template_summary
         if self.template_summary_en is not None:
             result['TemplateSummaryEn'] = self.template_summary_en
-        if self.template_locale is not None:
-            result['TemplateLocale'] = self.template_locale
+        if self.template_tag is not None:
+            result['TemplateTag'] = self.template_tag
         if self.template_version is not None:
             result['TemplateVersion'] = self.template_version
-        if self.template_overview is not None:
-            result['TemplateOverview'] = self.template_overview
-        if self.template_creator is not None:
-            result['TemplateCreator'] = self.template_creator
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('TemplateId') is not None:
-            self.template_id = m.get('TemplateId')
-        if m.get('TemplateName') is not None:
-            self.template_name = m.get('TemplateName')
-        if m.get('TemplateDescription') is not None:
-            self.template_description = m.get('TemplateDescription')
-        if m.get('TemplateTag') is not None:
-            self.template_tag = m.get('TemplateTag')
-        if m.get('Definition') is not None:
-            self.definition = m.get('Definition')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('UpdateTime') is not None:
-            self.update_time = m.get('UpdateTime')
+        if m.get('Definition') is not None:
+            self.definition = m.get('Definition')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TemplateConnector') is not None:
             self.template_connector = m.get('TemplateConnector')
+        if m.get('TemplateCreator') is not None:
+            self.template_creator = m.get('TemplateCreator')
+        if m.get('TemplateDescription') is not None:
+            self.template_description = m.get('TemplateDescription')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateLocale') is not None:
+            self.template_locale = m.get('TemplateLocale')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
+        if m.get('TemplateOverview') is not None:
+            self.template_overview = m.get('TemplateOverview')
         if m.get('TemplateSummary') is not None:
             self.template_summary = m.get('TemplateSummary')
         if m.get('TemplateSummaryEn') is not None:
             self.template_summary_en = m.get('TemplateSummaryEn')
-        if m.get('TemplateLocale') is not None:
-            self.template_locale = m.get('TemplateLocale')
+        if m.get('TemplateTag') is not None:
+            self.template_tag = m.get('TemplateTag')
         if m.get('TemplateVersion') is not None:
             self.template_version = m.get('TemplateVersion')
-        if m.get('TemplateOverview') is not None:
-            self.template_overview = m.get('TemplateOverview')
-        if m.get('TemplateCreator') is not None:
-            self.template_creator = m.get('TemplateCreator')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
         return self
 
 
 class GetTemplateResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetTemplateResponseBody
 
     def validate(self):
@@ -670,6 +749,10 @@ class GetTemplateResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -689,15 +772,17 @@ class GetTemplateResponse(TeaModel):
 
 class GetVersionRequest(TeaModel):
     def __init__(self, flow_id=None, version_id=None):
-        # 工作流 ID
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        # 工作流版本 ID
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
+        self.version_id = version_id  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVersionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -717,31 +802,25 @@ class GetVersionRequest(TeaModel):
 class GetVersionResponseBody(TeaModel):
     def __init__(self, create_time=None, definition=None, flow_id=None, region_id=None, request_id=None,
                  update_time=None, version_description=None, version_id=None, version_name=None, version_status=None):
-        # 创建时间
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        # 工作流定义
-        self.definition = TeaConverter.to_unicode(definition)  # type: unicode
-        # 工作流 ID
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        # 地域 ID
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        # 请求 ID
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        # 更新时间
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
-        # 版本描述
-        self.version_description = TeaConverter.to_unicode(version_description)  # type: unicode
-        # 版本 ID
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
-        # 版本名称
-        self.version_name = TeaConverter.to_unicode(version_name)  # type: unicode
-        # 版本状态
-        self.version_status = TeaConverter.to_unicode(version_status)  # type: unicode
+        self.create_time = create_time  # type: str
+        self.definition = definition  # type: str
+        self.flow_id = flow_id  # type: str
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+        self.update_time = update_time  # type: str
+        self.version_description = version_description  # type: str
+        self.version_id = version_id  # type: str
+        self.version_name = version_name  # type: str
+        self.version_status = version_status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GetVersionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
@@ -792,7 +871,7 @@ class GetVersionResponseBody(TeaModel):
 
 class GetVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GetVersionResponseBody
 
     def validate(self):
@@ -802,6 +881,10 @@ class GetVersionResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GetVersionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -820,73 +903,70 @@ class GetVersionResponse(TeaModel):
 
 
 class GroupInvokeFlowRequest(TeaModel):
-    def __init__(self, flow_id=None, group_key=None, data=None, client_token=None, total_count=None, tags=None):
-        # FlowId
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        # GroupKey
-        self.group_key = TeaConverter.to_unicode(group_key)  # type: unicode
-        # Data
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
-        # ClientToken
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
-        # TotalCount
+    def __init__(self, client_token=None, data=None, flow_id=None, group_key=None, tags=None, total_count=None):
+        self.client_token = client_token  # type: str
+        self.data = data  # type: str
+        self.flow_id = flow_id  # type: str
+        self.group_key = group_key  # type: str
+        self.tags = tags  # type: str
         self.total_count = total_count  # type: int
-        # Tags
-        self.tags = TeaConverter.to_unicode(tags)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GroupInvokeFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.data is not None:
+            result['Data'] = self.data
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
         if self.group_key is not None:
             result['GroupKey'] = self.group_key
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.tags is not None:
             result['Tags'] = self.tags
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
         if m.get('GroupKey') is not None:
             self.group_key = m.get('GroupKey')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
 class GroupInvokeFlowResponseBody(TeaModel):
     def __init__(self, current_count=None, group_invocation_id=None, request_id=None, status=None, success=None):
-        # 当前批次
         self.current_count = current_count  # type: int
-        # 执行 ID
-        self.group_invocation_id = TeaConverter.to_unicode(group_invocation_id)  # type: unicode
-        # 请求 ID
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        # 状态
-        self.status = TeaConverter.to_unicode(status)  # type: unicode
-        # 调用是否成功
+        self.group_invocation_id = group_invocation_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
         self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(GroupInvokeFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.current_count is not None:
             result['CurrentCount'] = self.current_count
@@ -917,7 +997,7 @@ class GroupInvokeFlowResponseBody(TeaModel):
 
 class GroupInvokeFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: GroupInvokeFlowResponseBody
 
     def validate(self):
@@ -927,6 +1007,10 @@ class GroupInvokeFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(GroupInvokeFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -945,65 +1029,73 @@ class GroupInvokeFlowResponse(TeaModel):
 
 
 class InvokeFlowRequest(TeaModel):
-    def __init__(self, flow_id=None, parameters=None, data=None, client_token=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        self.parameters = TeaConverter.to_unicode(parameters)  # type: unicode
-        self.data = TeaConverter.to_unicode(data)  # type: unicode
-        self.client_token = TeaConverter.to_unicode(client_token)  # type: unicode
+    def __init__(self, client_token=None, data=None, flow_id=None, parameters=None):
+        self.client_token = client_token  # type: str
+        self.data = data  # type: str
+        self.flow_id = flow_id  # type: str
+        self.parameters = parameters  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(InvokeFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.data is not None:
+            result['Data'] = self.data
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
         if self.parameters is not None:
             result['Parameters'] = self.parameters
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
         if m.get('Parameters') is not None:
             self.parameters = m.get('Parameters')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
         return self
 
 
 class InvokeFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, invocation_id=None, success=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.invocation_id = TeaConverter.to_unicode(invocation_id)  # type: unicode
+    def __init__(self, invocation_id=None, request_id=None, success=None):
+        self.invocation_id = invocation_id  # type: str
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(InvokeFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.invocation_id is not None:
             result['InvocationId'] = self.invocation_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('InvocationId') is not None:
             self.invocation_id = m.get('InvocationId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
         return self
@@ -1011,7 +1103,7 @@ class InvokeFlowResponseBody(TeaModel):
 
 class InvokeFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: InvokeFlowResponseBody
 
     def validate(self):
@@ -1021,6 +1113,10 @@ class InvokeFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(InvokeFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1039,116 +1135,124 @@ class InvokeFlowResponse(TeaModel):
 
 
 class ListFlowsRequest(TeaModel):
-    def __init__(self, page_size=None, page_number=None, flow_name=None, filter=None):
-        self.page_size = page_size  # type: int
+    def __init__(self, filter=None, flow_name=None, page_number=None, page_size=None):
+        self.filter = filter  # type: str
+        self.flow_name = flow_name  # type: str
         self.page_number = page_number  # type: int
-        self.flow_name = TeaConverter.to_unicode(flow_name)  # type: unicode
-        self.filter = TeaConverter.to_unicode(filter)  # type: unicode
+        self.page_size = page_size  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListFlowsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.flow_name is not None:
-            result['FlowName'] = self.flow_name
         if self.filter is not None:
             result['Filter'] = self.filter
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('FlowName') is not None:
-            self.flow_name = m.get('FlowName')
         if m.get('Filter') is not None:
             self.filter = m.get('Filter')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         return self
 
 
 class ListFlowsResponseBodyFlows(TeaModel):
-    def __init__(self, flow_id=None, region_id=None, flow_name=None, flow_description=None, version_id=None,
-                 create_time=None, update_time=None, flow_status=None, template_id=None, flow_source=None, flow_edit_mode=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        self.region_id = TeaConverter.to_unicode(region_id)  # type: unicode
-        self.flow_name = TeaConverter.to_unicode(flow_name)  # type: unicode
-        self.flow_description = TeaConverter.to_unicode(flow_description)  # type: unicode
+    def __init__(self, create_time=None, flow_description=None, flow_edit_mode=None, flow_id=None, flow_name=None,
+                 flow_source=None, flow_status=None, region_id=None, template_id=None, update_time=None, version_id=None):
+        self.create_time = create_time  # type: str
+        self.flow_description = flow_description  # type: str
+        self.flow_edit_mode = flow_edit_mode  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
+        self.flow_source = flow_source  # type: str
+        self.flow_status = flow_status  # type: str
+        self.region_id = region_id  # type: str
+        self.template_id = template_id  # type: str
+        self.update_time = update_time  # type: str
         self.version_id = version_id  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
-        self.flow_status = TeaConverter.to_unicode(flow_status)  # type: unicode
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
-        self.flow_source = TeaConverter.to_unicode(flow_source)  # type: unicode
-        self.flow_edit_mode = TeaConverter.to_unicode(flow_edit_mode)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListFlowsResponseBodyFlows, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.flow_id is not None:
-            result['FlowId'] = self.flow_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.flow_name is not None:
-            result['FlowName'] = self.flow_name
-        if self.flow_description is not None:
-            result['FlowDescription'] = self.flow_description
-        if self.version_id is not None:
-            result['VersionId'] = self.version_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.update_time is not None:
-            result['UpdateTime'] = self.update_time
-        if self.flow_status is not None:
-            result['FlowStatus'] = self.flow_status
-        if self.template_id is not None:
-            result['TemplateId'] = self.template_id
-        if self.flow_source is not None:
-            result['FlowSource'] = self.flow_source
+        if self.flow_description is not None:
+            result['FlowDescription'] = self.flow_description
         if self.flow_edit_mode is not None:
             result['FlowEditMode'] = self.flow_edit_mode
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_name is not None:
+            result['FlowName'] = self.flow_name
+        if self.flow_source is not None:
+            result['FlowSource'] = self.flow_source
+        if self.flow_status is not None:
+            result['FlowStatus'] = self.flow_status
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.version_id is not None:
+            result['VersionId'] = self.version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FlowId') is not None:
-            self.flow_id = m.get('FlowId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('FlowName') is not None:
-            self.flow_name = m.get('FlowName')
-        if m.get('FlowDescription') is not None:
-            self.flow_description = m.get('FlowDescription')
-        if m.get('VersionId') is not None:
-            self.version_id = m.get('VersionId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('UpdateTime') is not None:
-            self.update_time = m.get('UpdateTime')
-        if m.get('FlowStatus') is not None:
-            self.flow_status = m.get('FlowStatus')
-        if m.get('TemplateId') is not None:
-            self.template_id = m.get('TemplateId')
-        if m.get('FlowSource') is not None:
-            self.flow_source = m.get('FlowSource')
+        if m.get('FlowDescription') is not None:
+            self.flow_description = m.get('FlowDescription')
         if m.get('FlowEditMode') is not None:
             self.flow_edit_mode = m.get('FlowEditMode')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowName') is not None:
+            self.flow_name = m.get('FlowName')
+        if m.get('FlowSource') is not None:
+            self.flow_source = m.get('FlowSource')
+        if m.get('FlowStatus') is not None:
+            self.flow_status = m.get('FlowStatus')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('VersionId') is not None:
+            self.version_id = m.get('VersionId')
         return self
 
 
 class ListFlowsResponseBody(TeaModel):
-    def __init__(self, request_id=None, total_count=None, flows=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.total_count = total_count  # type: int
+    def __init__(self, flows=None, request_id=None, total_count=None):
         self.flows = flows  # type: list[ListFlowsResponseBodyFlows]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.flows:
@@ -1157,34 +1261,38 @@ class ListFlowsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListFlowsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         result['Flows'] = []
         if self.flows is not None:
             for k in self.flows:
                 result['Flows'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         self.flows = []
         if m.get('Flows') is not None:
             for k in m.get('Flows'):
                 temp_model = ListFlowsResponseBodyFlows()
                 self.flows.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
 class ListFlowsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListFlowsResponseBody
 
     def validate(self):
@@ -1194,6 +1302,10 @@ class ListFlowsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListFlowsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1213,13 +1325,17 @@ class ListFlowsResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -1237,12 +1353,12 @@ class ListTagResourcesRequestTag(TeaModel):
 
 
 class ListTagResourcesRequest(TeaModel):
-    def __init__(self, resource_type=None, resource_id=None, tag=None, next_token=None, max_results=None):
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
-        self.tag = tag  # type: list[ListTagResourcesRequestTag]
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
+    def __init__(self, max_results=None, next_token=None, resource_id=None, resource_type=None, tag=None):
         self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
         if self.tag:
@@ -1251,80 +1367,88 @@ class ListTagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
-        if self.next_token is not None:
-            result['NextToken'] = self.next_token
-        if self.max_results is not None:
-            result['MaxResults'] = self.max_results
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
                 temp_model = ListTagResourcesRequestTag()
                 self.tag.append(temp_model.from_map(k))
-        if m.get('NextToken') is not None:
-            self.next_token = m.get('NextToken')
-        if m.get('MaxResults') is not None:
-            self.max_results = m.get('MaxResults')
         return self
 
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
-    def __init__(self, tag_key=None, tag_value=None, resource_id=None, resource_type=None):
-        self.tag_key = TeaConverter.to_unicode(tag_key)  # type: unicode
-        self.tag_value = TeaConverter.to_unicode(tag_value)  # type: unicode
-        self.resource_id = TeaConverter.to_unicode(resource_id)  # type: unicode
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
+    def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        self.resource_id = resource_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: str
+        self.tag_value = tag_value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBodyTagResources, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.tag_key is not None:
-            result['TagKey'] = self.tag_key
-        if self.tag_value is not None:
-            result['TagValue'] = self.tag_value
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
+        if self.tag_value is not None:
+            result['TagValue'] = self.tag_value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TagKey') is not None:
-            self.tag_key = m.get('TagKey')
-        if m.get('TagValue') is not None:
-            self.tag_value = m.get('TagValue')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
+        if m.get('TagValue') is not None:
+            self.tag_value = m.get('TagValue')
         return self
 
 
 class ListTagResourcesResponseBody(TeaModel):
-    def __init__(self, request_id=None, next_token=None, total_count=None, tag_resources=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.next_token = TeaConverter.to_unicode(next_token)  # type: unicode
-        self.total_count = total_count  # type: int
+    def __init__(self, next_token=None, request_id=None, tag_resources=None, total_count=None):
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
         self.tag_resources = tag_resources  # type: list[ListTagResourcesResponseBodyTagResources]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.tag_resources:
@@ -1333,38 +1457,42 @@ class ListTagResourcesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.next_token is not None:
             result['NextToken'] = self.next_token
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['TagResources'] = []
         if self.tag_resources is not None:
             for k in self.tag_resources:
                 result['TagResources'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.tag_resources = []
         if m.get('TagResources') is not None:
             for k in m.get('TagResources'):
                 temp_model = ListTagResourcesResponseBodyTagResources()
                 self.tag_resources.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
 class ListTagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
@@ -1374,6 +1502,10 @@ class ListTagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListTagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1392,132 +1524,140 @@ class ListTagResourcesResponse(TeaModel):
 
 
 class ListTemplatesRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, name=None, tag=None, lang=None):
+    def __init__(self, lang=None, name=None, page_number=None, page_size=None, tag=None):
+        self.lang = lang  # type: str
+        self.name = name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.name = TeaConverter.to_unicode(name)  # type: unicode
-        self.tag = TeaConverter.to_unicode(tag)  # type: unicode
-        self.lang = TeaConverter.to_unicode(lang)  # type: unicode
+        self.tag = tag  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.name is not None:
+            result['Name'] = self.name
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.name is not None:
-            result['Name'] = self.name
         if self.tag is not None:
             result['Tag'] = self.tag
-        if self.lang is not None:
-            result['Lang'] = self.lang
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Tag') is not None:
             self.tag = m.get('Tag')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
         return self
 
 
 class ListTemplatesResponseBodyTemplates(TeaModel):
-    def __init__(self, template_id=None, template_name=None, template_description=None, template_tag=None,
-                 create_time=None, update_time=None, template_connector=None, template_summary=None, template_summary_en=None,
-                 template_locale=None, template_version=None, template_creator=None, template_overview=None):
-        self.template_id = TeaConverter.to_unicode(template_id)  # type: unicode
-        self.template_name = TeaConverter.to_unicode(template_name)  # type: unicode
-        self.template_description = TeaConverter.to_unicode(template_description)  # type: unicode
-        self.template_tag = TeaConverter.to_unicode(template_tag)  # type: unicode
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
-        self.template_connector = TeaConverter.to_unicode(template_connector)  # type: unicode
-        self.template_summary = TeaConverter.to_unicode(template_summary)  # type: unicode
-        self.template_summary_en = TeaConverter.to_unicode(template_summary_en)  # type: unicode
-        self.template_locale = TeaConverter.to_unicode(template_locale)  # type: unicode
+    def __init__(self, create_time=None, template_connector=None, template_creator=None, template_description=None,
+                 template_id=None, template_locale=None, template_name=None, template_overview=None, template_summary=None,
+                 template_summary_en=None, template_tag=None, template_version=None, update_time=None):
+        self.create_time = create_time  # type: str
+        self.template_connector = template_connector  # type: str
+        self.template_creator = template_creator  # type: str
+        self.template_description = template_description  # type: str
+        self.template_id = template_id  # type: str
+        self.template_locale = template_locale  # type: str
+        self.template_name = template_name  # type: str
+        self.template_overview = template_overview  # type: str
+        self.template_summary = template_summary  # type: str
+        self.template_summary_en = template_summary_en  # type: str
+        self.template_tag = template_tag  # type: str
         self.template_version = template_version  # type: int
-        self.template_creator = TeaConverter.to_unicode(template_creator)  # type: unicode
-        self.template_overview = TeaConverter.to_unicode(template_overview)  # type: unicode
+        self.update_time = update_time  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListTemplatesResponseBodyTemplates, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.template_id is not None:
-            result['TemplateId'] = self.template_id
-        if self.template_name is not None:
-            result['TemplateName'] = self.template_name
-        if self.template_description is not None:
-            result['TemplateDescription'] = self.template_description
-        if self.template_tag is not None:
-            result['TemplateTag'] = self.template_tag
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
-        if self.update_time is not None:
-            result['UpdateTime'] = self.update_time
         if self.template_connector is not None:
             result['TemplateConnector'] = self.template_connector
+        if self.template_creator is not None:
+            result['TemplateCreator'] = self.template_creator
+        if self.template_description is not None:
+            result['TemplateDescription'] = self.template_description
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_locale is not None:
+            result['TemplateLocale'] = self.template_locale
+        if self.template_name is not None:
+            result['TemplateName'] = self.template_name
+        if self.template_overview is not None:
+            result['TemplateOverview'] = self.template_overview
         if self.template_summary is not None:
             result['TemplateSummary'] = self.template_summary
         if self.template_summary_en is not None:
             result['TemplateSummaryEn'] = self.template_summary_en
-        if self.template_locale is not None:
-            result['TemplateLocale'] = self.template_locale
+        if self.template_tag is not None:
+            result['TemplateTag'] = self.template_tag
         if self.template_version is not None:
             result['TemplateVersion'] = self.template_version
-        if self.template_creator is not None:
-            result['TemplateCreator'] = self.template_creator
-        if self.template_overview is not None:
-            result['TemplateOverview'] = self.template_overview
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TemplateId') is not None:
-            self.template_id = m.get('TemplateId')
-        if m.get('TemplateName') is not None:
-            self.template_name = m.get('TemplateName')
-        if m.get('TemplateDescription') is not None:
-            self.template_description = m.get('TemplateDescription')
-        if m.get('TemplateTag') is not None:
-            self.template_tag = m.get('TemplateTag')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
-        if m.get('UpdateTime') is not None:
-            self.update_time = m.get('UpdateTime')
         if m.get('TemplateConnector') is not None:
             self.template_connector = m.get('TemplateConnector')
+        if m.get('TemplateCreator') is not None:
+            self.template_creator = m.get('TemplateCreator')
+        if m.get('TemplateDescription') is not None:
+            self.template_description = m.get('TemplateDescription')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateLocale') is not None:
+            self.template_locale = m.get('TemplateLocale')
+        if m.get('TemplateName') is not None:
+            self.template_name = m.get('TemplateName')
+        if m.get('TemplateOverview') is not None:
+            self.template_overview = m.get('TemplateOverview')
         if m.get('TemplateSummary') is not None:
             self.template_summary = m.get('TemplateSummary')
         if m.get('TemplateSummaryEn') is not None:
             self.template_summary_en = m.get('TemplateSummaryEn')
-        if m.get('TemplateLocale') is not None:
-            self.template_locale = m.get('TemplateLocale')
+        if m.get('TemplateTag') is not None:
+            self.template_tag = m.get('TemplateTag')
         if m.get('TemplateVersion') is not None:
             self.template_version = m.get('TemplateVersion')
-        if m.get('TemplateCreator') is not None:
-            self.template_creator = m.get('TemplateCreator')
-        if m.get('TemplateOverview') is not None:
-            self.template_overview = m.get('TemplateOverview')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
         return self
 
 
 class ListTemplatesResponseBody(TeaModel):
-    def __init__(self, request_id=None, total_count=None, templates=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.total_count = total_count  # type: int
+    def __init__(self, request_id=None, templates=None, total_count=None):
+        self.request_id = request_id  # type: str
         self.templates = templates  # type: list[ListTemplatesResponseBodyTemplates]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.templates:
@@ -1526,34 +1666,38 @@ class ListTemplatesResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         result['Templates'] = []
         if self.templates is not None:
             for k in self.templates:
                 result['Templates'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         self.templates = []
         if m.get('Templates') is not None:
             for k in m.get('Templates'):
                 temp_model = ListTemplatesResponseBodyTemplates()
                 self.templates.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
 class ListTemplatesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListTemplatesResponseBody
 
     def validate(self):
@@ -1563,6 +1707,10 @@ class ListTemplatesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1582,7 +1730,7 @@ class ListTemplatesResponse(TeaModel):
 
 class ListVersionsRequest(TeaModel):
     def __init__(self, flow_id=None, page_number=None, page_size=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+        self.flow_id = flow_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -1590,6 +1738,10 @@ class ListVersionsRequest(TeaModel):
         pass
 
     def to_map(self):
+        _map = super(ListVersionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
@@ -1611,54 +1763,58 @@ class ListVersionsRequest(TeaModel):
 
 
 class ListVersionsResponseBodyVersions(TeaModel):
-    def __init__(self, version_id=None, flow_id=None, version_name=None, version_status=None, create_time=None,
-                 update_time=None):
-        self.version_id = TeaConverter.to_unicode(version_id)  # type: unicode
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
+    def __init__(self, create_time=None, flow_id=None, update_time=None, version_id=None, version_name=None,
+                 version_status=None):
+        self.create_time = create_time  # type: str
+        self.flow_id = flow_id  # type: str
+        self.update_time = update_time  # type: str
+        self.version_id = version_id  # type: str
         self.version_name = version_name  # type: int
         self.version_status = version_status  # type: int
-        self.create_time = TeaConverter.to_unicode(create_time)  # type: unicode
-        self.update_time = TeaConverter.to_unicode(update_time)  # type: unicode
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(ListVersionsResponseBodyVersions, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.version_id is not None:
-            result['VersionId'] = self.version_id
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        if self.version_id is not None:
+            result['VersionId'] = self.version_id
         if self.version_name is not None:
             result['VersionName'] = self.version_name
         if self.version_status is not None:
             result['VersionStatus'] = self.version_status
-        if self.create_time is not None:
-            result['CreateTime'] = self.create_time
-        if self.update_time is not None:
-            result['UpdateTime'] = self.update_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('VersionId') is not None:
-            self.version_id = m.get('VersionId')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        if m.get('VersionId') is not None:
+            self.version_id = m.get('VersionId')
         if m.get('VersionName') is not None:
             self.version_name = m.get('VersionName')
         if m.get('VersionStatus') is not None:
             self.version_status = m.get('VersionStatus')
-        if m.get('CreateTime') is not None:
-            self.create_time = m.get('CreateTime')
-        if m.get('UpdateTime') is not None:
-            self.update_time = m.get('UpdateTime')
         return self
 
 
 class ListVersionsResponseBody(TeaModel):
     def __init__(self, request_id=None, total_count=None, versions=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
         self.versions = versions  # type: list[ListVersionsResponseBodyVersions]
 
@@ -1669,6 +1825,10 @@ class ListVersionsResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(ListVersionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1696,7 +1856,7 @@ class ListVersionsResponseBody(TeaModel):
 
 class ListVersionsResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: ListVersionsResponseBody
 
     def validate(self):
@@ -1706,6 +1866,10 @@ class ListVersionsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(ListVersionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1725,13 +1889,17 @@ class ListVersionsResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        self.key = TeaConverter.to_unicode(key)  # type: unicode
-        self.value = TeaConverter.to_unicode(value)  # type: unicode
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TagResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.key is not None:
             result['Key'] = self.key
@@ -1749,9 +1917,9 @@ class TagResourcesRequestTag(TeaModel):
 
 
 class TagResourcesRequest(TeaModel):
-    def __init__(self, resource_type=None, resource_id=None, tag=None):
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
+    def __init__(self, resource_id=None, resource_type=None, tag=None):
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -1761,11 +1929,15 @@ class TagResourcesRequest(TeaModel):
                     k.validate()
 
     def to_map(self):
+        _map = super(TagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -1774,10 +1946,10 @@ class TagResourcesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -1788,13 +1960,17 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(TagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1813,7 +1989,7 @@ class TagResourcesResponseBody(TeaModel):
 
 class TagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
@@ -1823,6 +1999,10 @@ class TagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(TagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1841,49 +2021,57 @@ class TagResourcesResponse(TeaModel):
 
 
 class UntagResourcesRequest(TeaModel):
-    def __init__(self, resource_type=None, resource_id=None, tag_key=None, all=None):
-        self.resource_type = TeaConverter.to_unicode(resource_type)  # type: unicode
-        self.resource_id = resource_id  # type: list[unicode]
-        self.tag_key = tag_key  # type: list[unicode]
+    def __init__(self, all=None, resource_id=None, resource_type=None, tag_key=None):
         self.all = all  # type: bool
+        self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
+        self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UntagResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
-        if self.tag_key is not None:
-            result['TagKey'] = self.tag_key
         if self.all is not None:
             result['All'] = self.all
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.tag_key is not None:
+            result['TagKey'] = self.tag_key
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
-        if m.get('TagKey') is not None:
-            self.tag_key = m.get('TagKey')
         if m.get('All') is not None:
             self.all = m.get('All')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('TagKey') is not None:
+            self.tag_key = m.get('TagKey')
         return self
 
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
+        self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UntagResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
@@ -1902,7 +2090,7 @@ class UntagResourcesResponseBody(TeaModel):
 
 class UntagResourcesResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
@@ -1912,6 +2100,10 @@ class UntagResourcesResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UntagResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
@@ -1930,73 +2122,81 @@ class UntagResourcesResponse(TeaModel):
 
 
 class UpdateFlowRequest(TeaModel):
-    def __init__(self, flow_id=None, flow_name=None, flow_description=None, definition=None):
-        self.flow_id = TeaConverter.to_unicode(flow_id)  # type: unicode
-        self.flow_name = TeaConverter.to_unicode(flow_name)  # type: unicode
-        self.flow_description = TeaConverter.to_unicode(flow_description)  # type: unicode
-        self.definition = TeaConverter.to_unicode(definition)  # type: unicode
+    def __init__(self, definition=None, flow_description=None, flow_id=None, flow_name=None):
+        self.definition = definition  # type: str
+        self.flow_description = flow_description  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_name = flow_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateFlowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.definition is not None:
+            result['Definition'] = self.definition
+        if self.flow_description is not None:
+            result['FlowDescription'] = self.flow_description
         if self.flow_id is not None:
             result['FlowId'] = self.flow_id
         if self.flow_name is not None:
             result['FlowName'] = self.flow_name
-        if self.flow_description is not None:
-            result['FlowDescription'] = self.flow_description
-        if self.definition is not None:
-            result['Definition'] = self.definition
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Definition') is not None:
+            self.definition = m.get('Definition')
+        if m.get('FlowDescription') is not None:
+            self.flow_description = m.get('FlowDescription')
         if m.get('FlowId') is not None:
             self.flow_id = m.get('FlowId')
         if m.get('FlowName') is not None:
             self.flow_name = m.get('FlowName')
-        if m.get('FlowDescription') is not None:
-            self.flow_description = m.get('FlowDescription')
-        if m.get('Definition') is not None:
-            self.definition = m.get('Definition')
         return self
 
 
 class UpdateFlowResponseBody(TeaModel):
-    def __init__(self, request_id=None, success=None, current_version_id=None):
-        self.request_id = TeaConverter.to_unicode(request_id)  # type: unicode
-        self.success = success  # type: bool
+    def __init__(self, current_version_id=None, request_id=None, success=None):
         self.current_version_id = current_version_id  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         pass
 
     def to_map(self):
+        _map = super(UpdateFlowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
+        if self.current_version_id is not None:
+            result['CurrentVersionId'] = self.current_version_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
-        if self.current_version_id is not None:
-            result['CurrentVersionId'] = self.current_version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CurrentVersionId') is not None:
+            self.current_version_id = m.get('CurrentVersionId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
-        if m.get('CurrentVersionId') is not None:
-            self.current_version_id = m.get('CurrentVersionId')
         return self
 
 
 class UpdateFlowResponse(TeaModel):
     def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[unicode, unicode]
+        self.headers = headers  # type: dict[str, str]
         self.body = body  # type: UpdateFlowResponseBody
 
     def validate(self):
@@ -2006,6 +2206,10 @@ class UpdateFlowResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
+        _map = super(UpdateFlowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers

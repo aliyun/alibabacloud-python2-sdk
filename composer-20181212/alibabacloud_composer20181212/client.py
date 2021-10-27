@@ -2,6 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
+from Tea.core import TeaCore
+
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util.client import Client as UtilClient
@@ -32,7 +34,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.CloneFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.CloneFlowResponse(),
             self.do_rpcrequest('CloneFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -45,7 +48,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.CreateFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.CreateFlowResponse(),
             self.do_rpcrequest('CreateFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -58,7 +62,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.DeleteFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.DeleteFlowResponse(),
             self.do_rpcrequest('DeleteFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -71,7 +76,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.DisableFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.DisableFlowResponse(),
             self.do_rpcrequest('DisableFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -84,7 +90,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.EnableFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.EnableFlowResponse(),
             self.do_rpcrequest('EnableFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -97,7 +104,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.GetFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.GetFlowResponse(),
             self.do_rpcrequest('GetFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -110,7 +118,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.GetTemplateResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.GetTemplateResponse(),
             self.do_rpcrequest('GetTemplate', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -123,7 +132,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.GetVersionResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.GetVersionResponse(),
             self.do_rpcrequest('GetVersion', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -136,7 +146,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.GroupInvokeFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.GroupInvokeFlowResponse(),
             self.do_rpcrequest('GroupInvokeFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -149,7 +160,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.InvokeFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.InvokeFlowResponse(),
             self.do_rpcrequest('InvokeFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -162,7 +174,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.ListFlowsResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.ListFlowsResponse(),
             self.do_rpcrequest('ListFlows', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -175,7 +188,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.ListTagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.ListTagResourcesResponse(),
             self.do_rpcrequest('ListTagResources', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -188,7 +202,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.ListTemplatesResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.ListTemplatesResponse(),
             self.do_rpcrequest('ListTemplates', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -201,7 +216,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.ListVersionsResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.ListVersionsResponse(),
             self.do_rpcrequest('ListVersions', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -214,7 +230,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.TagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.TagResourcesResponse(),
             self.do_rpcrequest('TagResources', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -227,7 +244,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.UntagResourcesResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.UntagResourcesResponse(),
             self.do_rpcrequest('UntagResources', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
@@ -240,7 +258,8 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return composer_20181212_models.UpdateFlowResponse().from_map(
+        return TeaCore.from_map(
+            composer_20181212_models.UpdateFlowResponse(),
             self.do_rpcrequest('UpdateFlow', '2018-12-12', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
