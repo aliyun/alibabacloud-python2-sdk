@@ -2599,12 +2599,14 @@ class DescribeDBInstanceAttributeRequest(TeaModel):
 
 
 class DescribeDBInstanceAttributeResponseBodyDBInstanceConnAddrs(TeaModel):
-    def __init__(self, connection_string=None, port=None, type=None, vpcid=None, v_switch_id=None):
+    def __init__(self, connection_string=None, port=None, type=None, vpcid=None, v_switch_id=None,
+                 vpc_instance_id=None):
         self.connection_string = connection_string  # type: str
-        self.port = port  # type: str
+        self.port = port  # type: long
         self.type = type  # type: str
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
+        self.vpc_instance_id = vpc_instance_id  # type: str
 
     def validate(self):
         pass
@@ -2625,6 +2627,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstanceConnAddrs(TeaModel):
             result['VPCId'] = self.vpcid
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
+        if self.vpc_instance_id is not None:
+            result['VpcInstanceId'] = self.vpc_instance_id
         return result
 
     def from_map(self, m=None):
@@ -2639,6 +2643,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstanceConnAddrs(TeaModel):
             self.vpcid = m.get('VPCId')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcInstanceId') is not None:
+            self.vpc_instance_id = m.get('VpcInstanceId')
         return self
 
 
