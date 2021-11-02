@@ -566,6 +566,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_asset_summary_with_options(runtime)
 
+    def describe_attack_analysis_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeAttackAnalysisDataResponse(),
+            self.do_rpcrequest('DescribeAttackAnalysisData', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_attack_analysis_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_attack_analysis_data_with_options(request, runtime)
+
     def describe_auto_del_config_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
@@ -714,20 +728,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_check_warning_detail_with_options(request, runtime)
 
-    def describe_check_warnings_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeCheckWarningsResponse(),
-            self.do_rpcrequest('DescribeCheckWarnings', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_check_warnings(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_check_warnings_with_options(request, runtime)
-
     def describe_check_warning_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -741,6 +741,20 @@ class Client(OpenApiClient):
     def describe_check_warning_summary(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_check_warning_summary_with_options(request, runtime)
+
+    def describe_check_warnings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeCheckWarningsResponse(),
+            self.do_rpcrequest('DescribeCheckWarnings', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_check_warnings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_check_warnings_with_options(request, runtime)
 
     def describe_cloud_center_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1136,6 +1150,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_honey_pot_susp_statistics_with_options(request, runtime)
 
+    def describe_image_fix_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageFixTaskResponse(),
+            self.do_rpcrequest('DescribeImageFixTask', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_image_fix_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_fix_task_with_options(request, runtime)
+
     def describe_image_grouped_vul_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1149,6 +1177,20 @@ class Client(OpenApiClient):
     def describe_image_grouped_vul_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_image_grouped_vul_list_with_options(request, runtime)
+
+    def describe_image_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageInstancesResponse(),
+            self.do_rpcrequest('DescribeImageInstances', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_image_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_instances_with_options(request, runtime)
 
     def describe_image_scan_auth_count_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -1199,6 +1241,20 @@ class Client(OpenApiClient):
     def describe_install_captcha(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_install_captcha_with_options(request, runtime)
+
+    def describe_install_codes_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeInstallCodesResponse(),
+            self.do_rpcrequest('DescribeInstallCodes', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_install_codes(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_install_codes_with_options(request, runtime)
 
     def describe_instance_anti_brute_force_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1617,20 +1673,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_security_check_schedule_config_with_options(request, runtime)
 
-    def describe_security_event_operations_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeSecurityEventOperationsResponse(),
-            self.do_rpcrequest('DescribeSecurityEventOperations', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_security_event_operations(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_security_event_operations_with_options(request, runtime)
-
     def describe_security_event_operation_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1644,6 +1686,20 @@ class Client(OpenApiClient):
     def describe_security_event_operation_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_security_event_operation_status_with_options(request, runtime)
+
+    def describe_security_event_operations_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeSecurityEventOperationsResponse(),
+            self.do_rpcrequest('DescribeSecurityEventOperations', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_security_event_operations(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_security_event_operations_with_options(request, runtime)
 
     def describe_security_stat_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1834,6 +1890,20 @@ class Client(OpenApiClient):
     def describe_susp_events(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_susp_events_with_options(request, runtime)
+
+    def describe_task_error_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeTaskErrorLogResponse(),
+            self.do_rpcrequest('DescribeTaskErrorLog', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_task_error_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_task_error_log_with_options(request, runtime)
 
     def describe_uni_backup_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2044,6 +2114,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vul_details_with_options(request, runtime)
 
+    def describe_vul_export_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeVulExportInfoResponse(),
+            self.do_rpcrequest('DescribeVulExportInfo', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_vul_export_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_vul_export_info_with_options(request, runtime)
+
     def describe_vul_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2167,20 +2251,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_backup_storage_count_with_options(runtime)
 
-    def get_inc_iocs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.GetIncIOCsResponse(),
-            self.do_rpcrequest('GetIncIOCs', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_inc_iocs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_inc_iocs_with_options(request, runtime)
-
     def get_iocs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2194,6 +2264,20 @@ class Client(OpenApiClient):
     def get_iocs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_iocs_with_options(request, runtime)
+
+    def get_inc_iocs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetIncIOCsResponse(),
+            self.do_rpcrequest('GetIncIOCs', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_inc_iocs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_inc_iocs_with_options(request, runtime)
 
     def get_local_install_script_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3016,6 +3100,20 @@ class Client(OpenApiClient):
     def uninstall_uni_backup_agent(self, request):
         runtime = util_models.RuntimeOptions()
         return self.uninstall_uni_backup_agent_with_options(request, runtime)
+
+    def upgrade_backup_policy_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UpgradeBackupPolicyVersionResponse(),
+            self.do_rpcrequest('UpgradeBackupPolicyVersion', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def upgrade_backup_policy_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_backup_policy_version_with_options(request, runtime)
 
     def validate_hc_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)

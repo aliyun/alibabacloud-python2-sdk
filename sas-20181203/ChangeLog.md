@@ -1,3 +1,6 @@
+2021-11-02 Version: 1.0.7
+- Support DescribeInstallCodes API.
+
 2021-09-15 Version: 1.0.6
 - Support DescribeWarningMachines API.
 
