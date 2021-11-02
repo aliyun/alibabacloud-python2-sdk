@@ -29,33 +29,19 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def weathermonitor_with_options(self, request, runtime):
+    def historical_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            aliyunape_20210908_models.WeathermonitorResponse(),
-            self.do_rpcrequest('Weathermonitor', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            aliyunape_20210908_models.HistoricalResponse(),
+            self.do_rpcrequest('Historical', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def weathermonitor(self, request):
+    def historical(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.weathermonitor_with_options(request, runtime)
-
-    def weatherforecast_time_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            aliyunape_20210908_models.WeatherforecastTimeResponse(),
-            self.do_rpcrequest('WeatherforecastTime', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def weatherforecast_time(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.weatherforecast_time_with_options(request, runtime)
+        return self.historical_with_options(request, runtime)
 
     def station_day_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -85,16 +71,30 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.weatherforecast_with_options(request, runtime)
 
-    def historical_with_options(self, request, runtime):
+    def weatherforecast_time_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            aliyunape_20210908_models.HistoricalResponse(),
-            self.do_rpcrequest('Historical', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            aliyunape_20210908_models.WeatherforecastTimeResponse(),
+            self.do_rpcrequest('WeatherforecastTime', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def historical(self, request):
+    def weatherforecast_time(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.historical_with_options(request, runtime)
+        return self.weatherforecast_time_with_options(request, runtime)
+
+    def weathermonitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.WeathermonitorResponse(),
+            self.do_rpcrequest('Weathermonitor', '2021-09-08', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def weathermonitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.weathermonitor_with_options(request, runtime)
