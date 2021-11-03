@@ -379,6 +379,37 @@ class Client(OpenApiClient):
             self.do_roarequest('QueryTagNodes', '2021-01-26', 'HTTPS', 'GET', 'AK', '/openapi/aliyun/queryTagNodes.json', 'json', req, runtime)
         )
 
+    def update_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_project_with_options(request, headers, runtime)
+
+    def update_project_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.request_id):
+            query['requestId'] = request.request_id
+        if not UtilClient.is_unset(request.team_hash_id):
+            query['teamHashId'] = request.team_hash_id
+        body = {}
+        if not UtilClient.is_unset(request.project):
+            body['project'] = request.project
+        if not UtilClient.is_unset(request.project_id):
+            body['projectId'] = request.project_id
+        if not UtilClient.is_unset(request.update_user_id):
+            body['updateUserId'] = request.update_user_id
+        if not UtilClient.is_unset(request.update_user_name):
+            body['updateUserName'] = request.update_user_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        return TeaCore.from_map(
+            yuqing_20210126_models.UpdateProjectResponse(),
+            self.do_roarequest_with_form('UpdateProject', '2021-01-26', 'HTTPS', 'POST', 'AK', '/openapi/aliyun/updateProject.json', 'json', req, runtime)
+        )
+
     def update_propagation(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}

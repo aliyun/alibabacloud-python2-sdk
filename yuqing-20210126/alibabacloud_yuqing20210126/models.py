@@ -3622,6 +3622,128 @@ class QueryTagNodesResponse(TeaModel):
         return self
 
 
+class UpdateProjectRequest(TeaModel):
+    def __init__(self, project=None, project_id=None, request_id=None, team_hash_id=None, update_user_id=None,
+                 update_user_name=None):
+        # 舆情项目对象
+        self.project = project  # type: Project
+        # 项目id
+        self.project_id = project_id  # type: long
+        # 请求id
+        self.request_id = request_id  # type: str
+        # 舆情团队HashId
+        self.team_hash_id = team_hash_id  # type: str
+        # 修改者uid
+        self.update_user_id = update_user_id  # type: str
+        # 修改者名称
+        self.update_user_name = update_user_name  # type: str
+
+    def validate(self):
+        if self.project:
+            self.project.validate()
+
+    def to_map(self):
+        _map = super(UpdateProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project is not None:
+            result['project'] = self.project.to_map()
+        if self.project_id is not None:
+            result['projectId'] = self.project_id
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.team_hash_id is not None:
+            result['teamHashId'] = self.team_hash_id
+        if self.update_user_id is not None:
+            result['updateUserId'] = self.update_user_id
+        if self.update_user_name is not None:
+            result['updateUserName'] = self.update_user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('project') is not None:
+            temp_model = Project()
+            self.project = temp_model.from_map(m['project'])
+        if m.get('projectId') is not None:
+            self.project_id = m.get('projectId')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('teamHashId') is not None:
+            self.team_hash_id = m.get('teamHashId')
+        if m.get('updateUserId') is not None:
+            self.update_user_id = m.get('updateUserId')
+        if m.get('updateUserName') is not None:
+            self.update_user_name = m.get('updateUserName')
+        return self
+
+
+class UpdateProjectResponseBody(TeaModel):
+    def __init__(self, id=None, request_id=None):
+        # 被修改的项目id
+        self.id = id  # type: long
+        # 请求id
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class UpdateProjectResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateProjectResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdatePropagationRequest(TeaModel):
     def __init__(self, request_id=None, team_hash_id=None, weibo_urls=None):
         # 请求id
