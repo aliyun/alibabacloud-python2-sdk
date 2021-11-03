@@ -438,48 +438,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_inspections_with_options(request, runtime)
 
-    def get_request_diagnosis_id_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            das20200116_models.GetRequestDiagnosisIdResponse(),
-            self.do_rpcrequest('GetRequestDiagnosisId', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_request_diagnosis_id(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_request_diagnosis_id_with_options(request, runtime)
-
-    def get_request_diagnosis_page_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            das20200116_models.GetRequestDiagnosisPageResponse(),
-            self.do_rpcrequest('GetRequestDiagnosisPage', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_request_diagnosis_page(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_request_diagnosis_page_with_options(request, runtime)
-
-    def get_request_diagnosis_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            das20200116_models.GetRequestDiagnosisResultResponse(),
-            self.do_rpcrequest('GetRequestDiagnosisResult', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_request_diagnosis_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_request_diagnosis_result_with_options(request, runtime)
-
     def get_resource_optimize_history_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
