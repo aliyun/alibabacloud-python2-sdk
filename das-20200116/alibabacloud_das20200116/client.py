@@ -32,20 +32,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def access_hdminstance_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            das20200116_models.AccessHDMInstanceResponse(),
-            self.do_rpcrequest('AccessHDMInstance', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def access_hdminstance(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.access_hdminstance_with_options(request, runtime)
-
     def add_hdminstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -115,6 +101,20 @@ class Client(OpenApiClient):
     def create_diagnostic_report(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_diagnostic_report_with_options(request, runtime)
+
+    def create_request_diagnosis_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            das20200116_models.CreateRequestDiagnosisResponse(),
+            self.do_rpcrequest('CreateRequestDiagnosis', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_request_diagnosis(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_request_diagnosis_with_options(request, runtime)
 
     def describe_cache_analysis_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -437,6 +437,34 @@ class Client(OpenApiClient):
     def get_instance_inspections(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_inspections_with_options(request, runtime)
+
+    def get_request_diagnosis_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetRequestDiagnosisPageResponse(),
+            self.do_rpcrequest('GetRequestDiagnosisPage', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_request_diagnosis_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_request_diagnosis_page_with_options(request, runtime)
+
+    def get_request_diagnosis_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetRequestDiagnosisResultResponse(),
+            self.do_rpcrequest('GetRequestDiagnosisResult', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_request_diagnosis_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_request_diagnosis_result_with_options(request, runtime)
 
     def get_resource_optimize_history_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
