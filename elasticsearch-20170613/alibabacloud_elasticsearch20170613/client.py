@@ -21,45 +21,6 @@ class Client(OpenApiClient):
     def __init__(self, config):
         super(Client, self).__init__(config)
         self._endpoint_rule = 'regional'
-        self._endpoint_map = {
-            'ap-northeast-2-pop': 'elasticsearch.aliyuncs.com',
-            'cn-beijing-finance-1': 'elasticsearch.aliyuncs.com',
-            'cn-beijing-finance-pop': 'elasticsearch.aliyuncs.com',
-            'cn-beijing-gov-1': 'elasticsearch.aliyuncs.com',
-            'cn-beijing-nu16-b01': 'elasticsearch.aliyuncs.com',
-            'cn-chengdu': 'elasticsearch.aliyuncs.com',
-            'cn-edge-1': 'elasticsearch.aliyuncs.com',
-            'cn-fujian': 'elasticsearch.aliyuncs.com',
-            'cn-haidian-cm12-c01': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-bj-b01': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-internal-prod-1': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-internal-test-1': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-internal-test-2': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-internal-test-3': 'elasticsearch.aliyuncs.com',
-            'cn-hangzhou-test-306': 'elasticsearch.aliyuncs.com',
-            'cn-hongkong-finance-pop': 'elasticsearch.aliyuncs.com',
-            'cn-huhehaote': 'elasticsearch.aliyuncs.com',
-            'cn-huhehaote-nebula-1': 'elasticsearch.aliyuncs.com',
-            'cn-qingdao-nebula': 'elasticsearch.aliyuncs.com',
-            'cn-shanghai-et15-b01': 'elasticsearch.aliyuncs.com',
-            'cn-shanghai-et2-b01': 'elasticsearch.aliyuncs.com',
-            'cn-shanghai-inner': 'elasticsearch.aliyuncs.com',
-            'cn-shanghai-internal-test-1': 'elasticsearch.aliyuncs.com',
-            'cn-shenzhen-finance-1': 'elasticsearch.aliyuncs.com',
-            'cn-shenzhen-inner': 'elasticsearch.aliyuncs.com',
-            'cn-shenzhen-st4-d01': 'elasticsearch.aliyuncs.com',
-            'cn-shenzhen-su18-b01': 'elasticsearch.aliyuncs.com',
-            'cn-wuhan': 'elasticsearch.aliyuncs.com',
-            'cn-wulanchabu': 'elasticsearch.aliyuncs.com',
-            'cn-yushanfang': 'elasticsearch.aliyuncs.com',
-            'cn-zhangbei': 'elasticsearch.aliyuncs.com',
-            'cn-zhangbei-na61-b01': 'elasticsearch.aliyuncs.com',
-            'cn-zhangjiakou-na62-a01': 'elasticsearch.aliyuncs.com',
-            'cn-zhengzhou-nebula-1': 'elasticsearch.aliyuncs.com',
-            'eu-west-1-oxs': 'elasticsearch.aliyuncs.com',
-            'me-east-1': 'elasticsearch.aliyuncs.com',
-            'rus-west-1-pop': 'elasticsearch.aliyuncs.com'
-        }
         self.check_config(config)
         self._endpoint = self.get_endpoint('elasticsearch', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
 
@@ -174,10 +135,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.task_type):
-            query['taskType'] = request.task_type
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.task_type):
+            query['taskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -374,25 +335,6 @@ class Client(OpenApiClient):
             self.do_roarequest('CreateIndexTemplate', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/instances/%s/index-templates' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
-    def create_instance(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_instance_with_options(request, headers, runtime)
-
-    def create_instance_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.client_token):
-            query['clientToken'] = request.client_token
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        return TeaCore.from_map(
-            elasticsearch_20170613_models.CreateInstanceResponse(),
-            self.do_roarequest('createInstance', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/instances', 'json', req, runtime)
-        )
-
     def create_logstash(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -421,10 +363,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.trigger):
-            query['trigger'] = request.trigger
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.trigger):
+            query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -688,10 +630,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.repo_path):
-            query['repoPath'] = request.repo_path
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.repo_path):
+            query['repoPath'] = request.repo_path
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -735,6 +677,21 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             elasticsearch_20170613_models.DescribeAckOperatorResponse(),
             self.do_roarequest('DescribeAckOperator', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/ack-clusters/%s/operator' % TeaConverter.to_unicode(cluster_id), 'json', req, runtime)
+        )
+
+    def describe_apm(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_apm_with_options(instance_id, headers, runtime)
+
+    def describe_apm_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.DescribeApmResponse(),
+            self.do_roarequest('DescribeApm', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/apm/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
     def describe_collector(self, res_id):
@@ -1009,10 +966,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.lang):
-            query['lang'] = request.lang
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.lang):
+            query['lang'] = request.lang
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1179,12 +1136,12 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.node_type):
-            query['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.count):
             query['count'] = request.count
         if not UtilClient.is_unset(request.ignore_status):
             query['ignoreStatus'] = request.ignore_status
+        if not UtilClient.is_unset(request.node_type):
+            query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1203,10 +1160,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.node_type):
-            query['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.count):
             query['count'] = request.count
+        if not UtilClient.is_unset(request.node_type):
+            query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1478,14 +1435,14 @@ class Client(OpenApiClient):
     def list_collectors_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.res_id):
-            query['resId'] = request.res_id
-        if not UtilClient.is_unset(request.name):
-            query['name'] = request.name
         if not UtilClient.is_unset(request.instance_id):
             query['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
+        if not UtilClient.is_unset(request.res_id):
+            query['resId'] = request.res_id
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
         if not UtilClient.is_unset(request.source_type):
@@ -1603,18 +1560,18 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.lang):
-            query['lang'] = request.lang
-        if not UtilClient.is_unset(request.start_time):
-            query['startTime'] = request.start_time
+        if not UtilClient.is_unset(request.detail):
+            query['detail'] = request.detail
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['lang'] = request.lang
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
-        if not UtilClient.is_unset(request.detail):
-            query['detail'] = request.detail
+        if not UtilClient.is_unset(request.start_time):
+            query['startTime'] = request.start_time
         if not UtilClient.is_unset(request.trigger):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
@@ -1635,16 +1592,16 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.lang):
-            query['lang'] = request.lang
-        if not UtilClient.is_unset(request.start_time):
-            query['startTime'] = request.start_time
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['lang'] = request.lang
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
+        if not UtilClient.is_unset(request.start_time):
+            query['startTime'] = request.start_time
         if not UtilClient.is_unset(request.trigger):
             query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
@@ -1665,12 +1622,12 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
+        if not UtilClient.is_unset(request.analyzer_type):
+            query['analyzerType'] = request.analyzer_type
         if not UtilClient.is_unset(request.bucket_name):
             query['bucketName'] = request.bucket_name
         if not UtilClient.is_unset(request.key):
             query['key'] = request.key
-        if not UtilClient.is_unset(request.analyzer_type):
-            query['analyzerType'] = request.analyzer_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1710,14 +1667,14 @@ class Client(OpenApiClient):
     def list_ecs_instances_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.page):
-            query['page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
         if not UtilClient.is_unset(request.ecs_instance_ids):
             query['ecsInstanceIds'] = request.ecs_instance_ids
         if not UtilClient.is_unset(request.ecs_instance_name):
             query['ecsInstanceName'] = request.ecs_instance_name
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         if not UtilClient.is_unset(request.tags):
             query['tags'] = request.tags
         if not UtilClient.is_unset(request.vpc_id):
@@ -1794,28 +1751,28 @@ class Client(OpenApiClient):
     def list_instance_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.page):
-            query['page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
         if not UtilClient.is_unset(request.description):
             query['description'] = request.description
-        if not UtilClient.is_unset(request.instance_id):
-            query['instanceId'] = request.instance_id
         if not UtilClient.is_unset(request.es_version):
             query['esVersion'] = request.es_version
+        if not UtilClient.is_unset(request.instance_category):
+            query['instanceCategory'] = request.instance_category
+        if not UtilClient.is_unset(request.instance_id):
+            query['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.payment_type):
+            query['paymentType'] = request.payment_type
         if not UtilClient.is_unset(request.resource_group_id):
             query['resourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         if not UtilClient.is_unset(request.tags):
             query['tags'] = request.tags
         if not UtilClient.is_unset(request.vpc_id):
             query['vpcId'] = request.vpc_id
         if not UtilClient.is_unset(request.zone_id):
             query['zoneId'] = request.zone_id
-        if not UtilClient.is_unset(request.payment_type):
-            query['paymentType'] = request.payment_type
-        if not UtilClient.is_unset(request.instance_category):
-            query['instanceCategory'] = request.instance_category
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1836,12 +1793,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.all):
             query['all'] = request.all
-        if not UtilClient.is_unset(request.name):
-            query['name'] = request.name
         if not UtilClient.is_unset(request.is_managed):
             query['isManaged'] = request.is_managed
         if not UtilClient.is_unset(request.is_openstore):
             query['isOpenstore'] = request.is_openstore
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
         if not UtilClient.is_unset(request.size):
@@ -1885,20 +1842,20 @@ class Client(OpenApiClient):
     def list_logstash_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.page):
-            query['page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
         if not UtilClient.is_unset(request.description):
             query['description'] = request.description
         if not UtilClient.is_unset(request.instance_id):
             query['instanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.version):
-            query['version'] = request.version
         if not UtilClient.is_unset(request.owner_id):
             query['ownerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
         if not UtilClient.is_unset(request.resource_group_id):
             query['resourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        if not UtilClient.is_unset(request.version):
+            query['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1917,18 +1874,18 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.type):
-            query['type'] = request.type
-        if not UtilClient.is_unset(request.query):
-            query['query'] = request.query
         if not UtilClient.is_unset(request.begin_time):
             query['beginTime'] = request.begin_time
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
+        if not UtilClient.is_unset(request.query):
+            query['query'] = request.query
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1973,14 +1930,14 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         res_id = OpenApiUtilClient.get_encode_param(res_id)
         query = {}
-        if not UtilClient.is_unset(request.page):
-            query['page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
         if not UtilClient.is_unset(request.ecs_instance_ids):
             query['ecsInstanceIds'] = request.ecs_instance_ids
         if not UtilClient.is_unset(request.ecs_instance_name):
             query['ecsInstanceName'] = request.ecs_instance_name
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         if not UtilClient.is_unset(request.tags):
             query['tags'] = request.tags
         req = open_api_models.OpenApiRequest(
@@ -2001,10 +1958,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.pipeline_id):
-            query['pipelineId'] = request.pipeline_id
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
+        if not UtilClient.is_unset(request.pipeline_id):
+            query['pipelineId'] = request.pipeline_id
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
         req = open_api_models.OpenApiRequest(
@@ -2066,18 +2023,18 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.type):
-            query['type'] = request.type
-        if not UtilClient.is_unset(request.query):
-            query['query'] = request.query
         if not UtilClient.is_unset(request.begin_time):
             query['beginTime'] = request.begin_time
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
+        if not UtilClient.is_unset(request.query):
+            query['query'] = request.query
         if not UtilClient.is_unset(request.size):
             query['size'] = request.size
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2130,16 +2087,16 @@ class Client(OpenApiClient):
     def list_tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.page):
-            query['Page'] = request.page
-        if not UtilClient.is_unset(request.size):
-            query['Size'] = request.size
-        if not UtilClient.is_unset(request.resource_type):
-            query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.page):
+            query['Page'] = request.page
         if not UtilClient.is_unset(request.resource_ids):
             query['ResourceIds'] = request.resource_ids
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.size):
+            query['Size'] = request.size
         if not UtilClient.is_unset(request.tags):
             query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
@@ -2181,10 +2138,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.size):
-            query['size'] = request.size
         if not UtilClient.is_unset(request.page):
             query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2281,16 +2238,16 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
         body = {}
-        if not UtilClient.is_unset(request.node_type):
-            body['nodeType'] = request.node_type
-        if not UtilClient.is_unset(request.network_type):
-            body['networkType'] = request.network_type
         if not UtilClient.is_unset(request.modify_mode):
             body['modifyMode'] = request.modify_mode
-        if not UtilClient.is_unset(request.white_ip_list):
-            body['whiteIpList'] = request.white_ip_list
+        if not UtilClient.is_unset(request.network_type):
+            body['networkType'] = request.network_type
+        if not UtilClient.is_unset(request.node_type):
+            body['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.white_ip_group):
             body['whiteIpGroup'] = request.white_ip_group
+        if not UtilClient.is_unset(request.white_ip_list):
+            body['whiteIpList'] = request.white_ip_list
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -2419,6 +2376,21 @@ class Client(OpenApiClient):
             self.do_roarequest('ReinstallCollector', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/collectors/%s/actions/reinstall' % TeaConverter.to_unicode(res_id), 'json', req, runtime)
         )
 
+    def remove_apm(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.remove_apm_with_options(instance_id, headers, runtime)
+
+    def remove_apm_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.RemoveApmResponse(),
+            self.do_roarequest('RemoveApm', '2017-06-13', 'HTTPS', 'DELETE', 'AK', '/openapi/apm/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+        )
+
     def renew_instance(self, instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2488,10 +2460,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.force):
-            query['force'] = request.force
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2510,10 +2482,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.force):
-            query['force'] = request.force
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.force):
+            query['force'] = request.force
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2613,12 +2585,12 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.node_type):
-            query['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.ignore_status):
             query['ignoreStatus'] = request.ignore_status
+        if not UtilClient.is_unset(request.node_type):
+            query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2626,6 +2598,21 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             elasticsearch_20170613_models.ShrinkNodeResponse(),
             self.do_roarequest('ShrinkNode', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/instances/%s/actions/shrink' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+        )
+
+    def start_apm(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_apm_with_options(instance_id, headers, runtime)
+
+    def start_apm_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.StartApmResponse(),
+            self.do_roarequest('StartApm', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/apm/%s/actions/start' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
     def start_collector(self, res_id, request):
@@ -2646,6 +2633,21 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             elasticsearch_20170613_models.StartCollectorResponse(),
             self.do_roarequest('StartCollector', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/collectors/%s/actions/start' % TeaConverter.to_unicode(res_id), 'json', req, runtime)
+        )
+
+    def stop_apm(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_apm_with_options(instance_id, headers, runtime)
+
+    def stop_apm_with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.StopApmResponse(),
+            self.do_roarequest('StopApm', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/apm/%s/actions/stop' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
     def stop_collector(self, res_id, request):
@@ -2711,10 +2713,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.node_type):
-            query['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.node_type):
+            query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2736,12 +2738,12 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
         body = {}
-        if not UtilClient.is_unset(request.node_type):
-            body['nodeType'] = request.node_type
-        if not UtilClient.is_unset(request.network_type):
-            body['networkType'] = request.network_type
         if not UtilClient.is_unset(request.action_type):
             body['actionType'] = request.action_type
+        if not UtilClient.is_unset(request.network_type):
+            body['networkType'] = request.network_type
+        if not UtilClient.is_unset(request.node_type):
+            body['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -2820,14 +2822,14 @@ class Client(OpenApiClient):
     def untag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
         if not UtilClient.is_unset(request.resource_ids):
             query['ResourceIds'] = request.resource_ids
         if not UtilClient.is_unset(request.resource_type):
             query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.tag_keys):
             query['TagKeys'] = request.tag_keys
-        if not UtilClient.is_unset(request.all):
-            query['All'] = request.all
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2895,6 +2897,34 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             elasticsearch_20170613_models.UpdateAliwsDictResponse(),
             self.do_roarequest('UpdateAliwsDict', '2017-06-13', 'HTTPS', 'PUT', 'AK', '/openapi/instances/%s/aliws-dict' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+        )
+
+    def update_apm(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_apm_with_options(instance_id, request, headers, runtime)
+
+    def update_apm_with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        query = {}
+        if not UtilClient.is_unset(request.output_es):
+            query['outputES'] = request.output_es
+        if not UtilClient.is_unset(request.output_espassword):
+            query['outputESPassword'] = request.output_espassword
+        if not UtilClient.is_unset(request.output_esuser_name):
+            query['outputESUserName'] = request.output_esuser_name
+        if not UtilClient.is_unset(request.token):
+            query['token'] = request.token
+        if not UtilClient.is_unset(request.yml):
+            query['yml'] = request.yml
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.UpdateApmResponse(),
+            self.do_roarequest('UpdateApm', '2017-06-13', 'HTTPS', 'PUT', 'AK', '/openapi/apm/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
     def update_black_ips(self, instance_id, request):
@@ -3344,10 +3374,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.trigger):
-            query['trigger'] = request.trigger
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.trigger):
+            query['trigger'] = request.trigger
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -3559,10 +3589,10 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         body = {}
-        if not UtilClient.is_unset(request.version):
-            body['version'] = request.version
         if not UtilClient.is_unset(request.type):
             body['type'] = request.type
+        if not UtilClient.is_unset(request.version):
+            body['version'] = request.version
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
@@ -3602,10 +3632,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         query = {}
-        if not UtilClient.is_unset(request.node_type):
-            query['nodeType'] = request.node_type
         if not UtilClient.is_unset(request.ignore_status):
             query['ignoreStatus'] = request.ignore_status
+        if not UtilClient.is_unset(request.node_type):
+            query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -3654,4 +3684,23 @@ class Client(OpenApiClient):
         return TeaCore.from_map(
             elasticsearch_20170613_models.ValidateTransferableNodesResponse(),
             self.do_roarequest('ValidateTransferableNodes', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/instances/%s/validate-transfer-nodes' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+        )
+
+    def create_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_with_options(request, headers, runtime)
+
+    def create_instance_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.CreateInstanceResponse(),
+            self.do_roarequest('createInstance', '2017-06-13', 'HTTPS', 'POST', 'AK', '/openapi/instances', 'json', req, runtime)
         )
