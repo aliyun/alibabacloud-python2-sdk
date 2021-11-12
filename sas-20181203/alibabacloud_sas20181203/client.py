@@ -1242,19 +1242,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_install_captcha_with_options(request, runtime)
 
-    def describe_install_codes_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
+    def describe_install_codes_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
             sas_20181203_models.DescribeInstallCodesResponse(),
             self.do_rpcrequest('DescribeInstallCodes', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def describe_install_codes(self, request):
+    def describe_install_codes(self):
         runtime = util_models.RuntimeOptions()
-        return self.describe_install_codes_with_options(request, runtime)
+        return self.describe_install_codes_with_options(runtime)
 
     def describe_instance_anti_brute_force_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2226,6 +2223,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_record_with_options(request, runtime)
 
+    def export_vul_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ExportVulResponse(),
+            self.do_rpcrequest('ExportVul', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def export_vul(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_vul_with_options(request, runtime)
+
     def fix_check_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2918,6 +2929,20 @@ class Client(OpenApiClient):
     def query_discover_database(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_discover_database_with_options(request, runtime)
+
+    def query_group_id_by_group_name_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.QueryGroupIdByGroupNameResponse(),
+            self.do_rpcrequest('QueryGroupIdByGroupName', '2018-12-03', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def query_group_id_by_group_name(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_group_id_by_group_name_with_options(request, runtime)
 
     def query_pre_check_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)

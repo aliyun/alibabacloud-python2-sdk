@@ -1,3 +1,6 @@
+2021-11-12 Version: 1.0.8
+- Support ExportVul API.
+
 2021-11-02 Version: 1.0.7
 - Support DescribeInstallCodes API.
 
