@@ -5049,14 +5049,18 @@ class GetLiveRoomStatisticsRequest(TeaModel):
 
 
 class GetLiveRoomStatisticsResponseBodyResult(TeaModel):
-    def __init__(self, end_time=None, live_id=None, message_count=None, pv=None, start_time=None, status=None,
-                 uv=None, watch_live_time=None):
+    def __init__(self, end_time=None, like_count=None, live_id=None, message_count=None, online_count=None, pv=None,
+                 start_time=None, status=None, uv=None, watch_live_time=None):
         # 直播结束时间，单位：毫秒。
         self.end_time = end_time  # type: long
+        # 点赞数。
+        self.like_count = like_count  # type: long
         # 直播ID。
         self.live_id = live_id  # type: str
         # 互动消息数。
         self.message_count = message_count  # type: long
+        # 在线用户数。
+        self.online_count = online_count  # type: long
         # 访问用户人次。
         self.pv = pv  # type: long
         # 直播开始时间，单位：毫秒。
@@ -5079,10 +5083,14 @@ class GetLiveRoomStatisticsResponseBodyResult(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.like_count is not None:
+            result['LikeCount'] = self.like_count
         if self.live_id is not None:
             result['LiveId'] = self.live_id
         if self.message_count is not None:
             result['MessageCount'] = self.message_count
+        if self.online_count is not None:
+            result['OnlineCount'] = self.online_count
         if self.pv is not None:
             result['Pv'] = self.pv
         if self.start_time is not None:
@@ -5099,10 +5107,14 @@ class GetLiveRoomStatisticsResponseBodyResult(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('LikeCount') is not None:
+            self.like_count = m.get('LikeCount')
         if m.get('LiveId') is not None:
             self.live_id = m.get('LiveId')
         if m.get('MessageCount') is not None:
             self.message_count = m.get('MessageCount')
+        if m.get('OnlineCount') is not None:
+            self.online_count = m.get('OnlineCount')
         if m.get('Pv') is not None:
             self.pv = m.get('Pv')
         if m.get('StartTime') is not None:
