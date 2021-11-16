@@ -12763,20 +12763,24 @@ class GetUserGuideStatusResponse(TeaModel):
 
 
 class ListAlertsRequest(TeaModel):
-    def __init__(self, alert_level=None, alert_name=None, alert_source_name=None, page_number=None, page_size=None,
-                 related_service_id=None):
+    def __init__(self, alert_level=None, alert_name=None, alert_source_name=None, end_time=None, page_number=None,
+                 page_size=None, related_service_id=None, start_time=None):
         # 报警等级 P1 P2 P3 P4
         self.alert_level = alert_level  # type: str
         # 报警名称
         self.alert_name = alert_name  # type: str
         # 报警来源
         self.alert_source_name = alert_source_name  # type: str
+        # 结束时间
+        self.end_time = end_time  # type: str
         # 当前页
         self.page_number = page_number  # type: long
         # 页大小
         self.page_size = page_size  # type: long
         # 服务id
         self.related_service_id = related_service_id  # type: long
+        # 开始时间
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -12793,12 +12797,16 @@ class ListAlertsRequest(TeaModel):
             result['alertName'] = self.alert_name
         if self.alert_source_name is not None:
             result['alertSourceName'] = self.alert_source_name
+        if self.end_time is not None:
+            result['endTime'] = self.end_time
         if self.page_number is not None:
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
             result['pageSize'] = self.page_size
         if self.related_service_id is not None:
             result['relatedServiceId'] = self.related_service_id
+        if self.start_time is not None:
+            result['startTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
@@ -12809,12 +12817,16 @@ class ListAlertsRequest(TeaModel):
             self.alert_name = m.get('alertName')
         if m.get('alertSourceName') is not None:
             self.alert_source_name = m.get('alertSourceName')
+        if m.get('endTime') is not None:
+            self.end_time = m.get('endTime')
         if m.get('pageNumber') is not None:
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
             self.page_size = m.get('pageSize')
         if m.get('relatedServiceId') is not None:
             self.related_service_id = m.get('relatedServiceId')
+        if m.get('startTime') is not None:
+            self.start_time = m.get('startTime')
         return self
 
 
@@ -17856,10 +17868,12 @@ class ListServicesResponse(TeaModel):
 
 
 class ListSourceEventsRequest(TeaModel):
-    def __init__(self, client_token=None, instance_id=None, instance_type=None, page_number=None, page_size=None,
-                 start_row_key=None, stop_row_key=None):
+    def __init__(self, client_token=None, end_time=None, instance_id=None, instance_type=None, page_number=None,
+                 page_size=None, start_row_key=None, start_time=None, stop_row_key=None):
         # 幂等号
         self.client_token = client_token  # type: str
+        # 结束时间
+        self.end_time = end_time  # type: str
         # 报警或者事件ID
         self.instance_id = instance_id  # type: long
         # INCIDENT 事件、ALERT 报警、PROBLEM 故障
@@ -17870,6 +17884,8 @@ class ListSourceEventsRequest(TeaModel):
         self.page_size = page_size  # type: long
         # startRowKey 用来查询下一页的数据
         self.start_row_key = start_row_key  # type: str
+        # 开始时间
+        self.start_time = start_time  # type: str
         # stopRowKey 用来查询上一页的数据
         self.stop_row_key = stop_row_key  # type: str
 
@@ -17884,6 +17900,8 @@ class ListSourceEventsRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['clientToken'] = self.client_token
+        if self.end_time is not None:
+            result['endTime'] = self.end_time
         if self.instance_id is not None:
             result['instanceId'] = self.instance_id
         if self.instance_type is not None:
@@ -17894,6 +17912,8 @@ class ListSourceEventsRequest(TeaModel):
             result['pageSize'] = self.page_size
         if self.start_row_key is not None:
             result['startRowKey'] = self.start_row_key
+        if self.start_time is not None:
+            result['startTime'] = self.start_time
         if self.stop_row_key is not None:
             result['stopRowKey'] = self.stop_row_key
         return result
@@ -17902,6 +17922,8 @@ class ListSourceEventsRequest(TeaModel):
         m = m or dict()
         if m.get('clientToken') is not None:
             self.client_token = m.get('clientToken')
+        if m.get('endTime') is not None:
+            self.end_time = m.get('endTime')
         if m.get('instanceId') is not None:
             self.instance_id = m.get('instanceId')
         if m.get('instanceType') is not None:
@@ -17912,6 +17934,8 @@ class ListSourceEventsRequest(TeaModel):
             self.page_size = m.get('pageSize')
         if m.get('startRowKey') is not None:
             self.start_row_key = m.get('startRowKey')
+        if m.get('startTime') is not None:
+            self.start_time = m.get('startTime')
         if m.get('stopRowKey') is not None:
             self.stop_row_key = m.get('stopRowKey')
         return self

@@ -1779,12 +1779,16 @@ class Client(OpenApiClient):
             body['alertName'] = request.alert_name
         if not UtilClient.is_unset(request.alert_source_name):
             body['alertSourceName'] = request.alert_source_name
+        if not UtilClient.is_unset(request.end_time):
+            body['endTime'] = request.end_time
         if not UtilClient.is_unset(request.page_number):
             body['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             body['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.related_service_id):
             body['relatedServiceId'] = request.related_service_id
+        if not UtilClient.is_unset(request.start_time):
+            body['startTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -2396,6 +2400,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.end_time):
+            body['endTime'] = request.end_time
         if not UtilClient.is_unset(request.instance_id):
             body['instanceId'] = request.instance_id
         if not UtilClient.is_unset(request.instance_type):
@@ -2406,6 +2412,8 @@ class Client(OpenApiClient):
             body['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.start_row_key):
             body['startRowKey'] = request.start_row_key
+        if not UtilClient.is_unset(request.start_time):
+            body['startTime'] = request.start_time
         if not UtilClient.is_unset(request.stop_row_key):
             body['stopRowKey'] = request.stop_row_key
         req = open_api_models.OpenApiRequest(
