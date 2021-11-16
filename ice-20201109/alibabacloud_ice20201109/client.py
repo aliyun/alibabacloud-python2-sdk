@@ -378,6 +378,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_template_with_options(request, runtime)
 
+    def get_template_materials_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=query
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetTemplateMaterialsResponse(),
+            self.do_rpcrequest('GetTemplateMaterials', '2020-11-09', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+        )
+
+    def get_template_materials(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_template_materials_with_options(request, runtime)
+
     def list_all_public_media_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
