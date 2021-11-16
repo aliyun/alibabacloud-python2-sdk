@@ -1412,6 +1412,33 @@ class Client(OpenApiClient):
             self.do_roarequest('ListAlternativeSnapshotRepos', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/instances/%s/alternative-snapshot-repos' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
         )
 
+    def list_apm(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_apm_with_options(request, headers, runtime)
+
+    def list_apm_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            query['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.output):
+            query['output'] = request.output
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.ListApmResponse(),
+            self.do_roarequest('ListApm', '2017-06-13', 'HTTPS', 'GET', 'AK', '/openapi/apm', 'json', req, runtime)
+        )
+
     def list_available_es_instance_ids(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2907,20 +2934,20 @@ class Client(OpenApiClient):
     def update_apm_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        query = {}
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
         if not UtilClient.is_unset(request.output_es):
-            query['outputES'] = request.output_es
+            body['outputES'] = request.output_es
         if not UtilClient.is_unset(request.output_espassword):
-            query['outputESPassword'] = request.output_espassword
+            body['outputESPassword'] = request.output_espassword
         if not UtilClient.is_unset(request.output_esuser_name):
-            query['outputESUserName'] = request.output_esuser_name
+            body['outputESUserName'] = request.output_esuser_name
         if not UtilClient.is_unset(request.token):
-            query['token'] = request.token
-        if not UtilClient.is_unset(request.yml):
-            query['yml'] = request.yml
+            body['token'] = request.token
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         return TeaCore.from_map(
             elasticsearch_20170613_models.UpdateApmResponse(),
