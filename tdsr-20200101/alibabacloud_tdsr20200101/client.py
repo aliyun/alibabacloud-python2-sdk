@@ -312,20 +312,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_hotspot_tag_with_options(request, runtime)
 
-    def get_job_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetJobResponse(),
-            self.do_rpcrequest('GetJob', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_job(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_job_with_options(request, runtime)
-
     def get_layout_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -633,6 +619,20 @@ class Client(OpenApiClient):
     def publish_scene(self, request):
         runtime = util_models.RuntimeOptions()
         return self.publish_scene_with_options(request, runtime)
+
+    def publish_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.PublishStatusResponse(),
+            self.do_rpcrequest('PublishStatus', '2020-01-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def publish_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.publish_status_with_options(request, runtime)
 
     def recovery_origin_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
