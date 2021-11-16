@@ -1,3 +1,6 @@
+2021-11-16 Version: 3.0.0
+- Updated the data structure for worker_data_disks in CreateCluster.
+
 2021-06-09 Version: 2.4.2
 - AMP Version.
 
