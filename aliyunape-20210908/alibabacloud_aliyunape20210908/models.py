@@ -403,7 +403,7 @@ class WeatherforecastResponse(TeaModel):
 
 
 class WeatherforecastTimeRequest(TeaModel):
-    def __init__(self, cur_hour=None, lat=None, lon=None, order_id=None, source_ip=None):
+    def __init__(self, cur_hour=None, lat=None, lon=None, order_id=None):
         # 20210809090000
         self.cur_hour = cur_hour  # type: str
         # 纬度，范围为（15°N~59.95°N
@@ -412,7 +412,6 @@ class WeatherforecastTimeRequest(TeaModel):
         self.lon = lon  # type: str
         # 用户中心--我的订单--订单请求--实例名称：aliyunape_meteor12_public_cn-0ju2d2hh90b
         self.order_id = order_id  # type: str
-        self.source_ip = source_ip  # type: str
 
     def validate(self):
         pass
@@ -431,8 +430,6 @@ class WeatherforecastTimeRequest(TeaModel):
             result['Lon'] = self.lon
         if self.order_id is not None:
             result['OrderId'] = self.order_id
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -445,8 +442,6 @@ class WeatherforecastTimeRequest(TeaModel):
             self.lon = m.get('Lon')
         if m.get('OrderId') is not None:
             self.order_id = m.get('OrderId')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
         return self
 
 
