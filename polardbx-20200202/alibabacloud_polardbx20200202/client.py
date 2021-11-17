@@ -175,20 +175,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dbinstance_with_options(request, runtime)
 
-    def create_polarx_instance_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            polardbx_20200202_models.CreatePolarxInstanceResponse(),
-            self.do_rpcrequest('CreatePolarxInstance', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_polarx_instance(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_polarx_instance_with_options(request, runtime)
-
     def create_polarx_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -512,20 +498,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_polarx_db_instances_with_options(request, runtime)
 
-    def describe_polarx_pg_instances_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            polardbx_20200202_models.DescribePolarxPgInstancesResponse(),
-            self.do_rpcrequest('DescribePolarxPgInstances', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_polarx_pg_instances(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_polarx_pg_instances_with_options(request, runtime)
-
     def describe_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         return TeaCore.from_map(
@@ -565,6 +537,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_security_ips_with_options(request, runtime)
 
+    def describe_table_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeTableDetailResponse(),
+            self.do_rpcrequest('DescribeTableDetail', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_table_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_table_detail_with_options(request, runtime)
+
     def describe_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -593,6 +579,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_encryption_key_list_with_options(request, runtime)
 
+    def disable_rights_separation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DisableRightsSeparationResponse(),
+            self.do_rpcrequest('DisableRightsSeparation', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def disable_rights_separation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_rights_separation_with_options(request, runtime)
+
+    def enable_rights_separation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.EnableRightsSeparationResponse(),
+            self.do_rpcrequest('EnableRightsSeparation', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def enable_rights_separation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_rights_separation_with_options(request, runtime)
+
     def get_polarx_commodity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -620,6 +634,20 @@ class Client(OpenApiClient):
     def modify_account_description(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_account_description_with_options(request, runtime)
+
+    def modify_account_privilege_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ModifyAccountPrivilegeResponse(),
+            self.do_rpcrequest('ModifyAccountPrivilege', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_account_privilege(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_account_privilege_with_options(request, runtime)
 
     def modify_dbinstance_class_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -662,6 +690,20 @@ class Client(OpenApiClient):
     def modify_dbinstance_description(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_description_with_options(request, runtime)
+
+    def modify_dbinstance_maintain_time_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ModifyDBInstanceMaintainTimeResponse(),
+            self.do_rpcrequest('ModifyDBInstanceMaintainTime', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_dbinstance_maintain_time(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_maintain_time_with_options(request, runtime)
 
     def modify_database_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -718,6 +760,20 @@ class Client(OpenApiClient):
     def release_instance_public_connection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_instance_public_connection_with_options(request, runtime)
+
+    def reset_account_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ResetAccountPasswordResponse(),
+            self.do_rpcrequest('ResetAccountPassword', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def reset_account_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_account_password_with_options(request, runtime)
 
     def restart_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
