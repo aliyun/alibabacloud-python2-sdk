@@ -494,6 +494,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_running_sql_concurrency_control_rules_with_options(request, runtime)
 
+    def get_sql_concurrency_control_keywords_from_sql_text_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            das20200116_models.GetSqlConcurrencyControlKeywordsFromSqlTextResponse(),
+            self.do_rpcrequest('GetSqlConcurrencyControlKeywordsFromSqlText', '2020-01-16', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_sql_concurrency_control_keywords_from_sql_text(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_sql_concurrency_control_keywords_from_sql_text_with_options(request, runtime)
+
     def get_sql_concurrency_control_rules_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
