@@ -15,8 +15,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 alibabacloud_ccc20170705
-pip install alibabacloud_ccc20170705
+# 安装 alibabacloud_ccc20170705_py2
+pip install alibabacloud_ccc20170705_py2
 ```
 
 ## 问题
