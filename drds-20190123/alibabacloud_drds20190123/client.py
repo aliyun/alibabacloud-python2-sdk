@@ -10,7 +10,6 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_drds20190123 import models as drds_20190123_models
 from alibabacloud_tea_util import models as util_models
-from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -115,24 +114,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.change_instance_network_with_options(request, runtime)
 
-    def check_connectivity_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CheckConnectivityShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.db_info):
-            request.db_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.db_info, 'DbInfo', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CheckConnectivityResponse(),
-            self.do_rpcrequest('CheckConnectivity', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def check_connectivity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_connectivity_with_options(request, runtime)
-
     def check_drds_db_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -160,20 +141,6 @@ class Client(OpenApiClient):
     def check_expand_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.check_expand_status_with_options(request, runtime)
-
-    def check_new_table_name_valid_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CheckNewTableNameValidResponse(),
-            self.do_rpcrequest('CheckNewTableNameValid', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def check_new_table_name_valid(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_new_table_name_valid_with_options(request, runtime)
 
     def check_rds_super_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -216,78 +183,6 @@ class Client(OpenApiClient):
     def configure_drds_db_instances(self, request):
         runtime = util_models.RuntimeOptions()
         return self.configure_drds_db_instances_with_options(request, runtime)
-
-    def create_custom_data_export_pre_check_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateCustomDataExportPreCheckTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.export_param):
-            request.export_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.export_param, 'ExportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateCustomDataExportPreCheckTaskResponse(),
-            self.do_rpcrequest('CreateCustomDataExportPreCheckTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_custom_data_export_pre_check_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_custom_data_export_pre_check_task_with_options(request, runtime)
-
-    def create_custom_data_export_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateCustomDataExportTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.export_param):
-            request.export_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.export_param, 'ExportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateCustomDataExportTaskResponse(),
-            self.do_rpcrequest('CreateCustomDataExportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_custom_data_export_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_custom_data_export_task_with_options(request, runtime)
-
-    def create_custom_data_import_pre_check_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateCustomDataImportPreCheckTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateCustomDataImportPreCheckTaskResponse(),
-            self.do_rpcrequest('CreateCustomDataImportPreCheckTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_custom_data_import_pre_check_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_custom_data_import_pre_check_task_with_options(request, runtime)
-
-    def create_custom_data_import_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateCustomDataImportTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateCustomDataImportTaskResponse(),
-            self.do_rpcrequest('CreateCustomDataImportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_custom_data_import_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_custom_data_import_task_with_options(request, runtime)
 
     def create_drds_dbwith_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -345,42 +240,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_drds_instance_with_options(request, runtime)
 
-    def create_evaluate_data_import_pre_check_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateEvaluateDataImportPreCheckTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateEvaluateDataImportPreCheckTaskResponse(),
-            self.do_rpcrequest('CreateEvaluateDataImportPreCheckTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_evaluate_data_import_pre_check_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_evaluate_data_import_pre_check_task_with_options(request, runtime)
-
-    def create_evaluate_data_import_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.CreateEvaluateDataImportTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateEvaluateDataImportTaskResponse(),
-            self.do_rpcrequest('CreateEvaluateDataImportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_evaluate_data_import_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_evaluate_data_import_task_with_options(request, runtime)
-
     def create_evaluate_pre_check_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -394,20 +253,6 @@ class Client(OpenApiClient):
     def create_evaluate_pre_check_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_evaluate_pre_check_task_with_options(request, runtime)
-
-    def create_evaluate_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateEvaluateTaskResponse(),
-            self.do_rpcrequest('CreateEvaluateTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_evaluate_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_evaluate_task_with_options(request, runtime)
 
     def create_instance_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -436,20 +281,6 @@ class Client(OpenApiClient):
     def create_instance_internet_address(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_instance_internet_address_with_options(request, runtime)
-
-    def create_my_cat_evaluate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.CreateMyCatEvaluateResponse(),
-            self.do_rpcrequest('CreateMyCatEvaluate', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_my_cat_evaluate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_my_cat_evaluate_with_options(request, runtime)
 
     def create_order_for_rds_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -563,20 +394,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_times_with_options(request, runtime)
 
-    def describe_batch_evaluate_task_report_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeBatchEvaluateTaskReportResponse(),
-            self.do_rpcrequest('DescribeBatchEvaluateTaskReport', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_batch_evaluate_task_report(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_batch_evaluate_task_report_with_options(request, runtime)
-
     def describe_broadcast_tables_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -591,112 +408,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_broadcast_tables_with_options(request, runtime)
 
-    def describe_can_expand_instance_detail_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeCanExpandInstanceDetailListResponse(),
-            self.do_rpcrequest('DescribeCanExpandInstanceDetailList', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_can_expand_instance_detail_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_can_expand_instance_detail_list_with_options(request, runtime)
-
-    def describe_custom_data_export_src_dst_tables_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.DescribeCustomDataExportSrcDstTablesShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.export_param):
-            request.export_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.export_param, 'ExportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeCustomDataExportSrcDstTablesResponse(),
-            self.do_rpcrequest('DescribeCustomDataExportSrcDstTables', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_custom_data_export_src_dst_tables(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_custom_data_export_src_dst_tables_with_options(request, runtime)
-
-    def describe_custom_data_import_src_dst_tables_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.DescribeCustomDataImportSrcDstTablesShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeCustomDataImportSrcDstTablesResponse(),
-            self.do_rpcrequest('DescribeCustomDataImportSrcDstTables', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_custom_data_import_src_dst_tables(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_custom_data_import_src_dst_tables_with_options(request, runtime)
-
-    def describe_data_export_pre_check_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeDataExportPreCheckResultResponse(),
-            self.do_rpcrequest('DescribeDataExportPreCheckResult', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_data_export_pre_check_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_data_export_pre_check_result_with_options(request, runtime)
-
-    def describe_data_export_task_report_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeDataExportTaskReportResponse(),
-            self.do_rpcrequest('DescribeDataExportTaskReport', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_data_export_task_report(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_data_export_task_report_with_options(request, runtime)
-
-    def describe_data_export_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeDataExportTasksResponse(),
-            self.do_rpcrequest('DescribeDataExportTasks', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_data_export_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_data_export_tasks_with_options(request, runtime)
-
-    def describe_data_import_pre_check_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeDataImportPreCheckResultResponse(),
-            self.do_rpcrequest('DescribeDataImportPreCheckResult', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_data_import_pre_check_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_data_import_pre_check_result_with_options(request, runtime)
-
     def describe_data_import_task_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -710,20 +421,6 @@ class Client(OpenApiClient):
     def describe_data_import_task_report(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_data_import_task_report_with_options(request, runtime)
-
-    def describe_data_import_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeDataImportTasksResponse(),
-            self.do_rpcrequest('DescribeDataImportTasks', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_data_import_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_data_import_tasks_with_options(request, runtime)
 
     def describe_db_instance_dbs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1046,66 +743,6 @@ class Client(OpenApiClient):
     def describe_drds_tasks(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_drds_tasks_with_options(request, runtime)
-
-    def describe_evaluate_data_import_db_topologys_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.DescribeEvaluateDataImportDbTopologysShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.import_param):
-            request.import_param_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.import_param, 'ImportParam', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeEvaluateDataImportDbTopologysResponse(),
-            self.do_rpcrequest('DescribeEvaluateDataImportDbTopologys', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_evaluate_data_import_db_topologys(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_evaluate_data_import_db_topologys_with_options(request, runtime)
-
-    def describe_evaluate_pre_check_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeEvaluatePreCheckResultResponse(),
-            self.do_rpcrequest('DescribeEvaluatePreCheckResult', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_evaluate_pre_check_result(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_evaluate_pre_check_result_with_options(request, runtime)
-
-    def describe_evaluate_task_report_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeEvaluateTaskReportResponse(),
-            self.do_rpcrequest('DescribeEvaluateTaskReport', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_evaluate_task_report(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_evaluate_task_report_with_options(request, runtime)
-
-    def describe_evaluate_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeEvaluateTasksResponse(),
-            self.do_rpcrequest('DescribeEvaluateTasks', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_evaluate_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_evaluate_tasks_with_options(request, runtime)
 
     def describe_expand_logic_table_info_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1485,20 +1122,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_table_list_by_type_with_options(request, runtime)
 
-    def describe_table_sharding_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.DescribeTableShardingInfoResponse(),
-            self.do_rpcrequest('DescribeTableShardingInfo', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_table_sharding_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_table_sharding_info_with_options(request, runtime)
-
     def describe_tables_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1582,20 +1205,6 @@ class Client(OpenApiClient):
     def flashback_recycle_bin_table(self, request):
         runtime = util_models.RuntimeOptions()
         return self.flashback_recycle_bin_table_with_options(request, runtime)
-
-    def get_batch_evaluate_task_report_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.GetBatchEvaluateTaskReportResponse(),
-            self.do_rpcrequest('GetBatchEvaluateTaskReport', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_batch_evaluate_task_report(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_batch_evaluate_task_report_with_options(request, runtime)
 
     def get_drds_db_rds_relation_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1765,52 +1374,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_rds_read_weight_with_options(request, runtime)
 
-    def my_cat_connect_test_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.MyCatConnectTestResponse(),
-            self.do_rpcrequest('MyCatConnectTest', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def my_cat_connect_test(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.my_cat_connect_test_with_options(request, runtime)
-
-    def my_cat_custom_import_pre_check_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = drds_20190123_models.MyCatCustomImportPreCheckShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.table_map):
-            request.table_map_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.table_map, 'TableMap', 'json')
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.MyCatCustomImportPreCheckResponse(),
-            self.do_rpcrequest('MyCatCustomImportPreCheck', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def my_cat_custom_import_pre_check(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.my_cat_custom_import_pre_check_with_options(request, runtime)
-
-    def pre_check_modify_table_sharding_key_param_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.PreCheckModifyTableShardingKeyParamResponse(),
-            self.do_rpcrequest('PreCheckModifyTableShardingKeyParam', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def pre_check_modify_table_sharding_key_param(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.pre_check_modify_table_sharding_key_param_with_options(request, runtime)
-
     def pre_check_sql_flashback_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1824,20 +1387,6 @@ class Client(OpenApiClient):
     def pre_check_sql_flashback_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.pre_check_sql_flashback_task_with_options(request, runtime)
-
-    def precheck_my_cat_evaluate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.PrecheckMyCatEvaluateResponse(),
-            self.do_rpcrequest('PrecheckMyCatEvaluate', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def precheck_my_cat_evaluate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.precheck_my_cat_evaluate_with_options(request, runtime)
 
     def put_restore_pre_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1923,34 +1472,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_backups_set_with_options(request, runtime)
 
-    def remove_data_export_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.RemoveDataExportTaskResponse(),
-            self.do_rpcrequest('RemoveDataExportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def remove_data_export_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.remove_data_export_task_with_options(request, runtime)
-
-    def remove_data_import_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.RemoveDataImportTaskResponse(),
-            self.do_rpcrequest('RemoveDataImportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def remove_data_import_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.remove_data_import_task_with_options(request, runtime)
-
     def remove_drds_db_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2006,20 +1527,6 @@ class Client(OpenApiClient):
     def remove_drds_mysql(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_drds_mysql_with_options(request, runtime)
-
-    def remove_evaluate_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.RemoveEvaluateTaskResponse(),
-            self.do_rpcrequest('RemoveEvaluateTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def remove_evaluate_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.remove_evaluate_task_with_options(request, runtime)
 
     def remove_instance_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2203,20 +1710,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.sql_compatibility_start_with_options(request, runtime)
 
-    def start_evaluate_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.StartEvaluateTaskResponse(),
-            self.do_rpcrequest('StartEvaluateTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def start_evaluate_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.start_evaluate_task_with_options(request, runtime)
-
     def start_restore_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2230,62 +1723,6 @@ class Client(OpenApiClient):
     def start_restore(self, request):
         runtime = util_models.RuntimeOptions()
         return self.start_restore_with_options(request, runtime)
-
-    def stop_data_export_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.StopDataExportTaskResponse(),
-            self.do_rpcrequest('StopDataExportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def stop_data_export_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_data_export_task_with_options(request, runtime)
-
-    def stop_data_import_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.StopDataImportTaskResponse(),
-            self.do_rpcrequest('StopDataImportTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def stop_data_import_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_data_import_task_with_options(request, runtime)
-
-    def stop_evaluate_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.StopEvaluateTaskResponse(),
-            self.do_rpcrequest('StopEvaluateTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def stop_evaluate_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_evaluate_task_with_options(request, runtime)
-
-    def submit_clean_table_sharding_key_modify_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitCleanTableShardingKeyModifyResponse(),
-            self.do_rpcrequest('SubmitCleanTableShardingKeyModify', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_clean_table_sharding_key_modify(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_clean_table_sharding_key_modify_with_options(request, runtime)
 
     def submit_clean_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2329,20 +1766,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_hot_expand_task_with_options(request, runtime)
 
-    def submit_rollback_sharding_key_modify_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitRollbackShardingKeyModifyResponse(),
-            self.do_rpcrequest('SubmitRollbackShardingKeyModify', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_rollback_sharding_key_modify(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_rollback_sharding_key_modify_with_options(request, runtime)
-
     def submit_smooth_expand_pre_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2371,20 +1794,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.submit_smooth_expand_pre_check_task_with_options(request, runtime)
 
-    def submit_smooth_expand_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitSmoothExpandTaskResponse(),
-            self.do_rpcrequest('SubmitSmoothExpandTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_smooth_expand_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_smooth_expand_task_with_options(request, runtime)
-
     def submit_sql_flashback_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -2398,48 +1807,6 @@ class Client(OpenApiClient):
     def submit_sql_flashback_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_sql_flashback_task_with_options(request, runtime)
-
-    def submit_switch_table_sharding_key_modify_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitSwitchTableShardingKeyModifyResponse(),
-            self.do_rpcrequest('SubmitSwitchTableShardingKeyModify', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_switch_table_sharding_key_modify(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_switch_table_sharding_key_modify_with_options(request, runtime)
-
-    def submit_switch_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitSwitchTaskResponse(),
-            self.do_rpcrequest('SubmitSwitchTask', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_switch_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_switch_task_with_options(request, runtime)
-
-    def submit_table_sharding_key_modify_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            drds_20190123_models.SubmitTableShardingKeyModifyResponse(),
-            self.do_rpcrequest('SubmitTableShardingKeyModify', '2019-01-23', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def submit_table_sharding_key_modify(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.submit_table_sharding_key_modify_with_options(request, runtime)
 
     def switch_global_broadcast_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
