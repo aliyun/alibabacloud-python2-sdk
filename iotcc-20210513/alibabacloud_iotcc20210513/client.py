@@ -29,89 +29,19 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def delete_service_with_options(self, request, runtime):
+    def associate_ip_with_connection_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.DeleteServiceResponse(),
-            self.do_rpcrequest('DeleteService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.AssociateIpWithConnectionPoolResponse(),
+            self.do_rpcrequest('AssociateIpWithConnectionPool', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def delete_service(self, request):
+    def associate_ip_with_connection_pool(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.delete_service_with_options(request, runtime)
-
-    def delete_service_entry_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.DeleteServiceEntryResponse(),
-            self.do_rpcrequest('DeleteServiceEntry', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_service_entry(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_service_entry_with_options(request, runtime)
-
-    def update_service_entry_attribute_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.UpdateServiceEntryAttributeResponse(),
-            self.do_rpcrequest('UpdateServiceEntryAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_service_entry_attribute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_service_entry_attribute_with_options(request, runtime)
-
-    def update_service_attribute_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.UpdateServiceAttributeResponse(),
-            self.do_rpcrequest('UpdateServiceAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_service_attribute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_service_attribute_with_options(request, runtime)
-
-    def list_authorization_rules_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.ListAuthorizationRulesResponse(),
-            self.do_rpcrequest('ListAuthorizationRules', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_authorization_rules(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_authorization_rules_with_options(request, runtime)
-
-    def list_service_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.ListServiceResponse(),
-            self.do_rpcrequest('ListService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_service(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_service_with_options(request, runtime)
+        return self.associate_ip_with_connection_pool_with_options(request, runtime)
 
     def associate_vswitch_with_io_tcloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -127,47 +57,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.associate_vswitch_with_io_tcloud_connector_with_options(request, runtime)
 
-    def list_connection_pools_with_options(self, request, runtime):
+    def create_authorization_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.ListConnectionPoolsResponse(),
-            self.do_rpcrequest('ListConnectionPools', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.CreateAuthorizationRuleResponse(),
+            self.do_rpcrequest('CreateAuthorizationRule', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_connection_pools(self, request):
+    def create_authorization_rule(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_connection_pools_with_options(request, runtime)
-
-    def update_connection_pool_attribute_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.UpdateConnectionPoolAttributeResponse(),
-            self.do_rpcrequest('UpdateConnectionPoolAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_connection_pool_attribute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_connection_pool_attribute_with_options(request, runtime)
-
-    def disable_io_tcloud_connector_access_log_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.DisableIoTCloudConnectorAccessLogResponse(),
-            self.do_rpcrequest('DisableIoTCloudConnectorAccessLog', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def disable_io_tcloud_connector_access_log(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.disable_io_tcloud_connector_access_log_with_options(request, runtime)
+        return self.create_authorization_rule_with_options(request, runtime)
 
     def create_connection_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -183,75 +85,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_connection_pool_with_options(request, runtime)
 
-    def create_authorization_rule_with_options(self, request, runtime):
+    def create_io_tcloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.CreateAuthorizationRuleResponse(),
-            self.do_rpcrequest('CreateAuthorizationRule', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.CreateIoTCloudConnectorResponse(),
+            self.do_rpcrequest('CreateIoTCloudConnector', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_authorization_rule(self, request):
+    def create_io_tcloud_connector(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_authorization_rule_with_options(request, runtime)
+        return self.create_io_tcloud_connector_with_options(request, runtime)
 
-    def update_io_tcloud_connector_attribute_with_options(self, request, runtime):
+    def create_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.UpdateIoTCloudConnectorAttributeResponse(),
-            self.do_rpcrequest('UpdateIoTCloudConnectorAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.CreateServiceResponse(),
+            self.do_rpcrequest('CreateService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def update_io_tcloud_connector_attribute(self, request):
+    def create_service(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.update_io_tcloud_connector_attribute_with_options(request, runtime)
+        return self.create_service_with_options(request, runtime)
 
-    def delete_io_tcloud_connector_with_options(self, request, runtime):
+    def create_service_entry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.DeleteIoTCloudConnectorResponse(),
-            self.do_rpcrequest('DeleteIoTCloudConnector', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.CreateServiceEntryResponse(),
+            self.do_rpcrequest('CreateServiceEntry', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def delete_io_tcloud_connector(self, request):
+    def create_service_entry(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.delete_io_tcloud_connector_with_options(request, runtime)
-
-    def list_io_tcloud_connector_available_zones_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.ListIoTCloudConnectorAvailableZonesResponse(),
-            self.do_rpcrequest('ListIoTCloudConnectorAvailableZones', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_io_tcloud_connector_available_zones(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_io_tcloud_connector_available_zones_with_options(request, runtime)
-
-    def get_io_tcloud_connector_access_log_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.GetIoTCloudConnectorAccessLogResponse(),
-            self.do_rpcrequest('GetIoTCloudConnectorAccessLog', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_io_tcloud_connector_access_log(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_io_tcloud_connector_access_log_with_options(request, runtime)
+        return self.create_service_entry_with_options(request, runtime)
 
     def delete_authorization_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -281,6 +155,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_connection_pool_with_options(request, runtime)
 
+    def delete_io_tcloud_connector_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteIoTCloudConnectorResponse(),
+            self.do_rpcrequest('DeleteIoTCloudConnector', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_io_tcloud_connector(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_io_tcloud_connector_with_options(request, runtime)
+
+    def delete_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteServiceResponse(),
+            self.do_rpcrequest('DeleteService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_service_with_options(request, runtime)
+
+    def delete_service_entry_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteServiceEntryResponse(),
+            self.do_rpcrequest('DeleteServiceEntry', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_service_entry(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_service_entry_with_options(request, runtime)
+
+    def disable_io_tcloud_connector_access_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DisableIoTCloudConnectorAccessLogResponse(),
+            self.do_rpcrequest('DisableIoTCloudConnectorAccessLog', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def disable_io_tcloud_connector_access_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_io_tcloud_connector_access_log_with_options(request, runtime)
+
+    def dissociate_ip_from_connection_pool_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DissociateIpFromConnectionPoolResponse(),
+            self.do_rpcrequest('DissociateIpFromConnectionPool', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def dissociate_ip_from_connection_pool(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.dissociate_ip_from_connection_pool_with_options(request, runtime)
+
     def dissociate_vswitch_from_io_tcloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -309,33 +253,131 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.enable_io_tcloud_connector_access_log_with_options(request, runtime)
 
-    def list_service_entries_with_options(self, request, runtime):
+    def get_connection_pool_ip_operation_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.ListServiceEntriesResponse(),
-            self.do_rpcrequest('ListServiceEntries', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.GetConnectionPoolIpOperationResultResponse(),
+            self.do_rpcrequest('GetConnectionPoolIpOperationResult', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_service_entries(self, request):
+    def get_connection_pool_ip_operation_result(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_service_entries_with_options(request, runtime)
+        return self.get_connection_pool_ip_operation_result_with_options(request, runtime)
 
-    def create_service_with_options(self, request, runtime):
+    def get_io_tcloud_connector_access_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.CreateServiceResponse(),
-            self.do_rpcrequest('CreateService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.GetIoTCloudConnectorAccessLogResponse(),
+            self.do_rpcrequest('GetIoTCloudConnectorAccessLog', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_service(self, request):
+    def get_io_tcloud_connector_access_log(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_service_with_options(request, runtime)
+        return self.get_io_tcloud_connector_access_log_with_options(request, runtime)
+
+    def get_sts_info_and_oss_path_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.GetStsInfoAndOssPathResponse(),
+            self.do_rpcrequest('GetStsInfoAndOssPath', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_sts_info_and_oss_path(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_sts_info_and_oss_path_with_options(request, runtime)
+
+    def grant_virtual_border_router_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.GrantVirtualBorderRouterResponse(),
+            self.do_rpcrequest('GrantVirtualBorderRouter', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def grant_virtual_border_router(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.grant_virtual_border_router_with_options(request, runtime)
+
+    def list_apns_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListAPNsResponse(),
+            self.do_rpcrequest('ListAPNs', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_apns(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_apns_with_options(request, runtime)
+
+    def list_authorization_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListAuthorizationRulesResponse(),
+            self.do_rpcrequest('ListAuthorizationRules', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_authorization_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_authorization_rules_with_options(request, runtime)
+
+    def list_connection_pool_ips_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListConnectionPoolIpsResponse(),
+            self.do_rpcrequest('ListConnectionPoolIps', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_connection_pool_ips(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_connection_pool_ips_with_options(request, runtime)
+
+    def list_connection_pools_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListConnectionPoolsResponse(),
+            self.do_rpcrequest('ListConnectionPools', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_connection_pools(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_connection_pools_with_options(request, runtime)
+
+    def list_io_tcloud_connector_available_zones_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListIoTCloudConnectorAvailableZonesResponse(),
+            self.do_rpcrequest('ListIoTCloudConnectorAvailableZones', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_io_tcloud_connector_available_zones(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_io_tcloud_connector_available_zones_with_options(request, runtime)
 
     def list_io_tcloud_connectors_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -351,19 +393,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_io_tcloud_connectors_with_options(request, runtime)
 
-    def create_io_tcloud_connector_with_options(self, request, runtime):
+    def list_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.CreateIoTCloudConnectorResponse(),
-            self.do_rpcrequest('CreateIoTCloudConnector', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.ListRegionsResponse(),
+            self.do_rpcrequest('ListRegions', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_io_tcloud_connector(self, request):
+    def list_regions(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_io_tcloud_connector_with_options(request, runtime)
+        return self.list_regions_with_options(request, runtime)
+
+    def list_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListServiceResponse(),
+            self.do_rpcrequest('ListService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_service_with_options(request, runtime)
+
+    def list_service_entries_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListServiceEntriesResponse(),
+            self.do_rpcrequest('ListServiceEntries', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_service_entries(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_service_entries_with_options(request, runtime)
+
+    def open_io_tcloud_connector_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.OpenIoTCloudConnectorServiceResponse(),
+            self.do_rpcrequest('OpenIoTCloudConnectorService', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def open_io_tcloud_connector_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.open_io_tcloud_connector_service_with_options(request, runtime)
 
     def update_authorization_rule_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -379,16 +463,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_authorization_rule_attribute_with_options(request, runtime)
 
-    def create_service_entry_with_options(self, request, runtime):
+    def update_connection_pool_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            io_tcc20210513_models.CreateServiceEntryResponse(),
-            self.do_rpcrequest('CreateServiceEntry', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            io_tcc20210513_models.UpdateConnectionPoolAttributeResponse(),
+            self.do_rpcrequest('UpdateConnectionPoolAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_service_entry(self, request):
+    def update_connection_pool_attribute(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_service_entry_with_options(request, runtime)
+        return self.update_connection_pool_attribute_with_options(request, runtime)
+
+    def update_io_tcloud_connector_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.UpdateIoTCloudConnectorAttributeResponse(),
+            self.do_rpcrequest('UpdateIoTCloudConnectorAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_io_tcloud_connector_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_io_tcloud_connector_attribute_with_options(request, runtime)
+
+    def update_service_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.UpdateServiceAttributeResponse(),
+            self.do_rpcrequest('UpdateServiceAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_service_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_service_attribute_with_options(request, runtime)
+
+    def update_service_entry_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.UpdateServiceEntryAttributeResponse(),
+            self.do_rpcrequest('UpdateServiceEntryAttribute', '2021-05-13', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def update_service_entry_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_service_entry_attribute_with_options(request, runtime)
