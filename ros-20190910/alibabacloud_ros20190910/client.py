@@ -110,12 +110,12 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
-        if not UtilClient.is_unset(tmp_req.region_ids):
-            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
-        if not UtilClient.is_unset(tmp_req.operation_preferences):
-            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
             request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+        if not UtilClient.is_unset(tmp_req.operation_preferences):
+            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
+        if not UtilClient.is_unset(tmp_req.region_ids):
+            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
@@ -190,12 +190,12 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
-        if not UtilClient.is_unset(tmp_req.region_ids):
-            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
-        if not UtilClient.is_unset(tmp_req.operation_preferences):
-            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
             request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+        if not UtilClient.is_unset(tmp_req.operation_preferences):
+            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
+        if not UtilClient.is_unset(tmp_req.region_ids):
+            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
@@ -324,6 +324,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_change_set_with_options(request, runtime)
 
+    def get_feature_details_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ros20190910_models.GetFeatureDetailsResponse(),
+            self.do_rpcrequest('GetFeatureDetails', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_feature_details(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_feature_details_with_options(request, runtime)
+
     def get_resource_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -351,6 +365,20 @@ class Client(OpenApiClient):
     def get_resource_type_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_resource_type_template_with_options(request, runtime)
+
+    def get_service_provisions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ros20190910_models.GetServiceProvisionsResponse(),
+            self.do_rpcrequest('GetServiceProvisions', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_service_provisions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_provisions_with_options(request, runtime)
 
     def get_stack_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -477,6 +505,24 @@ class Client(OpenApiClient):
     def get_template_estimate_cost(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_template_estimate_cost_with_options(request, runtime)
+
+    def get_template_parameter_constraints_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ros20190910_models.GetTemplateParameterConstraintsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.parameters_key_filter):
+            request.parameters_key_filter_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.parameters_key_filter, 'ParametersKeyFilter', 'json')
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ros20190910_models.GetTemplateParameterConstraintsResponse(),
+            self.do_rpcrequest('GetTemplateParameterConstraints', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_template_parameter_constraints(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_template_parameter_constraints_with_options(request, runtime)
 
     def get_template_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -685,20 +731,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_tag_values_with_options(request, runtime)
 
-    def list_templates_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            ros20190910_models.ListTemplatesResponse(),
-            self.do_rpcrequest('ListTemplates', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_templates(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_templates_with_options(request, runtime)
-
     def list_template_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -712,6 +744,20 @@ class Client(OpenApiClient):
     def list_template_versions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_template_versions_with_options(request, runtime)
+
+    def list_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            ros20190910_models.ListTemplatesResponse(),
+            self.do_rpcrequest('ListTemplates', '2019-09-10', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_templates_with_options(request, runtime)
 
     def move_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -859,14 +905,14 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
-        if not UtilClient.is_unset(tmp_req.region_ids):
-            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
-        if not UtilClient.is_unset(tmp_req.operation_preferences):
-            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.auto_deployment):
             request.auto_deployment_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.auto_deployment), 'AutoDeployment', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
             request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+        if not UtilClient.is_unset(tmp_req.operation_preferences):
+            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
+        if not UtilClient.is_unset(tmp_req.region_ids):
+            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
@@ -885,12 +931,12 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.account_ids):
             request.account_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.account_ids, 'AccountIds', 'json')
-        if not UtilClient.is_unset(tmp_req.region_ids):
-            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
-        if not UtilClient.is_unset(tmp_req.operation_preferences):
-            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
         if not UtilClient.is_unset(tmp_req.deployment_targets):
             request.deployment_targets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.deployment_targets), 'DeploymentTargets', 'json')
+        if not UtilClient.is_unset(tmp_req.operation_preferences):
+            request.operation_preferences_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.operation_preferences, 'OperationPreferences', 'json')
+        if not UtilClient.is_unset(tmp_req.region_ids):
+            request.region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.region_ids, 'RegionIds', 'json')
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
