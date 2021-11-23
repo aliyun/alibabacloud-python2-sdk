@@ -68,285 +68,19 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_constants_with_options(self, request, runtime):
+    def add_tags_batch_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.CreateConstantsResponse(),
-            self.do_rpcrequest('CreateConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.AddTagsBatchResponse(),
+            self.do_rpcrequest('AddTagsBatch', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_constants(self, request):
+    def add_tags_batch(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_constants_with_options(request, runtime)
-
-    def delete_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DeleteDbfsResponse(),
-            self.do_rpcrequest('DeleteDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_dbfs_with_options(request, runtime)
-
-    def delete_constants_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DeleteConstantsResponse(),
-            self.do_rpcrequest('DeleteConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_constants(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_constants_with_options(request, runtime)
-
-    def create_service_linked_role_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.CreateServiceLinkedRoleResponse(),
-            self.do_rpcrequest('CreateServiceLinkedRole', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_service_linked_role(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_service_linked_role_with_options(request, runtime)
-
-    def resize_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.ResizeDbfsResponse(),
-            self.do_rpcrequest('ResizeDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def resize_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.resize_dbfs_with_options(request, runtime)
-
-    def publish_upgrade_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.PublishUpgradeTaskResponse(),
-            self.do_rpcrequest('PublishUpgradeTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def publish_upgrade_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.publish_upgrade_task_with_options(request, runtime)
-
-    def list_tag_values_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.ListTagValuesResponse(),
-            self.do_rpcrequest('ListTagValues', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_tag_values(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_tag_values_with_options(request, runtime)
-
-    def delete_snapshot_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DeleteSnapshotResponse(),
-            self.do_rpcrequest('DeleteSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_snapshot(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_snapshot_with_options(request, runtime)
-
-    def detach_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DetachDbfsResponse(),
-            self.do_rpcrequest('DetachDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def detach_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.detach_dbfs_with_options(request, runtime)
-
-    def generate_upgrade_record_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.GenerateUpgradeRecordResponse(),
-            self.do_rpcrequest('GenerateUpgradeRecord', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def generate_upgrade_record(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.generate_upgrade_record_with_options(request, runtime)
-
-    def reset_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.ResetDbfsResponse(),
-            self.do_rpcrequest('ResetDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def reset_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.reset_dbfs_with_options(request, runtime)
-
-    def get_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.GetDbfsResponse(),
-            self.do_rpcrequest('GetDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_dbfs_with_options(request, runtime)
-
-    def dbfs_record_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DbfsRecordResponse(),
-            self.do_rpcrequest('DbfsRecord', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def dbfs_record(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.dbfs_record_with_options(request, runtime)
-
-    def stop_upgrade_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.StopUpgradeTaskResponse(),
-            self.do_rpcrequest('StopUpgradeTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def stop_upgrade_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_upgrade_task_with_options(request, runtime)
-
-    def create_dbfs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.CreateDbfsResponse(),
-            self.do_rpcrequest('CreateDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_dbfs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dbfs_with_options(request, runtime)
-
-    def update_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.UpdateTaskResponse(),
-            self.do_rpcrequest('UpdateTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_task_with_options(request, runtime)
-
-    def delete_tags_batch_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.DeleteTagsBatchResponse(),
-            self.do_rpcrequest('DeleteTagsBatch', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_tags_batch(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_tags_batch_with_options(request, runtime)
-
-    def get_service_linked_role_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.GetServiceLinkedRoleResponse(),
-            self.do_rpcrequest('GetServiceLinkedRole', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_service_linked_role(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_service_linked_role_with_options(request, runtime)
-
-    def update_constants_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.UpdateConstantsResponse(),
-            self.do_rpcrequest('UpdateConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_constants(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_constants_with_options(request, runtime)
-
-    def insert_synchroniz_constants_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dbfs20200418_models.InsertSynchronizConstantsResponse(),
-            self.do_rpcrequest('InsertSynchronizConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def insert_synchroniz_constants(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.insert_synchroniz_constants_with_options(request, runtime)
+        return self.add_tags_batch_with_options(request, runtime)
 
     def attach_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -362,19 +96,201 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_dbfs_with_options(request, runtime)
 
-    def list_task_with_options(self, request, runtime):
+    def create_constants_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.ListTaskResponse(),
-            self.do_rpcrequest('ListTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.CreateConstantsResponse(),
+            self.do_rpcrequest('CreateConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_task(self, request):
+    def create_constants(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_task_with_options(request, runtime)
+        return self.create_constants_with_options(request, runtime)
+
+    def create_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.CreateDbfsResponse(),
+            self.do_rpcrequest('CreateDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbfs_with_options(request, runtime)
+
+    def create_service_linked_role_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.CreateServiceLinkedRoleResponse(),
+            self.do_rpcrequest('CreateServiceLinkedRole', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_service_linked_role(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_service_linked_role_with_options(request, runtime)
+
+    def create_snapshot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.CreateSnapshotResponse(),
+            self.do_rpcrequest('CreateSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_snapshot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_snapshot_with_options(request, runtime)
+
+    def delete_constants_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DeleteConstantsResponse(),
+            self.do_rpcrequest('DeleteConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_constants(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_constants_with_options(request, runtime)
+
+    def delete_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DeleteDbfsResponse(),
+            self.do_rpcrequest('DeleteDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbfs_with_options(request, runtime)
+
+    def delete_snapshot_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DeleteSnapshotResponse(),
+            self.do_rpcrequest('DeleteSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_snapshot(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_snapshot_with_options(request, runtime)
+
+    def delete_tags_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DeleteTagsBatchResponse(),
+            self.do_rpcrequest('DeleteTagsBatch', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def delete_tags_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_tags_batch_with_options(request, runtime)
+
+    def describe_dbfs_specifications_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DescribeDbfsSpecificationsResponse(),
+            self.do_rpcrequest('DescribeDbfsSpecifications', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dbfs_specifications(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbfs_specifications_with_options(request, runtime)
+
+    def describe_instance_types_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DescribeInstanceTypesResponse(),
+            self.do_rpcrequest('DescribeInstanceTypes', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_instance_types(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_instance_types_with_options(request, runtime)
+
+    def detach_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.DetachDbfsResponse(),
+            self.do_rpcrequest('DetachDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def detach_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detach_dbfs_with_options(request, runtime)
+
+    def get_dbfs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.GetDbfsResponse(),
+            self.do_rpcrequest('GetDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_dbfs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_dbfs_with_options(request, runtime)
+
+    def get_service_linked_role_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.GetServiceLinkedRoleResponse(),
+            self.do_rpcrequest('GetServiceLinkedRole', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def get_service_linked_role(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_linked_role_with_options(request, runtime)
+
+    def list_constants_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListConstantsResponse(),
+            self.do_rpcrequest('ListConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_constants(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_constants_with_options(request, runtime)
 
     def list_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -390,47 +306,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_dbfs_with_options(request, runtime)
 
-    def add_tags_batch_with_options(self, request, runtime):
+    def list_snapshot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.AddTagsBatchResponse(),
-            self.do_rpcrequest('AddTagsBatch', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.ListSnapshotResponse(),
+            self.do_rpcrequest('ListSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def add_tags_batch(self, request):
+    def list_snapshot(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.add_tags_batch_with_options(request, runtime)
+        return self.list_snapshot_with_options(request, runtime)
 
-    def tag_dbfs_with_options(self, request, runtime):
+    def list_tag_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.TagDbfsResponse(),
-            self.do_rpcrequest('TagDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.ListTagKeysResponse(),
+            self.do_rpcrequest('ListTagKeys', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def tag_dbfs(self, request):
+    def list_tag_keys(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.tag_dbfs_with_options(request, runtime)
+        return self.list_tag_keys_with_options(request, runtime)
 
-    def get_synchroniz_constants_with_options(self, request, runtime):
+    def list_tag_values_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.GetSynchronizConstantsResponse(),
-            self.do_rpcrequest('GetSynchronizConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.ListTagValuesResponse(),
+            self.do_rpcrequest('ListTagValues', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def get_synchroniz_constants(self, request):
+    def list_tag_values(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.get_synchroniz_constants_with_options(request, runtime)
+        return self.list_tag_values_with_options(request, runtime)
+
+    def list_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListTaskResponse(),
+            self.do_rpcrequest('ListTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_task_with_options(request, runtime)
 
     def opreate_constants_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -460,72 +390,72 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.rename_dbfs_with_options(request, runtime)
 
-    def list_tag_keys_with_options(self, request, runtime):
+    def reset_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.ListTagKeysResponse(),
-            self.do_rpcrequest('ListTagKeys', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.ResetDbfsResponse(),
+            self.do_rpcrequest('ResetDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_tag_keys(self, request):
+    def reset_dbfs(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_tag_keys_with_options(request, runtime)
+        return self.reset_dbfs_with_options(request, runtime)
 
-    def list_constants_with_options(self, request, runtime):
+    def resize_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.ListConstantsResponse(),
-            self.do_rpcrequest('ListConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.ResizeDbfsResponse(),
+            self.do_rpcrequest('ResizeDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_constants(self, request):
+    def resize_dbfs(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_constants_with_options(request, runtime)
+        return self.resize_dbfs_with_options(request, runtime)
 
-    def list_snapshot_with_options(self, request, runtime):
+    def tag_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.ListSnapshotResponse(),
-            self.do_rpcrequest('ListSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.TagDbfsResponse(),
+            self.do_rpcrequest('TagDbfs', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def list_snapshot(self, request):
+    def tag_dbfs(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_snapshot_with_options(request, runtime)
+        return self.tag_dbfs_with_options(request, runtime)
 
-    def describe_dbfs_specifications_with_options(self, request, runtime):
+    def update_constants_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.DescribeDbfsSpecificationsResponse(),
-            self.do_rpcrequest('DescribeDbfsSpecifications', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.UpdateConstantsResponse(),
+            self.do_rpcrequest('UpdateConstants', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def describe_dbfs_specifications(self, request):
+    def update_constants(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_dbfs_specifications_with_options(request, runtime)
+        return self.update_constants_with_options(request, runtime)
 
-    def create_snapshot_with_options(self, request, runtime):
+    def update_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
         return TeaCore.from_map(
-            dbfs20200418_models.CreateSnapshotResponse(),
-            self.do_rpcrequest('CreateSnapshot', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dbfs20200418_models.UpdateTaskResponse(),
+            self.do_rpcrequest('UpdateTask', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
         )
 
-    def create_snapshot(self, request):
+    def update_task(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_snapshot_with_options(request, runtime)
+        return self.update_task_with_options(request, runtime)
