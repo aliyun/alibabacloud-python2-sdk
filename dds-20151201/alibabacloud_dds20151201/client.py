@@ -186,6 +186,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_node_with_options(request, runtime)
 
+    def create_node_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.CreateNodeBatchResponse(),
+            self.do_rpcrequest('CreateNodeBatch', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def create_node_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_node_batch_with_options(request, runtime)
+
     def create_recommendation_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -354,6 +368,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_audit_records_with_options(request, runtime)
 
+    def describe_available_engine_version_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeAvailableEngineVersionResponse(),
+            self.do_rpcrequest('DescribeAvailableEngineVersion', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_available_engine_version(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_available_engine_version_with_options(request, runtime)
+
+    def describe_available_resource_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeAvailableResourceResponse(),
+            self.do_rpcrequest('DescribeAvailableResource', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_available_resource(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_available_resource_with_options(request, runtime)
+
     def describe_available_time_range_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -466,20 +508,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_performance_with_options(request, runtime)
 
-    def describe_dbinstances_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.DescribeDBInstancesResponse(),
-            self.do_rpcrequest('DescribeDBInstances', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dbinstances(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dbinstances_with_options(request, runtime)
-
     def describe_dbinstance_sslwith_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -507,6 +535,20 @@ class Client(OpenApiClient):
     def describe_dbinstance_tdeinfo(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_tdeinfo_with_options(request, runtime)
+
+    def describe_dbinstances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeDBInstancesResponse(),
+            self.do_rpcrequest('DescribeDBInstances', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_dbinstances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstances_with_options(request, runtime)
 
     def describe_dedicated_cluster_instance_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -592,20 +634,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_parameter_modification_history_with_options(request, runtime)
 
-    def describe_parameters_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.DescribeParametersResponse(),
-            self.do_rpcrequest('DescribeParameters', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_parameters(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_parameters_with_options(request, runtime)
-
     def describe_parameter_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -619,6 +647,20 @@ class Client(OpenApiClient):
     def describe_parameter_templates(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_parameter_templates_with_options(request, runtime)
+
+    def describe_parameters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeParametersResponse(),
+            self.do_rpcrequest('DescribeParameters', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_parameters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_parameters_with_options(request, runtime)
 
     def describe_price_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -647,6 +689,20 @@ class Client(OpenApiClient):
     def describe_regions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
+
+    def describe_renewal_price_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeRenewalPriceResponse(),
+            self.do_rpcrequest('DescribeRenewalPrice', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_renewal_price(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_renewal_price_with_options(request, runtime)
 
     def describe_replica_set_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -745,6 +801,34 @@ class Client(OpenApiClient):
     def describe_slow_log_records(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_slow_log_records_with_options(request, runtime)
+
+    def describe_tags_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeTagsResponse(),
+            self.do_rpcrequest('DescribeTags', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_tags_with_options(request, runtime)
+
+    def describe_user_encryption_key_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.DescribeUserEncryptionKeyListResponse(),
+            self.do_rpcrequest('DescribeUserEncryptionKeyList', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def describe_user_encryption_key_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_user_encryption_key_list_with_options(request, runtime)
 
     def destroy_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -956,20 +1040,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_network_type_with_options(request, runtime)
 
-    def modify_dbinstance_spec_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dds_20151201_models.ModifyDBInstanceSpecResponse(),
-            self.do_rpcrequest('ModifyDBInstanceSpec', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dbinstance_spec(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dbinstance_spec_with_options(request, runtime)
-
     def modify_dbinstance_sslwith_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -983,6 +1053,20 @@ class Client(OpenApiClient):
     def modify_dbinstance_ssl(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_sslwith_options(request, runtime)
+
+    def modify_dbinstance_spec_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.ModifyDBInstanceSpecResponse(),
+            self.do_rpcrequest('ModifyDBInstanceSpec', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_dbinstance_spec(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_spec_with_options(request, runtime)
 
     def modify_dbinstance_tdewith_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1040,6 +1124,20 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_node_spec_with_options(request, runtime)
 
+    def modify_node_spec_batch_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.ModifyNodeSpecBatchResponse(),
+            self.do_rpcrequest('ModifyNodeSpecBatch', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_node_spec_batch(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_node_spec_batch_with_options(request, runtime)
+
     def modify_parameters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
@@ -1053,6 +1151,20 @@ class Client(OpenApiClient):
     def modify_parameters(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_parameters_with_options(request, runtime)
+
+    def modify_resource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dds_20151201_models.ModifyResourceGroupResponse(),
+            self.do_rpcrequest('ModifyResourceGroup', '2015-12-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def modify_resource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_resource_group_with_options(request, runtime)
 
     def modify_security_group_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
