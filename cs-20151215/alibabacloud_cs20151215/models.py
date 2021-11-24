@@ -668,21 +668,21 @@ class CreateClusterRequest(TeaModel):
     def __init__(self, addons=None, api_audiences=None, cis_enabled=None, cloud_monitor_flags=None,
                  cluster_domain=None, cluster_spec=None, cluster_type=None, container_cidr=None, controlplane_log_components=None,
                  controlplane_log_project=None, controlplane_log_ttl=None, cpu_policy=None, custom_san=None, deletion_protection=None,
-                 disable_rollback=None, encryption_provider_key=None, endpoint_public_access=None, format_disk=None, image_id=None,
-                 image_type=None, instances=None, is_enterprise_security_group=None, keep_instance_name=None, key_pair=None,
-                 kubernetes_version=None, load_balancer_spec=None, logging_type=None, login_password=None, master_auto_renew=None,
-                 master_auto_renew_period=None, master_count=None, master_instance_charge_type=None, master_instance_types=None,
-                 master_period=None, master_period_unit=None, master_system_disk_category=None,
-                 master_system_disk_performance_level=None, master_system_disk_size=None, master_system_disk_snapshot_policy_id=None,
-                 master_vswitch_ids=None, name=None, nat_gateway=None, node_cidr_mask=None, node_name_mode=None, node_port_range=None,
-                 num_of_nodes=None, os_type=None, platform=None, pod_vswitch_ids=None, profile=None, proxy_mode=None,
-                 rds_instances=None, region_id=None, runtime=None, security_group_id=None, service_account_issuer=None,
-                 service_cidr=None, service_discovery_types=None, snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None,
-                 taints=None, timeout_mins=None, timezone=None, user_ca=None, user_data=None, vpcid=None, vswitch_ids=None,
-                 worker_auto_renew=None, worker_auto_renew_period=None, worker_data_disks=None, worker_instance_charge_type=None,
-                 worker_instance_types=None, worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
-                 worker_system_disk_performance_level=None, worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None,
-                 worker_vswitch_ids=None, zone_id=None):
+                 disable_rollback=None, enable_rrsa=None, encryption_provider_key=None, endpoint_public_access=None,
+                 format_disk=None, image_id=None, image_type=None, instances=None, is_enterprise_security_group=None,
+                 keep_instance_name=None, key_pair=None, kubernetes_version=None, load_balancer_spec=None, logging_type=None,
+                 login_password=None, master_auto_renew=None, master_auto_renew_period=None, master_count=None,
+                 master_instance_charge_type=None, master_instance_types=None, master_period=None, master_period_unit=None,
+                 master_system_disk_category=None, master_system_disk_performance_level=None, master_system_disk_size=None,
+                 master_system_disk_snapshot_policy_id=None, master_vswitch_ids=None, name=None, nat_gateway=None, node_cidr_mask=None,
+                 node_name_mode=None, node_port_range=None, num_of_nodes=None, os_type=None, platform=None, pod_vswitch_ids=None,
+                 profile=None, proxy_mode=None, rds_instances=None, region_id=None, runtime=None, security_group_id=None,
+                 service_account_issuer=None, service_cidr=None, service_discovery_types=None, snat_entry=None, soc_enabled=None,
+                 ssh_flags=None, tags=None, taints=None, timeout_mins=None, timezone=None, user_ca=None, user_data=None,
+                 vpcid=None, vswitch_ids=None, worker_auto_renew=None, worker_auto_renew_period=None,
+                 worker_data_disks=None, worker_instance_charge_type=None, worker_instance_types=None, worker_period=None,
+                 worker_period_unit=None, worker_system_disk_category=None, worker_system_disk_performance_level=None,
+                 worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None, worker_vswitch_ids=None, zone_id=None):
         # 集群组件配置
         self.addons = addons  # type: list[Addon]
         # 合法的请求token身份，用于apiserver服务端认证请求token是否合法。
@@ -713,6 +713,8 @@ class CreateClusterRequest(TeaModel):
         self.deletion_protection = deletion_protection  # type: bool
         # 失败回滚
         self.disable_rollback = disable_rollback  # type: bool
+        # 启用 RRSA 功能
+        self.enable_rrsa = enable_rrsa  # type: bool
         # Secret落盘加密
         self.encryption_provider_key = encryption_provider_key  # type: str
         # 使用EIP暴露apiServer
@@ -905,6 +907,8 @@ class CreateClusterRequest(TeaModel):
             result['deletion_protection'] = self.deletion_protection
         if self.disable_rollback is not None:
             result['disable_rollback'] = self.disable_rollback
+        if self.enable_rrsa is not None:
+            result['enable_rrsa'] = self.enable_rrsa
         if self.encryption_provider_key is not None:
             result['encryption_provider_key'] = self.encryption_provider_key
         if self.endpoint_public_access is not None:
@@ -1082,6 +1086,8 @@ class CreateClusterRequest(TeaModel):
             self.deletion_protection = m.get('deletion_protection')
         if m.get('disable_rollback') is not None:
             self.disable_rollback = m.get('disable_rollback')
+        if m.get('enable_rrsa') is not None:
+            self.enable_rrsa = m.get('enable_rrsa')
         if m.get('encryption_provider_key') is not None:
             self.encryption_provider_key = m.get('encryption_provider_key')
         if m.get('endpoint_public_access') is not None:
@@ -2884,12 +2890,66 @@ class DeleteKubernetesTriggerResponse(TeaModel):
         return self
 
 
+class DeletePolicyInstanceRequest(TeaModel):
+    def __init__(self, instance_name=None):
+        # 策略规则实例id
+        self.instance_name = instance_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeletePolicyInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_name is not None:
+            result['instance_name'] = self.instance_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instance_name') is not None:
+            self.instance_name = m.get('instance_name')
+        return self
+
+
+class DeletePolicyInstanceResponseBody(TeaModel):
+    def __init__(self, instances=None):
+        # 策略实例列表
+        self.instances = instances  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeletePolicyInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instances is not None:
+            result['instances'] = self.instances
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instances') is not None:
+            self.instances = m.get('instances')
+        return self
+
+
 class DeletePolicyInstanceResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeletePolicyInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(DeletePolicyInstanceResponse, self).to_map()
@@ -2899,12 +2959,17 @@ class DeletePolicyInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeletePolicyInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -2993,12 +3058,41 @@ class DeployPolicyInstanceRequest(TeaModel):
         return self
 
 
+class DeployPolicyInstanceResponseBody(TeaModel):
+    def __init__(self, instances=None):
+        # 策略实例列表
+        self.instances = instances  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeployPolicyInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instances is not None:
+            result['instances'] = self.instances
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instances') is not None:
+            self.instances = m.get('instances')
+        return self
+
+
 class DeployPolicyInstanceResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeployPolicyInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(DeployPolicyInstanceResponse, self).to_map()
@@ -3008,12 +3102,17 @@ class DeployPolicyInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeployPolicyInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
@@ -10682,7 +10781,7 @@ class MigrateClusterResponse(TeaModel):
 
 
 class ModifyClusterRequest(TeaModel):
-    def __init__(self, api_server_eip=None, api_server_eip_id=None, deletion_protection=None,
+    def __init__(self, api_server_eip=None, api_server_eip_id=None, deletion_protection=None, enable_rrsa=None,
                  ingress_domain_rebinding=None, ingress_loadbalancer_id=None, instance_deletion_protection=None, maintenance_window=None,
                  resource_group_id=None):
         # 集群是否绑定EIP，用于公网访问API Server。 true | false
@@ -10691,6 +10790,8 @@ class ModifyClusterRequest(TeaModel):
         self.api_server_eip_id = api_server_eip_id  # type: str
         # 集群是否开启删除保护。默认值false。
         self.deletion_protection = deletion_protection  # type: bool
+        # 启用或禁用 RRSA 功能。true: 启用，false: 禁用
+        self.enable_rrsa = enable_rrsa  # type: bool
         # 域名是否重新绑定到Ingress的SLB地址。
         self.ingress_domain_rebinding = ingress_domain_rebinding  # type: str
         # 集群的Ingress SLB的ID。
@@ -10717,6 +10818,8 @@ class ModifyClusterRequest(TeaModel):
             result['api_server_eip_id'] = self.api_server_eip_id
         if self.deletion_protection is not None:
             result['deletion_protection'] = self.deletion_protection
+        if self.enable_rrsa is not None:
+            result['enable_rrsa'] = self.enable_rrsa
         if self.ingress_domain_rebinding is not None:
             result['ingress_domain_rebinding'] = self.ingress_domain_rebinding
         if self.ingress_loadbalancer_id is not None:
@@ -10737,6 +10840,8 @@ class ModifyClusterRequest(TeaModel):
             self.api_server_eip_id = m.get('api_server_eip_id')
         if m.get('deletion_protection') is not None:
             self.deletion_protection = m.get('deletion_protection')
+        if m.get('enable_rrsa') is not None:
+            self.enable_rrsa = m.get('enable_rrsa')
         if m.get('ingress_domain_rebinding') is not None:
             self.ingress_domain_rebinding = m.get('ingress_domain_rebinding')
         if m.get('ingress_loadbalancer_id') is not None:
@@ -11768,12 +11873,40 @@ class ModifyPolicyInstanceRequest(TeaModel):
         return self
 
 
+class ModifyPolicyInstanceResponseBody(TeaModel):
+    def __init__(self, instances=None):
+        self.instances = instances  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPolicyInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instances is not None:
+            result['instances'] = self.instances
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instances') is not None:
+            self.instances = m.get('instances')
+        return self
+
+
 class ModifyPolicyInstanceResponse(TeaModel):
-    def __init__(self, headers=None):
+    def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyPolicyInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(ModifyPolicyInstanceResponse, self).to_map()
@@ -11783,12 +11916,17 @@ class ModifyPolicyInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyPolicyInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
