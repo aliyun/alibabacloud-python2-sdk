@@ -176,42 +176,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_mpulayout_with_options(request, runtime)
 
-    def create_record_index_file_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['EndTime'] = request.end_time
-        query['OssBucket'] = request.oss_bucket
-        query['OssEndpoint'] = request.oss_endpoint
-        query['OssObject'] = request.oss_object
-        query['OwnerId'] = request.owner_id
-        query['StartTime'] = request.start_time
-        query['TaskId'] = request.task_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='CreateRecordIndexFile',
-            version='2018-01-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            rtc_20180111_models.CreateRecordIndexFileResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_record_index_file(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_record_index_file_with_options(request, runtime)
-
     def delete_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -491,42 +455,6 @@ class Client(OpenApiClient):
     def describe_record_files(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_record_files_with_options(request, runtime)
-
-    def describe_record_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['EndTime'] = request.end_time
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['Status'] = request.status
-        query['TaskIds'] = request.task_ids
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='DescribeRecordTasks',
-            version='2018-01-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            rtc_20180111_models.DescribeRecordTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_record_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_record_tasks_with_options(request, runtime)
 
     def describe_record_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
