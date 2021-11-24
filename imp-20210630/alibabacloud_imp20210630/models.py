@@ -6599,6 +6599,259 @@ class ListAppsResponse(TeaModel):
         return self
 
 
+class ListClassesRequest(TeaModel):
+    def __init__(self, app_id=None, page_number=None, page_size=None, status=None):
+        # 应用唯一标识，由6位小写字母、数字组成。
+        self.app_id = app_id  # type: str
+        # 查询页码，从1开始，传空默认查询第1页。
+        self.page_number = page_number  # type: int
+        # 每页显示个数，最大支持50，参数为空默认显示个数为10。
+        self.page_size = page_size  # type: int
+        # 课程状态，0-未开课 1-上课中 2-已下课，不传则返回所有课程。
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClassesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListClassesResponseBodyResultClassList(TeaModel):
+    def __init__(self, class_id=None, conf_id=None, create_nickname=None, create_user_id=None, end_time=None,
+                 live_id=None, room_id=None, start_time=None, status=None, title=None, whiteboard_id=None,
+                 whiteboard_record_id=None):
+        # 课堂唯一标识，由调用CreateClass返回。
+        self.class_id = class_id  # type: str
+        # 连麦会议唯一标识。
+        self.conf_id = conf_id  # type: str
+        # 创建人昵称。
+        self.create_nickname = create_nickname  # type: str
+        # 创建人ID。
+        self.create_user_id = create_user_id  # type: str
+        # 下课时间戳，毫秒。
+        self.end_time = end_time  # type: long
+        # 直播的唯一标识ID。
+        self.live_id = live_id  # type: str
+        # 房间ID
+        self.room_id = room_id  # type: str
+        # 开始上课时间戳，毫秒。
+        self.start_time = start_time  # type: long
+        # 课堂状态，0:未开始 1:上课中 2:已下课。
+        self.status = status  # type: int
+        # 课堂标题。
+        self.title = title  # type: str
+        # 白板ID
+        self.whiteboard_id = whiteboard_id  # type: str
+        # 白板录制ID
+        self.whiteboard_record_id = whiteboard_record_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListClassesResponseBodyResultClassList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.class_id is not None:
+            result['ClassId'] = self.class_id
+        if self.conf_id is not None:
+            result['ConfId'] = self.conf_id
+        if self.create_nickname is not None:
+            result['CreateNickname'] = self.create_nickname
+        if self.create_user_id is not None:
+            result['CreateUserId'] = self.create_user_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.live_id is not None:
+            result['LiveId'] = self.live_id
+        if self.room_id is not None:
+            result['RoomId'] = self.room_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.whiteboard_id is not None:
+            result['WhiteboardId'] = self.whiteboard_id
+        if self.whiteboard_record_id is not None:
+            result['WhiteboardRecordId'] = self.whiteboard_record_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClassId') is not None:
+            self.class_id = m.get('ClassId')
+        if m.get('ConfId') is not None:
+            self.conf_id = m.get('ConfId')
+        if m.get('CreateNickname') is not None:
+            self.create_nickname = m.get('CreateNickname')
+        if m.get('CreateUserId') is not None:
+            self.create_user_id = m.get('CreateUserId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('LiveId') is not None:
+            self.live_id = m.get('LiveId')
+        if m.get('RoomId') is not None:
+            self.room_id = m.get('RoomId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('WhiteboardId') is not None:
+            self.whiteboard_id = m.get('WhiteboardId')
+        if m.get('WhiteboardRecordId') is not None:
+            self.whiteboard_record_id = m.get('WhiteboardRecordId')
+        return self
+
+
+class ListClassesResponseBodyResult(TeaModel):
+    def __init__(self, class_list=None, has_more=None, page_total=None, total_count=None):
+        # 课程列表信息。
+        self.class_list = class_list  # type: list[ListClassesResponseBodyResultClassList]
+        # 是否还有下一页。
+        self.has_more = has_more  # type: bool
+        # 课程总页数。
+        self.page_total = page_total  # type: int
+        # 课程总数。
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.class_list:
+            for k in self.class_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListClassesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ClassList'] = []
+        if self.class_list is not None:
+            for k in self.class_list:
+                result['ClassList'].append(k.to_map() if k else None)
+        if self.has_more is not None:
+            result['HasMore'] = self.has_more
+        if self.page_total is not None:
+            result['PageTotal'] = self.page_total
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.class_list = []
+        if m.get('ClassList') is not None:
+            for k in m.get('ClassList'):
+                temp_model = ListClassesResponseBodyResultClassList()
+                self.class_list.append(temp_model.from_map(k))
+        if m.get('HasMore') is not None:
+            self.has_more = m.get('HasMore')
+        if m.get('PageTotal') is not None:
+            self.page_total = m.get('PageTotal')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListClassesResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        # 创建课程返回的结果。
+        self.result = result  # type: ListClassesResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ListClassesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ListClassesResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class ListClassesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListClassesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListClassesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListClassesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCommentsRequest(TeaModel):
     def __init__(self, app_id=None, page_num=None, page_size=None, room_id=None, sort_type=None, user_id=None):
         # 用户的应用ID，在控制台创建应用时生成。包含小写字母、数字，长度为6个字符。
@@ -10151,13 +10404,80 @@ class UpdateAppTemplateConfigShrinkRequest(TeaModel):
         return self
 
 
-class UpdateAppTemplateConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        # 请求ID
-        self.request_id = request_id  # type: str
+class UpdateAppTemplateConfigResponseBodyResultConfigLogs(TeaModel):
+    def __init__(self, code=None, message=None):
+        # 日志标示
+        self.code = code  # type: str
+        # 日志内容
+        self.message = message  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(UpdateAppTemplateConfigResponseBodyResultConfigLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        return self
+
+
+class UpdateAppTemplateConfigResponseBodyResult(TeaModel):
+    def __init__(self, config_logs=None):
+        # 配置日志列表
+        self.config_logs = config_logs  # type: list[UpdateAppTemplateConfigResponseBodyResultConfigLogs]
+
+    def validate(self):
+        if self.config_logs:
+            for k in self.config_logs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateAppTemplateConfigResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ConfigLogs'] = []
+        if self.config_logs is not None:
+            for k in self.config_logs:
+                result['ConfigLogs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.config_logs = []
+        if m.get('ConfigLogs') is not None:
+            for k in m.get('ConfigLogs'):
+                temp_model = UpdateAppTemplateConfigResponseBodyResultConfigLogs()
+                self.config_logs.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateAppTemplateConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # 请求ID
+        self.request_id = request_id  # type: str
+        # 返回结果
+        self.result = result  # type: UpdateAppTemplateConfigResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
 
     def to_map(self):
         _map = super(UpdateAppTemplateConfigResponseBody, self).to_map()
@@ -10167,12 +10487,17 @@ class UpdateAppTemplateConfigResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = UpdateAppTemplateConfigResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
         return self
 
 
