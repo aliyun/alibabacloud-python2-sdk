@@ -2,8 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -64,9 +64,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateHostGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.CreateHostGroupResponse(),
-            self.do_roarequest_with_form('CreateHostGroup', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_resource_member(self, organization_id, resource_type, resource_id, request):
@@ -88,9 +99,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateResourceMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/{resourceType}/{resourceId}/members' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.CreateResourceMemberResponse(),
-            self.do_roarequest_with_form('CreateResourceMember', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_ssh_key(self, organization_id):
@@ -103,9 +125,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='CreateSshKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.CreateSshKeyResponse(),
-            self.do_roarequest('CreateSshKey', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_variable_group(self, organization_id, request):
@@ -127,9 +160,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateVariableGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.CreateVariableGroupResponse(),
-            self.do_roarequest_with_form('CreateVariableGroup', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_workspace(self, request):
@@ -160,9 +204,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateWorkspace',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/workspaces',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.CreateWorkspaceResponse(),
-            self.do_roarequest_with_form('CreateWorkspace', '2021-06-25', 'HTTPS', 'POST', 'AK', '/api/workspaces', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_host_group(self, organization_id, id):
@@ -176,9 +231,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteHostGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/hostGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.DeleteHostGroupResponse(),
-            self.do_roarequest('DeleteHostGroup', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_pipeline(self, organization_id, pipeline_id):
@@ -192,9 +258,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeletePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}' % TeaConverter.to_unicode(organization_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.DeletePipelineResponse(),
-            self.do_roarequest('DeletePipeline', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_resource_member(self, organization_id, resource_type, resource_id, account_id):
@@ -210,9 +287,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteResourceMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/{resourceType}/{resourceId}/members/{accountId}' % TeaConverter.to_unicode(organization_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.DeleteResourceMemberResponse(),
-            self.do_roarequest('DeleteResourceMember', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id), TeaConverter.to_unicode(account_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_variable_group(self, organization_id, id):
@@ -226,9 +314,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteVariableGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/variableGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.DeleteVariableGroupResponse(),
-            self.do_roarequest('DeleteVariableGroup', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def frozen_workspace(self, workspace_id):
@@ -241,9 +340,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='FrozenWorkspace',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/workspaces/%s/frozen' % TeaConverter.to_unicode(workspace_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.FrozenWorkspaceResponse(),
-            self.do_roarequest('FrozenWorkspace', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/api/workspaces/%s/frozen' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_host_group(self, organization_id, id):
@@ -257,9 +367,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetHostGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/hostGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetHostGroupResponse(),
-            self.do_roarequest('GetHostGroup', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_organization_member(self, organization_id, account_id):
@@ -273,9 +394,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetOrganizationMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/members/{accountId}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetOrganizationMemberResponse(),
-            self.do_roarequest('GetOrganizationMember', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(account_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_pipeline(self, organization_id, pipeline_id):
@@ -289,9 +421,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetPipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetPipelineResponse(),
-            self.do_roarequest('GetPipeline', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/pipelines/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
@@ -306,9 +449,48 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetPipelineRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetPipelineRunResponse(),
-            self.do_roarequest('GetPipelineRun', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def get_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+
+    def get_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetVMDeployOrder',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetVMDeployOrderResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def get_variable_group(self, organization_id, id):
@@ -322,9 +504,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetVariableGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/variableGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetVariableGroupResponse(),
-            self.do_roarequest('GetVariableGroup', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_workspace(self, workspace_id):
@@ -337,9 +530,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetWorkspace',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/workspaces/%s' % TeaConverter.to_unicode(workspace_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.GetWorkspaceResponse(),
-            self.do_roarequest('GetWorkspace', '2021-06-25', 'HTTPS', 'GET', 'AK', '/api/workspaces/%s' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_host_groups(self, organization_id, request):
@@ -373,9 +577,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListHostGroups',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListHostGroupsResponse(),
-            self.do_roarequest('ListHostGroups', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/hostGroups' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_organization_members(self, organization_id, request):
@@ -407,9 +622,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListOrganizationMembers',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/members' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListOrganizationMembersResponse(),
-            self.do_roarequest('ListOrganizationMembers', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/members' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_pipeline_runs(self, organization_id, pipeline_id, request):
@@ -438,9 +664,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListPipelineRuns',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListPipelineRunsResponse(),
-            self.do_roarequest('ListPipelineRuns', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/pipelines/%s/pipelineRuns' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_pipelines(self, organization_id, request):
@@ -476,9 +713,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListPipelines',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListPipelinesResponse(),
-            self.do_roarequest('ListPipelines', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/pipelines' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_resource_members(self, organization_id, resource_type, resource_id):
@@ -493,9 +741,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='ListResourceMembers',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/{resourceType}/{resourceId}/members' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListResourceMembersResponse(),
-            self.do_roarequest('ListResourceMembers', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/%s/%s/members' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_service_connections(self, organization_id, request):
@@ -513,9 +772,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListServiceConnections',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/serviceConnections' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListServiceConnectionsResponse(),
-            self.do_roarequest('ListServiceConnections', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/serviceConnections' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_variable_groups(self, organization_id, request):
@@ -539,9 +809,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListVariableGroups',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListVariableGroupsResponse(),
-            self.do_roarequest('ListVariableGroups', '2021-06-25', 'HTTPS', 'GET', 'AK', '/organization/%s/variableGroups' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_workspaces(self, request):
@@ -570,9 +851,78 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListWorkspaces',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/workspaces',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ListWorkspacesResponse(),
-            self.do_roarequest('ListWorkspaces', '2021-06-25', 'HTTPS', 'GET', 'AK', '/api/workspaces', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def log_pipeline_job_run(self, organization_id, pipeline_id, job_id, pipeline_run_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.log_pipeline_job_run_with_options(organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime)
+
+    def log_pipeline_job_run_with_options(self, organization_id, pipeline_id, job_id, pipeline_run_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        job_id = OpenApiUtilClient.get_encode_param(job_id)
+        pipeline_run_id = OpenApiUtilClient.get_encode_param(pipeline_run_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='LogPipelineJobRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipeline/{pipelineId}/pipelineRun/{pipelineRunId}/job/{jobId}/logs' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.LogPipelineJobRunResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def log_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.log_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+
+    def log_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='LogVMDeployMachine',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}/machine/{machineSn}/log' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.LogVMDeployMachineResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def pass_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
@@ -588,9 +938,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='PassPipelineValidate',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/jobs/{jobId}/pass' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.PassPipelineValidateResponse(),
-            self.do_roarequest('PassPipelineValidate', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/pass' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def refuse_pipeline_validate(self, organization_id, pipeline_id, pipeline_run_id, job_id):
@@ -606,9 +967,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='RefusePipelineValidate',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/jobs/{jobId}/refuse' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.RefusePipelineValidateResponse(),
-            self.do_roarequest('RefusePipelineValidate', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/refuse' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def release_workspace(self, workspace_id):
@@ -621,9 +993,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='ReleaseWorkspace',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/workspaces/%s/release' % TeaConverter.to_unicode(workspace_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ReleaseWorkspaceResponse(),
-            self.do_roarequest('ReleaseWorkspace', '2021-06-25', 'HTTPS', 'DELETE', 'AK', '/api/workspaces/%s/release' % TeaConverter.to_unicode(workspace_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def reset_ssh_key(self, organization_id):
@@ -636,9 +1019,48 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='ResetSshKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.ResetSshKeyResponse(),
-            self.do_roarequest('ResetSshKey', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/sshKey' % TeaConverter.to_unicode(organization_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def resume_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.resume_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+
+    def resume_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ResumeVMDeployOrder',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}/resume' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ResumeVMDeployOrderResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def retry_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
@@ -654,9 +1076,49 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='RetryPipelineJobRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/jobs/{jobId}' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.RetryPipelineJobRunResponse(),
-            self.do_roarequest('RetryPipelineJobRun', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.retry_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+
+    def retry_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='RetryVMDeployMachine',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}/machine/{machineSn}/retry' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.RetryVMDeployMachineResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def skip_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
@@ -672,9 +1134,49 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='SkipPipelineJobRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/jobs/{jobId}/skip' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.SkipPipelineJobRunResponse(),
-            self.do_roarequest('SkipPipelineJobRun', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/skip' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def skip_vmdeploy_machine(self, organization_id, pipeline_id, deploy_order_id, machine_sn):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.skip_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+
+    def skip_vmdeploy_machine_with_options(self, organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        machine_sn = OpenApiUtilClient.get_encode_param(machine_sn)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='SkipVMDeployMachine',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}/machine/{machineSn}/skip' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.SkipVMDeployMachineResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def start_pipeline_run(self, organization_id, pipeline_id, request):
@@ -693,9 +1195,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='StartPipelineRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organizations/%s/pipelines/{pipelineId}/run' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.StartPipelineRunResponse(),
-            self.do_roarequest_with_form('StartPipelineRun', '2021-06-25', 'HTTPS', 'POST', 'AK', '/organizations/%s/pipelines/%s/run' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_pipeline_job_run(self, organization_id, pipeline_id, pipeline_run_id, job_id):
@@ -711,9 +1224,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='StopPipelineJobRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/jobs/{jobId}/stop' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.StopPipelineJobRunResponse(),
-            self.do_roarequest('StopPipelineJobRun', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/jobs/%s/stop' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id), TeaConverter.to_unicode(job_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_pipeline_run(self, organization_id, pipeline_id, pipeline_run_id):
@@ -728,9 +1252,48 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='StopPipelineRun',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/pipelineRuns/{pipelineRunId}/stop' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.StopPipelineRunResponse(),
-            self.do_roarequest('StopPipelineRun', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/pipelines/%s/pipelineRuns/%s/stop' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id), TeaConverter.to_unicode(pipeline_run_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_vmdeploy_order_with_options(organization_id, pipeline_id, deploy_order_id, headers, runtime)
+
+    def stop_vmdeploy_order_with_options(self, organization_id, pipeline_id, deploy_order_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        deploy_order_id = OpenApiUtilClient.get_encode_param(deploy_order_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopVMDeployOrder',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/{pipelineId}/deploy/{deployOrderId}/stop' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.StopVMDeployOrderResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def update_host_group(self, organization_id, id, request):
@@ -767,9 +1330,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateHostGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/hostGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.UpdateHostGroupResponse(),
-            self.do_roarequest_with_form('UpdateHostGroup', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/hostGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_resource_member(self, organization_id, resource_type, resource_id, account_id, request):
@@ -790,9 +1364,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateResourceMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/{resourceType}/{resourceId}/members/{accountId}' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.UpdateResourceMemberResponse(),
-            self.do_roarequest_with_form('UpdateResourceMember', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/%s/%s/members/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(resource_type), TeaConverter.to_unicode(resource_id), TeaConverter.to_unicode(account_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_variable_group(self, organization_id, id, request):
@@ -815,7 +1400,18 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateVariableGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/variableGroups/{id}' % TeaConverter.to_unicode(organization_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             devops_20210625_models.UpdateVariableGroupResponse(),
-            self.do_roarequest_with_form('UpdateVariableGroup', '2021-06-25', 'HTTPS', 'PUT', 'AK', '/organization/%s/variableGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
