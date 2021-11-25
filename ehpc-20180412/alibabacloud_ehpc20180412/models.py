@@ -1627,11 +1627,11 @@ class CreateClusterRequest(TeaModel):
                  compute_enable_ht=None, compute_spot_price_limit=None, compute_spot_strategy=None, deploy_mode=None,
                  description=None, ecs_charge_type=None, ehpc_version=None, ha_enable=None, image_id=None,
                  image_owner_alias=None, input_file_url=None, is_compute_ess=None, job_queue=None, key_pair_name=None, name=None,
-                 os_tag=None, password=None, period=None, period_unit=None, post_install_script=None,
+                 os_tag=None, password=None, period=None, period_unit=None, plugin=None, post_install_script=None,
                  remote_directory=None, remote_vis_enable=None, resource_group_id=None, scc_cluster_id=None, scheduler_type=None,
                  security_group_id=None, security_group_name=None, system_disk_level=None, system_disk_size=None,
                  system_disk_type=None, v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None,
-                 volume_type=None, vpc_id=None, without_elastic_ip=None, zone_id=None):
+                 volume_type=None, vpc_id=None, without_agent=None, without_elastic_ip=None, zone_id=None):
         self.ecs_order = ecs_order  # type: CreateClusterRequestEcsOrder
         self.account_type = account_type  # type: str
         self.additional_volumes = additional_volumes  # type: list[CreateClusterRequestAdditionalVolumes]
@@ -1660,6 +1660,7 @@ class CreateClusterRequest(TeaModel):
         self.password = password  # type: str
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
+        self.plugin = plugin  # type: str
         self.post_install_script = post_install_script  # type: list[CreateClusterRequestPostInstallScript]
         self.remote_directory = remote_directory  # type: str
         self.remote_vis_enable = remote_vis_enable  # type: str
@@ -1677,6 +1678,7 @@ class CreateClusterRequest(TeaModel):
         self.volume_protocol = volume_protocol  # type: str
         self.volume_type = volume_type  # type: str
         self.vpc_id = vpc_id  # type: str
+        self.without_agent = without_agent  # type: bool
         self.without_elastic_ip = without_elastic_ip  # type: bool
         self.zone_id = zone_id  # type: str
 
@@ -1762,6 +1764,8 @@ class CreateClusterRequest(TeaModel):
             result['Period'] = self.period
         if self.period_unit is not None:
             result['PeriodUnit'] = self.period_unit
+        if self.plugin is not None:
+            result['Plugin'] = self.plugin
         result['PostInstallScript'] = []
         if self.post_install_script is not None:
             for k in self.post_install_script:
@@ -1798,6 +1802,8 @@ class CreateClusterRequest(TeaModel):
             result['VolumeType'] = self.volume_type
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
+        if self.without_agent is not None:
+            result['WithoutAgent'] = self.without_agent
         if self.without_elastic_ip is not None:
             result['WithoutElasticIp'] = self.without_elastic_ip
         if self.zone_id is not None:
@@ -1869,6 +1875,8 @@ class CreateClusterRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('PeriodUnit') is not None:
             self.period_unit = m.get('PeriodUnit')
+        if m.get('Plugin') is not None:
+            self.plugin = m.get('Plugin')
         self.post_install_script = []
         if m.get('PostInstallScript') is not None:
             for k in m.get('PostInstallScript'):
@@ -1906,6 +1914,8 @@ class CreateClusterRequest(TeaModel):
             self.volume_type = m.get('VolumeType')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
+        if m.get('WithoutAgent') is not None:
+            self.without_agent = m.get('WithoutAgent')
         if m.get('WithoutElasticIp') is not None:
             self.without_elastic_ip = m.get('WithoutElasticIp')
         if m.get('ZoneId') is not None:
@@ -2893,13 +2903,15 @@ class CreateJobFileResponse(TeaModel):
 
 
 class CreateJobTemplateRequest(TeaModel):
-    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, mem=None, name=None,
-                 node=None, package_path=None, priority=None, queue=None, re_runable=None, runas_user=None,
-                 stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, variables=None):
+    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, input_file_url=None,
+                 mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
+                 runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
+                 variables=None, with_unzip_cmd=None):
         self.array_request = array_request  # type: str
         self.clock_time = clock_time  # type: str
         self.command_line = command_line  # type: str
         self.gpu = gpu  # type: int
+        self.input_file_url = input_file_url  # type: str
         self.mem = mem  # type: str
         self.name = name  # type: str
         self.node = node  # type: int
@@ -2912,7 +2924,9 @@ class CreateJobTemplateRequest(TeaModel):
         self.stdout_redirect_path = stdout_redirect_path  # type: str
         self.task = task  # type: int
         self.thread = thread  # type: int
+        self.unzip_cmd = unzip_cmd  # type: str
         self.variables = variables  # type: str
+        self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
         pass
@@ -2931,6 +2945,8 @@ class CreateJobTemplateRequest(TeaModel):
             result['CommandLine'] = self.command_line
         if self.gpu is not None:
             result['Gpu'] = self.gpu
+        if self.input_file_url is not None:
+            result['InputFileUrl'] = self.input_file_url
         if self.mem is not None:
             result['Mem'] = self.mem
         if self.name is not None:
@@ -2955,8 +2971,12 @@ class CreateJobTemplateRequest(TeaModel):
             result['Task'] = self.task
         if self.thread is not None:
             result['Thread'] = self.thread
+        if self.unzip_cmd is not None:
+            result['UnzipCmd'] = self.unzip_cmd
         if self.variables is not None:
             result['Variables'] = self.variables
+        if self.with_unzip_cmd is not None:
+            result['WithUnzipCmd'] = self.with_unzip_cmd
         return result
 
     def from_map(self, m=None):
@@ -2969,6 +2989,8 @@ class CreateJobTemplateRequest(TeaModel):
             self.command_line = m.get('CommandLine')
         if m.get('Gpu') is not None:
             self.gpu = m.get('Gpu')
+        if m.get('InputFileUrl') is not None:
+            self.input_file_url = m.get('InputFileUrl')
         if m.get('Mem') is not None:
             self.mem = m.get('Mem')
         if m.get('Name') is not None:
@@ -2993,8 +3015,12 @@ class CreateJobTemplateRequest(TeaModel):
             self.task = m.get('Task')
         if m.get('Thread') is not None:
             self.thread = m.get('Thread')
+        if m.get('UnzipCmd') is not None:
+            self.unzip_cmd = m.get('UnzipCmd')
         if m.get('Variables') is not None:
             self.variables = m.get('Variables')
+        if m.get('WithUnzipCmd') is not None:
+            self.with_unzip_cmd = m.get('WithUnzipCmd')
         return self
 
 
@@ -6830,13 +6856,15 @@ class EcdDeleteDesktopsResponse(TeaModel):
 
 
 class EditJobTemplateRequest(TeaModel):
-    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, mem=None, name=None,
-                 node=None, package_path=None, priority=None, queue=None, re_runable=None, runas_user=None,
-                 stderr_redirect_path=None, stdout_redirect_path=None, task=None, template_id=None, thread=None, variables=None):
+    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, input_file_url=None,
+                 mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
+                 runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, template_id=None,
+                 thread=None, unzip_cmd=None, variables=None, with_unzip_cmd=None):
         self.array_request = array_request  # type: str
         self.clock_time = clock_time  # type: str
         self.command_line = command_line  # type: str
         self.gpu = gpu  # type: int
+        self.input_file_url = input_file_url  # type: str
         self.mem = mem  # type: str
         self.name = name  # type: str
         self.node = node  # type: int
@@ -6850,7 +6878,9 @@ class EditJobTemplateRequest(TeaModel):
         self.task = task  # type: int
         self.template_id = template_id  # type: str
         self.thread = thread  # type: int
+        self.unzip_cmd = unzip_cmd  # type: str
         self.variables = variables  # type: str
+        self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
         pass
@@ -6869,6 +6899,8 @@ class EditJobTemplateRequest(TeaModel):
             result['CommandLine'] = self.command_line
         if self.gpu is not None:
             result['Gpu'] = self.gpu
+        if self.input_file_url is not None:
+            result['InputFileUrl'] = self.input_file_url
         if self.mem is not None:
             result['Mem'] = self.mem
         if self.name is not None:
@@ -6895,8 +6927,12 @@ class EditJobTemplateRequest(TeaModel):
             result['TemplateId'] = self.template_id
         if self.thread is not None:
             result['Thread'] = self.thread
+        if self.unzip_cmd is not None:
+            result['UnzipCmd'] = self.unzip_cmd
         if self.variables is not None:
             result['Variables'] = self.variables
+        if self.with_unzip_cmd is not None:
+            result['WithUnzipCmd'] = self.with_unzip_cmd
         return result
 
     def from_map(self, m=None):
@@ -6909,6 +6945,8 @@ class EditJobTemplateRequest(TeaModel):
             self.command_line = m.get('CommandLine')
         if m.get('Gpu') is not None:
             self.gpu = m.get('Gpu')
+        if m.get('InputFileUrl') is not None:
+            self.input_file_url = m.get('InputFileUrl')
         if m.get('Mem') is not None:
             self.mem = m.get('Mem')
         if m.get('Name') is not None:
@@ -6935,8 +6973,12 @@ class EditJobTemplateRequest(TeaModel):
             self.template_id = m.get('TemplateId')
         if m.get('Thread') is not None:
             self.thread = m.get('Thread')
+        if m.get('UnzipCmd') is not None:
+            self.unzip_cmd = m.get('UnzipCmd')
         if m.get('Variables') is not None:
             self.variables = m.get('Variables')
+        if m.get('WithUnzipCmd') is not None:
+            self.with_unzip_cmd = m.get('WithUnzipCmd')
         return self
 
 
@@ -13371,14 +13413,16 @@ class ListJobTemplatesRequest(TeaModel):
 
 
 class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
-    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, id=None, mem=None, name=None,
-                 node=None, package_path=None, priority=None, queue=None, re_runable=None, runas_user=None,
-                 stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, variables=None):
+    def __init__(self, array_request=None, clock_time=None, command_line=None, gpu=None, id=None,
+                 input_file_url=None, mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
+                 runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
+                 variables=None, with_unzip_cmd=None):
         self.array_request = array_request  # type: str
         self.clock_time = clock_time  # type: str
         self.command_line = command_line  # type: str
         self.gpu = gpu  # type: int
         self.id = id  # type: str
+        self.input_file_url = input_file_url  # type: str
         self.mem = mem  # type: str
         self.name = name  # type: str
         self.node = node  # type: int
@@ -13391,7 +13435,9 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
         self.stdout_redirect_path = stdout_redirect_path  # type: str
         self.task = task  # type: int
         self.thread = thread  # type: int
+        self.unzip_cmd = unzip_cmd  # type: str
         self.variables = variables  # type: str
+        self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
         pass
@@ -13412,6 +13458,8 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
             result['Gpu'] = self.gpu
         if self.id is not None:
             result['Id'] = self.id
+        if self.input_file_url is not None:
+            result['InputFileUrl'] = self.input_file_url
         if self.mem is not None:
             result['Mem'] = self.mem
         if self.name is not None:
@@ -13436,8 +13484,12 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
             result['Task'] = self.task
         if self.thread is not None:
             result['Thread'] = self.thread
+        if self.unzip_cmd is not None:
+            result['UnzipCmd'] = self.unzip_cmd
         if self.variables is not None:
             result['Variables'] = self.variables
+        if self.with_unzip_cmd is not None:
+            result['WithUnzipCmd'] = self.with_unzip_cmd
         return result
 
     def from_map(self, m=None):
@@ -13452,6 +13504,8 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
             self.gpu = m.get('Gpu')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('InputFileUrl') is not None:
+            self.input_file_url = m.get('InputFileUrl')
         if m.get('Mem') is not None:
             self.mem = m.get('Mem')
         if m.get('Name') is not None:
@@ -13476,8 +13530,12 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
             self.task = m.get('Task')
         if m.get('Thread') is not None:
             self.thread = m.get('Thread')
+        if m.get('UnzipCmd') is not None:
+            self.unzip_cmd = m.get('UnzipCmd')
         if m.get('Variables') is not None:
             self.variables = m.get('Variables')
+        if m.get('WithUnzipCmd') is not None:
+            self.with_unzip_cmd = m.get('WithUnzipCmd')
         return self
 
 
