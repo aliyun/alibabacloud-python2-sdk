@@ -206,6 +206,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_auto_live_stream_rule_with_options(request, runtime)
 
+    def delete_channel_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['AppId'] = request.app_id
+        query['ChannelId'] = request.channel_id
+        query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteChannel',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DeleteChannelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_channel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_channel_with_options(request, runtime)
+
     def delete_event_subscribe_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -295,6 +325,39 @@ class Client(OpenApiClient):
     def delete_record_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_record_template_with_options(request, runtime)
+
+    def describe_apps_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['AppId'] = request.app_id
+        query['Order'] = request.order
+        query['OwnerId'] = request.owner_id
+        query['PageNum'] = request.page_num
+        query['PageSize'] = request.page_size
+        query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeApps',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.DescribeAppsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_apps(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_apps_with_options(request, runtime)
 
     def describe_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -609,6 +672,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_mputask_status_with_options(request, runtime)
 
+    def modify_app_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['AppId'] = request.app_id
+        query['AppName'] = request.app_name
+        query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyApp',
+            version='2018-01-11',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rtc_20180111_models.ModifyAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_app(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_app_with_options(request, runtime)
+
     def modify_mpulayout_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -775,37 +868,6 @@ class Client(OpenApiClient):
     def start_record_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.start_record_task_with_options(request, runtime)
-
-    def stop_channel_user_publish_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['OwnerId'] = request.owner_id
-        query['UserId'] = request.user_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='StopChannelUserPublish',
-            version='2018-01-11',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            rtc_20180111_models.StopChannelUserPublishResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_channel_user_publish(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.stop_channel_user_publish_with_options(request, runtime)
 
     def stop_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
