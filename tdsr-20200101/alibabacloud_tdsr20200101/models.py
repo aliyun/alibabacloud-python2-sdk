@@ -342,7 +342,7 @@ class AddSceneRequest(TeaModel):
         self.name = name  # type: str
         # 项目ID
         self.project_id = project_id  # type: str
-        # 场景类型 3D模型：MODEL_3D  全景图片：PIC  全景视频：VIDEO
+        # 场景类型 3D模型：MODEL_3D  全景图片：PIC  全景视频：VIDEO 混合：MIX
         self.type = type  # type: str
 
     def validate(self):
@@ -456,11 +456,13 @@ class AddSceneResponse(TeaModel):
 
 
 class AddSubSceneRequest(TeaModel):
-    def __init__(self, name=None, scene_id=None):
+    def __init__(self, name=None, scene_id=None, upload_type=None):
         # 子场景名称
         self.name = name  # type: str
         # 场景ID
         self.scene_id = scene_id  # type: str
+        # 类型 图片：IMAGE 视频：VIDEO
+        self.upload_type = upload_type  # type: str
 
     def validate(self):
         pass
@@ -475,6 +477,8 @@ class AddSubSceneRequest(TeaModel):
             result['Name'] = self.name
         if self.scene_id is not None:
             result['SceneId'] = self.scene_id
+        if self.upload_type is not None:
+            result['UploadType'] = self.upload_type
         return result
 
     def from_map(self, m=None):
@@ -483,6 +487,8 @@ class AddSubSceneRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('SceneId') is not None:
             self.scene_id = m.get('SceneId')
+        if m.get('UploadType') is not None:
+            self.upload_type = m.get('UploadType')
         return self
 
 
@@ -4818,7 +4824,7 @@ class ListSubSceneRequest(TeaModel):
 class ListSubSceneResponseBodyList(TeaModel):
     def __init__(self, base_image_url=None, cover_url=None, cubemap_path=None, deleted=None, gmt_create=None,
                  gmt_modified=None, id=None, layout_data=None, name=None, origin_url=None, resource_id=None, resource_name=None,
-                 status=None, url=None):
+                 status=None, type=None, url=None):
         # 2k基准图路径
         self.base_image_url = base_image_url  # type: str
         # 图片路径/视频封面路径
@@ -4845,6 +4851,8 @@ class ListSubSceneResponseBodyList(TeaModel):
         self.resource_name = resource_name  # type: str
         # 子场景状态 1.未重建，      * 2.中间模型重建中，      * 3.中间模型重建完成，      * 4.待重建，      * 5.服务商重建中，      * 6.服务商重建完成，      * 7.已发布      * 8.发布中
         self.status = status  # type: long
+        # 上传资源类型
+        self.type = type  # type: str
         # 图片路径/视频路径
         self.url = url  # type: str
 
@@ -4883,6 +4891,8 @@ class ListSubSceneResponseBodyList(TeaModel):
             result['ResourceName'] = self.resource_name
         if self.status is not None:
             result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         if self.url is not None:
             result['Url'] = self.url
         return result
@@ -4915,6 +4925,8 @@ class ListSubSceneResponseBodyList(TeaModel):
             self.resource_name = m.get('ResourceName')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         return self
@@ -5846,7 +5858,7 @@ class RectVerticalRequest(TeaModel):
 
 
 class RectVerticalResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, success=None):
+    def __init__(self, code=None, message=None, request_id=None, success=None, task_id=None):
         # 返回码
         self.code = code  # type: long
         # 错误消息
@@ -5855,6 +5867,8 @@ class RectVerticalResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # 是否请求成功
         self.success = success  # type: bool
+        # 错误消息
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -5873,6 +5887,8 @@ class RectVerticalResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.success is not None:
             result['Success'] = self.success
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
@@ -5885,6 +5901,8 @@ class RectVerticalResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
