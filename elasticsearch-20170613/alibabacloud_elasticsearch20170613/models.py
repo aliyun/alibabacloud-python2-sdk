@@ -1234,6 +1234,134 @@ class CreateCollectorResponse(TeaModel):
         return self
 
 
+class CreateComponentIndexRequestTemplate(TeaModel):
+    def __init__(self, aliases=None, mappings=None, settings=None):
+        self.aliases = aliases  # type: dict[str, any]
+        self.mappings = mappings  # type: dict[str, any]
+        self.settings = settings  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateComponentIndexRequestTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliases is not None:
+            result['aliases'] = self.aliases
+        if self.mappings is not None:
+            result['mappings'] = self.mappings
+        if self.settings is not None:
+            result['settings'] = self.settings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliases') is not None:
+            self.aliases = m.get('aliases')
+        if m.get('mappings') is not None:
+            self.mappings = m.get('mappings')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        return self
+
+
+class CreateComponentIndexRequest(TeaModel):
+    def __init__(self, meta=None, template=None):
+        self.meta = meta  # type: dict[str, any]
+        self.template = template  # type: CreateComponentIndexRequestTemplate
+
+    def validate(self):
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(CreateComponentIndexRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.meta is not None:
+            result['_meta'] = self.meta
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('_meta') is not None:
+            self.meta = m.get('_meta')
+        if m.get('template') is not None:
+            temp_model = CreateComponentIndexRequestTemplate()
+            self.template = temp_model.from_map(m['template'])
+        return self
+
+
+class CreateComponentIndexResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateComponentIndexResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class CreateComponentIndexResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateComponentIndexResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateComponentIndexResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateComponentIndexResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDataStreamRequest(TeaModel):
     def __init__(self, client_token=None):
         self.client_token = client_token  # type: str
@@ -2076,8 +2204,12 @@ class CreateSnapshotResponse(TeaModel):
 
 
 class CreateVpcEndpointRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None):
+    def __init__(self, client_token=None, service_id=None, zone_id=None, dry_run=None):
         self.client_token = client_token  # type: str
+        # 终端节点服务ID
+        self.service_id = service_id  # type: str
+        # 可用区ID
+        self.zone_id = zone_id  # type: str
         self.dry_run = dry_run  # type: bool
 
     def validate(self):
@@ -2091,6 +2223,10 @@ class CreateVpcEndpointRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.service_id is not None:
+            result['serviceId'] = self.service_id
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
         if self.dry_run is not None:
             result['dryRun'] = self.dry_run
         return result
@@ -2099,6 +2235,10 @@ class CreateVpcEndpointRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('serviceId') is not None:
+            self.service_id = m.get('serviceId')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
         if m.get('dryRun') is not None:
             self.dry_run = m.get('dryRun')
         return self
@@ -2379,6 +2519,69 @@ class DeleteCollectorResponse(TeaModel):
         return self
 
 
+class DeleteComponentIndexResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteComponentIndexResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class DeleteComponentIndexResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteComponentIndexResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteComponentIndexResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteComponentIndexResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteConnectedClusterRequest(TeaModel):
     def __init__(self, client_token=None, connected_instance_id=None):
         self.client_token = client_token  # type: str
@@ -2643,6 +2846,68 @@ class DeleteDataTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteDataTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDeprecatedTemplateResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDeprecatedTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
+        return self
+
+
+class DeleteDeprecatedTemplateResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDeprecatedTemplateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDeprecatedTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDeprecatedTemplateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3306,9 +3571,9 @@ class DescribeAckOperatorResponse(TeaModel):
 
 class DescribeApmResponseBodyResult(TeaModel):
     def __init__(self, apm_server_domain=None, created_at=None, deployed_replica=None, description=None,
-                 end_time=None, instance_id=None, node_amount=None, output_es=None, output_esuser_name=None,
-                 output_es_description=None, owner_id=None, payment_type=None, region=None, replica=None, resource_spec=None, status=None,
-                 version=None, vpc_id=None, vs_area=None, vswitch_id=None):
+                 end_time=None, instance_id=None, node_amount=None, output_es=None, output_esuser_name=None, owner_id=None,
+                 payment_type=None, region=None, replica=None, resource_spec=None, status=None, version=None, vpc_id=None,
+                 vs_area=None, vswitch_id=None):
         self.apm_server_domain = apm_server_domain  # type: str
         self.created_at = created_at  # type: str
         self.deployed_replica = deployed_replica  # type: long
@@ -3318,7 +3583,6 @@ class DescribeApmResponseBodyResult(TeaModel):
         self.node_amount = node_amount  # type: long
         self.output_es = output_es  # type: str
         self.output_esuser_name = output_esuser_name  # type: str
-        self.output_es_description = output_es_description  # type: str
         self.owner_id = owner_id  # type: str
         self.payment_type = payment_type  # type: str
         self.region = region  # type: str
@@ -3357,8 +3621,6 @@ class DescribeApmResponseBodyResult(TeaModel):
             result['outputES'] = self.output_es
         if self.output_esuser_name is not None:
             result['outputESUserName'] = self.output_esuser_name
-        if self.output_es_description is not None:
-            result['outputEsDescription'] = self.output_es_description
         if self.owner_id is not None:
             result['ownerId'] = self.owner_id
         if self.payment_type is not None:
@@ -3401,8 +3663,6 @@ class DescribeApmResponseBodyResult(TeaModel):
             self.output_es = m.get('outputES')
         if m.get('outputESUserName') is not None:
             self.output_esuser_name = m.get('outputESUserName')
-        if m.get('outputEsDescription') is not None:
-            self.output_es_description = m.get('outputEsDescription')
         if m.get('ownerId') is not None:
             self.owner_id = m.get('ownerId')
         if m.get('paymentType') is not None:
@@ -3814,6 +4074,135 @@ class DescribeCollectorResponse(TeaModel):
         return self
 
 
+class DescribeComponentIndexResponseBodyResultTemplate(TeaModel):
+    def __init__(self, aliases=None, mappings=None, settings=None):
+        self.aliases = aliases  # type: dict[str, any]
+        self.mappings = mappings  # type: dict[str, any]
+        self.settings = settings  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeComponentIndexResponseBodyResultTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliases is not None:
+            result['aliases'] = self.aliases
+        if self.mappings is not None:
+            result['mappings'] = self.mappings
+        if self.settings is not None:
+            result['settings'] = self.settings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliases') is not None:
+            self.aliases = m.get('aliases')
+        if m.get('mappings') is not None:
+            self.mappings = m.get('mappings')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        return self
+
+
+class DescribeComponentIndexResponseBodyResult(TeaModel):
+    def __init__(self, meta=None, template=None):
+        self.meta = meta  # type: dict[str, any]
+        self.template = template  # type: DescribeComponentIndexResponseBodyResultTemplate
+
+    def validate(self):
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(DescribeComponentIndexResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.meta is not None:
+            result['_meta'] = self.meta
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('_meta') is not None:
+            self.meta = m.get('_meta')
+        if m.get('template') is not None:
+            temp_model = DescribeComponentIndexResponseBodyResultTemplate()
+            self.template = temp_model.from_map(m['template'])
+        return self
+
+
+class DescribeComponentIndexResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: DescribeComponentIndexResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(DescribeComponentIndexResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = DescribeComponentIndexResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class DescribeComponentIndexResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeComponentIndexResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeComponentIndexResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeComponentIndexResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeConnectableClustersRequest(TeaModel):
     def __init__(self, already_set_items=None):
         self.already_set_items = already_set_items  # type: bool
@@ -3933,6 +4322,156 @@ class DescribeConnectableClustersResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeConnectableClustersResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDeprecatedTemplateResponseBodyResultTemplate(TeaModel):
+    def __init__(self, aliases=None, mappings=None, settings=None):
+        self.aliases = aliases  # type: str
+        self.mappings = mappings  # type: str
+        self.settings = settings  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDeprecatedTemplateResponseBodyResultTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliases is not None:
+            result['aliases'] = self.aliases
+        if self.mappings is not None:
+            result['mappings'] = self.mappings
+        if self.settings is not None:
+            result['settings'] = self.settings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliases') is not None:
+            self.aliases = m.get('aliases')
+        if m.get('mappings') is not None:
+            self.mappings = m.get('mappings')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        return self
+
+
+class DescribeDeprecatedTemplateResponseBodyResult(TeaModel):
+    def __init__(self, data_stream=None, index_patterns=None, index_template=None, order=None, template=None,
+                 version=None):
+        self.data_stream = data_stream  # type: bool
+        self.index_patterns = index_patterns  # type: list[str]
+        self.index_template = index_template  # type: str
+        self.order = order  # type: long
+        self.template = template  # type: DescribeDeprecatedTemplateResponseBodyResultTemplate
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(DescribeDeprecatedTemplateResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_stream is not None:
+            result['dataStream'] = self.data_stream
+        if self.index_patterns is not None:
+            result['indexPatterns'] = self.index_patterns
+        if self.index_template is not None:
+            result['indexTemplate'] = self.index_template
+        if self.order is not None:
+            result['order'] = self.order
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataStream') is not None:
+            self.data_stream = m.get('dataStream')
+        if m.get('indexPatterns') is not None:
+            self.index_patterns = m.get('indexPatterns')
+        if m.get('indexTemplate') is not None:
+            self.index_template = m.get('indexTemplate')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('template') is not None:
+            temp_model = DescribeDeprecatedTemplateResponseBodyResultTemplate()
+            self.template = temp_model.from_map(m['template'])
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class DescribeDeprecatedTemplateResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: DescribeDeprecatedTemplateResponseBodyResult
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(DescribeDeprecatedTemplateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = DescribeDeprecatedTemplateResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        return self
+
+
+class DescribeDeprecatedTemplateResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDeprecatedTemplateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDeprecatedTemplateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDeprecatedTemplateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -10985,6 +11524,353 @@ class ListCollectorsResponse(TeaModel):
         return self
 
 
+class ListComponentIndicesRequest(TeaModel):
+    def __init__(self, name=None, page=None, size=None):
+        self.name = name  # type: str
+        self.page = page  # type: int
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentIndicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.page is not None:
+            result['page'] = self.page
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class ListComponentIndicesResponseBodyHeaders(TeaModel):
+    def __init__(self, x_total_count=None):
+        self.x_total_count = x_total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.x_total_count is not None:
+            result['X-Total-Count'] = self.x_total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('X-Total-Count') is not None:
+            self.x_total_count = m.get('X-Total-Count')
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContentMeta(TeaModel):
+    def __init__(self, description=None, managed=None):
+        self.description = description  # type: str
+        self.managed = managed  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContentMeta, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.managed is not None:
+            result['managed'] = self.managed
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('managed') is not None:
+            self.managed = m.get('managed')
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContentTemplateSettingsIndexLifecycle(TeaModel):
+    def __init__(self, name=None):
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContentTemplateSettingsIndexLifecycle, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContentTemplateSettingsIndex(TeaModel):
+    def __init__(self, codec=None, lifecycle=None):
+        self.codec = codec  # type: str
+        self.lifecycle = lifecycle  # type: ListComponentIndicesResponseBodyResultContentTemplateSettingsIndexLifecycle
+
+    def validate(self):
+        if self.lifecycle:
+            self.lifecycle.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContentTemplateSettingsIndex, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.codec is not None:
+            result['codec'] = self.codec
+        if self.lifecycle is not None:
+            result['lifecycle'] = self.lifecycle.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('codec') is not None:
+            self.codec = m.get('codec')
+        if m.get('lifecycle') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContentTemplateSettingsIndexLifecycle()
+            self.lifecycle = temp_model.from_map(m['lifecycle'])
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContentTemplateSettings(TeaModel):
+    def __init__(self, index=None):
+        self.index = index  # type: ListComponentIndicesResponseBodyResultContentTemplateSettingsIndex
+
+    def validate(self):
+        if self.index:
+            self.index.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContentTemplateSettings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.index is not None:
+            result['index'] = self.index.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('index') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContentTemplateSettingsIndex()
+            self.index = temp_model.from_map(m['index'])
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContentTemplate(TeaModel):
+    def __init__(self, settings=None):
+        self.settings = settings  # type: ListComponentIndicesResponseBodyResultContentTemplateSettings
+
+    def validate(self):
+        if self.settings:
+            self.settings.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContentTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.settings is not None:
+            result['settings'] = self.settings.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('settings') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContentTemplateSettings()
+            self.settings = temp_model.from_map(m['settings'])
+        return self
+
+
+class ListComponentIndicesResponseBodyResultContent(TeaModel):
+    def __init__(self, meta=None, template=None, version=None):
+        self.meta = meta  # type: ListComponentIndicesResponseBodyResultContentMeta
+        self.template = template  # type: ListComponentIndicesResponseBodyResultContentTemplate
+        self.version = version  # type: long
+
+    def validate(self):
+        if self.meta:
+            self.meta.validate()
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResultContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.meta is not None:
+            result['_meta'] = self.meta.to_map()
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('_meta') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContentMeta()
+            self.meta = temp_model.from_map(m['_meta'])
+        if m.get('template') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContentTemplate()
+            self.template = temp_model.from_map(m['template'])
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class ListComponentIndicesResponseBodyResult(TeaModel):
+    def __init__(self, composed=None, content=None, name=None):
+        self.composed = composed  # type: list[str]
+        self.content = content  # type: ListComponentIndicesResponseBodyResultContent
+        self.name = name  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.composed is not None:
+            result['composed'] = self.composed
+        if self.content is not None:
+            result['content'] = self.content.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('composed') is not None:
+            self.composed = m.get('composed')
+        if m.get('content') is not None:
+            temp_model = ListComponentIndicesResponseBodyResultContent()
+            self.content = temp_model.from_map(m['content'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class ListComponentIndicesResponseBody(TeaModel):
+    def __init__(self, headers=None, request_id=None, result=None):
+        self.headers = headers  # type: ListComponentIndicesResponseBodyHeaders
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListComponentIndicesResponseBodyResult]
+
+    def validate(self):
+        if self.headers:
+            self.headers.validate()
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['Headers'] = self.headers.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Headers') is not None:
+            temp_model = ListComponentIndicesResponseBodyHeaders()
+            self.headers = temp_model.from_map(m['Headers'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListComponentIndicesResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class ListComponentIndicesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListComponentIndicesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListComponentIndicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListComponentIndicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListConnectedClustersResponseBodyResultResult(TeaModel):
     def __init__(self, instances=None, network_type=None):
         self.instances = instances  # type: str
@@ -11710,6 +12596,228 @@ class ListDefaultCollectorConfigurationsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListDefaultCollectorConfigurationsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDeprecatedTemplatesRequest(TeaModel):
+    def __init__(self, name=None, page=None, size=None):
+        self.name = name  # type: str
+        self.page = page  # type: int
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.page is not None:
+            result['page'] = self.page
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class ListDeprecatedTemplatesResponseBodyHeaders(TeaModel):
+    def __init__(self, x_total_count=None):
+        self.x_total_count = x_total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesResponseBodyHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.x_total_count is not None:
+            result['X-Total-Count'] = self.x_total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('X-Total-Count') is not None:
+            self.x_total_count = m.get('X-Total-Count')
+        return self
+
+
+class ListDeprecatedTemplatesResponseBodyResultTemplate(TeaModel):
+    def __init__(self, aliases=None, mappings=None, settings=None):
+        self.aliases = aliases  # type: str
+        self.mappings = mappings  # type: str
+        self.settings = settings  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesResponseBodyResultTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliases is not None:
+            result['aliases'] = self.aliases
+        if self.mappings is not None:
+            result['mappings'] = self.mappings
+        if self.settings is not None:
+            result['settings'] = self.settings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliases') is not None:
+            self.aliases = m.get('aliases')
+        if m.get('mappings') is not None:
+            self.mappings = m.get('mappings')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        return self
+
+
+class ListDeprecatedTemplatesResponseBodyResult(TeaModel):
+    def __init__(self, data_stream=None, index_patterns=None, index_template=None, order=None, template=None,
+                 version=None):
+        self.data_stream = data_stream  # type: bool
+        self.index_patterns = index_patterns  # type: list[str]
+        self.index_template = index_template  # type: str
+        self.order = order  # type: long
+        self.template = template  # type: ListDeprecatedTemplatesResponseBodyResultTemplate
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_stream is not None:
+            result['dataStream'] = self.data_stream
+        if self.index_patterns is not None:
+            result['indexPatterns'] = self.index_patterns
+        if self.index_template is not None:
+            result['indexTemplate'] = self.index_template
+        if self.order is not None:
+            result['order'] = self.order
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('dataStream') is not None:
+            self.data_stream = m.get('dataStream')
+        if m.get('indexPatterns') is not None:
+            self.index_patterns = m.get('indexPatterns')
+        if m.get('indexTemplate') is not None:
+            self.index_template = m.get('indexTemplate')
+        if m.get('order') is not None:
+            self.order = m.get('order')
+        if m.get('template') is not None:
+            temp_model = ListDeprecatedTemplatesResponseBodyResultTemplate()
+            self.template = temp_model.from_map(m['template'])
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class ListDeprecatedTemplatesResponseBody(TeaModel):
+    def __init__(self, headers=None, request_id=None, result=None):
+        self.headers = headers  # type: ListDeprecatedTemplatesResponseBodyHeaders
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListDeprecatedTemplatesResponseBodyResult]
+
+    def validate(self):
+        if self.headers:
+            self.headers.validate()
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['Headers'] = self.headers.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Headers') is not None:
+            temp_model = ListDeprecatedTemplatesResponseBodyHeaders()
+            self.headers = temp_model.from_map(m['Headers'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = ListDeprecatedTemplatesResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        return self
+
+
+class ListDeprecatedTemplatesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListDeprecatedTemplatesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDeprecatedTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDeprecatedTemplatesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -21964,6 +23072,129 @@ class UpdateCollectorNameResponse(TeaModel):
         return self
 
 
+class UpdateComponentIndexRequestTemplate(TeaModel):
+    def __init__(self, aliases=None, mappings=None, settings=None):
+        self.aliases = aliases  # type: dict[str, any]
+        self.mappings = mappings  # type: dict[str, any]
+        self.settings = settings  # type: dict[str, any]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateComponentIndexRequestTemplate, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliases is not None:
+            result['aliases'] = self.aliases
+        if self.mappings is not None:
+            result['mappings'] = self.mappings
+        if self.settings is not None:
+            result['settings'] = self.settings
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliases') is not None:
+            self.aliases = m.get('aliases')
+        if m.get('mappings') is not None:
+            self.mappings = m.get('mappings')
+        if m.get('settings') is not None:
+            self.settings = m.get('settings')
+        return self
+
+
+class UpdateComponentIndexRequest(TeaModel):
+    def __init__(self, meta=None, template=None):
+        self.meta = meta  # type: dict[str, any]
+        self.template = template  # type: UpdateComponentIndexRequestTemplate
+
+    def validate(self):
+        if self.template:
+            self.template.validate()
+
+    def to_map(self):
+        _map = super(UpdateComponentIndexRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.meta is not None:
+            result['_meta'] = self.meta
+        if self.template is not None:
+            result['template'] = self.template.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('_meta') is not None:
+            self.meta = m.get('_meta')
+        if m.get('template') is not None:
+            temp_model = UpdateComponentIndexRequestTemplate()
+            self.template = temp_model.from_map(m['template'])
+        return self
+
+
+class UpdateComponentIndexResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateComponentIndexResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class UpdateComponentIndexResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateComponentIndexResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateComponentIndexResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateComponentIndexResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateDescriptionRequest(TeaModel):
     def __init__(self, description=None, client_token=None):
         self.description = description  # type: str
@@ -24993,11 +26224,11 @@ class UpdateWhiteIpsRequestWhiteIpGroup(TeaModel):
 
 
 class UpdateWhiteIpsRequest(TeaModel):
-    def __init__(self, client_token=None, es_ipwhitelist=None, modify_mode=None, white_ip_group=None):
-        self.client_token = client_token  # type: str
+    def __init__(self, es_ipwhitelist=None, white_ip_group=None, client_token=None, modify_mode=None):
         self.es_ipwhitelist = es_ipwhitelist  # type: list[str]
-        self.modify_mode = modify_mode  # type: str
         self.white_ip_group = white_ip_group  # type: UpdateWhiteIpsRequestWhiteIpGroup
+        self.client_token = client_token  # type: str
+        self.modify_mode = modify_mode  # type: str
 
     def validate(self):
         if self.white_ip_group:
@@ -25009,36 +26240,104 @@ class UpdateWhiteIpsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.client_token is not None:
-            result['clientToken'] = self.client_token
         if self.es_ipwhitelist is not None:
             result['esIPWhitelist'] = self.es_ipwhitelist
-        if self.modify_mode is not None:
-            result['modifyMode'] = self.modify_mode
         if self.white_ip_group is not None:
             result['whiteIpGroup'] = self.white_ip_group.to_map()
+        if self.client_token is not None:
+            result['clientToken'] = self.client_token
+        if self.modify_mode is not None:
+            result['modifyMode'] = self.modify_mode
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('clientToken') is not None:
-            self.client_token = m.get('clientToken')
         if m.get('esIPWhitelist') is not None:
             self.es_ipwhitelist = m.get('esIPWhitelist')
-        if m.get('modifyMode') is not None:
-            self.modify_mode = m.get('modifyMode')
         if m.get('whiteIpGroup') is not None:
             temp_model = UpdateWhiteIpsRequestWhiteIpGroup()
             self.white_ip_group = temp_model.from_map(m['whiteIpGroup'])
+        if m.get('clientToken') is not None:
+            self.client_token = m.get('clientToken')
+        if m.get('modifyMode') is not None:
+            self.modify_mode = m.get('modifyMode')
+        return self
+
+
+class UpdateWhiteIpsResponseBodyResultNetworkConfigWhiteIpGroupList(TeaModel):
+    def __init__(self, group_name=None, ips=None, white_ip_type=None):
+        self.group_name = group_name  # type: str
+        self.ips = ips  # type: list[str]
+        self.white_ip_type = white_ip_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateWhiteIpsResponseBodyResultNetworkConfigWhiteIpGroupList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_name is not None:
+            result['groupName'] = self.group_name
+        if self.ips is not None:
+            result['ips'] = self.ips
+        if self.white_ip_type is not None:
+            result['whiteIpType'] = self.white_ip_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('groupName') is not None:
+            self.group_name = m.get('groupName')
+        if m.get('ips') is not None:
+            self.ips = m.get('ips')
+        if m.get('whiteIpType') is not None:
+            self.white_ip_type = m.get('whiteIpType')
+        return self
+
+
+class UpdateWhiteIpsResponseBodyResultNetworkConfig(TeaModel):
+    def __init__(self, white_ip_group_list=None):
+        self.white_ip_group_list = white_ip_group_list  # type: list[UpdateWhiteIpsResponseBodyResultNetworkConfigWhiteIpGroupList]
+
+    def validate(self):
+        if self.white_ip_group_list:
+            for k in self.white_ip_group_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateWhiteIpsResponseBodyResultNetworkConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['whiteIpGroupList'] = []
+        if self.white_ip_group_list is not None:
+            for k in self.white_ip_group_list:
+                result['whiteIpGroupList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.white_ip_group_list = []
+        if m.get('whiteIpGroupList') is not None:
+            for k in m.get('whiteIpGroupList'):
+                temp_model = UpdateWhiteIpsResponseBodyResultNetworkConfigWhiteIpGroupList()
+                self.white_ip_group_list.append(temp_model.from_map(k))
         return self
 
 
 class UpdateWhiteIpsResponseBodyResult(TeaModel):
-    def __init__(self, es_ipwhitelist=None):
+    def __init__(self, es_ipwhitelist=None, network_config=None):
         self.es_ipwhitelist = es_ipwhitelist  # type: list[str]
+        self.network_config = network_config  # type: UpdateWhiteIpsResponseBodyResultNetworkConfig
 
     def validate(self):
-        pass
+        if self.network_config:
+            self.network_config.validate()
 
     def to_map(self):
         _map = super(UpdateWhiteIpsResponseBodyResult, self).to_map()
@@ -25048,12 +26347,17 @@ class UpdateWhiteIpsResponseBodyResult(TeaModel):
         result = dict()
         if self.es_ipwhitelist is not None:
             result['esIPWhitelist'] = self.es_ipwhitelist
+        if self.network_config is not None:
+            result['networkConfig'] = self.network_config.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('esIPWhitelist') is not None:
             self.es_ipwhitelist = m.get('esIPWhitelist')
+        if m.get('networkConfig') is not None:
+            temp_model = UpdateWhiteIpsResponseBodyResultNetworkConfig()
+            self.network_config = temp_model.from_map(m['networkConfig'])
         return self
 
 
