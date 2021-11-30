@@ -164,7 +164,7 @@ class Client(OpenApiClient):
             action='CancelComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{componentId}/cancel' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/%s/cancel' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -634,6 +634,56 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_alert_contact(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_alert_contact_with_options(headers, runtime)
+
+    def delete_alert_contact_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAlertContact',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/contacts',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DeleteAlertContactResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_alert_contact_group(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_alert_contact_group_with_options(headers, runtime)
+
+    def delete_alert_contact_group_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAlertContactGroup',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/contact_groups',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DeleteAlertContactGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -688,7 +738,7 @@ class Client(OpenApiClient):
             action='DeleteClusterNodepool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/{NodepoolId}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -812,7 +862,7 @@ class Client(OpenApiClient):
             action='DeletePolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/{policyName}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -901,7 +951,7 @@ class Client(OpenApiClient):
             action='DeployPolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/{policyName}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -987,7 +1037,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonMetadata',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{componentId}/metadata' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/%s/metadata' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1014,7 +1064,7 @@ class Client(OpenApiClient):
             action='DescribeClusterAddonUpgradeStatus',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{ComponentId}/upgradestatus' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/%s/upgradestatus' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1221,7 +1271,7 @@ class Client(OpenApiClient):
             action='DescribeClusterNodePoolDetail',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/{NodepoolId}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2312,7 +2362,7 @@ class Client(OpenApiClient):
             action='ModifyClusterAddon',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{componentId}/config' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/components/%s/config' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(component_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2387,7 +2437,7 @@ class Client(OpenApiClient):
             action='ModifyClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/{NodepoolId}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2453,7 +2503,7 @@ class Client(OpenApiClient):
             action='ModifyPolicyInstance',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/policies/{policyName}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/policies/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(policy_name)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -2536,7 +2586,7 @@ class Client(OpenApiClient):
             action='PauseComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{componentid}/pause' % TeaConverter.to_unicode(clusterid),
+            pathname='/clusters/%s/components/%s/pause' % (TeaConverter.to_unicode(clusterid), TeaConverter.to_unicode(componentid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2624,7 +2674,7 @@ class Client(OpenApiClient):
             action='ResumeComponentUpgrade',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/components/{componentid}/resume' % TeaConverter.to_unicode(clusterid),
+            pathname='/clusters/%s/components/%s/resume' % (TeaConverter.to_unicode(clusterid), TeaConverter.to_unicode(componentid)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2749,7 +2799,7 @@ class Client(OpenApiClient):
             action='ScaleClusterNodePool',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%s/nodepools/{NodepoolId}' % TeaConverter.to_unicode(cluster_id),
+            pathname='/clusters/%s/nodepools/%s' % (TeaConverter.to_unicode(cluster_id), TeaConverter.to_unicode(nodepool_id)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -2832,6 +2882,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def start_alert(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_alert_with_options(cluster_id, headers, runtime)
+
+    def start_alert_with_options(self, cluster_id, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartAlert',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/%s/alert_rule/start' % TeaConverter.to_unicode(cluster_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.StartAlertResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def start_workflow(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2898,6 +2974,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def stop_alert(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_alert_with_options(cluster_id, headers, runtime)
+
+    def stop_alert_with_options(self, cluster_id, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopAlert',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/%s/alert_rule/stop' % TeaConverter.to_unicode(cluster_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.StopAlertResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2927,7 +3029,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             cs20151215_models.TagResourcesResponse(),
@@ -2970,6 +3072,8 @@ class Client(OpenApiClient):
     def untag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all):
+            query['all'] = request.all
         if not UtilClient.is_unset(request.region_id):
             query['region_id'] = request.region_id
         if not UtilClient.is_unset(request.resource_ids):
@@ -2991,10 +3095,36 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             cs20151215_models.UntagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_contact_group_for_alert(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_contact_group_for_alert_with_options(cluster_id, headers, runtime)
+
+    def update_contact_group_for_alert_with_options(self, cluster_id, headers, runtime):
+        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='UpdateContactGroupForAlert',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/%s/alert_rule/contact_groups' % TeaConverter.to_unicode(cluster_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.UpdateContactGroupForAlertResponse(),
             self.call_api(params, req, runtime)
         )
 
