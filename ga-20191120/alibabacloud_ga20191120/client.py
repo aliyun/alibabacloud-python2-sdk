@@ -403,6 +403,8 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = {}
         query['AutoPay'] = request.auto_pay
+        query['AutoRenew'] = request.auto_renew
+        query['AutoRenewDuration'] = request.auto_renew_duration
         query['AutoUseCoupon'] = request.auto_use_coupon
         query['ClientToken'] = request.client_token
         query['Duration'] = request.duration
@@ -1131,6 +1133,35 @@ class Client(OpenApiClient):
     def describe_accelerator(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_accelerator_with_options(request, runtime)
+
+    def describe_accelerator_auto_renew_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['AcceleratorId'] = request.accelerator_id
+        query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeAcceleratorAutoRenewAttribute',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeAcceleratorAutoRenewAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_accelerator_auto_renew_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_accelerator_auto_renew_attribute_with_options(request, runtime)
 
     def describe_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2178,6 +2209,40 @@ class Client(OpenApiClient):
     def update_accelerator(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_accelerator_with_options(request, runtime)
+
+    def update_accelerator_auto_renew_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['AcceleratorId'] = request.accelerator_id
+        query['AutoRenew'] = request.auto_renew
+        query['AutoRenewDuration'] = request.auto_renew_duration
+        query['ClientToken'] = request.client_token
+        query['Name'] = request.name
+        query['RegionId'] = request.region_id
+        query['RenewalStatus'] = request.renewal_status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateAcceleratorAutoRenewAttribute',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateAcceleratorAutoRenewAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_accelerator_auto_renew_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_accelerator_auto_renew_attribute_with_options(request, runtime)
 
     def update_accelerator_confirm_with_options(self, request, runtime):
         UtilClient.validate_model(request)
