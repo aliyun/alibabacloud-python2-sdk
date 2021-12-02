@@ -275,6 +275,113 @@ class CustomContainerConfigInfo(TeaModel):
         return self
 
 
+class CustomDNS(TeaModel):
+    def __init__(self, dns_options=None, name_servers=None, searches=None):
+        # DNS resolver 配置参数列表
+        self.dns_options = dns_options  # type: list[DNSOption]
+        # DNS 服务器的 IP 地址列表
+        self.name_servers = name_servers  # type: list[str]
+        # DNS 搜索域的列表
+        self.searches = searches  # type: list[str]
+
+    def validate(self):
+        if self.dns_options:
+            for k in self.dns_options:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CustomDNS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['dnsOptions'] = []
+        if self.dns_options is not None:
+            for k in self.dns_options:
+                result['dnsOptions'].append(k.to_map() if k else None)
+        if self.name_servers is not None:
+            result['nameServers'] = self.name_servers
+        if self.searches is not None:
+            result['searches'] = self.searches
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dns_options = []
+        if m.get('dnsOptions') is not None:
+            for k in m.get('dnsOptions'):
+                temp_model = DNSOption()
+                self.dns_options.append(temp_model.from_map(k))
+        if m.get('nameServers') is not None:
+            self.name_servers = m.get('nameServers')
+        if m.get('searches') is not None:
+            self.searches = m.get('searches')
+        return self
+
+
+class CustomRuntimeConfig(TeaModel):
+    def __init__(self, args=None, command=None):
+        # 启动入口命令接收的参数
+        self.args = args  # type: list[str]
+        # 启动入口命令
+        self.command = command  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CustomRuntimeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.args is not None:
+            result['args'] = self.args
+        if self.command is not None:
+            result['command'] = self.command
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('args') is not None:
+            self.args = m.get('args')
+        if m.get('command') is not None:
+            self.command = m.get('command')
+        return self
+
+
+class DNSOption(TeaModel):
+    def __init__(self, name=None, value=None):
+        # DNS option 名称
+        self.name = name  # type: str
+        # DNS option 值
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DNSOption, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class Destination(TeaModel):
     def __init__(self, destination=None):
         # destination
@@ -362,6 +469,37 @@ class Error(TeaModel):
             self.error_code = m.get('errorCode')
         if m.get('errorMessage') is not None:
             self.error_message = m.get('errorMessage')
+        return self
+
+
+class ErrorInfo(TeaModel):
+    def __init__(self, error_message=None, stack_trace=None):
+        # 错误信息
+        self.error_message = error_message  # type: str
+        # 错误堆栈
+        self.stack_trace = stack_trace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ErrorInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.stack_trace is not None:
+            result['stackTrace'] = self.stack_trace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('stackTrace') is not None:
+            self.stack_trace = m.get('stackTrace')
         return self
 
 
@@ -1956,14 +2094,18 @@ class CreateFunctionHeaders(TeaModel):
 
 
 class CreateFunctionRequest(TeaModel):
-    def __init__(self, ca_port=None, code=None, custom_container_config=None, description=None,
-                 environment_variables=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_concurrency=None, instance_lifecycle_config=None, instance_type=None, layers=None, memory_size=None,
-                 runtime=None, timeout=None):
+    def __init__(self, ca_port=None, code=None, custom_container_config=None, custom_dns=None,
+                 custom_runtime_config=None, description=None, environment_variables=None, function_name=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_concurrency=None, instance_lifecycle_config=None,
+                 instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # 函数自定义DNS配置
+        self.custom_dns = custom_dns  # type: CustomDNS
+        # Custom Runtime函数详细配置
+        self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         # 函数描述
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -1992,6 +2134,10 @@ class CreateFunctionRequest(TeaModel):
             self.code.validate()
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_dns:
+            self.custom_dns.validate()
+        if self.custom_runtime_config:
+            self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -2007,6 +2153,10 @@ class CreateFunctionRequest(TeaModel):
             result['code'] = self.code.to_map()
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_dns is not None:
+            result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_runtime_config is not None:
+            result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -2045,6 +2195,12 @@ class CreateFunctionRequest(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customDNS') is not None:
+            temp_model = CustomDNS()
+            self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customRuntimeConfig') is not None:
+            temp_model = CustomRuntimeConfig()
+            self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -2077,10 +2233,10 @@ class CreateFunctionRequest(TeaModel):
 
 class CreateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, description=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
-                 instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
+                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -2090,6 +2246,10 @@ class CreateFunctionResponseBody(TeaModel):
         # function创建时间
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # 函数自定义DNS配置
+        self.custom_dns = custom_dns  # type: CustomDNS
+        # Custom Runtime函数详细配置
+        self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         # 函数描述
         self.description = description  # type: str
         self.environment_variables = environment_variables  # type: dict[str, str]
@@ -2119,6 +2279,10 @@ class CreateFunctionResponseBody(TeaModel):
     def validate(self):
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_dns:
+            self.custom_dns.validate()
+        if self.custom_runtime_config:
+            self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -2138,6 +2302,10 @@ class CreateFunctionResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_dns is not None:
+            result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_runtime_config is not None:
+            result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -2183,6 +2351,12 @@ class CreateFunctionResponseBody(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customDNS') is not None:
+            temp_model = CustomDNS()
+            self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customRuntimeConfig') is not None:
+            temp_model = CustomRuntimeConfig()
+            self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -2655,11 +2829,14 @@ class CreateTriggerRequest(TeaModel):
 
 
 class CreateTriggerResponseBody(TeaModel):
-    def __init__(self, created_time=None, description=None, invocation_role=None, last_modified_time=None,
-                 qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None, trigger_type=None):
+    def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
+                 last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
+                 trigger_type=None):
         # 创建时间
         self.created_time = created_time  # type: str
         self.description = description  # type: str
+        # 域名名称，使用域名名称拼接上函数计算域名，可以采用HTTP协议调用到触发器对应版本的函数。例如{domainName}.cn-shanghai.fc.aliyuncs.com
+        self.domain_name = domain_name  # type: str
         # 调用函数使用的RAM角色的ARN
         self.invocation_role = invocation_role  # type: str
         # 上次修改时间
@@ -2689,6 +2866,8 @@ class CreateTriggerResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.description is not None:
             result['description'] = self.description
+        if self.domain_name is not None:
+            result['domainName'] = self.domain_name
         if self.invocation_role is not None:
             result['invocationRole'] = self.invocation_role
         if self.last_modified_time is not None:
@@ -2713,6 +2892,8 @@ class CreateTriggerResponseBody(TeaModel):
             self.created_time = m.get('createdTime')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('domainName') is not None:
+            self.domain_name = m.get('domainName')
         if m.get('invocationRole') is not None:
             self.invocation_role = m.get('invocationRole')
         if m.get('lastModifiedTime') is not None:
@@ -3572,10 +3753,10 @@ class GetFunctionRequest(TeaModel):
 
 class GetFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, description=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_concurrency=None,
-                 instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
-                 timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
+                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_concurrency=None, instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -3585,6 +3766,10 @@ class GetFunctionResponseBody(TeaModel):
         # function创建时间
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfigInfo
+        # 函数自定义DNS配置
+        self.custom_dns = custom_dns  # type: CustomDNS
+        # Custom Runtime函数详细配置
+        self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         # 函数描述
         self.description = description  # type: str
         # 为函数设置的环境变量，可以在函数中获取环境变量的值
@@ -3615,6 +3800,10 @@ class GetFunctionResponseBody(TeaModel):
     def validate(self):
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_dns:
+            self.custom_dns.validate()
+        if self.custom_runtime_config:
+            self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -3634,6 +3823,10 @@ class GetFunctionResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_dns is not None:
+            result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_runtime_config is not None:
+            result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -3679,6 +3872,12 @@ class GetFunctionResponseBody(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfigInfo()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customDNS') is not None:
+            temp_model = CustomDNS()
+            self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customRuntimeConfig') is not None:
+            temp_model = CustomRuntimeConfig()
+            self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -4224,10 +4423,12 @@ class GetProvisionConfigRequest(TeaModel):
 
 
 class GetProvisionConfigResponseBody(TeaModel):
-    def __init__(self, current=None, resource=None, scheduled_actions=None, target=None,
+    def __init__(self, current=None, current_error=None, resource=None, scheduled_actions=None, target=None,
                  target_tracking_policies=None):
         # 实际资源个数
         self.current = current  # type: long
+        # 预留实例创建失败时的错误信息
+        self.current_error = current_error  # type: str
         # 资源描述
         self.resource = resource  # type: str
         # 定时策略配置
@@ -4255,6 +4456,8 @@ class GetProvisionConfigResponseBody(TeaModel):
         result = dict()
         if self.current is not None:
             result['current'] = self.current
+        if self.current_error is not None:
+            result['currentError'] = self.current_error
         if self.resource is not None:
             result['resource'] = self.resource
         result['scheduledActions'] = []
@@ -4273,6 +4476,8 @@ class GetProvisionConfigResponseBody(TeaModel):
         m = m or dict()
         if m.get('current') is not None:
             self.current = m.get('current')
+        if m.get('currentError') is not None:
+            self.current_error = m.get('currentError')
         if m.get('resource') is not None:
             self.resource = m.get('resource')
         self.scheduled_actions = []
@@ -4622,11 +4827,14 @@ class GetStatefulAsyncInvocationResponse(TeaModel):
 
 
 class GetTriggerResponseBody(TeaModel):
-    def __init__(self, created_time=None, description=None, invocation_role=None, last_modified_time=None,
-                 qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None, trigger_type=None):
+    def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
+                 last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
+                 trigger_type=None):
         # 创建时间
         self.created_time = created_time  # type: str
         self.description = description  # type: str
+        # 域名名称，使用域名名称拼接上函数计算域名，可以采用HTTP协议调用到触发器对应版本的函数。例如{domainName}.cn-shanghai.fc.aliyuncs.com
+        self.domain_name = domain_name  # type: str
         # 调用函数使用的RAM角色的ARN
         self.invocation_role = invocation_role  # type: str
         # 上次修改时间
@@ -4656,6 +4864,8 @@ class GetTriggerResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.description is not None:
             result['description'] = self.description
+        if self.domain_name is not None:
+            result['domainName'] = self.domain_name
         if self.invocation_role is not None:
             result['invocationRole'] = self.invocation_role
         if self.last_modified_time is not None:
@@ -4680,6 +4890,8 @@ class GetTriggerResponseBody(TeaModel):
             self.created_time = m.get('createdTime')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('domainName') is not None:
+            self.domain_name = m.get('domainName')
         if m.get('invocationRole') is not None:
             self.invocation_role = m.get('invocationRole')
         if m.get('lastModifiedTime') is not None:
@@ -4736,7 +4948,6 @@ class InvokeFunctionHeaders(TeaModel):
     def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_invocation_type=None, x_fc_log_type=None,
                  x_fc_stateful_async_invocation_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
-        # 用户 uid
         self.x_fc_account_id = x_fc_account_id  # type: str
         # 调用方式:Sync或者Async，默认值：Sync
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
@@ -5749,6 +5960,166 @@ class ListFunctionsResponse(TeaModel):
         return self
 
 
+class ListInstancesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        return self
+
+
+class ListInstancesRequest(TeaModel):
+    def __init__(self, limit=None, next_token=None, qualifier=None):
+        # 限定此次返回资源的数量。如果不设定，默认返回20，最大不能超过100。返回结果可能小于指定的数量，但不会多于指定的数量
+        self.limit = limit  # type: int
+        # 用来返回更多结果。第一次查询不需要提供这个参数，后续查询的token从返回结果中获取
+        self.next_token = next_token  # type: str
+        # service版本, 可以是versionId或者aliasName
+        self.qualifier = qualifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.limit is not None:
+            result['limit'] = self.limit
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.qualifier is not None:
+            result['qualifier'] = self.qualifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('limit') is not None:
+            self.limit = m.get('limit')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('qualifier') is not None:
+            self.qualifier = m.get('qualifier')
+        return self
+
+
+class ListInstancesResponseBodyInstances(TeaModel):
+    def __init__(self, instance_id=None, version_id=None):
+        self.instance_id = instance_id  # type: str
+        self.version_id = version_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBodyInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['instanceId'] = self.instance_id
+        if self.version_id is not None:
+            result['versionId'] = self.version_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instanceId') is not None:
+            self.instance_id = m.get('instanceId')
+        if m.get('versionId') is not None:
+            self.version_id = m.get('versionId')
+        return self
+
+
+class ListInstancesResponseBody(TeaModel):
+    def __init__(self, instances=None):
+        self.instances = instances  # type: list[ListInstancesResponseBodyInstances]
+
+    def validate(self):
+        if self.instances:
+            for k in self.instances:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListInstancesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['instances'] = []
+        if self.instances is not None:
+            for k in self.instances:
+                result['instances'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.instances = []
+        if m.get('instances') is not None:
+            for k in m.get('instances'):
+                temp_model = ListInstancesResponseBodyInstances()
+                self.instances.append(temp_model.from_map(k))
+        return self
+
+
+class ListInstancesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListInstancesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListInstancesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListLayerVersionsRequest(TeaModel):
     def __init__(self, limit=None, start_version=None):
         # 本次读取的最大数据记录数量
@@ -6126,10 +6497,12 @@ class ListProvisionConfigsRequest(TeaModel):
 
 
 class ListProvisionConfigsResponseBodyProvisionConfigs(TeaModel):
-    def __init__(self, current=None, resource=None, scheduled_actions=None, target=None,
+    def __init__(self, current=None, current_error=None, resource=None, scheduled_actions=None, target=None,
                  target_tracking_policies=None):
         # 实际资源个数
         self.current = current  # type: long
+        # 预留实例创建失败时的错误信息
+        self.current_error = current_error  # type: str
         # 资源描述
         self.resource = resource  # type: str
         # 定时策略配置
@@ -6157,6 +6530,8 @@ class ListProvisionConfigsResponseBodyProvisionConfigs(TeaModel):
         result = dict()
         if self.current is not None:
             result['current'] = self.current
+        if self.current_error is not None:
+            result['currentError'] = self.current_error
         if self.resource is not None:
             result['resource'] = self.resource
         result['scheduledActions'] = []
@@ -6175,6 +6550,8 @@ class ListProvisionConfigsResponseBodyProvisionConfigs(TeaModel):
         m = m or dict()
         if m.get('current') is not None:
             self.current = m.get('current')
+        if m.get('currentError') is not None:
+            self.current_error = m.get('currentError')
         if m.get('resource') is not None:
             self.resource = m.get('resource')
         self.scheduled_actions = []
@@ -7016,11 +7393,14 @@ class ListTriggersRequest(TeaModel):
 
 
 class ListTriggersResponseBodyTriggers(TeaModel):
-    def __init__(self, created_time=None, description=None, invocation_role=None, last_modified_time=None,
-                 qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None, trigger_type=None):
+    def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
+                 last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
+                 trigger_type=None):
         # 创建时间
         self.created_time = created_time  # type: str
         self.description = description  # type: str
+        # 域名名称，使用域名名称拼接上函数计算域名，可以采用HTTP协议调用到触发器对应版本的函数。例如{domainName}.cn-shanghai.fc.aliyuncs.com
+        self.domain_name = domain_name  # type: str
         # 调用函数使用的RAM角色的ARN
         self.invocation_role = invocation_role  # type: str
         # 上次修改时间
@@ -7050,6 +7430,8 @@ class ListTriggersResponseBodyTriggers(TeaModel):
             result['createdTime'] = self.created_time
         if self.description is not None:
             result['description'] = self.description
+        if self.domain_name is not None:
+            result['domainName'] = self.domain_name
         if self.invocation_role is not None:
             result['invocationRole'] = self.invocation_role
         if self.last_modified_time is not None:
@@ -7074,6 +7456,8 @@ class ListTriggersResponseBodyTriggers(TeaModel):
             self.created_time = m.get('createdTime')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('domainName') is not None:
+            self.domain_name = m.get('domainName')
         if m.get('invocationRole') is not None:
             self.invocation_role = m.get('invocationRole')
         if m.get('lastModifiedTime') is not None:
@@ -8429,13 +8813,18 @@ class UpdateFunctionHeaders(TeaModel):
 
 class UpdateFunctionRequest(TeaModel):
     def __init__(self, instance_concurrency=None, ca_port=None, code=None, custom_container_config=None,
-                 description=None, environment_variables=None, handler=None, initialization_timeout=None, initializer=None,
-                 instance_lifecycle_config=None, instance_type=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None, handler=None,
+                 initialization_timeout=None, initializer=None, instance_lifecycle_config=None, instance_type=None, layers=None,
+                 memory_size=None, runtime=None, timeout=None):
         self.instance_concurrency = instance_concurrency  # type: int
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         self.code = code  # type: Code
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # 函数自定义DNS配置
+        self.custom_dns = custom_dns  # type: CustomDNS
+        # Custom Runtime函数详细配置
+        self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         # 函数描述
         self.description = description  # type: str
         # 为函数设置的环境变量，可以在函数中获取环境变量的值
@@ -8461,6 +8850,10 @@ class UpdateFunctionRequest(TeaModel):
             self.code.validate()
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_dns:
+            self.custom_dns.validate()
+        if self.custom_runtime_config:
+            self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -8478,6 +8871,10 @@ class UpdateFunctionRequest(TeaModel):
             result['code'] = self.code.to_map()
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_dns is not None:
+            result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_runtime_config is not None:
+            result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -8514,6 +8911,12 @@ class UpdateFunctionRequest(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customDNS') is not None:
+            temp_model = CustomDNS()
+            self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customRuntimeConfig') is not None:
+            temp_model = CustomRuntimeConfig()
+            self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -8542,9 +8945,10 @@ class UpdateFunctionRequest(TeaModel):
 
 class UpdateFunctionResponseBody(TeaModel):
     def __init__(self, ca_port=None, code_checksum=None, code_size=None, created_time=None,
-                 custom_container_config=None, description=None, environment_variables=None, function_id=None, function_name=None,
-                 handler=None, initialization_timeout=None, initializer=None, instance_lifecycle_config=None,
-                 instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None, timeout=None):
+                 custom_container_config=None, custom_dns=None, custom_runtime_config=None, description=None, environment_variables=None,
+                 function_id=None, function_name=None, handler=None, initialization_timeout=None, initializer=None,
+                 instance_lifecycle_config=None, instance_type=None, last_modified_time=None, layers=None, memory_size=None, runtime=None,
+                 timeout=None):
         # 自定义、自定义容器运行时 HTTP Server 的监听端口
         self.ca_port = ca_port  # type: int
         # function code包的CRC64值
@@ -8554,6 +8958,10 @@ class UpdateFunctionResponseBody(TeaModel):
         # function创建时间
         self.created_time = created_time  # type: str
         self.custom_container_config = custom_container_config  # type: CustomContainerConfig
+        # 函数自定义DNS配置
+        self.custom_dns = custom_dns  # type: CustomDNS
+        # Custom Runtime函数详细配置
+        self.custom_runtime_config = custom_runtime_config  # type: CustomRuntimeConfig
         # 函数描述
         self.description = description  # type: str
         # 为函数设置的环境变量，可以在函数中获取环境变量的值
@@ -8583,6 +8991,10 @@ class UpdateFunctionResponseBody(TeaModel):
     def validate(self):
         if self.custom_container_config:
             self.custom_container_config.validate()
+        if self.custom_dns:
+            self.custom_dns.validate()
+        if self.custom_runtime_config:
+            self.custom_runtime_config.validate()
         if self.instance_lifecycle_config:
             self.instance_lifecycle_config.validate()
 
@@ -8602,6 +9014,10 @@ class UpdateFunctionResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.custom_container_config is not None:
             result['customContainerConfig'] = self.custom_container_config.to_map()
+        if self.custom_dns is not None:
+            result['customDNS'] = self.custom_dns.to_map()
+        if self.custom_runtime_config is not None:
+            result['customRuntimeConfig'] = self.custom_runtime_config.to_map()
         if self.description is not None:
             result['description'] = self.description
         if self.environment_variables is not None:
@@ -8645,6 +9061,12 @@ class UpdateFunctionResponseBody(TeaModel):
         if m.get('customContainerConfig') is not None:
             temp_model = CustomContainerConfig()
             self.custom_container_config = temp_model.from_map(m['customContainerConfig'])
+        if m.get('customDNS') is not None:
+            temp_model = CustomDNS()
+            self.custom_dns = temp_model.from_map(m['customDNS'])
+        if m.get('customRuntimeConfig') is not None:
+            temp_model = CustomRuntimeConfig()
+            self.custom_runtime_config = temp_model.from_map(m['customRuntimeConfig'])
         if m.get('description') is not None:
             self.description = m.get('description')
         if m.get('environmentVariables') is not None:
@@ -9019,11 +9441,14 @@ class UpdateTriggerRequest(TeaModel):
 
 
 class UpdateTriggerResponseBody(TeaModel):
-    def __init__(self, created_time=None, description=None, invocation_role=None, last_modified_time=None,
-                 qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None, trigger_type=None):
+    def __init__(self, created_time=None, description=None, domain_name=None, invocation_role=None,
+                 last_modified_time=None, qualifier=None, source_arn=None, trigger_config=None, trigger_id=None, trigger_name=None,
+                 trigger_type=None):
         # 创建时间
         self.created_time = created_time  # type: str
         self.description = description  # type: str
+        # 域名名称，使用域名名称拼接上函数计算域名，可以采用HTTP协议调用到触发器对应版本的函数。例如{domainName}.cn-shanghai.fc.aliyuncs.com
+        self.domain_name = domain_name  # type: str
         # 调用函数使用的RAM角色的ARN
         self.invocation_role = invocation_role  # type: str
         # 上次修改时间
@@ -9053,6 +9478,8 @@ class UpdateTriggerResponseBody(TeaModel):
             result['createdTime'] = self.created_time
         if self.description is not None:
             result['description'] = self.description
+        if self.domain_name is not None:
+            result['domainName'] = self.domain_name
         if self.invocation_role is not None:
             result['invocationRole'] = self.invocation_role
         if self.last_modified_time is not None:
@@ -9077,6 +9504,8 @@ class UpdateTriggerResponseBody(TeaModel):
             self.created_time = m.get('createdTime')
         if m.get('description') is not None:
             self.description = m.get('description')
+        if m.get('domainName') is not None:
+            self.domain_name = m.get('domainName')
         if m.get('invocationRole') is not None:
             self.invocation_role = m.get('invocationRole')
         if m.get('lastModifiedTime') is not None:
