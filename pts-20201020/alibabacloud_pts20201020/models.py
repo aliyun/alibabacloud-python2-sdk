@@ -6163,7 +6163,7 @@ class SaveOpenJMeterSceneRequestOpenJMeterSceneJMeterProperties(TeaModel):
 
 class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
     def __init__(self, agent_count=None, concurrency=None, constant_throughput_timer_type=None,
-                 dns_cache_config=None, duration=None, enviroment_id=None, file_list=None, is_vpc_test=None, jmeter_properties=None,
+                 dns_cache_config=None, duration=None, environment_id=None, file_list=None, is_vpc_test=None, jmeter_properties=None,
                  ramp_up=None, region_id=None, scene_id=None, scene_name=None, security_group_id=None, steps=None,
                  sync_timer_type=None, test_file=None, v_switch_id=None, vpc_id=None):
         # 施压引擎数量
@@ -6177,7 +6177,7 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
         # 压测持续时间
         self.duration = duration  # type: int
         # 关联的环境id
-        self.enviroment_id = enviroment_id  # type: str
+        self.environment_id = environment_id  # type: str
         # 文件列表
         self.file_list = file_list  # type: list[SaveOpenJMeterSceneRequestOpenJMeterSceneFileList]
         # 是否为VPC测试，默认为false表示公网测试，此值为true时VPC相关配置才生效
@@ -6233,8 +6233,8 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
             result['DnsCacheConfig'] = self.dns_cache_config.to_map()
         if self.duration is not None:
             result['Duration'] = self.duration
-        if self.enviroment_id is not None:
-            result['EnviromentId'] = self.enviroment_id
+        if self.environment_id is not None:
+            result['EnvironmentId'] = self.environment_id
         result['FileList'] = []
         if self.file_list is not None:
             for k in self.file_list:
@@ -6280,8 +6280,8 @@ class SaveOpenJMeterSceneRequestOpenJMeterScene(TeaModel):
             self.dns_cache_config = temp_model.from_map(m['DnsCacheConfig'])
         if m.get('Duration') is not None:
             self.duration = m.get('Duration')
-        if m.get('EnviromentId') is not None:
-            self.enviroment_id = m.get('EnviromentId')
+        if m.get('EnvironmentId') is not None:
+            self.environment_id = m.get('EnvironmentId')
         self.file_list = []
         if m.get('FileList') is not None:
             for k in m.get('FileList'):
