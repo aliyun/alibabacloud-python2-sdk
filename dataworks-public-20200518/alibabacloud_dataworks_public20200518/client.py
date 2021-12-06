@@ -11,13 +11,13 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_dataworks_public20200518 import models as dataworks_public_20200518_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 from RPC import models as rpc_models
 from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
 from alibabacloud_openplatform20191219 import models as open_platform_models
 from alibabacloud_oss_sdk import models as oss_models
 from alibabacloud_tea_fileform import models as file_form_models
 from alibabacloud_oss_util import models as ossutil_models
-from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 from alibabacloud_oss_sdk.client import Client as OSSClient
 
 
@@ -69,9 +69,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='AbolishDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.AbolishDataServiceApiResponse(),
-            self.do_rpcrequest('AbolishDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def abolish_data_service_api(self, request):
@@ -80,12 +91,29 @@ class Client(OpenApiClient):
 
     def add_project_member_to_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['ProjectId'] = request.project_id
+        query['RoleCode'] = request.role_code
+        query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='AddProjectMemberToRole',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.AddProjectMemberToRoleResponse(),
-            self.do_rpcrequest('AddProjectMemberToRole', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_project_member_to_role(self, request):
@@ -94,12 +122,27 @@ class Client(OpenApiClient):
 
     def add_to_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CategoryId'] = request.category_id
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='AddToMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.AddToMetaCategoryResponse(),
-            self.do_rpcrequest('AddToMetaCategory', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_to_meta_category(self, request):
@@ -108,12 +151,28 @@ class Client(OpenApiClient):
 
     def approve_permission_apply_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ApproveAction'] = request.approve_action
+        query['ApproveComment'] = request.approve_comment
+        query['FlowId'] = request.flow_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ApprovePermissionApplyOrder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ApprovePermissionApplyOrderResponse(),
-            self.do_rpcrequest('ApprovePermissionApplyOrder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def approve_permission_apply_order(self, request):
@@ -122,12 +181,28 @@ class Client(OpenApiClient):
 
     def check_engine_meta_partition_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DataSourceType'] = request.data_source_type
+        query['Partition'] = request.partition
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CheckEngineMetaPartition',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckEngineMetaPartitionResponse(),
-            self.do_rpcrequest('CheckEngineMetaPartition', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_engine_meta_partition(self, request):
@@ -136,12 +211,27 @@ class Client(OpenApiClient):
 
     def check_engine_meta_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DataSourceType'] = request.data_source_type
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CheckEngineMetaTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckEngineMetaTableResponse(),
-            self.do_rpcrequest('CheckEngineMetaTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_engine_meta_table(self, request):
@@ -153,9 +243,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CheckFileDeployment',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckFileDeploymentResponse(),
-            self.do_rpcrequest('CheckFileDeployment', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_file_deployment(self, request):
@@ -164,12 +265,31 @@ class Client(OpenApiClient):
 
     def check_meta_partition_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['Partition'] = request.partition
+        query['TableGuid'] = request.table_guid
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CheckMetaPartition',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckMetaPartitionResponse(),
-            self.do_rpcrequest('CheckMetaPartition', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_meta_partition(self, request):
@@ -178,12 +298,30 @@ class Client(OpenApiClient):
 
     def check_meta_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['TableGuid'] = request.table_guid
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CheckMetaTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckMetaTableResponse(),
-            self.do_rpcrequest('CheckMetaTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_meta_table(self, request):
@@ -192,9 +330,20 @@ class Client(OpenApiClient):
 
     def check_meta_table_task_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='CheckMetaTableTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CheckMetaTableTaskResponse(),
-            self.do_rpcrequest('CheckMetaTableTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_meta_table_task(self):
@@ -206,9 +355,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateBusinessResponse(),
-            self.do_rpcrequest('CreateBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_business(self, request):
@@ -217,26 +377,90 @@ class Client(OpenApiClient):
 
     def create_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConnectionType'] = request.connection_type
+        query['Content'] = request.content
+        query['Description'] = request.description
+        query['EnvType'] = request.env_type
+        query['Name'] = request.name
+        query['ProjectId'] = request.project_id
+        query['SubType'] = request.sub_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateConnection',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateConnectionResponse(),
-            self.do_rpcrequest('CreateConnection', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_connection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_connection_with_options(request, runtime)
 
+    def create_disync_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['ProjectId'] = request.project_id
+        query['TaskContent'] = request.task_content
+        query['TaskName'] = request.task_name
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateDISyncTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.CreateDISyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_disync_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_disync_task_with_options(request, runtime)
+
     def create_dag_complement_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDagComplement',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDagComplementResponse(),
-            self.do_rpcrequest('CreateDagComplement', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dag_complement(self, request):
@@ -248,9 +472,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDagTest',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDagTestResponse(),
-            self.do_rpcrequest('CreateDagTest', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dag_test(self, request):
@@ -262,9 +497,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDataServiceApiResponse(),
-            self.do_rpcrequest('CreateDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_data_service_api(self, request):
@@ -276,9 +522,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDataServiceApiAuthority',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDataServiceApiAuthorityResponse(),
-            self.do_rpcrequest('CreateDataServiceApiAuthority', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_data_service_api_authority(self, request):
@@ -290,9 +547,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDataServiceFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDataServiceFolderResponse(),
-            self.do_rpcrequest('CreateDataServiceFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_data_service_folder(self, request):
@@ -304,9 +572,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateDataServiceGroup',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDataServiceGroupResponse(),
-            self.do_rpcrequest('CreateDataServiceGroup', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_data_service_group(self, request):
@@ -315,40 +594,82 @@ class Client(OpenApiClient):
 
     def create_data_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Content'] = request.content
+        query['DataSourceType'] = request.data_source_type
+        query['Description'] = request.description
+        query['EnvType'] = request.env_type
+        query['Name'] = request.name
+        query['ProjectId'] = request.project_id
+        query['SubType'] = request.sub_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSource',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateDataSourceResponse(),
-            self.do_rpcrequest('CreateDataSource', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_data_source(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_data_source_with_options(request, runtime)
 
-    def create_disync_task_with_options(self, request, runtime):
+    def create_export_migration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateExportMigration',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            dataworks_public_20200518_models.CreateDISyncTaskResponse(),
-            self.do_rpcrequest('CreateDISyncTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dataworks_public_20200518_models.CreateExportMigrationResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def create_disync_task(self, request):
+    def create_export_migration(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_disync_task_with_options(request, runtime)
+        return self.create_export_migration_with_options(request, runtime)
 
     def create_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateFileResponse(),
-            self.do_rpcrequest('CreateFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_file(self, request):
@@ -360,9 +681,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateFolderResponse(),
-            self.do_rpcrequest('CreateFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_folder(self, request):
@@ -374,9 +706,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateImportMigration',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateImportMigrationResponse(),
-            self.do_rpcrequest('CreateImportMigration', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_import_migration(self, request):
@@ -455,9 +798,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateManualDag',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateManualDagResponse(),
-            self.do_rpcrequest('CreateManualDag', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_manual_dag(self, request):
@@ -469,9 +823,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateMetaCategoryResponse(),
-            self.do_rpcrequest('CreateMetaCategory', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_meta_category(self, request):
@@ -480,12 +845,33 @@ class Client(OpenApiClient):
 
     def create_permission_apply_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ApplyObject'] = request.apply_object
+        query['ApplyReason'] = request.apply_reason
+        query['ApplyUserIds'] = request.apply_user_ids
+        query['Deadline'] = request.deadline
+        query['EngineType'] = request.engine_type
+        query['MaxComputeProjectName'] = request.max_compute_project_name
+        query['OrderType'] = request.order_type
+        query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreatePermissionApplyOrder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreatePermissionApplyOrderResponse(),
-            self.do_rpcrequest('CreatePermissionApplyOrder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_permission_apply_order(self, request):
@@ -494,12 +880,29 @@ class Client(OpenApiClient):
 
     def create_project_member_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['ProjectId'] = request.project_id
+        query['RoleCode'] = request.role_code
+        query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateProjectMember',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateProjectMemberResponse(),
-            self.do_rpcrequest('CreateProjectMember', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_project_member(self, request):
@@ -511,9 +914,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateQualityEntity',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateQualityEntityResponse(),
-            self.do_rpcrequest('CreateQualityEntity', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_quality_entity(self, request):
@@ -525,9 +939,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateQualityFollower',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateQualityFollowerResponse(),
-            self.do_rpcrequest('CreateQualityFollower', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_quality_follower(self, request):
@@ -539,9 +964,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateQualityRelativeNode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateQualityRelativeNodeResponse(),
-            self.do_rpcrequest('CreateQualityRelativeNode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_quality_relative_node(self, request):
@@ -553,9 +989,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateQualityRule',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateQualityRuleResponse(),
-            self.do_rpcrequest('CreateQualityRule', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_quality_rule(self, request):
@@ -567,9 +1014,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateRemind',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateRemindResponse(),
-            self.do_rpcrequest('CreateRemind', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_remind(self, request):
@@ -578,12 +1036,40 @@ class Client(OpenApiClient):
 
     def create_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['CategoryId'] = request.category_id
+        query['ClientToken'] = request.client_token
+        query['Comment'] = request.comment
+        query['ExternalTableType'] = request.external_table_type
+        query['HasPart'] = request.has_part
+        query['IsView'] = request.is_view
+        query['LifeCycle'] = request.life_cycle
+        query['Location'] = request.location
+        query['LogicalLevelId'] = request.logical_level_id
+        query['OwnerId'] = request.owner_id
+        query['PhysicsLevelId'] = request.physics_level_id
+        query['ProjectId'] = request.project_id
+        query['TableName'] = request.table_name
+        query['Visibility'] = request.visibility
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateTableResponse(),
-            self.do_rpcrequest('CreateTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_table(self, request):
@@ -592,12 +1078,29 @@ class Client(OpenApiClient):
 
     def create_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Description'] = request.description
+        query['LevelType'] = request.level_type
+        query['Name'] = request.name
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateTableLevel',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateTableLevelResponse(),
-            self.do_rpcrequest('CreateTableLevel', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_table_level(self, request):
@@ -606,12 +1109,29 @@ class Client(OpenApiClient):
 
     def create_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Level'] = request.level
+        query['Name'] = request.name
+        query['ParentId'] = request.parent_id
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateTableTheme',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateTableThemeResponse(),
-            self.do_rpcrequest('CreateTableTheme', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_table_theme(self, request):
@@ -623,9 +1143,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateUdfFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateUdfFileResponse(),
-            self.do_rpcrequest('CreateUdfFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_udf_file(self, request):
@@ -637,9 +1168,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='CreateView',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.CreateViewResponse(),
-            self.do_rpcrequest('CreateView', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_view(self, request):
@@ -651,9 +1193,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteBusinessResponse(),
-            self.do_rpcrequest('DeleteBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_business(self, request):
@@ -662,26 +1215,81 @@ class Client(OpenApiClient):
 
     def delete_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConnectionId'] = request.connection_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteConnection',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteConnectionResponse(),
-            self.do_rpcrequest('DeleteConnection', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_connection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_connection_with_options(request, runtime)
 
+    def delete_disync_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteDISyncTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.DeleteDISyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_disync_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_disync_task_with_options(request, runtime)
+
     def delete_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteDataServiceApiResponse(),
-            self.do_rpcrequest('DeleteDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_data_service_api(self, request):
@@ -693,9 +1301,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteDataServiceApiAuthority',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteDataServiceApiAuthorityResponse(),
-            self.do_rpcrequest('DeleteDataServiceApiAuthority', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_data_service_api_authority(self, request):
@@ -704,40 +1323,51 @@ class Client(OpenApiClient):
 
     def delete_data_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DataSourceId'] = request.data_source_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSource',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteDataSourceResponse(),
-            self.do_rpcrequest('DeleteDataSource', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_data_source(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_data_source_with_options(request, runtime)
 
-    def delete_disync_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.DeleteDISyncTaskResponse(),
-            self.do_rpcrequest('DeleteDISyncTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_disync_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_disync_task_with_options(request, runtime)
-
     def delete_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteFileResponse(),
-            self.do_rpcrequest('DeleteFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_file(self, request):
@@ -749,9 +1379,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteFolderResponse(),
-            self.do_rpcrequest('DeleteFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_folder(self, request):
@@ -760,12 +1401,27 @@ class Client(OpenApiClient):
 
     def delete_from_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CategoryId'] = request.category_id
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteFromMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteFromMetaCategoryResponse(),
-            self.do_rpcrequest('DeleteFromMetaCategory', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_from_meta_category(self, request):
@@ -776,11 +1432,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteMetaCategoryResponse(),
-            self.do_rpcrequest('DeleteMetaCategory', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_meta_category(self, request):
@@ -789,12 +1456,27 @@ class Client(OpenApiClient):
 
     def delete_project_member_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
+        query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteProjectMember',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteProjectMemberResponse(),
-            self.do_rpcrequest('DeleteProjectMember', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_project_member(self, request):
@@ -806,9 +1488,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteQualityEntity',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteQualityEntityResponse(),
-            self.do_rpcrequest('DeleteQualityEntity', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_quality_entity(self, request):
@@ -820,9 +1513,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteQualityFollower',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteQualityFollowerResponse(),
-            self.do_rpcrequest('DeleteQualityFollower', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_quality_follower(self, request):
@@ -834,9 +1538,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteQualityRelativeNode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteQualityRelativeNodeResponse(),
-            self.do_rpcrequest('DeleteQualityRelativeNode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_quality_relative_node(self, request):
@@ -848,9 +1563,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteQualityRule',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteQualityRuleResponse(),
-            self.do_rpcrequest('DeleteQualityRule', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_quality_rule(self, request):
@@ -862,9 +1588,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeleteRemind',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteRemindResponse(),
-            self.do_rpcrequest('DeleteRemind', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_remind(self, request):
@@ -873,12 +1610,29 @@ class Client(OpenApiClient):
 
     def delete_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['EnvType'] = request.env_type
+        query['ProjectId'] = request.project_id
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteTableResponse(),
-            self.do_rpcrequest('DeleteTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_table(self, request):
@@ -887,12 +1641,27 @@ class Client(OpenApiClient):
 
     def delete_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['LevelId'] = request.level_id
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteTableLevel',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteTableLevelResponse(),
-            self.do_rpcrequest('DeleteTableLevel', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_table_level(self, request):
@@ -901,12 +1670,27 @@ class Client(OpenApiClient):
 
     def delete_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
+        query['ThemeId'] = request.theme_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteTableTheme',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteTableThemeResponse(),
-            self.do_rpcrequest('DeleteTableTheme', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_table_theme(self, request):
@@ -915,12 +1699,27 @@ class Client(OpenApiClient):
 
     def delete_view_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['ViewName'] = request.view_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteView',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeleteViewResponse(),
-            self.do_rpcrequest('DeleteView', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_view(self, request):
@@ -929,12 +1728,28 @@ class Client(OpenApiClient):
 
     def deploy_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeployDISyncTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeployDISyncTaskResponse(),
-            self.do_rpcrequest('DeployDISyncTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def deploy_disync_task(self, request):
@@ -946,9 +1761,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='DeployFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DeployFileResponse(),
-            self.do_rpcrequest('DeployFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def deploy_file(self, request):
@@ -959,11 +1785,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DesensitizeData',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.DesensitizeDataResponse(),
-            self.do_rpcrequest('DesensitizeData', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def desensitize_data(self, request):
@@ -975,9 +1812,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='EstablishRelationTableToBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.EstablishRelationTableToBusinessResponse(),
-            self.do_rpcrequest('EstablishRelationTableToBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def establish_relation_table_to_business(self, request):
@@ -988,54 +1836,109 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportConnections',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ExportConnectionsResponse(),
-            self.do_rpcrequest('ExportConnections', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def export_connections(self, request):
         runtime = util_models.RuntimeOptions()
         return self.export_connections_with_options(request, runtime)
 
-    def export_data_sources_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ExportDataSourcesResponse(),
-            self.do_rpcrequest('ExportDataSources', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def export_data_sources(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.export_data_sources_with_options(request, runtime)
-
     def export_disync_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ExportDISyncTasks',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ExportDISyncTasksResponse(),
-            self.do_rpcrequest('ExportDISyncTasks', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def export_disync_tasks(self, request):
         runtime = util_models.RuntimeOptions()
         return self.export_disync_tasks_with_options(request, runtime)
 
+    def export_data_sources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportDataSources',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ExportDataSourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def export_data_sources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_data_sources_with_options(request, runtime)
+
     def generate_disync_task_config_for_creating_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['ProjectId'] = request.project_id
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GenerateDISyncTaskConfigForCreating',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GenerateDISyncTaskConfigForCreatingResponse(),
-            self.do_rpcrequest('GenerateDISyncTaskConfigForCreating', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def generate_disync_task_config_for_creating(self, request):
@@ -1044,12 +1947,30 @@ class Client(OpenApiClient):
 
     def generate_disync_task_config_for_updating_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['ProjectId'] = request.project_id
+        query['TaskId'] = request.task_id
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GenerateDISyncTaskConfigForUpdating',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GenerateDISyncTaskConfigForUpdatingResponse(),
-            self.do_rpcrequest('GenerateDISyncTaskConfigForUpdating', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def generate_disync_task_config_for_updating(self, request):
@@ -1061,9 +1982,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetBaselineConfig',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetBaselineConfigResponse(),
-            self.do_rpcrequest('GetBaselineConfig', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_baseline_config(self, request):
@@ -1075,9 +2007,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetBaselineKeyPath',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetBaselineKeyPathResponse(),
-            self.do_rpcrequest('GetBaselineKeyPath', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_baseline_key_path(self, request):
@@ -1089,9 +2032,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetBaselineStatus',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetBaselineStatusResponse(),
-            self.do_rpcrequest('GetBaselineStatus', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_baseline_status(self, request):
@@ -1103,9 +2057,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetBusinessResponse(),
-            self.do_rpcrequest('GetBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_business(self, request):
@@ -1114,26 +2079,167 @@ class Client(OpenApiClient):
 
     def get_connection_meta_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['EnvType'] = request.env_type
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetConnectionMeta',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetConnectionMetaResponse(),
-            self.do_rpcrequest('GetConnectionMeta', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_connection_meta(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_connection_meta_with_options(request, runtime)
 
+    def get_ddljob_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDDLJobStatus',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetDDLJobStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_ddljob_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_ddljob_status_with_options(request, runtime)
+
+    def get_disync_instance_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetDISyncInstanceInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetDISyncInstanceInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_disync_instance_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_disync_instance_info_with_options(request, runtime)
+
+    def get_disync_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetDISyncTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetDISyncTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_disync_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_disync_task_with_options(request, runtime)
+
+    def get_disync_task_metric_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDISyncTaskMetricInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetDISyncTaskMetricInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_disync_task_metric_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_disync_task_metric_info_with_options(request, runtime)
+
     def get_dag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDag',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDagResponse(),
-            self.do_rpcrequest('GetDag', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_dag(self, request):
@@ -1145,9 +2251,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataServiceApiResponse(),
-            self.do_rpcrequest('GetDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_service_api(self, request):
@@ -1159,9 +2276,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDataServiceApplication',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataServiceApplicationResponse(),
-            self.do_rpcrequest('GetDataServiceApplication', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_service_application(self, request):
@@ -1173,9 +2301,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDataServiceFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataServiceFolderResponse(),
-            self.do_rpcrequest('GetDataServiceFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_service_folder(self, request):
@@ -1187,9 +2326,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDataServiceGroup',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataServiceGroupResponse(),
-            self.do_rpcrequest('GetDataServiceGroup', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_service_group(self, request):
@@ -1201,9 +2351,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDataServicePublishedApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataServicePublishedApiResponse(),
-            self.do_rpcrequest('GetDataServicePublishedApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_service_published_api(self, request):
@@ -1212,98 +2373,80 @@ class Client(OpenApiClient):
 
     def get_data_source_meta_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['EnvType'] = request.env_type
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetDataSourceMeta',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDataSourceMetaResponse(),
-            self.do_rpcrequest('GetDataSourceMeta', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_data_source_meta(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_data_source_meta_with_options(request, runtime)
 
-    def get_ddljob_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDDLJobStatusResponse(),
-            self.do_rpcrequest('GetDDLJobStatus', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def get_ddljob_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_ddljob_status_with_options(request, runtime)
-
     def get_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetDeployment',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetDeploymentResponse(),
-            self.do_rpcrequest('GetDeployment', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_deployment(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_deployment_with_options(request, runtime)
 
-    def get_disync_instance_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDISyncInstanceInfoResponse(),
-            self.do_rpcrequest('GetDISyncInstanceInfo', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_disync_instance_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_disync_instance_info_with_options(request, runtime)
-
-    def get_disync_task_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDISyncTaskResponse(),
-            self.do_rpcrequest('GetDISyncTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def get_disync_task(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_disync_task_with_options(request, runtime)
-
-    def get_disync_task_metric_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetDISyncTaskMetricInfoResponse(),
-            self.do_rpcrequest('GetDISyncTaskMetricInfo', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def get_disync_task_metric_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_disync_task_metric_info_with_options(request, runtime)
-
     def get_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetFileResponse(),
-            self.do_rpcrequest('GetFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_file(self, request):
@@ -1315,9 +2458,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetFileTypeStatistic',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetFileTypeStatisticResponse(),
-            self.do_rpcrequest('GetFileTypeStatistic', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_file_type_statistic(self, request):
@@ -1329,9 +2483,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetFileVersion',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetFileVersionResponse(),
-            self.do_rpcrequest('GetFileVersion', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_file_version(self, request):
@@ -1343,23 +2508,70 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetFolderResponse(),
-            self.do_rpcrequest('GetFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_folder(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_folder_with_options(request, runtime)
 
+    def get_ideevent_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetIDEEventDetail',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetIDEEventDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_ideevent_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_ideevent_detail_with_options(request, runtime)
+
     def get_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceResponse(),
-            self.do_rpcrequest('GetInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance(self, request):
@@ -1371,9 +2583,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceConsumeTimeRank',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceConsumeTimeRankResponse(),
-            self.do_rpcrequest('GetInstanceConsumeTimeRank', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_consume_time_rank(self, request):
@@ -1385,9 +2608,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceCountTrend',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceCountTrendResponse(),
-            self.do_rpcrequest('GetInstanceCountTrend', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_count_trend(self, request):
@@ -1399,9 +2633,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceErrorRank',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceErrorRankResponse(),
-            self.do_rpcrequest('GetInstanceErrorRank', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_error_rank(self, request):
@@ -1413,9 +2658,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceLog',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceLogResponse(),
-            self.do_rpcrequest('GetInstanceLog', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_log(self, request):
@@ -1427,9 +2683,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceStatusCount',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceStatusCountResponse(),
-            self.do_rpcrequest('GetInstanceStatusCount', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_status_count(self, request):
@@ -1441,9 +2708,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetInstanceStatusStatistic',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetInstanceStatusStatisticResponse(),
-            self.do_rpcrequest('GetInstanceStatusStatistic', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_status_statistic(self, request):
@@ -1455,9 +2733,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetManualDagInstances',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetManualDagInstancesResponse(),
-            self.do_rpcrequest('GetManualDagInstances', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_manual_dag_instances(self, request):
@@ -1466,12 +2755,28 @@ class Client(OpenApiClient):
 
     def get_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNum'] = request.page_num
+        query['PageSize'] = request.page_size
+        query['ParentCategoryId'] = request.parent_category_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaCategoryResponse(),
-            self.do_rpcrequest('GetMetaCategory', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_category(self, request):
@@ -1480,12 +2785,34 @@ class Client(OpenApiClient):
 
     def get_meta_column_lineage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClusterId'] = request.cluster_id
+        query['ColumnGuid'] = request.column_guid
+        query['ColumnName'] = request.column_name
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['Direction'] = request.direction
+        query['PageNum'] = request.page_num
+        query['PageSize'] = request.page_size
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaColumnLineage',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaColumnLineageResponse(),
-            self.do_rpcrequest('GetMetaColumnLineage', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_column_lineage(self, request):
@@ -1496,11 +2823,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaDBInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaDBInfoResponse(),
-            self.do_rpcrequest('GetMetaDBInfo', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_dbinfo(self, request):
@@ -1509,12 +2847,31 @@ class Client(OpenApiClient):
 
     def get_meta_dbtable_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaDBTableList',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaDBTableListResponse(),
-            self.do_rpcrequest('GetMetaDBTableList', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_dbtable_list(self, request):
@@ -1525,11 +2882,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableBasicInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableBasicInfoResponse(),
-            self.do_rpcrequest('GetMetaTableBasicInfo', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_basic_info(self, request):
@@ -1541,9 +2909,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetMetaTableChangeLog',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableChangeLogResponse(),
-            self.do_rpcrequest('GetMetaTableChangeLog', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_change_log(self, request):
@@ -1554,11 +2933,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableColumn',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableColumnResponse(),
-            self.do_rpcrequest('GetMetaTableColumn', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_column(self, request):
@@ -1569,11 +2959,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableFullInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableFullInfoResponse(),
-            self.do_rpcrequest('GetMetaTableFullInfo', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_full_info(self, request):
@@ -1582,12 +2983,27 @@ class Client(OpenApiClient):
 
     def get_meta_table_intro_wiki_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['TableGuid'] = request.table_guid
+        query['WikiVersion'] = request.wiki_version
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableIntroWiki',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableIntroWikiResponse(),
-            self.do_rpcrequest('GetMetaTableIntroWiki', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_intro_wiki(self, request):
@@ -1596,12 +3012,33 @@ class Client(OpenApiClient):
 
     def get_meta_table_lineage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['Direction'] = request.direction
+        query['NextPrimaryKey'] = request.next_primary_key
+        query['PageSize'] = request.page_size
+        query['TableGuid'] = request.table_guid
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableLineage',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableLineageResponse(),
-            self.do_rpcrequest('GetMetaTableLineage', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_lineage(self, request):
@@ -1612,11 +3049,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableListByCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableListByCategoryResponse(),
-            self.do_rpcrequest('GetMetaTableListByCategory', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_list_by_category(self, request):
@@ -1625,12 +3073,30 @@ class Client(OpenApiClient):
 
     def get_meta_table_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['EndDate'] = request.end_date
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['StartDate'] = request.start_date
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableOutput',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableOutputResponse(),
-            self.do_rpcrequest('GetMetaTableOutput', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_output(self, request):
@@ -1639,12 +3105,32 @@ class Client(OpenApiClient):
 
     def get_meta_table_partition_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['DatabaseName'] = request.database_name
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['TableGuid'] = request.table_guid
+        query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTablePartition',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTablePartitionResponse(),
-            self.do_rpcrequest('GetMetaTablePartition', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_partition(self, request):
@@ -1655,11 +3141,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMetaTableThemeLevel',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMetaTableThemeLevelResponse(),
-            self.do_rpcrequest('GetMetaTableThemeLevel', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_meta_table_theme_level(self, request):
@@ -1671,23 +3168,70 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetMigrationProcess',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetMigrationProcessResponse(),
-            self.do_rpcrequest('GetMigrationProcess', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_migration_process(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_migration_process_with_options(request, runtime)
 
+    def get_migration_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetMigrationSummary',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.GetMigrationSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_migration_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_migration_summary_with_options(request, runtime)
+
     def get_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeResponse(),
-            self.do_rpcrequest('GetNode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node(self, request):
@@ -1699,9 +3243,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNodeChildren',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeChildrenResponse(),
-            self.do_rpcrequest('GetNodeChildren', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node_children(self, request):
@@ -1713,9 +3268,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNodeCode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeCodeResponse(),
-            self.do_rpcrequest('GetNodeCode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node_code(self, request):
@@ -1727,9 +3293,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNodeOnBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeOnBaselineResponse(),
-            self.do_rpcrequest('GetNodeOnBaseline', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node_on_baseline(self, request):
@@ -1741,9 +3318,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNodeParents',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeParentsResponse(),
-            self.do_rpcrequest('GetNodeParents', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node_parents(self, request):
@@ -1755,9 +3343,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetNodeTypeListInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetNodeTypeListInfoResponse(),
-            self.do_rpcrequest('GetNodeTypeListInfo', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_node_type_list_info(self, request):
@@ -1768,11 +3367,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpRiskData',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetOpRiskDataResponse(),
-            self.do_rpcrequest('GetOpRiskData', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_op_risk_data(self, request):
@@ -1783,11 +3393,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOpSensitiveData',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetOpSensitiveDataResponse(),
-            self.do_rpcrequest('GetOpSensitiveData', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_op_sensitive_data(self, request):
@@ -1796,12 +3417,26 @@ class Client(OpenApiClient):
 
     def get_permission_apply_order_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FlowId'] = request.flow_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetPermissionApplyOrderDetail',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetPermissionApplyOrderDetailResponse(),
-            self.do_rpcrequest('GetPermissionApplyOrderDetail', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_permission_apply_order_detail(self, request):
@@ -1810,12 +3445,26 @@ class Client(OpenApiClient):
 
     def get_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetProject',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetProjectResponse(),
-            self.do_rpcrequest('GetProject', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_project(self, request):
@@ -1824,12 +3473,26 @@ class Client(OpenApiClient):
 
     def get_project_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetProjectDetail',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetProjectDetailResponse(),
-            self.do_rpcrequest('GetProjectDetail', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_project_detail(self, request):
@@ -1841,9 +3504,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetQualityEntity',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetQualityEntityResponse(),
-            self.do_rpcrequest('GetQualityEntity', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_quality_entity(self, request):
@@ -1855,9 +3529,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetQualityFollower',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetQualityFollowerResponse(),
-            self.do_rpcrequest('GetQualityFollower', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_quality_follower(self, request):
@@ -1869,9 +3554,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetQualityRule',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetQualityRuleResponse(),
-            self.do_rpcrequest('GetQualityRule', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_quality_rule(self, request):
@@ -1883,9 +3579,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetRemind',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetRemindResponse(),
-            self.do_rpcrequest('GetRemind', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_remind(self, request):
@@ -1896,11 +3603,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSensitiveData',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetSensitiveDataResponse(),
-            self.do_rpcrequest('GetSensitiveData', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_sensitive_data(self, request):
@@ -1912,9 +3630,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetSuccessInstanceTrend',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetSuccessInstanceTrendResponse(),
-            self.do_rpcrequest('GetSuccessInstanceTrend', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_success_instance_trend(self, request):
@@ -1926,9 +3655,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetTopic',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetTopicResponse(),
-            self.do_rpcrequest('GetTopic', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_topic(self, request):
@@ -1940,9 +3680,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='GetTopicInfluence',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.GetTopicInfluenceResponse(),
-            self.do_rpcrequest('GetTopicInfluence', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_topic_influence(self, request):
@@ -1951,54 +3702,111 @@ class Client(OpenApiClient):
 
     def import_connections_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Connections'] = request.connections
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ImportConnections',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ImportConnectionsResponse(),
-            self.do_rpcrequest('ImportConnections', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def import_connections(self, request):
         runtime = util_models.RuntimeOptions()
         return self.import_connections_with_options(request, runtime)
 
-    def import_data_sources_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ImportDataSourcesResponse(),
-            self.do_rpcrequest('ImportDataSources', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def import_data_sources(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.import_data_sources_with_options(request, runtime)
-
     def import_disync_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ImportDISyncTasks',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ImportDISyncTasksResponse(),
-            self.do_rpcrequest('ImportDISyncTasks', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def import_disync_tasks(self, request):
         runtime = util_models.RuntimeOptions()
         return self.import_disync_tasks_with_options(request, runtime)
 
+    def import_data_sources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['DataSources'] = request.data_sources
+        query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ImportDataSources',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ImportDataSourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def import_data_sources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.import_data_sources_with_options(request, runtime)
+
     def list_alert_messages_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListAlertMessages',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListAlertMessagesResponse(),
-            self.do_rpcrequest('ListAlertMessages', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_alert_messages(self, request):
@@ -2010,9 +3818,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListBaselineConfigs',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListBaselineConfigsResponse(),
-            self.do_rpcrequest('ListBaselineConfigs', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_baseline_configs(self, request):
@@ -2024,9 +3843,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListBaselineStatuses',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListBaselineStatusesResponse(),
-            self.do_rpcrequest('ListBaselineStatuses', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_baseline_statuses(self, request):
@@ -2038,9 +3868,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListBusinessResponse(),
-            self.do_rpcrequest('ListBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_business(self, request):
@@ -2049,12 +3890,31 @@ class Client(OpenApiClient):
 
     def list_calc_engines_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CalcEngineType'] = request.calc_engine_type
+        query['EnvType'] = request.env_type
+        query['Name'] = request.name
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListCalcEngines',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListCalcEnginesResponse(),
-            self.do_rpcrequest('ListCalcEngines', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_calc_engines(self, request):
@@ -2065,25 +3925,137 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListConnections',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListConnectionsResponse(),
-            self.do_rpcrequest('ListConnections', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_connections(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_connections_with_options(request, runtime)
 
-    def list_data_service_api_authorities_with_options(self, request, runtime):
+    def list_diproject_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['DestinationType'] = request.destination_type
+        query['ProjectId'] = request.project_id
+        query['SourceType'] = request.source_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListDIProjectConfig',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListDIProjectConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_diproject_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_diproject_config_with_options(request, runtime)
+
+    def list_disync_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListDISyncTasks',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListDISyncTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_disync_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_disync_tasks_with_options(request, runtime)
+
+    def list_dags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDags',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListDagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dags_with_options(request, runtime)
+
+    def list_data_service_api_authorities_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListDataServiceApiAuthorities',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceApiAuthoritiesResponse(),
-            self.do_rpcrequest('ListDataServiceApiAuthorities', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_api_authorities(self, request):
@@ -2095,9 +4067,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDataServiceApis',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceApisResponse(),
-            self.do_rpcrequest('ListDataServiceApis', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_apis(self, request):
@@ -2109,9 +4092,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDataServiceApplications',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceApplicationsResponse(),
-            self.do_rpcrequest('ListDataServiceApplications', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_applications(self, request):
@@ -2120,12 +4114,27 @@ class Client(OpenApiClient):
 
     def list_data_service_authorized_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListDataServiceAuthorizedApis',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceAuthorizedApisResponse(),
-            self.do_rpcrequest('ListDataServiceAuthorizedApis', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_authorized_apis(self, request):
@@ -2137,9 +4146,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDataServiceFolders',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceFoldersResponse(),
-            self.do_rpcrequest('ListDataServiceFolders', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_folders(self, request):
@@ -2151,9 +4171,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDataServiceGroups',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServiceGroupsResponse(),
-            self.do_rpcrequest('ListDataServiceGroups', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_groups(self, request):
@@ -2165,9 +4196,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListDataServicePublishedApis',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataServicePublishedApisResponse(),
-            self.do_rpcrequest('ListDataServicePublishedApis', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_service_published_apis(self, request):
@@ -2178,67 +4220,72 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSources',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListDataSourcesResponse(),
-            self.do_rpcrequest('ListDataSources', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_sources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_data_sources_with_options(request, runtime)
 
-    def list_diproject_config_with_options(self, request, runtime):
+    def list_deployments_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListDIProjectConfigResponse(),
-            self.do_rpcrequest('ListDIProjectConfig', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_diproject_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_diproject_config_with_options(request, runtime)
-
-    def list_disync_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+        params = open_api_models.Params(
+            action='ListDeployments',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            dataworks_public_20200518_models.ListDISyncTasksResponse(),
-            self.do_rpcrequest('ListDISyncTasks', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dataworks_public_20200518_models.ListDeploymentsResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def list_disync_tasks(self, request):
+    def list_deployments(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_disync_tasks_with_options(request, runtime)
-
-    def list_files_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListFilesResponse(),
-            self.do_rpcrequest('ListFiles', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_files(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_files_with_options(request, runtime)
+        return self.list_deployments_with_options(request, runtime)
 
     def list_file_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListFileType',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListFileTypeResponse(),
-            self.do_rpcrequest('ListFileType', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_file_type(self, request):
@@ -2250,23 +4297,70 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListFileVersions',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListFileVersionsResponse(),
-            self.do_rpcrequest('ListFileVersions', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_file_versions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_file_versions_with_options(request, runtime)
 
+    def list_files_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListFiles',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListFilesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_files(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_files_with_options(request, runtime)
+
     def list_folders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListFolders',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListFoldersResponse(),
-            self.do_rpcrequest('ListFolders', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_folders(self, request):
@@ -2278,9 +4372,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListInstanceAmount',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListInstanceAmountResponse(),
-            self.do_rpcrequest('ListInstanceAmount', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_instance_amount(self, request):
@@ -2292,9 +4397,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListInstances',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListInstancesResponse(),
-            self.do_rpcrequest('ListInstances', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_instances(self, request):
@@ -2306,9 +4422,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListManualDagInstances',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListManualDagInstancesResponse(),
-            self.do_rpcrequest('ListManualDagInstances', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_manual_dag_instances(self, request):
@@ -2319,53 +4446,97 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMetaDB',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListMetaDBResponse(),
-            self.do_rpcrequest('ListMetaDB', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_meta_db(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_meta_dbwith_options(request, runtime)
 
-    def list_node_input_or_output_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListNodeInputOrOutputResponse(),
-            self.do_rpcrequest('ListNodeInputOrOutput', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def list_node_input_or_output(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_node_input_or_output_with_options(request, runtime)
-
     def list_node_iowith_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListNodeIO',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListNodeIOResponse(),
-            self.do_rpcrequest('ListNodeIO', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_node_io(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_node_iowith_options(request, runtime)
 
+    def list_node_input_or_output_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListNodeInputOrOutput',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.ListNodeInputOrOutputResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_node_input_or_output(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_node_input_or_output_with_options(request, runtime)
+
     def list_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListNodes',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListNodesResponse(),
-            self.do_rpcrequest('ListNodes', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_nodes(self, request):
@@ -2377,9 +4548,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListNodesByBaseline',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListNodesByBaselineResponse(),
-            self.do_rpcrequest('ListNodesByBaseline', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_nodes_by_baseline(self, request):
@@ -2391,9 +4573,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListNodesByOutput',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListNodesByOutputResponse(),
-            self.do_rpcrequest('ListNodesByOutput', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_nodes_by_output(self, request):
@@ -2402,12 +4595,36 @@ class Client(OpenApiClient):
 
     def list_permission_apply_orders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['EndTime'] = request.end_time
+        query['EngineType'] = request.engine_type
+        query['FlowStatus'] = request.flow_status
+        query['MaxComputeProjectName'] = request.max_compute_project_name
+        query['OrderType'] = request.order_type
+        query['PageNum'] = request.page_num
+        query['PageSize'] = request.page_size
+        query['QueryType'] = request.query_type
+        query['StartTime'] = request.start_time
+        query['TableName'] = request.table_name
+        query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListPermissionApplyOrders',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListPermissionApplyOrdersResponse(),
-            self.do_rpcrequest('ListPermissionApplyOrders', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_permission_apply_orders(self, request):
@@ -2419,9 +4636,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListProgramTypeCount',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListProgramTypeCountResponse(),
-            self.do_rpcrequest('ListProgramTypeCount', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_program_type_count(self, request):
@@ -2430,12 +4658,26 @@ class Client(OpenApiClient):
 
     def list_project_ids_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListProjectIds',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListProjectIdsResponse(),
-            self.do_rpcrequest('ListProjectIds', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_project_ids(self, request):
@@ -2444,12 +4686,28 @@ class Client(OpenApiClient):
 
     def list_project_members_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListProjectMembers',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListProjectMembersResponse(),
-            self.do_rpcrequest('ListProjectMembers', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_project_members(self, request):
@@ -2458,12 +4716,26 @@ class Client(OpenApiClient):
 
     def list_project_roles_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListProjectRoles',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListProjectRolesResponse(),
-            self.do_rpcrequest('ListProjectRoles', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_project_roles(self, request):
@@ -2472,12 +4744,27 @@ class Client(OpenApiClient):
 
     def list_projects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListProjects',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListProjectsResponse(),
-            self.do_rpcrequest('ListProjects', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_projects(self, request):
@@ -2489,9 +4776,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListQualityResultsByEntity',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListQualityResultsByEntityResponse(),
-            self.do_rpcrequest('ListQualityResultsByEntity', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_quality_results_by_entity(self, request):
@@ -2503,9 +4801,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListQualityResultsByRule',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListQualityResultsByRuleResponse(),
-            self.do_rpcrequest('ListQualityResultsByRule', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_quality_results_by_rule(self, request):
@@ -2517,9 +4826,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListQualityRules',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListQualityRulesResponse(),
-            self.do_rpcrequest('ListQualityRules', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_quality_rules(self, request):
@@ -2528,12 +4848,31 @@ class Client(OpenApiClient):
 
     def list_ref_disync_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['ProjectId'] = request.project_id
+        query['RefType'] = request.ref_type
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListRefDISyncTasks',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListRefDISyncTasksResponse(),
-            self.do_rpcrequest('ListRefDISyncTasks', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_ref_disync_tasks(self, request):
@@ -2545,9 +4884,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListReminds',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListRemindsResponse(),
-            self.do_rpcrequest('ListReminds', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_reminds(self, request):
@@ -2556,12 +4906,28 @@ class Client(OpenApiClient):
 
     def list_resource_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['BizExtKey'] = request.biz_ext_key
+        query['Keyword'] = request.keyword
+        query['ResourceGroupType'] = request.resource_group_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ListResourceGroups',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListResourceGroupsResponse(),
-            self.do_rpcrequest('ListResourceGroups', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_resource_groups(self, request):
@@ -2573,9 +4939,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListSuccessInstanceAmount',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListSuccessInstanceAmountResponse(),
-            self.do_rpcrequest('ListSuccessInstanceAmount', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_success_instance_amount(self, request):
@@ -2586,11 +4963,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTableLevel',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListTableLevelResponse(),
-            self.do_rpcrequest('ListTableLevel', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_table_level(self, request):
@@ -2601,11 +4989,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTableTheme',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListTableThemeResponse(),
-            self.do_rpcrequest('ListTableTheme', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_table_theme(self, request):
@@ -2617,9 +5016,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ListTopics',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ListTopicsResponse(),
-            self.do_rpcrequest('ListTopics', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_topics(self, request):
@@ -2631,9 +5041,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='PublishDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.PublishDataServiceApiResponse(),
-            self.do_rpcrequest('PublishDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def publish_data_service_api(self, request):
@@ -2642,12 +5063,28 @@ class Client(OpenApiClient):
 
     def query_disync_task_config_process_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AsyncProcessId'] = request.async_process_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='QueryDISyncTaskConfigProcessResult',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.QueryDISyncTaskConfigProcessResultResponse(),
-            self.do_rpcrequest('QueryDISyncTaskConfigProcessResult', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_disync_task_config_process_result(self, request):
@@ -2659,9 +5096,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='QueryPublicModelEngine',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.QueryPublicModelEngineResponse(),
-            self.do_rpcrequest('QueryPublicModelEngine', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_public_model_engine(self, request):
@@ -2670,12 +5118,28 @@ class Client(OpenApiClient):
 
     def remove_project_member_from_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ProjectId'] = request.project_id
+        query['RoleCode'] = request.role_code
+        query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='RemoveProjectMemberFromRole',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RemoveProjectMemberFromRoleResponse(),
-            self.do_rpcrequest('RemoveProjectMemberFromRole', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_project_member_from_role(self, request):
@@ -2687,9 +5151,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='RestartInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RestartInstanceResponse(),
-            self.do_rpcrequest('RestartInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def restart_instance(self, request):
@@ -2701,9 +5176,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='ResumeInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ResumeInstanceResponse(),
-            self.do_rpcrequest('ResumeInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def resume_instance(self, request):
@@ -2712,12 +5198,31 @@ class Client(OpenApiClient):
 
     def revoke_column_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Columns'] = request.columns
+        query['MaxComputeProjectName'] = request.max_compute_project_name
+        query['RevokeUserId'] = request.revoke_user_id
+        query['RevokeUserName'] = request.revoke_user_name
+        query['TableName'] = request.table_name
+        query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='RevokeColumnPermission',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RevokeColumnPermissionResponse(),
-            self.do_rpcrequest('RevokeColumnPermission', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def revoke_column_permission(self, request):
@@ -2726,12 +5231,31 @@ class Client(OpenApiClient):
 
     def revoke_table_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Actions'] = request.actions
+        query['MaxComputeProjectName'] = request.max_compute_project_name
+        query['RevokeUserId'] = request.revoke_user_id
+        query['RevokeUserName'] = request.revoke_user_name
+        query['TableName'] = request.table_name
+        query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='RevokeTablePermission',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RevokeTablePermissionResponse(),
-            self.do_rpcrequest('RevokeTablePermission', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def revoke_table_permission(self, request):
@@ -2743,9 +5267,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='RunCycleDagNodes',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RunCycleDagNodesResponse(),
-            self.do_rpcrequest('RunCycleDagNodes', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def run_cycle_dag_nodes(self, request):
@@ -2757,9 +5292,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='RunManualDagNodes',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RunManualDagNodesResponse(),
-            self.do_rpcrequest('RunManualDagNodes', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def run_manual_dag_nodes(self, request):
@@ -2771,9 +5317,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='RunSmokeTest',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RunSmokeTestResponse(),
-            self.do_rpcrequest('RunSmokeTest', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def run_smoke_test(self, request):
@@ -2785,9 +5342,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='RunTriggerNode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.RunTriggerNodeResponse(),
-            self.do_rpcrequest('RunTriggerNode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def run_trigger_node(self, request):
@@ -2798,11 +5366,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ScanSensitiveData',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.ScanSensitiveDataResponse(),
-            self.do_rpcrequest('ScanSensitiveData', '2020-05-18', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def scan_sensitive_data(self, request):
@@ -2811,12 +5390,32 @@ class Client(OpenApiClient):
 
     def search_meta_tables_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['ClusterId'] = request.cluster_id
+        query['DataSourceType'] = request.data_source_type
+        query['EntityType'] = request.entity_type
+        query['Keyword'] = request.keyword
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='SearchMetaTables',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SearchMetaTablesResponse(),
-            self.do_rpcrequest('SearchMetaTables', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def search_meta_tables(self, request):
@@ -2828,9 +5427,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='SearchNodesByOutput',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SearchNodesByOutputResponse(),
-            self.do_rpcrequest('SearchNodesByOutput', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def search_nodes_by_output(self, request):
@@ -2839,12 +5449,30 @@ class Client(OpenApiClient):
 
     def set_connection_share_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['EnvType'] = request.env_type
+        query['ProjectId'] = request.project_id
+        query['ProjectPermissions'] = request.project_permissions
+        query['UserPermissions'] = request.user_permissions
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='SetConnectionShare',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SetConnectionShareResponse(),
-            self.do_rpcrequest('SetConnectionShare', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_connection_share(self, request):
@@ -2853,12 +5481,30 @@ class Client(OpenApiClient):
 
     def set_data_source_share_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['EnvType'] = request.env_type
+        query['ProjectId'] = request.project_id
+        query['ProjectPermissions'] = request.project_permissions
+        query['UserPermissions'] = request.user_permissions
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='SetDataSourceShare',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SetDataSourceShareResponse(),
-            self.do_rpcrequest('SetDataSourceShare', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_data_source_share(self, request):
@@ -2870,9 +5516,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='SetSuccessInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SetSuccessInstanceResponse(),
-            self.do_rpcrequest('SetSuccessInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_success_instance(self, request):
@@ -2881,12 +5538,29 @@ class Client(OpenApiClient):
 
     def start_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['StartParam'] = request.start_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='StartDISyncInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.StartDISyncInstanceResponse(),
-            self.do_rpcrequest('StartDISyncInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def start_disync_instance(self, request):
@@ -2898,9 +5572,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='StartMigration',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.StartMigrationResponse(),
-            self.do_rpcrequest('StartMigration', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def start_migration(self, request):
@@ -2909,12 +5594,28 @@ class Client(OpenApiClient):
 
     def stop_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='StopDISyncInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.StopDISyncInstanceResponse(),
-            self.do_rpcrequest('StopDISyncInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_disync_instance(self, request):
@@ -2926,9 +5627,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='StopInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.StopInstanceResponse(),
-            self.do_rpcrequest('StopInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_instance(self, request):
@@ -2940,9 +5652,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='SubmitFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SubmitFileResponse(),
-            self.do_rpcrequest('SubmitFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def submit_file(self, request):
@@ -2954,9 +5677,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='SuspendInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.SuspendInstanceResponse(),
-            self.do_rpcrequest('SuspendInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def suspend_instance(self, request):
@@ -2965,12 +5699,28 @@ class Client(OpenApiClient):
 
     def terminate_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='TerminateDISyncInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.TerminateDISyncInstanceResponse(),
-            self.do_rpcrequest('TerminateDISyncInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def terminate_disync_instance(self, request):
@@ -2979,12 +5729,29 @@ class Client(OpenApiClient):
 
     def test_network_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DatasourceName'] = request.datasource_name
+        query['EnvType'] = request.env_type
+        query['ProjectId'] = request.project_id
+        query['ResourceGroup'] = request.resource_group
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='TestNetworkConnection',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.TestNetworkConnectionResponse(),
-            self.do_rpcrequest('TestNetworkConnection', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def test_network_connection(self, request):
@@ -2996,9 +5763,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='TopTenElapsedTimeInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.TopTenElapsedTimeInstanceResponse(),
-            self.do_rpcrequest('TopTenElapsedTimeInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def top_ten_elapsed_time_instance(self, request):
@@ -3010,9 +5788,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='TopTenErrorTimesInstance',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.TopTenErrorTimesInstanceResponse(),
-            self.do_rpcrequest('TopTenErrorTimesInstance', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def top_ten_error_times_instance(self, request):
@@ -3024,9 +5813,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateBusiness',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateBusinessResponse(),
-            self.do_rpcrequest('UpdateBusiness', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_business(self, request):
@@ -3035,54 +5835,61 @@ class Client(OpenApiClient):
 
     def update_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConnectionId'] = request.connection_id
+        query['Content'] = request.content
+        query['Description'] = request.description
+        query['EnvType'] = request.env_type
+        query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateConnection',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='PUT',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateConnectionResponse(),
-            self.do_rpcrequest('UpdateConnection', '2020-05-18', 'HTTPS', 'PUT', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_connection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_connection_with_options(request, runtime)
 
-    def update_data_service_api_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.UpdateDataServiceApiResponse(),
-            self.do_rpcrequest('UpdateDataServiceApi', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def update_data_service_api(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_data_service_api_with_options(request, runtime)
-
-    def update_data_source_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.UpdateDataSourceResponse(),
-            self.do_rpcrequest('UpdateDataSource', '2020-05-18', 'HTTPS', 'PUT', 'AK', 'json', req, runtime)
-        )
-
-    def update_data_source(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_data_source_with_options(request, runtime)
-
     def update_diproject_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DestinationType'] = request.destination_type
+        query['ProjectConfig'] = request.project_config
+        query['ProjectId'] = request.project_id
+        query['SourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDIProjectConfig',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateDIProjectConfigResponse(),
-            self.do_rpcrequest('UpdateDIProjectConfig', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_diproject_config(self, request):
@@ -3091,26 +5898,112 @@ class Client(OpenApiClient):
 
     def update_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FileId'] = request.file_id
+        query['ProjectId'] = request.project_id
+        query['TaskContent'] = request.task_content
+        query['TaskParam'] = request.task_param
+        query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDISyncTask',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateDISyncTaskResponse(),
-            self.do_rpcrequest('UpdateDISyncTask', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_disync_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_disync_task_with_options(request, runtime)
 
+    def update_data_service_api_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataServiceApi',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.UpdateDataServiceApiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_data_service_api(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_service_api_with_options(request, runtime)
+
+    def update_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['Content'] = request.content
+        query['DataSourceId'] = request.data_source_id
+        query['Description'] = request.description
+        query['EnvType'] = request.env_type
+        query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataSource',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='PUT',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.UpdateDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_source_with_options(request, runtime)
+
     def update_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateFileResponse(),
-            self.do_rpcrequest('UpdateFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_file(self, request):
@@ -3122,23 +6015,70 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateFolder',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateFolderResponse(),
-            self.do_rpcrequest('UpdateFolder', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_folder(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_folder_with_options(request, runtime)
 
+    def update_ideevent_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateIDEEventResult',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.UpdateIDEEventResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_ideevent_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_ideevent_result_with_options(request, runtime)
+
     def update_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateMetaCategory',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateMetaCategoryResponse(),
-            self.do_rpcrequest('UpdateMetaCategory', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_meta_category(self, request):
@@ -3147,12 +6087,33 @@ class Client(OpenApiClient):
 
     def update_meta_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Caption'] = request.caption
+        query['CategoryId'] = request.category_id
+        query['EnvType'] = request.env_type
+        query['NewOwnerId'] = request.new_owner_id
+        query['ProjectId'] = request.project_id
+        query['TableGuid'] = request.table_guid
+        query['TableName'] = request.table_name
+        query['Visibility'] = request.visibility
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateMetaTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateMetaTableResponse(),
-            self.do_rpcrequest('UpdateMetaTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_meta_table(self, request):
@@ -3161,12 +6122,26 @@ class Client(OpenApiClient):
 
     def update_meta_table_intro_wiki_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateMetaTableIntroWiki',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateMetaTableIntroWikiResponse(),
-            self.do_rpcrequest('UpdateMetaTableIntroWiki', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_meta_table_intro_wiki(self, request):
@@ -3178,9 +6153,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateNodeOwner',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateNodeOwnerResponse(),
-            self.do_rpcrequest('UpdateNodeOwner', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_node_owner(self, request):
@@ -3192,9 +6178,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateNodeRunMode',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateNodeRunModeResponse(),
-            self.do_rpcrequest('UpdateNodeRunMode', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_node_run_mode(self, request):
@@ -3206,9 +6203,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateQualityFollower',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateQualityFollowerResponse(),
-            self.do_rpcrequest('UpdateQualityFollower', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_quality_follower(self, request):
@@ -3220,9 +6228,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateQualityRule',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateQualityRuleResponse(),
-            self.do_rpcrequest('UpdateQualityRule', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_quality_rule(self, request):
@@ -3234,9 +6253,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateRemind',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateRemindResponse(),
-            self.do_rpcrequest('UpdateRemind', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_remind(self, request):
@@ -3245,12 +6275,40 @@ class Client(OpenApiClient):
 
     def update_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AppGuid'] = request.app_guid
+        query['CategoryId'] = request.category_id
+        query['Comment'] = request.comment
+        query['CreateIfNotExists'] = request.create_if_not_exists
+        query['ExternalTableType'] = request.external_table_type
+        query['HasPart'] = request.has_part
+        query['IsView'] = request.is_view
+        query['LifeCycle'] = request.life_cycle
+        query['Location'] = request.location
+        query['LogicalLevelId'] = request.logical_level_id
+        query['OwnerId'] = request.owner_id
+        query['PhysicsLevelId'] = request.physics_level_id
+        query['ProjectId'] = request.project_id
+        query['TableName'] = request.table_name
+        query['Visibility'] = request.visibility
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateTable',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateTableResponse(),
-            self.do_rpcrequest('UpdateTable', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_table(self, request):
@@ -3259,12 +6317,26 @@ class Client(OpenApiClient):
 
     def update_table_add_column_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateTableAddColumn',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateTableAddColumnResponse(),
-            self.do_rpcrequest('UpdateTableAddColumn', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_table_add_column(self, request):
@@ -3273,12 +6345,30 @@ class Client(OpenApiClient):
 
     def update_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Description'] = request.description
+        query['LevelId'] = request.level_id
+        query['LevelType'] = request.level_type
+        query['Name'] = request.name
+        query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateTableLevel',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateTableLevelResponse(),
-            self.do_rpcrequest('UpdateTableLevel', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_table_level(self, request):
@@ -3287,12 +6377,30 @@ class Client(OpenApiClient):
 
     def update_table_model_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['FirstLevelThemeId'] = request.first_level_theme_id
+        query['LevelId'] = request.level_id
+        query['LevelType'] = request.level_type
+        query['SecondLevelThemeId'] = request.second_level_theme_id
+        query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateTableModelInfo',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateTableModelInfoResponse(),
-            self.do_rpcrequest('UpdateTableModelInfo', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_table_model_info(self, request):
@@ -3301,12 +6409,28 @@ class Client(OpenApiClient):
 
     def update_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Name'] = request.name
+        query['ProjectId'] = request.project_id
+        query['ThemeId'] = request.theme_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateTableTheme',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateTableThemeResponse(),
-            self.do_rpcrequest('UpdateTableTheme', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_table_theme(self, request):
@@ -3318,9 +6442,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             body=UtilClient.to_map(request)
         )
+        params = open_api_models.Params(
+            action='UpdateUdfFile',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             dataworks_public_20200518_models.UpdateUdfFileResponse(),
-            self.do_rpcrequest('UpdateUdfFile', '2020-05-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_udf_file(self, request):
