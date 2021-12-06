@@ -306,6 +306,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_dbfs_with_options(request, runtime)
 
+    def list_dbfs_attachable_ecs_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListDbfsAttachableEcsInstancesResponse(),
+            self.do_rpcrequest('ListDbfsAttachableEcsInstances', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_dbfs_attachable_ecs_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dbfs_attachable_ecs_instances_with_options(request, runtime)
+
+    def list_dbfs_attached_ecs_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            body=UtilClient.to_map(request)
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListDbfsAttachedEcsInstancesResponse(),
+            self.do_rpcrequest('ListDbfsAttachedEcsInstances', '2020-04-18', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+        )
+
+    def list_dbfs_attached_ecs_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dbfs_attached_ecs_instances_with_options(request, runtime)
+
     def list_snapshot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
