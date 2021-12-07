@@ -79,12 +79,33 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConnectionStringPrefix'] = request.connection_string_prefix
+        query['DBInstanceName'] = request.dbinstance_name
+        query['OwnerAccount'] = request.owner_account
+        query['OwnerId'] = request.owner_id
+        query['Port'] = request.port
+        query['RegionId'] = request.region_id
+        query['ResourceOwnerAccount'] = request.resource_owner_account
+        query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='AllocateInstancePublicConnection',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.AllocateInstancePublicConnectionResponse(),
-            self.do_rpcrequest('AllocateInstancePublicConnection', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def allocate_instance_public_connection(self, request):
@@ -95,11 +116,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelActiveOperationTasks',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CancelActiveOperationTasksResponse(),
-            self.do_rpcrequest('CancelActiveOperationTasks', '2020-02-02', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def cancel_active_operation_tasks(self, request):
@@ -108,12 +140,28 @@ class Client(OpenApiClient):
 
     def cancel_polarx_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
+        query['ScaleOutToken'] = request.scale_out_token
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CancelPolarxOrder',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CancelPolarxOrderResponse(),
-            self.do_rpcrequest('CancelPolarxOrder', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def cancel_polarx_order(self, request):
@@ -122,12 +170,28 @@ class Client(OpenApiClient):
 
     def check_cloud_resource_authorized_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
+        query['RoleArn'] = request.role_arn
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CheckCloudResourceAuthorized',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CheckCloudResourceAuthorizedResponse(),
-            self.do_rpcrequest('CheckCloudResourceAuthorized', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_cloud_resource_authorized(self, request):
@@ -136,12 +200,34 @@ class Client(OpenApiClient):
 
     def create_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountDescription'] = request.account_description
+        query['AccountName'] = request.account_name
+        query['AccountPassword'] = request.account_password
+        query['AccountPrivilege'] = request.account_privilege
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DBName'] = request.dbname
+        query['RegionId'] = request.region_id
+        query['SecurityAccountName'] = request.security_account_name
+        query['SecurityAccountPassword'] = request.security_account_password
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateAccount',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreateAccountResponse(),
-            self.do_rpcrequest('CreateAccount', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_account(self, request):
@@ -150,12 +236,28 @@ class Client(OpenApiClient):
 
     def create_backup_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['BackupType'] = request.backup_type
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateBackup',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreateBackupResponse(),
-            self.do_rpcrequest('CreateBackup', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_backup(self, request):
@@ -164,12 +266,34 @@ class Client(OpenApiClient):
 
     def create_dbwith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountName'] = request.account_name
+        query['AccountPrivilege'] = request.account_privilege
+        query['Charset'] = request.charset
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DbDescription'] = request.db_description
+        query['DbName'] = request.db_name
+        query['RegionId'] = request.region_id
+        query['SecurityAccountName'] = request.security_account_name
+        query['SecurityAccountPassword'] = request.security_account_password
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateDB',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreateDBResponse(),
-            self.do_rpcrequest('CreateDB', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_db(self, request):
@@ -178,12 +302,41 @@ class Client(OpenApiClient):
 
     def create_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AutoRenew'] = request.auto_renew
+        query['ClientToken'] = request.client_token
+        query['DBNodeClass'] = request.dbnode_class
+        query['DBNodeCount'] = request.dbnode_count
+        query['EngineVersion'] = request.engine_version
+        query['IsReadDBInstance'] = request.is_read_dbinstance
+        query['NetworkType'] = request.network_type
+        query['PayType'] = request.pay_type
+        query['Period'] = request.period
+        query['PrimaryDBInstanceName'] = request.primary_dbinstance_name
+        query['RegionId'] = request.region_id
+        query['ResourceGroupId'] = request.resource_group_id
+        query['UsedTime'] = request.used_time
+        query['VPCId'] = request.vpcid
+        query['VSwitchId'] = request.v_switch_id
+        query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstance',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreateDBInstanceResponse(),
-            self.do_rpcrequest('CreateDBInstance', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dbinstance(self, request):
@@ -192,12 +345,28 @@ class Client(OpenApiClient):
 
     def create_polarx_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['NodeCount'] = request.node_count
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreatePolarxOrder',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreatePolarxOrderResponse(),
-            self.do_rpcrequest('CreatePolarxOrder', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_polarx_order(self, request):
@@ -206,12 +375,30 @@ class Client(OpenApiClient):
 
     def create_super_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountDescription'] = request.account_description
+        query['AccountName'] = request.account_name
+        query['AccountPassword'] = request.account_password
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='CreateSuperAccount',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.CreateSuperAccountResponse(),
-            self.do_rpcrequest('CreateSuperAccount', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_super_account(self, request):
@@ -220,12 +407,30 @@ class Client(OpenApiClient):
 
     def delete_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountName'] = request.account_name
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
+        query['SecurityAccountName'] = request.security_account_name
+        query['SecurityAccountPassword'] = request.security_account_password
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccount',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DeleteAccountResponse(),
-            self.do_rpcrequest('DeleteAccount', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_account(self, request):
@@ -234,12 +439,28 @@ class Client(OpenApiClient):
 
     def delete_dbwith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DbName'] = request.db_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteDB',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DeleteDBResponse(),
-            self.do_rpcrequest('DeleteDB', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_db(self, request):
@@ -248,12 +469,27 @@ class Client(OpenApiClient):
 
     def delete_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBInstance',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DeleteDBInstanceResponse(),
-            self.do_rpcrequest('DeleteDBInstance', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dbinstance(self, request):
@@ -262,12 +498,29 @@ class Client(OpenApiClient):
 
     def describe_account_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountName'] = request.account_name
+        query['AccountType'] = request.account_type
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccountList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeAccountListResponse(),
-            self.do_rpcrequest('DescribeAccountList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_account_list(self, request):
@@ -276,12 +529,26 @@ class Client(OpenApiClient):
 
     def describe_active_operation_maintain_conf_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeActiveOperationMaintainConf',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeActiveOperationMaintainConfResponse(),
-            self.do_rpcrequest('DescribeActiveOperationMaintainConf', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_active_operation_maintain_conf(self, request):
@@ -292,25 +559,77 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeActiveOperationTaskCount',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeActiveOperationTaskCountResponse(),
-            self.do_rpcrequest('DescribeActiveOperationTaskCount', '2020-02-02', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_active_operation_task_count(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_active_operation_task_count_with_options(request, runtime)
 
+    def describe_active_operation_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeActiveOperationTasks',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeActiveOperationTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_active_operation_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_active_operation_tasks_with_options(request, runtime)
+
     def describe_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupPolicy',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeBackupPolicyResponse(),
-            self.do_rpcrequest('DescribeBackupPolicy', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_backup_policy(self, request):
@@ -321,11 +640,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupSetList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeBackupSetListResponse(),
-            self.do_rpcrequest('DescribeBackupSetList', '2020-02-02', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_backup_set_list(self, request):
@@ -334,12 +664,31 @@ class Client(OpenApiClient):
 
     def describe_binary_log_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['EndTime'] = request.end_time
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['RegionId'] = request.region_id
+        query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeBinaryLogList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeBinaryLogListResponse(),
-            self.do_rpcrequest('DescribeBinaryLogList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_binary_log_list(self, request):
@@ -348,12 +697,27 @@ class Client(OpenApiClient):
 
     def describe_character_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeCharacterSet',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeCharacterSetResponse(),
-            self.do_rpcrequest('DescribeCharacterSet', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_character_set(self, request):
@@ -362,12 +726,27 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceAttribute',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstanceAttributeResponse(),
-            self.do_rpcrequest('DescribeDBInstanceAttribute', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_attribute(self, request):
@@ -376,12 +755,28 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConfigName'] = request.config_name
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceConfig',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstanceConfigResponse(),
-            self.do_rpcrequest('DescribeDBInstanceConfig', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_config(self, request):
@@ -390,12 +785,27 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_sslwith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceSSL',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstanceSSLResponse(),
-            self.do_rpcrequest('DescribeDBInstanceSSL', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_ssl(self, request):
@@ -404,12 +814,27 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_tdewith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceTDE',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstanceTDEResponse(),
-            self.do_rpcrequest('DescribeDBInstanceTDE', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_tde(self, request):
@@ -418,12 +843,27 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_topology_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceTopology',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstanceTopologyResponse(),
-            self.do_rpcrequest('DescribeDBInstanceTopology', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_topology(self, request):
@@ -432,12 +872,28 @@ class Client(OpenApiClient):
 
     def describe_dbinstances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstances',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBInstancesResponse(),
-            self.do_rpcrequest('DescribeDBInstances', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances(self, request):
@@ -446,12 +902,33 @@ class Client(OpenApiClient):
 
     def describe_dbnode_performance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CharacterType'] = request.character_type
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DBNodeIds'] = request.dbnode_ids
+        query['DBNodeRole'] = request.dbnode_role
+        query['EndTime'] = request.end_time
+        query['Key'] = request.key
+        query['RegionId'] = request.region_id
+        query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBNodePerformance',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDBNodePerformanceResponse(),
-            self.do_rpcrequest('DescribeDBNodePerformance', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbnode_performance(self, request):
@@ -460,12 +937,28 @@ class Client(OpenApiClient):
 
     def describe_db_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DBName'] = request.dbname
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDbList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDbListResponse(),
-            self.do_rpcrequest('DescribeDbList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_db_list(self, request):
@@ -474,12 +967,28 @@ class Client(OpenApiClient):
 
     def describe_distribute_table_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DbName'] = request.db_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeDistributeTableList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeDistributeTableListResponse(),
-            self.do_rpcrequest('DescribeDistributeTableList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_distribute_table_list(self, request):
@@ -490,11 +999,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEvents',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeEventsResponse(),
-            self.do_rpcrequest('DescribeEvents', '2020-02-02', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_events(self, request):
@@ -503,12 +1023,28 @@ class Client(OpenApiClient):
 
     def describe_parameter_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceId'] = request.dbinstance_id
+        query['ParamLevel'] = request.param_level
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameterTemplates',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeParameterTemplatesResponse(),
-            self.do_rpcrequest('DescribeParameterTemplates', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_parameter_templates(self, request):
@@ -517,12 +1053,28 @@ class Client(OpenApiClient):
 
     def describe_parameters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceId'] = request.dbinstance_id
+        query['ParamLevel'] = request.param_level
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameters',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeParametersResponse(),
-            self.do_rpcrequest('DescribeParameters', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_parameters(self, request):
@@ -531,12 +1083,28 @@ class Client(OpenApiClient):
 
     def describe_polarx_data_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribePolarxDataNodes',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribePolarxDataNodesResponse(),
-            self.do_rpcrequest('DescribePolarxDataNodes', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_polarx_data_nodes(self, request):
@@ -545,12 +1113,29 @@ class Client(OpenApiClient):
 
     def describe_polarx_db_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DbName'] = request.db_name
+        query['DrdsInstanceId'] = request.drds_instance_id
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribePolarxDbInstances',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribePolarxDbInstancesResponse(),
-            self.do_rpcrequest('DescribePolarxDbInstances', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_polarx_db_instances(self, request):
@@ -559,9 +1144,20 @@ class Client(OpenApiClient):
 
     def describe_regions_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeRegions',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeRegionsResponse(),
-            self.do_rpcrequest('DescribeRegions', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_regions(self):
@@ -570,12 +1166,30 @@ class Client(OpenApiClient):
 
     def describe_scale_out_migrate_task_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['OwnerAccount'] = request.owner_account
+        query['OwnerId'] = request.owner_id
+        query['ResourceOwnerAccount'] = request.resource_owner_account
+        query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeScaleOutMigrateTaskList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeScaleOutMigrateTaskListResponse(),
-            self.do_rpcrequest('DescribeScaleOutMigrateTaskList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_scale_out_migrate_task_list(self, request):
@@ -584,12 +1198,27 @@ class Client(OpenApiClient):
 
     def describe_security_ips_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeSecurityIps',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeSecurityIpsResponse(),
-            self.do_rpcrequest('DescribeSecurityIps', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_security_ips(self, request):
@@ -598,12 +1227,35 @@ class Client(OpenApiClient):
 
     def describe_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceId'] = request.dbinstance_id
+        query['EndTime'] = request.end_time
+        query['OwnerAccount'] = request.owner_account
+        query['OwnerId'] = request.owner_id
+        query['PageNumber'] = request.page_number
+        query['PageSize'] = request.page_size
+        query['RegionId'] = request.region_id
+        query['ResourceOwnerAccount'] = request.resource_owner_account
+        query['ResourceOwnerId'] = request.resource_owner_id
+        query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeTasks',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeTasksResponse(),
-            self.do_rpcrequest('DescribeTasks', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_tasks(self, request):
@@ -612,12 +1264,27 @@ class Client(OpenApiClient):
 
     def describe_user_encryption_key_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserEncryptionKeyList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.DescribeUserEncryptionKeyListResponse(),
-            self.do_rpcrequest('DescribeUserEncryptionKeyList', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_user_encryption_key_list(self, request):
@@ -626,12 +1293,28 @@ class Client(OpenApiClient):
 
     def get_polarx_commodity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['OrderType'] = request.order_type
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='GetPolarxCommodity',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.GetPolarxCommodityResponse(),
-            self.do_rpcrequest('GetPolarxCommodity', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_polarx_commodity(self, request):
@@ -640,12 +1323,29 @@ class Client(OpenApiClient):
 
     def modify_account_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['AccountDescription'] = request.account_description
+        query['AccountName'] = request.account_name
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyAccountDescription',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyAccountDescriptionResponse(),
-            self.do_rpcrequest('ModifyAccountDescription', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_account_description(self, request):
@@ -656,11 +1356,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyActiveOperationMaintainConf',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyActiveOperationMaintainConfResponse(),
-            self.do_rpcrequest('ModifyActiveOperationMaintainConf', '2020-02-02', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_active_operation_maintain_conf(self, request):
@@ -669,12 +1380,29 @@ class Client(OpenApiClient):
 
     def modify_active_operation_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['Ids'] = request.ids
+        query['ImmediateStart'] = request.immediate_start
+        query['RegionId'] = request.region_id
+        query['SwitchTime'] = request.switch_time
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyActiveOperationTasks',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyActiveOperationTasksResponse(),
-            self.do_rpcrequest('ModifyActiveOperationTasks', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_active_operation_tasks(self, request):
@@ -683,12 +1411,29 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_class_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
+        query['TargetDBInstanceClass'] = request.target_dbinstance_class
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceClass',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyDBInstanceClassResponse(),
-            self.do_rpcrequest('ModifyDBInstanceClass', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_class(self, request):
@@ -697,12 +1442,29 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ConfigName'] = request.config_name
+        query['ConfigValue'] = request.config_value
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceConfig',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyDBInstanceConfigResponse(),
-            self.do_rpcrequest('ModifyDBInstanceConfig', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_config(self, request):
@@ -711,12 +1473,28 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceDescription'] = request.dbinstance_description
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceDescription',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyDBInstanceDescriptionResponse(),
-            self.do_rpcrequest('ModifyDBInstanceDescription', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_description(self, request):
@@ -725,12 +1503,29 @@ class Client(OpenApiClient):
 
     def modify_database_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DbDescription'] = request.db_description
+        query['DbName'] = request.db_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyDatabaseDescription',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyDatabaseDescriptionResponse(),
-            self.do_rpcrequest('ModifyDatabaseDescription', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_database_description(self, request):
@@ -739,12 +1534,30 @@ class Client(OpenApiClient):
 
     def modify_parameter_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['DBInstanceId'] = request.dbinstance_id
+        query['ParamLevel'] = request.param_level
+        query['Parameters'] = request.parameters
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifyParameter',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifyParameterResponse(),
-            self.do_rpcrequest('ModifyParameter', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_parameter(self, request):
@@ -753,12 +1566,30 @@ class Client(OpenApiClient):
 
     def modify_security_ips_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['GroupName'] = request.group_name
+        query['ModifyMode'] = request.modify_mode
+        query['RegionId'] = request.region_id
+        query['SecurityIPList'] = request.security_iplist
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ModifySecurityIps',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ModifySecurityIpsResponse(),
-            self.do_rpcrequest('ModifySecurityIps', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_security_ips(self, request):
@@ -767,12 +1598,32 @@ class Client(OpenApiClient):
 
     def release_instance_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CurrentConnectionString'] = request.current_connection_string
+        query['DBInstanceName'] = request.dbinstance_name
+        query['OwnerAccount'] = request.owner_account
+        query['OwnerId'] = request.owner_id
+        query['RegionId'] = request.region_id
+        query['ResourceOwnerAccount'] = request.resource_owner_account
+        query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='ReleaseInstancePublicConnection',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.ReleaseInstancePublicConnectionResponse(),
-            self.do_rpcrequest('ReleaseInstancePublicConnection', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def release_instance_public_connection(self, request):
@@ -781,12 +1632,27 @@ class Client(OpenApiClient):
 
     def restart_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='RestartDBInstance',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.RestartDBInstanceResponse(),
-            self.do_rpcrequest('RestartDBInstance', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def restart_dbinstance(self, request):
@@ -795,12 +1661,37 @@ class Client(OpenApiClient):
 
     def update_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['BackupPeriod'] = request.backup_period
+        query['BackupPlanBegin'] = request.backup_plan_begin
+        query['BackupSetRetention'] = request.backup_set_retention
+        query['BackupType'] = request.backup_type
+        query['BackupWay'] = request.backup_way
+        query['DBInstanceName'] = request.dbinstance_name
+        query['ForceCleanOnHighSpaceUsage'] = request.force_clean_on_high_space_usage
+        query['IsEnabled'] = request.is_enabled
+        query['LocalLogRetention'] = request.local_log_retention
+        query['LogLocalRetentionSpace'] = request.log_local_retention_space
+        query['RegionId'] = request.region_id
+        query['RemoveLogRetention'] = request.remove_log_retention
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateBackupPolicy',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.UpdateBackupPolicyResponse(),
-            self.do_rpcrequest('UpdateBackupPolicy', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_backup_policy(self, request):
@@ -809,12 +1700,29 @@ class Client(OpenApiClient):
 
     def update_dbinstance_sslwith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['CertCommonName'] = request.cert_common_name
+        query['DBInstanceName'] = request.dbinstance_name
+        query['EnableSSL'] = request.enable_ssl
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDBInstanceSSL',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.UpdateDBInstanceSSLResponse(),
-            self.do_rpcrequest('UpdateDBInstanceSSL', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dbinstance_ssl(self, request):
@@ -823,12 +1731,30 @@ class Client(OpenApiClient):
 
     def update_dbinstance_tdewith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['EncryptionKey'] = request.encryption_key
+        query['RegionId'] = request.region_id
+        query['RoleArn'] = request.role_arn
+        query['TDEStatus'] = request.tdestatus
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdateDBInstanceTDE',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.UpdateDBInstanceTDEResponse(),
-            self.do_rpcrequest('UpdateDBInstanceTDE', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dbinstance_tde(self, request):
@@ -837,12 +1763,29 @@ class Client(OpenApiClient):
 
     def update_polar_dbxinstance_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['DBInstanceName'] = request.dbinstance_name
+        query['DbInstanceNodeCount'] = request.db_instance_node_count
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpdatePolarDBXInstanceNode',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.UpdatePolarDBXInstanceNodeResponse(),
-            self.do_rpcrequest('UpdatePolarDBXInstanceNode', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_polar_dbxinstance_node(self, request):
@@ -851,12 +1794,27 @@ class Client(OpenApiClient):
 
     def upgrade_dbinstance_kernel_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        query['DBInstanceName'] = request.dbinstance_name
+        query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=UtilClient.to_map(request)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBInstanceKernelVersion',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             polardbx_20200202_models.UpgradeDBInstanceKernelVersionResponse(),
-            self.do_rpcrequest('UpgradeDBInstanceKernelVersion', '2020-02-02', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upgrade_dbinstance_kernel_version(self, request):
