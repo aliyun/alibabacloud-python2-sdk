@@ -9673,331 +9673,6 @@ class DescribeApiSignaturesResponse(TeaModel):
         return self
 
 
-class DescribeApiStageRequest(TeaModel):
-    def __init__(self, group_id=None, security_token=None, stage_id=None):
-        self.group_id = group_id  # type: str
-        self.security_token = security_token  # type: str
-        self.stage_id = stage_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeApiStageRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.stage_id is not None:
-            result['StageId'] = self.stage_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('StageId') is not None:
-            self.stage_id = m.get('StageId')
-        return self
-
-
-class DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRulesRouteRuleItem(TeaModel):
-    def __init__(self, condition_value=None, max_value=None, min_value=None, result_value=None):
-        self.condition_value = condition_value  # type: str
-        self.max_value = max_value  # type: long
-        self.min_value = min_value  # type: long
-        self.result_value = result_value  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRulesRouteRuleItem, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.condition_value is not None:
-            result['ConditionValue'] = self.condition_value
-        if self.max_value is not None:
-            result['MaxValue'] = self.max_value
-        if self.min_value is not None:
-            result['MinValue'] = self.min_value
-        if self.result_value is not None:
-            result['ResultValue'] = self.result_value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ConditionValue') is not None:
-            self.condition_value = m.get('ConditionValue')
-        if m.get('MaxValue') is not None:
-            self.max_value = m.get('MaxValue')
-        if m.get('MinValue') is not None:
-            self.min_value = m.get('MinValue')
-        if m.get('ResultValue') is not None:
-            self.result_value = m.get('ResultValue')
-        return self
-
-
-class DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRules(TeaModel):
-    def __init__(self, route_rule_item=None):
-        self.route_rule_item = route_rule_item  # type: list[DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRulesRouteRuleItem]
-
-    def validate(self):
-        if self.route_rule_item:
-            for k in self.route_rule_item:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRules, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['RouteRuleItem'] = []
-        if self.route_rule_item is not None:
-            for k in self.route_rule_item:
-                result['RouteRuleItem'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.route_rule_item = []
-        if m.get('RouteRuleItem') is not None:
-            for k in m.get('RouteRuleItem'):
-                temp_model = DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRulesRouteRuleItem()
-                self.route_rule_item.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeApiStageResponseBodyVariablesVariableItemStageRouteModel(TeaModel):
-    def __init__(self, location=None, parameter_catalog=None, parameter_type=None, route_match_symbol=None,
-                 route_rules=None, service_parameter_name=None):
-        self.location = location  # type: str
-        self.parameter_catalog = parameter_catalog  # type: str
-        self.parameter_type = parameter_type  # type: str
-        self.route_match_symbol = route_match_symbol  # type: str
-        self.route_rules = route_rules  # type: DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRules
-        self.service_parameter_name = service_parameter_name  # type: str
-
-    def validate(self):
-        if self.route_rules:
-            self.route_rules.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBodyVariablesVariableItemStageRouteModel, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.location is not None:
-            result['Location'] = self.location
-        if self.parameter_catalog is not None:
-            result['ParameterCatalog'] = self.parameter_catalog
-        if self.parameter_type is not None:
-            result['ParameterType'] = self.parameter_type
-        if self.route_match_symbol is not None:
-            result['RouteMatchSymbol'] = self.route_match_symbol
-        if self.route_rules is not None:
-            result['RouteRules'] = self.route_rules.to_map()
-        if self.service_parameter_name is not None:
-            result['ServiceParameterName'] = self.service_parameter_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Location') is not None:
-            self.location = m.get('Location')
-        if m.get('ParameterCatalog') is not None:
-            self.parameter_catalog = m.get('ParameterCatalog')
-        if m.get('ParameterType') is not None:
-            self.parameter_type = m.get('ParameterType')
-        if m.get('RouteMatchSymbol') is not None:
-            self.route_match_symbol = m.get('RouteMatchSymbol')
-        if m.get('RouteRules') is not None:
-            temp_model = DescribeApiStageResponseBodyVariablesVariableItemStageRouteModelRouteRules()
-            self.route_rules = temp_model.from_map(m['RouteRules'])
-        if m.get('ServiceParameterName') is not None:
-            self.service_parameter_name = m.get('ServiceParameterName')
-        return self
-
-
-class DescribeApiStageResponseBodyVariablesVariableItem(TeaModel):
-    def __init__(self, stage_route_model=None, support_route=None, variable_name=None, variable_value=None):
-        self.stage_route_model = stage_route_model  # type: DescribeApiStageResponseBodyVariablesVariableItemStageRouteModel
-        self.support_route = support_route  # type: bool
-        self.variable_name = variable_name  # type: str
-        self.variable_value = variable_value  # type: str
-
-    def validate(self):
-        if self.stage_route_model:
-            self.stage_route_model.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBodyVariablesVariableItem, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.stage_route_model is not None:
-            result['StageRouteModel'] = self.stage_route_model.to_map()
-        if self.support_route is not None:
-            result['SupportRoute'] = self.support_route
-        if self.variable_name is not None:
-            result['VariableName'] = self.variable_name
-        if self.variable_value is not None:
-            result['VariableValue'] = self.variable_value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('StageRouteModel') is not None:
-            temp_model = DescribeApiStageResponseBodyVariablesVariableItemStageRouteModel()
-            self.stage_route_model = temp_model.from_map(m['StageRouteModel'])
-        if m.get('SupportRoute') is not None:
-            self.support_route = m.get('SupportRoute')
-        if m.get('VariableName') is not None:
-            self.variable_name = m.get('VariableName')
-        if m.get('VariableValue') is not None:
-            self.variable_value = m.get('VariableValue')
-        return self
-
-
-class DescribeApiStageResponseBodyVariables(TeaModel):
-    def __init__(self, variable_item=None):
-        self.variable_item = variable_item  # type: list[DescribeApiStageResponseBodyVariablesVariableItem]
-
-    def validate(self):
-        if self.variable_item:
-            for k in self.variable_item:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBodyVariables, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['VariableItem'] = []
-        if self.variable_item is not None:
-            for k in self.variable_item:
-                result['VariableItem'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.variable_item = []
-        if m.get('VariableItem') is not None:
-            for k in m.get('VariableItem'):
-                temp_model = DescribeApiStageResponseBodyVariablesVariableItem()
-                self.variable_item.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeApiStageResponseBody(TeaModel):
-    def __init__(self, created_time=None, description=None, group_id=None, modified_time=None, request_id=None,
-                 stage_id=None, stage_name=None, variables=None):
-        self.created_time = created_time  # type: str
-        self.description = description  # type: str
-        self.group_id = group_id  # type: str
-        self.modified_time = modified_time  # type: str
-        self.request_id = request_id  # type: str
-        self.stage_id = stage_id  # type: str
-        self.stage_name = stage_name  # type: str
-        self.variables = variables  # type: DescribeApiStageResponseBodyVariables
-
-    def validate(self):
-        if self.variables:
-            self.variables.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.created_time is not None:
-            result['CreatedTime'] = self.created_time
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
-        if self.modified_time is not None:
-            result['ModifiedTime'] = self.modified_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.stage_id is not None:
-            result['StageId'] = self.stage_id
-        if self.stage_name is not None:
-            result['StageName'] = self.stage_name
-        if self.variables is not None:
-            result['Variables'] = self.variables.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CreatedTime') is not None:
-            self.created_time = m.get('CreatedTime')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
-        if m.get('ModifiedTime') is not None:
-            self.modified_time = m.get('ModifiedTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('StageId') is not None:
-            self.stage_id = m.get('StageId')
-        if m.get('StageName') is not None:
-            self.stage_name = m.get('StageName')
-        if m.get('Variables') is not None:
-            temp_model = DescribeApiStageResponseBodyVariables()
-            self.variables = temp_model.from_map(m['Variables'])
-        return self
-
-
-class DescribeApiStageResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeApiStageResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeApiStageResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeApiStageResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeApiTrafficControlsRequest(TeaModel):
     def __init__(self, api_ids=None, group_id=None, page_number=None, page_size=None, security_token=None,
                  stage_name=None):
@@ -18868,12 +18543,16 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
 
 
 class DescribeVpcAccessesRequest(TeaModel):
-    def __init__(self, accurate_query=None, name=None, page_number=None, page_size=None, security_token=None):
-        self.accurate_query = accurate_query  # type: bool
+    def __init__(self, name=None, page_number=None, page_size=None, security_token=None, vpc_access_id=None):
+        # VPC授权名称
         self.name = name  # type: str
+        # 当前页码
         self.page_number = page_number  # type: int
+        # 每页展示条目
         self.page_size = page_size  # type: int
         self.security_token = security_token  # type: str
+        # Vpc授权ID
+        self.vpc_access_id = vpc_access_id  # type: str
 
     def validate(self):
         pass
@@ -18884,8 +18563,6 @@ class DescribeVpcAccessesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.accurate_query is not None:
-            result['AccurateQuery'] = self.accurate_query
         if self.name is not None:
             result['Name'] = self.name
         if self.page_number is not None:
@@ -18894,12 +18571,12 @@ class DescribeVpcAccessesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.vpc_access_id is not None:
+            result['VpcAccessId'] = self.vpc_access_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AccurateQuery') is not None:
-            self.accurate_query = m.get('AccurateQuery')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PageNumber') is not None:
@@ -18908,18 +18585,29 @@ class DescribeVpcAccessesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('VpcAccessId') is not None:
+            self.vpc_access_id = m.get('VpcAccessId')
         return self
 
 
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, instance_id=None, name=None, port=None, region_id=None,
-                 vpc_id=None):
+                 vpc_access_id=None, vpc_id=None):
+        # VPC授权的创建时间
         self.created_time = created_time  # type: str
+        # VPC授权的描述
         self.description = description  # type: str
+        # VPC中的后端服务信息
         self.instance_id = instance_id  # type: str
+        # VPC授权名称
         self.name = name  # type: str
+        # VPC中的后端服务端口
         self.port = port  # type: int
+        # 地域id
         self.region_id = region_id  # type: str
+        # vpc授权ID
+        self.vpc_access_id = vpc_access_id  # type: str
+        # VPC的ID
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -18943,6 +18631,8 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaMo
             result['Port'] = self.port
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.vpc_access_id is not None:
+            result['VpcAccessId'] = self.vpc_access_id
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -18961,6 +18651,8 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaMo
             self.port = m.get('Port')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('VpcAccessId') is not None:
+            self.vpc_access_id = m.get('VpcAccessId')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -19233,12 +18925,14 @@ class DescribeZonesResponse(TeaModel):
 
 
 class DryRunSwaggerRequest(TeaModel):
-    def __init__(self, data=None, data_format=None, global_condition=None, group_id=None, overwrite=None):
+    def __init__(self, data=None, data_format=None, global_condition=None, group_id=None, overwrite=None,
+                 security_token=None):
         self.data = data  # type: str
         self.data_format = data_format  # type: str
         self.global_condition = global_condition  # type: dict[str, any]
         self.group_id = group_id  # type: str
         self.overwrite = overwrite  # type: bool
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -19259,6 +18953,8 @@ class DryRunSwaggerRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.overwrite is not None:
             result['Overwrite'] = self.overwrite
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -19273,16 +18969,20 @@ class DryRunSwaggerRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Overwrite') is not None:
             self.overwrite = m.get('Overwrite')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
 class DryRunSwaggerShrinkRequest(TeaModel):
-    def __init__(self, data=None, data_format=None, global_condition_shrink=None, group_id=None, overwrite=None):
+    def __init__(self, data=None, data_format=None, global_condition_shrink=None, group_id=None, overwrite=None,
+                 security_token=None):
         self.data = data  # type: str
         self.data_format = data_format  # type: str
         self.global_condition_shrink = global_condition_shrink  # type: str
         self.group_id = group_id  # type: str
         self.overwrite = overwrite  # type: bool
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -19303,6 +19003,8 @@ class DryRunSwaggerShrinkRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.overwrite is not None:
             result['Overwrite'] = self.overwrite
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -19317,6 +19019,8 @@ class DryRunSwaggerShrinkRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Overwrite') is not None:
             self.overwrite = m.get('Overwrite')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -19695,13 +19399,14 @@ class DryRunSwaggerResponse(TeaModel):
 
 class ImportSwaggerRequest(TeaModel):
     def __init__(self, data=None, data_format=None, dry_run=None, global_condition=None, group_id=None,
-                 overwrite=None):
+                 overwrite=None, security_token=None):
         self.data = data  # type: str
         self.data_format = data_format  # type: str
         self.dry_run = dry_run  # type: bool
         self.global_condition = global_condition  # type: dict[str, any]
         self.group_id = group_id  # type: str
         self.overwrite = overwrite  # type: bool
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -19724,6 +19429,8 @@ class ImportSwaggerRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.overwrite is not None:
             result['Overwrite'] = self.overwrite
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -19740,18 +19447,21 @@ class ImportSwaggerRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Overwrite') is not None:
             self.overwrite = m.get('Overwrite')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
 class ImportSwaggerShrinkRequest(TeaModel):
     def __init__(self, data=None, data_format=None, dry_run=None, global_condition_shrink=None, group_id=None,
-                 overwrite=None):
+                 overwrite=None, security_token=None):
         self.data = data  # type: str
         self.data_format = data_format  # type: str
         self.dry_run = dry_run  # type: bool
         self.global_condition_shrink = global_condition_shrink  # type: str
         self.group_id = group_id  # type: str
         self.overwrite = overwrite  # type: bool
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -19774,6 +19484,8 @@ class ImportSwaggerShrinkRequest(TeaModel):
             result['GroupId'] = self.group_id
         if self.overwrite is not None:
             result['Overwrite'] = self.overwrite
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
@@ -19790,6 +19502,8 @@ class ImportSwaggerShrinkRequest(TeaModel):
             self.group_id = m.get('GroupId')
         if m.get('Overwrite') is not None:
             self.overwrite = m.get('Overwrite')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
