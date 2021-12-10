@@ -1218,6 +1218,61 @@ class VPCConfig(TeaModel):
         return self
 
 
+class CreateAliasHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAliasHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class CreateAliasRequest(TeaModel):
     def __init__(self, additional_version_weight=None, alias_name=None, description=None, version_id=None):
         # 额外版本权重
@@ -1347,6 +1402,61 @@ class CreateAliasResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = CreateAliasResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateCustomDomainHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCustomDomainHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -1494,10 +1604,15 @@ class CreateCustomDomainResponse(TeaModel):
 
 
 class CreateFunctionHeaders(TeaModel):
-    def __init__(self, common_headers=None, x_fc_code_checksum=None):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
-        # code checksum
+        self.x_fc_account_id = x_fc_account_id  # type: str
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -1510,16 +1625,36 @@ class CreateFunctionHeaders(TeaModel):
         result = dict()
         if self.common_headers is not None:
             result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
         if self.x_fc_code_checksum is not None:
-            result['x-fc-code-checksum'] = self.x_fc_code_checksum
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('commonHeaders') is not None:
             self.common_headers = m.get('commonHeaders')
-        if m.get('x-fc-code-checksum') is not None:
-            self.x_fc_code_checksum = m.get('x-fc-code-checksum')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -1854,6 +1989,61 @@ class CreateFunctionResponse(TeaModel):
         return self
 
 
+class CreateLayerVersionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateLayerVersionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class CreateLayerVersionRequest(TeaModel):
     def __init__(self, code=None, compatible_runtime=None, description=None):
         self.code = code  # type: Code
@@ -1992,6 +2182,61 @@ class CreateLayerVersionResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = CreateLayerVersionResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateServiceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateServiceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2197,6 +2442,61 @@ class CreateServiceResponse(TeaModel):
         return self
 
 
+class CreateTriggerHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTriggerHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class CreateTriggerRequest(TeaModel):
     def __init__(self, description=None, invocation_role=None, qualifier=None, source_arn=None, trigger_config=None,
                  trigger_name=None, trigger_type=None):
@@ -2376,6 +2676,61 @@ class CreateTriggerResponse(TeaModel):
         return self
 
 
+class CreateVpcBindingHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVpcBindingHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class CreateVpcBindingRequest(TeaModel):
     def __init__(self, vpc_id=None):
         self.vpc_id = vpc_id  # type: str
@@ -2425,9 +2780,16 @@ class CreateVpcBindingResponse(TeaModel):
 
 
 class DeleteAliasHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -2442,6 +2804,18 @@ class DeleteAliasHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -2450,6 +2824,18 @@ class DeleteAliasHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2474,6 +2860,61 @@ class DeleteAliasResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class DeleteCustomDomainHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteCustomDomainHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2502,10 +2943,17 @@ class DeleteCustomDomainResponse(TeaModel):
 
 
 class DeleteFunctionHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -2520,6 +2968,18 @@ class DeleteFunctionHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -2528,6 +2988,18 @@ class DeleteFunctionHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2552,6 +3024,61 @@ class DeleteFunctionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class DeleteFunctionAsyncInvokeConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFunctionAsyncInvokeConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2605,9 +3132,16 @@ class DeleteFunctionAsyncInvokeConfigResponse(TeaModel):
 
 
 class DeleteFunctionOnDemandConfigHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -2622,6 +3156,18 @@ class DeleteFunctionOnDemandConfigHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -2630,6 +3176,18 @@ class DeleteFunctionOnDemandConfigHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2681,6 +3239,61 @@ class DeleteFunctionOnDemandConfigResponse(TeaModel):
         return self
 
 
+class DeleteLayerVersionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteLayerVersionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class DeleteLayerVersionResponse(TeaModel):
     def __init__(self, headers=None):
         self.headers = headers  # type: dict[str, str]
@@ -2706,10 +3319,17 @@ class DeleteLayerVersionResponse(TeaModel):
 
 
 class DeleteServiceHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -2724,6 +3344,18 @@ class DeleteServiceHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -2732,6 +3364,18 @@ class DeleteServiceHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2756,6 +3400,61 @@ class DeleteServiceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class DeleteServiceVersionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteServiceVersionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2784,10 +3483,17 @@ class DeleteServiceVersionResponse(TeaModel):
 
 
 class DeleteTriggerHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -2802,6 +3508,18 @@ class DeleteTriggerHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -2810,6 +3528,18 @@ class DeleteTriggerHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2837,6 +3567,61 @@ class DeleteTriggerResponse(TeaModel):
         return self
 
 
+class DeleteVpcBindingHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteVpcBindingHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class DeleteVpcBindingResponse(TeaModel):
     def __init__(self, headers=None):
         self.headers = headers  # type: dict[str, str]
@@ -2858,6 +3643,61 @@ class DeleteVpcBindingResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class DeregisterEventSourceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeregisterEventSourceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2907,6 +3747,61 @@ class DeregisterEventSourceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class GetAccountSettingsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAccountSettingsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -2965,6 +3860,61 @@ class GetAccountSettingsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetAccountSettingsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAliasHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAliasHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3054,6 +4004,61 @@ class GetAliasResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetAliasResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetCustomDomainHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCustomDomainHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3153,6 +4158,61 @@ class GetCustomDomainResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetCustomDomainResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFunctionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3375,6 +4435,61 @@ class GetFunctionResponse(TeaModel):
         return self
 
 
+class GetFunctionAsyncInvokeConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionAsyncInvokeConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class GetFunctionAsyncInvokeConfigRequest(TeaModel):
     def __init__(self, qualifier=None):
         # 限定符
@@ -3507,6 +4622,61 @@ class GetFunctionAsyncInvokeConfigResponse(TeaModel):
         return self
 
 
+class GetFunctionCodeHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionCodeHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class GetFunctionCodeRequest(TeaModel):
     def __init__(self, qualifier=None):
         # service版本, 可以是versionId或者aliasName
@@ -3593,6 +4763,61 @@ class GetFunctionCodeResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetFunctionCodeResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFunctionOnDemandConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionOnDemandConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3683,6 +4908,61 @@ class GetFunctionOnDemandConfigResponse(TeaModel):
         return self
 
 
+class GetLayerVersionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetLayerVersionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class GetLayerVersionResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -3713,6 +4993,61 @@ class GetLayerVersionResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = Layer()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetLayerVersionByArnHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetLayerVersionByArnHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3818,6 +5153,61 @@ class GetLayerVersionByArnResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetLayerVersionByArnResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetProvisionConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetProvisionConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -3952,6 +5342,61 @@ class GetProvisionConfigResponse(TeaModel):
         return self
 
 
+class GetResourceTagsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourceTagsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class GetResourceTagsRequest(TeaModel):
     def __init__(self, resource_arn=None):
         # Resource ARN 全称或者简称
@@ -4038,6 +5483,61 @@ class GetResourceTagsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetResourceTagsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetServiceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetServiceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -4193,6 +5693,61 @@ class GetServiceResponse(TeaModel):
         return self
 
 
+class GetStatefulAsyncInvocationHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetStatefulAsyncInvocationHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class GetStatefulAsyncInvocationRequest(TeaModel):
     def __init__(self, qualifier=None):
         self.qualifier = qualifier  # type: str
@@ -4247,6 +5802,61 @@ class GetStatefulAsyncInvocationResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = StatefulAsyncInvocation()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetTriggerHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTriggerHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -4369,15 +5979,18 @@ class GetTriggerResponse(TeaModel):
 
 
 class InvokeFunctionHeaders(TeaModel):
-    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_invocation_type=None, x_fc_log_type=None,
-                 x_fc_stateful_async_invocation_id=None):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_stateful_async_invocation_id=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
         # 调用方式:Sync或者Async，默认值：Sync
         self.x_fc_invocation_type = x_fc_invocation_type  # type: str
         # 请求返回日志类型, Tail 为返回函数日志最后 4KB 数据，None 或空值则返回不带有日志，默认为 None
         self.x_fc_log_type = x_fc_log_type  # type: str
         self.x_fc_stateful_async_invocation_id = x_fc_stateful_async_invocation_id  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -4392,12 +6005,18 @@ class InvokeFunctionHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
         if self.x_fc_invocation_type is not None:
-            result['x-fc-invocation-type'] = self.x_fc_invocation_type
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
         if self.x_fc_log_type is not None:
-            result['x-fc-log-type'] = self.x_fc_log_type
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
         if self.x_fc_stateful_async_invocation_id is not None:
-            result['x-fc-stateful-async-invocation-id'] = self.x_fc_stateful_async_invocation_id
+            result['X-Fc-Stateful-Async-Invocation-Id'] = self.x_fc_stateful_async_invocation_id
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -4406,12 +6025,18 @@ class InvokeFunctionHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
-        if m.get('x-fc-invocation-type') is not None:
-            self.x_fc_invocation_type = m.get('x-fc-invocation-type')
-        if m.get('x-fc-log-type') is not None:
-            self.x_fc_log_type = m.get('x-fc-log-type')
-        if m.get('x-fc-stateful-async-invocation-id') is not None:
-            self.x_fc_stateful_async_invocation_id = m.get('x-fc-stateful-async-invocation-id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Stateful-Async-Invocation-Id') is not None:
+            self.x_fc_stateful_async_invocation_id = m.get('X-Fc-Stateful-Async-Invocation-Id')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -4473,6 +6098,61 @@ class InvokeFunctionResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             self.body = m.get('body')
+        return self
+
+
+class ListAliasesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAliasesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -4644,6 +6324,61 @@ class ListAliasesResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListAliasesResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCustomDomainsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCustomDomainsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -4821,6 +6556,61 @@ class ListCustomDomainsResponse(TeaModel):
         return self
 
 
+class ListEventSourcesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListEventSourcesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListEventSourcesRequest(TeaModel):
     def __init__(self, qualifier=None):
         # 别名或版本
@@ -4940,6 +6730,61 @@ class ListEventSourcesResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListEventSourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListFunctionAsyncInvokeConfigsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFunctionAsyncInvokeConfigsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -5117,6 +6962,61 @@ class ListFunctionAsyncInvokeConfigsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListFunctionAsyncInvokeConfigsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListFunctionsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFunctionsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -5544,6 +7444,61 @@ class ListInstancesResponse(TeaModel):
         return self
 
 
+class ListLayerVersionsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListLayerVersionsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListLayerVersionsRequest(TeaModel):
     def __init__(self, limit=None, start_version=None):
         # 本次读取的最大数据记录数量
@@ -5644,6 +7599,61 @@ class ListLayerVersionsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListLayerVersionsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListLayersHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListLayersHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -5762,6 +7772,61 @@ class ListLayersResponse(TeaModel):
         return self
 
 
+class ListOnDemandConfigsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListOnDemandConfigsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListOnDemandConfigsRequest(TeaModel):
     def __init__(self, limit=None, next_token=None, prefix=None, start_key=None):
         # 限定此次返回资源的数量。如果不设定，默认返回20，最大不能超过100。返回结果可以小于指定的数量，但不会多于指定的数量。
@@ -5874,6 +7939,61 @@ class ListOnDemandConfigsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListOnDemandConfigsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListProvisionConfigsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProvisionConfigsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -6065,6 +8185,61 @@ class ListProvisionConfigsResponse(TeaModel):
         return self
 
 
+class ListReservedCapacitiesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListReservedCapacitiesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListReservedCapacitiesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
         self.limit = limit  # type: str
@@ -6163,6 +8338,61 @@ class ListReservedCapacitiesResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListReservedCapacitiesResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListServiceVersionsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListServiceVersionsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -6327,6 +8557,61 @@ class ListServiceVersionsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListServiceVersionsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListServicesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListServicesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -6539,6 +8824,61 @@ class ListServicesResponse(TeaModel):
         return self
 
 
+class ListStatefulAsyncInvocationsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListStatefulAsyncInvocationsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListStatefulAsyncInvocationsRequest(TeaModel):
     def __init__(self, include_payload=None, invocation_id_prefix=None, limit=None, next_token=None, qualifier=None,
                  sort_order_by_time=None, started_time_begin=None, started_time_end=None, status=None):
@@ -6674,6 +9014,61 @@ class ListStatefulAsyncInvocationsResponse(TeaModel):
         return self
 
 
+class ListTaggedResourcesHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTaggedResourcesHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListTaggedResourcesRequest(TeaModel):
     def __init__(self, limit=None, next_token=None):
         self.limit = limit  # type: int
@@ -6770,6 +9165,61 @@ class ListTaggedResourcesResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListTaggedResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListTriggersHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTriggersHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -6973,6 +9423,61 @@ class ListTriggersResponse(TeaModel):
         return self
 
 
+class ListVpcBindingsHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVpcBindingsHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class ListVpcBindingsResponseBody(TeaModel):
     def __init__(self, vpc_ids=None):
         self.vpc_ids = vpc_ids  # type: list[str]
@@ -7030,6 +9535,61 @@ class ListVpcBindingsResponse(TeaModel):
         return self
 
 
+class PermanentDeleteLayerVersionHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PermanentDeleteLayerVersionHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class PermanentDeleteLayerVersionResponse(TeaModel):
     def __init__(self, headers=None):
         self.headers = headers  # type: dict[str, str]
@@ -7051,6 +9611,61 @@ class PermanentDeleteLayerVersionResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class PublishLayerAsPublicHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PublishLayerAsPublicHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7079,9 +9694,16 @@ class PublishLayerAsPublicResponse(TeaModel):
 
 
 class PublishServiceVersionHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7096,6 +9718,18 @@ class PublishServiceVersionHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7104,6 +9738,18 @@ class PublishServiceVersionHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7205,6 +9851,61 @@ class PublishServiceVersionResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = PublishServiceVersionResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PutFunctionAsyncInvokeConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutFunctionAsyncInvokeConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7366,9 +10067,16 @@ class PutFunctionAsyncInvokeConfigResponse(TeaModel):
 
 
 class PutFunctionOnDemandConfigHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7383,6 +10091,18 @@ class PutFunctionOnDemandConfigHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7391,6 +10111,18 @@ class PutFunctionOnDemandConfigHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7482,6 +10214,61 @@ class PutFunctionOnDemandConfigResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = PutFunctionOnDemandConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class PutProvisionConfigHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutProvisionConfigHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7645,6 +10432,61 @@ class PutProvisionConfigResponse(TeaModel):
         return self
 
 
+class RegisterEventSourceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegisterEventSourceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class RegisterEventSourceRequest(TeaModel):
     def __init__(self, source_arn=None, qualifier=None):
         # 事件源资源标识符
@@ -7740,6 +10582,61 @@ class RegisterEventSourceResponse(TeaModel):
         return self
 
 
+class StopStatefulAsyncInvocationHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopStatefulAsyncInvocationHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
+        return self
+
+
 class StopStatefulAsyncInvocationRequest(TeaModel):
     def __init__(self, qualifier=None):
         self.qualifier = qualifier  # type: str
@@ -7785,6 +10682,61 @@ class StopStatefulAsyncInvocationResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class TagResourceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TagResourceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7838,6 +10790,61 @@ class TagResourceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class UntagResourceHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourceHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -7903,9 +10910,16 @@ class UntagResourceResponse(TeaModel):
 
 
 class UpdateAliasHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         self.if_match = if_match  # type: str
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -7920,6 +10934,18 @@ class UpdateAliasHeaders(TeaModel):
             result['commonHeaders'] = self.common_headers
         if self.if_match is not None:
             result['If-Match'] = self.if_match
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -7928,6 +10954,18 @@ class UpdateAliasHeaders(TeaModel):
             self.common_headers = m.get('commonHeaders')
         if m.get('If-Match') is not None:
             self.if_match = m.get('If-Match')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -8054,6 +11092,61 @@ class UpdateAliasResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = UpdateAliasResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateCustomDomainHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_fc_account_id=None, x_fc_code_checksum=None, x_fc_date=None,
+                 x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateCustomDomainHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_fc_account_id is not None:
+            result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('X-Fc-Account-Id') is not None:
+            self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -8195,13 +11288,17 @@ class UpdateCustomDomainResponse(TeaModel):
 
 
 class UpdateFunctionHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
         self.x_fc_account_id = x_fc_account_id  # type: str
-        # 代码校验
         self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -8219,7 +11316,15 @@ class UpdateFunctionHeaders(TeaModel):
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
         if self.x_fc_code_checksum is not None:
-            result['x-fc-code-checksum'] = self.x_fc_code_checksum
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -8230,8 +11335,16 @@ class UpdateFunctionHeaders(TeaModel):
             self.if_match = m.get('If-Match')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
-        if m.get('x-fc-code-checksum') is not None:
-            self.x_fc_code_checksum = m.get('x-fc-code-checksum')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -8557,11 +11670,17 @@ class UpdateFunctionResponse(TeaModel):
 
 
 class UpdateServiceHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
         self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -8578,6 +11697,16 @@ class UpdateServiceHeaders(TeaModel):
             result['If-Match'] = self.if_match
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -8588,6 +11717,16 @@ class UpdateServiceHeaders(TeaModel):
             self.if_match = m.get('If-Match')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 
@@ -8788,11 +11927,17 @@ class UpdateServiceResponse(TeaModel):
 
 
 class UpdateTriggerHeaders(TeaModel):
-    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None):
+    def __init__(self, common_headers=None, if_match=None, x_fc_account_id=None, x_fc_code_checksum=None,
+                 x_fc_date=None, x_fc_invocation_type=None, x_fc_log_type=None, x_fc_trace_id=None):
         self.common_headers = common_headers  # type: dict[str, str]
         # 用于确保实际更改的资源和期望更改的资源是一致的，该值来自Create，Get和Update API的响应
         self.if_match = if_match  # type: str
         self.x_fc_account_id = x_fc_account_id  # type: str
+        self.x_fc_code_checksum = x_fc_code_checksum  # type: str
+        self.x_fc_date = x_fc_date  # type: str
+        self.x_fc_invocation_type = x_fc_invocation_type  # type: str
+        self.x_fc_log_type = x_fc_log_type  # type: str
+        self.x_fc_trace_id = x_fc_trace_id  # type: str
 
     def validate(self):
         pass
@@ -8809,6 +11954,16 @@ class UpdateTriggerHeaders(TeaModel):
             result['If-Match'] = self.if_match
         if self.x_fc_account_id is not None:
             result['X-Fc-Account-Id'] = self.x_fc_account_id
+        if self.x_fc_code_checksum is not None:
+            result['X-Fc-Code-Checksum'] = self.x_fc_code_checksum
+        if self.x_fc_date is not None:
+            result['X-Fc-Date'] = self.x_fc_date
+        if self.x_fc_invocation_type is not None:
+            result['X-Fc-Invocation-Type'] = self.x_fc_invocation_type
+        if self.x_fc_log_type is not None:
+            result['X-Fc-Log-Type'] = self.x_fc_log_type
+        if self.x_fc_trace_id is not None:
+            result['X-Fc-Trace-Id'] = self.x_fc_trace_id
         return result
 
     def from_map(self, m=None):
@@ -8819,6 +11974,16 @@ class UpdateTriggerHeaders(TeaModel):
             self.if_match = m.get('If-Match')
         if m.get('X-Fc-Account-Id') is not None:
             self.x_fc_account_id = m.get('X-Fc-Account-Id')
+        if m.get('X-Fc-Code-Checksum') is not None:
+            self.x_fc_code_checksum = m.get('X-Fc-Code-Checksum')
+        if m.get('X-Fc-Date') is not None:
+            self.x_fc_date = m.get('X-Fc-Date')
+        if m.get('X-Fc-Invocation-Type') is not None:
+            self.x_fc_invocation_type = m.get('X-Fc-Invocation-Type')
+        if m.get('X-Fc-Log-Type') is not None:
+            self.x_fc_log_type = m.get('X-Fc-Log-Type')
+        if m.get('X-Fc-Trace-Id') is not None:
+            self.x_fc_trace_id = m.get('X-Fc-Trace-Id')
         return self
 
 

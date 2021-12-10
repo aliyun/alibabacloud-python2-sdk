@@ -2,8 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -56,7 +56,7 @@ class Client(OpenApiClient):
 
     def create_alias(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateAliasHeaders()
         return self.create_alias_with_options(service_name, request, headers, runtime)
 
     def create_alias_with_options(self, service_name, request, headers, runtime):
@@ -71,18 +71,44 @@ class Client(OpenApiClient):
             body['description'] = request.description
         if not UtilClient.is_unset(request.version_id):
             body['versionId'] = request.version_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateAlias',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateAliasResponse(),
-            self.do_roarequest('CreateAlias', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_custom_domain(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateCustomDomainHeaders()
         return self.create_custom_domain_with_options(request, headers, runtime)
 
     def create_custom_domain_with_options(self, request, headers, runtime):
@@ -96,13 +122,39 @@ class Client(OpenApiClient):
             body['protocol'] = request.protocol
         if not UtilClient.is_unset(request.route_config):
             body['routeConfig'] = request.route_config
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomDomain',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/custom-domains',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateCustomDomainResponse(),
-            self.do_roarequest('CreateCustomDomain', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/custom-domains', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_function(self, service_name, request):
@@ -153,20 +205,41 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
         if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['x-fc-code-checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateFunction',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateFunctionResponse(),
-            self.do_roarequest('CreateFunction', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_layer_version(self, layer_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateLayerVersionHeaders()
         return self.create_layer_version_with_options(layer_name, request, headers, runtime)
 
     def create_layer_version_with_options(self, layer_name, request, headers, runtime):
@@ -179,18 +252,44 @@ class Client(OpenApiClient):
             body['compatibleRuntime'] = request.compatible_runtime
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateLayerVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateLayerVersionResponse(),
-            self.do_roarequest('CreateLayerVersion', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_service(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateServiceHeaders()
         return self.create_service_with_options(request, headers, runtime)
 
     def create_service_with_options(self, request, headers, runtime):
@@ -212,18 +311,44 @@ class Client(OpenApiClient):
             body['tracingConfig'] = request.tracing_config
         if not UtilClient.is_unset(request.vpc_config):
             body['vpcConfig'] = request.vpc_config
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateService',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateServiceResponse(),
-            self.do_roarequest('CreateService', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_trigger(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateTriggerHeaders()
         return self.create_trigger_with_options(service_name, function_name, request, headers, runtime)
 
     def create_trigger_with_options(self, service_name, function_name, request, headers, runtime):
@@ -245,18 +370,44 @@ class Client(OpenApiClient):
             body['triggerName'] = request.trigger_name
         if not UtilClient.is_unset(request.trigger_type):
             body['triggerType'] = request.trigger_type
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTrigger',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateTriggerResponse(),
-            self.do_roarequest('CreateTrigger', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_vpc_binding(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.CreateVpcBindingHeaders()
         return self.create_vpc_binding_with_options(service_name, request, headers, runtime)
 
     def create_vpc_binding_with_options(self, service_name, request, headers, runtime):
@@ -265,13 +416,39 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.vpc_id):
             body['vpcId'] = request.vpc_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateVpcBinding',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateVpcBindingResponse(),
-            self.do_roarequest('CreateVpcBinding', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_alias(self, service_name, alias_name):
@@ -287,27 +464,76 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers
         )
+        params = open_api_models.Params(
+            action='DeleteAlias',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteAliasResponse(),
-            self.do_roarequest('DeleteAlias', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_custom_domain(self, domain_name):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeleteCustomDomainHeaders()
         return self.delete_custom_domain_with_options(domain_name, headers, runtime)
 
     def delete_custom_domain_with_options(self, domain_name, headers, runtime):
         domain_name = OpenApiUtilClient.get_encode_param(domain_name)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomDomain',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteCustomDomainResponse(),
-            self.do_roarequest('DeleteCustomDomain', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_function(self, service_name, function_name):
@@ -323,17 +549,40 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers
         )
+        params = open_api_models.Params(
+            action='DeleteFunction',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionResponse(),
-            self.do_roarequest('DeleteFunction', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_function_async_invoke_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeleteFunctionAsyncInvokeConfigHeaders()
         return self.delete_function_async_invoke_config_with_options(service_name, function_name, request, headers, runtime)
 
     def delete_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -343,13 +592,39 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteFunctionAsyncInvokeConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionAsyncInvokeConfigResponse(),
-            self.do_roarequest('DeleteFunctionAsyncInvokeConfig', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_function_on_demand_config(self, service_name, function_name, request):
@@ -369,29 +644,78 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='DeleteFunctionOnDemandConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionOnDemandConfigResponse(),
-            self.do_roarequest('DeleteFunctionOnDemandConfig', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_layer_version(self, layer_name, version):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeleteLayerVersionHeaders()
         return self.delete_layer_version_with_options(layer_name, version, headers, runtime)
 
     def delete_layer_version_with_options(self, layer_name, version, headers, runtime):
         layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         version = OpenApiUtilClient.get_encode_param(version)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='DeleteLayerVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteLayerVersionResponse(),
-            self.do_roarequest('DeleteLayerVersion', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_service(self, service_name):
@@ -406,28 +730,77 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers
         )
+        params = open_api_models.Params(
+            action='DeleteService',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteServiceResponse(),
-            self.do_roarequest('DeleteService', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_service_version(self, service_name, version_id):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeleteServiceVersionHeaders()
         return self.delete_service_version_with_options(service_name, version_id, headers, runtime)
 
     def delete_service_version_with_options(self, service_name, version_id, headers, runtime):
         service_name = OpenApiUtilClient.get_encode_param(service_name)
         version_id = OpenApiUtilClient.get_encode_param(version_id)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='DeleteServiceVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/versions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(version_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteServiceVersionResponse(),
-            self.do_roarequest('DeleteServiceVersion', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/versions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(version_id)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_trigger(self, service_name, function_name, trigger_name):
@@ -444,33 +817,82 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers
         )
+        params = open_api_models.Params(
+            action='DeleteTrigger',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteTriggerResponse(),
-            self.do_roarequest('DeleteTrigger', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_vpc_binding(self, service_name, vpc_id):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeleteVpcBindingHeaders()
         return self.delete_vpc_binding_with_options(service_name, vpc_id, headers, runtime)
 
     def delete_vpc_binding_with_options(self, service_name, vpc_id, headers, runtime):
         service_name = OpenApiUtilClient.get_encode_param(service_name)
         vpc_id = OpenApiUtilClient.get_encode_param(vpc_id)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='DeleteVpcBinding',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/bindings/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(vpc_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteVpcBindingResponse(),
-            self.do_roarequest('DeleteVpcBinding', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/bindings/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(vpc_id)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def deregister_event_source(self, service_name, function_name, source_arn, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.DeregisterEventSourceHeaders()
         return self.deregister_event_source_with_options(service_name, function_name, source_arn, request, headers, runtime)
 
     def deregister_event_source_with_options(self, service_name, function_name, source_arn, request, headers, runtime):
@@ -481,63 +903,167 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeregisterEventSource',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(source_arn)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeregisterEventSourceResponse(),
-            self.do_roarequest('DeregisterEventSource', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/services/%s/functions/%s/event-sources/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(source_arn)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_account_settings(self):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetAccountSettingsHeaders()
         return self.get_account_settings_with_options(headers, runtime)
 
     def get_account_settings_with_options(self, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetAccountSettings',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/account-settings',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetAccountSettingsResponse(),
-            self.do_roarequest('GetAccountSettings', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/account-settings', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_alias(self, service_name, alias_name):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetAliasHeaders()
         return self.get_alias_with_options(service_name, alias_name, headers, runtime)
 
     def get_alias_with_options(self, service_name, alias_name, headers, runtime):
         service_name = OpenApiUtilClient.get_encode_param(service_name)
         alias_name = OpenApiUtilClient.get_encode_param(alias_name)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetAlias',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetAliasResponse(),
-            self.do_roarequest('GetAlias', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_custom_domain(self, domain_name):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetCustomDomainHeaders()
         return self.get_custom_domain_with_options(domain_name, headers, runtime)
 
     def get_custom_domain_with_options(self, domain_name, headers, runtime):
         domain_name = OpenApiUtilClient.get_encode_param(domain_name)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetCustomDomain',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetCustomDomainResponse(),
-            self.do_roarequest('GetCustomDomain', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_function(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetFunctionHeaders()
         return self.get_function_with_options(service_name, function_name, request, headers, runtime)
 
     def get_function_with_options(self, service_name, function_name, request, headers, runtime):
@@ -547,18 +1073,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunction',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionResponse(),
-            self.do_roarequest('GetFunction', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_function_async_invoke_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetFunctionAsyncInvokeConfigHeaders()
         return self.get_function_async_invoke_config_with_options(service_name, function_name, request, headers, runtime)
 
     def get_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -568,18 +1120,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunctionAsyncInvokeConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionAsyncInvokeConfigResponse(),
-            self.do_roarequest('GetFunctionAsyncInvokeConfig', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_function_code(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetFunctionCodeHeaders()
         return self.get_function_code_with_options(service_name, function_name, request, headers, runtime)
 
     def get_function_code_with_options(self, service_name, function_name, request, headers, runtime):
@@ -589,18 +1167,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunctionCode',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/code' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionCodeResponse(),
-            self.do_roarequest('GetFunctionCode', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/code' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_function_on_demand_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetFunctionOnDemandConfigHeaders()
         return self.get_function_on_demand_config_with_options(service_name, function_name, request, headers, runtime)
 
     def get_function_on_demand_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -610,49 +1214,127 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunctionOnDemandConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionOnDemandConfigResponse(),
-            self.do_roarequest('GetFunctionOnDemandConfig', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_layer_version(self, layer_name, version):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetLayerVersionHeaders()
         return self.get_layer_version_with_options(layer_name, version, headers, runtime)
 
     def get_layer_version_with_options(self, layer_name, version, headers, runtime):
         layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         version = OpenApiUtilClient.get_encode_param(version)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetLayerVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetLayerVersionResponse(),
-            self.do_roarequest('GetLayerVersion', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_layer_version_by_arn(self, arn):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetLayerVersionByArnHeaders()
         return self.get_layer_version_by_arn_with_options(arn, headers, runtime)
 
     def get_layer_version_by_arn_with_options(self, arn, headers, runtime):
         arn = OpenApiUtilClient.get_encode_param(arn)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetLayerVersionByArn',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layerarn/%s' % TeaConverter.to_unicode(arn),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetLayerVersionByArnResponse(),
-            self.do_roarequest('GetLayerVersionByArn', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/layerarn/%s' % TeaConverter.to_unicode(arn), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_provision_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetProvisionConfigHeaders()
         return self.get_provision_config_with_options(service_name, function_name, request, headers, runtime)
 
     def get_provision_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -662,18 +1344,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProvisionConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetProvisionConfigResponse(),
-            self.do_roarequest('GetProvisionConfig', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_resource_tags(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetResourceTagsHeaders()
         return self.get_resource_tags_with_options(request, headers, runtime)
 
     def get_resource_tags_with_options(self, request, headers, runtime):
@@ -681,18 +1389,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.resource_arn):
             query['resourceArn'] = request.resource_arn
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceTags',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/tag',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetResourceTagsResponse(),
-            self.do_roarequest('GetResourceTags', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/tag', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetServiceHeaders()
         return self.get_service_with_options(service_name, request, headers, runtime)
 
     def get_service_with_options(self, service_name, request, headers, runtime):
@@ -701,18 +1435,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetService',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetServiceResponse(),
-            self.do_roarequest('GetService', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetStatefulAsyncInvocationHeaders()
         return self.get_stateful_async_invocation_with_options(service_name, function_name, invocation_id, request, headers, runtime)
 
     def get_stateful_async_invocation_with_options(self, service_name, function_name, invocation_id, request, headers, runtime):
@@ -723,30 +1483,82 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetStatefulAsyncInvocation',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetStatefulAsyncInvocationResponse(),
-            self.do_roarequest('GetStatefulAsyncInvocation', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_trigger(self, service_name, function_name, trigger_name):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.GetTriggerHeaders()
         return self.get_trigger_with_options(service_name, function_name, trigger_name, headers, runtime)
 
     def get_trigger_with_options(self, service_name, function_name, trigger_name, headers, runtime):
         service_name = OpenApiUtilClient.get_encode_param(service_name)
         function_name = OpenApiUtilClient.get_encode_param(function_name)
         trigger_name = OpenApiUtilClient.get_encode_param(trigger_name)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='GetTrigger',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetTriggerResponse(),
-            self.do_roarequest('GetTrigger', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def invoke_function(self, service_name, function_name, request):
@@ -766,25 +1578,42 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
         if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['x-fc-invocation-type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
         if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['x-fc-log-type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_stateful_async_invocation_id):
-            real_headers['x-fc-stateful-async-invocation-id'] = UtilClient.to_jsonstring(headers.x_fc_stateful_async_invocation_id)
+            real_headers['X-Fc-Stateful-Async-Invocation-Id'] = UtilClient.to_jsonstring(headers.x_fc_stateful_async_invocation_id)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=request.body
         )
+        params = open_api_models.Params(
+            action='InvokeFunction',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='byte'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.InvokeFunctionResponse(),
-            self.do_roarequest('InvokeFunction', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/functions/%s/invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'byte', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_aliases(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListAliasesHeaders()
         return self.list_aliases_with_options(service_name, request, headers, runtime)
 
     def list_aliases_with_options(self, service_name, request, headers, runtime):
@@ -799,18 +1628,44 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAliases',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListAliasesResponse(),
-            self.do_roarequest('ListAliases', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/aliases' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_custom_domains(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListCustomDomainsHeaders()
         return self.list_custom_domains_with_options(request, headers, runtime)
 
     def list_custom_domains_with_options(self, request, headers, runtime):
@@ -824,18 +1679,44 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomDomains',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/custom-domains',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListCustomDomainsResponse(),
-            self.do_roarequest('ListCustomDomains', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/custom-domains', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_event_sources(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListEventSourcesHeaders()
         return self.list_event_sources_with_options(service_name, function_name, request, headers, runtime)
 
     def list_event_sources_with_options(self, service_name, function_name, request, headers, runtime):
@@ -845,18 +1726,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEventSources',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListEventSourcesResponse(),
-            self.do_roarequest('ListEventSources', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_function_async_invoke_configs(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListFunctionAsyncInvokeConfigsHeaders()
         return self.list_function_async_invoke_configs_with_options(service_name, function_name, request, headers, runtime)
 
     def list_function_async_invoke_configs_with_options(self, service_name, function_name, request, headers, runtime):
@@ -868,18 +1775,44 @@ class Client(OpenApiClient):
             query['limit'] = request.limit
         if not UtilClient.is_unset(request.next_token):
             query['nextToken'] = request.next_token
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctionAsyncInvokeConfigs',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-configs' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListFunctionAsyncInvokeConfigsResponse(),
-            self.do_roarequest('ListFunctionAsyncInvokeConfigs', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/async-invoke-configs' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_functions(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListFunctionsHeaders()
         return self.list_functions_with_options(service_name, request, headers, runtime)
 
     def list_functions_with_options(self, service_name, request, headers, runtime):
@@ -896,13 +1829,39 @@ class Client(OpenApiClient):
             query['qualifier'] = request.qualifier
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctions',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListFunctionsResponse(),
-            self.do_roarequest('ListFunctions', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_instances(self, service_name, function_name, request):
@@ -930,14 +1889,25 @@ class Client(OpenApiClient):
             headers=real_headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListInstances',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.ListInstancesResponse(),
-            self.do_roarequest('ListInstances', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_layer_versions(self, layer_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListLayerVersionsHeaders()
         return self.list_layer_versions_with_options(layer_name, request, headers, runtime)
 
     def list_layer_versions_with_options(self, layer_name, request, headers, runtime):
@@ -948,18 +1918,44 @@ class Client(OpenApiClient):
             query['limit'] = request.limit
         if not UtilClient.is_unset(request.start_version):
             query['startVersion'] = request.start_version
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListLayerVersions',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListLayerVersionsResponse(),
-            self.do_roarequest('ListLayerVersions', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/layers/%s/versions' % TeaConverter.to_unicode(layer_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_layers(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListLayersHeaders()
         return self.list_layers_with_options(request, headers, runtime)
 
     def list_layers_with_options(self, request, headers, runtime):
@@ -973,18 +1969,44 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListLayers',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListLayersResponse(),
-            self.do_roarequest('ListLayers', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/layers', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_on_demand_configs(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListOnDemandConfigsHeaders()
         return self.list_on_demand_configs_with_options(request, headers, runtime)
 
     def list_on_demand_configs_with_options(self, request, headers, runtime):
@@ -998,18 +2020,44 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOnDemandConfigs',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/on-demand-configs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListOnDemandConfigsResponse(),
-            self.do_roarequest('ListOnDemandConfigs', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/on-demand-configs', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_provision_configs(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListProvisionConfigsHeaders()
         return self.list_provision_configs_with_options(request, headers, runtime)
 
     def list_provision_configs_with_options(self, request, headers, runtime):
@@ -1023,18 +2071,44 @@ class Client(OpenApiClient):
             query['qualifier'] = request.qualifier
         if not UtilClient.is_unset(request.service_name):
             query['serviceName'] = request.service_name
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListProvisionConfigs',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/provision-configs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListProvisionConfigsResponse(),
-            self.do_roarequest('ListProvisionConfigs', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/provision-configs', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_reserved_capacities(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListReservedCapacitiesHeaders()
         return self.list_reserved_capacities_with_options(request, headers, runtime)
 
     def list_reserved_capacities_with_options(self, request, headers, runtime):
@@ -1044,18 +2118,44 @@ class Client(OpenApiClient):
             query['limit'] = request.limit
         if not UtilClient.is_unset(request.next_token):
             query['nextToken'] = request.next_token
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListReservedCapacities',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/reserved-capacities',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListReservedCapacitiesResponse(),
-            self.do_roarequest('ListReservedCapacities', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/reserved-capacities', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_service_versions(self, service_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListServiceVersionsHeaders()
         return self.list_service_versions_with_options(service_name, request, headers, runtime)
 
     def list_service_versions_with_options(self, service_name, request, headers, runtime):
@@ -1070,18 +2170,44 @@ class Client(OpenApiClient):
             query['nextToken'] = request.next_token
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListServiceVersions',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListServiceVersionsResponse(),
-            self.do_roarequest('ListServiceVersions', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_services(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListServicesHeaders()
         return self.list_services_with_options(request, headers, runtime)
 
     def list_services_with_options(self, request, headers, runtime):
@@ -1095,18 +2221,44 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListServices',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListServicesResponse(),
-            self.do_roarequest('ListServices', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_stateful_async_invocations(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListStatefulAsyncInvocationsHeaders()
         return self.list_stateful_async_invocations_with_options(service_name, function_name, request, headers, runtime)
 
     def list_stateful_async_invocations_with_options(self, service_name, function_name, request, headers, runtime):
@@ -1132,18 +2284,44 @@ class Client(OpenApiClient):
             query['startedTimeEnd'] = request.started_time_end
         if not UtilClient.is_unset(request.status):
             query['status'] = request.status
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListStatefulAsyncInvocations',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListStatefulAsyncInvocationsResponse(),
-            self.do_roarequest('ListStatefulAsyncInvocations', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/stateful-async-invocations' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_tagged_resources(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListTaggedResourcesHeaders()
         return self.list_tagged_resources_with_options(request, headers, runtime)
 
     def list_tagged_resources_with_options(self, request, headers, runtime):
@@ -1153,18 +2331,44 @@ class Client(OpenApiClient):
             query['limit'] = request.limit
         if not UtilClient.is_unset(request.next_token):
             query['nextToken'] = request.next_token
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTaggedResources',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/tags',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListTaggedResourcesResponse(),
-            self.do_roarequest('ListTaggedResources', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/tags', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_triggers(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListTriggersHeaders()
         return self.list_triggers_with_options(service_name, function_name, request, headers, runtime)
 
     def list_triggers_with_options(self, service_name, function_name, request, headers, runtime):
@@ -1180,61 +2384,165 @@ class Client(OpenApiClient):
             query['prefix'] = request.prefix
         if not UtilClient.is_unset(request.start_key):
             query['startKey'] = request.start_key
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTriggers',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListTriggersResponse(),
-            self.do_roarequest('ListTriggers', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/functions/%s/triggers' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_vpc_bindings(self, service_name):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.ListVpcBindingsHeaders()
         return self.list_vpc_bindings_with_options(service_name, headers, runtime)
 
     def list_vpc_bindings_with_options(self, service_name, headers, runtime):
         service_name = OpenApiUtilClient.get_encode_param(service_name)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='ListVpcBindings',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListVpcBindingsResponse(),
-            self.do_roarequest('ListVpcBindings', '2021-04-06', 'HTTPS', 'GET', 'AK', '/2021-04-06/services/%s/bindings' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def permanent_delete_layer_version(self, user_id, layer_name, version):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.PermanentDeleteLayerVersionHeaders()
         return self.permanent_delete_layer_version_with_options(user_id, layer_name, version, headers, runtime)
 
     def permanent_delete_layer_version_with_options(self, user_id, layer_name, version, headers, runtime):
         user_id = OpenApiUtilClient.get_encode_param(user_id)
         layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         version = OpenApiUtilClient.get_encode_param(version)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='PermanentDeleteLayerVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/adminlayers/%s/%s/versions/%s' % (TeaConverter.to_unicode(user_id), TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PermanentDeleteLayerVersionResponse(),
-            self.do_roarequest('PermanentDeleteLayerVersion', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/adminlayers/%s/%s/versions/%s' % (TeaConverter.to_unicode(user_id), TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def publish_layer_as_public(self, layer_name, version):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.PublishLayerAsPublicHeaders()
         return self.publish_layer_as_public_with_options(layer_name, version, headers, runtime)
 
     def publish_layer_as_public_with_options(self, layer_name, version, headers, runtime):
         layer_name = OpenApiUtilClient.get_encode_param(layer_name)
         version = OpenApiUtilClient.get_encode_param(version)
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='PublishLayerAsPublic',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PublishLayerAsPublicResponse(),
-            self.do_roarequest('PublishLayerAsPublic', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def publish_service_version(self, service_name, request):
@@ -1253,18 +2561,41 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='PublishServiceVersion',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.PublishServiceVersionResponse(),
-            self.do_roarequest('PublishServiceVersion', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/versions' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def put_function_async_invoke_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.PutFunctionAsyncInvokeConfigHeaders()
         return self.put_function_async_invoke_config_with_options(service_name, function_name, request, headers, runtime)
 
     def put_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -1283,14 +2614,40 @@ class Client(OpenApiClient):
             body['maxAsyncRetryAttempts'] = request.max_async_retry_attempts
         if not UtilClient.is_unset(request.stateful_invocation):
             body['statefulInvocation'] = request.stateful_invocation
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='PutFunctionAsyncInvokeConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.PutFunctionAsyncInvokeConfigResponse(),
-            self.do_roarequest('PutFunctionAsyncInvokeConfig', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s/async-invoke-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def put_function_on_demand_config(self, service_name, function_name, request):
@@ -1313,19 +2670,42 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='PutFunctionOnDemandConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.PutFunctionOnDemandConfigResponse(),
-            self.do_roarequest('PutFunctionOnDemandConfig', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s/on-demand-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def put_provision_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.PutProvisionConfigHeaders()
         return self.put_provision_config_with_options(service_name, function_name, request, headers, runtime)
 
     def put_provision_config_with_options(self, service_name, function_name, request, headers, runtime):
@@ -1342,19 +2722,45 @@ class Client(OpenApiClient):
             body['target'] = request.target
         if not UtilClient.is_unset(request.target_tracking_policies):
             body['targetTrackingPolicies'] = request.target_tracking_policies
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='PutProvisionConfig',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.PutProvisionConfigResponse(),
-            self.do_roarequest('PutProvisionConfig', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s/provision-config' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def register_event_source(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.RegisterEventSourceHeaders()
         return self.register_event_source_with_options(service_name, function_name, request, headers, runtime)
 
     def register_event_source_with_options(self, service_name, function_name, request, headers, runtime):
@@ -1367,19 +2773,45 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.source_arn):
             body['sourceArn'] = request.source_arn
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RegisterEventSource',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.RegisterEventSourceResponse(),
-            self.do_roarequest('RegisterEventSource', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/services/%s/functions/%s/event-sources' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.StopStatefulAsyncInvocationHeaders()
         return self.stop_stateful_async_invocation_with_options(service_name, function_name, invocation_id, request, headers, runtime)
 
     def stop_stateful_async_invocation_with_options(self, service_name, function_name, invocation_id, request, headers, runtime):
@@ -1390,18 +2822,44 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.qualifier):
             query['qualifier'] = request.qualifier
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopStatefulAsyncInvocation',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.StopStatefulAsyncInvocationResponse(),
-            self.do_roarequest('StopStatefulAsyncInvocation', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s/stateful-async-invocations/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(invocation_id)), 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def tag_resource(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.TagResourceHeaders()
         return self.tag_resource_with_options(request, headers, runtime)
 
     def tag_resource_with_options(self, request, headers, runtime):
@@ -1411,18 +2869,44 @@ class Client(OpenApiClient):
             body['resourceArn'] = request.resource_arn
         if not UtilClient.is_unset(request.tags):
             body['tags'] = request.tags
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='TagResource',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/tag',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.TagResourceResponse(),
-            self.do_roarequest('TagResource', '2021-04-06', 'HTTPS', 'POST', 'AK', '/2021-04-06/tag', 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def untag_resource(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.UntagResourceHeaders()
         return self.untag_resource_with_options(request, headers, runtime)
 
     def untag_resource_with_options(self, request, headers, runtime):
@@ -1434,13 +2918,39 @@ class Client(OpenApiClient):
             body['resourceArn'] = request.resource_arn
         if not UtilClient.is_unset(request.tag_keys):
             body['tagKeys'] = request.tag_keys
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UntagResource',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/tag',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UntagResourceResponse(),
-            self.do_roarequest('UntagResource', '2021-04-06', 'HTTPS', 'DELETE', 'AK', '/2021-04-06/tag', 'none', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_alias(self, service_name, alias_name, request):
@@ -1464,18 +2974,41 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.if_match):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateAlias',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateAliasResponse(),
-            self.do_roarequest('UpdateAlias', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/aliases/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(alias_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_custom_domain(self, domain_name, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
+        headers = fc__open_20210406_models.UpdateCustomDomainHeaders()
         return self.update_custom_domain_with_options(domain_name, request, headers, runtime)
 
     def update_custom_domain_with_options(self, domain_name, request, headers, runtime):
@@ -1488,13 +3021,39 @@ class Client(OpenApiClient):
             body['protocol'] = request.protocol
         if not UtilClient.is_unset(request.route_config):
             body['routeConfig'] = request.route_config
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateCustomDomain',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateCustomDomainResponse(),
-            self.do_roarequest('UpdateCustomDomain', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/custom-domains/%s' % TeaConverter.to_unicode(domain_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_function(self, service_name, function_name, request):
@@ -1549,14 +3108,33 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
         if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['x-fc-code-checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateFunction',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateFunctionResponse(),
-            self.do_roarequest('UpdateFunction', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_service(self, service_name, request):
@@ -1589,13 +3167,34 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateService',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateServiceResponse(),
-            self.do_roarequest('UpdateService', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s' % TeaConverter.to_unicode(service_name), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_trigger(self, service_name, function_name, trigger_name, request):
@@ -1624,11 +3223,32 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_code_checksum):
+            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_invocation_type):
+            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
+        if not UtilClient.is_unset(headers.x_fc_log_type):
+            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateTrigger',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateTriggerResponse(),
-            self.do_roarequest('UpdateTrigger', '2021-04-06', 'HTTPS', 'PUT', 'AK', '/2021-04-06/services/%s/functions/%s/triggers/%s' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(trigger_name)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
