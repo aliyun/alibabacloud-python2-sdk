@@ -3,6 +3,174 @@
 from Tea.model import TeaModel
 
 
+class ApeInnerCommonApiRequest(TeaModel):
+    def __init__(self, app_name=None, channel=None, end_time=None, lat=None, lon=None, page_num=None, page_size=None,
+                 sp_code=None, start_time=None, station=None):
+        # appName
+        self.app_name = app_name  # type: str
+        # channel
+        self.channel = channel  # type: str
+        # endTime
+        self.end_time = end_time  # type: str
+        # lat
+        self.lat = lat  # type: str
+        # lon
+        self.lon = lon  # type: str
+        # pageNum
+        self.page_num = page_num  # type: int
+        # pageSize
+        self.page_size = page_size  # type: int
+        # spCode
+        self.sp_code = sp_code  # type: str
+        # startTime
+        self.start_time = start_time  # type: str
+        # station
+        self.station = station  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApeInnerCommonApiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.channel is not None:
+            result['Channel'] = self.channel
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.lat is not None:
+            result['Lat'] = self.lat
+        if self.lon is not None:
+            result['Lon'] = self.lon
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.sp_code is not None:
+            result['SpCode'] = self.sp_code
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.station is not None:
+            result['Station'] = self.station
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('Channel') is not None:
+            self.channel = m.get('Channel')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Lat') is not None:
+            self.lat = m.get('Lat')
+        if m.get('Lon') is not None:
+            self.lon = m.get('Lon')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SpCode') is not None:
+            self.sp_code = m.get('SpCode')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Station') is not None:
+            self.station = m.get('Station')
+        return self
+
+
+class ApeInnerCommonApiResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, rt=None, success=None):
+        # code
+        self.code = code  # type: str
+        # data
+        self.data = data  # type: str
+        # message
+        self.message = message  # type: str
+        # requestId
+        self.request_id = request_id  # type: str
+        # rt
+        self.rt = rt  # type: long
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApeInnerCommonApiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ApeInnerCommonApiResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ApeInnerCommonApiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ApeInnerCommonApiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ApeInnerCommonApiResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class HistoricalRequest(TeaModel):
     def __init__(self, end_time=None, order_id=None, page_num=None, page_size=None, start_time=None, station=None):
         # endTime
