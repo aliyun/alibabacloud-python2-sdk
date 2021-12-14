@@ -88,7 +88,7 @@ class ApeInnerCommonApiResponseBody(TeaModel):
         # code
         self.code = code  # type: str
         # data
-        self.data = data  # type: str
+        self.data = data  # type: list[dict[str, any]]
         # message
         self.message = message  # type: str
         # requestId
