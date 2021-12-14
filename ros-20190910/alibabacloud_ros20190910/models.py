@@ -3888,9 +3888,10 @@ class GetFeatureDetailsRequest(TeaModel):
 
 
 class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
-    def __init__(self, custom_tag=None, estimate_cost=None, system_tag=None):
+    def __init__(self, custom_tag=None, estimate_cost=None, resource_group=None, system_tag=None):
         self.custom_tag = custom_tag  # type: list[str]
         self.estimate_cost = estimate_cost  # type: list[str]
+        self.resource_group = resource_group  # type: list[str]
         self.system_tag = system_tag  # type: list[str]
 
     def validate(self):
@@ -3906,6 +3907,8 @@ class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
             result['CustomTag'] = self.custom_tag
         if self.estimate_cost is not None:
             result['EstimateCost'] = self.estimate_cost
+        if self.resource_group is not None:
+            result['ResourceGroup'] = self.resource_group
         if self.system_tag is not None:
             result['SystemTag'] = self.system_tag
         return result
@@ -3916,6 +3919,8 @@ class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
             self.custom_tag = m.get('CustomTag')
         if m.get('EstimateCost') is not None:
             self.estimate_cost = m.get('EstimateCost')
+        if m.get('ResourceGroup') is not None:
+            self.resource_group = m.get('ResourceGroup')
         if m.get('SystemTag') is not None:
             self.system_tag = m.get('SystemTag')
         return self
@@ -4122,12 +4127,13 @@ class GetResourceTypeRequest(TeaModel):
 
 class GetResourceTypeResponseBody(TeaModel):
     def __init__(self, attributes=None, properties=None, request_id=None, resource_type=None,
-                 support_drift_detection=None):
+                 support_drift_detection=None, support_scratch_detection=None):
         self.attributes = attributes  # type: dict[str, any]
         self.properties = properties  # type: dict[str, any]
         self.request_id = request_id  # type: str
         self.resource_type = resource_type  # type: str
         self.support_drift_detection = support_drift_detection  # type: bool
+        self.support_scratch_detection = support_scratch_detection  # type: bool
 
     def validate(self):
         pass
@@ -4148,6 +4154,8 @@ class GetResourceTypeResponseBody(TeaModel):
             result['ResourceType'] = self.resource_type
         if self.support_drift_detection is not None:
             result['SupportDriftDetection'] = self.support_drift_detection
+        if self.support_scratch_detection is not None:
+            result['SupportScratchDetection'] = self.support_scratch_detection
         return result
 
     def from_map(self, m=None):
@@ -4162,6 +4170,8 @@ class GetResourceTypeResponseBody(TeaModel):
             self.resource_type = m.get('ResourceType')
         if m.get('SupportDriftDetection') is not None:
             self.support_drift_detection = m.get('SupportDriftDetection')
+        if m.get('SupportScratchDetection') is not None:
+            self.support_scratch_detection = m.get('SupportScratchDetection')
         return self
 
 
@@ -6617,12 +6627,13 @@ class GetTemplateEstimateCostRequestParameters(TeaModel):
 
 class GetTemplateEstimateCostRequest(TeaModel):
     def __init__(self, client_token=None, parameters=None, region_id=None, template_body=None, template_id=None,
-                 template_url=None, template_version=None):
+                 template_scratch_id=None, template_url=None, template_version=None):
         self.client_token = client_token  # type: str
         self.parameters = parameters  # type: list[GetTemplateEstimateCostRequestParameters]
         self.region_id = region_id  # type: str
         self.template_body = template_body  # type: str
         self.template_id = template_id  # type: str
+        self.template_scratch_id = template_scratch_id  # type: str
         self.template_url = template_url  # type: str
         self.template_version = template_version  # type: str
 
@@ -6650,6 +6661,8 @@ class GetTemplateEstimateCostRequest(TeaModel):
             result['TemplateBody'] = self.template_body
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
+        if self.template_scratch_id is not None:
+            result['TemplateScratchId'] = self.template_scratch_id
         if self.template_url is not None:
             result['TemplateURL'] = self.template_url
         if self.template_version is not None:
@@ -6671,6 +6684,8 @@ class GetTemplateEstimateCostRequest(TeaModel):
             self.template_body = m.get('TemplateBody')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
+        if m.get('TemplateScratchId') is not None:
+            self.template_scratch_id = m.get('TemplateScratchId')
         if m.get('TemplateURL') is not None:
             self.template_url = m.get('TemplateURL')
         if m.get('TemplateVersion') is not None:
@@ -11102,7 +11117,7 @@ class PreviewStackRequestParameters(TeaModel):
 class PreviewStackRequest(TeaModel):
     def __init__(self, client_token=None, disable_rollback=None, parallelism=None, parameters=None, region_id=None,
                  stack_name=None, stack_policy_body=None, stack_policy_url=None, template_body=None, template_id=None,
-                 template_url=None, template_version=None, timeout_in_minutes=None):
+                 template_scratch_id=None, template_url=None, template_version=None, timeout_in_minutes=None):
         self.client_token = client_token  # type: str
         self.disable_rollback = disable_rollback  # type: bool
         self.parallelism = parallelism  # type: long
@@ -11113,6 +11128,7 @@ class PreviewStackRequest(TeaModel):
         self.stack_policy_url = stack_policy_url  # type: str
         self.template_body = template_body  # type: str
         self.template_id = template_id  # type: str
+        self.template_scratch_id = template_scratch_id  # type: str
         self.template_url = template_url  # type: str
         self.template_version = template_version  # type: str
         self.timeout_in_minutes = timeout_in_minutes  # type: long
@@ -11151,6 +11167,8 @@ class PreviewStackRequest(TeaModel):
             result['TemplateBody'] = self.template_body
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
+        if self.template_scratch_id is not None:
+            result['TemplateScratchId'] = self.template_scratch_id
         if self.template_url is not None:
             result['TemplateURL'] = self.template_url
         if self.template_version is not None:
@@ -11184,6 +11202,8 @@ class PreviewStackRequest(TeaModel):
             self.template_body = m.get('TemplateBody')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
+        if m.get('TemplateScratchId') is not None:
+            self.template_scratch_id = m.get('TemplateScratchId')
         if m.get('TemplateURL') is not None:
             self.template_url = m.get('TemplateURL')
         if m.get('TemplateVersion') is not None:
