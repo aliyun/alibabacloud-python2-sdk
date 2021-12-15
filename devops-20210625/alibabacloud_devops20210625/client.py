@@ -31,6 +31,72 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def create_flow_tag(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_flow_tag_with_options(organization_id, request, headers, runtime)
+
+    def create_flow_tag_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.color):
+            query['color'] = request.color
+        if not UtilClient.is_unset(request.flow_tag_group_id):
+            query['flowTagGroupId'] = request.flow_tag_group_id
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFlowTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tags' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateFlowTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_flow_tag_group(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_flow_tag_group_with_options(organization_id, request, headers, runtime)
+
+    def create_flow_tag_group_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFlowTagGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateFlowTagGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_host_group(self, organization_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -220,6 +286,60 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_flow_tag(self, organization_id, id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_flow_tag_with_options(organization_id, id, headers, runtime)
+
+    def delete_flow_tag_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteFlowTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteFlowTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_flow_tag_group(self, organization_id, id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_flow_tag_group_with_options(organization_id, id, headers, runtime)
+
+    def delete_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteFlowTagGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteFlowTagGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_host_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -356,6 +476,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_flow_tag_group(self, organization_id, id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_flow_tag_group_with_options(organization_id, id, headers, runtime)
+
+    def get_flow_tag_group_with_options(self, organization_id, id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetFlowTagGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetFlowTagGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_host_group(self, organization_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -465,6 +612,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_project_info(self, organization_id, project_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_project_info_with_options(organization_id, project_id, headers, runtime)
+
+    def get_project_info_with_options(self, organization_id, project_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        project_id = OpenApiUtilClient.get_encode_param(project_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetProjectInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/project/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetProjectInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_vmdeploy_order(self, organization_id, pipeline_id, deploy_order_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -543,6 +717,32 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.GetWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_flow_tag_groups(self, organization_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_flow_tag_groups_with_options(organization_id, headers, runtime)
+
+    def list_flow_tag_groups_with_options(self, organization_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListFlowTagGroups',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tagGroups' % TeaConverter.to_unicode(organization_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListFlowTagGroupsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -726,6 +926,38 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.ListPipelinesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_project_members(self, organization_id, project_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_project_members_with_options(organization_id, project_id, request, headers, runtime)
+
+    def list_project_members_with_options(self, organization_id, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        project_id = OpenApiUtilClient.get_encode_param(project_id)
+        query = {}
+        if not UtilClient.is_unset(request.target_type):
+            query['targetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListProjectMembers',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/projects/%s/listMembers' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListProjectMembersResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1296,6 +1528,74 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_flow_tag(self, organization_id, id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_flow_tag_with_options(organization_id, id, request, headers, runtime)
+
+    def update_flow_tag_with_options(self, organization_id, id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
+        query = {}
+        if not UtilClient.is_unset(request.color):
+            query['color'] = request.color
+        if not UtilClient.is_unset(request.flow_tag_group_id):
+            query['flowTagGroupId'] = request.flow_tag_group_id
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFlowTag',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tags/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateFlowTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_flow_tag_group(self, organization_id, id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_flow_tag_group_with_options(organization_id, id, request, headers, runtime)
+
+    def update_flow_tag_group_with_options(self, organization_id, id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        id = OpenApiUtilClient.get_encode_param(id)
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFlowTagGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/flow/tagGroups/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateFlowTagGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_host_group(self, organization_id, id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1343,6 +1643,42 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.UpdateHostGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_pipeline_base_info(self, organization_id, pipeline_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pipeline_base_info_with_options(organization_id, pipeline_id, request, headers, runtime)
+
+    def update_pipeline_base_info_with_options(self, organization_id, pipeline_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        pipeline_id = OpenApiUtilClient.get_encode_param(pipeline_id)
+        query = {}
+        if not UtilClient.is_unset(request.env_id):
+            query['envId'] = request.env_id
+        if not UtilClient.is_unset(request.pipeline_name):
+            query['pipelineName'] = request.pipeline_name
+        if not UtilClient.is_unset(request.tag_list):
+            query['tagList'] = request.tag_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdatePipelineBaseInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/%s/baseInfo' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(pipeline_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdatePipelineBaseInfoResponse(),
             self.call_api(params, req, runtime)
         )
 
