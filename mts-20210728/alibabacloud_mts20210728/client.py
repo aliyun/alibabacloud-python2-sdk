@@ -74,6 +74,176 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def query_copyright(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_copyright_with_options(request, headers, runtime)
+
+    def query_copyright_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.create_time_end):
+            body['CreateTimeEnd'] = request.create_time_end
+        if not UtilClient.is_unset(request.create_time_start):
+            body['CreateTimeStart'] = request.create_time_start
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.level):
+            body['Level'] = request.level
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryCopyright',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryCopyrightJob',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.QueryCopyrightResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_copyright_extract(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_copyright_extract_with_options(request, headers, runtime)
+
+    def query_copyright_extract_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryCopyrightExtract',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryCopyrightExtract',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.QueryCopyrightExtractResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_image_copyright(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_image_copyright_with_options(request, headers, runtime)
+
+    def query_image_copyright_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.create_time_end):
+            body['CreateTimeEnd'] = request.create_time_end
+        if not UtilClient.is_unset(request.create_time_start):
+            body['CreateTimeStart'] = request.create_time_start
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryImageCopyright',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryImageCopyright',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.QueryImageCopyrightResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_trace_ab(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trace_ab_with_options(request, headers, runtime)
+
+    def query_trace_ab_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.media_id):
+            body['MediaId'] = request.media_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryTraceAb',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryTraceAb',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.QueryTraceAbResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_trace_extract(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_trace_extract_with_options(request, headers, runtime)
+
+    def query_trace_extract_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.job_id):
+            body['JobId'] = request.job_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryTraceExtract',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryTraceExtract',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.QueryTraceExtractResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def query_trace_mu(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -100,9 +270,102 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='QueryTraceMu',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/queryTraceM3u8',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             mts_20210728_models.QueryTraceMuResponse(),
-            self.do_roarequest('QueryTraceMu', '2021-07-28', 'HTTPS', 'POST', 'AK', '/queryTraceM3u8', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_copyright_extract(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_copyright_extract_with_options(request, headers, runtime)
+
+    def submit_copyright_extract_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.call_back):
+            body['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.input):
+            body['Input'] = request.input
+        if not UtilClient.is_unset(request.user_data):
+            body['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitCopyrightExtract',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitCopyrightExtract',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.SubmitCopyrightExtractResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_copyright_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_copyright_job_with_options(request, headers, runtime)
+
+    def submit_copyright_job_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.call_back):
+            body['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.input):
+            body['Input'] = request.input
+        if not UtilClient.is_unset(request.level):
+            body['Level'] = request.level
+        if not UtilClient.is_unset(request.message):
+            body['Message'] = request.message
+        if not UtilClient.is_unset(request.output):
+            body['Output'] = request.output
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.total_time):
+            body['TotalTime'] = request.total_time
+        if not UtilClient.is_unset(request.url):
+            body['Url'] = request.url
+        if not UtilClient.is_unset(request.user_data):
+            body['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitCopyrightJob',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitCopyrightJob',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.SubmitCopyrightJobResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def submit_image_copyright(self, request):
@@ -127,65 +390,94 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='SubmitImageCopyright',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitImageCopyright',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             mts_20210728_models.SubmitImageCopyrightResponse(),
-            self.do_roarequest('SubmitImageCopyright', '2021-07-28', 'HTTPS', 'POST', 'AK', '/submitImageCopyright', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
-    def query_image_copyright(self, request):
+    def submit_trace_ab(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.query_image_copyright_with_options(request, headers, runtime)
+        return self.submit_trace_ab_with_options(request, headers, runtime)
 
-    def query_image_copyright_with_options(self, request, headers, runtime):
+    def submit_trace_ab_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.create_time_end):
-            body['CreateTimeEnd'] = request.create_time_end
-        if not UtilClient.is_unset(request.create_time_start):
-            body['CreateTimeStart'] = request.create_time_start
-        if not UtilClient.is_unset(request.job_id):
-            body['JobId'] = request.job_id
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        return TeaCore.from_map(
-            mts_20210728_models.QueryImageCopyrightResponse(),
-            self.do_roarequest('QueryImageCopyright', '2021-07-28', 'HTTPS', 'POST', 'AK', '/queryImageCopyright', 'json', req, runtime)
-        )
-
-    def query_copyright(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_copyright_with_options(request, headers, runtime)
-
-    def query_copyright_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.create_time_end):
-            body['CreateTimeEnd'] = request.create_time_end
-        if not UtilClient.is_unset(request.create_time_start):
-            body['CreateTimeStart'] = request.create_time_start
-        if not UtilClient.is_unset(request.job_id):
-            body['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.call_back):
+            body['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.input):
+            body['Input'] = request.input
         if not UtilClient.is_unset(request.level):
             body['Level'] = request.level
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.output):
+            body['Output'] = request.output
+        if not UtilClient.is_unset(request.url):
+            body['Url'] = request.url
+        if not UtilClient.is_unset(request.user_data):
+            body['UserData'] = request.user_data
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='SubmitTraceAb',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitTraceAb',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            mts_20210728_models.QueryCopyrightResponse(),
-            self.do_roarequest('QueryCopyright', '2021-07-28', 'HTTPS', 'POST', 'AK', '/queryCopyrightJob', 'json', req, runtime)
+            mts_20210728_models.SubmitTraceAbResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_trace_extract(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.submit_trace_extract_with_options(request, headers, runtime)
+
+    def submit_trace_extract_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.call_back):
+            body['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.input):
+            body['Input'] = request.input
+        if not UtilClient.is_unset(request.user_data):
+            body['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SubmitTraceExtract',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitTraceExtract',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mts_20210728_models.SubmitTraceExtractResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def submit_tracemu(self, request):
@@ -206,94 +498,18 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='SubmitTracemu',
+            version='2021-07-28',
+            protocol='HTTPS',
+            pathname='/submitTraceM3u8',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             mts_20210728_models.SubmitTracemuResponse(),
-            self.do_roarequest('SubmitTracemu', '2021-07-28', 'HTTPS', 'POST', 'AK', '/submitTraceM3u8', 'json', req, runtime)
-        )
-
-    def query_trace_ab(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_trace_ab_with_options(request, headers, runtime)
-
-    def query_trace_ab_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.job_id):
-            body['JobId'] = request.job_id
-        if not UtilClient.is_unset(request.media_id):
-            body['MediaId'] = request.media_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        return TeaCore.from_map(
-            mts_20210728_models.QueryTraceAbResponse(),
-            self.do_roarequest('QueryTraceAb', '2021-07-28', 'HTTPS', 'POST', 'AK', '/queryTraceAb', 'json', req, runtime)
-        )
-
-    def submit_trace_ab(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.submit_trace_ab_with_options(request, headers, runtime)
-
-    def submit_trace_ab_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.call_back):
-            body['CallBack'] = request.call_back
-        if not UtilClient.is_unset(request.input):
-            body['Input'] = request.input
-        if not UtilClient.is_unset(request.level):
-            body['Level'] = request.level
-        if not UtilClient.is_unset(request.output):
-            body['Output'] = request.output
-        if not UtilClient.is_unset(request.user_data):
-            body['UserData'] = request.user_data
-        if not UtilClient.is_unset(request.url):
-            body['Url'] = request.url
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        return TeaCore.from_map(
-            mts_20210728_models.SubmitTraceAbResponse(),
-            self.do_roarequest('SubmitTraceAb', '2021-07-28', 'HTTPS', 'POST', 'AK', '/submitTraceAb', 'json', req, runtime)
-        )
-
-    def submit_copyright_job(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.submit_copyright_job_with_options(request, headers, runtime)
-
-    def submit_copyright_job_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.call_back):
-            body['CallBack'] = request.call_back
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.input):
-            body['Input'] = request.input
-        if not UtilClient.is_unset(request.level):
-            body['Level'] = request.level
-        if not UtilClient.is_unset(request.message):
-            body['Message'] = request.message
-        if not UtilClient.is_unset(request.start_time):
-            body['StartTime'] = request.start_time
-        if not UtilClient.is_unset(request.total_time):
-            body['TotalTime'] = request.total_time
-        if not UtilClient.is_unset(request.output):
-            body['Output'] = request.output
-        if not UtilClient.is_unset(request.user_data):
-            body['UserData'] = request.user_data
-        if not UtilClient.is_unset(request.url):
-            body['Url'] = request.url
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        return TeaCore.from_map(
-            mts_20210728_models.SubmitCopyrightJobResponse(),
-            self.do_roarequest('SubmitCopyrightJob', '2021-07-28', 'HTTPS', 'POST', 'AK', '/submitCopyrightJob', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
