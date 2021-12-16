@@ -105,8 +105,22 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.cache_control):
+            real_headers['Cache-Control'] = UtilClient.to_jsonstring(headers.cache_control)
+        if not UtilClient.is_unset(headers.content_disposition):
+            real_headers['Content-Disposition'] = UtilClient.to_jsonstring(headers.content_disposition)
+        if not UtilClient.is_unset(headers.content_encoding):
+            real_headers['Content-Encoding'] = UtilClient.to_jsonstring(headers.content_encoding)
+        if not UtilClient.is_unset(headers.content_md5):
+            real_headers['Content-MD5'] = UtilClient.to_jsonstring(headers.content_md5)
+        if not UtilClient.is_unset(headers.expires):
+            real_headers['Expires'] = UtilClient.to_jsonstring(headers.expires)
+        if not UtilClient.is_unset(headers.meta_data):
+            real_headers['x-oss-meta-*'] = UtilClient.to_jsonstring(headers.meta_data)
         if not UtilClient.is_unset(headers.acl):
             real_headers['x-oss-object-acl'] = UtilClient.to_jsonstring(headers.acl)
+        if not UtilClient.is_unset(headers.server_side_encryption):
+            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.server_side_encryption)
         if not UtilClient.is_unset(headers.storage_class):
             real_headers['x-oss-storage-class'] = UtilClient.to_jsonstring(headers.storage_class)
         req = open_api_models.OpenApiRequest(
@@ -186,10 +200,10 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_oss_complete_all):
-            real_headers['x-oss-complete-all'] = UtilClient.to_jsonstring(headers.x_oss_complete_all)
-        if not UtilClient.is_unset(headers.x_oss_forbid_overwrite):
-            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.x_oss_forbid_overwrite)
+        if not UtilClient.is_unset(headers.complete_all):
+            real_headers['x-oss-complete-all'] = UtilClient.to_jsonstring(headers.complete_all)
+        if not UtilClient.is_unset(headers.forbid_overwrite):
+            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.forbid_overwrite)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers,
@@ -224,10 +238,8 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.source_bucket):
-            real_headers['source-bucket'] = UtilClient.to_jsonstring(headers.source_bucket)
-        if not UtilClient.is_unset(headers.source_key):
-            real_headers['source-key'] = UtilClient.to_jsonstring(headers.source_key)
+        if not UtilClient.is_unset(headers.copy_source):
+            real_headers['x-oss-copy-source'] = UtilClient.to_jsonstring(headers.copy_source)
         if not UtilClient.is_unset(headers.copy_source_if_match):
             real_headers['x-oss-copy-source-if-match'] = UtilClient.to_jsonstring(headers.copy_source_if_match)
         if not UtilClient.is_unset(headers.copy_source_if_modified_since):
@@ -238,6 +250,8 @@ class Client(OpenApiClient):
             real_headers['x-oss-copy-source-if-unmodified-since'] = UtilClient.to_jsonstring(headers.copy_source_if_unmodified_since)
         if not UtilClient.is_unset(headers.forbid_overwrite):
             real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.forbid_overwrite)
+        if not UtilClient.is_unset(headers.meta_data):
+            real_headers['x-oss-meta-*'] = UtilClient.to_jsonstring(headers.meta_data)
         if not UtilClient.is_unset(headers.metadata_directive):
             real_headers['x-oss-metadata-directive'] = UtilClient.to_jsonstring(headers.metadata_directive)
         if not UtilClient.is_unset(headers.acl):
@@ -250,6 +264,8 @@ class Client(OpenApiClient):
             real_headers['x-oss-storage-class'] = UtilClient.to_jsonstring(headers.storage_class)
         if not UtilClient.is_unset(headers.tagging):
             real_headers['x-oss-tagging'] = UtilClient.to_jsonstring(headers.tagging)
+        if not UtilClient.is_unset(headers.x_oss_tagging_directive):
+            real_headers['x-oss-tagging-directive'] = UtilClient.to_jsonstring(headers.x_oss_tagging_directive)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers
@@ -657,18 +673,23 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_object_tagging(self, bucket, key):
+    def delete_object_tagging(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_object_tagging_with_options(bucket, key, headers, runtime)
+        return self.delete_object_tagging_with_options(bucket, key, request, headers, runtime)
 
-    def delete_object_tagging_with_options(self, bucket, key, headers, runtime):
+    def delete_object_tagging_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteObjectTagging',
@@ -1486,18 +1507,23 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object_meta(self, bucket, key):
+    def get_object_meta(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_object_meta_with_options(bucket, key, headers, runtime)
+        return self.get_object_meta_with_options(bucket, key, request, headers, runtime)
 
-    def get_object_meta_with_options(self, bucket, key, headers, runtime):
+    def get_object_meta_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetObjectMeta',
@@ -1515,18 +1541,23 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object_tagging(self, bucket, key):
+    def get_object_tagging(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_object_tagging_with_options(bucket, key, headers, runtime)
+        return self.get_object_tagging_with_options(bucket, key, request, headers, runtime)
 
-    def get_object_tagging_with_options(self, bucket, key, headers, runtime):
+    def get_object_tagging_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetObjectTagging',
@@ -1566,7 +1597,7 @@ class Client(OpenApiClient):
             action='GetService',
             version='2019-05-17',
             protocol='HTTPS',
-            pathname='/ ',
+            pathname='/',
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1578,18 +1609,23 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_symlink(self, bucket, key):
+    def get_symlink(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_symlink_with_options(bucket, key, headers, runtime)
+        return self.get_symlink_with_options(bucket, key, request, headers, runtime)
 
-    def get_symlink_with_options(self, bucket, key, headers, runtime):
+    def get_symlink_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetSymlink',
@@ -1643,15 +1679,19 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def head_object(self, bucket, key):
+    def head_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = oss_20190517_models.HeadObjectHeaders()
-        return self.head_object_with_options(bucket, key, headers, runtime)
+        return self.head_object_with_options(bucket, key, request, headers, runtime)
 
-    def head_object_with_options(self, bucket, key, headers, runtime):
+    def head_object_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -1665,7 +1705,8 @@ class Client(OpenApiClient):
             real_headers['If-Unmodified-Since'] = UtilClient.to_jsonstring(headers.if_unmodified_since)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=real_headers
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='HeadObject',
@@ -1732,18 +1773,26 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_oss_forbid_overwrite):
-            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.x_oss_forbid_overwrite)
-        if not UtilClient.is_unset(headers.x_oss_server_side_data_encryption):
-            real_headers['x-oss-server-side-data-encryption'] = UtilClient.to_jsonstring(headers.x_oss_server_side_data_encryption)
-        if not UtilClient.is_unset(headers.x_oss_server_side_encryption):
-            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.x_oss_server_side_encryption)
-        if not UtilClient.is_unset(headers.x_oss_server_side_encryption_key_id):
-            real_headers['x-oss-server-side-encryption-key-id'] = UtilClient.to_jsonstring(headers.x_oss_server_side_encryption_key_id)
-        if not UtilClient.is_unset(headers.x_oss_storage_class):
-            real_headers['x-oss-storage-class'] = UtilClient.to_jsonstring(headers.x_oss_storage_class)
-        if not UtilClient.is_unset(headers.x_oss_tagging):
-            real_headers['x-oss-tagging'] = UtilClient.to_jsonstring(headers.x_oss_tagging)
+        if not UtilClient.is_unset(headers.cache_control):
+            real_headers['Cache-Control'] = UtilClient.to_jsonstring(headers.cache_control)
+        if not UtilClient.is_unset(headers.content_disposition):
+            real_headers['Content-Disposition'] = UtilClient.to_jsonstring(headers.content_disposition)
+        if not UtilClient.is_unset(headers.content_encoding):
+            real_headers['Content-Encoding'] = UtilClient.to_jsonstring(headers.content_encoding)
+        if not UtilClient.is_unset(headers.expires):
+            real_headers['Expires'] = UtilClient.to_jsonstring(headers.expires)
+        if not UtilClient.is_unset(headers.forbid_overwrite):
+            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.forbid_overwrite)
+        if not UtilClient.is_unset(headers.sse_data_encryption):
+            real_headers['x-oss-server-side-data-encryption'] = UtilClient.to_jsonstring(headers.sse_data_encryption)
+        if not UtilClient.is_unset(headers.server_side_encryption):
+            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.server_side_encryption)
+        if not UtilClient.is_unset(headers.sse_key_id):
+            real_headers['x-oss-server-side-encryption-key-id'] = UtilClient.to_jsonstring(headers.sse_key_id)
+        if not UtilClient.is_unset(headers.storage_class):
+            real_headers['x-oss-storage-class'] = UtilClient.to_jsonstring(headers.storage_class)
+        if not UtilClient.is_unset(headers.tagging):
+            real_headers['x-oss-tagging'] = UtilClient.to_jsonstring(headers.tagging)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers,
@@ -1820,7 +1869,7 @@ class Client(OpenApiClient):
             action='ListBuckets',
             version='2019-05-17',
             protocol='HTTPS',
-            pathname='/ ',
+            pathname='/',
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1869,13 +1918,15 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_multipart_uploads(self, request):
+    def list_multipart_uploads(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_multipart_uploads_with_options(request, headers, runtime)
+        return self.list_multipart_uploads_with_options(bucket, request, headers, runtime)
 
-    def list_multipart_uploads_with_options(self, request, headers, runtime):
+    def list_multipart_uploads_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
+        host_map = {}
+        host_map['bucket'] = bucket
         query = {}
         if not UtilClient.is_unset(request.delimiter):
             query['delimiter'] = request.delimiter
@@ -1890,6 +1941,7 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.upload_id_marker):
             query['upload-id-marker'] = request.upload_id_marker
         req = open_api_models.OpenApiRequest(
+            host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
@@ -2043,14 +2095,18 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_parts_with_options(bucket, key, request, headers, runtime)
 
-    def list_parts_with_options(self, bucket, key, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def list_parts_with_options(self, bucket, key, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        request = oss_20190517_models.ListPartsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.encoding_type):
+            request.encoding_type_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.encoding_type, 'encoding-type', 'json')
         query = {}
-        if not UtilClient.is_unset(request.encoding_type):
-            query['encoding-type'] = request.encoding_type
+        if not UtilClient.is_unset(request.encoding_type_shrink):
+            query['encoding-type'] = request.encoding_type_shrink
         if not UtilClient.is_unset(request.max_parts):
             query['max-parts'] = request.max_parts
         if not UtilClient.is_unset(request.part_number_marker):
@@ -2765,14 +2821,14 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.forbid_overwrite):
             real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.forbid_overwrite)
-        if not UtilClient.is_unset(headers.user_metadata):
-            real_headers['x-oss-meta-*'] = UtilClient.to_jsonstring(headers.user_metadata)
+        if not UtilClient.is_unset(headers.meta_data):
+            real_headers['x-oss-meta-*'] = UtilClient.to_jsonstring(headers.meta_data)
         if not UtilClient.is_unset(headers.acl):
             real_headers['x-oss-object-acl'] = UtilClient.to_jsonstring(headers.acl)
         if not UtilClient.is_unset(headers.sse_data_encryption):
             real_headers['x-oss-server-side-data-encryption'] = UtilClient.to_jsonstring(headers.sse_data_encryption)
-        if not UtilClient.is_unset(headers.sse):
-            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.sse)
+        if not UtilClient.is_unset(headers.server_side_encryption):
+            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.server_side_encryption)
         if not UtilClient.is_unset(headers.sse_key_id):
             real_headers['x-oss-server-side-encryption-key-id'] = UtilClient.to_jsonstring(headers.sse_key_id)
         if not UtilClient.is_unset(headers.storage_class):
@@ -2890,8 +2946,8 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_oss_forbid_overwrite):
-            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.x_oss_forbid_overwrite)
+        if not UtilClient.is_unset(headers.forbid_overwrite):
+            real_headers['x-oss-forbid-overwrite'] = UtilClient.to_jsonstring(headers.forbid_overwrite)
         if not UtilClient.is_unset(headers.acl):
             real_headers['x-oss-object-acl'] = UtilClient.to_jsonstring(headers.acl)
         if not UtilClient.is_unset(headers.storage_class):
@@ -2928,12 +2984,16 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
+        query = {}
+        if not UtilClient.is_unset(request.version_id):
+            query['versionId'] = request.version_id
         body = {}
         if not UtilClient.is_unset(request.body):
             body['body'] = request.body
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -3042,20 +3102,18 @@ class Client(OpenApiClient):
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.source_bucket):
-            real_headers['source-bucket'] = UtilClient.to_jsonstring(headers.source_bucket)
-        if not UtilClient.is_unset(headers.source_key):
-            real_headers['source-key'] = UtilClient.to_jsonstring(headers.source_key)
-        if not UtilClient.is_unset(headers.x_oss_copy_source_if_match):
-            real_headers['x-oss-copy-source-if-match'] = UtilClient.to_jsonstring(headers.x_oss_copy_source_if_match)
-        if not UtilClient.is_unset(headers.x_oss_copy_source_if_modified_since):
-            real_headers['x-oss-copy-source-if-modified-since'] = UtilClient.to_jsonstring(headers.x_oss_copy_source_if_modified_since)
-        if not UtilClient.is_unset(headers.x_oss_copy_source_if_none_match):
-            real_headers['x-oss-copy-source-if-none-match'] = UtilClient.to_jsonstring(headers.x_oss_copy_source_if_none_match)
-        if not UtilClient.is_unset(headers.x_oss_copy_source_if_unmodified_since):
-            real_headers['x-oss-copy-source-if-unmodified-since'] = UtilClient.to_jsonstring(headers.x_oss_copy_source_if_unmodified_since)
-        if not UtilClient.is_unset(headers.x_oss_copy_source_range):
-            real_headers['x-oss-copy-source-range'] = UtilClient.to_jsonstring(headers.x_oss_copy_source_range)
+        if not UtilClient.is_unset(headers.copy_source):
+            real_headers['x-oss-copy-source'] = UtilClient.to_jsonstring(headers.copy_source)
+        if not UtilClient.is_unset(headers.copy_source_if_match):
+            real_headers['x-oss-copy-source-if-match'] = UtilClient.to_jsonstring(headers.copy_source_if_match)
+        if not UtilClient.is_unset(headers.copy_source_if_modified_since):
+            real_headers['x-oss-copy-source-if-modified-since'] = UtilClient.to_jsonstring(headers.copy_source_if_modified_since)
+        if not UtilClient.is_unset(headers.copy_source_if_none_match):
+            real_headers['x-oss-copy-source-if-none-match'] = UtilClient.to_jsonstring(headers.copy_source_if_none_match)
+        if not UtilClient.is_unset(headers.copy_source_if_unmodified_since):
+            real_headers['x-oss-copy-source-if-unmodified-since'] = UtilClient.to_jsonstring(headers.copy_source_if_unmodified_since)
+        if not UtilClient.is_unset(headers.copy_source_range):
+            real_headers['x-oss-copy-source-range'] = UtilClient.to_jsonstring(headers.copy_source_range)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers,
