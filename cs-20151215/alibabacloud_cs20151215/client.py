@@ -634,56 +634,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_alert_contact(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_alert_contact_with_options(headers, runtime)
-
-    def delete_alert_contact_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteAlertContact',
-            version='2015-12-15',
-            protocol='HTTPS',
-            pathname='/alert/contacts',
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            cs20151215_models.DeleteAlertContactResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_alert_contact_group(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_alert_contact_group_with_options(headers, runtime)
-
-    def delete_alert_contact_group_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteAlertContactGroup',
-            version='2015-12-15',
-            protocol='HTTPS',
-            pathname='/alert/contact_groups',
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            cs20151215_models.DeleteAlertContactGroupResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def delete_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1710,6 +1660,8 @@ class Client(OpenApiClient):
             query['Profile'] = request.profile
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
+        if not UtilClient.is_unset(request.runtime):
+            query['runtime'] = request.runtime
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2882,32 +2834,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_alert(self, cluster_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.start_alert_with_options(cluster_id, headers, runtime)
-
-    def start_alert_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='StartAlert',
-            version='2015-12-15',
-            protocol='HTTPS',
-            pathname='/alert/%s/alert_rule/start' % TeaConverter.to_unicode(cluster_id),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            cs20151215_models.StartAlertResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def start_workflow(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -2971,32 +2897,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             cs20151215_models.StartWorkflowResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def stop_alert(self, cluster_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.stop_alert_with_options(cluster_id, headers, runtime)
-
-    def stop_alert_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='StopAlert',
-            version='2015-12-15',
-            protocol='HTTPS',
-            pathname='/alert/%s/alert_rule/stop' % TeaConverter.to_unicode(cluster_id),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            cs20151215_models.StopAlertResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -3099,32 +2999,6 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             cs20151215_models.UntagResourcesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_contact_group_for_alert(self, cluster_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_contact_group_for_alert_with_options(cluster_id, headers, runtime)
-
-    def update_contact_group_for_alert_with_options(self, cluster_id, headers, runtime):
-        cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='UpdateContactGroupForAlert',
-            version='2015-12-15',
-            protocol='HTTPS',
-            pathname='/alert/%s/alert_rule/contact_groups' % TeaConverter.to_unicode(cluster_id),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            cs20151215_models.UpdateContactGroupForAlertResponse(),
             self.call_api(params, req, runtime)
         )
 
