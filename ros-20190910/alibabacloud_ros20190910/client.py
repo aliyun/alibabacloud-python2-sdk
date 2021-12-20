@@ -168,6 +168,7 @@ class Client(OpenApiClient):
         query['TemplateBody'] = request.template_body
         query['TemplateId'] = request.template_id
         query['TemplateScratchId'] = request.template_scratch_id
+        query['TemplateScratchRegionId'] = request.template_scratch_region_id
         query['TemplateURL'] = request.template_url
         query['TemplateVersion'] = request.template_version
         query['TimeoutInMinutes'] = request.timeout_in_minutes
@@ -1150,6 +1151,7 @@ class Client(OpenApiClient):
         query['TemplateBody'] = request.template_body
         query['TemplateId'] = request.template_id
         query['TemplateScratchId'] = request.template_scratch_id
+        query['TemplateScratchRegionId'] = request.template_scratch_region_id
         query['TemplateURL'] = request.template_url
         query['TemplateVersion'] = request.template_version
         req = open_api_models.OpenApiRequest(
@@ -1844,6 +1846,7 @@ class Client(OpenApiClient):
         query['TemplateBody'] = request.template_body
         query['TemplateId'] = request.template_id
         query['TemplateScratchId'] = request.template_scratch_id
+        query['TemplateScratchRegionId'] = request.template_scratch_region_id
         query['TemplateURL'] = request.template_url
         query['TemplateVersion'] = request.template_version
         query['TimeoutInMinutes'] = request.timeout_in_minutes
