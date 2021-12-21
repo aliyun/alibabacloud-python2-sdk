@@ -97,8 +97,7 @@ class Client(OpenApiClient):
         query['WhiteListType'] = request.white_list_type
         query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateClusterV2',
@@ -108,7 +107,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -120,6 +119,84 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_cluster_v2with_options(request, runtime)
 
+    def create_flow_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['Adhoc'] = request.adhoc
+        query['AlertConf'] = request.alert_conf
+        query['ClientToken'] = request.client_token
+        query['ClusterId'] = request.cluster_id
+        query['CustomVariables'] = request.custom_variables
+        query['Description'] = request.description
+        query['EnvConf'] = request.env_conf
+        query['FailAct'] = request.fail_act
+        query['Mode'] = request.mode
+        query['MonitorConf'] = request.monitor_conf
+        query['Name'] = request.name
+        query['ParamConf'] = request.param_conf
+        query['Params'] = request.params
+        query['ParentCategory'] = request.parent_category
+        query['ProjectId'] = request.project_id
+        query['RegionId'] = request.region_id
+        query['ResourceList'] = request.resource_list
+        query['RetryPolicy'] = request.retry_policy
+        query['RunConf'] = request.run_conf
+        query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFlowJob',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.CreateFlowJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_flow_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_flow_job_with_options(request, runtime)
+
+    def create_flow_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        query['ClientToken'] = request.client_token
+        query['Description'] = request.description
+        query['Name'] = request.name
+        query['ProductType'] = request.product_type
+        query['RegionId'] = request.region_id
+        query['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFlowProject',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.CreateFlowProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_flow_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_flow_project_with_options(request, runtime)
+
     def describe_cluster_v2with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -127,8 +204,7 @@ class Client(OpenApiClient):
         query['RegionId'] = request.region_id
         query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeClusterV2',
@@ -138,7 +214,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -169,8 +245,7 @@ class Client(OpenApiClient):
         query['StatusList'] = request.status_list
         query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListClusters',
@@ -180,7 +255,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -192,6 +267,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_clusters_with_options(request, runtime)
 
+    def list_main_versions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMainVersions',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.ListMainVersionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_main_versions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_main_versions_with_options(request, runtime)
+
     def release_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -200,8 +301,7 @@ class Client(OpenApiClient):
         query['RegionId'] = request.region_id
         query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ReleaseCluster',
@@ -211,7 +311,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
