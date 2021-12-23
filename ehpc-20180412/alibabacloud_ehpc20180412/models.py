@@ -396,11 +396,61 @@ class AddLocalNodesResponse(TeaModel):
         return self
 
 
+class AddNodesRequestDataDisks(TeaModel):
+    def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
+                 data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        self.data_disk_category = data_disk_category  # type: str
+        self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        self.data_disk_performance_level = data_disk_performance_level  # type: str
+        self.data_disk_size = data_disk_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddNodesRequestDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_disk_category is not None:
+            result['DataDiskCategory'] = self.data_disk_category
+        if self.data_disk_delete_with_instance is not None:
+            result['DataDiskDeleteWithInstance'] = self.data_disk_delete_with_instance
+        if self.data_disk_encrypted is not None:
+            result['DataDiskEncrypted'] = self.data_disk_encrypted
+        if self.data_disk_kmskey_id is not None:
+            result['DataDiskKMSKeyId'] = self.data_disk_kmskey_id
+        if self.data_disk_performance_level is not None:
+            result['DataDiskPerformanceLevel'] = self.data_disk_performance_level
+        if self.data_disk_size is not None:
+            result['DataDiskSize'] = self.data_disk_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataDiskCategory') is not None:
+            self.data_disk_category = m.get('DataDiskCategory')
+        if m.get('DataDiskDeleteWithInstance') is not None:
+            self.data_disk_delete_with_instance = m.get('DataDiskDeleteWithInstance')
+        if m.get('DataDiskEncrypted') is not None:
+            self.data_disk_encrypted = m.get('DataDiskEncrypted')
+        if m.get('DataDiskKMSKeyId') is not None:
+            self.data_disk_kmskey_id = m.get('DataDiskKMSKeyId')
+        if m.get('DataDiskPerformanceLevel') is not None:
+            self.data_disk_performance_level = m.get('DataDiskPerformanceLevel')
+        if m.get('DataDiskSize') is not None:
+            self.data_disk_size = m.get('DataDiskSize')
+        return self
+
+
 class AddNodesRequest(TeaModel):
     def __init__(self, allocate_public_address=None, auto_renew=None, auto_renew_period=None, client_token=None,
                  cluster_id=None, compute_enable_ht=None, compute_spot_price_limit=None, compute_spot_strategy=None,
-                 count=None, create_mode=None, ecs_charge_type=None, host_name_prefix=None, host_name_suffix=None,
-                 image_id=None, image_owner_alias=None, instance_type=None, internet_charge_type=None,
+                 count=None, create_mode=None, data_disks=None, ecs_charge_type=None, host_name_prefix=None,
+                 host_name_suffix=None, image_id=None, image_owner_alias=None, instance_type=None, internet_charge_type=None,
                  internet_max_band_width_in=None, internet_max_band_width_out=None, job_queue=None, min_count=None, period=None,
                  period_unit=None, sync=None, system_disk_level=None, system_disk_size=None, system_disk_type=None,
                  v_switch_id=None, zone_id=None):
@@ -414,6 +464,7 @@ class AddNodesRequest(TeaModel):
         self.compute_spot_strategy = compute_spot_strategy  # type: str
         self.count = count  # type: int
         self.create_mode = create_mode  # type: str
+        self.data_disks = data_disks  # type: list[AddNodesRequestDataDisks]
         self.ecs_charge_type = ecs_charge_type  # type: str
         self.host_name_prefix = host_name_prefix  # type: str
         self.host_name_suffix = host_name_suffix  # type: str
@@ -435,7 +486,10 @@ class AddNodesRequest(TeaModel):
         self.zone_id = zone_id  # type: str
 
     def validate(self):
-        pass
+        if self.data_disks:
+            for k in self.data_disks:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(AddNodesRequest, self).to_map()
@@ -463,6 +517,10 @@ class AddNodesRequest(TeaModel):
             result['Count'] = self.count
         if self.create_mode is not None:
             result['CreateMode'] = self.create_mode
+        result['DataDisks'] = []
+        if self.data_disks is not None:
+            for k in self.data_disks:
+                result['DataDisks'].append(k.to_map() if k else None)
         if self.ecs_charge_type is not None:
             result['EcsChargeType'] = self.ecs_charge_type
         if self.host_name_prefix is not None:
@@ -525,6 +583,11 @@ class AddNodesRequest(TeaModel):
             self.count = m.get('Count')
         if m.get('CreateMode') is not None:
             self.create_mode = m.get('CreateMode')
+        self.data_disks = []
+        if m.get('DataDisks') is not None:
+            for k in m.get('DataDisks'):
+                temp_model = AddNodesRequestDataDisks()
+                self.data_disks.append(temp_model.from_map(k))
         if m.get('EcsChargeType') is not None:
             self.ecs_charge_type = m.get('EcsChargeType')
         if m.get('HostNamePrefix') is not None:
@@ -1628,10 +1691,11 @@ class CreateClusterRequest(TeaModel):
                  description=None, ecs_charge_type=None, ehpc_version=None, ha_enable=None, image_id=None,
                  image_owner_alias=None, input_file_url=None, is_compute_ess=None, job_queue=None, key_pair_name=None, name=None,
                  os_tag=None, password=None, period=None, period_unit=None, plugin=None, post_install_script=None,
-                 remote_directory=None, remote_vis_enable=None, resource_group_id=None, scc_cluster_id=None, scheduler_type=None,
-                 security_group_id=None, security_group_name=None, system_disk_level=None, system_disk_size=None,
-                 system_disk_type=None, v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None,
-                 volume_type=None, vpc_id=None, without_agent=None, without_elastic_ip=None, zone_id=None):
+                 ram_node_types=None, ram_role_name=None, remote_directory=None, remote_vis_enable=None, resource_group_id=None,
+                 scc_cluster_id=None, scheduler_type=None, security_group_id=None, security_group_name=None,
+                 system_disk_level=None, system_disk_size=None, system_disk_type=None, v_switch_id=None, volume_id=None,
+                 volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None, without_agent=None,
+                 without_elastic_ip=None, zone_id=None):
         self.ecs_order = ecs_order  # type: CreateClusterRequestEcsOrder
         self.account_type = account_type  # type: str
         self.additional_volumes = additional_volumes  # type: list[CreateClusterRequestAdditionalVolumes]
@@ -1662,6 +1726,8 @@ class CreateClusterRequest(TeaModel):
         self.period_unit = period_unit  # type: str
         self.plugin = plugin  # type: str
         self.post_install_script = post_install_script  # type: list[CreateClusterRequestPostInstallScript]
+        self.ram_node_types = ram_node_types  # type: list[str]
+        self.ram_role_name = ram_role_name  # type: str
         self.remote_directory = remote_directory  # type: str
         self.remote_vis_enable = remote_vis_enable  # type: str
         self.resource_group_id = resource_group_id  # type: str
@@ -1770,6 +1836,10 @@ class CreateClusterRequest(TeaModel):
         if self.post_install_script is not None:
             for k in self.post_install_script:
                 result['PostInstallScript'].append(k.to_map() if k else None)
+        if self.ram_node_types is not None:
+            result['RamNodeTypes'] = self.ram_node_types
+        if self.ram_role_name is not None:
+            result['RamRoleName'] = self.ram_role_name
         if self.remote_directory is not None:
             result['RemoteDirectory'] = self.remote_directory
         if self.remote_vis_enable is not None:
@@ -1882,6 +1952,10 @@ class CreateClusterRequest(TeaModel):
             for k in m.get('PostInstallScript'):
                 temp_model = CreateClusterRequestPostInstallScript()
                 self.post_install_script.append(temp_model.from_map(k))
+        if m.get('RamNodeTypes') is not None:
+            self.ram_node_types = m.get('RamNodeTypes')
+        if m.get('RamRoleName') is not None:
+            self.ram_role_name = m.get('RamRoleName')
         if m.get('RemoteDirectory') is not None:
             self.remote_directory = m.get('RemoteDirectory')
         if m.get('RemoteVisEnable') is not None:
@@ -3453,10 +3527,11 @@ class DeleteGWSInstanceResponse(TeaModel):
 
 
 class DeleteImageRequest(TeaModel):
-    def __init__(self, cluster_id=None, container_type=None, image_tag=None, repository=None):
+    def __init__(self, cluster_id=None, container_type=None, image_tag=None, region_id=None, repository=None):
         self.cluster_id = cluster_id  # type: str
         self.container_type = container_type  # type: str
         self.image_tag = image_tag  # type: str
+        self.region_id = region_id  # type: str
         self.repository = repository  # type: str
 
     def validate(self):
@@ -3474,6 +3549,8 @@ class DeleteImageRequest(TeaModel):
             result['ContainerType'] = self.container_type
         if self.image_tag is not None:
             result['ImageTag'] = self.image_tag
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.repository is not None:
             result['Repository'] = self.repository
         return result
@@ -3486,6 +3563,8 @@ class DeleteImageRequest(TeaModel):
             self.container_type = m.get('ContainerType')
         if m.get('ImageTag') is not None:
             self.image_tag = m.get('ImageTag')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Repository') is not None:
             self.repository = m.get('Repository')
         return self
@@ -4474,11 +4553,41 @@ class DescribeClusterResponseBodyClusterInfoEcsInfoManager(TeaModel):
         return self
 
 
+class DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr(TeaModel):
+    def __init__(self, count=None, instance_type=None):
+        self.count = count  # type: int
+        self.instance_type = instance_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        return self
+
+
 class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
-    def __init__(self, compute=None, login=None, manager=None):
+    def __init__(self, compute=None, login=None, manager=None, proxy_mgr=None):
         self.compute = compute  # type: DescribeClusterResponseBodyClusterInfoEcsInfoCompute
         self.login = login  # type: DescribeClusterResponseBodyClusterInfoEcsInfoLogin
         self.manager = manager  # type: DescribeClusterResponseBodyClusterInfoEcsInfoManager
+        self.proxy_mgr = proxy_mgr  # type: DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr
 
     def validate(self):
         if self.compute:
@@ -4487,6 +4596,8 @@ class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
             self.login.validate()
         if self.manager:
             self.manager.validate()
+        if self.proxy_mgr:
+            self.proxy_mgr.validate()
 
     def to_map(self):
         _map = super(DescribeClusterResponseBodyClusterInfoEcsInfo, self).to_map()
@@ -4500,6 +4611,8 @@ class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
             result['Login'] = self.login.to_map()
         if self.manager is not None:
             result['Manager'] = self.manager.to_map()
+        if self.proxy_mgr is not None:
+            result['ProxyMgr'] = self.proxy_mgr.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4513,6 +4626,75 @@ class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
         if m.get('Manager') is not None:
             temp_model = DescribeClusterResponseBodyClusterInfoEcsInfoManager()
             self.manager = temp_model.from_map(m['Manager'])
+        if m.get('ProxyMgr') is not None:
+            temp_model = DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr()
+            self.proxy_mgr = temp_model.from_map(m['ProxyMgr'])
+        return self
+
+
+class DescribeClusterResponseBodyClusterInfoOnPremiseInfoOnPremiseInfo(TeaModel):
+    def __init__(self, host_name=None, ip=None, type=None):
+        self.host_name = host_name  # type: str
+        self.ip = ip  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterResponseBodyClusterInfoOnPremiseInfoOnPremiseInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host_name is not None:
+            result['HostName'] = self.host_name
+        if self.ip is not None:
+            result['IP'] = self.ip
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HostName') is not None:
+            self.host_name = m.get('HostName')
+        if m.get('IP') is not None:
+            self.ip = m.get('IP')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeClusterResponseBodyClusterInfoOnPremiseInfo(TeaModel):
+    def __init__(self, on_premise_info=None):
+        self.on_premise_info = on_premise_info  # type: list[DescribeClusterResponseBodyClusterInfoOnPremiseInfoOnPremiseInfo]
+
+    def validate(self):
+        if self.on_premise_info:
+            for k in self.on_premise_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterResponseBodyClusterInfoOnPremiseInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['OnPremiseInfo'] = []
+        if self.on_premise_info is not None:
+            for k in self.on_premise_info:
+                result['OnPremiseInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.on_premise_info = []
+        if m.get('OnPremiseInfo') is not None:
+            for k in m.get('OnPremiseInfo'):
+                temp_model = DescribeClusterResponseBodyClusterInfoOnPremiseInfoOnPremiseInfo()
+                self.on_premise_info.append(temp_model.from_map(k))
         return self
 
 
@@ -4581,9 +4763,9 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
     def __init__(self, account_type=None, applications=None, base_os_tag=None, client_version=None,
                  create_time=None, deploy_mode=None, description=None, ecs_charge_type=None, ecs_info=None, ha_enable=None,
                  id=None, image_id=None, image_name=None, image_owner_alias=None, key_pair_name=None, location=None,
-                 name=None, os_tag=None, post_install_scripts=None, region_id=None, remote_directory=None,
-                 scc_cluster_id=None, scheduler_type=None, security_group_id=None, status=None, v_switch_id=None, volume_id=None,
-                 volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None):
+                 name=None, on_premise_info=None, os_tag=None, post_install_scripts=None, region_id=None,
+                 remote_directory=None, scc_cluster_id=None, scheduler_type=None, security_group_id=None, status=None,
+                 v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None):
         self.account_type = account_type  # type: str
         self.applications = applications  # type: DescribeClusterResponseBodyClusterInfoApplications
         self.base_os_tag = base_os_tag  # type: str
@@ -4601,6 +4783,7 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
         self.key_pair_name = key_pair_name  # type: str
         self.location = location  # type: str
         self.name = name  # type: str
+        self.on_premise_info = on_premise_info  # type: DescribeClusterResponseBodyClusterInfoOnPremiseInfo
         self.os_tag = os_tag  # type: str
         self.post_install_scripts = post_install_scripts  # type: DescribeClusterResponseBodyClusterInfoPostInstallScripts
         self.region_id = region_id  # type: str
@@ -4621,6 +4804,8 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
             self.applications.validate()
         if self.ecs_info:
             self.ecs_info.validate()
+        if self.on_premise_info:
+            self.on_premise_info.validate()
         if self.post_install_scripts:
             self.post_install_scripts.validate()
 
@@ -4664,6 +4849,8 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
             result['Location'] = self.location
         if self.name is not None:
             result['Name'] = self.name
+        if self.on_premise_info is not None:
+            result['OnPremiseInfo'] = self.on_premise_info.to_map()
         if self.os_tag is not None:
             result['OsTag'] = self.os_tag
         if self.post_install_scripts is not None:
@@ -4732,6 +4919,9 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
             self.location = m.get('Location')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OnPremiseInfo') is not None:
+            temp_model = DescribeClusterResponseBodyClusterInfoOnPremiseInfo()
+            self.on_premise_info = temp_model.from_map(m['OnPremiseInfo'])
         if m.get('OsTag') is not None:
             self.os_tag = m.get('OsTag')
         if m.get('PostInstallScripts') is not None:
@@ -5772,10 +5962,11 @@ class DescribeGWSInstancesResponse(TeaModel):
 
 
 class DescribeImageRequest(TeaModel):
-    def __init__(self, cluster_id=None, container_type=None, image_tag=None, repository=None):
+    def __init__(self, cluster_id=None, container_type=None, image_tag=None, region_id=None, repository=None):
         self.cluster_id = cluster_id  # type: str
         self.container_type = container_type  # type: str
         self.image_tag = image_tag  # type: str
+        self.region_id = region_id  # type: str
         self.repository = repository  # type: str
 
     def validate(self):
@@ -5793,6 +5984,8 @@ class DescribeImageRequest(TeaModel):
             result['ContainerType'] = self.container_type
         if self.image_tag is not None:
             result['ImageTag'] = self.image_tag
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.repository is not None:
             result['Repository'] = self.repository
         return result
@@ -5805,6 +5998,8 @@ class DescribeImageRequest(TeaModel):
             self.container_type = m.get('ContainerType')
         if m.get('ImageTag') is not None:
             self.image_tag = m.get('ImageTag')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Repository') is not None:
             self.repository = m.get('Repository')
         return self
@@ -6516,11 +6711,56 @@ class DescribeNFSClientStatusResponse(TeaModel):
         return self
 
 
+class DescribePriceRequestCommoditiesDataDisks(TeaModel):
+    def __init__(self, category=None, delete_with_instance=None, encrypted=None, performance_level=None, size=None):
+        self.category = category  # type: str
+        self.delete_with_instance = delete_with_instance  # type: bool
+        self.encrypted = encrypted  # type: bool
+        self.performance_level = performance_level  # type: str
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceRequestCommoditiesDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.delete_with_instance is not None:
+            result['deleteWithInstance'] = self.delete_with_instance
+        if self.encrypted is not None:
+            result['encrypted'] = self.encrypted
+        if self.performance_level is not None:
+            result['performanceLevel'] = self.performance_level
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('deleteWithInstance') is not None:
+            self.delete_with_instance = m.get('deleteWithInstance')
+        if m.get('encrypted') is not None:
+            self.encrypted = m.get('encrypted')
+        if m.get('performanceLevel') is not None:
+            self.performance_level = m.get('performanceLevel')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
 class DescribePriceRequestCommodities(TeaModel):
-    def __init__(self, amount=None, instance_type=None, internet_charge_type=None,
+    def __init__(self, amount=None, data_disks=None, instance_type=None, internet_charge_type=None,
                  internet_max_band_width_out=None, network_type=None, node_type=None, period=None, system_disk_category=None,
                  system_disk_performance_level=None, system_disk_size=None):
         self.amount = amount  # type: int
+        self.data_disks = data_disks  # type: list[DescribePriceRequestCommoditiesDataDisks]
         self.instance_type = instance_type  # type: str
         self.internet_charge_type = internet_charge_type  # type: str
         self.internet_max_band_width_out = internet_max_band_width_out  # type: int
@@ -6532,7 +6772,10 @@ class DescribePriceRequestCommodities(TeaModel):
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
-        pass
+        if self.data_disks:
+            for k in self.data_disks:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribePriceRequestCommodities, self).to_map()
@@ -6542,6 +6785,10 @@ class DescribePriceRequestCommodities(TeaModel):
         result = dict()
         if self.amount is not None:
             result['Amount'] = self.amount
+        result['DataDisks'] = []
+        if self.data_disks is not None:
+            for k in self.data_disks:
+                result['DataDisks'].append(k.to_map() if k else None)
         if self.instance_type is not None:
             result['InstanceType'] = self.instance_type
         if self.internet_charge_type is not None:
@@ -6566,6 +6813,11 @@ class DescribePriceRequestCommodities(TeaModel):
         m = m or dict()
         if m.get('Amount') is not None:
             self.amount = m.get('Amount')
+        self.data_disks = []
+        if m.get('DataDisks') is not None:
+            for k in m.get('DataDisks'):
+                temp_model = DescribePriceRequestCommoditiesDataDisks()
+                self.data_disks.append(temp_model.from_map(k))
         if m.get('InstanceType') is not None:
             self.instance_type = m.get('InstanceType')
         if m.get('InternetChargeType') is not None:
@@ -7247,6 +7499,88 @@ class GetAutoScaleConfigRequest(TeaModel):
         return self
 
 
+class GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisksDataDisksInfo(TeaModel):
+    def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
+                 data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        self.data_disk_category = data_disk_category  # type: str
+        self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        self.data_disk_performance_level = data_disk_performance_level  # type: str
+        self.data_disk_size = data_disk_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisksDataDisksInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_disk_category is not None:
+            result['DataDiskCategory'] = self.data_disk_category
+        if self.data_disk_delete_with_instance is not None:
+            result['DataDiskDeleteWithInstance'] = self.data_disk_delete_with_instance
+        if self.data_disk_encrypted is not None:
+            result['DataDiskEncrypted'] = self.data_disk_encrypted
+        if self.data_disk_kmskey_id is not None:
+            result['DataDiskKMSKeyId'] = self.data_disk_kmskey_id
+        if self.data_disk_performance_level is not None:
+            result['DataDiskPerformanceLevel'] = self.data_disk_performance_level
+        if self.data_disk_size is not None:
+            result['DataDiskSize'] = self.data_disk_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataDiskCategory') is not None:
+            self.data_disk_category = m.get('DataDiskCategory')
+        if m.get('DataDiskDeleteWithInstance') is not None:
+            self.data_disk_delete_with_instance = m.get('DataDiskDeleteWithInstance')
+        if m.get('DataDiskEncrypted') is not None:
+            self.data_disk_encrypted = m.get('DataDiskEncrypted')
+        if m.get('DataDiskKMSKeyId') is not None:
+            self.data_disk_kmskey_id = m.get('DataDiskKMSKeyId')
+        if m.get('DataDiskPerformanceLevel') is not None:
+            self.data_disk_performance_level = m.get('DataDiskPerformanceLevel')
+        if m.get('DataDiskSize') is not None:
+            self.data_disk_size = m.get('DataDiskSize')
+        return self
+
+
+class GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks(TeaModel):
+    def __init__(self, data_disks_info=None):
+        self.data_disks_info = data_disks_info  # type: list[GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisksDataDisksInfo]
+
+    def validate(self):
+        if self.data_disks_info:
+            for k in self.data_disks_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataDisksInfo'] = []
+        if self.data_disks_info is not None:
+            for k in self.data_disks_info:
+                result['DataDisksInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_disks_info = []
+        if m.get('DataDisksInfo') is not None:
+            for k in m.get('DataDisksInfo'):
+                temp_model = GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisksDataDisksInfo()
+                self.data_disks_info.append(temp_model.from_map(k))
+        return self
+
+
 class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypesInstanceTypeInfo(TeaModel):
     def __init__(self, host_name_prefix=None, instance_type=None, spot_price_limit=None, spot_strategy=None,
                  v_switch_id=None, zone_id=None):
@@ -7330,10 +7664,11 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypes(TeaModel):
 
 
 class GetAutoScaleConfigResponseBodyQueuesQueueInfo(TeaModel):
-    def __init__(self, enable_auto_grow=None, enable_auto_shrink=None, host_name_prefix=None,
+    def __init__(self, data_disks=None, enable_auto_grow=None, enable_auto_shrink=None, host_name_prefix=None,
                  host_name_suffix=None, instance_type=None, instance_types=None, max_nodes_in_queue=None, min_nodes_in_queue=None,
                  queue_image_id=None, queue_name=None, resource_group_id=None, spot_price_limit=None, spot_strategy=None,
                  system_disk_category=None, system_disk_level=None, system_disk_size=None):
+        self.data_disks = data_disks  # type: GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks
         self.enable_auto_grow = enable_auto_grow  # type: bool
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
         self.host_name_prefix = host_name_prefix  # type: str
@@ -7352,6 +7687,8 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfo(TeaModel):
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
+        if self.data_disks:
+            self.data_disks.validate()
         if self.instance_types:
             self.instance_types.validate()
 
@@ -7361,6 +7698,8 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfo(TeaModel):
             return _map
 
         result = dict()
+        if self.data_disks is not None:
+            result['DataDisks'] = self.data_disks.to_map()
         if self.enable_auto_grow is not None:
             result['EnableAutoGrow'] = self.enable_auto_grow
         if self.enable_auto_shrink is not None:
@@ -7397,6 +7736,9 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfo(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DataDisks') is not None:
+            temp_model = GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks()
+            self.data_disks = temp_model.from_map(m['DataDisks'])
         if m.get('EnableAutoGrow') is not None:
             self.enable_auto_grow = m.get('EnableAutoGrow')
         if m.get('EnableAutoShrink') is not None:
@@ -10488,7 +10830,7 @@ class ListClustersResponseBodyClustersClusterInfoSimpleUsedResources(TeaModel):
 class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
     def __init__(self, account_type=None, base_os_tag=None, client_version=None, compute_spot_price_limit=None,
                  compute_spot_strategy=None, computes=None, count=None, create_time=None, deploy_mode=None, description=None,
-                 ehpc_version=None, id=None, image_id=None, image_owner_alias=None, instance_charge_type=None,
+                 ehpc_version=None, has_plugin=None, id=None, image_id=None, image_owner_alias=None, instance_charge_type=None,
                  instance_type=None, is_compute_ess=None, location=None, login_nodes=None, managers=None, name=None,
                  node_prefix=None, node_suffix=None, os_tag=None, region_id=None, scheduler_type=None, status=None,
                  total_resources=None, used_resources=None, v_switch_id=None, vpc_id=None, zone_id=None):
@@ -10503,6 +10845,7 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
         self.deploy_mode = deploy_mode  # type: str
         self.description = description  # type: str
         self.ehpc_version = ehpc_version  # type: str
+        self.has_plugin = has_plugin  # type: bool
         self.id = id  # type: str
         self.image_id = image_id  # type: str
         self.image_owner_alias = image_owner_alias  # type: str
@@ -10563,6 +10906,8 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
             result['Description'] = self.description
         if self.ehpc_version is not None:
             result['EhpcVersion'] = self.ehpc_version
+        if self.has_plugin is not None:
+            result['HasPlugin'] = self.has_plugin
         if self.id is not None:
             result['Id'] = self.id
         if self.image_id is not None:
@@ -10632,6 +10977,8 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
             self.description = m.get('Description')
         if m.get('EhpcVersion') is not None:
             self.ehpc_version = m.get('EhpcVersion')
+        if m.get('HasPlugin') is not None:
+            self.has_plugin = m.get('HasPlugin')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('ImageId') is not None:
@@ -10821,12 +11168,14 @@ class ListClustersMetaRequest(TeaModel):
 
 
 class ListClustersMetaResponseBodyClustersClusterInfoSimple(TeaModel):
-    def __init__(self, account_type=None, client_version=None, deploy_mode=None, description=None, id=None,
-                 is_compute_ess=None, location=None, name=None, os_tag=None, scheduler_type=None, status=None, vpc_id=None):
+    def __init__(self, account_type=None, client_version=None, deploy_mode=None, description=None, has_plugin=None,
+                 id=None, is_compute_ess=None, location=None, name=None, os_tag=None, scheduler_type=None, status=None,
+                 vpc_id=None):
         self.account_type = account_type  # type: str
         self.client_version = client_version  # type: str
         self.deploy_mode = deploy_mode  # type: str
         self.description = description  # type: str
+        self.has_plugin = has_plugin  # type: bool
         self.id = id  # type: str
         self.is_compute_ess = is_compute_ess  # type: bool
         self.location = location  # type: str
@@ -10853,6 +11202,8 @@ class ListClustersMetaResponseBodyClustersClusterInfoSimple(TeaModel):
             result['DeployMode'] = self.deploy_mode
         if self.description is not None:
             result['Description'] = self.description
+        if self.has_plugin is not None:
+            result['HasPlugin'] = self.has_plugin
         if self.id is not None:
             result['Id'] = self.id
         if self.is_compute_ess is not None:
@@ -10881,6 +11232,8 @@ class ListClustersMetaResponseBodyClustersClusterInfoSimple(TeaModel):
             self.deploy_mode = m.get('DeployMode')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('HasPlugin') is not None:
+            self.has_plugin = m.get('HasPlugin')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('IsComputeEss') is not None:
@@ -14108,8 +14461,8 @@ class ListNodesResponseBodyNodesNodeInfo(TeaModel):
     def __init__(self, add_time=None, create_mode=None, created_by_ehpc=None, expired=None, expired_time=None,
                  host_name=None, ht_enabled=None, id=None, image_id=None, image_owner_alias=None, instance_type=None,
                  ip_address=None, location=None, lock_reason=None, public_ip_address=None, region_id=None, roles=None,
-                 spot_strategy=None, status=None, total_resources=None, used_resources=None, v_switch_id=None, version=None,
-                 vpc_id=None, zone_id=None):
+                 spot_strategy=None, state_in_sched=None, status=None, total_resources=None, used_resources=None,
+                 v_switch_id=None, version=None, vpc_id=None, zone_id=None):
         self.add_time = add_time  # type: str
         self.create_mode = create_mode  # type: str
         self.created_by_ehpc = created_by_ehpc  # type: bool
@@ -14128,6 +14481,7 @@ class ListNodesResponseBodyNodesNodeInfo(TeaModel):
         self.region_id = region_id  # type: str
         self.roles = roles  # type: ListNodesResponseBodyNodesNodeInfoRoles
         self.spot_strategy = spot_strategy  # type: str
+        self.state_in_sched = state_in_sched  # type: str
         self.status = status  # type: str
         self.total_resources = total_resources  # type: ListNodesResponseBodyNodesNodeInfoTotalResources
         self.used_resources = used_resources  # type: ListNodesResponseBodyNodesNodeInfoUsedResources
@@ -14186,6 +14540,8 @@ class ListNodesResponseBodyNodesNodeInfo(TeaModel):
             result['Roles'] = self.roles.to_map()
         if self.spot_strategy is not None:
             result['SpotStrategy'] = self.spot_strategy
+        if self.state_in_sched is not None:
+            result['StateInSched'] = self.state_in_sched
         if self.status is not None:
             result['Status'] = self.status
         if self.total_resources is not None:
@@ -14241,6 +14597,8 @@ class ListNodesResponseBodyNodesNodeInfo(TeaModel):
             self.roles = temp_model.from_map(m['Roles'])
         if m.get('SpotStrategy') is not None:
             self.spot_strategy = m.get('SpotStrategy')
+        if m.get('StateInSched') is not None:
+            self.state_in_sched = m.get('StateInSched')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TotalResources') is not None:
@@ -14481,8 +14839,9 @@ class ListNodesByQueueResponseBodyNodesNodeInfoUsedResources(TeaModel):
 class ListNodesByQueueResponseBodyNodesNodeInfo(TeaModel):
     def __init__(self, add_time=None, create_mode=None, created_by_ehpc=None, expired=None, expired_time=None,
                  host_name=None, ht_enabled=None, id=None, image_id=None, image_owner_alias=None, ip_address=None,
-                 location=None, lock_reason=None, public_ip_address=None, region_id=None, spot_strategy=None, status=None,
-                 total_resources=None, used_resources=None, v_switch_id=None, version=None, vpc_id=None, zone_id=None):
+                 location=None, lock_reason=None, public_ip_address=None, region_id=None, spot_strategy=None,
+                 state_in_sched=None, status=None, total_resources=None, used_resources=None, v_switch_id=None, version=None,
+                 vpc_id=None, zone_id=None):
         self.add_time = add_time  # type: str
         self.create_mode = create_mode  # type: str
         self.created_by_ehpc = created_by_ehpc  # type: bool
@@ -14499,6 +14858,7 @@ class ListNodesByQueueResponseBodyNodesNodeInfo(TeaModel):
         self.public_ip_address = public_ip_address  # type: str
         self.region_id = region_id  # type: str
         self.spot_strategy = spot_strategy  # type: str
+        self.state_in_sched = state_in_sched  # type: str
         self.status = status  # type: str
         self.total_resources = total_resources  # type: ListNodesByQueueResponseBodyNodesNodeInfoTotalResources
         self.used_resources = used_resources  # type: ListNodesByQueueResponseBodyNodesNodeInfoUsedResources
@@ -14551,6 +14911,8 @@ class ListNodesByQueueResponseBodyNodesNodeInfo(TeaModel):
             result['RegionId'] = self.region_id
         if self.spot_strategy is not None:
             result['SpotStrategy'] = self.spot_strategy
+        if self.state_in_sched is not None:
+            result['StateInSched'] = self.state_in_sched
         if self.status is not None:
             result['Status'] = self.status
         if self.total_resources is not None:
@@ -14601,6 +14963,8 @@ class ListNodesByQueueResponseBodyNodesNodeInfo(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('SpotStrategy') is not None:
             self.spot_strategy = m.get('SpotStrategy')
+        if m.get('StateInSched') is not None:
+            self.state_in_sched = m.get('StateInSched')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TotalResources') is not None:
@@ -16876,7 +17240,7 @@ class ModifyImageGatewayConfigRequestRepo(TeaModel):
 
 class ModifyImageGatewayConfigRequest(TeaModel):
     def __init__(self, cluster_id=None, dbpassword=None, dbserver_info=None, dbtype=None, dbusername=None,
-                 default_repo_location=None, image_expiration_timeout=None, pull_update_timeout=None, repo=None):
+                 default_repo_location=None, image_expiration_timeout=None, pull_update_timeout=None, region_id=None, repo=None):
         self.cluster_id = cluster_id  # type: str
         self.dbpassword = dbpassword  # type: str
         self.dbserver_info = dbserver_info  # type: str
@@ -16885,6 +17249,7 @@ class ModifyImageGatewayConfigRequest(TeaModel):
         self.default_repo_location = default_repo_location  # type: str
         self.image_expiration_timeout = image_expiration_timeout  # type: str
         self.pull_update_timeout = pull_update_timeout  # type: int
+        self.region_id = region_id  # type: str
         self.repo = repo  # type: list[ModifyImageGatewayConfigRequestRepo]
 
     def validate(self):
@@ -16915,6 +17280,8 @@ class ModifyImageGatewayConfigRequest(TeaModel):
             result['ImageExpirationTimeout'] = self.image_expiration_timeout
         if self.pull_update_timeout is not None:
             result['PullUpdateTimeout'] = self.pull_update_timeout
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         result['Repo'] = []
         if self.repo is not None:
             for k in self.repo:
@@ -16939,6 +17306,8 @@ class ModifyImageGatewayConfigRequest(TeaModel):
             self.image_expiration_timeout = m.get('ImageExpirationTimeout')
         if m.get('PullUpdateTimeout') is not None:
             self.pull_update_timeout = m.get('PullUpdateTimeout')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         self.repo = []
         if m.get('Repo') is not None:
             for k in m.get('Repo'):
@@ -18156,6 +18525,56 @@ class RunCloudMetricProfilingResponse(TeaModel):
         return self
 
 
+class SetAutoScaleConfigRequestQueuesDataDisks(TeaModel):
+    def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
+                 data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        self.data_disk_category = data_disk_category  # type: str
+        self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        self.data_disk_performance_level = data_disk_performance_level  # type: str
+        self.data_disk_size = data_disk_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetAutoScaleConfigRequestQueuesDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_disk_category is not None:
+            result['DataDiskCategory'] = self.data_disk_category
+        if self.data_disk_delete_with_instance is not None:
+            result['DataDiskDeleteWithInstance'] = self.data_disk_delete_with_instance
+        if self.data_disk_encrypted is not None:
+            result['DataDiskEncrypted'] = self.data_disk_encrypted
+        if self.data_disk_kmskey_id is not None:
+            result['DataDiskKMSKeyId'] = self.data_disk_kmskey_id
+        if self.data_disk_performance_level is not None:
+            result['DataDiskPerformanceLevel'] = self.data_disk_performance_level
+        if self.data_disk_size is not None:
+            result['DataDiskSize'] = self.data_disk_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataDiskCategory') is not None:
+            self.data_disk_category = m.get('DataDiskCategory')
+        if m.get('DataDiskDeleteWithInstance') is not None:
+            self.data_disk_delete_with_instance = m.get('DataDiskDeleteWithInstance')
+        if m.get('DataDiskEncrypted') is not None:
+            self.data_disk_encrypted = m.get('DataDiskEncrypted')
+        if m.get('DataDiskKMSKeyId') is not None:
+            self.data_disk_kmskey_id = m.get('DataDiskKMSKeyId')
+        if m.get('DataDiskPerformanceLevel') is not None:
+            self.data_disk_performance_level = m.get('DataDiskPerformanceLevel')
+        if m.get('DataDiskSize') is not None:
+            self.data_disk_size = m.get('DataDiskSize')
+        return self
+
+
 class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
     def __init__(self, instance_type=None, spot_price_limit=None, spot_strategy=None, v_switch_id=None,
                  zone_id=None):
@@ -18202,10 +18621,11 @@ class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
 
 
 class SetAutoScaleConfigRequestQueues(TeaModel):
-    def __init__(self, enable_auto_grow=None, enable_auto_shrink=None, host_name_prefix=None,
+    def __init__(self, data_disks=None, enable_auto_grow=None, enable_auto_shrink=None, host_name_prefix=None,
                  host_name_suffix=None, instance_type=None, instance_types=None, max_nodes_in_queue=None, min_nodes_in_queue=None,
                  queue_image_id=None, queue_name=None, spot_price_limit=None, spot_strategy=None, system_disk_category=None,
                  system_disk_level=None, system_disk_size=None):
+        self.data_disks = data_disks  # type: list[SetAutoScaleConfigRequestQueuesDataDisks]
         self.enable_auto_grow = enable_auto_grow  # type: bool
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
         self.host_name_prefix = host_name_prefix  # type: str
@@ -18223,6 +18643,10 @@ class SetAutoScaleConfigRequestQueues(TeaModel):
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
+        if self.data_disks:
+            for k in self.data_disks:
+                if k:
+                    k.validate()
         if self.instance_types:
             for k in self.instance_types:
                 if k:
@@ -18234,6 +18658,10 @@ class SetAutoScaleConfigRequestQueues(TeaModel):
             return _map
 
         result = dict()
+        result['DataDisks'] = []
+        if self.data_disks is not None:
+            for k in self.data_disks:
+                result['DataDisks'].append(k.to_map() if k else None)
         if self.enable_auto_grow is not None:
             result['EnableAutoGrow'] = self.enable_auto_grow
         if self.enable_auto_shrink is not None:
@@ -18270,6 +18698,11 @@ class SetAutoScaleConfigRequestQueues(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.data_disks = []
+        if m.get('DataDisks') is not None:
+            for k in m.get('DataDisks'):
+                temp_model = SetAutoScaleConfigRequestQueuesDataDisks()
+                self.data_disks.append(temp_model.from_map(k))
         if m.get('EnableAutoGrow') is not None:
             self.enable_auto_grow = m.get('EnableAutoGrow')
         if m.get('EnableAutoShrink') is not None:
@@ -20257,6 +20690,93 @@ class SubmitJobResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = SubmitJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SyncUsersRequest(TeaModel):
+    def __init__(self, cluster_id=None, region_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncUsersRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class SyncUsersResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncUsersResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SyncUsersResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SyncUsersResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SyncUsersResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SyncUsersResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
