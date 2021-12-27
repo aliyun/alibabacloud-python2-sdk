@@ -3092,7 +3092,8 @@ class GetPtsSceneResponseBodySceneGlobalParameterList(TeaModel):
 
 
 class GetPtsSceneResponseBodySceneLoadConfigApiLoadConfigList(TeaModel):
-    def __init__(self, rps_begin=None, rps_limit=None):
+    def __init__(self, api_id=None, rps_begin=None, rps_limit=None):
+        self.api_id = api_id  # type: str
         self.rps_begin = rps_begin  # type: int
         self.rps_limit = rps_limit  # type: int
 
@@ -3105,6 +3106,8 @@ class GetPtsSceneResponseBodySceneLoadConfigApiLoadConfigList(TeaModel):
             return _map
 
         result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
         if self.rps_begin is not None:
             result['RpsBegin'] = self.rps_begin
         if self.rps_limit is not None:
@@ -3113,6 +3116,8 @@ class GetPtsSceneResponseBodySceneLoadConfigApiLoadConfigList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
         if m.get('RpsBegin') is not None:
             self.rps_begin = m.get('RpsBegin')
         if m.get('RpsLimit') is not None:
@@ -3161,9 +3166,10 @@ class GetPtsSceneResponseBodySceneLoadConfigConfiguration(TeaModel):
 
 
 class GetPtsSceneResponseBodySceneLoadConfigRelationLoadConfigList(TeaModel):
-    def __init__(self, concurrency_begin=None, concurrency_limit=None):
+    def __init__(self, concurrency_begin=None, concurrency_limit=None, relation_id=None):
         self.concurrency_begin = concurrency_begin  # type: int
         self.concurrency_limit = concurrency_limit  # type: int
+        self.relation_id = relation_id  # type: str
 
     def validate(self):
         pass
@@ -3178,6 +3184,8 @@ class GetPtsSceneResponseBodySceneLoadConfigRelationLoadConfigList(TeaModel):
             result['ConcurrencyBegin'] = self.concurrency_begin
         if self.concurrency_limit is not None:
             result['ConcurrencyLimit'] = self.concurrency_limit
+        if self.relation_id is not None:
+            result['RelationId'] = self.relation_id
         return result
 
     def from_map(self, m=None):
@@ -3186,6 +3194,8 @@ class GetPtsSceneResponseBodySceneLoadConfigRelationLoadConfigList(TeaModel):
             self.concurrency_begin = m.get('ConcurrencyBegin')
         if m.get('ConcurrencyLimit') is not None:
             self.concurrency_limit = m.get('ConcurrencyLimit')
+        if m.get('RelationId') is not None:
+            self.relation_id = m.get('RelationId')
         return self
 
 
