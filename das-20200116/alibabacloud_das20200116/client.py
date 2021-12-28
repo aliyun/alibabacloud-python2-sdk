@@ -36,22 +36,34 @@ class Client(OpenApiClient):
     def add_hdminstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Engine'] = request.engine
-        query['FlushAccount'] = request.flush_account
-        query['InstanceAlias'] = request.instance_alias
-        query['InstanceArea'] = request.instance_area
-        query['InstanceId'] = request.instance_id
-        query['Ip'] = request.ip
-        query['NetworkType'] = request.network_type
-        query['Password'] = request.password
-        query['Port'] = request.port
-        query['Region'] = request.region
-        query['Username'] = request.username
-        query['VpcId'] = request.vpc_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.flush_account):
+            query['FlushAccount'] = request.flush_account
+        if not UtilClient.is_unset(request.instance_alias):
+            query['InstanceAlias'] = request.instance_alias
+        if not UtilClient.is_unset(request.instance_area):
+            query['InstanceArea'] = request.instance_area
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.network_type):
+            query['NetworkType'] = request.network_type
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddHDMInstance',
@@ -61,7 +73,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -76,21 +88,32 @@ class Client(OpenApiClient):
     def create_adam_bench_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['DstInstanceId'] = request.dst_instance_id
-        query['DstSuperAccount'] = request.dst_super_account
-        query['DstSuperPassword'] = request.dst_super_password
-        query['Rate'] = request.rate
-        query['RequestDuration'] = request.request_duration
-        query['RequestStartTime'] = request.request_start_time
-        query['SrcEngine'] = request.src_engine
-        query['SrcEngineVersion'] = request.src_engine_version
-        query['SrcMaxQps'] = request.src_max_qps
-        query['SrcMeanQps'] = request.src_mean_qps
-        query['SrcSqlOssAddr'] = request.src_sql_oss_addr
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.dst_instance_id):
+            query['DstInstanceId'] = request.dst_instance_id
+        if not UtilClient.is_unset(request.dst_super_account):
+            query['DstSuperAccount'] = request.dst_super_account
+        if not UtilClient.is_unset(request.dst_super_password):
+            query['DstSuperPassword'] = request.dst_super_password
+        if not UtilClient.is_unset(request.rate):
+            query['Rate'] = request.rate
+        if not UtilClient.is_unset(request.request_duration):
+            query['RequestDuration'] = request.request_duration
+        if not UtilClient.is_unset(request.request_start_time):
+            query['RequestStartTime'] = request.request_start_time
+        if not UtilClient.is_unset(request.src_engine):
+            query['SrcEngine'] = request.src_engine
+        if not UtilClient.is_unset(request.src_engine_version):
+            query['SrcEngineVersion'] = request.src_engine_version
+        if not UtilClient.is_unset(request.src_max_qps):
+            query['SrcMaxQps'] = request.src_max_qps
+        if not UtilClient.is_unset(request.src_mean_qps):
+            query['SrcMeanQps'] = request.src_mean_qps
+        if not UtilClient.is_unset(request.src_sql_oss_addr):
+            query['SrcSqlOssAddr'] = request.src_sql_oss_addr
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateAdamBenchTask',
@@ -100,7 +123,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -115,12 +138,14 @@ class Client(OpenApiClient):
     def create_cache_analysis_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BackupSetId'] = request.backup_set_id
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateCacheAnalysisJob',
@@ -130,7 +155,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -145,36 +170,62 @@ class Client(OpenApiClient):
     def create_cloud_bench_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Amount'] = request.amount
-        query['BackupId'] = request.backup_id
-        query['BackupTime'] = request.backup_time
-        query['ClientType'] = request.client_type
-        query['Description'] = request.description
-        query['DstConnectionString'] = request.dst_connection_string
-        query['DstInstanceId'] = request.dst_instance_id
-        query['DstPort'] = request.dst_port
-        query['DstSuperAccount'] = request.dst_super_account
-        query['DstSuperPassword'] = request.dst_super_password
-        query['DstType'] = request.dst_type
-        query['DtsJobClass'] = request.dts_job_class
-        query['DtsJobId'] = request.dts_job_id
-        query['EndState'] = request.end_state
-        query['GatewayVpcId'] = request.gateway_vpc_id
-        query['GatewayVpcIp'] = request.gateway_vpc_ip
-        query['Rate'] = request.rate
-        query['RequestDuration'] = request.request_duration
-        query['RequestEndTime'] = request.request_end_time
-        query['RequestStartTime'] = request.request_start_time
-        query['SmartPressureTime'] = request.smart_pressure_time
-        query['SrcInstanceId'] = request.src_instance_id
-        query['SrcPublicIp'] = request.src_public_ip
-        query['SrcSuperAccount'] = request.src_super_account
-        query['SrcSuperPassword'] = request.src_super_password
-        query['TaskType'] = request.task_type
-        query['WorkDir'] = request.work_dir
+        if not UtilClient.is_unset(request.amount):
+            query['Amount'] = request.amount
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_time):
+            query['BackupTime'] = request.backup_time
+        if not UtilClient.is_unset(request.client_type):
+            query['ClientType'] = request.client_type
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.dst_connection_string):
+            query['DstConnectionString'] = request.dst_connection_string
+        if not UtilClient.is_unset(request.dst_instance_id):
+            query['DstInstanceId'] = request.dst_instance_id
+        if not UtilClient.is_unset(request.dst_port):
+            query['DstPort'] = request.dst_port
+        if not UtilClient.is_unset(request.dst_super_account):
+            query['DstSuperAccount'] = request.dst_super_account
+        if not UtilClient.is_unset(request.dst_super_password):
+            query['DstSuperPassword'] = request.dst_super_password
+        if not UtilClient.is_unset(request.dst_type):
+            query['DstType'] = request.dst_type
+        if not UtilClient.is_unset(request.dts_job_class):
+            query['DtsJobClass'] = request.dts_job_class
+        if not UtilClient.is_unset(request.dts_job_id):
+            query['DtsJobId'] = request.dts_job_id
+        if not UtilClient.is_unset(request.end_state):
+            query['EndState'] = request.end_state
+        if not UtilClient.is_unset(request.gateway_vpc_id):
+            query['GatewayVpcId'] = request.gateway_vpc_id
+        if not UtilClient.is_unset(request.gateway_vpc_ip):
+            query['GatewayVpcIp'] = request.gateway_vpc_ip
+        if not UtilClient.is_unset(request.rate):
+            query['Rate'] = request.rate
+        if not UtilClient.is_unset(request.request_duration):
+            query['RequestDuration'] = request.request_duration
+        if not UtilClient.is_unset(request.request_end_time):
+            query['RequestEndTime'] = request.request_end_time
+        if not UtilClient.is_unset(request.request_start_time):
+            query['RequestStartTime'] = request.request_start_time
+        if not UtilClient.is_unset(request.smart_pressure_time):
+            query['SmartPressureTime'] = request.smart_pressure_time
+        if not UtilClient.is_unset(request.src_instance_id):
+            query['SrcInstanceId'] = request.src_instance_id
+        if not UtilClient.is_unset(request.src_public_ip):
+            query['SrcPublicIp'] = request.src_public_ip
+        if not UtilClient.is_unset(request.src_super_account):
+            query['SrcSuperAccount'] = request.src_super_account
+        if not UtilClient.is_unset(request.src_super_password):
+            query['SrcSuperPassword'] = request.src_super_password
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.work_dir):
+            query['WorkDir'] = request.work_dir
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateCloudBenchTasks',
@@ -184,7 +235,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -199,12 +250,14 @@ class Client(OpenApiClient):
     def create_diagnostic_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DBInstanceId'] = request.dbinstance_id
-        query['EndTime'] = request.end_time
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateDiagnosticReport',
@@ -214,7 +267,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -229,13 +282,16 @@ class Client(OpenApiClient):
     def create_request_diagnosis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Database'] = request.database
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
-        query['Sql'] = request.sql
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.sql):
+            query['Sql'] = request.sql
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateRequestDiagnosis',
@@ -245,7 +301,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -257,14 +313,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_request_diagnosis_with_options(request, runtime)
 
+    def delete_cloud_bench_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCloudBenchTask',
+            version='2020-01-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            das20200116_models.DeleteCloudBenchTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_cloud_bench_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_cloud_bench_task_with_options(request, runtime)
+
     def describe_cache_analysis_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeCacheAnalysisJob',
@@ -274,7 +359,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -289,14 +374,18 @@ class Client(OpenApiClient):
     def describe_cache_analysis_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeCacheAnalysisJobs',
@@ -306,7 +395,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -321,15 +410,20 @@ class Client(OpenApiClient):
     def describe_cloud_bench_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['Status'] = request.status
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeCloudBenchTasks',
@@ -339,7 +433,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -354,10 +448,10 @@ class Client(OpenApiClient):
     def describe_cloudbench_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeCloudbenchTask',
@@ -367,7 +461,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -382,10 +476,10 @@ class Client(OpenApiClient):
     def describe_cloudbench_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeCloudbenchTaskConfig',
@@ -395,7 +489,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -410,14 +504,18 @@ class Client(OpenApiClient):
     def describe_diagnostic_report_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DBInstanceId'] = request.dbinstance_id
-        query['EndTime'] = request.end_time
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDiagnosticReportList',
@@ -427,7 +525,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -442,12 +540,14 @@ class Client(OpenApiClient):
     def describe_hot_big_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeHotBigKeys',
@@ -457,7 +557,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -472,11 +572,12 @@ class Client(OpenApiClient):
     def describe_hot_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeHotKeys',
@@ -486,7 +587,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -501,14 +602,18 @@ class Client(OpenApiClient):
     def describe_top_big_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeTopBigKeys',
@@ -518,7 +623,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -533,14 +638,18 @@ class Client(OpenApiClient):
     def describe_top_hot_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeTopHotKeys',
@@ -550,7 +659,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -565,11 +674,12 @@ class Client(OpenApiClient):
     def disable_all_sql_concurrency_control_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DisableAllSqlConcurrencyControlRules',
@@ -579,7 +689,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -594,12 +704,14 @@ class Client(OpenApiClient):
     def disable_sql_concurrency_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['ItemId'] = request.item_id
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.item_id):
+            query['ItemId'] = request.item_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DisableSqlConcurrencyControl',
@@ -609,7 +721,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -624,15 +736,20 @@ class Client(OpenApiClient):
     def enable_sql_concurrency_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConcurrencyControlTime'] = request.concurrency_control_time
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['MaxConcurrency'] = request.max_concurrency
-        query['SqlKeywords'] = request.sql_keywords
-        query['SqlType'] = request.sql_type
+        if not UtilClient.is_unset(request.concurrency_control_time):
+            query['ConcurrencyControlTime'] = request.concurrency_control_time
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.max_concurrency):
+            query['MaxConcurrency'] = request.max_concurrency
+        if not UtilClient.is_unset(request.sql_keywords):
+            query['SqlKeywords'] = request.sql_keywords
+        if not UtilClient.is_unset(request.sql_type):
+            query['SqlType'] = request.sql_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='EnableSqlConcurrencyControl',
@@ -642,7 +759,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -657,15 +774,20 @@ class Client(OpenApiClient):
     def get_auto_resource_optimize_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['InstanceId'] = request.instance_id
-        query['Signature'] = request.signature
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetAutoResourceOptimizeConfig',
@@ -675,7 +797,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -690,12 +812,14 @@ class Client(OpenApiClient):
     def get_autonomous_notify_event_content_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SpanId'] = request.span_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.span_id):
+            query['SpanId'] = request.span_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetAutonomousNotifyEventContent',
@@ -705,7 +829,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -720,19 +844,28 @@ class Client(OpenApiClient):
     def get_autonomous_notify_events_in_range_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['EventContext'] = request.event_context
-        query['InstanceId'] = request.instance_id
-        query['Level'] = request.level
-        query['MinLevel'] = request.min_level
-        query['NodeId'] = request.node_id
-        query['PageOffset'] = request.page_offset
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.event_context):
+            query['EventContext'] = request.event_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.level):
+            query['Level'] = request.level
+        if not UtilClient.is_unset(request.min_level):
+            query['MinLevel'] = request.min_level
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.page_offset):
+            query['PageOffset'] = request.page_offset
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetAutonomousNotifyEventsInRange',
@@ -742,7 +875,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -757,17 +890,24 @@ class Client(OpenApiClient):
     def get_endpoint_switch_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
-        query['accessKey'] = request.access_key
-        query['signature'] = request.signature
-        query['skipAuth'] = request.skip_auth
-        query['timestamp'] = request.timestamp
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['accessKey'] = request.access_key
+        if not UtilClient.is_unset(request.signature):
+            query['signature'] = request.signature
+        if not UtilClient.is_unset(request.skip_auth):
+            query['skipAuth'] = request.skip_auth
+        if not UtilClient.is_unset(request.timestamp):
+            query['timestamp'] = request.timestamp
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetEndpointSwitchTask',
@@ -777,7 +917,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -792,17 +932,24 @@ class Client(OpenApiClient):
     def get_hdmaliyun_resource_sync_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
-        query['accessKey'] = request.access_key
-        query['signature'] = request.signature
-        query['skipAuth'] = request.skip_auth
-        query['timestamp'] = request.timestamp
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['accessKey'] = request.access_key
+        if not UtilClient.is_unset(request.signature):
+            query['signature'] = request.signature
+        if not UtilClient.is_unset(request.skip_auth):
+            query['skipAuth'] = request.skip_auth
+        if not UtilClient.is_unset(request.timestamp):
+            query['timestamp'] = request.timestamp
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetHDMAliyunResourceSyncResult',
@@ -812,7 +959,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -827,16 +974,22 @@ class Client(OpenApiClient):
     def get_hdmlast_aliyun_resource_sync_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
-        query['accessKey'] = request.access_key
-        query['signature'] = request.signature
-        query['skipAuth'] = request.skip_auth
-        query['timestamp'] = request.timestamp
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['accessKey'] = request.access_key
+        if not UtilClient.is_unset(request.signature):
+            query['signature'] = request.signature
+        if not UtilClient.is_unset(request.skip_auth):
+            query['skipAuth'] = request.skip_auth
+        if not UtilClient.is_unset(request.timestamp):
+            query['timestamp'] = request.timestamp
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetHDMLastAliyunResourceSyncResult',
@@ -846,7 +999,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -861,16 +1014,22 @@ class Client(OpenApiClient):
     def get_instance_inspections_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['Engine'] = request.engine
-        query['InstanceArea'] = request.instance_area
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['SearchMap'] = request.search_map
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.instance_area):
+            query['InstanceArea'] = request.instance_area
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_map):
+            query['SearchMap'] = request.search_map
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetInstanceInspections',
@@ -880,7 +1039,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -895,15 +1054,20 @@ class Client(OpenApiClient):
     def get_request_diagnosis_page_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['NodeId'] = request.node_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetRequestDiagnosisPage',
@@ -913,7 +1077,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -928,12 +1092,14 @@ class Client(OpenApiClient):
     def get_request_diagnosis_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['MessageId'] = request.message_id
-        query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetRequestDiagnosisResult',
@@ -943,7 +1109,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -958,19 +1124,28 @@ class Client(OpenApiClient):
     def get_resource_optimize_history_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['Page'] = request.page
-        query['PageSize'] = request.page_size
-        query['Signature'] = request.signature
-        query['StartTime'] = request.start_time
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page):
+            query['Page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetResourceOptimizeHistoryList',
@@ -980,7 +1155,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -995,13 +1170,16 @@ class Client(OpenApiClient):
     def get_running_sql_concurrency_control_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetRunningSqlConcurrencyControlRules',
@@ -1011,7 +1189,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1026,12 +1204,14 @@ class Client(OpenApiClient):
     def get_sql_concurrency_control_keywords_from_sql_text_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['SqlText'] = request.sql_text
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.sql_text):
+            query['SqlText'] = request.sql_text
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetSqlConcurrencyControlKeywordsFromSqlText',
@@ -1041,7 +1221,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1056,13 +1236,16 @@ class Client(OpenApiClient):
     def get_sql_concurrency_control_rules_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['InstanceId'] = request.instance_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetSqlConcurrencyControlRulesHistory',
@@ -1072,7 +1255,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1087,14 +1270,18 @@ class Client(OpenApiClient):
     def get_sql_optimize_advice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConsoleContext'] = request.console_context
-        query['EndDt'] = request.end_dt
-        query['Engine'] = request.engine
-        query['InstanceIds'] = request.instance_ids
-        query['StartDt'] = request.start_dt
+        if not UtilClient.is_unset(request.console_context):
+            query['ConsoleContext'] = request.console_context
+        if not UtilClient.is_unset(request.end_dt):
+            query['EndDt'] = request.end_dt
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.instance_ids):
+            query['InstanceIds'] = request.instance_ids
+        if not UtilClient.is_unset(request.start_dt):
+            query['StartDt'] = request.start_dt
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetSqlOptimizeAdvice',
@@ -1104,7 +1291,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1119,10 +1306,10 @@ class Client(OpenApiClient):
     def run_cloud_bench_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RunCloudBenchTask',
@@ -1132,7 +1319,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1147,10 +1334,10 @@ class Client(OpenApiClient):
     def stop_cloud_bench_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopCloudBenchTask',
@@ -1160,7 +1347,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1175,18 +1362,26 @@ class Client(OpenApiClient):
     def stop_or_rollback_optimize_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['InstanceId'] = request.instance_id
-        query['Signature'] = request.signature
-        query['StopOrRollback'] = request.stop_or_rollback
-        query['TaskType'] = request.task_type
-        query['TaskUuid'] = request.task_uuid
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.stop_or_rollback):
+            query['StopOrRollback'] = request.stop_or_rollback
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.task_uuid):
+            query['TaskUuid'] = request.task_uuid
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopOrRollbackOptimizeTask',
@@ -1196,7 +1391,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1211,19 +1406,28 @@ class Client(OpenApiClient):
     def sync_hdmaliyun_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Async'] = request.async
-        query['ResourceTypes'] = request.resource_types
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['WaitForModifySecurityIps'] = request.wait_for_modify_security_ips
-        query['__context'] = request.context
-        query['accessKey'] = request.access_key
-        query['signature'] = request.signature
-        query['skipAuth'] = request.skip_auth
-        query['timestamp'] = request.timestamp
+        if not UtilClient.is_unset(request.async):
+            query['Async'] = request.async
+        if not UtilClient.is_unset(request.resource_types):
+            query['ResourceTypes'] = request.resource_types
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.wait_for_modify_security_ips):
+            query['WaitForModifySecurityIps'] = request.wait_for_modify_security_ips
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['accessKey'] = request.access_key
+        if not UtilClient.is_unset(request.signature):
+            query['signature'] = request.signature
+        if not UtilClient.is_unset(request.skip_auth):
+            query['skipAuth'] = request.skip_auth
+        if not UtilClient.is_unset(request.timestamp):
+            query['timestamp'] = request.timestamp
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SyncHDMAliyunResource',
@@ -1233,7 +1437,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1248,15 +1452,20 @@ class Client(OpenApiClient):
     def turn_off_auto_resource_optimize_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['InstanceId'] = request.instance_id
-        query['Signature'] = request.signature
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='TurnOffAutoResourceOptimize',
@@ -1266,7 +1475,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1281,19 +1490,28 @@ class Client(OpenApiClient):
     def update_auto_resource_optimize_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['AutoDefragment'] = request.auto_defragment
-        query['AutoDuplicateIndexDelete'] = request.auto_duplicate_index_delete
-        query['InstanceId'] = request.instance_id
-        query['Signature'] = request.signature
-        query['TableFragmentationRatio'] = request.table_fragmentation_ratio
-        query['TableSpaceSize'] = request.table_space_size
-        query['Uid'] = request.uid
-        query['UserId'] = request.user_id
-        query['__context'] = request.context
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.auto_defragment):
+            query['AutoDefragment'] = request.auto_defragment
+        if not UtilClient.is_unset(request.auto_duplicate_index_delete):
+            query['AutoDuplicateIndexDelete'] = request.auto_duplicate_index_delete
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.table_fragmentation_ratio):
+            query['TableFragmentationRatio'] = request.table_fragmentation_ratio
+        if not UtilClient.is_unset(request.table_space_size):
+            query['TableSpaceSize'] = request.table_space_size
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.context):
+            query['__context'] = request.context
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateAutoResourceOptimizeConfig',
@@ -1303,7 +1521,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
