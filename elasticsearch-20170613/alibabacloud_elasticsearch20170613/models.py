@@ -21388,11 +21388,11 @@ class TransferNodeResponse(TeaModel):
 
 
 class TriggerNetworkRequest(TeaModel):
-    def __init__(self, action_type=None, client_token=None, network_type=None, node_type=None):
+    def __init__(self, action_type=None, network_type=None, node_type=None, client_token=None):
         self.action_type = action_type  # type: str
-        self.client_token = client_token  # type: str
         self.network_type = network_type  # type: str
         self.node_type = node_type  # type: str
+        self.client_token = client_token  # type: str
 
     def validate(self):
         pass
@@ -21405,24 +21405,24 @@ class TriggerNetworkRequest(TeaModel):
         result = dict()
         if self.action_type is not None:
             result['actionType'] = self.action_type
-        if self.client_token is not None:
-            result['clientToken'] = self.client_token
         if self.network_type is not None:
             result['networkType'] = self.network_type
         if self.node_type is not None:
             result['nodeType'] = self.node_type
+        if self.client_token is not None:
+            result['clientToken'] = self.client_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('actionType') is not None:
             self.action_type = m.get('actionType')
-        if m.get('clientToken') is not None:
-            self.client_token = m.get('clientToken')
         if m.get('networkType') is not None:
             self.network_type = m.get('networkType')
         if m.get('nodeType') is not None:
             self.node_type = m.get('nodeType')
+        if m.get('clientToken') is not None:
+            self.client_token = m.get('clientToken')
         return self
 
 
