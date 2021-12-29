@@ -4,16 +4,16 @@ from Tea.model import TeaModel
 
 
 class AddDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_name=None,
-                 resource_group_id=None, sources=None, check_url=None, scope=None, top_level_domain=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.sources = sources  # type: str
+    def __init__(self, check_url=None, domain_name=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 scope=None, security_token=None, sources=None, top_level_domain=None):
         self.check_url = check_url  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.scope = scope  # type: str
+        self.security_token = security_token  # type: str
+        self.sources = sources  # type: str
         self.top_level_domain = top_level_domain  # type: str
 
     def validate(self):
@@ -25,44 +25,44 @@ class AddDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.sources is not None:
-            result['Sources'] = self.sources
         if self.check_url is not None:
             result['CheckUrl'] = self.check_url
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.scope is not None:
             result['Scope'] = self.scope
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.sources is not None:
+            result['Sources'] = self.sources
         if self.top_level_domain is not None:
             result['TopLevelDomain'] = self.top_level_domain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Sources') is not None:
-            self.sources = m.get('Sources')
         if m.get('CheckUrl') is not None:
             self.check_url = m.get('CheckUrl')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Scope') is not None:
             self.scope = m.get('Scope')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('Sources') is not None:
+            self.sources = m.get('Sources')
         if m.get('TopLevelDomain') is not None:
             self.top_level_domain = m.get('TopLevelDomain')
         return self
@@ -126,18 +126,18 @@ class AddDcdnDomainResponse(TeaModel):
 
 
 class AddDcdnIpaDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_name=None,
-                 resource_group_id=None, sources=None, check_url=None, scope=None, top_level_domain=None, protocol=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.sources = sources  # type: str
+    def __init__(self, check_url=None, domain_name=None, owner_account=None, owner_id=None, protocol=None,
+                 resource_group_id=None, scope=None, security_token=None, sources=None, top_level_domain=None):
         self.check_url = check_url  # type: str
-        self.scope = scope  # type: str
-        self.top_level_domain = top_level_domain  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
         self.protocol = protocol  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.scope = scope  # type: str
+        self.security_token = security_token  # type: str
+        self.sources = sources  # type: str
+        self.top_level_domain = top_level_domain  # type: str
 
     def validate(self):
         pass
@@ -148,50 +148,50 @@ class AddDcdnIpaDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.sources is not None:
-            result['Sources'] = self.sources
         if self.check_url is not None:
             result['CheckUrl'] = self.check_url
-        if self.scope is not None:
-            result['Scope'] = self.scope
-        if self.top_level_domain is not None:
-            result['TopLevelDomain'] = self.top_level_domain
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.protocol is not None:
             result['Protocol'] = self.protocol
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.scope is not None:
+            result['Scope'] = self.scope
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.sources is not None:
+            result['Sources'] = self.sources
+        if self.top_level_domain is not None:
+            result['TopLevelDomain'] = self.top_level_domain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Sources') is not None:
-            self.sources = m.get('Sources')
         if m.get('CheckUrl') is not None:
             self.check_url = m.get('CheckUrl')
-        if m.get('Scope') is not None:
-            self.scope = m.get('Scope')
-        if m.get('TopLevelDomain') is not None:
-            self.top_level_domain = m.get('TopLevelDomain')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('Sources') is not None:
+            self.sources = m.get('Sources')
+        if m.get('TopLevelDomain') is not None:
+            self.top_level_domain = m.get('TopLevelDomain')
         return self
 
 
@@ -253,16 +253,16 @@ class AddDcdnIpaDomainResponse(TeaModel):
 
 
 class BatchAddDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_name=None,
-                 resource_group_id=None, sources=None, check_url=None, scope=None, top_level_domain=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.sources = sources  # type: str
+    def __init__(self, check_url=None, domain_name=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 scope=None, security_token=None, sources=None, top_level_domain=None):
         self.check_url = check_url  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.scope = scope  # type: str
+        self.security_token = security_token  # type: str
+        self.sources = sources  # type: str
         self.top_level_domain = top_level_domain  # type: str
 
     def validate(self):
@@ -274,44 +274,44 @@ class BatchAddDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.sources is not None:
-            result['Sources'] = self.sources
         if self.check_url is not None:
             result['CheckUrl'] = self.check_url
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.scope is not None:
             result['Scope'] = self.scope
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.sources is not None:
+            result['Sources'] = self.sources
         if self.top_level_domain is not None:
             result['TopLevelDomain'] = self.top_level_domain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Sources') is not None:
-            self.sources = m.get('Sources')
         if m.get('CheckUrl') is not None:
             self.check_url = m.get('CheckUrl')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Scope') is not None:
             self.scope = m.get('Scope')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('Sources') is not None:
+            self.sources = m.get('Sources')
         if m.get('TopLevelDomain') is not None:
             self.top_level_domain = m.get('TopLevelDomain')
         return self
@@ -375,13 +375,13 @@ class BatchAddDcdnDomainResponse(TeaModel):
 
 
 class BatchDeleteDcdnDomainConfigsRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_names=None,
-                 function_names=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
+    def __init__(self, domain_names=None, function_names=None, owner_account=None, owner_id=None,
+                 security_token=None):
         self.domain_names = domain_names  # type: str
         self.function_names = function_names  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -392,30 +392,30 @@ class BatchDeleteDcdnDomainConfigsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_names is not None:
             result['DomainNames'] = self.domain_names
         if self.function_names is not None:
             result['FunctionNames'] = self.function_names
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainNames') is not None:
             self.domain_names = m.get('DomainNames')
         if m.get('FunctionNames') is not None:
             self.function_names = m.get('FunctionNames')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -477,17 +477,17 @@ class BatchDeleteDcdnDomainConfigsResponse(TeaModel):
 
 
 class BatchSetDcdnDomainCertificateRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, cert_name=None, cert_type=None,
-                 sslprotocol=None, sslpub=None, sslpri=None, region=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, cert_name=None, cert_type=None, domain_name=None, owner_id=None, region=None, sslpri=None,
+                 sslprotocol=None, sslpub=None, security_token=None):
         self.cert_name = cert_name  # type: str
         self.cert_type = cert_type  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region = region  # type: str
+        self.sslpri = sslpri  # type: str
         self.sslprotocol = sslprotocol  # type: str
         self.sslpub = sslpub  # type: str
-        self.sslpri = sslpri  # type: str
-        self.region = region  # type: str
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -498,46 +498,46 @@ class BatchSetDcdnDomainCertificateRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.cert_name is not None:
             result['CertName'] = self.cert_name
         if self.cert_type is not None:
             result['CertType'] = self.cert_type
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.sslpri is not None:
+            result['SSLPri'] = self.sslpri
         if self.sslprotocol is not None:
             result['SSLProtocol'] = self.sslprotocol
         if self.sslpub is not None:
             result['SSLPub'] = self.sslpub
-        if self.sslpri is not None:
-            result['SSLPri'] = self.sslpri
-        if self.region is not None:
-            result['Region'] = self.region
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('CertName') is not None:
             self.cert_name = m.get('CertName')
         if m.get('CertType') is not None:
             self.cert_type = m.get('CertType')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('SSLPri') is not None:
+            self.sslpri = m.get('SSLPri')
         if m.get('SSLProtocol') is not None:
             self.sslprotocol = m.get('SSLProtocol')
         if m.get('SSLPub') is not None:
             self.sslpub = m.get('SSLPub')
-        if m.get('SSLPri') is not None:
-            self.sslpri = m.get('SSLPri')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -599,12 +599,12 @@ class BatchSetDcdnDomainCertificateResponse(TeaModel):
 
 
 class BatchSetDcdnDomainConfigsRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_names=None, functions=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
+    def __init__(self, domain_names=None, functions=None, owner_account=None, owner_id=None, security_token=None):
         self.domain_names = domain_names  # type: str
         self.functions = functions  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -615,30 +615,30 @@ class BatchSetDcdnDomainConfigsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_names is not None:
             result['DomainNames'] = self.domain_names
         if self.functions is not None:
             result['Functions'] = self.functions
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainNames') is not None:
             self.domain_names = m.get('DomainNames')
         if m.get('Functions') is not None:
             self.functions = m.get('Functions')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -700,12 +700,12 @@ class BatchSetDcdnDomainConfigsResponse(TeaModel):
 
 
 class BatchSetDcdnIpaDomainConfigsRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_names=None, functions=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
+    def __init__(self, domain_names=None, functions=None, owner_account=None, owner_id=None, security_token=None):
         self.domain_names = domain_names  # type: str
         self.functions = functions  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -716,30 +716,30 @@ class BatchSetDcdnIpaDomainConfigsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_names is not None:
             result['DomainNames'] = self.domain_names
         if self.functions is not None:
             result['Functions'] = self.functions
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainNames') is not None:
             self.domain_names = m.get('DomainNames')
         if m.get('Functions') is not None:
             self.functions = m.get('Functions')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -801,10 +801,10 @@ class BatchSetDcdnIpaDomainConfigsResponse(TeaModel):
 
 
 class BatchStartDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_names=None):
+    def __init__(self, domain_names=None, owner_id=None, security_token=None):
+        self.domain_names = domain_names  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_names = domain_names  # type: str
 
     def validate(self):
         pass
@@ -815,22 +815,22 @@ class BatchStartDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_names is not None:
+            result['DomainNames'] = self.domain_names
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_names is not None:
-            result['DomainNames'] = self.domain_names
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainNames') is not None:
+            self.domain_names = m.get('DomainNames')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainNames') is not None:
-            self.domain_names = m.get('DomainNames')
         return self
 
 
@@ -892,10 +892,10 @@ class BatchStartDcdnDomainResponse(TeaModel):
 
 
 class BatchStopDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_names=None):
+    def __init__(self, domain_names=None, owner_id=None, security_token=None):
+        self.domain_names = domain_names  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_names = domain_names  # type: str
 
     def validate(self):
         pass
@@ -906,22 +906,22 @@ class BatchStopDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_names is not None:
+            result['DomainNames'] = self.domain_names
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_names is not None:
-            result['DomainNames'] = self.domain_names
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainNames') is not None:
+            self.domain_names = m.get('DomainNames')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainNames') is not None:
-            self.domain_names = m.get('DomainNames')
         return self
 
 
@@ -982,11 +982,128 @@ class BatchStopDcdnDomainResponse(TeaModel):
         return self
 
 
-class CommitStagingRoutineCodeRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, code_description=None):
+class CheckDcdnProjectExistRequest(TeaModel):
+    def __init__(self, owner_id=None, project_name=None):
         self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+        self.project_name = project_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDcdnProjectExistRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        return self
+
+
+class CheckDcdnProjectExistResponseBodyContent(TeaModel):
+    def __init__(self, exist=None):
+        self.exist = exist  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckDcdnProjectExistResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.exist is not None:
+            result['Exist'] = self.exist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Exist') is not None:
+            self.exist = m.get('Exist')
+        return self
+
+
+class CheckDcdnProjectExistResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: CheckDcdnProjectExistResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(CheckDcdnProjectExistResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = CheckDcdnProjectExistResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckDcdnProjectExistResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CheckDcdnProjectExistResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckDcdnProjectExistResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CheckDcdnProjectExistResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CommitStagingRoutineCodeRequest(TeaModel):
+    def __init__(self, code_description=None, name=None, owner_id=None):
         self.code_description = code_description  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -997,22 +1114,22 @@ class CommitStagingRoutineCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.code_description is not None:
             result['CodeDescription'] = self.code_description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('CodeDescription') is not None:
             self.code_description = m.get('CodeDescription')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -1079,17 +1196,17 @@ class CommitStagingRoutineCodeResponse(TeaModel):
 
 
 class CreateDcdnCertificateSigningRequestRequest(TeaModel):
-    def __init__(self, owner_id=None, common_name=None, sans=None, organization=None, organization_unit=None,
-                 country=None, state=None, city=None, email=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, city=None, common_name=None, country=None, email=None, organization=None,
+                 organization_unit=None, owner_id=None, sans=None, state=None):
+        self.city = city  # type: str
         self.common_name = common_name  # type: str
-        self.sans = sans  # type: str
+        self.country = country  # type: str
+        self.email = email  # type: str
         self.organization = organization  # type: str
         self.organization_unit = organization_unit  # type: str
-        self.country = country  # type: str
+        self.owner_id = owner_id  # type: long
+        self.sans = sans  # type: str
         self.state = state  # type: str
-        self.city = city  # type: str
-        self.email = email  # type: str
 
     def validate(self):
         pass
@@ -1100,55 +1217,55 @@ class CreateDcdnCertificateSigningRequestRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
+        if self.city is not None:
+            result['City'] = self.city
         if self.common_name is not None:
             result['CommonName'] = self.common_name
-        if self.sans is not None:
-            result['SANs'] = self.sans
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.email is not None:
+            result['Email'] = self.email
         if self.organization is not None:
             result['Organization'] = self.organization
         if self.organization_unit is not None:
             result['OrganizationUnit'] = self.organization_unit
-        if self.country is not None:
-            result['Country'] = self.country
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.sans is not None:
+            result['SANs'] = self.sans
         if self.state is not None:
             result['State'] = self.state
-        if self.city is not None:
-            result['City'] = self.city
-        if self.email is not None:
-            result['Email'] = self.email
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
+        if m.get('City') is not None:
+            self.city = m.get('City')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
-        if m.get('SANs') is not None:
-            self.sans = m.get('SANs')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
         if m.get('Organization') is not None:
             self.organization = m.get('Organization')
         if m.get('OrganizationUnit') is not None:
             self.organization_unit = m.get('OrganizationUnit')
-        if m.get('Country') is not None:
-            self.country = m.get('Country')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SANs') is not None:
+            self.sans = m.get('SANs')
         if m.get('State') is not None:
             self.state = m.get('State')
-        if m.get('City') is not None:
-            self.city = m.get('City')
-        if m.get('Email') is not None:
-            self.email = m.get('Email')
         return self
 
 
 class CreateDcdnCertificateSigningRequestResponseBody(TeaModel):
-    def __init__(self, request_id=None, pub_md_5=None, csr=None, common_name=None):
-        self.request_id = request_id  # type: str
-        self.pub_md_5 = pub_md_5  # type: str
-        self.csr = csr  # type: str
+    def __init__(self, common_name=None, csr=None, pub_md_5=None, request_id=None):
         self.common_name = common_name  # type: str
+        self.csr = csr  # type: str
+        self.pub_md_5 = pub_md_5  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -1159,26 +1276,26 @@ class CreateDcdnCertificateSigningRequestResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.pub_md_5 is not None:
-            result['PubMd5'] = self.pub_md_5
-        if self.csr is not None:
-            result['Csr'] = self.csr
         if self.common_name is not None:
             result['CommonName'] = self.common_name
+        if self.csr is not None:
+            result['Csr'] = self.csr
+        if self.pub_md_5 is not None:
+            result['PubMd5'] = self.pub_md_5
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('PubMd5') is not None:
-            self.pub_md_5 = m.get('PubMd5')
-        if m.get('Csr') is not None:
-            self.csr = m.get('Csr')
         if m.get('CommonName') is not None:
             self.common_name = m.get('CommonName')
+        if m.get('Csr') is not None:
+            self.csr = m.get('Csr')
+        if m.get('PubMd5') is not None:
+            self.pub_md_5 = m.get('PubMd5')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -1216,15 +1333,13 @@ class CreateDcdnCertificateSigningRequestResponse(TeaModel):
 
 
 class CreateDcdnDeliverTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, status=None, reports=None, domain_name=None, deliver=None,
-                 schedule=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
-        self.status = status  # type: str
-        self.reports = reports  # type: str
+    def __init__(self, deliver=None, domain_name=None, name=None, owner_id=None, reports=None, schedule=None):
+        self.deliver = deliver  # type: str
         self.domain_name = domain_name  # type: str
-        self.deliver = deliver  # type: dict[str, any]
-        self.schedule = schedule  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.reports = reports  # type: str
+        self.schedule = schedule  # type: str
 
     def validate(self):
         pass
@@ -1235,93 +1350,34 @@ class CreateDcdnDeliverTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.reports is not None:
-            result['Reports'] = self.reports
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.deliver is not None:
             result['Deliver'] = self.deliver
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.reports is not None:
+            result['Reports'] = self.reports
         if self.schedule is not None:
             result['Schedule'] = self.schedule
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Reports') is not None:
-            self.reports = m.get('Reports')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('Deliver') is not None:
             self.deliver = m.get('Deliver')
-        if m.get('Schedule') is not None:
-            self.schedule = m.get('Schedule')
-        return self
-
-
-class CreateDcdnDeliverTaskShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, status=None, reports=None, domain_name=None, deliver_shrink=None,
-                 schedule_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
-        self.status = status  # type: str
-        self.reports = reports  # type: str
-        self.domain_name = domain_name  # type: str
-        self.deliver_shrink = deliver_shrink  # type: str
-        self.schedule_shrink = schedule_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateDcdnDeliverTaskShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.reports is not None:
-            result['Reports'] = self.reports
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.deliver_shrink is not None:
-            result['Deliver'] = self.deliver_shrink
-        if self.schedule_shrink is not None:
-            result['Schedule'] = self.schedule_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Reports') is not None:
-            self.reports = m.get('Reports')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('Deliver') is not None:
-            self.deliver_shrink = m.get('Deliver')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Reports') is not None:
+            self.reports = m.get('Reports')
         if m.get('Schedule') is not None:
-            self.schedule_shrink = m.get('Schedule')
+            self.schedule = m.get('Schedule')
         return self
 
 
@@ -1382,73 +1438,177 @@ class CreateDcdnDeliverTaskResponse(TeaModel):
         return self
 
 
-class CreateDcdnDomainOfflineLogDeliveryRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, region_id=None, field_id=None):
-        self.owner_id = owner_id  # type: long
+class CreateDcdnSLSRealTimeLogDeliveryRequest(TeaModel):
+    def __init__(self, business_type=None, data_center=None, domain_name=None, owner_id=None, project_name=None,
+                 slslog_store=None, slsproject=None, slsregion=None, sampling_rate=None):
+        self.business_type = business_type  # type: str
+        self.data_center = data_center  # type: str
         self.domain_name = domain_name  # type: str
-        self.region_id = region_id  # type: str
-        self.field_id = field_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.project_name = project_name  # type: str
+        self.slslog_store = slslog_store  # type: str
+        self.slsproject = slsproject  # type: str
+        self.slsregion = slsregion  # type: str
+        self.sampling_rate = sampling_rate  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(CreateDcdnDomainOfflineLogDeliveryRequest, self).to_map()
+        _map = super(CreateDcdnSLSRealTimeLogDeliveryRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.data_center is not None:
+            result['DataCenter'] = self.data_center
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.field_id is not None:
-            result['FieldId'] = self.field_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.slslog_store is not None:
+            result['SLSLogStore'] = self.slslog_store
+        if self.slsproject is not None:
+            result['SLSProject'] = self.slsproject
+        if self.slsregion is not None:
+            result['SLSRegion'] = self.slsregion
+        if self.sampling_rate is not None:
+            result['SamplingRate'] = self.sampling_rate
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('DataCenter') is not None:
+            self.data_center = m.get('DataCenter')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('FieldId') is not None:
-            self.field_id = m.get('FieldId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('SLSLogStore') is not None:
+            self.slslog_store = m.get('SLSLogStore')
+        if m.get('SLSProject') is not None:
+            self.slsproject = m.get('SLSProject')
+        if m.get('SLSRegion') is not None:
+            self.slsregion = m.get('SLSRegion')
+        if m.get('SamplingRate') is not None:
+            self.sampling_rate = m.get('SamplingRate')
         return self
 
 
-class CreateDcdnDomainOfflineLogDeliveryResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
+class CreateDcdnSLSRealTimeLogDeliveryResponseBodyContentDomains(TeaModel):
+    def __init__(self, desc=None, domain_name=None, region=None, status=None):
+        self.desc = desc  # type: str
+        self.domain_name = domain_name  # type: str
+        self.region = region  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(CreateDcdnDomainOfflineLogDeliveryResponseBody, self).to_map()
+        _map = super(CreateDcdnSLSRealTimeLogDeliveryResponseBodyContentDomains, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.desc is not None:
+            result['Desc'] = self.desc
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Desc') is not None:
+            self.desc = m.get('Desc')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateDcdnSLSRealTimeLogDeliveryResponseBodyContent(TeaModel):
+    def __init__(self, domains=None):
+        self.domains = domains  # type: list[CreateDcdnSLSRealTimeLogDeliveryResponseBodyContentDomains]
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateDcdnSLSRealTimeLogDeliveryResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = CreateDcdnSLSRealTimeLogDeliveryResponseBodyContentDomains()
+                self.domains.append(temp_model.from_map(k))
+        return self
+
+
+class CreateDcdnSLSRealTimeLogDeliveryResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: CreateDcdnSLSRealTimeLogDeliveryResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(CreateDcdnSLSRealTimeLogDeliveryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = CreateDcdnSLSRealTimeLogDeliveryResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
 
 
-class CreateDcdnDomainOfflineLogDeliveryResponse(TeaModel):
+class CreateDcdnSLSRealTimeLogDeliveryResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateDcdnDomainOfflineLogDeliveryResponseBody
+        self.body = body  # type: CreateDcdnSLSRealTimeLogDeliveryResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -1457,7 +1617,7 @@ class CreateDcdnDomainOfflineLogDeliveryResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(CreateDcdnDomainOfflineLogDeliveryResponse, self).to_map()
+        _map = super(CreateDcdnSLSRealTimeLogDeliveryResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -1473,19 +1633,16 @@ class CreateDcdnDomainOfflineLogDeliveryResponse(TeaModel):
         if m.get('headers') is not None:
             self.headers = m.get('headers')
         if m.get('body') is not None:
-            temp_model = CreateDcdnDomainOfflineLogDeliveryResponseBody()
+            temp_model = CreateDcdnSLSRealTimeLogDeliveryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
 class CreateDcdnSubTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, status=None, report_ids=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
-        self.status = status  # type: str
-        self.report_ids = report_ids  # type: str
+    def __init__(self, domain_name=None, owner_id=None, report_ids=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
-        self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.report_ids = report_ids  # type: str
 
     def validate(self):
         pass
@@ -1496,34 +1653,22 @@ class CreateDcdnSubTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.report_ids is not None:
-            result['ReportIds'] = self.report_ids
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.report_ids is not None:
+            result['ReportIds'] = self.report_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ReportIds') is not None:
-            self.report_ids = m.get('ReportIds')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ReportIds') is not None:
+            self.report_ids = m.get('ReportIds')
         return self
 
 
@@ -1585,11 +1730,11 @@ class CreateDcdnSubTaskResponse(TeaModel):
 
 
 class CreateRoutineRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, description=None, env_conf=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, description=None, env_conf=None, name=None, owner_id=None):
         self.description = description  # type: str
         self.env_conf = env_conf  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -1600,35 +1745,35 @@ class CreateRoutineRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.description is not None:
             result['Description'] = self.description
         if self.env_conf is not None:
             result['EnvConf'] = self.env_conf
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EnvConf') is not None:
             self.env_conf = m.get('EnvConf')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class CreateRoutineShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, description=None, env_conf_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, description=None, env_conf_shrink=None, name=None, owner_id=None):
         self.description = description  # type: str
         self.env_conf_shrink = env_conf_shrink  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -1639,26 +1784,26 @@ class CreateRoutineShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.description is not None:
             result['Description'] = self.description
         if self.env_conf_shrink is not None:
             result['EnvConf'] = self.env_conf_shrink
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EnvConf') is not None:
             self.env_conf_shrink = m.get('EnvConf')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -1724,10 +1869,344 @@ class CreateRoutineResponse(TeaModel):
         return self
 
 
-class DeleteDcdnDeliverTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, deliver_id=None):
+class CreateSlrAndSlsProjectRequest(TeaModel):
+    def __init__(self, owner_id=None, region=None):
         self.owner_id = owner_id  # type: long
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSlrAndSlsProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
+class CreateSlrAndSlsProjectResponseBodySlsInfo(TeaModel):
+    def __init__(self, end_point=None, log_store=None, project=None, region=None):
+        self.end_point = end_point  # type: str
+        self.log_store = log_store  # type: str
+        self.project = project  # type: str
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateSlrAndSlsProjectResponseBodySlsInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_point is not None:
+            result['EndPoint'] = self.end_point
+        if self.log_store is not None:
+            result['LogStore'] = self.log_store
+        if self.project is not None:
+            result['Project'] = self.project
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndPoint') is not None:
+            self.end_point = m.get('EndPoint')
+        if m.get('LogStore') is not None:
+            self.log_store = m.get('LogStore')
+        if m.get('Project') is not None:
+            self.project = m.get('Project')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
+class CreateSlrAndSlsProjectResponseBody(TeaModel):
+    def __init__(self, request_id=None, sls_info=None):
+        self.request_id = request_id  # type: str
+        self.sls_info = sls_info  # type: CreateSlrAndSlsProjectResponseBodySlsInfo
+
+    def validate(self):
+        if self.sls_info:
+            self.sls_info.validate()
+
+    def to_map(self):
+        _map = super(CreateSlrAndSlsProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.sls_info is not None:
+            result['SlsInfo'] = self.sls_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SlsInfo') is not None:
+            temp_model = CreateSlrAndSlsProjectResponseBodySlsInfo()
+            self.sls_info = temp_model.from_map(m['SlsInfo'])
+        return self
+
+
+class CreateSlrAndSlsProjectResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateSlrAndSlsProjectResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateSlrAndSlsProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateSlrAndSlsProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DcdnHttpRequestTestToolRequest(TeaModel):
+    def __init__(self, args=None, body=None, header=None, host=None, method=None, owner_id=None, proxy_ip=None,
+                 scheme=None, uri=None):
+        self.args = args  # type: str
+        self.body = body  # type: str
+        self.header = header  # type: dict[str, any]
+        self.host = host  # type: str
+        self.method = method  # type: str
+        self.owner_id = owner_id  # type: long
+        self.proxy_ip = proxy_ip  # type: str
+        self.scheme = scheme  # type: str
+        self.uri = uri  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DcdnHttpRequestTestToolRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.args is not None:
+            result['Args'] = self.args
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.header is not None:
+            result['Header'] = self.header
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.proxy_ip is not None:
+            result['ProxyIp'] = self.proxy_ip
+        if self.scheme is not None:
+            result['Scheme'] = self.scheme
+        if self.uri is not None:
+            result['Uri'] = self.uri
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Args') is not None:
+            self.args = m.get('Args')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('Header') is not None:
+            self.header = m.get('Header')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProxyIp') is not None:
+            self.proxy_ip = m.get('ProxyIp')
+        if m.get('Scheme') is not None:
+            self.scheme = m.get('Scheme')
+        if m.get('Uri') is not None:
+            self.uri = m.get('Uri')
+        return self
+
+
+class DcdnHttpRequestTestToolShrinkRequest(TeaModel):
+    def __init__(self, args=None, body=None, header_shrink=None, host=None, method=None, owner_id=None, proxy_ip=None,
+                 scheme=None, uri=None):
+        self.args = args  # type: str
+        self.body = body  # type: str
+        self.header_shrink = header_shrink  # type: str
+        self.host = host  # type: str
+        self.method = method  # type: str
+        self.owner_id = owner_id  # type: long
+        self.proxy_ip = proxy_ip  # type: str
+        self.scheme = scheme  # type: str
+        self.uri = uri  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DcdnHttpRequestTestToolShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.args is not None:
+            result['Args'] = self.args
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.header_shrink is not None:
+            result['Header'] = self.header_shrink
+        if self.host is not None:
+            result['Host'] = self.host
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.proxy_ip is not None:
+            result['ProxyIp'] = self.proxy_ip
+        if self.scheme is not None:
+            result['Scheme'] = self.scheme
+        if self.uri is not None:
+            result['Uri'] = self.uri
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Args') is not None:
+            self.args = m.get('Args')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('Header') is not None:
+            self.header_shrink = m.get('Header')
+        if m.get('Host') is not None:
+            self.host = m.get('Host')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProxyIp') is not None:
+            self.proxy_ip = m.get('ProxyIp')
+        if m.get('Scheme') is not None:
+            self.scheme = m.get('Scheme')
+        if m.get('Uri') is not None:
+            self.uri = m.get('Uri')
+        return self
+
+
+class DcdnHttpRequestTestToolResponseBody(TeaModel):
+    def __init__(self, body=None, header=None, request_id=None, status_code=None):
+        self.body = body  # type: str
+        self.header = header  # type: str
+        self.request_id = request_id  # type: str
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DcdnHttpRequestTestToolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['Body'] = self.body
+        if self.header is not None:
+            result['Header'] = self.header
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
+        if m.get('Header') is not None:
+            self.header = m.get('Header')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
+        return self
+
+
+class DcdnHttpRequestTestToolResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DcdnHttpRequestTestToolResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DcdnHttpRequestTestToolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DcdnHttpRequestTestToolResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDcdnDeliverTaskRequest(TeaModel):
+    def __init__(self, deliver_id=None, owner_id=None):
         self.deliver_id = deliver_id  # type: long
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -1738,18 +2217,18 @@ class DeleteDcdnDeliverTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.deliver_id is not None:
             result['DeliverId'] = self.deliver_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DeliverId') is not None:
             self.deliver_id = m.get('DeliverId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -1811,11 +2290,11 @@ class DeleteDcdnDeliverTaskResponse(TeaModel):
 
 
 class DeleteDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
+    def __init__(self, domain_name=None, owner_account=None, owner_id=None, security_token=None):
         self.domain_name = domain_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -1826,26 +2305,26 @@ class DeleteDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -1907,11 +2386,11 @@ class DeleteDcdnDomainResponse(TeaModel):
 
 
 class DeleteDcdnIpaDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
+    def __init__(self, domain_name=None, owner_account=None, owner_id=None, security_token=None):
         self.domain_name = domain_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -1922,26 +2401,26 @@ class DeleteDcdnIpaDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -2003,11 +2482,11 @@ class DeleteDcdnIpaDomainResponse(TeaModel):
 
 
 class DeleteDcdnIpaSpecificConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, config_id=None):
+    def __init__(self, config_id=None, domain_name=None, owner_id=None, security_token=None):
+        self.config_id = config_id  # type: str
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.config_id = config_id  # type: str
 
     def validate(self):
         pass
@@ -2018,26 +2497,26 @@ class DeleteDcdnIpaSpecificConfigRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.config_id is not None:
-            result['ConfigId'] = self.config_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ConfigId') is not None:
-            self.config_id = m.get('ConfigId')
         return self
 
 
@@ -2098,12 +2577,103 @@ class DeleteDcdnIpaSpecificConfigResponse(TeaModel):
         return self
 
 
+class DeleteDcdnRealTimeLogProjectRequest(TeaModel):
+    def __init__(self, business_type=None, owner_id=None, project_name=None):
+        self.business_type = business_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.project_name = project_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnRealTimeLogProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        return self
+
+
+class DeleteDcdnRealTimeLogProjectResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnRealTimeLogProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDcdnRealTimeLogProjectResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDcdnRealTimeLogProjectResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDcdnRealTimeLogProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDcdnRealTimeLogProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteDcdnSpecificConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, config_id=None):
+    def __init__(self, config_id=None, domain_name=None, owner_id=None, security_token=None):
+        self.config_id = config_id  # type: str
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.config_id = config_id  # type: str
 
     def validate(self):
         pass
@@ -2114,26 +2684,26 @@ class DeleteDcdnSpecificConfigRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.config_id is not None:
-            result['ConfigId'] = self.config_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ConfigId') is not None:
-            self.config_id = m.get('ConfigId')
         return self
 
 
@@ -2195,11 +2765,11 @@ class DeleteDcdnSpecificConfigResponse(TeaModel):
 
 
 class DeleteDcdnSpecificStagingConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, config_id=None):
+    def __init__(self, config_id=None, domain_name=None, owner_id=None, security_token=None):
+        self.config_id = config_id  # type: str
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.config_id = config_id  # type: str
 
     def validate(self):
         pass
@@ -2210,26 +2780,26 @@ class DeleteDcdnSpecificStagingConfigRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.config_id is not None:
-            result['ConfigId'] = self.config_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ConfigId') is not None:
-            self.config_id = m.get('ConfigId')
         return self
 
 
@@ -2372,9 +2942,9 @@ class DeleteDcdnSubTaskResponse(TeaModel):
 
 
 class DeleteRoutineRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, name=None, owner_id=None):
         self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -2385,18 +2955,18 @@ class DeleteRoutineRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.name is not None:
             result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -2463,9 +3033,9 @@ class DeleteRoutineResponse(TeaModel):
 
 
 class DeleteRoutineCodeRevisionRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, select_code_revision=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, name=None, owner_id=None, select_code_revision=None):
         self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
         self.select_code_revision = select_code_revision  # type: str
 
     def validate(self):
@@ -2477,20 +3047,20 @@ class DeleteRoutineCodeRevisionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.name is not None:
             result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.select_code_revision is not None:
             result['SelectCodeRevision'] = self.select_code_revision
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('SelectCodeRevision') is not None:
             self.select_code_revision = m.get('SelectCodeRevision')
         return self
@@ -2559,10 +3129,10 @@ class DeleteRoutineCodeRevisionResponse(TeaModel):
 
 
 class DeleteRoutineConfEnvsRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, envs=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, envs=None, name=None, owner_id=None):
         self.envs = envs  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -2573,30 +3143,30 @@ class DeleteRoutineConfEnvsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.envs is not None:
             result['Envs'] = self.envs
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Envs') is not None:
             self.envs = m.get('Envs')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class DeleteRoutineConfEnvsShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, envs_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, envs_shrink=None, name=None, owner_id=None):
         self.envs_shrink = envs_shrink  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -2607,22 +3177,22 @@ class DeleteRoutineConfEnvsShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.envs_shrink is not None:
             result['Envs'] = self.envs_shrink
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Envs') is not None:
             self.envs_shrink = m.get('Envs')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -2688,13 +3258,136 @@ class DeleteRoutineConfEnvsResponse(TeaModel):
         return self
 
 
-class DescribeDcdnBgpBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, isp=None, start_time=None, end_time=None, interval=None):
+class DescribeDcdnAclFieldsRequest(TeaModel):
+    def __init__(self, lang=None, owner_id=None):
+        self.lang = lang  # type: str
         self.owner_id = owner_id  # type: long
-        self.isp = isp  # type: str
-        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnAclFieldsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnAclFieldsResponseBodyContent(TeaModel):
+    def __init__(self, fields=None):
+        self.fields = fields  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnAclFieldsResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fields is not None:
+            result['Fields'] = self.fields
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Fields') is not None:
+            self.fields = m.get('Fields')
+        return self
+
+
+class DescribeDcdnAclFieldsResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: list[DescribeDcdnAclFieldsResponseBodyContent]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            for k in self.content:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnAclFieldsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Content'] = []
+        if self.content is not None:
+            for k in self.content:
+                result['Content'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.content = []
+        if m.get('Content') is not None:
+            for k in m.get('Content'):
+                temp_model = DescribeDcdnAclFieldsResponseBodyContent()
+                self.content.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnAclFieldsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnAclFieldsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnAclFieldsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnAclFieldsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnBgpBpsDataRequest(TeaModel):
+    def __init__(self, end_time=None, interval=None, isp=None, owner_id=None, start_time=None):
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
+        self.isp = isp  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -2705,37 +3398,37 @@ class DescribeDcdnBgpBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.isp is not None:
-            result['Isp'] = self.isp
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.isp is not None:
+            result['Isp'] = self.isp
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Isp') is not None:
-            self.isp = m.get('Isp')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnBgpBpsDataResponseBodyBgpDataInterval(TeaModel):
-    def __init__(self, out=None, in_=None, time_stamp=None):
-        self.out = out  # type: float
+    def __init__(self, in_=None, out=None, time_stamp=None):
         self.in_ = in_  # type: float
+        self.out = out  # type: float
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -2747,31 +3440,31 @@ class DescribeDcdnBgpBpsDataResponseBodyBgpDataInterval(TeaModel):
             return _map
 
         result = dict()
-        if self.out is not None:
-            result['Out'] = self.out
         if self.in_ is not None:
             result['In'] = self.in_
+        if self.out is not None:
+            result['Out'] = self.out
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Out') is not None:
-            self.out = m.get('Out')
         if m.get('In') is not None:
             self.in_ = m.get('In')
+        if m.get('Out') is not None:
+            self.out = m.get('Out')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
         return self
 
 
 class DescribeDcdnBgpBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, bgp_data_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
+    def __init__(self, bgp_data_interval=None, end_time=None, request_id=None, start_time=None):
         self.bgp_data_interval = bgp_data_interval  # type: list[DescribeDcdnBgpBpsDataResponseBodyBgpDataInterval]
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.bgp_data_interval:
@@ -2785,31 +3478,31 @@ class DescribeDcdnBgpBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['BgpDataInterval'] = []
         if self.bgp_data_interval is not None:
             for k in self.bgp_data_interval:
                 result['BgpDataInterval'].append(k.to_map() if k else None)
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.bgp_data_interval = []
         if m.get('BgpDataInterval') is not None:
             for k in m.get('BgpDataInterval'):
                 temp_model = DescribeDcdnBgpBpsDataResponseBodyBgpDataInterval()
                 self.bgp_data_interval.append(temp_model.from_map(k))
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -2847,12 +3540,12 @@ class DescribeDcdnBgpBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnBgpTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, isp=None, start_time=None, end_time=None, interval=None):
-        self.owner_id = owner_id  # type: long
-        self.isp = isp  # type: str
-        self.start_time = start_time  # type: str
+    def __init__(self, end_time=None, interval=None, isp=None, owner_id=None, start_time=None):
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
+        self.isp = isp  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -2863,37 +3556,37 @@ class DescribeDcdnBgpTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.isp is not None:
-            result['Isp'] = self.isp
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.isp is not None:
+            result['Isp'] = self.isp
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Isp') is not None:
-            self.isp = m.get('Isp')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval(TeaModel):
-    def __init__(self, out=None, in_=None, time_stamp=None):
-        self.out = out  # type: long
+    def __init__(self, in_=None, out=None, time_stamp=None):
         self.in_ = in_  # type: long
+        self.out = out  # type: long
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -2905,31 +3598,31 @@ class DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval(TeaModel):
             return _map
 
         result = dict()
-        if self.out is not None:
-            result['Out'] = self.out
         if self.in_ is not None:
             result['In'] = self.in_
+        if self.out is not None:
+            result['Out'] = self.out
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Out') is not None:
-            self.out = m.get('Out')
         if m.get('In') is not None:
             self.in_ = m.get('In')
+        if m.get('Out') is not None:
+            self.out = m.get('Out')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
         return self
 
 
 class DescribeDcdnBgpTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, bgp_data_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
+    def __init__(self, bgp_data_interval=None, end_time=None, request_id=None, start_time=None):
         self.bgp_data_interval = bgp_data_interval  # type: list[DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval]
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.bgp_data_interval:
@@ -2943,31 +3636,31 @@ class DescribeDcdnBgpTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['BgpDataInterval'] = []
         if self.bgp_data_interval is not None:
             for k in self.bgp_data_interval:
                 result['BgpDataInterval'].append(k.to_map() if k else None)
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.bgp_data_interval = []
         if m.get('BgpDataInterval') is not None:
             for k in m.get('BgpDataInterval'):
                 temp_model = DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval()
                 self.bgp_data_interval.append(temp_model.from_map(k))
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -3005,9 +3698,9 @@ class DescribeDcdnBgpTrafficDataResponse(TeaModel):
 
 
 class DescribeDcdnBlockedRegionsRequest(TeaModel):
-    def __init__(self, owner_id=None, language=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, language=None, owner_id=None):
         self.language = language  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -3018,25 +3711,25 @@ class DescribeDcdnBlockedRegionsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.language is not None:
             result['Language'] = self.language
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class DescribeDcdnBlockedRegionsResponseBodyInfoListInfoItem(TeaModel):
-    def __init__(self, countries_and_regions=None, continent=None, countries_and_regions_name=None):
-        self.countries_and_regions = countries_and_regions  # type: str
+    def __init__(self, continent=None, countries_and_regions=None, countries_and_regions_name=None):
         self.continent = continent  # type: str
+        self.countries_and_regions = countries_and_regions  # type: str
         self.countries_and_regions_name = countries_and_regions_name  # type: str
 
     def validate(self):
@@ -3048,20 +3741,20 @@ class DescribeDcdnBlockedRegionsResponseBodyInfoListInfoItem(TeaModel):
             return _map
 
         result = dict()
-        if self.countries_and_regions is not None:
-            result['CountriesAndRegions'] = self.countries_and_regions
         if self.continent is not None:
             result['Continent'] = self.continent
+        if self.countries_and_regions is not None:
+            result['CountriesAndRegions'] = self.countries_and_regions
         if self.countries_and_regions_name is not None:
             result['CountriesAndRegionsName'] = self.countries_and_regions_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CountriesAndRegions') is not None:
-            self.countries_and_regions = m.get('CountriesAndRegions')
         if m.get('Continent') is not None:
             self.continent = m.get('Continent')
+        if m.get('CountriesAndRegions') is not None:
+            self.countries_and_regions = m.get('CountriesAndRegions')
         if m.get('CountriesAndRegionsName') is not None:
             self.countries_and_regions_name = m.get('CountriesAndRegionsName')
         return self
@@ -3100,9 +3793,9 @@ class DescribeDcdnBlockedRegionsResponseBodyInfoList(TeaModel):
 
 
 class DescribeDcdnBlockedRegionsResponseBody(TeaModel):
-    def __init__(self, request_id=None, info_list=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, info_list=None, request_id=None):
         self.info_list = info_list  # type: DescribeDcdnBlockedRegionsResponseBodyInfoList
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.info_list:
@@ -3114,19 +3807,19 @@ class DescribeDcdnBlockedRegionsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.info_list is not None:
             result['InfoList'] = self.info_list.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('InfoList') is not None:
             temp_model = DescribeDcdnBlockedRegionsResponseBodyInfoList()
             self.info_list = temp_model.from_map(m['InfoList'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -3164,10 +3857,10 @@ class DescribeDcdnBlockedRegionsResponse(TeaModel):
 
 
 class DescribeDcdnCertificateDetailRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, cert_name=None):
+    def __init__(self, cert_name=None, owner_id=None, security_token=None):
+        self.cert_name = cert_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.cert_name = cert_name  # type: str
 
     def validate(self):
         pass
@@ -3178,31 +3871,31 @@ class DescribeDcdnCertificateDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.cert_name is not None:
-            result['CertName'] = self.cert_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('CertName') is not None:
-            self.cert_name = m.get('CertName')
         return self
 
 
 class DescribeDcdnCertificateDetailResponseBody(TeaModel):
-    def __init__(self, cert_name=None, key=None, cert=None, cert_id=None, request_id=None):
-        self.cert_name = cert_name  # type: str
-        self.key = key  # type: str
+    def __init__(self, cert=None, cert_id=None, cert_name=None, key=None, request_id=None):
         self.cert = cert  # type: str
         self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
+        self.key = key  # type: str
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3214,28 +3907,28 @@ class DescribeDcdnCertificateDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.cert_name is not None:
-            result['CertName'] = self.cert_name
-        if self.key is not None:
-            result['Key'] = self.key
         if self.cert is not None:
             result['Cert'] = self.cert
         if self.cert_id is not None:
             result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.key is not None:
+            result['Key'] = self.key
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CertName') is not None:
-            self.cert_name = m.get('CertName')
-        if m.get('Key') is not None:
-            self.key = m.get('Key')
         if m.get('Cert') is not None:
             self.cert = m.get('Cert')
         if m.get('CertId') is not None:
             self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -3275,10 +3968,10 @@ class DescribeDcdnCertificateDetailResponse(TeaModel):
 
 
 class DescribeDcdnCertificateListRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -3289,33 +3982,33 @@ class DescribeDcdnCertificateListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
 class DescribeDcdnCertificateListResponseBodyCertificateListModelCertListCert(TeaModel):
-    def __init__(self, last_time=None, fingerprint=None, cert_name=None, issuer=None, cert_id=None, common=None):
-        self.last_time = last_time  # type: long
-        self.fingerprint = fingerprint  # type: str
-        self.cert_name = cert_name  # type: str
-        self.issuer = issuer  # type: str
+    def __init__(self, cert_id=None, cert_name=None, common=None, fingerprint=None, issuer=None, last_time=None):
         self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
         self.common = common  # type: str
+        self.fingerprint = fingerprint  # type: str
+        self.issuer = issuer  # type: str
+        self.last_time = last_time  # type: long
 
     def validate(self):
         pass
@@ -3326,34 +4019,34 @@ class DescribeDcdnCertificateListResponseBodyCertificateListModelCertListCert(Te
             return _map
 
         result = dict()
-        if self.last_time is not None:
-            result['LastTime'] = self.last_time
-        if self.fingerprint is not None:
-            result['Fingerprint'] = self.fingerprint
-        if self.cert_name is not None:
-            result['CertName'] = self.cert_name
-        if self.issuer is not None:
-            result['Issuer'] = self.issuer
         if self.cert_id is not None:
             result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
         if self.common is not None:
             result['Common'] = self.common
+        if self.fingerprint is not None:
+            result['Fingerprint'] = self.fingerprint
+        if self.issuer is not None:
+            result['Issuer'] = self.issuer
+        if self.last_time is not None:
+            result['LastTime'] = self.last_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('LastTime') is not None:
-            self.last_time = m.get('LastTime')
-        if m.get('Fingerprint') is not None:
-            self.fingerprint = m.get('Fingerprint')
-        if m.get('CertName') is not None:
-            self.cert_name = m.get('CertName')
-        if m.get('Issuer') is not None:
-            self.issuer = m.get('Issuer')
         if m.get('CertId') is not None:
             self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
         if m.get('Common') is not None:
             self.common = m.get('Common')
+        if m.get('Fingerprint') is not None:
+            self.fingerprint = m.get('Fingerprint')
+        if m.get('Issuer') is not None:
+            self.issuer = m.get('Issuer')
+        if m.get('LastTime') is not None:
+            self.last_time = m.get('LastTime')
         return self
 
 
@@ -3390,9 +4083,9 @@ class DescribeDcdnCertificateListResponseBodyCertificateListModelCertList(TeaMod
 
 
 class DescribeDcdnCertificateListResponseBodyCertificateListModel(TeaModel):
-    def __init__(self, count=None, cert_list=None):
-        self.count = count  # type: int
+    def __init__(self, cert_list=None, count=None):
         self.cert_list = cert_list  # type: DescribeDcdnCertificateListResponseBodyCertificateListModelCertList
+        self.count = count  # type: int
 
     def validate(self):
         if self.cert_list:
@@ -3404,26 +4097,26 @@ class DescribeDcdnCertificateListResponseBodyCertificateListModel(TeaModel):
             return _map
 
         result = dict()
-        if self.count is not None:
-            result['Count'] = self.count
         if self.cert_list is not None:
             result['CertList'] = self.cert_list.to_map()
+        if self.count is not None:
+            result['Count'] = self.count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Count') is not None:
-            self.count = m.get('Count')
         if m.get('CertList') is not None:
             temp_model = DescribeDcdnCertificateListResponseBodyCertificateListModelCertList()
             self.cert_list = temp_model.from_map(m['CertList'])
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
         return self
 
 
 class DescribeDcdnCertificateListResponseBody(TeaModel):
-    def __init__(self, request_id=None, certificate_list_model=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, certificate_list_model=None, request_id=None):
         self.certificate_list_model = certificate_list_model  # type: DescribeDcdnCertificateListResponseBodyCertificateListModel
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.certificate_list_model:
@@ -3435,19 +4128,19 @@ class DescribeDcdnCertificateListResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.certificate_list_model is not None:
             result['CertificateListModel'] = self.certificate_list_model.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('CertificateListModel') is not None:
             temp_model = DescribeDcdnCertificateListResponseBodyCertificateListModel()
             self.certificate_list_model = temp_model.from_map(m['CertificateListModel'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -3484,15 +4177,137 @@ class DescribeDcdnCertificateListResponse(TeaModel):
         return self
 
 
-class DescribeDcdnConfigOfVersionRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, version_id=None, function_id=None, function_name=None,
-                 group_id=None):
+class DescribeDcdnConfigGroupDetailRequest(TeaModel):
+    def __init__(self, config_group_id=None, config_group_name=None, owner_id=None):
+        self.config_group_id = config_group_id  # type: str
+        self.config_group_name = config_group_name  # type: str
         self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.version_id = version_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnConfigGroupDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_group_id is not None:
+            result['ConfigGroupId'] = self.config_group_id
+        if self.config_group_name is not None:
+            result['ConfigGroupName'] = self.config_group_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigGroupId') is not None:
+            self.config_group_id = m.get('ConfigGroupId')
+        if m.get('ConfigGroupName') is not None:
+            self.config_group_name = m.get('ConfigGroupName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnConfigGroupDetailResponseBody(TeaModel):
+    def __init__(self, biz_name=None, config_group_id=None, config_group_name=None, create_time=None,
+                 description=None, request_id=None, update_time=None):
+        self.biz_name = biz_name  # type: str
+        self.config_group_id = config_group_id  # type: str
+        self.config_group_name = config_group_name  # type: str
+        self.create_time = create_time  # type: str
+        self.description = description  # type: str
+        self.request_id = request_id  # type: str
+        self.update_time = update_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnConfigGroupDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.biz_name is not None:
+            result['BizName'] = self.biz_name
+        if self.config_group_id is not None:
+            result['ConfigGroupId'] = self.config_group_id
+        if self.config_group_name is not None:
+            result['ConfigGroupName'] = self.config_group_name
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.update_time is not None:
+            result['UpdateTime'] = self.update_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BizName') is not None:
+            self.biz_name = m.get('BizName')
+        if m.get('ConfigGroupId') is not None:
+            self.config_group_id = m.get('ConfigGroupId')
+        if m.get('ConfigGroupName') is not None:
+            self.config_group_name = m.get('ConfigGroupName')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UpdateTime') is not None:
+            self.update_time = m.get('UpdateTime')
+        return self
+
+
+class DescribeDcdnConfigGroupDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnConfigGroupDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnConfigGroupDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnConfigGroupDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnConfigOfVersionRequest(TeaModel):
+    def __init__(self, function_id=None, function_name=None, group_id=None, owner_id=None, security_token=None,
+                 version_id=None):
         self.function_id = function_id  # type: int
         self.function_name = function_name  # type: str
         self.group_id = group_id  # type: long
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+        self.version_id = version_id  # type: str
 
     def validate(self):
         pass
@@ -3503,34 +4318,34 @@ class DescribeDcdnConfigOfVersionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.version_id is not None:
-            result['VersionId'] = self.version_id
         if self.function_id is not None:
             result['FunctionId'] = self.function_id
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.version_id is not None:
+            result['VersionId'] = self.version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('VersionId') is not None:
-            self.version_id = m.get('VersionId')
         if m.get('FunctionId') is not None:
             self.function_id = m.get('FunctionId')
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('VersionId') is not None:
+            self.version_id = m.get('VersionId')
         return self
 
 
@@ -3596,11 +4411,11 @@ class DescribeDcdnConfigOfVersionResponseBodyVersionConfigsVersionConfigFunction
 
 
 class DescribeDcdnConfigOfVersionResponseBodyVersionConfigsVersionConfig(TeaModel):
-    def __init__(self, status=None, config_id=None, function_name=None, function_args=None):
-        self.status = status  # type: str
+    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
         self.config_id = config_id  # type: str
-        self.function_name = function_name  # type: str
         self.function_args = function_args  # type: DescribeDcdnConfigOfVersionResponseBodyVersionConfigsVersionConfigFunctionArgs
+        self.function_name = function_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         if self.function_args:
@@ -3612,27 +4427,27 @@ class DescribeDcdnConfigOfVersionResponseBodyVersionConfigsVersionConfig(TeaMode
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.function_name is not None:
-            result['FunctionName'] = self.function_name
         if self.function_args is not None:
             result['FunctionArgs'] = self.function_args.to_map()
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('FunctionName') is not None:
-            self.function_name = m.get('FunctionName')
         if m.get('FunctionArgs') is not None:
             temp_model = DescribeDcdnConfigOfVersionResponseBodyVersionConfigsVersionConfigFunctionArgs()
             self.function_args = temp_model.from_map(m['FunctionArgs'])
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -3732,11 +4547,184 @@ class DescribeDcdnConfigOfVersionResponse(TeaModel):
         return self
 
 
-class DescribeDcdnDeliverListRequest(TeaModel):
-    def __init__(self, owner_id=None, deliver_id=None, status=None):
+class DescribeDcdnDeletedDomainsRequest(TeaModel):
+    def __init__(self, owner_id=None, page_number=None, page_size=None):
         self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDeletedDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class DescribeDcdnDeletedDomainsResponseBodyDomainsPageData(TeaModel):
+    def __init__(self, domain_name=None, gmt_modified=None):
+        self.domain_name = domain_name  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDeletedDomainsResponseBodyDomainsPageData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        return self
+
+
+class DescribeDcdnDeletedDomainsResponseBodyDomains(TeaModel):
+    def __init__(self, page_data=None):
+        self.page_data = page_data  # type: list[DescribeDcdnDeletedDomainsResponseBodyDomainsPageData]
+
+    def validate(self):
+        if self.page_data:
+            for k in self.page_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDeletedDomainsResponseBodyDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PageData'] = []
+        if self.page_data is not None:
+            for k in self.page_data:
+                result['PageData'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.page_data = []
+        if m.get('PageData') is not None:
+            for k in m.get('PageData'):
+                temp_model = DescribeDcdnDeletedDomainsResponseBodyDomainsPageData()
+                self.page_data.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnDeletedDomainsResponseBody(TeaModel):
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: DescribeDcdnDeletedDomainsResponseBodyDomains
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.domains:
+            self.domains.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDeletedDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domains is not None:
+            result['Domains'] = self.domains.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domains') is not None:
+            temp_model = DescribeDcdnDeletedDomainsResponseBodyDomains()
+            self.domains = temp_model.from_map(m['Domains'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnDeletedDomainsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnDeletedDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDeletedDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnDeletedDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnDeliverListRequest(TeaModel):
+    def __init__(self, deliver_id=None, owner_id=None):
         self.deliver_id = deliver_id  # type: long
-        self.status = status  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -3747,22 +4735,18 @@ class DescribeDcdnDeliverListRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.deliver_id is not None:
             result['DeliverId'] = self.deliver_id
-        if self.status is not None:
-            result['Status'] = self.status
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DeliverId') is not None:
             self.deliver_id = m.get('DeliverId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -3829,15 +4813,15 @@ class DescribeDcdnDeliverListResponse(TeaModel):
 
 
 class DescribeDcdnDomainBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -3848,12 +4832,8 @@ class DescribeDcdnDomainBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -3862,16 +4842,16 @@ class DescribeDcdnDomainBpsDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -3880,18 +4860,22 @@ class DescribeDcdnDomainBpsDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainBpsDataResponseBodyBpsDataPerIntervalDataModule(TeaModel):
-    def __init__(self, time_stamp=None, static_https_bps=None, bps=None, dynamic_https_bps=None,
-                 dynamic_http_bps=None, static_http_bps=None):
-        self.time_stamp = time_stamp  # type: str
-        self.static_https_bps = static_https_bps  # type: float
+    def __init__(self, bps=None, dynamic_http_bps=None, dynamic_https_bps=None, static_http_bps=None,
+                 static_https_bps=None, time_stamp=None):
         self.bps = bps  # type: float
-        self.dynamic_https_bps = dynamic_https_bps  # type: float
         self.dynamic_http_bps = dynamic_http_bps  # type: float
+        self.dynamic_https_bps = dynamic_https_bps  # type: float
         self.static_http_bps = static_http_bps  # type: float
+        self.static_https_bps = static_https_bps  # type: float
+        self.time_stamp = time_stamp  # type: str
 
     def validate(self):
         pass
@@ -3902,34 +4886,34 @@ class DescribeDcdnDomainBpsDataResponseBodyBpsDataPerIntervalDataModule(TeaModel
             return _map
 
         result = dict()
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
-        if self.static_https_bps is not None:
-            result['StaticHttpsBps'] = self.static_https_bps
         if self.bps is not None:
             result['Bps'] = self.bps
-        if self.dynamic_https_bps is not None:
-            result['DynamicHttpsBps'] = self.dynamic_https_bps
         if self.dynamic_http_bps is not None:
             result['DynamicHttpBps'] = self.dynamic_http_bps
+        if self.dynamic_https_bps is not None:
+            result['DynamicHttpsBps'] = self.dynamic_https_bps
         if self.static_http_bps is not None:
             result['StaticHttpBps'] = self.static_http_bps
+        if self.static_https_bps is not None:
+            result['StaticHttpsBps'] = self.static_https_bps
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
-        if m.get('StaticHttpsBps') is not None:
-            self.static_https_bps = m.get('StaticHttpsBps')
         if m.get('Bps') is not None:
             self.bps = m.get('Bps')
-        if m.get('DynamicHttpsBps') is not None:
-            self.dynamic_https_bps = m.get('DynamicHttpsBps')
         if m.get('DynamicHttpBps') is not None:
             self.dynamic_http_bps = m.get('DynamicHttpBps')
+        if m.get('DynamicHttpsBps') is not None:
+            self.dynamic_https_bps = m.get('DynamicHttpsBps')
         if m.get('StaticHttpBps') is not None:
             self.static_http_bps = m.get('StaticHttpBps')
+        if m.get('StaticHttpsBps') is not None:
+            self.static_https_bps = m.get('StaticHttpsBps')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
         return self
 
 
@@ -3966,14 +4950,14 @@ class DescribeDcdnDomainBpsDataResponseBodyBpsDataPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 bps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
-        self.data_interval = data_interval  # type: str
+    def __init__(self, bps_data_per_interval=None, data_interval=None, domain_name=None, end_time=None,
+                 request_id=None, start_time=None):
         self.bps_data_per_interval = bps_data_per_interval  # type: DescribeDcdnDomainBpsDataResponseBodyBpsDataPerInterval
+        self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.bps_data_per_interval:
@@ -3985,35 +4969,35 @@ class DescribeDcdnDomainBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.data_interval is not None:
-            result['DataInterval'] = self.data_interval
         if self.bps_data_per_interval is not None:
             result['BpsDataPerInterval'] = self.bps_data_per_interval.to_map()
+        if self.data_interval is not None:
+            result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('DataInterval') is not None:
-            self.data_interval = m.get('DataInterval')
         if m.get('BpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainBpsDataResponseBodyBpsDataPerInterval()
             self.bps_data_per_interval = temp_model.from_map(m['BpsDataPerInterval'])
+        if m.get('DataInterval') is not None:
+            self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -4080,17 +5064,17 @@ class DescribeDcdnDomainByCertificateRequest(TeaModel):
 
 
 class DescribeDcdnDomainByCertificateResponseBodyCertInfosCertInfo(TeaModel):
-    def __init__(self, cert_start_time=None, cert_expire_time=None, cert_ca_is_legacy=None,
-                 cert_subject_common_name=None, cert_type=None, domain_names=None, cert_expired=None, issuer=None, domain_list=None):
-        self.cert_start_time = cert_start_time  # type: str
-        self.cert_expire_time = cert_expire_time  # type: str
+    def __init__(self, cert_ca_is_legacy=None, cert_expire_time=None, cert_expired=None, cert_start_time=None,
+                 cert_subject_common_name=None, cert_type=None, domain_list=None, domain_names=None, issuer=None):
         self.cert_ca_is_legacy = cert_ca_is_legacy  # type: str
+        self.cert_expire_time = cert_expire_time  # type: str
+        self.cert_expired = cert_expired  # type: str
+        self.cert_start_time = cert_start_time  # type: str
         self.cert_subject_common_name = cert_subject_common_name  # type: str
         self.cert_type = cert_type  # type: str
-        self.domain_names = domain_names  # type: str
-        self.cert_expired = cert_expired  # type: str
-        self.issuer = issuer  # type: str
         self.domain_list = domain_list  # type: str
+        self.domain_names = domain_names  # type: str
+        self.issuer = issuer  # type: str
 
     def validate(self):
         pass
@@ -4101,46 +5085,46 @@ class DescribeDcdnDomainByCertificateResponseBodyCertInfosCertInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.cert_start_time is not None:
-            result['CertStartTime'] = self.cert_start_time
-        if self.cert_expire_time is not None:
-            result['CertExpireTime'] = self.cert_expire_time
         if self.cert_ca_is_legacy is not None:
             result['CertCaIsLegacy'] = self.cert_ca_is_legacy
+        if self.cert_expire_time is not None:
+            result['CertExpireTime'] = self.cert_expire_time
+        if self.cert_expired is not None:
+            result['CertExpired'] = self.cert_expired
+        if self.cert_start_time is not None:
+            result['CertStartTime'] = self.cert_start_time
         if self.cert_subject_common_name is not None:
             result['CertSubjectCommonName'] = self.cert_subject_common_name
         if self.cert_type is not None:
             result['CertType'] = self.cert_type
-        if self.domain_names is not None:
-            result['DomainNames'] = self.domain_names
-        if self.cert_expired is not None:
-            result['CertExpired'] = self.cert_expired
-        if self.issuer is not None:
-            result['Issuer'] = self.issuer
         if self.domain_list is not None:
             result['DomainList'] = self.domain_list
+        if self.domain_names is not None:
+            result['DomainNames'] = self.domain_names
+        if self.issuer is not None:
+            result['Issuer'] = self.issuer
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CertStartTime') is not None:
-            self.cert_start_time = m.get('CertStartTime')
-        if m.get('CertExpireTime') is not None:
-            self.cert_expire_time = m.get('CertExpireTime')
         if m.get('CertCaIsLegacy') is not None:
             self.cert_ca_is_legacy = m.get('CertCaIsLegacy')
+        if m.get('CertExpireTime') is not None:
+            self.cert_expire_time = m.get('CertExpireTime')
+        if m.get('CertExpired') is not None:
+            self.cert_expired = m.get('CertExpired')
+        if m.get('CertStartTime') is not None:
+            self.cert_start_time = m.get('CertStartTime')
         if m.get('CertSubjectCommonName') is not None:
             self.cert_subject_common_name = m.get('CertSubjectCommonName')
         if m.get('CertType') is not None:
             self.cert_type = m.get('CertType')
-        if m.get('DomainNames') is not None:
-            self.domain_names = m.get('DomainNames')
-        if m.get('CertExpired') is not None:
-            self.cert_expired = m.get('CertExpired')
-        if m.get('Issuer') is not None:
-            self.issuer = m.get('Issuer')
         if m.get('DomainList') is not None:
             self.domain_list = m.get('DomainList')
+        if m.get('DomainNames') is not None:
+            self.domain_names = m.get('DomainNames')
+        if m.get('Issuer') is not None:
+            self.issuer = m.get('Issuer')
         return self
 
 
@@ -4177,9 +5161,9 @@ class DescribeDcdnDomainByCertificateResponseBodyCertInfos(TeaModel):
 
 
 class DescribeDcdnDomainByCertificateResponseBody(TeaModel):
-    def __init__(self, request_id=None, cert_infos=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, cert_infos=None, request_id=None):
         self.cert_infos = cert_infos  # type: DescribeDcdnDomainByCertificateResponseBodyCertInfos
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.cert_infos:
@@ -4191,19 +5175,19 @@ class DescribeDcdnDomainByCertificateResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.cert_infos is not None:
             result['CertInfos'] = self.cert_infos.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('CertInfos') is not None:
             temp_model = DescribeDcdnDomainByCertificateResponseBodyCertInfos()
             self.cert_infos = temp_model.from_map(m['CertInfos'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4240,10 +5224,215 @@ class DescribeDcdnDomainByCertificateResponse(TeaModel):
         return self
 
 
-class DescribeDcdnDomainCertificateInfoRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
+class DescribeDcdnDomainCcActivityLogRequest(TeaModel):
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, page_number=None, page_size=None,
+                 rule_name=None, start_time=None, trigger_object=None, value=None):
         self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.rule_name = rule_name  # type: str
+        self.start_time = start_time  # type: str
+        self.trigger_object = trigger_object  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainCcActivityLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.trigger_object is not None:
+            result['TriggerObject'] = self.trigger_object
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TriggerObject') is not None:
+            self.trigger_object = m.get('TriggerObject')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnDomainCcActivityLogResponseBodyActivityLog(TeaModel):
+    def __init__(self, action=None, domain_name=None, rule_name=None, time_stamp=None, trigger_object=None, ttl=None,
+                 value=None):
+        self.action = action  # type: str
+        self.domain_name = domain_name  # type: str
+        self.rule_name = rule_name  # type: str
+        self.time_stamp = time_stamp  # type: str
+        self.trigger_object = trigger_object  # type: str
+        self.ttl = ttl  # type: long
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainCcActivityLogResponseBodyActivityLog, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.action is not None:
+            result['Action'] = self.action
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.trigger_object is not None:
+            result['TriggerObject'] = self.trigger_object
+        if self.ttl is not None:
+            result['Ttl'] = self.ttl
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Action') is not None:
+            self.action = m.get('Action')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('TriggerObject') is not None:
+            self.trigger_object = m.get('TriggerObject')
+        if m.get('Ttl') is not None:
+            self.ttl = m.get('Ttl')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnDomainCcActivityLogResponseBody(TeaModel):
+    def __init__(self, activity_log=None, page_index=None, page_size=None, request_id=None, total=None):
+        self.activity_log = activity_log  # type: list[DescribeDcdnDomainCcActivityLogResponseBodyActivityLog]
+        self.page_index = page_index  # type: long
+        self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.activity_log:
+            for k in self.activity_log:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainCcActivityLogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ActivityLog'] = []
+        if self.activity_log is not None:
+            for k in self.activity_log:
+                result['ActivityLog'].append(k.to_map() if k else None)
+        if self.page_index is not None:
+            result['PageIndex'] = self.page_index
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.activity_log = []
+        if m.get('ActivityLog') is not None:
+            for k in m.get('ActivityLog'):
+                temp_model = DescribeDcdnDomainCcActivityLogResponseBodyActivityLog()
+                self.activity_log.append(temp_model.from_map(k))
+        if m.get('PageIndex') is not None:
+            self.page_index = m.get('PageIndex')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class DescribeDcdnDomainCcActivityLogResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnDomainCcActivityLogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainCcActivityLogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnDomainCcActivityLogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnDomainCertificateInfoRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -4254,34 +5443,34 @@ class DescribeDcdnDomainCertificateInfoRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class DescribeDcdnDomainCertificateInfoResponseBodyCertInfosCertInfo(TeaModel):
-    def __init__(self, status=None, cert_life=None, cert_expire_time=None, sslpub=None, sslprotocol=None,
-                 cert_type=None, cert_domain_name=None, cert_name=None, cert_org=None, domain_name=None):
-        self.status = status  # type: str
-        self.cert_life = cert_life  # type: str
-        self.cert_expire_time = cert_expire_time  # type: str
-        self.sslpub = sslpub  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.cert_type = cert_type  # type: str
+    def __init__(self, cert_domain_name=None, cert_expire_time=None, cert_life=None, cert_name=None, cert_org=None,
+                 cert_type=None, domain_name=None, sslprotocol=None, sslpub=None, status=None):
         self.cert_domain_name = cert_domain_name  # type: str
+        self.cert_expire_time = cert_expire_time  # type: str
+        self.cert_life = cert_life  # type: str
         self.cert_name = cert_name  # type: str
         self.cert_org = cert_org  # type: str
+        self.cert_type = cert_type  # type: str
         self.domain_name = domain_name  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sslpub = sslpub  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -4292,50 +5481,50 @@ class DescribeDcdnDomainCertificateInfoResponseBodyCertInfosCertInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.cert_life is not None:
-            result['CertLife'] = self.cert_life
-        if self.cert_expire_time is not None:
-            result['CertExpireTime'] = self.cert_expire_time
-        if self.sslpub is not None:
-            result['SSLPub'] = self.sslpub
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.cert_type is not None:
-            result['CertType'] = self.cert_type
         if self.cert_domain_name is not None:
             result['CertDomainName'] = self.cert_domain_name
+        if self.cert_expire_time is not None:
+            result['CertExpireTime'] = self.cert_expire_time
+        if self.cert_life is not None:
+            result['CertLife'] = self.cert_life
         if self.cert_name is not None:
             result['CertName'] = self.cert_name
         if self.cert_org is not None:
             result['CertOrg'] = self.cert_org
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sslpub is not None:
+            result['SSLPub'] = self.sslpub
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('CertLife') is not None:
-            self.cert_life = m.get('CertLife')
-        if m.get('CertExpireTime') is not None:
-            self.cert_expire_time = m.get('CertExpireTime')
-        if m.get('SSLPub') is not None:
-            self.sslpub = m.get('SSLPub')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('CertType') is not None:
-            self.cert_type = m.get('CertType')
         if m.get('CertDomainName') is not None:
             self.cert_domain_name = m.get('CertDomainName')
+        if m.get('CertExpireTime') is not None:
+            self.cert_expire_time = m.get('CertExpireTime')
+        if m.get('CertLife') is not None:
+            self.cert_life = m.get('CertLife')
         if m.get('CertName') is not None:
             self.cert_name = m.get('CertName')
         if m.get('CertOrg') is not None:
             self.cert_org = m.get('CertOrg')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('SSLPub') is not None:
+            self.sslpub = m.get('SSLPub')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -4372,9 +5561,9 @@ class DescribeDcdnDomainCertificateInfoResponseBodyCertInfos(TeaModel):
 
 
 class DescribeDcdnDomainCertificateInfoResponseBody(TeaModel):
-    def __init__(self, request_id=None, cert_infos=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, cert_infos=None, request_id=None):
         self.cert_infos = cert_infos  # type: DescribeDcdnDomainCertificateInfoResponseBodyCertInfos
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.cert_infos:
@@ -4386,19 +5575,19 @@ class DescribeDcdnDomainCertificateInfoResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.cert_infos is not None:
             result['CertInfos'] = self.cert_infos.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('CertInfos') is not None:
             temp_model = DescribeDcdnDomainCertificateInfoResponseBodyCertInfos()
             self.cert_infos = temp_model.from_map(m['CertInfos'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4436,9 +5625,9 @@ class DescribeDcdnDomainCertificateInfoResponse(TeaModel):
 
 
 class DescribeDcdnDomainCnameRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -4449,26 +5638,26 @@ class DescribeDcdnDomainCnameRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class DescribeDcdnDomainCnameResponseBodyCnameDatasData(TeaModel):
-    def __init__(self, status=None, domain=None, cname=None):
-        self.status = status  # type: int
-        self.domain = domain  # type: str
+    def __init__(self, cname=None, domain=None, status=None):
         self.cname = cname  # type: str
+        self.domain = domain  # type: str
+        self.status = status  # type: int
 
     def validate(self):
         pass
@@ -4479,22 +5668,22 @@ class DescribeDcdnDomainCnameResponseBodyCnameDatasData(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.domain is not None:
-            result['Domain'] = self.domain
         if self.cname is not None:
             result['Cname'] = self.cname
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Domain') is not None:
-            self.domain = m.get('Domain')
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -4531,9 +5720,9 @@ class DescribeDcdnDomainCnameResponseBodyCnameDatas(TeaModel):
 
 
 class DescribeDcdnDomainCnameResponseBody(TeaModel):
-    def __init__(self, request_id=None, cname_datas=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, cname_datas=None, request_id=None):
         self.cname_datas = cname_datas  # type: DescribeDcdnDomainCnameResponseBodyCnameDatas
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.cname_datas:
@@ -4545,19 +5734,19 @@ class DescribeDcdnDomainCnameResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.cname_datas is not None:
             result['CnameDatas'] = self.cname_datas.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('CnameDatas') is not None:
             temp_model = DescribeDcdnDomainCnameResponseBodyCnameDatas()
             self.cname_datas = temp_model.from_map(m['CnameDatas'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4595,11 +5784,12 @@ class DescribeDcdnDomainCnameResponse(TeaModel):
 
 
 class DescribeDcdnDomainConfigsRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, function_names=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
+    def __init__(self, config_id=None, domain_name=None, function_names=None, owner_id=None, security_token=None):
+        self.config_id = config_id  # type: str
         self.domain_name = domain_name  # type: str
         self.function_names = function_names  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -4610,26 +5800,30 @@ class DescribeDcdnDomainConfigsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.function_names is not None:
             result['FunctionNames'] = self.function_names
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('FunctionNames') is not None:
             self.function_names = m.get('FunctionNames')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -4695,11 +5889,11 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
 
 
 class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
-    def __init__(self, status=None, config_id=None, function_name=None, function_args=None):
-        self.status = status  # type: str
+    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
         self.config_id = config_id  # type: str
-        self.function_name = function_name  # type: str
         self.function_args = function_args  # type: DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
+        self.function_name = function_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         if self.function_args:
@@ -4711,27 +5905,27 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.function_name is not None:
-            result['FunctionName'] = self.function_name
         if self.function_args is not None:
             result['FunctionArgs'] = self.function_args.to_map()
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('FunctionName') is not None:
-            self.function_name = m.get('FunctionName')
         if m.get('FunctionArgs') is not None:
             temp_model = DescribeDcdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs()
             self.function_args = temp_model.from_map(m['FunctionArgs'])
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -4768,9 +5962,9 @@ class DescribeDcdnDomainConfigsResponseBodyDomainConfigs(TeaModel):
 
 
 class DescribeDcdnDomainConfigsResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_configs=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_configs=None, request_id=None):
         self.domain_configs = domain_configs  # type: DescribeDcdnDomainConfigsResponseBodyDomainConfigs
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.domain_configs:
@@ -4782,19 +5976,19 @@ class DescribeDcdnDomainConfigsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_configs is not None:
             result['DomainConfigs'] = self.domain_configs.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainConfigs') is not None:
             temp_model = DescribeDcdnDomainConfigsResponseBodyDomainConfigs()
             self.domain_configs = temp_model.from_map(m['DomainConfigs'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -4832,10 +6026,10 @@ class DescribeDcdnDomainConfigsResponse(TeaModel):
 
 
 class DescribeDcdnDomainDetailRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -4846,33 +6040,33 @@ class DescribeDcdnDomainDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
 class DescribeDcdnDomainDetailResponseBodyDomainDetailSourcesSource(TeaModel):
-    def __init__(self, type=None, weight=None, enabled=None, priority=None, port=None, content=None):
+    def __init__(self, content=None, enabled=None, port=None, priority=None, type=None, weight=None):
+        self.content = content  # type: str
+        self.enabled = enabled  # type: str
+        self.port = port  # type: int
+        self.priority = priority  # type: str
         self.type = type  # type: str
         self.weight = weight  # type: str
-        self.enabled = enabled  # type: str
-        self.priority = priority  # type: str
-        self.port = port  # type: int
-        self.content = content  # type: str
 
     def validate(self):
         pass
@@ -4883,34 +6077,34 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetailSourcesSource(TeaModel):
             return _map
 
         result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
             result['Weight'] = self.weight
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.content is not None:
-            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
@@ -4947,19 +6141,20 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetailSources(TeaModel):
 
 
 class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
-    def __init__(self, gmt_created=None, sslpub=None, description=None, sslprotocol=None, resource_group_id=None,
-                 cert_name=None, scope=None, cname=None, domain_status=None, gmt_modified=None, domain_name=None, sources=None):
-        self.gmt_created = gmt_created  # type: str
-        self.sslpub = sslpub  # type: str
-        self.description = description  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.resource_group_id = resource_group_id  # type: str
+    def __init__(self, cert_name=None, cname=None, description=None, domain_name=None, domain_status=None,
+                 gmt_created=None, gmt_modified=None, resource_group_id=None, sslprotocol=None, sslpub=None, scope=None,
+                 sources=None):
         self.cert_name = cert_name  # type: str
-        self.scope = scope  # type: str
         self.cname = cname  # type: str
-        self.domain_status = domain_status  # type: str
-        self.gmt_modified = gmt_modified  # type: str
+        self.description = description  # type: str
         self.domain_name = domain_name  # type: str
+        self.domain_status = domain_status  # type: str
+        self.gmt_created = gmt_created  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sslpub = sslpub  # type: str
+        self.scope = scope  # type: str
         self.sources = sources  # type: DescribeDcdnDomainDetailResponseBodyDomainDetailSources
 
     def validate(self):
@@ -4972,56 +6167,56 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
             return _map
 
         result = dict()
-        if self.gmt_created is not None:
-            result['GmtCreated'] = self.gmt_created
-        if self.sslpub is not None:
-            result['SSLPub'] = self.sslpub
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.cert_name is not None:
             result['CertName'] = self.cert_name
-        if self.scope is not None:
-            result['Scope'] = self.scope
         if self.cname is not None:
             result['Cname'] = self.cname
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
+        if self.description is not None:
+            result['Description'] = self.description
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.gmt_created is not None:
+            result['GmtCreated'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sslpub is not None:
+            result['SSLPub'] = self.sslpub
+        if self.scope is not None:
+            result['Scope'] = self.scope
         if self.sources is not None:
             result['Sources'] = self.sources.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreated') is not None:
-            self.gmt_created = m.get('GmtCreated')
-        if m.get('SSLPub') is not None:
-            self.sslpub = m.get('SSLPub')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('CertName') is not None:
             self.cert_name = m.get('CertName')
-        if m.get('Scope') is not None:
-            self.scope = m.get('Scope')
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('GmtCreated') is not None:
+            self.gmt_created = m.get('GmtCreated')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('SSLPub') is not None:
+            self.sslpub = m.get('SSLPub')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
         if m.get('Sources') is not None:
             temp_model = DescribeDcdnDomainDetailResponseBodyDomainDetailSources()
             self.sources = temp_model.from_map(m['Sources'])
@@ -5029,9 +6224,9 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
 
 
 class DescribeDcdnDomainDetailResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_detail=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_detail=None, request_id=None):
         self.domain_detail = domain_detail  # type: DescribeDcdnDomainDetailResponseBodyDomainDetail
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.domain_detail:
@@ -5043,19 +6238,19 @@ class DescribeDcdnDomainDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_detail is not None:
             result['DomainDetail'] = self.domain_detail.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainDetail') is not None:
             temp_model = DescribeDcdnDomainDetailResponseBodyDomainDetail()
             self.domain_detail = temp_model.from_map(m['DomainDetail'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -5093,12 +6288,12 @@ class DescribeDcdnDomainDetailResponse(TeaModel):
 
 
 class DescribeDcdnDomainHitRateDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -5109,38 +6304,38 @@ class DescribeDcdnDomainHitRateDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainHitRateDataResponseBodyHitRatePerIntervalDataModule(TeaModel):
-    def __init__(self, time_stamp=None, byte_hit_rate=None, req_hit_rate=None):
-        self.time_stamp = time_stamp  # type: str
+    def __init__(self, byte_hit_rate=None, req_hit_rate=None, time_stamp=None):
         self.byte_hit_rate = byte_hit_rate  # type: float
         self.req_hit_rate = req_hit_rate  # type: float
+        self.time_stamp = time_stamp  # type: str
 
     def validate(self):
         pass
@@ -5151,22 +6346,22 @@ class DescribeDcdnDomainHitRateDataResponseBodyHitRatePerIntervalDataModule(TeaM
             return _map
 
         result = dict()
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
         if self.byte_hit_rate is not None:
             result['ByteHitRate'] = self.byte_hit_rate
         if self.req_hit_rate is not None:
             result['ReqHitRate'] = self.req_hit_rate
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
         if m.get('ByteHitRate') is not None:
             self.byte_hit_rate = m.get('ByteHitRate')
         if m.get('ReqHitRate') is not None:
             self.req_hit_rate = m.get('ReqHitRate')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
         return self
 
 
@@ -5203,14 +6398,14 @@ class DescribeDcdnDomainHitRateDataResponseBodyHitRatePerInterval(TeaModel):
 
 
 class DescribeDcdnDomainHitRateDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 hit_rate_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, hit_rate_per_interval=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.hit_rate_per_interval = hit_rate_per_interval  # type: DescribeDcdnDomainHitRateDataResponseBodyHitRatePerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.hit_rate_per_interval:
@@ -5222,35 +6417,35 @@ class DescribeDcdnDomainHitRateDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.hit_rate_per_interval is not None:
             result['HitRatePerInterval'] = self.hit_rate_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('HitRatePerInterval') is not None:
             temp_model = DescribeDcdnDomainHitRateDataResponseBodyHitRatePerInterval()
             self.hit_rate_per_interval = temp_model.from_map(m['HitRatePerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -5288,15 +6483,15 @@ class DescribeDcdnDomainHitRateDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainHttpCodeDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -5307,12 +6502,8 @@ class DescribeDcdnDomainHttpCodeDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -5321,16 +6512,16 @@ class DescribeDcdnDomainHttpCodeDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -5339,14 +6530,18 @@ class DescribeDcdnDomainHttpCodeDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModuleHttpCodeDataPerIntervalHttpCodeDataModule(TeaModel):
-    def __init__(self, code=None, proportion=None, count=None):
+    def __init__(self, code=None, count=None, proportion=None):
         self.code = code  # type: int
-        self.proportion = proportion  # type: float
         self.count = count  # type: float
+        self.proportion = proportion  # type: float
 
     def validate(self):
         pass
@@ -5359,20 +6554,20 @@ class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModuleHttpCod
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
         if self.count is not None:
             result['Count'] = self.count
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
         if m.get('Count') is not None:
             self.count = m.get('Count')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
         return self
 
 
@@ -5409,9 +6604,9 @@ class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModuleHttpCod
 
 
 class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModule(TeaModel):
-    def __init__(self, time_stamp=None, http_code_data_per_interval=None):
-        self.time_stamp = time_stamp  # type: str
+    def __init__(self, http_code_data_per_interval=None, time_stamp=None):
         self.http_code_data_per_interval = http_code_data_per_interval  # type: DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModuleHttpCodeDataPerInterval
+        self.time_stamp = time_stamp  # type: str
 
     def validate(self):
         if self.http_code_data_per_interval:
@@ -5423,19 +6618,19 @@ class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModule(TeaMod
             return _map
 
         result = dict()
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
         if self.http_code_data_per_interval is not None:
             result['HttpCodeDataPerInterval'] = self.http_code_data_per_interval.to_map()
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
         if m.get('HttpCodeDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainHttpCodeDataResponseBodyDataPerIntervalDataModuleHttpCodeDataPerInterval()
             self.http_code_data_per_interval = temp_model.from_map(m['HttpCodeDataPerInterval'])
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
         return self
 
 
@@ -5472,14 +6667,14 @@ class DescribeDcdnDomainHttpCodeDataResponseBodyDataPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainHttpCodeDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, data_per_interval=None, domain_name=None, end_time=None, request_id=None,
+                 start_time=None):
         self.data_interval = data_interval  # type: str
         self.data_per_interval = data_per_interval  # type: DescribeDcdnDomainHttpCodeDataResponseBodyDataPerInterval
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.data_per_interval:
@@ -5491,35 +6686,35 @@ class DescribeDcdnDomainHttpCodeDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
         if self.data_per_interval is not None:
             result['DataPerInterval'] = self.data_per_interval.to_map()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
         if m.get('DataPerInterval') is not None:
             temp_model = DescribeDcdnDomainHttpCodeDataResponseBodyDataPerInterval()
             self.data_per_interval = temp_model.from_map(m['DataPerInterval'])
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -5557,17 +6752,17 @@ class DescribeDcdnDomainHttpCodeDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainIpaBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, time_merge=None,
-                 interval=None, fix_time_gap=None, isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, fix_time_gap=None, interval=None, isp_name_en=None,
+                 location_name_en=None, owner_id=None, start_time=None, time_merge=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
-        self.time_merge = time_merge  # type: str
-        self.interval = interval  # type: str
         self.fix_time_gap = fix_time_gap  # type: str
+        self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
+        self.time_merge = time_merge  # type: str
 
     def validate(self):
         pass
@@ -5578,46 +6773,46 @@ class DescribeDcdnDomainIpaBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.time_merge is not None:
-            result['TimeMerge'] = self.time_merge
-        if self.interval is not None:
-            result['Interval'] = self.interval
         if self.fix_time_gap is not None:
             result['FixTimeGap'] = self.fix_time_gap
+        if self.interval is not None:
+            result['Interval'] = self.interval
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.time_merge is not None:
+            result['TimeMerge'] = self.time_merge
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('TimeMerge') is not None:
-            self.time_merge = m.get('TimeMerge')
-        if m.get('Interval') is not None:
-            self.interval = m.get('Interval')
         if m.get('FixTimeGap') is not None:
             self.fix_time_gap = m.get('FixTimeGap')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TimeMerge') is not None:
+            self.time_merge = m.get('TimeMerge')
         return self
 
 
@@ -5683,14 +6878,14 @@ class DescribeDcdnDomainIpaBpsDataResponseBodyBpsDataPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainIpaBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 bps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
-        self.data_interval = data_interval  # type: str
+    def __init__(self, bps_data_per_interval=None, data_interval=None, domain_name=None, end_time=None,
+                 request_id=None, start_time=None):
         self.bps_data_per_interval = bps_data_per_interval  # type: DescribeDcdnDomainIpaBpsDataResponseBodyBpsDataPerInterval
+        self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.bps_data_per_interval:
@@ -5702,35 +6897,35 @@ class DescribeDcdnDomainIpaBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.data_interval is not None:
-            result['DataInterval'] = self.data_interval
         if self.bps_data_per_interval is not None:
             result['BpsDataPerInterval'] = self.bps_data_per_interval.to_map()
+        if self.data_interval is not None:
+            result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('DataInterval') is not None:
-            self.data_interval = m.get('DataInterval')
         if m.get('BpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainIpaBpsDataResponseBodyBpsDataPerInterval()
             self.bps_data_per_interval = temp_model.from_map(m['BpsDataPerInterval'])
+        if m.get('DataInterval') is not None:
+            self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -5768,17 +6963,17 @@ class DescribeDcdnDomainIpaBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainIpaTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, time_merge=None,
-                 interval=None, fix_time_gap=None, isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, fix_time_gap=None, interval=None, isp_name_en=None,
+                 location_name_en=None, owner_id=None, start_time=None, time_merge=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
-        self.time_merge = time_merge  # type: str
-        self.interval = interval  # type: str
         self.fix_time_gap = fix_time_gap  # type: str
+        self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
+        self.time_merge = time_merge  # type: str
 
     def validate(self):
         pass
@@ -5789,46 +6984,46 @@ class DescribeDcdnDomainIpaTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.time_merge is not None:
-            result['TimeMerge'] = self.time_merge
-        if self.interval is not None:
-            result['Interval'] = self.interval
         if self.fix_time_gap is not None:
             result['FixTimeGap'] = self.fix_time_gap
+        if self.interval is not None:
+            result['Interval'] = self.interval
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.time_merge is not None:
+            result['TimeMerge'] = self.time_merge
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('TimeMerge') is not None:
-            self.time_merge = m.get('TimeMerge')
-        if m.get('Interval') is not None:
-            self.interval = m.get('Interval')
         if m.get('FixTimeGap') is not None:
             self.fix_time_gap = m.get('FixTimeGap')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TimeMerge') is not None:
+            self.time_merge = m.get('TimeMerge')
         return self
 
 
@@ -5894,13 +7089,13 @@ class DescribeDcdnDomainIpaTrafficDataResponseBodyTrafficDataPerInterval(TeaMode
 
 
 class DescribeDcdnDomainIpaTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.traffic_data_per_interval = traffic_data_per_interval  # type: DescribeDcdnDomainIpaTrafficDataResponseBodyTrafficDataPerInterval
 
     def validate(self):
@@ -5913,32 +7108,32 @@ class DescribeDcdnDomainIpaTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.traffic_data_per_interval is not None:
             result['TrafficDataPerInterval'] = self.traffic_data_per_interval.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainIpaTrafficDataResponseBodyTrafficDataPerInterval()
             self.traffic_data_per_interval = temp_model.from_map(m['TrafficDataPerInterval'])
@@ -5979,11 +7174,11 @@ class DescribeDcdnDomainIpaTrafficDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainIspDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -5994,43 +7189,43 @@ class DescribeDcdnDomainIspDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainIspDataResponseBodyValueIspProportionData(TeaModel):
-    def __init__(self, qps=None, total_query=None, total_bytes=None, avg_response_rate=None, avg_response_time=None,
-                 proportion=None, avg_object_size=None, isp_ename=None, bps=None, isp=None, bytes_proportion=None):
-        self.qps = qps  # type: str
-        self.total_query = total_query  # type: str
-        self.total_bytes = total_bytes  # type: str
+    def __init__(self, avg_object_size=None, avg_response_rate=None, avg_response_time=None, bps=None,
+                 bytes_proportion=None, isp=None, isp_ename=None, proportion=None, qps=None, total_bytes=None, total_query=None):
+        self.avg_object_size = avg_object_size  # type: str
         self.avg_response_rate = avg_response_rate  # type: str
         self.avg_response_time = avg_response_time  # type: str
-        self.proportion = proportion  # type: str
-        self.avg_object_size = avg_object_size  # type: str
-        self.isp_ename = isp_ename  # type: str
         self.bps = bps  # type: str
-        self.isp = isp  # type: str
         self.bytes_proportion = bytes_proportion  # type: str
+        self.isp = isp  # type: str
+        self.isp_ename = isp_ename  # type: str
+        self.proportion = proportion  # type: str
+        self.qps = qps  # type: str
+        self.total_bytes = total_bytes  # type: str
+        self.total_query = total_query  # type: str
 
     def validate(self):
         pass
@@ -6041,54 +7236,54 @@ class DescribeDcdnDomainIspDataResponseBodyValueIspProportionData(TeaModel):
             return _map
 
         result = dict()
-        if self.qps is not None:
-            result['Qps'] = self.qps
-        if self.total_query is not None:
-            result['TotalQuery'] = self.total_query
-        if self.total_bytes is not None:
-            result['TotalBytes'] = self.total_bytes
+        if self.avg_object_size is not None:
+            result['AvgObjectSize'] = self.avg_object_size
         if self.avg_response_rate is not None:
             result['AvgResponseRate'] = self.avg_response_rate
         if self.avg_response_time is not None:
             result['AvgResponseTime'] = self.avg_response_time
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
-        if self.avg_object_size is not None:
-            result['AvgObjectSize'] = self.avg_object_size
-        if self.isp_ename is not None:
-            result['IspEname'] = self.isp_ename
         if self.bps is not None:
             result['Bps'] = self.bps
-        if self.isp is not None:
-            result['Isp'] = self.isp
         if self.bytes_proportion is not None:
             result['BytesProportion'] = self.bytes_proportion
+        if self.isp is not None:
+            result['Isp'] = self.isp
+        if self.isp_ename is not None:
+            result['IspEname'] = self.isp_ename
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
+        if self.qps is not None:
+            result['Qps'] = self.qps
+        if self.total_bytes is not None:
+            result['TotalBytes'] = self.total_bytes
+        if self.total_query is not None:
+            result['TotalQuery'] = self.total_query
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Qps') is not None:
-            self.qps = m.get('Qps')
-        if m.get('TotalQuery') is not None:
-            self.total_query = m.get('TotalQuery')
-        if m.get('TotalBytes') is not None:
-            self.total_bytes = m.get('TotalBytes')
+        if m.get('AvgObjectSize') is not None:
+            self.avg_object_size = m.get('AvgObjectSize')
         if m.get('AvgResponseRate') is not None:
             self.avg_response_rate = m.get('AvgResponseRate')
         if m.get('AvgResponseTime') is not None:
             self.avg_response_time = m.get('AvgResponseTime')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
-        if m.get('AvgObjectSize') is not None:
-            self.avg_object_size = m.get('AvgObjectSize')
-        if m.get('IspEname') is not None:
-            self.isp_ename = m.get('IspEname')
         if m.get('Bps') is not None:
             self.bps = m.get('Bps')
-        if m.get('Isp') is not None:
-            self.isp = m.get('Isp')
         if m.get('BytesProportion') is not None:
             self.bytes_proportion = m.get('BytesProportion')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
+        if m.get('IspEname') is not None:
+            self.isp_ename = m.get('IspEname')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
+        if m.get('Qps') is not None:
+            self.qps = m.get('Qps')
+        if m.get('TotalBytes') is not None:
+            self.total_bytes = m.get('TotalBytes')
+        if m.get('TotalQuery') is not None:
+            self.total_query = m.get('TotalQuery')
         return self
 
 
@@ -6125,13 +7320,13 @@ class DescribeDcdnDomainIspDataResponseBodyValue(TeaModel):
 
 
 class DescribeDcdnDomainIspDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  value=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.value = value  # type: DescribeDcdnDomainIspDataResponseBodyValue
 
     def validate(self):
@@ -6144,32 +7339,32 @@ class DescribeDcdnDomainIspDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.value is not None:
             result['Value'] = self.value.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('Value') is not None:
             temp_model = DescribeDcdnDomainIspDataResponseBodyValue()
             self.value = temp_model.from_map(m['Value'])
@@ -6210,14 +7405,14 @@ class DescribeDcdnDomainIspDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainLogRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, page_size=None, page_number=None, start_time=None,
-                 end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, page_number=None, page_size=None,
+                 start_time=None):
         self.domain_name = domain_name  # type: str
-        self.page_size = page_size  # type: long
-        self.page_number = page_number  # type: long
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -6228,44 +7423,44 @@ class DescribeDcdnDomainLogRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainLogResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail(TeaModel):
-    def __init__(self, end_time=None, log_size=None, start_time=None, log_name=None, log_path=None):
+    def __init__(self, end_time=None, log_name=None, log_path=None, log_size=None, start_time=None):
         self.end_time = end_time  # type: str
-        self.log_size = log_size  # type: long
-        self.start_time = start_time  # type: str
         self.log_name = log_name  # type: str
         self.log_path = log_path  # type: str
+        self.log_size = log_size  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -6278,28 +7473,28 @@ class DescribeDcdnDomainLogResponseBodyDomainLogDetailsDomainLogDetailLogInfosLo
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.log_size is not None:
-            result['LogSize'] = self.log_size
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.log_name is not None:
             result['LogName'] = self.log_name
         if self.log_path is not None:
             result['LogPath'] = self.log_path
+        if self.log_size is not None:
+            result['LogSize'] = self.log_size
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('LogSize') is not None:
-            self.log_size = m.get('LogSize')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('LogName') is not None:
             self.log_name = m.get('LogName')
         if m.get('LogPath') is not None:
             self.log_path = m.get('LogPath')
+        if m.get('LogSize') is not None:
+            self.log_size = m.get('LogSize')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -6441,10 +7636,10 @@ class DescribeDcdnDomainLogResponseBodyDomainLogDetails(TeaModel):
 
 
 class DescribeDcdnDomainLogResponseBody(TeaModel):
-    def __init__(self, domain_name=None, request_id=None, domain_log_details=None):
+    def __init__(self, domain_log_details=None, domain_name=None, request_id=None):
+        self.domain_log_details = domain_log_details  # type: DescribeDcdnDomainLogResponseBodyDomainLogDetails
         self.domain_name = domain_name  # type: str
         self.request_id = request_id  # type: str
-        self.domain_log_details = domain_log_details  # type: DescribeDcdnDomainLogResponseBodyDomainLogDetails
 
     def validate(self):
         if self.domain_log_details:
@@ -6456,23 +7651,23 @@ class DescribeDcdnDomainLogResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_log_details is not None:
+            result['DomainLogDetails'] = self.domain_log_details.to_map()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.domain_log_details is not None:
-            result['DomainLogDetails'] = self.domain_log_details.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainLogDetails') is not None:
+            temp_model = DescribeDcdnDomainLogResponseBodyDomainLogDetails()
+            self.domain_log_details = temp_model.from_map(m['DomainLogDetails'])
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('DomainLogDetails') is not None:
-            temp_model = DescribeDcdnDomainLogResponseBodyDomainLogDetails()
-            self.domain_log_details = temp_model.from_map(m['DomainLogDetails'])
         return self
 
 
@@ -6510,11 +7705,11 @@ class DescribeDcdnDomainLogResponse(TeaModel):
 
 
 class DescribeDcdnDomainMultiUsageDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -6525,35 +7720,35 @@ class DescribeDcdnDomainMultiUsageDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerIntervalRequestDataModule(TeaModel):
-    def __init__(self, type=None, time_stamp=None, domain=None, request=None):
-        self.type = type  # type: str
-        self.time_stamp = time_stamp  # type: str
+    def __init__(self, domain=None, request=None, time_stamp=None, type=None):
         self.domain = domain  # type: str
         self.request = request  # type: long
+        self.time_stamp = time_stamp  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -6564,26 +7759,26 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerIntervalRequestDataM
             return _map
 
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
         if self.domain is not None:
             result['Domain'] = self.domain
         if self.request is not None:
             result['Request'] = self.request
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
         if m.get('Request') is not None:
             self.request = m.get('Request')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -6620,12 +7815,12 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerIntervalTrafficDataModule(TeaModel):
-    def __init__(self, type=None, domain=None, time_stamp=None, area=None, bps=None):
-        self.type = type  # type: str
-        self.domain = domain  # type: str
-        self.time_stamp = time_stamp  # type: str
+    def __init__(self, area=None, bps=None, domain=None, time_stamp=None, type=None):
         self.area = area  # type: str
         self.bps = bps  # type: float
+        self.domain = domain  # type: str
+        self.time_stamp = time_stamp  # type: str
+        self.type = type  # type: str
 
     def validate(self):
         pass
@@ -6636,30 +7831,30 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerIntervalTrafficDataM
             return _map
 
         result = dict()
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.domain is not None:
-            result['Domain'] = self.domain
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
         if self.area is not None:
             result['Area'] = self.area
         if self.bps is not None:
             result['Bps'] = self.bps
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.type is not None:
+            result['Type'] = self.type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('Domain') is not None:
-            self.domain = m.get('Domain')
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
         if m.get('Area') is not None:
             self.area = m.get('Area')
         if m.get('Bps') is not None:
             self.bps = m.get('Bps')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         return self
 
 
@@ -6696,12 +7891,12 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainMultiUsageDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, request_per_interval=None,
+    def __init__(self, end_time=None, request_id=None, request_per_interval=None, start_time=None,
                  traffic_per_interval=None):
         self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
         self.request_id = request_id  # type: str
         self.request_per_interval = request_per_interval  # type: DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerInterval
+        self.start_time = start_time  # type: str
         self.traffic_per_interval = traffic_per_interval  # type: DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerInterval
 
     def validate(self):
@@ -6718,12 +7913,12 @@ class DescribeDcdnDomainMultiUsageDataResponseBody(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.request_per_interval is not None:
             result['RequestPerInterval'] = self.request_per_interval.to_map()
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.traffic_per_interval is not None:
             result['TrafficPerInterval'] = self.traffic_per_interval.to_map()
         return result
@@ -6732,13 +7927,13 @@ class DescribeDcdnDomainMultiUsageDataResponseBody(TeaModel):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('RequestPerInterval') is not None:
             temp_model = DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerInterval()
             self.request_per_interval = temp_model.from_map(m['RequestPerInterval'])
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TrafficPerInterval') is not None:
             temp_model = DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerInterval()
             self.traffic_per_interval = temp_model.from_map(m['TrafficPerInterval'])
@@ -6779,12 +7974,12 @@ class DescribeDcdnDomainMultiUsageDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainOriginBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -6795,42 +7990,42 @@ class DescribeDcdnDomainOriginBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainOriginBpsDataResponseBodyOriginBpsDataPerIntervalDataModule(TeaModel):
-    def __init__(self, dynamic_http_origin_bps=None, static_http_origin_bps=None, time_stamp=None,
-                 static_https_origin_bps=None, origin_bps=None, dynamic_https_origin_bps=None):
+    def __init__(self, dynamic_http_origin_bps=None, dynamic_https_origin_bps=None, origin_bps=None,
+                 static_http_origin_bps=None, static_https_origin_bps=None, time_stamp=None):
         self.dynamic_http_origin_bps = dynamic_http_origin_bps  # type: float
-        self.static_http_origin_bps = static_http_origin_bps  # type: float
-        self.time_stamp = time_stamp  # type: str
-        self.static_https_origin_bps = static_https_origin_bps  # type: float
-        self.origin_bps = origin_bps  # type: float
         self.dynamic_https_origin_bps = dynamic_https_origin_bps  # type: float
+        self.origin_bps = origin_bps  # type: float
+        self.static_http_origin_bps = static_http_origin_bps  # type: float
+        self.static_https_origin_bps = static_https_origin_bps  # type: float
+        self.time_stamp = time_stamp  # type: str
 
     def validate(self):
         pass
@@ -6843,32 +8038,32 @@ class DescribeDcdnDomainOriginBpsDataResponseBodyOriginBpsDataPerIntervalDataMod
         result = dict()
         if self.dynamic_http_origin_bps is not None:
             result['DynamicHttpOriginBps'] = self.dynamic_http_origin_bps
-        if self.static_http_origin_bps is not None:
-            result['StaticHttpOriginBps'] = self.static_http_origin_bps
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
-        if self.static_https_origin_bps is not None:
-            result['StaticHttpsOriginBps'] = self.static_https_origin_bps
-        if self.origin_bps is not None:
-            result['OriginBps'] = self.origin_bps
         if self.dynamic_https_origin_bps is not None:
             result['DynamicHttpsOriginBps'] = self.dynamic_https_origin_bps
+        if self.origin_bps is not None:
+            result['OriginBps'] = self.origin_bps
+        if self.static_http_origin_bps is not None:
+            result['StaticHttpOriginBps'] = self.static_http_origin_bps
+        if self.static_https_origin_bps is not None:
+            result['StaticHttpsOriginBps'] = self.static_https_origin_bps
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('DynamicHttpOriginBps') is not None:
             self.dynamic_http_origin_bps = m.get('DynamicHttpOriginBps')
-        if m.get('StaticHttpOriginBps') is not None:
-            self.static_http_origin_bps = m.get('StaticHttpOriginBps')
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
-        if m.get('StaticHttpsOriginBps') is not None:
-            self.static_https_origin_bps = m.get('StaticHttpsOriginBps')
-        if m.get('OriginBps') is not None:
-            self.origin_bps = m.get('OriginBps')
         if m.get('DynamicHttpsOriginBps') is not None:
             self.dynamic_https_origin_bps = m.get('DynamicHttpsOriginBps')
+        if m.get('OriginBps') is not None:
+            self.origin_bps = m.get('OriginBps')
+        if m.get('StaticHttpOriginBps') is not None:
+            self.static_http_origin_bps = m.get('StaticHttpOriginBps')
+        if m.get('StaticHttpsOriginBps') is not None:
+            self.static_https_origin_bps = m.get('StaticHttpsOriginBps')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
         return self
 
 
@@ -6905,14 +8100,14 @@ class DescribeDcdnDomainOriginBpsDataResponseBodyOriginBpsDataPerInterval(TeaMod
 
 
 class DescribeDcdnDomainOriginBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 origin_bps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, origin_bps_data_per_interval=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.origin_bps_data_per_interval = origin_bps_data_per_interval  # type: DescribeDcdnDomainOriginBpsDataResponseBodyOriginBpsDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.origin_bps_data_per_interval:
@@ -6924,35 +8119,35 @@ class DescribeDcdnDomainOriginBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.origin_bps_data_per_interval is not None:
             result['OriginBpsDataPerInterval'] = self.origin_bps_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('OriginBpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainOriginBpsDataResponseBodyOriginBpsDataPerInterval()
             self.origin_bps_data_per_interval = temp_model.from_map(m['OriginBpsDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -6990,12 +8185,12 @@ class DescribeDcdnDomainOriginBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainOriginTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -7006,41 +8201,41 @@ class DescribeDcdnDomainOriginTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerIntervalDataModule(TeaModel):
-    def __init__(self, dynamic_http_origin_traffic=None, static_https_origin_traffic=None, origin_traffic=None,
-                 static_http_origin_traffic=None, dynamic_https_origin_traffic=None, time_stamp=None):
+    def __init__(self, dynamic_http_origin_traffic=None, dynamic_https_origin_traffic=None, origin_traffic=None,
+                 static_http_origin_traffic=None, static_https_origin_traffic=None, time_stamp=None):
         self.dynamic_http_origin_traffic = dynamic_http_origin_traffic  # type: float
-        self.static_https_origin_traffic = static_https_origin_traffic  # type: float
+        self.dynamic_https_origin_traffic = dynamic_https_origin_traffic  # type: float
         self.origin_traffic = origin_traffic  # type: float
         self.static_http_origin_traffic = static_http_origin_traffic  # type: float
-        self.dynamic_https_origin_traffic = dynamic_https_origin_traffic  # type: float
+        self.static_https_origin_traffic = static_https_origin_traffic  # type: float
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -7054,14 +8249,14 @@ class DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerInterva
         result = dict()
         if self.dynamic_http_origin_traffic is not None:
             result['DynamicHttpOriginTraffic'] = self.dynamic_http_origin_traffic
-        if self.static_https_origin_traffic is not None:
-            result['StaticHttpsOriginTraffic'] = self.static_https_origin_traffic
+        if self.dynamic_https_origin_traffic is not None:
+            result['DynamicHttpsOriginTraffic'] = self.dynamic_https_origin_traffic
         if self.origin_traffic is not None:
             result['OriginTraffic'] = self.origin_traffic
         if self.static_http_origin_traffic is not None:
             result['StaticHttpOriginTraffic'] = self.static_http_origin_traffic
-        if self.dynamic_https_origin_traffic is not None:
-            result['DynamicHttpsOriginTraffic'] = self.dynamic_https_origin_traffic
+        if self.static_https_origin_traffic is not None:
+            result['StaticHttpsOriginTraffic'] = self.static_https_origin_traffic
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
         return result
@@ -7070,14 +8265,14 @@ class DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerInterva
         m = m or dict()
         if m.get('DynamicHttpOriginTraffic') is not None:
             self.dynamic_http_origin_traffic = m.get('DynamicHttpOriginTraffic')
-        if m.get('StaticHttpsOriginTraffic') is not None:
-            self.static_https_origin_traffic = m.get('StaticHttpsOriginTraffic')
+        if m.get('DynamicHttpsOriginTraffic') is not None:
+            self.dynamic_https_origin_traffic = m.get('DynamicHttpsOriginTraffic')
         if m.get('OriginTraffic') is not None:
             self.origin_traffic = m.get('OriginTraffic')
         if m.get('StaticHttpOriginTraffic') is not None:
             self.static_http_origin_traffic = m.get('StaticHttpOriginTraffic')
-        if m.get('DynamicHttpsOriginTraffic') is not None:
-            self.dynamic_https_origin_traffic = m.get('DynamicHttpsOriginTraffic')
+        if m.get('StaticHttpsOriginTraffic') is not None:
+            self.static_https_origin_traffic = m.get('StaticHttpsOriginTraffic')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
         return self
@@ -7116,14 +8311,14 @@ class DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerInterva
 
 
 class DescribeDcdnDomainOriginTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 origin_traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, origin_traffic_data_per_interval=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.origin_traffic_data_per_interval = origin_traffic_data_per_interval  # type: DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.origin_traffic_data_per_interval:
@@ -7135,35 +8330,35 @@ class DescribeDcdnDomainOriginTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.origin_traffic_data_per_interval is not None:
             result['OriginTrafficDataPerInterval'] = self.origin_traffic_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('OriginTrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainOriginTrafficDataResponseBodyOriginTrafficDataPerInterval()
             self.origin_traffic_data_per_interval = temp_model.from_map(m['OriginTrafficDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -7201,9 +8396,9 @@ class DescribeDcdnDomainOriginTrafficDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainPropertyRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -7214,26 +8409,26 @@ class DescribeDcdnDomainPropertyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class DescribeDcdnDomainPropertyResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_name=None, protocol=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_name=None, protocol=None, request_id=None):
         self.domain_name = domain_name  # type: str
         self.protocol = protocol  # type: str
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -7244,22 +8439,22 @@ class DescribeDcdnDomainPropertyResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.protocol is not None:
             result['Protocol'] = self.protocol
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -7297,11 +8492,11 @@ class DescribeDcdnDomainPropertyResponse(TeaModel):
 
 
 class DescribeDcdnDomainPvDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -7312,33 +8507,33 @@ class DescribeDcdnDomainPvDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainPvDataResponseBodyPvDataIntervalUsageData(TeaModel):
-    def __init__(self, value=None, time_stamp=None):
-        self.value = value  # type: str
+    def __init__(self, time_stamp=None, value=None):
         self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -7349,18 +8544,18 @@ class DescribeDcdnDomainPvDataResponseBodyPvDataIntervalUsageData(TeaModel):
             return _map
 
         result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -7397,14 +8592,14 @@ class DescribeDcdnDomainPvDataResponseBodyPvDataInterval(TeaModel):
 
 
 class DescribeDcdnDomainPvDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 pv_data_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, pv_data_interval=None, request_id=None,
+                 start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.pv_data_interval = pv_data_interval  # type: DescribeDcdnDomainPvDataResponseBodyPvDataInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.pv_data_interval:
@@ -7416,35 +8611,35 @@ class DescribeDcdnDomainPvDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.pv_data_interval is not None:
             result['PvDataInterval'] = self.pv_data_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('PvDataInterval') is not None:
             temp_model = DescribeDcdnDomainPvDataResponseBodyPvDataInterval()
             self.pv_data_interval = temp_model.from_map(m['PvDataInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -7482,15 +8677,15 @@ class DescribeDcdnDomainPvDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainQpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -7501,12 +8696,8 @@ class DescribeDcdnDomainQpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -7515,16 +8706,16 @@ class DescribeDcdnDomainQpsDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -7533,23 +8724,27 @@ class DescribeDcdnDomainQpsDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainQpsDataResponseBodyQpsDataPerIntervalDataModule(TeaModel):
-    def __init__(self, dynamic_https_acc=None, dynamic_http_acc=None, qps=None, static_https_acc=None,
-                 static_http_qps=None, static_http_acc=None, dynamic_https_qps=None, acc=None, static_https_qps=None,
-                 dynamic_http_qps=None, time_stamp=None):
-        self.dynamic_https_acc = dynamic_https_acc  # type: float
-        self.dynamic_http_acc = dynamic_http_acc  # type: float
-        self.qps = qps  # type: float
-        self.static_https_acc = static_https_acc  # type: float
-        self.static_http_qps = static_http_qps  # type: float
-        self.static_http_acc = static_http_acc  # type: float
-        self.dynamic_https_qps = dynamic_https_qps  # type: float
+    def __init__(self, acc=None, dynamic_http_acc=None, dynamic_http_qps=None, dynamic_https_acc=None,
+                 dynamic_https_qps=None, qps=None, static_http_acc=None, static_http_qps=None, static_https_acc=None,
+                 static_https_qps=None, time_stamp=None):
         self.acc = acc  # type: float
-        self.static_https_qps = static_https_qps  # type: float
+        self.dynamic_http_acc = dynamic_http_acc  # type: float
         self.dynamic_http_qps = dynamic_http_qps  # type: float
+        self.dynamic_https_acc = dynamic_https_acc  # type: float
+        self.dynamic_https_qps = dynamic_https_qps  # type: float
+        self.qps = qps  # type: float
+        self.static_http_acc = static_http_acc  # type: float
+        self.static_http_qps = static_http_qps  # type: float
+        self.static_https_acc = static_https_acc  # type: float
+        self.static_https_qps = static_https_qps  # type: float
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -7561,52 +8756,52 @@ class DescribeDcdnDomainQpsDataResponseBodyQpsDataPerIntervalDataModule(TeaModel
             return _map
 
         result = dict()
-        if self.dynamic_https_acc is not None:
-            result['DynamicHttpsAcc'] = self.dynamic_https_acc
-        if self.dynamic_http_acc is not None:
-            result['DynamicHttpAcc'] = self.dynamic_http_acc
-        if self.qps is not None:
-            result['Qps'] = self.qps
-        if self.static_https_acc is not None:
-            result['StaticHttpsAcc'] = self.static_https_acc
-        if self.static_http_qps is not None:
-            result['StaticHttpQps'] = self.static_http_qps
-        if self.static_http_acc is not None:
-            result['StaticHttpAcc'] = self.static_http_acc
-        if self.dynamic_https_qps is not None:
-            result['DynamicHttpsQps'] = self.dynamic_https_qps
         if self.acc is not None:
             result['Acc'] = self.acc
-        if self.static_https_qps is not None:
-            result['StaticHttpsQps'] = self.static_https_qps
+        if self.dynamic_http_acc is not None:
+            result['DynamicHttpAcc'] = self.dynamic_http_acc
         if self.dynamic_http_qps is not None:
             result['DynamicHttpQps'] = self.dynamic_http_qps
+        if self.dynamic_https_acc is not None:
+            result['DynamicHttpsAcc'] = self.dynamic_https_acc
+        if self.dynamic_https_qps is not None:
+            result['DynamicHttpsQps'] = self.dynamic_https_qps
+        if self.qps is not None:
+            result['Qps'] = self.qps
+        if self.static_http_acc is not None:
+            result['StaticHttpAcc'] = self.static_http_acc
+        if self.static_http_qps is not None:
+            result['StaticHttpQps'] = self.static_http_qps
+        if self.static_https_acc is not None:
+            result['StaticHttpsAcc'] = self.static_https_acc
+        if self.static_https_qps is not None:
+            result['StaticHttpsQps'] = self.static_https_qps
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DynamicHttpsAcc') is not None:
-            self.dynamic_https_acc = m.get('DynamicHttpsAcc')
-        if m.get('DynamicHttpAcc') is not None:
-            self.dynamic_http_acc = m.get('DynamicHttpAcc')
-        if m.get('Qps') is not None:
-            self.qps = m.get('Qps')
-        if m.get('StaticHttpsAcc') is not None:
-            self.static_https_acc = m.get('StaticHttpsAcc')
-        if m.get('StaticHttpQps') is not None:
-            self.static_http_qps = m.get('StaticHttpQps')
-        if m.get('StaticHttpAcc') is not None:
-            self.static_http_acc = m.get('StaticHttpAcc')
-        if m.get('DynamicHttpsQps') is not None:
-            self.dynamic_https_qps = m.get('DynamicHttpsQps')
         if m.get('Acc') is not None:
             self.acc = m.get('Acc')
-        if m.get('StaticHttpsQps') is not None:
-            self.static_https_qps = m.get('StaticHttpsQps')
+        if m.get('DynamicHttpAcc') is not None:
+            self.dynamic_http_acc = m.get('DynamicHttpAcc')
         if m.get('DynamicHttpQps') is not None:
             self.dynamic_http_qps = m.get('DynamicHttpQps')
+        if m.get('DynamicHttpsAcc') is not None:
+            self.dynamic_https_acc = m.get('DynamicHttpsAcc')
+        if m.get('DynamicHttpsQps') is not None:
+            self.dynamic_https_qps = m.get('DynamicHttpsQps')
+        if m.get('Qps') is not None:
+            self.qps = m.get('Qps')
+        if m.get('StaticHttpAcc') is not None:
+            self.static_http_acc = m.get('StaticHttpAcc')
+        if m.get('StaticHttpQps') is not None:
+            self.static_http_qps = m.get('StaticHttpQps')
+        if m.get('StaticHttpsAcc') is not None:
+            self.static_https_acc = m.get('StaticHttpsAcc')
+        if m.get('StaticHttpsQps') is not None:
+            self.static_https_qps = m.get('StaticHttpsQps')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
         return self
@@ -7645,14 +8840,14 @@ class DescribeDcdnDomainQpsDataResponseBodyQpsDataPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainQpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 qps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, qps_data_per_interval=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.qps_data_per_interval = qps_data_per_interval  # type: DescribeDcdnDomainQpsDataResponseBodyQpsDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.qps_data_per_interval:
@@ -7664,35 +8859,35 @@ class DescribeDcdnDomainQpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.qps_data_per_interval is not None:
             result['QpsDataPerInterval'] = self.qps_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('QpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainQpsDataResponseBodyQpsDataPerInterval()
             self.qps_data_per_interval = temp_model.from_map(m['QpsDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -7730,14 +8925,14 @@ class DescribeDcdnDomainQpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, isp_name_en=None, location_name_en=None, start_time=None,
-                 end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, owner_id=None,
+                 start_time=None):
         self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
         self.start_time = start_time  # type: str
-        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -7748,34 +8943,34 @@ class DescribeDcdnDomainRealTimeBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         return self
 
 
@@ -7841,9 +9036,9 @@ class DescribeDcdnDomainRealTimeBpsDataResponseBodyData(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeBpsDataResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, data=None, request_id=None):
         self.data = data  # type: DescribeDcdnDomainRealTimeBpsDataResponseBodyData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.data:
@@ -7855,19 +9050,19 @@ class DescribeDcdnDomainRealTimeBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.data is not None:
             result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Data') is not None:
             temp_model = DescribeDcdnDomainRealTimeBpsDataResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -7905,11 +9100,11 @@ class DescribeDcdnDomainRealTimeBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeByteHitRateDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -7920,26 +9115,26 @@ class DescribeDcdnDomainRealTimeByteHitRateDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -8005,9 +9200,9 @@ class DescribeDcdnDomainRealTimeByteHitRateDataResponseBodyData(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeByteHitRateDataResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, data=None, request_id=None):
         self.data = data  # type: DescribeDcdnDomainRealTimeByteHitRateDataResponseBodyData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.data:
@@ -8019,19 +9214,19 @@ class DescribeDcdnDomainRealTimeByteHitRateDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.data is not None:
             result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Data') is not None:
             temp_model = DescribeDcdnDomainRealTimeByteHitRateDataResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -8069,17 +9264,17 @@ class DescribeDcdnDomainRealTimeByteHitRateDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeDetailDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, field=None,
-                 location_name_en=None, isp_name_en=None, merge=None, merge_loc_isp=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, field=None, isp_name_en=None, location_name_en=None,
+                 merge=None, merge_loc_isp=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.field = field  # type: str
-        self.location_name_en = location_name_en  # type: str
         self.isp_name_en = isp_name_en  # type: str
+        self.location_name_en = location_name_en  # type: str
         self.merge = merge  # type: str
         self.merge_loc_isp = merge_loc_isp  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -8090,46 +9285,46 @@ class DescribeDcdnDomainRealTimeDetailDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.field is not None:
             result['Field'] = self.field
-        if self.location_name_en is not None:
-            result['LocationNameEn'] = self.location_name_en
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
+        if self.location_name_en is not None:
+            result['LocationNameEn'] = self.location_name_en
         if self.merge is not None:
             result['Merge'] = self.merge
         if self.merge_loc_isp is not None:
             result['MergeLocIsp'] = self.merge_loc_isp
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Field') is not None:
             self.field = m.get('Field')
-        if m.get('LocationNameEn') is not None:
-            self.location_name_en = m.get('LocationNameEn')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
+        if m.get('LocationNameEn') is not None:
+            self.location_name_en = m.get('LocationNameEn')
         if m.get('Merge') is not None:
             self.merge = m.get('Merge')
         if m.get('MergeLocIsp') is not None:
             self.merge_loc_isp = m.get('MergeLocIsp')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -8196,14 +9391,14 @@ class DescribeDcdnDomainRealTimeDetailDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeHttpCodeDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, isp_name_en=None,
-                 location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, owner_id=None,
+                 start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -8214,42 +9409,42 @@ class DescribeDcdnDomainRealTimeHttpCodeDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeDataUsageDataValueRealTimeCodeProportionData(TeaModel):
-    def __init__(self, code=None, proportion=None, count=None):
+    def __init__(self, code=None, count=None, proportion=None):
         self.code = code  # type: str
-        self.proportion = proportion  # type: str
         self.count = count  # type: str
+        self.proportion = proportion  # type: str
 
     def validate(self):
         pass
@@ -8262,20 +9457,20 @@ class DescribeDcdnDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeDataUsag
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
         if self.count is not None:
             result['Count'] = self.count
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
         if m.get('Count') is not None:
             self.count = m.get('Count')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
         return self
 
 
@@ -8375,14 +9570,14 @@ class DescribeDcdnDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeData(Tea
 
 
 class DescribeDcdnDomainRealTimeHttpCodeDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 real_time_http_code_data=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, real_time_http_code_data=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.real_time_http_code_data = real_time_http_code_data  # type: DescribeDcdnDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeData
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.real_time_http_code_data:
@@ -8394,35 +9589,35 @@ class DescribeDcdnDomainRealTimeHttpCodeDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.real_time_http_code_data is not None:
             result['RealTimeHttpCodeData'] = self.real_time_http_code_data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RealTimeHttpCodeData') is not None:
             temp_model = DescribeDcdnDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeData()
             self.real_time_http_code_data = temp_model.from_map(m['RealTimeHttpCodeData'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -8460,14 +9655,14 @@ class DescribeDcdnDomainRealTimeHttpCodeDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeQpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, isp_name_en=None, location_name_en=None, start_time=None,
-                 end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, owner_id=None,
+                 start_time=None):
         self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
         self.start_time = start_time  # type: str
-        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -8478,34 +9673,34 @@ class DescribeDcdnDomainRealTimeQpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         return self
 
 
@@ -8571,9 +9766,9 @@ class DescribeDcdnDomainRealTimeQpsDataResponseBodyData(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeQpsDataResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, data=None, request_id=None):
         self.data = data  # type: DescribeDcdnDomainRealTimeQpsDataResponseBodyData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.data:
@@ -8585,19 +9780,19 @@ class DescribeDcdnDomainRealTimeQpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.data is not None:
             result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Data') is not None:
             temp_model = DescribeDcdnDomainRealTimeQpsDataResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -8635,11 +9830,11 @@ class DescribeDcdnDomainRealTimeQpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeReqHitRateDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -8650,26 +9845,26 @@ class DescribeDcdnDomainRealTimeReqHitRateDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -8735,9 +9930,9 @@ class DescribeDcdnDomainRealTimeReqHitRateDataResponseBodyData(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeReqHitRateDataResponseBody(TeaModel):
-    def __init__(self, request_id=None, data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, data=None, request_id=None):
         self.data = data  # type: DescribeDcdnDomainRealTimeReqHitRateDataResponseBodyData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.data:
@@ -8749,19 +9944,19 @@ class DescribeDcdnDomainRealTimeReqHitRateDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.data is not None:
             result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Data') is not None:
             temp_model = DescribeDcdnDomainRealTimeReqHitRateDataResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -8799,11 +9994,11 @@ class DescribeDcdnDomainRealTimeReqHitRateDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeSrcBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -8814,33 +10009,33 @@ class DescribeDcdnDomainRealTimeSrcBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerIntervalDataModule(TeaModel):
-    def __init__(self, value=None, time_stamp=None):
-        self.value = value  # type: str
+    def __init__(self, time_stamp=None, value=None):
         self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -8851,18 +10046,18 @@ class DescribeDcdnDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerInter
             return _map
 
         result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -8899,14 +10094,14 @@ class DescribeDcdnDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerInter
 
 
 class DescribeDcdnDomainRealTimeSrcBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 real_time_src_bps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None,
+                 real_time_src_bps_data_per_interval=None, request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.real_time_src_bps_data_per_interval = real_time_src_bps_data_per_interval  # type: DescribeDcdnDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.real_time_src_bps_data_per_interval:
@@ -8918,35 +10113,35 @@ class DescribeDcdnDomainRealTimeSrcBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.real_time_src_bps_data_per_interval is not None:
             result['RealTimeSrcBpsDataPerInterval'] = self.real_time_src_bps_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RealTimeSrcBpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerInterval()
             self.real_time_src_bps_data_per_interval = temp_model.from_map(m['RealTimeSrcBpsDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -8984,14 +10179,14 @@ class DescribeDcdnDomainRealTimeSrcBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeSrcHttpCodeDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, isp_name_en=None,
-                 location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, owner_id=None,
+                 start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -9002,42 +10197,42 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.isp_name_en is not None:
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('IspNameEn') is not None:
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDataUsageDataValueRealTimeSrcCodeProportionData(TeaModel):
-    def __init__(self, code=None, proportion=None, count=None):
+    def __init__(self, code=None, count=None, proportion=None):
         self.code = code  # type: str
-        self.proportion = proportion  # type: str
         self.count = count  # type: str
+        self.proportion = proportion  # type: str
 
     def validate(self):
         pass
@@ -9050,20 +10245,20 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDa
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
         if self.count is not None:
             result['Count'] = self.count
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
         if m.get('Count') is not None:
             self.count = m.get('Count')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
         return self
 
 
@@ -9163,14 +10358,14 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDa
 
 
 class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 real_time_src_http_code_data=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, real_time_src_http_code_data=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.real_time_src_http_code_data = real_time_src_http_code_data  # type: DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeData
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.real_time_src_http_code_data:
@@ -9182,35 +10377,35 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.real_time_src_http_code_data is not None:
             result['RealTimeSrcHttpCodeData'] = self.real_time_src_http_code_data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RealTimeSrcHttpCodeData') is not None:
             temp_model = DescribeDcdnDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeData()
             self.real_time_src_http_code_data = temp_model.from_map(m['RealTimeSrcHttpCodeData'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -9248,11 +10443,11 @@ class DescribeDcdnDomainRealTimeSrcHttpCodeDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeSrcTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -9263,33 +10458,33 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficDataPerIntervalDataModule(TeaModel):
-    def __init__(self, value=None, time_stamp=None):
-        self.value = value  # type: str
+    def __init__(self, time_stamp=None, value=None):
         self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -9300,18 +10495,18 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficData
             return _map
 
         result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -9348,14 +10543,14 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficData
 
 
 class DescribeDcdnDomainRealTimeSrcTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 real_time_src_traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None,
+                 real_time_src_traffic_data_per_interval=None, request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.real_time_src_traffic_data_per_interval = real_time_src_traffic_data_per_interval  # type: DescribeDcdnDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.real_time_src_traffic_data_per_interval:
@@ -9367,35 +10562,35 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.real_time_src_traffic_data_per_interval is not None:
             result['RealTimeSrcTrafficDataPerInterval'] = self.real_time_src_traffic_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RealTimeSrcTrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficDataPerInterval()
             self.real_time_src_traffic_data_per_interval = temp_model.from_map(m['RealTimeSrcTrafficDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -9433,11 +10628,11 @@ class DescribeDcdnDomainRealTimeSrcTrafficDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRealTimeTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -9448,33 +10643,33 @@ class DescribeDcdnDomainRealTimeTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerIntervalDataModule(TeaModel):
-    def __init__(self, value=None, time_stamp=None):
-        self.value = value  # type: str
+    def __init__(self, time_stamp=None, value=None):
         self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -9485,18 +10680,18 @@ class DescribeDcdnDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerInt
             return _map
 
         result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -9533,14 +10728,14 @@ class DescribeDcdnDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerInt
 
 
 class DescribeDcdnDomainRealTimeTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 real_time_traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None,
+                 real_time_traffic_data_per_interval=None, request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
         self.real_time_traffic_data_per_interval = real_time_traffic_data_per_interval  # type: DescribeDcdnDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.real_time_traffic_data_per_interval:
@@ -9552,35 +10747,35 @@ class DescribeDcdnDomainRealTimeTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.real_time_traffic_data_per_interval is not None:
             result['RealTimeTrafficDataPerInterval'] = self.real_time_traffic_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('RealTimeTrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerInterval()
             self.real_time_traffic_data_per_interval = temp_model.from_map(m['RealTimeTrafficDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -9618,11 +10813,11 @@ class DescribeDcdnDomainRealTimeTrafficDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainRegionDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -9633,44 +10828,43 @@ class DescribeDcdnDomainRegionDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainRegionDataResponseBodyValueRegionProportionData(TeaModel):
-    def __init__(self, qps=None, total_query=None, total_bytes=None, region_ename=None, region=None,
-                 avg_response_rate=None, avg_response_time=None, proportion=None, avg_object_size=None, bps=None,
-                 bytes_proportion=None):
-        self.qps = qps  # type: str
-        self.total_query = total_query  # type: str
-        self.total_bytes = total_bytes  # type: str
-        self.region_ename = region_ename  # type: str
-        self.region = region  # type: str
+    def __init__(self, avg_object_size=None, avg_response_rate=None, avg_response_time=None, bps=None,
+                 bytes_proportion=None, proportion=None, qps=None, region=None, region_ename=None, total_bytes=None, total_query=None):
+        self.avg_object_size = avg_object_size  # type: str
         self.avg_response_rate = avg_response_rate  # type: str
         self.avg_response_time = avg_response_time  # type: str
-        self.proportion = proportion  # type: str
-        self.avg_object_size = avg_object_size  # type: str
         self.bps = bps  # type: str
         self.bytes_proportion = bytes_proportion  # type: str
+        self.proportion = proportion  # type: str
+        self.qps = qps  # type: str
+        self.region = region  # type: str
+        self.region_ename = region_ename  # type: str
+        self.total_bytes = total_bytes  # type: str
+        self.total_query = total_query  # type: str
 
     def validate(self):
         pass
@@ -9681,54 +10875,54 @@ class DescribeDcdnDomainRegionDataResponseBodyValueRegionProportionData(TeaModel
             return _map
 
         result = dict()
-        if self.qps is not None:
-            result['Qps'] = self.qps
-        if self.total_query is not None:
-            result['TotalQuery'] = self.total_query
-        if self.total_bytes is not None:
-            result['TotalBytes'] = self.total_bytes
-        if self.region_ename is not None:
-            result['RegionEname'] = self.region_ename
-        if self.region is not None:
-            result['Region'] = self.region
+        if self.avg_object_size is not None:
+            result['AvgObjectSize'] = self.avg_object_size
         if self.avg_response_rate is not None:
             result['AvgResponseRate'] = self.avg_response_rate
         if self.avg_response_time is not None:
             result['AvgResponseTime'] = self.avg_response_time
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
-        if self.avg_object_size is not None:
-            result['AvgObjectSize'] = self.avg_object_size
         if self.bps is not None:
             result['Bps'] = self.bps
         if self.bytes_proportion is not None:
             result['BytesProportion'] = self.bytes_proportion
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
+        if self.qps is not None:
+            result['Qps'] = self.qps
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.region_ename is not None:
+            result['RegionEname'] = self.region_ename
+        if self.total_bytes is not None:
+            result['TotalBytes'] = self.total_bytes
+        if self.total_query is not None:
+            result['TotalQuery'] = self.total_query
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Qps') is not None:
-            self.qps = m.get('Qps')
-        if m.get('TotalQuery') is not None:
-            self.total_query = m.get('TotalQuery')
-        if m.get('TotalBytes') is not None:
-            self.total_bytes = m.get('TotalBytes')
-        if m.get('RegionEname') is not None:
-            self.region_ename = m.get('RegionEname')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
+        if m.get('AvgObjectSize') is not None:
+            self.avg_object_size = m.get('AvgObjectSize')
         if m.get('AvgResponseRate') is not None:
             self.avg_response_rate = m.get('AvgResponseRate')
         if m.get('AvgResponseTime') is not None:
             self.avg_response_time = m.get('AvgResponseTime')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
-        if m.get('AvgObjectSize') is not None:
-            self.avg_object_size = m.get('AvgObjectSize')
         if m.get('Bps') is not None:
             self.bps = m.get('Bps')
         if m.get('BytesProportion') is not None:
             self.bytes_proportion = m.get('BytesProportion')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
+        if m.get('Qps') is not None:
+            self.qps = m.get('Qps')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RegionEname') is not None:
+            self.region_ename = m.get('RegionEname')
+        if m.get('TotalBytes') is not None:
+            self.total_bytes = m.get('TotalBytes')
+        if m.get('TotalQuery') is not None:
+            self.total_query = m.get('TotalQuery')
         return self
 
 
@@ -9765,13 +10959,13 @@ class DescribeDcdnDomainRegionDataResponseBodyValue(TeaModel):
 
 
 class DescribeDcdnDomainRegionDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  value=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.value = value  # type: DescribeDcdnDomainRegionDataResponseBodyValue
 
     def validate(self):
@@ -9784,32 +10978,32 @@ class DescribeDcdnDomainRegionDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.value is not None:
             result['Value'] = self.value.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('Value') is not None:
             temp_model = DescribeDcdnDomainRegionDataResponseBodyValue()
             self.value = temp_model.from_map(m['Value'])
@@ -9850,10 +11044,10 @@ class DescribeDcdnDomainRegionDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainStagingConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, function_names=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, function_names=None, owner_id=None):
         self.domain_name = domain_name  # type: str
         self.function_names = function_names  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -9864,22 +11058,22 @@ class DescribeDcdnDomainStagingConfigRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.function_names is not None:
             result['FunctionNames'] = self.function_names
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('FunctionNames') is not None:
             self.function_names = m.get('FunctionNames')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -9913,11 +11107,11 @@ class DescribeDcdnDomainStagingConfigResponseBodyDomainConfigsFunctionArgs(TeaMo
 
 
 class DescribeDcdnDomainStagingConfigResponseBodyDomainConfigs(TeaModel):
-    def __init__(self, status=None, config_id=None, function_name=None, function_args=None):
-        self.status = status  # type: str
+    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
         self.config_id = config_id  # type: str
-        self.function_name = function_name  # type: str
         self.function_args = function_args  # type: list[DescribeDcdnDomainStagingConfigResponseBodyDomainConfigsFunctionArgs]
+        self.function_name = function_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         if self.function_args:
@@ -9931,38 +11125,38 @@ class DescribeDcdnDomainStagingConfigResponseBodyDomainConfigs(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.function_name is not None:
-            result['FunctionName'] = self.function_name
         result['FunctionArgs'] = []
         if self.function_args is not None:
             for k in self.function_args:
                 result['FunctionArgs'].append(k.to_map() if k else None)
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('FunctionName') is not None:
-            self.function_name = m.get('FunctionName')
         self.function_args = []
         if m.get('FunctionArgs') is not None:
             for k in m.get('FunctionArgs'):
                 temp_model = DescribeDcdnDomainStagingConfigResponseBodyDomainConfigsFunctionArgs()
                 self.function_args.append(temp_model.from_map(k))
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
 class DescribeDcdnDomainStagingConfigResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_configs=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_configs=None, request_id=None):
         self.domain_configs = domain_configs  # type: list[DescribeDcdnDomainStagingConfigResponseBodyDomainConfigs]
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.domain_configs:
@@ -9976,23 +11170,23 @@ class DescribeDcdnDomainStagingConfigResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['DomainConfigs'] = []
         if self.domain_configs is not None:
             for k in self.domain_configs:
                 result['DomainConfigs'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.domain_configs = []
         if m.get('DomainConfigs') is not None:
             for k in m.get('DomainConfigs'):
                 temp_model = DescribeDcdnDomainStagingConfigResponseBodyDomainConfigs()
                 self.domain_configs.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -10030,11 +11224,11 @@ class DescribeDcdnDomainStagingConfigResponse(TeaModel):
 
 
 class DescribeDcdnDomainTopReferVisitRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, sort_by=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None, sort_by=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
+        self.owner_id = owner_id  # type: long
         self.sort_by = sort_by  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -10045,35 +11239,35 @@ class DescribeDcdnDomainTopReferVisitRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainTopReferVisitResponseBodyTopReferListReferList(TeaModel):
-    def __init__(self, flow=None, flow_proportion=None, visit_data=None, refer_detail=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, refer_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
         self.flow_proportion = flow_proportion  # type: float
-        self.visit_data = visit_data  # type: str
         self.refer_detail = refer_detail  # type: str
+        self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -10089,10 +11283,10 @@ class DescribeDcdnDomainTopReferVisitResponseBodyTopReferListReferList(TeaModel)
             result['Flow'] = self.flow
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
-        if self.visit_data is not None:
-            result['VisitData'] = self.visit_data
         if self.refer_detail is not None:
             result['ReferDetail'] = self.refer_detail
+        if self.visit_data is not None:
+            result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
             result['VisitProportion'] = self.visit_proportion
         return result
@@ -10103,10 +11297,10 @@ class DescribeDcdnDomainTopReferVisitResponseBodyTopReferListReferList(TeaModel)
             self.flow = m.get('Flow')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
-        if m.get('VisitData') is not None:
-            self.visit_data = m.get('VisitData')
         if m.get('ReferDetail') is not None:
             self.refer_detail = m.get('ReferDetail')
+        if m.get('VisitData') is not None:
+            self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
             self.visit_proportion = m.get('VisitProportion')
         return self
@@ -10145,10 +11339,10 @@ class DescribeDcdnDomainTopReferVisitResponseBodyTopReferList(TeaModel):
 
 
 class DescribeDcdnDomainTopReferVisitResponseBody(TeaModel):
-    def __init__(self, start_time=None, request_id=None, domain_name=None, top_refer_list=None):
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_name=None, request_id=None, start_time=None, top_refer_list=None):
         self.domain_name = domain_name  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.top_refer_list = top_refer_list  # type: DescribeDcdnDomainTopReferVisitResponseBodyTopReferList
 
     def validate(self):
@@ -10161,24 +11355,24 @@ class DescribeDcdnDomainTopReferVisitResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.top_refer_list is not None:
             result['TopReferList'] = self.top_refer_list.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TopReferList') is not None:
             temp_model = DescribeDcdnDomainTopReferVisitResponseBodyTopReferList()
             self.top_refer_list = temp_model.from_map(m['TopReferList'])
@@ -10219,11 +11413,11 @@ class DescribeDcdnDomainTopReferVisitResponse(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, sort_by=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None, sort_by=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
+        self.owner_id = owner_id  # type: long
         self.sort_by = sort_by  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -10234,34 +11428,34 @@ class DescribeDcdnDomainTopUrlVisitRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlListUrlList(TeaModel):
-    def __init__(self, flow=None, url_detail=None, flow_proportion=None, visit_data=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
-        self.url_detail = url_detail  # type: str
         self.flow_proportion = flow_proportion  # type: float
+        self.url_detail = url_detail  # type: str
         self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
@@ -10276,10 +11470,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlListUrlList(TeaModel):
         result = dict()
         if self.flow is not None:
             result['Flow'] = self.flow
-        if self.url_detail is not None:
-            result['UrlDetail'] = self.url_detail
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
+        if self.url_detail is not None:
+            result['UrlDetail'] = self.url_detail
         if self.visit_data is not None:
             result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
@@ -10290,10 +11484,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlListUrlList(TeaModel):
         m = m or dict()
         if m.get('Flow') is not None:
             self.flow = m.get('Flow')
-        if m.get('UrlDetail') is not None:
-            self.url_detail = m.get('UrlDetail')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
+        if m.get('UrlDetail') is not None:
+            self.url_detail = m.get('UrlDetail')
         if m.get('VisitData') is not None:
             self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
@@ -10334,10 +11528,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlList(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200ListUrlList(TeaModel):
-    def __init__(self, flow=None, url_detail=None, flow_proportion=None, visit_data=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
-        self.url_detail = url_detail  # type: str
         self.flow_proportion = flow_proportion  # type: float
+        self.url_detail = url_detail  # type: str
         self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
@@ -10352,10 +11546,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200ListUrlList(TeaModel):
         result = dict()
         if self.flow is not None:
             result['Flow'] = self.flow
-        if self.url_detail is not None:
-            result['UrlDetail'] = self.url_detail
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
+        if self.url_detail is not None:
+            result['UrlDetail'] = self.url_detail
         if self.visit_data is not None:
             result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
@@ -10366,10 +11560,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200ListUrlList(TeaModel):
         m = m or dict()
         if m.get('Flow') is not None:
             self.flow = m.get('Flow')
-        if m.get('UrlDetail') is not None:
-            self.url_detail = m.get('UrlDetail')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
+        if m.get('UrlDetail') is not None:
+            self.url_detail = m.get('UrlDetail')
         if m.get('VisitData') is not None:
             self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
@@ -10410,10 +11604,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200List(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300ListUrlList(TeaModel):
-    def __init__(self, flow=None, url_detail=None, flow_proportion=None, visit_data=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
-        self.url_detail = url_detail  # type: str
         self.flow_proportion = flow_proportion  # type: float
+        self.url_detail = url_detail  # type: str
         self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
@@ -10428,10 +11622,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300ListUrlList(TeaModel):
         result = dict()
         if self.flow is not None:
             result['Flow'] = self.flow
-        if self.url_detail is not None:
-            result['UrlDetail'] = self.url_detail
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
+        if self.url_detail is not None:
+            result['UrlDetail'] = self.url_detail
         if self.visit_data is not None:
             result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
@@ -10442,10 +11636,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300ListUrlList(TeaModel):
         m = m or dict()
         if m.get('Flow') is not None:
             self.flow = m.get('Flow')
-        if m.get('UrlDetail') is not None:
-            self.url_detail = m.get('UrlDetail')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
+        if m.get('UrlDetail') is not None:
+            self.url_detail = m.get('UrlDetail')
         if m.get('VisitData') is not None:
             self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
@@ -10486,10 +11680,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300List(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400ListUrlList(TeaModel):
-    def __init__(self, flow=None, url_detail=None, flow_proportion=None, visit_data=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
-        self.url_detail = url_detail  # type: str
         self.flow_proportion = flow_proportion  # type: float
+        self.url_detail = url_detail  # type: str
         self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
@@ -10504,10 +11698,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400ListUrlList(TeaModel):
         result = dict()
         if self.flow is not None:
             result['Flow'] = self.flow
-        if self.url_detail is not None:
-            result['UrlDetail'] = self.url_detail
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
+        if self.url_detail is not None:
+            result['UrlDetail'] = self.url_detail
         if self.visit_data is not None:
             result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
@@ -10518,10 +11712,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400ListUrlList(TeaModel):
         m = m or dict()
         if m.get('Flow') is not None:
             self.flow = m.get('Flow')
-        if m.get('UrlDetail') is not None:
-            self.url_detail = m.get('UrlDetail')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
+        if m.get('UrlDetail') is not None:
+            self.url_detail = m.get('UrlDetail')
         if m.get('VisitData') is not None:
             self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
@@ -10562,10 +11756,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400List(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl500ListUrlList(TeaModel):
-    def __init__(self, flow=None, url_detail=None, flow_proportion=None, visit_data=None, visit_proportion=None):
+    def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
         self.flow = flow  # type: str
-        self.url_detail = url_detail  # type: str
         self.flow_proportion = flow_proportion  # type: float
+        self.url_detail = url_detail  # type: str
         self.visit_data = visit_data  # type: str
         self.visit_proportion = visit_proportion  # type: float
 
@@ -10580,10 +11774,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl500ListUrlList(TeaModel):
         result = dict()
         if self.flow is not None:
             result['Flow'] = self.flow
-        if self.url_detail is not None:
-            result['UrlDetail'] = self.url_detail
         if self.flow_proportion is not None:
             result['FlowProportion'] = self.flow_proportion
+        if self.url_detail is not None:
+            result['UrlDetail'] = self.url_detail
         if self.visit_data is not None:
             result['VisitData'] = self.visit_data
         if self.visit_proportion is not None:
@@ -10594,10 +11788,10 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl500ListUrlList(TeaModel):
         m = m or dict()
         if m.get('Flow') is not None:
             self.flow = m.get('Flow')
-        if m.get('UrlDetail') is not None:
-            self.url_detail = m.get('UrlDetail')
         if m.get('FlowProportion') is not None:
             self.flow_proportion = m.get('FlowProportion')
+        if m.get('UrlDetail') is not None:
+            self.url_detail = m.get('UrlDetail')
         if m.get('VisitData') is not None:
             self.visit_data = m.get('VisitData')
         if m.get('VisitProportion') is not None:
@@ -10638,12 +11832,12 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl500List(TeaModel):
 
 
 class DescribeDcdnDomainTopUrlVisitResponseBody(TeaModel):
-    def __init__(self, start_time=None, request_id=None, domain_name=None, all_url_list=None, url_200list=None,
+    def __init__(self, all_url_list=None, domain_name=None, request_id=None, start_time=None, url_200list=None,
                  url_300list=None, url_400list=None, url_500list=None):
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.all_url_list = all_url_list  # type: DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlList
+        self.domain_name = domain_name  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.url_200list = url_200list  # type: DescribeDcdnDomainTopUrlVisitResponseBodyUrl200List
         self.url_300list = url_300list  # type: DescribeDcdnDomainTopUrlVisitResponseBodyUrl300List
         self.url_400list = url_400list  # type: DescribeDcdnDomainTopUrlVisitResponseBodyUrl400List
@@ -10667,14 +11861,14 @@ class DescribeDcdnDomainTopUrlVisitResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.all_url_list is not None:
             result['AllUrlList'] = self.all_url_list.to_map()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.url_200list is not None:
             result['Url200List'] = self.url_200list.to_map()
         if self.url_300list is not None:
@@ -10687,15 +11881,15 @@ class DescribeDcdnDomainTopUrlVisitResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('AllUrlList') is not None:
             temp_model = DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlList()
             self.all_url_list = temp_model.from_map(m['AllUrlList'])
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('Url200List') is not None:
             temp_model = DescribeDcdnDomainTopUrlVisitResponseBodyUrl200List()
             self.url_200list = temp_model.from_map(m['Url200List'])
@@ -10745,15 +11939,15 @@ class DescribeDcdnDomainTopUrlVisitResponse(TeaModel):
 
 
 class DescribeDcdnDomainTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -10764,12 +11958,8 @@ class DescribeDcdnDomainTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -10778,16 +11968,16 @@ class DescribeDcdnDomainTrafficDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -10796,18 +11986,22 @@ class DescribeDcdnDomainTrafficDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainTrafficDataResponseBodyTrafficDataPerIntervalDataModule(TeaModel):
-    def __init__(self, static_http_traffic=None, dynamic_https_traffic=None, traffic=None,
-                 dynamic_http_traffic=None, time_stamp=None, static_https_traffic=None):
-        self.static_http_traffic = static_http_traffic  # type: float
-        self.dynamic_https_traffic = dynamic_https_traffic  # type: float
-        self.traffic = traffic  # type: float
+    def __init__(self, dynamic_http_traffic=None, dynamic_https_traffic=None, static_http_traffic=None,
+                 static_https_traffic=None, time_stamp=None, traffic=None):
         self.dynamic_http_traffic = dynamic_http_traffic  # type: float
-        self.time_stamp = time_stamp  # type: str
+        self.dynamic_https_traffic = dynamic_https_traffic  # type: float
+        self.static_http_traffic = static_http_traffic  # type: float
         self.static_https_traffic = static_https_traffic  # type: float
+        self.time_stamp = time_stamp  # type: str
+        self.traffic = traffic  # type: float
 
     def validate(self):
         pass
@@ -10818,34 +12012,34 @@ class DescribeDcdnDomainTrafficDataResponseBodyTrafficDataPerIntervalDataModule(
             return _map
 
         result = dict()
-        if self.static_http_traffic is not None:
-            result['StaticHttpTraffic'] = self.static_http_traffic
-        if self.dynamic_https_traffic is not None:
-            result['DynamicHttpsTraffic'] = self.dynamic_https_traffic
-        if self.traffic is not None:
-            result['Traffic'] = self.traffic
         if self.dynamic_http_traffic is not None:
             result['DynamicHttpTraffic'] = self.dynamic_http_traffic
-        if self.time_stamp is not None:
-            result['TimeStamp'] = self.time_stamp
+        if self.dynamic_https_traffic is not None:
+            result['DynamicHttpsTraffic'] = self.dynamic_https_traffic
+        if self.static_http_traffic is not None:
+            result['StaticHttpTraffic'] = self.static_http_traffic
         if self.static_https_traffic is not None:
             result['StaticHttpsTraffic'] = self.static_https_traffic
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.traffic is not None:
+            result['Traffic'] = self.traffic
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('StaticHttpTraffic') is not None:
-            self.static_http_traffic = m.get('StaticHttpTraffic')
-        if m.get('DynamicHttpsTraffic') is not None:
-            self.dynamic_https_traffic = m.get('DynamicHttpsTraffic')
-        if m.get('Traffic') is not None:
-            self.traffic = m.get('Traffic')
         if m.get('DynamicHttpTraffic') is not None:
             self.dynamic_http_traffic = m.get('DynamicHttpTraffic')
-        if m.get('TimeStamp') is not None:
-            self.time_stamp = m.get('TimeStamp')
+        if m.get('DynamicHttpsTraffic') is not None:
+            self.dynamic_https_traffic = m.get('DynamicHttpsTraffic')
+        if m.get('StaticHttpTraffic') is not None:
+            self.static_http_traffic = m.get('StaticHttpTraffic')
         if m.get('StaticHttpsTraffic') is not None:
             self.static_https_traffic = m.get('StaticHttpsTraffic')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('Traffic') is not None:
+            self.traffic = m.get('Traffic')
         return self
 
 
@@ -10882,13 +12076,13 @@ class DescribeDcdnDomainTrafficDataResponseBodyTrafficDataPerInterval(TeaModel):
 
 
 class DescribeDcdnDomainTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.traffic_data_per_interval = traffic_data_per_interval  # type: DescribeDcdnDomainTrafficDataResponseBodyTrafficDataPerInterval
 
     def validate(self):
@@ -10901,32 +12095,32 @@ class DescribeDcdnDomainTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.traffic_data_per_interval is not None:
             result['TrafficDataPerInterval'] = self.traffic_data_per_interval.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainTrafficDataResponseBodyTrafficDataPerInterval()
             self.traffic_data_per_interval = temp_model.from_map(m['TrafficDataPerInterval'])
@@ -10966,12 +12160,238 @@ class DescribeDcdnDomainTrafficDataResponse(TeaModel):
         return self
 
 
-class DescribeDcdnDomainUvDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
+class DescribeDcdnDomainUsageDataRequest(TeaModel):
+    def __init__(self, area=None, data_protocol=None, domain_name=None, end_time=None, field=None, interval=None,
+                 owner_id=None, start_time=None):
+        self.area = area  # type: str
+        self.data_protocol = data_protocol  # type: str
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.field = field  # type: str
+        self.interval = interval  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainUsageDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.data_protocol is not None:
+            result['DataProtocol'] = self.data_protocol
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.field is not None:
+            result['Field'] = self.field
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('DataProtocol') is not None:
+            self.data_protocol = m.get('DataProtocol')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Field') is not None:
+            self.field = m.get('Field')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDcdnDomainUsageDataResponseBodyUsageDataPerIntervalDataModule(TeaModel):
+    def __init__(self, peak_time=None, special_value=None, time_stamp=None, value=None):
+        self.peak_time = peak_time  # type: str
+        self.special_value = special_value  # type: str
+        self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainUsageDataResponseBodyUsageDataPerIntervalDataModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.peak_time is not None:
+            result['PeakTime'] = self.peak_time
+        if self.special_value is not None:
+            result['SpecialValue'] = self.special_value
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PeakTime') is not None:
+            self.peak_time = m.get('PeakTime')
+        if m.get('SpecialValue') is not None:
+            self.special_value = m.get('SpecialValue')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnDomainUsageDataResponseBodyUsageDataPerInterval(TeaModel):
+    def __init__(self, data_module=None):
+        self.data_module = data_module  # type: list[DescribeDcdnDomainUsageDataResponseBodyUsageDataPerIntervalDataModule]
+
+    def validate(self):
+        if self.data_module:
+            for k in self.data_module:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainUsageDataResponseBodyUsageDataPerInterval, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataModule'] = []
+        if self.data_module is not None:
+            for k in self.data_module:
+                result['DataModule'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_module = []
+        if m.get('DataModule') is not None:
+            for k in m.get('DataModule'):
+                temp_model = DescribeDcdnDomainUsageDataResponseBodyUsageDataPerIntervalDataModule()
+                self.data_module.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnDomainUsageDataResponseBody(TeaModel):
+    def __init__(self, area=None, data_interval=None, domain_name=None, end_time=None, request_id=None,
+                 start_time=None, type=None, usage_data_per_interval=None):
+        self.area = area  # type: str
+        self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
+        self.type = type  # type: str
+        self.usage_data_per_interval = usage_data_per_interval  # type: DescribeDcdnDomainUsageDataResponseBodyUsageDataPerInterval
+
+    def validate(self):
+        if self.usage_data_per_interval:
+            self.usage_data_per_interval.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainUsageDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.data_interval is not None:
+            result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.usage_data_per_interval is not None:
+            result['UsageDataPerInterval'] = self.usage_data_per_interval.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('DataInterval') is not None:
+            self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UsageDataPerInterval') is not None:
+            temp_model = DescribeDcdnDomainUsageDataResponseBodyUsageDataPerInterval()
+            self.usage_data_per_interval = temp_model.from_map(m['UsageDataPerInterval'])
+        return self
+
+
+class DescribeDcdnDomainUsageDataResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnDomainUsageDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnDomainUsageDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnDomainUsageDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnDomainUvDataRequest(TeaModel):
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, start_time=None):
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -10982,33 +12402,33 @@ class DescribeDcdnDomainUvDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainUvDataResponseBodyUvDataIntervalUsageData(TeaModel):
-    def __init__(self, value=None, time_stamp=None):
-        self.value = value  # type: str
+    def __init__(self, time_stamp=None, value=None):
         self.time_stamp = time_stamp  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
@@ -11019,18 +12439,18 @@ class DescribeDcdnDomainUvDataResponseBodyUvDataIntervalUsageData(TeaModel):
             return _map
 
         result = dict()
-        if self.value is not None:
-            result['Value'] = self.value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.value is not None:
+            result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Value') is not None:
-            self.value = m.get('Value')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
@@ -11067,13 +12487,13 @@ class DescribeDcdnDomainUvDataResponseBodyUvDataInterval(TeaModel):
 
 
 class DescribeDcdnDomainUvDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  uv_data_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.uv_data_interval = uv_data_interval  # type: DescribeDcdnDomainUvDataResponseBodyUvDataInterval
 
     def validate(self):
@@ -11086,32 +12506,32 @@ class DescribeDcdnDomainUvDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.uv_data_interval is not None:
             result['UvDataInterval'] = self.uv_data_interval.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('UvDataInterval') is not None:
             temp_model = DescribeDcdnDomainUvDataResponseBodyUvDataInterval()
             self.uv_data_interval = temp_model.from_map(m['UvDataInterval'])
@@ -11152,15 +12572,15 @@ class DescribeDcdnDomainUvDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainWebsocketBpsDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -11171,12 +12591,8 @@ class DescribeDcdnDomainWebsocketBpsDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -11185,16 +12601,16 @@ class DescribeDcdnDomainWebsocketBpsDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -11203,6 +12619,10 @@ class DescribeDcdnDomainWebsocketBpsDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -11268,14 +12688,14 @@ class DescribeDcdnDomainWebsocketBpsDataResponseBodyBpsDataPerInterval(TeaModel)
 
 
 class DescribeDcdnDomainWebsocketBpsDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 bps_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
-        self.data_interval = data_interval  # type: str
+    def __init__(self, bps_data_per_interval=None, data_interval=None, domain_name=None, end_time=None,
+                 request_id=None, start_time=None):
         self.bps_data_per_interval = bps_data_per_interval  # type: DescribeDcdnDomainWebsocketBpsDataResponseBodyBpsDataPerInterval
+        self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         if self.bps_data_per_interval:
@@ -11287,35 +12707,35 @@ class DescribeDcdnDomainWebsocketBpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.data_interval is not None:
-            result['DataInterval'] = self.data_interval
         if self.bps_data_per_interval is not None:
             result['BpsDataPerInterval'] = self.bps_data_per_interval.to_map()
+        if self.data_interval is not None:
+            result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('DataInterval') is not None:
-            self.data_interval = m.get('DataInterval')
         if m.get('BpsDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainWebsocketBpsDataResponseBodyBpsDataPerInterval()
             self.bps_data_per_interval = temp_model.from_map(m['BpsDataPerInterval'])
+        if m.get('DataInterval') is not None:
+            self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -11353,15 +12773,15 @@ class DescribeDcdnDomainWebsocketBpsDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainWebsocketHttpCodeDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -11372,12 +12792,8 @@ class DescribeDcdnDomainWebsocketHttpCodeDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -11386,16 +12802,16 @@ class DescribeDcdnDomainWebsocketHttpCodeDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -11404,46 +12820,50 @@ class DescribeDcdnDomainWebsocketHttpCodeDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
-class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerIntervalHttpCodeDataModule(TeaModel):
-    def __init__(self, code=None, proportion=None, count=None):
+class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCodeHttpCodeDataModule(TeaModel):
+    def __init__(self, code=None, count=None, proportion=None):
         self.code = code  # type: int
-        self.proportion = proportion  # type: float
         self.count = count  # type: float
+        self.proportion = proportion  # type: float
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerIntervalHttpCodeDataModule, self).to_map()
+        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCodeHttpCodeDataModule, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
-        if self.proportion is not None:
-            result['Proportion'] = self.proportion
         if self.count is not None:
             result['Count'] = self.count
+        if self.proportion is not None:
+            result['Proportion'] = self.proportion
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
-        if m.get('Proportion') is not None:
-            self.proportion = m.get('Proportion')
         if m.get('Count') is not None:
             self.count = m.get('Count')
+        if m.get('Proportion') is not None:
+            self.proportion = m.get('Proportion')
         return self
 
 
-class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerInterval(TeaModel):
+class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCode(TeaModel):
     def __init__(self, http_code_data_module=None):
-        self.http_code_data_module = http_code_data_module  # type: list[DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerIntervalHttpCodeDataModule]
+        self.http_code_data_module = http_code_data_module  # type: list[DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCodeHttpCodeDataModule]
 
     def validate(self):
         if self.http_code_data_module:
@@ -11452,7 +12872,7 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModu
                     k.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerInterval, self).to_map()
+        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCode, self).to_map()
         if _map is not None:
             return _map
 
@@ -11468,45 +12888,45 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModu
         self.http_code_data_module = []
         if m.get('HttpCodeDataModule') is not None:
             for k in m.get('HttpCodeDataModule'):
-                temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerIntervalHttpCodeDataModule()
+                temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCodeHttpCodeDataModule()
                 self.http_code_data_module.append(temp_model.from_map(k))
         return self
 
 
-class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModule(TeaModel):
-    def __init__(self, time_stamp=None, websocket_http_code_data_per_interval=None):
+class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModule(TeaModel):
+    def __init__(self, time_stamp=None, websocket_http_code=None):
         self.time_stamp = time_stamp  # type: str
-        self.websocket_http_code_data_per_interval = websocket_http_code_data_per_interval  # type: DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerInterval
+        self.websocket_http_code = websocket_http_code  # type: DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCode
 
     def validate(self):
-        if self.websocket_http_code_data_per_interval:
-            self.websocket_http_code_data_per_interval.validate()
+        if self.websocket_http_code:
+            self.websocket_http_code.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModule, self).to_map()
+        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModule, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
-        if self.websocket_http_code_data_per_interval is not None:
-            result['WebsocketHttpCodeDataPerInterval'] = self.websocket_http_code_data_per_interval.to_map()
+        if self.websocket_http_code is not None:
+            result['WebsocketHttpCode'] = self.websocket_http_code.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
-        if m.get('WebsocketHttpCodeDataPerInterval') is not None:
-            temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModuleWebsocketHttpCodeDataPerInterval()
-            self.websocket_http_code_data_per_interval = temp_model.from_map(m['WebsocketHttpCodeDataPerInterval'])
+        if m.get('WebsocketHttpCode') is not None:
+            temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModuleWebsocketHttpCode()
+            self.websocket_http_code = temp_model.from_map(m['WebsocketHttpCode'])
         return self
 
 
-class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval(TeaModel):
+class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerInterval(TeaModel):
     def __init__(self, data_module=None):
-        self.data_module = data_module  # type: list[DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModule]
+        self.data_module = data_module  # type: list[DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModule]
 
     def validate(self):
         if self.data_module:
@@ -11515,7 +12935,7 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval(TeaMode
                     k.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval, self).to_map()
+        _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerInterval, self).to_map()
         if _map is not None:
             return _map
 
@@ -11531,24 +12951,24 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval(TeaMode
         self.data_module = []
         if m.get('DataModule') is not None:
             for k in m.get('DataModule'):
-                temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerIntervalDataModule()
+                temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerIntervalDataModule()
                 self.data_module.append(temp_model.from_map(k))
         return self
 
 
 class DescribeDcdnDomainWebsocketHttpCodeDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
-                 data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, http_code_data_per_interval=None,
+                 request_id=None, start_time=None):
         self.data_interval = data_interval  # type: str
-        self.data_per_interval = data_per_interval  # type: DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.http_code_data_per_interval = http_code_data_per_interval  # type: DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerInterval
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
-        if self.data_per_interval:
-            self.data_per_interval.validate()
+        if self.http_code_data_per_interval:
+            self.http_code_data_per_interval.validate()
 
     def to_map(self):
         _map = super(DescribeDcdnDomainWebsocketHttpCodeDataResponseBody, self).to_map()
@@ -11556,35 +12976,35 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
-        if self.data_per_interval is not None:
-            result['DataPerInterval'] = self.data_per_interval.to_map()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.http_code_data_per_interval is not None:
+            result['HttpCodeDataPerInterval'] = self.http_code_data_per_interval.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
-        if m.get('DataPerInterval') is not None:
-            temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyDataPerInterval()
-            self.data_per_interval = temp_model.from_map(m['DataPerInterval'])
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('HttpCodeDataPerInterval') is not None:
+            temp_model = DescribeDcdnDomainWebsocketHttpCodeDataResponseBodyHttpCodeDataPerInterval()
+            self.http_code_data_per_interval = temp_model.from_map(m['HttpCodeDataPerInterval'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -11622,15 +13042,15 @@ class DescribeDcdnDomainWebsocketHttpCodeDataResponse(TeaModel):
 
 
 class DescribeDcdnDomainWebsocketTrafficDataRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, start_time=None, end_time=None, interval=None,
-                 isp_name_en=None, location_name_en=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
+                 owner_id=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
         self.interval = interval  # type: str
         self.isp_name_en = isp_name_en  # type: str
         self.location_name_en = location_name_en  # type: str
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -11641,12 +13061,8 @@ class DescribeDcdnDomainWebsocketTrafficDataRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.interval is not None:
@@ -11655,16 +13071,16 @@ class DescribeDcdnDomainWebsocketTrafficDataRequest(TeaModel):
             result['IspNameEn'] = self.isp_name_en
         if self.location_name_en is not None:
             result['LocationNameEn'] = self.location_name_en
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Interval') is not None:
@@ -11673,13 +13089,17 @@ class DescribeDcdnDomainWebsocketTrafficDataRequest(TeaModel):
             self.isp_name_en = m.get('IspNameEn')
         if m.get('LocationNameEn') is not None:
             self.location_name_en = m.get('LocationNameEn')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnDomainWebsocketTrafficDataResponseBodyTrafficDataPerIntervalDataModule(TeaModel):
-    def __init__(self, websocket_traffic=None, time_stamp=None):
-        self.websocket_traffic = websocket_traffic  # type: float
+    def __init__(self, time_stamp=None, websocket_traffic=None):
         self.time_stamp = time_stamp  # type: str
+        self.websocket_traffic = websocket_traffic  # type: float
 
     def validate(self):
         pass
@@ -11690,18 +13110,18 @@ class DescribeDcdnDomainWebsocketTrafficDataResponseBodyTrafficDataPerIntervalDa
             return _map
 
         result = dict()
-        if self.websocket_traffic is not None:
-            result['WebsocketTraffic'] = self.websocket_traffic
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
+        if self.websocket_traffic is not None:
+            result['WebsocketTraffic'] = self.websocket_traffic
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('WebsocketTraffic') is not None:
-            self.websocket_traffic = m.get('WebsocketTraffic')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
+        if m.get('WebsocketTraffic') is not None:
+            self.websocket_traffic = m.get('WebsocketTraffic')
         return self
 
 
@@ -11738,13 +13158,13 @@ class DescribeDcdnDomainWebsocketTrafficDataResponseBodyTrafficDataPerInterval(T
 
 
 class DescribeDcdnDomainWebsocketTrafficDataResponseBody(TeaModel):
-    def __init__(self, end_time=None, start_time=None, request_id=None, domain_name=None, data_interval=None,
+    def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  traffic_data_per_interval=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.request_id = request_id  # type: str
-        self.domain_name = domain_name  # type: str
         self.data_interval = data_interval  # type: str
+        self.domain_name = domain_name  # type: str
+        self.end_time = end_time  # type: str
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
         self.traffic_data_per_interval = traffic_data_per_interval  # type: DescribeDcdnDomainWebsocketTrafficDataResponseBodyTrafficDataPerInterval
 
     def validate(self):
@@ -11757,32 +13177,32 @@ class DescribeDcdnDomainWebsocketTrafficDataResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.data_interval is not None:
             result['DataInterval'] = self.data_interval
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.traffic_data_per_interval is not None:
             result['TrafficDataPerInterval'] = self.traffic_data_per_interval.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('DataInterval') is not None:
             self.data_interval = m.get('DataInterval')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TrafficDataPerInterval') is not None:
             temp_model = DescribeDcdnDomainWebsocketTrafficDataResponseBodyTrafficDataPerInterval()
             self.traffic_data_per_interval = temp_model.from_map(m['TrafficDataPerInterval'])
@@ -11822,12 +13242,298 @@ class DescribeDcdnDomainWebsocketTrafficDataResponse(TeaModel):
         return self
 
 
+class DescribeDcdnEsExceptionDataRequest(TeaModel):
+    def __init__(self, end_time=None, owner_id=None, rule_id=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.rule_id = rule_id  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExceptionDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDcdnEsExceptionDataResponseBodyContents(TeaModel):
+    def __init__(self, columns=None, name=None, points=None):
+        self.columns = columns  # type: list[str]
+        self.name = name  # type: str
+        self.points = points  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExceptionDataResponseBodyContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.columns is not None:
+            result['Columns'] = self.columns
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.points is not None:
+            result['Points'] = self.points
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Columns') is not None:
+            self.columns = m.get('Columns')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Points') is not None:
+            self.points = m.get('Points')
+        return self
+
+
+class DescribeDcdnEsExceptionDataResponseBody(TeaModel):
+    def __init__(self, contents=None, request_id=None):
+        self.contents = contents  # type: list[DescribeDcdnEsExceptionDataResponseBodyContents]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.contents:
+            for k in self.contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExceptionDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Contents'] = []
+        if self.contents is not None:
+            for k in self.contents:
+                result['Contents'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.contents = []
+        if m.get('Contents') is not None:
+            for k in m.get('Contents'):
+                temp_model = DescribeDcdnEsExceptionDataResponseBodyContents()
+                self.contents.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnEsExceptionDataResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnEsExceptionDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExceptionDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnEsExceptionDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnEsExecuteDataRequest(TeaModel):
+    def __init__(self, end_time=None, owner_id=None, rule_id=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.rule_id = rule_id  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExecuteDataRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDcdnEsExecuteDataResponseBodyContents(TeaModel):
+    def __init__(self, columns=None, name=None, points=None):
+        self.columns = columns  # type: list[str]
+        self.name = name  # type: str
+        self.points = points  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExecuteDataResponseBodyContents, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.columns is not None:
+            result['Columns'] = self.columns
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.points is not None:
+            result['Points'] = self.points
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Columns') is not None:
+            self.columns = m.get('Columns')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Points') is not None:
+            self.points = m.get('Points')
+        return self
+
+
+class DescribeDcdnEsExecuteDataResponseBody(TeaModel):
+    def __init__(self, contents=None, request_id=None):
+        self.contents = contents  # type: list[DescribeDcdnEsExecuteDataResponseBodyContents]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.contents:
+            for k in self.contents:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExecuteDataResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Contents'] = []
+        if self.contents is not None:
+            for k in self.contents:
+                result['Contents'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.contents = []
+        if m.get('Contents') is not None:
+            for k in m.get('Contents'):
+                temp_model = DescribeDcdnEsExecuteDataResponseBodyContents()
+                self.contents.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnEsExecuteDataResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnEsExecuteDataResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnEsExecuteDataResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnEsExecuteDataResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnHttpsDomainListRequest(TeaModel):
-    def __init__(self, owner_id=None, page_number=None, page_size=None, keyword=None):
+    def __init__(self, keyword=None, owner_id=None, page_number=None, page_size=None):
+        self.keyword = keyword  # type: str
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.keyword = keyword  # type: str
 
     def validate(self):
         pass
@@ -11838,40 +13544,40 @@ class DescribeDcdnHttpsDomainListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.keyword is not None:
-            result['Keyword'] = self.keyword
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Keyword') is not None:
-            self.keyword = m.get('Keyword')
         return self
 
 
 class DescribeDcdnHttpsDomainListResponseBodyCertInfosCertInfo(TeaModel):
-    def __init__(self, cert_start_time=None, cert_expire_time=None, cert_update_time=None, cert_type=None,
-                 cert_name=None, cert_status=None, domain_name=None, cert_common_name=None):
-        self.cert_start_time = cert_start_time  # type: str
-        self.cert_expire_time = cert_expire_time  # type: str
-        self.cert_update_time = cert_update_time  # type: str
-        self.cert_type = cert_type  # type: str
-        self.cert_name = cert_name  # type: str
-        self.cert_status = cert_status  # type: str
-        self.domain_name = domain_name  # type: str
+    def __init__(self, cert_common_name=None, cert_expire_time=None, cert_name=None, cert_start_time=None,
+                 cert_status=None, cert_type=None, cert_update_time=None, domain_name=None):
         self.cert_common_name = cert_common_name  # type: str
+        self.cert_expire_time = cert_expire_time  # type: str
+        self.cert_name = cert_name  # type: str
+        self.cert_start_time = cert_start_time  # type: str
+        self.cert_status = cert_status  # type: str
+        self.cert_type = cert_type  # type: str
+        self.cert_update_time = cert_update_time  # type: str
+        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -11882,42 +13588,42 @@ class DescribeDcdnHttpsDomainListResponseBodyCertInfosCertInfo(TeaModel):
             return _map
 
         result = dict()
-        if self.cert_start_time is not None:
-            result['CertStartTime'] = self.cert_start_time
-        if self.cert_expire_time is not None:
-            result['CertExpireTime'] = self.cert_expire_time
-        if self.cert_update_time is not None:
-            result['CertUpdateTime'] = self.cert_update_time
-        if self.cert_type is not None:
-            result['CertType'] = self.cert_type
-        if self.cert_name is not None:
-            result['CertName'] = self.cert_name
-        if self.cert_status is not None:
-            result['CertStatus'] = self.cert_status
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.cert_common_name is not None:
             result['CertCommonName'] = self.cert_common_name
+        if self.cert_expire_time is not None:
+            result['CertExpireTime'] = self.cert_expire_time
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_start_time is not None:
+            result['CertStartTime'] = self.cert_start_time
+        if self.cert_status is not None:
+            result['CertStatus'] = self.cert_status
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
+        if self.cert_update_time is not None:
+            result['CertUpdateTime'] = self.cert_update_time
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CertStartTime') is not None:
-            self.cert_start_time = m.get('CertStartTime')
-        if m.get('CertExpireTime') is not None:
-            self.cert_expire_time = m.get('CertExpireTime')
-        if m.get('CertUpdateTime') is not None:
-            self.cert_update_time = m.get('CertUpdateTime')
-        if m.get('CertType') is not None:
-            self.cert_type = m.get('CertType')
-        if m.get('CertName') is not None:
-            self.cert_name = m.get('CertName')
-        if m.get('CertStatus') is not None:
-            self.cert_status = m.get('CertStatus')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('CertCommonName') is not None:
             self.cert_common_name = m.get('CertCommonName')
+        if m.get('CertExpireTime') is not None:
+            self.cert_expire_time = m.get('CertExpireTime')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertStartTime') is not None:
+            self.cert_start_time = m.get('CertStartTime')
+        if m.get('CertStatus') is not None:
+            self.cert_status = m.get('CertStatus')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
+        if m.get('CertUpdateTime') is not None:
+            self.cert_update_time = m.get('CertUpdateTime')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -11954,10 +13660,10 @@ class DescribeDcdnHttpsDomainListResponseBodyCertInfos(TeaModel):
 
 
 class DescribeDcdnHttpsDomainListResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, cert_infos=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
+    def __init__(self, cert_infos=None, request_id=None, total_count=None):
         self.cert_infos = cert_infos  # type: DescribeDcdnHttpsDomainListResponseBodyCertInfos
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.cert_infos:
@@ -11969,23 +13675,23 @@ class DescribeDcdnHttpsDomainListResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.cert_infos is not None:
             result['CertInfos'] = self.cert_infos.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('CertInfos') is not None:
             temp_model = DescribeDcdnHttpsDomainListResponseBodyCertInfos()
             self.cert_infos = temp_model.from_map(m['CertInfos'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -12022,12 +13728,128 @@ class DescribeDcdnHttpsDomainListResponse(TeaModel):
         return self
 
 
-class DescribeDcdnIpaDomainConfigsRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, function_names=None):
+class DescribeDcdnIpInfoRequest(TeaModel):
+    def __init__(self, ip=None, owner_id=None, security_token=None):
+        self.ip = ip  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnIpInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ip is not None:
+            result['IP'] = self.ip
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IP') is not None:
+            self.ip = m.get('IP')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeDcdnIpInfoResponseBody(TeaModel):
+    def __init__(self, dcdn_ip=None, isp=None, isp_ename=None, region=None, region_ename=None, request_id=None):
+        self.dcdn_ip = dcdn_ip  # type: str
+        self.isp = isp  # type: str
+        self.isp_ename = isp_ename  # type: str
+        self.region = region  # type: str
+        self.region_ename = region_ename  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnIpInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dcdn_ip is not None:
+            result['DcdnIp'] = self.dcdn_ip
+        if self.isp is not None:
+            result['ISP'] = self.isp
+        if self.isp_ename is not None:
+            result['IspEname'] = self.isp_ename
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.region_ename is not None:
+            result['RegionEname'] = self.region_ename
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DcdnIp') is not None:
+            self.dcdn_ip = m.get('DcdnIp')
+        if m.get('ISP') is not None:
+            self.isp = m.get('ISP')
+        if m.get('IspEname') is not None:
+            self.isp_ename = m.get('IspEname')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('RegionEname') is not None:
+            self.region_ename = m.get('RegionEname')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnIpInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnIpInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnIpInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnIpInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnIpaDomainConfigsRequest(TeaModel):
+    def __init__(self, domain_name=None, function_names=None, owner_id=None, security_token=None):
         self.domain_name = domain_name  # type: str
         self.function_names = function_names  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -12038,26 +13860,26 @@ class DescribeDcdnIpaDomainConfigsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.function_names is not None:
             result['FunctionNames'] = self.function_names
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('FunctionNames') is not None:
             self.function_names = m.get('FunctionNames')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -12123,11 +13945,11 @@ class DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionA
 
 
 class DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
-    def __init__(self, status=None, config_id=None, function_name=None, function_args=None):
-        self.status = status  # type: str
+    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
         self.config_id = config_id  # type: str
-        self.function_name = function_name  # type: str
         self.function_args = function_args  # type: DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
+        self.function_name = function_name  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         if self.function_args:
@@ -12139,27 +13961,27 @@ class DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
-        if self.function_name is not None:
-            result['FunctionName'] = self.function_name
         if self.function_args is not None:
             result['FunctionArgs'] = self.function_args.to_map()
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
-        if m.get('FunctionName') is not None:
-            self.function_name = m.get('FunctionName')
         if m.get('FunctionArgs') is not None:
             temp_model = DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs()
             self.function_args = temp_model.from_map(m['FunctionArgs'])
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -12196,9 +14018,9 @@ class DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigs(TeaModel):
 
 
 class DescribeDcdnIpaDomainConfigsResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_configs=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_configs=None, request_id=None):
         self.domain_configs = domain_configs  # type: DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigs
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.domain_configs:
@@ -12210,19 +14032,19 @@ class DescribeDcdnIpaDomainConfigsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_configs is not None:
             result['DomainConfigs'] = self.domain_configs.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainConfigs') is not None:
             temp_model = DescribeDcdnIpaDomainConfigsResponseBodyDomainConfigs()
             self.domain_configs = temp_model.from_map(m['DomainConfigs'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -12260,10 +14082,10 @@ class DescribeDcdnIpaDomainConfigsResponse(TeaModel):
 
 
 class DescribeDcdnIpaDomainDetailRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -12274,33 +14096,33 @@ class DescribeDcdnIpaDomainDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
 class DescribeDcdnIpaDomainDetailResponseBodyDomainDetailSourcesSource(TeaModel):
-    def __init__(self, type=None, weight=None, enabled=None, priority=None, port=None, content=None):
+    def __init__(self, content=None, enabled=None, port=None, priority=None, type=None, weight=None):
+        self.content = content  # type: str
+        self.enabled = enabled  # type: str
+        self.port = port  # type: int
+        self.priority = priority  # type: str
         self.type = type  # type: str
         self.weight = weight  # type: str
-        self.enabled = enabled  # type: str
-        self.priority = priority  # type: str
-        self.port = port  # type: int
-        self.content = content  # type: str
 
     def validate(self):
         pass
@@ -12311,34 +14133,34 @@ class DescribeDcdnIpaDomainDetailResponseBodyDomainDetailSourcesSource(TeaModel)
             return _map
 
         result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
             result['Weight'] = self.weight
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.content is not None:
-            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
@@ -12375,19 +14197,20 @@ class DescribeDcdnIpaDomainDetailResponseBodyDomainDetailSources(TeaModel):
 
 
 class DescribeDcdnIpaDomainDetailResponseBodyDomainDetail(TeaModel):
-    def __init__(self, gmt_created=None, sslpub=None, description=None, sslprotocol=None, resource_group_id=None,
-                 cert_name=None, scope=None, cname=None, domain_status=None, gmt_modified=None, domain_name=None, sources=None):
-        self.gmt_created = gmt_created  # type: str
-        self.sslpub = sslpub  # type: str
-        self.description = description  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.resource_group_id = resource_group_id  # type: str
+    def __init__(self, cert_name=None, cname=None, description=None, domain_name=None, domain_status=None,
+                 gmt_created=None, gmt_modified=None, resource_group_id=None, sslprotocol=None, sslpub=None, scope=None,
+                 sources=None):
         self.cert_name = cert_name  # type: str
-        self.scope = scope  # type: str
         self.cname = cname  # type: str
-        self.domain_status = domain_status  # type: str
-        self.gmt_modified = gmt_modified  # type: str
+        self.description = description  # type: str
         self.domain_name = domain_name  # type: str
+        self.domain_status = domain_status  # type: str
+        self.gmt_created = gmt_created  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sslpub = sslpub  # type: str
+        self.scope = scope  # type: str
         self.sources = sources  # type: DescribeDcdnIpaDomainDetailResponseBodyDomainDetailSources
 
     def validate(self):
@@ -12400,56 +14223,56 @@ class DescribeDcdnIpaDomainDetailResponseBodyDomainDetail(TeaModel):
             return _map
 
         result = dict()
-        if self.gmt_created is not None:
-            result['GmtCreated'] = self.gmt_created
-        if self.sslpub is not None:
-            result['SSLPub'] = self.sslpub
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
         if self.cert_name is not None:
             result['CertName'] = self.cert_name
-        if self.scope is not None:
-            result['Scope'] = self.scope
         if self.cname is not None:
             result['Cname'] = self.cname
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
+        if self.description is not None:
+            result['Description'] = self.description
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.gmt_created is not None:
+            result['GmtCreated'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sslpub is not None:
+            result['SSLPub'] = self.sslpub
+        if self.scope is not None:
+            result['Scope'] = self.scope
         if self.sources is not None:
             result['Sources'] = self.sources.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreated') is not None:
-            self.gmt_created = m.get('GmtCreated')
-        if m.get('SSLPub') is not None:
-            self.sslpub = m.get('SSLPub')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('CertName') is not None:
             self.cert_name = m.get('CertName')
-        if m.get('Scope') is not None:
-            self.scope = m.get('Scope')
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('GmtCreated') is not None:
+            self.gmt_created = m.get('GmtCreated')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('SSLPub') is not None:
+            self.sslpub = m.get('SSLPub')
+        if m.get('Scope') is not None:
+            self.scope = m.get('Scope')
         if m.get('Sources') is not None:
             temp_model = DescribeDcdnIpaDomainDetailResponseBodyDomainDetailSources()
             self.sources = temp_model.from_map(m['Sources'])
@@ -12457,9 +14280,9 @@ class DescribeDcdnIpaDomainDetailResponseBodyDomainDetail(TeaModel):
 
 
 class DescribeDcdnIpaDomainDetailResponseBody(TeaModel):
-    def __init__(self, request_id=None, domain_detail=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domain_detail=None, request_id=None):
         self.domain_detail = domain_detail  # type: DescribeDcdnIpaDomainDetailResponseBodyDomainDetail
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.domain_detail:
@@ -12471,19 +14294,19 @@ class DescribeDcdnIpaDomainDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.domain_detail is not None:
             result['DomainDetail'] = self.domain_detail.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('DomainDetail') is not None:
             temp_model = DescribeDcdnIpaDomainDetailResponseBodyDomainDetail()
             self.domain_detail = temp_model.from_map(m['DomainDetail'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -12606,15 +14429,15 @@ class DescribeDcdnIpaServiceResponseBodyOperationLocks(TeaModel):
 
 
 class DescribeDcdnIpaServiceResponseBody(TeaModel):
-    def __init__(self, changing_affect_time=None, request_id=None, changing_charge_type=None, opening_time=None,
-                 internet_charge_type=None, instance_id=None, operation_locks=None):
+    def __init__(self, changing_affect_time=None, changing_charge_type=None, instance_id=None,
+                 internet_charge_type=None, opening_time=None, operation_locks=None, request_id=None):
         self.changing_affect_time = changing_affect_time  # type: str
-        self.request_id = request_id  # type: str
         self.changing_charge_type = changing_charge_type  # type: str
-        self.opening_time = opening_time  # type: str
-        self.internet_charge_type = internet_charge_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.internet_charge_type = internet_charge_type  # type: str
+        self.opening_time = opening_time  # type: str
         self.operation_locks = operation_locks  # type: DescribeDcdnIpaServiceResponseBodyOperationLocks
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.operation_locks:
@@ -12628,37 +14451,37 @@ class DescribeDcdnIpaServiceResponseBody(TeaModel):
         result = dict()
         if self.changing_affect_time is not None:
             result['ChangingAffectTime'] = self.changing_affect_time
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.changing_charge_type is not None:
             result['ChangingChargeType'] = self.changing_charge_type
-        if self.opening_time is not None:
-            result['OpeningTime'] = self.opening_time
-        if self.internet_charge_type is not None:
-            result['InternetChargeType'] = self.internet_charge_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.opening_time is not None:
+            result['OpeningTime'] = self.opening_time
         if self.operation_locks is not None:
             result['OperationLocks'] = self.operation_locks.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ChangingAffectTime') is not None:
             self.changing_affect_time = m.get('ChangingAffectTime')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('ChangingChargeType') is not None:
             self.changing_charge_type = m.get('ChangingChargeType')
-        if m.get('OpeningTime') is not None:
-            self.opening_time = m.get('OpeningTime')
-        if m.get('InternetChargeType') is not None:
-            self.internet_charge_type = m.get('InternetChargeType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('OpeningTime') is not None:
+            self.opening_time = m.get('OpeningTime')
         if m.get('OperationLocks') is not None:
             temp_model = DescribeDcdnIpaServiceResponseBodyOperationLocks()
             self.operation_locks = temp_model.from_map(m['OperationLocks'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -12695,24 +14518,57 @@ class DescribeDcdnIpaServiceResponse(TeaModel):
         return self
 
 
-class DescribeDcdnIpaUserDomainsRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, page_size=None, page_number=None, domain_name=None,
-                 domain_status=None, domain_search_type=None, check_domain_show=None, resource_group_id=None, func_id=None,
-                 func_filter=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
-        self.domain_name = domain_name  # type: str
-        self.domain_status = domain_status  # type: str
-        self.domain_search_type = domain_search_type  # type: str
-        self.check_domain_show = check_domain_show  # type: bool
-        self.resource_group_id = resource_group_id  # type: str
-        self.func_id = func_id  # type: str
-        self.func_filter = func_filter  # type: str
+class DescribeDcdnIpaUserDomainsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnIpaUserDomainsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnIpaUserDomainsRequest(TeaModel):
+    def __init__(self, check_domain_show=None, domain_name=None, domain_search_type=None, domain_status=None,
+                 func_filter=None, func_id=None, owner_id=None, page_number=None, page_size=None, resource_group_id=None,
+                 security_token=None, tag=None):
+        self.check_domain_show = check_domain_show  # type: bool
+        self.domain_name = domain_name  # type: str
+        self.domain_search_type = domain_search_type  # type: str
+        self.domain_status = domain_status  # type: str
+        self.func_filter = func_filter  # type: str
+        self.func_id = func_id  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
+        self.security_token = security_token  # type: str
+        self.tag = tag  # type: list[DescribeDcdnIpaUserDomainsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeDcdnIpaUserDomainsRequest, self).to_map()
@@ -12720,64 +14576,73 @@ class DescribeDcdnIpaUserDomainsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
-        if self.domain_search_type is not None:
-            result['DomainSearchType'] = self.domain_search_type
         if self.check_domain_show is not None:
             result['CheckDomainShow'] = self.check_domain_show
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.func_id is not None:
-            result['FuncId'] = self.func_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.domain_search_type is not None:
+            result['DomainSearchType'] = self.domain_search_type
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
         if self.func_filter is not None:
             result['FuncFilter'] = self.func_filter
+        if self.func_id is not None:
+            result['FuncId'] = self.func_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
-        if m.get('DomainSearchType') is not None:
-            self.domain_search_type = m.get('DomainSearchType')
         if m.get('CheckDomainShow') is not None:
             self.check_domain_show = m.get('CheckDomainShow')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('FuncId') is not None:
-            self.func_id = m.get('FuncId')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('DomainSearchType') is not None:
+            self.domain_search_type = m.get('DomainSearchType')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
         if m.get('FuncFilter') is not None:
             self.func_filter = m.get('FuncFilter')
+        if m.get('FuncId') is not None:
+            self.func_id = m.get('FuncId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeDcdnIpaUserDomainsRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeDcdnIpaUserDomainsResponseBodyDomainsPageDataSourcesSource(TeaModel):
-    def __init__(self, type=None, weight=None, priority=None, port=None, content=None):
+    def __init__(self, content=None, port=None, priority=None, type=None, weight=None):
+        self.content = content  # type: str
+        self.port = port  # type: int
+        self.priority = priority  # type: str
         self.type = type  # type: str
         self.weight = weight  # type: str
-        self.priority = priority  # type: str
-        self.port = port  # type: int
-        self.content = content  # type: str
 
     def validate(self):
         pass
@@ -12788,30 +14653,30 @@ class DescribeDcdnIpaUserDomainsResponseBodyDomainsPageDataSourcesSource(TeaMode
             return _map
 
         result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
             result['Weight'] = self.weight
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.content is not None:
-            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
@@ -12848,17 +14713,17 @@ class DescribeDcdnIpaUserDomainsResponseBodyDomainsPageDataSources(TeaModel):
 
 
 class DescribeDcdnIpaUserDomainsResponseBodyDomainsPageData(TeaModel):
-    def __init__(self, gmt_created=None, description=None, sslprotocol=None, resource_group_id=None, sandbox=None,
-                 domain_status=None, cname=None, gmt_modified=None, domain_name=None, sources=None):
-        self.gmt_created = gmt_created  # type: str
-        self.description = description  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.sandbox = sandbox  # type: str
-        self.domain_status = domain_status  # type: str
+    def __init__(self, cname=None, description=None, domain_name=None, domain_status=None, gmt_created=None,
+                 gmt_modified=None, resource_group_id=None, sslprotocol=None, sandbox=None, sources=None):
         self.cname = cname  # type: str
-        self.gmt_modified = gmt_modified  # type: str
+        self.description = description  # type: str
         self.domain_name = domain_name  # type: str
+        self.domain_status = domain_status  # type: str
+        self.gmt_created = gmt_created  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sandbox = sandbox  # type: str
         self.sources = sources  # type: DescribeDcdnIpaUserDomainsResponseBodyDomainsPageDataSources
 
     def validate(self):
@@ -12871,48 +14736,48 @@ class DescribeDcdnIpaUserDomainsResponseBodyDomainsPageData(TeaModel):
             return _map
 
         result = dict()
-        if self.gmt_created is not None:
-            result['GmtCreated'] = self.gmt_created
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.sandbox is not None:
-            result['Sandbox'] = self.sandbox
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
         if self.cname is not None:
             result['Cname'] = self.cname
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
+        if self.description is not None:
+            result['Description'] = self.description
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.gmt_created is not None:
+            result['GmtCreated'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sandbox is not None:
+            result['Sandbox'] = self.sandbox
         if self.sources is not None:
             result['Sources'] = self.sources.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreated') is not None:
-            self.gmt_created = m.get('GmtCreated')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Sandbox') is not None:
-            self.sandbox = m.get('Sandbox')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('GmtCreated') is not None:
+            self.gmt_created = m.get('GmtCreated')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('Sandbox') is not None:
+            self.sandbox = m.get('Sandbox')
         if m.get('Sources') is not None:
             temp_model = DescribeDcdnIpaUserDomainsResponseBodyDomainsPageDataSources()
             self.sources = temp_model.from_map(m['Sources'])
@@ -12952,12 +14817,12 @@ class DescribeDcdnIpaUserDomainsResponseBodyDomains(TeaModel):
 
 
 class DescribeDcdnIpaUserDomainsResponseBody(TeaModel):
-    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, domains=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: DescribeDcdnIpaUserDomainsResponseBodyDomains
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
         self.total_count = total_count  # type: long
-        self.domains = domains  # type: DescribeDcdnIpaUserDomainsResponseBodyDomains
 
     def validate(self):
         if self.domains:
@@ -12969,31 +14834,31 @@ class DescribeDcdnIpaUserDomainsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
+        if self.domains is not None:
+            result['Domains'] = self.domains.to_map()
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
-        if self.domains is not None:
-            result['Domains'] = self.domains.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
+        if m.get('Domains') is not None:
+            temp_model = DescribeDcdnIpaUserDomainsResponseBodyDomains()
+            self.domains = temp_model.from_map(m['Domains'])
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
-        if m.get('Domains') is not None:
-            temp_model = DescribeDcdnIpaUserDomainsResponseBodyDomains()
-            self.domains = temp_model.from_map(m['Domains'])
         return self
 
 
@@ -13030,383 +14895,51 @@ class DescribeDcdnIpaUserDomainsResponse(TeaModel):
         return self
 
 
-class DescribeDcdnIpInfoRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, ip=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.ip = ip  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnIpInfoRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.ip is not None:
-            result['IP'] = self.ip
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('IP') is not None:
-            self.ip = m.get('IP')
-        return self
-
-
-class DescribeDcdnIpInfoResponseBody(TeaModel):
-    def __init__(self, request_id=None, region_ename=None, region=None, isp_ename=None, dcdn_ip=None, isp=None):
-        self.request_id = request_id  # type: str
-        self.region_ename = region_ename  # type: str
-        self.region = region  # type: str
-        self.isp_ename = isp_ename  # type: str
-        self.dcdn_ip = dcdn_ip  # type: str
-        self.isp = isp  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnIpInfoResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.region_ename is not None:
-            result['RegionEname'] = self.region_ename
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.isp_ename is not None:
-            result['IspEname'] = self.isp_ename
-        if self.dcdn_ip is not None:
-            result['DcdnIp'] = self.dcdn_ip
-        if self.isp is not None:
-            result['ISP'] = self.isp
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('RegionEname') is not None:
-            self.region_ename = m.get('RegionEname')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('IspEname') is not None:
-            self.isp_ename = m.get('IspEname')
-        if m.get('DcdnIp') is not None:
-            self.dcdn_ip = m.get('DcdnIp')
-        if m.get('ISP') is not None:
-            self.isp = m.get('ISP')
-        return self
-
-
-class DescribeDcdnIpInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDcdnIpInfoResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnIpInfoResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeDcdnIpInfoResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRequest(TeaModel):
-    def __init__(self, owner_id=None):
+class DescribeDcdnRealTimeDeliveryFieldRequest(TeaModel):
+    def __init__(self, business_type=None, owner_id=None):
+        self.business_type = business_type  # type: str
         self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRequest, self).to_map()
+        _map = super(DescribeDcdnRealTimeDeliveryFieldRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         return self
 
 
-class DescribeDcdnOfflineLogDeliveryResponseBodyDomains(TeaModel):
-    def __init__(self, domain_name=None):
-        self.domain_name = domain_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryResponseBodyDomains, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryResponseBodyRegions(TeaModel):
-    def __init__(self, oss_id=None, oss_path_prefix=None, region_id=None, area_name=None, dla_table_name=None,
-                 dla_vc_name=None, dla_db_name=None, region_name=None, area_id=None, is_overseas=None, oss_bucket_name=None,
-                 oss_endpoint=None):
-        self.oss_id = oss_id  # type: int
-        self.oss_path_prefix = oss_path_prefix  # type: str
-        self.region_id = region_id  # type: str
-        self.area_name = area_name  # type: str
-        self.dla_table_name = dla_table_name  # type: str
-        self.dla_vc_name = dla_vc_name  # type: str
-        self.dla_db_name = dla_db_name  # type: str
-        self.region_name = region_name  # type: str
-        self.area_id = area_id  # type: str
-        self.is_overseas = is_overseas  # type: str
-        self.oss_bucket_name = oss_bucket_name  # type: str
-        self.oss_endpoint = oss_endpoint  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryResponseBodyRegions, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.oss_id is not None:
-            result['OssId'] = self.oss_id
-        if self.oss_path_prefix is not None:
-            result['OssPathPrefix'] = self.oss_path_prefix
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.area_name is not None:
-            result['AreaName'] = self.area_name
-        if self.dla_table_name is not None:
-            result['DlaTableName'] = self.dla_table_name
-        if self.dla_vc_name is not None:
-            result['DlaVcName'] = self.dla_vc_name
-        if self.dla_db_name is not None:
-            result['DlaDbName'] = self.dla_db_name
-        if self.region_name is not None:
-            result['RegionName'] = self.region_name
-        if self.area_id is not None:
-            result['AreaId'] = self.area_id
-        if self.is_overseas is not None:
-            result['IsOverseas'] = self.is_overseas
-        if self.oss_bucket_name is not None:
-            result['OssBucketName'] = self.oss_bucket_name
-        if self.oss_endpoint is not None:
-            result['OssEndpoint'] = self.oss_endpoint
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OssId') is not None:
-            self.oss_id = m.get('OssId')
-        if m.get('OssPathPrefix') is not None:
-            self.oss_path_prefix = m.get('OssPathPrefix')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('AreaName') is not None:
-            self.area_name = m.get('AreaName')
-        if m.get('DlaTableName') is not None:
-            self.dla_table_name = m.get('DlaTableName')
-        if m.get('DlaVcName') is not None:
-            self.dla_vc_name = m.get('DlaVcName')
-        if m.get('DlaDbName') is not None:
-            self.dla_db_name = m.get('DlaDbName')
-        if m.get('RegionName') is not None:
-            self.region_name = m.get('RegionName')
-        if m.get('AreaId') is not None:
-            self.area_id = m.get('AreaId')
-        if m.get('IsOverseas') is not None:
-            self.is_overseas = m.get('IsOverseas')
-        if m.get('OssBucketName') is not None:
-            self.oss_bucket_name = m.get('OssBucketName')
-        if m.get('OssEndpoint') is not None:
-            self.oss_endpoint = m.get('OssEndpoint')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryResponseBody(TeaModel):
-    def __init__(self, request_id=None, fields=None, domains=None, regions=None):
-        self.request_id = request_id  # type: str
-        self.fields = fields  # type: list[str]
-        self.domains = domains  # type: list[DescribeDcdnOfflineLogDeliveryResponseBodyDomains]
-        self.regions = regions  # type: list[DescribeDcdnOfflineLogDeliveryResponseBodyRegions]
-
-    def validate(self):
-        if self.domains:
-            for k in self.domains:
-                if k:
-                    k.validate()
-        if self.regions:
-            for k in self.regions:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.fields is not None:
-            result['Fields'] = self.fields
-        result['Domains'] = []
-        if self.domains is not None:
-            for k in self.domains:
-                result['Domains'].append(k.to_map() if k else None)
-        result['Regions'] = []
-        if self.regions is not None:
-            for k in self.regions:
-                result['Regions'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Fields') is not None:
-            self.fields = m.get('Fields')
-        self.domains = []
-        if m.get('Domains') is not None:
-            for k in m.get('Domains'):
-                temp_model = DescribeDcdnOfflineLogDeliveryResponseBodyDomains()
-                self.domains.append(temp_model.from_map(k))
-        self.regions = []
-        if m.get('Regions') is not None:
-            for k in m.get('Regions'):
-                temp_model = DescribeDcdnOfflineLogDeliveryResponseBodyRegions()
-                self.regions.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDcdnOfflineLogDeliveryResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeDcdnOfflineLogDeliveryResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryFieldRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryFieldRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryFieldResponseBodyFields(TeaModel):
-    def __init__(self, description=None, field_id=None, field_name=None):
+class DescribeDcdnRealTimeDeliveryFieldResponseBodyContentFields(TeaModel):
+    def __init__(self, description=None, field_name=None):
         self.description = description  # type: str
-        self.field_id = field_id  # type: str
         self.field_name = field_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryFieldResponseBodyFields, self).to_map()
+        _map = super(DescribeDcdnRealTimeDeliveryFieldResponseBodyContentFields, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.description is not None:
             result['Description'] = self.description
-        if self.field_id is not None:
-            result['FieldId'] = self.field_id
         if self.field_name is not None:
             result['FieldName'] = self.field_name
         return result
@@ -13415,17 +14948,14 @@ class DescribeDcdnOfflineLogDeliveryFieldResponseBodyFields(TeaModel):
         m = m or dict()
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('FieldId') is not None:
-            self.field_id = m.get('FieldId')
         if m.get('FieldName') is not None:
             self.field_name = m.get('FieldName')
         return self
 
 
-class DescribeDcdnOfflineLogDeliveryFieldResponseBody(TeaModel):
-    def __init__(self, request_id=None, fields=None):
-        self.request_id = request_id  # type: str
-        self.fields = fields  # type: list[DescribeDcdnOfflineLogDeliveryFieldResponseBodyFields]
+class DescribeDcdnRealTimeDeliveryFieldResponseBodyContent(TeaModel):
+    def __init__(self, fields=None):
+        self.fields = fields  # type: list[DescribeDcdnRealTimeDeliveryFieldResponseBodyContentFields]
 
     def validate(self):
         if self.fields:
@@ -13434,13 +14964,11 @@ class DescribeDcdnOfflineLogDeliveryFieldResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryFieldResponseBody, self).to_map()
+        _map = super(DescribeDcdnRealTimeDeliveryFieldResponseBodyContent, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['Fields'] = []
         if self.fields is not None:
             for k in self.fields:
@@ -13449,281 +14977,49 @@ class DescribeDcdnOfflineLogDeliveryFieldResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.fields = []
         if m.get('Fields') is not None:
             for k in m.get('Fields'):
-                temp_model = DescribeDcdnOfflineLogDeliveryFieldResponseBodyFields()
+                temp_model = DescribeDcdnRealTimeDeliveryFieldResponseBodyContentFields()
                 self.fields.append(temp_model.from_map(k))
         return self
 
 
-class DescribeDcdnOfflineLogDeliveryFieldResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDcdnOfflineLogDeliveryFieldResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryFieldResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeDcdnOfflineLogDeliveryFieldResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRegionsRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRegionsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreasRegionInfos(TeaModel):
-    def __init__(self, is_overseas=None, region_name=None, oss_endpoint=None, region_id=None):
-        self.is_overseas = is_overseas  # type: str
-        self.region_name = region_name  # type: str
-        self.oss_endpoint = oss_endpoint  # type: str
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreasRegionInfos, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.is_overseas is not None:
-            result['IsOverseas'] = self.is_overseas
-        if self.region_name is not None:
-            result['RegionName'] = self.region_name
-        if self.oss_endpoint is not None:
-            result['OssEndpoint'] = self.oss_endpoint
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('IsOverseas') is not None:
-            self.is_overseas = m.get('IsOverseas')
-        if m.get('RegionName') is not None:
-            self.region_name = m.get('RegionName')
-        if m.get('OssEndpoint') is not None:
-            self.oss_endpoint = m.get('OssEndpoint')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreas(TeaModel):
-    def __init__(self, area_name=None, area_id=None, region_infos=None):
-        self.area_name = area_name  # type: str
-        self.area_id = area_id  # type: str
-        self.region_infos = region_infos  # type: list[DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreasRegionInfos]
-
-    def validate(self):
-        if self.region_infos:
-            for k in self.region_infos:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreas, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.area_name is not None:
-            result['AreaName'] = self.area_name
-        if self.area_id is not None:
-            result['AreaId'] = self.area_id
-        result['RegionInfos'] = []
-        if self.region_infos is not None:
-            for k in self.region_infos:
-                result['RegionInfos'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AreaName') is not None:
-            self.area_name = m.get('AreaName')
-        if m.get('AreaId') is not None:
-            self.area_id = m.get('AreaId')
-        self.region_infos = []
-        if m.get('RegionInfos') is not None:
-            for k in m.get('RegionInfos'):
-                temp_model = DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreasRegionInfos()
-                self.region_infos.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRegionsResponseBody(TeaModel):
-    def __init__(self, request_id=None, areas=None):
-        self.request_id = request_id  # type: str
-        self.areas = areas  # type: list[DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreas]
-
-    def validate(self):
-        if self.areas:
-            for k in self.areas:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRegionsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        result['Areas'] = []
-        if self.areas is not None:
-            for k in self.areas:
-                result['Areas'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        self.areas = []
-        if m.get('Areas') is not None:
-            for k in m.get('Areas'):
-                temp_model = DescribeDcdnOfflineLogDeliveryRegionsResponseBodyAreas()
-                self.areas.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryRegionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDcdnOfflineLogDeliveryRegionsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryRegionsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeDcdnOfflineLogDeliveryRegionsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryStatusRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryStatusRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
-class DescribeDcdnOfflineLogDeliveryStatusResponseBody(TeaModel):
-    def __init__(self, open_status=None, request_id=None):
-        self.open_status = open_status  # type: str
+class DescribeDcdnRealTimeDeliveryFieldResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: DescribeDcdnRealTimeDeliveryFieldResponseBodyContent
         self.request_id = request_id  # type: str
 
     def validate(self):
-        pass
+        if self.content:
+            self.content.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryStatusResponseBody, self).to_map()
+        _map = super(DescribeDcdnRealTimeDeliveryFieldResponseBody, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.open_status is not None:
-            result['OpenStatus'] = self.open_status
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OpenStatus') is not None:
-            self.open_status = m.get('OpenStatus')
+        if m.get('Content') is not None:
+            temp_model = DescribeDcdnRealTimeDeliveryFieldResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
 
 
-class DescribeDcdnOfflineLogDeliveryStatusResponse(TeaModel):
+class DescribeDcdnRealTimeDeliveryFieldResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeDcdnOfflineLogDeliveryStatusResponseBody
+        self.body = body  # type: DescribeDcdnRealTimeDeliveryFieldResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -13732,7 +15028,7 @@ class DescribeDcdnOfflineLogDeliveryStatusResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(DescribeDcdnOfflineLogDeliveryStatusResponse, self).to_map()
+        _map = super(DescribeDcdnRealTimeDeliveryFieldResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -13748,7 +15044,7 @@ class DescribeDcdnOfflineLogDeliveryStatusResponse(TeaModel):
         if m.get('headers') is not None:
             self.headers = m.get('headers')
         if m.get('body') is not None:
-            temp_model = DescribeDcdnOfflineLogDeliveryStatusResponseBody()
+            temp_model = DescribeDcdnRealTimeDeliveryFieldResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -13783,17 +15079,19 @@ class DescribeDcdnRefreshQuotaRequest(TeaModel):
 
 
 class DescribeDcdnRefreshQuotaResponseBody(TeaModel):
-    def __init__(self, block_quota=None, preload_remain=None, request_id=None, block_remain=None, dir_remain=None,
-                 url_remain=None, dir_quota=None, url_quota=None, preload_quota=None):
+    def __init__(self, block_quota=None, block_remain=None, dir_quota=None, dir_remain=None, preload_quota=None,
+                 preload_remain=None, regex_quota=None, regex_remain=None, request_id=None, url_quota=None, url_remain=None):
         self.block_quota = block_quota  # type: str
-        self.preload_remain = preload_remain  # type: str
-        self.request_id = request_id  # type: str
         self.block_remain = block_remain  # type: str
-        self.dir_remain = dir_remain  # type: str
-        self.url_remain = url_remain  # type: str
         self.dir_quota = dir_quota  # type: str
-        self.url_quota = url_quota  # type: str
+        self.dir_remain = dir_remain  # type: str
         self.preload_quota = preload_quota  # type: str
+        self.preload_remain = preload_remain  # type: str
+        self.regex_quota = regex_quota  # type: str
+        self.regex_remain = regex_remain  # type: str
+        self.request_id = request_id  # type: str
+        self.url_quota = url_quota  # type: str
+        self.url_remain = url_remain  # type: str
 
     def validate(self):
         pass
@@ -13806,44 +15104,52 @@ class DescribeDcdnRefreshQuotaResponseBody(TeaModel):
         result = dict()
         if self.block_quota is not None:
             result['BlockQuota'] = self.block_quota
-        if self.preload_remain is not None:
-            result['PreloadRemain'] = self.preload_remain
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.block_remain is not None:
-            result['blockRemain'] = self.block_remain
-        if self.dir_remain is not None:
-            result['DirRemain'] = self.dir_remain
-        if self.url_remain is not None:
-            result['UrlRemain'] = self.url_remain
+            result['BlockRemain'] = self.block_remain
         if self.dir_quota is not None:
             result['DirQuota'] = self.dir_quota
-        if self.url_quota is not None:
-            result['UrlQuota'] = self.url_quota
+        if self.dir_remain is not None:
+            result['DirRemain'] = self.dir_remain
         if self.preload_quota is not None:
             result['PreloadQuota'] = self.preload_quota
+        if self.preload_remain is not None:
+            result['PreloadRemain'] = self.preload_remain
+        if self.regex_quota is not None:
+            result['RegexQuota'] = self.regex_quota
+        if self.regex_remain is not None:
+            result['RegexRemain'] = self.regex_remain
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.url_quota is not None:
+            result['UrlQuota'] = self.url_quota
+        if self.url_remain is not None:
+            result['UrlRemain'] = self.url_remain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('BlockQuota') is not None:
             self.block_quota = m.get('BlockQuota')
-        if m.get('PreloadRemain') is not None:
-            self.preload_remain = m.get('PreloadRemain')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('blockRemain') is not None:
-            self.block_remain = m.get('blockRemain')
-        if m.get('DirRemain') is not None:
-            self.dir_remain = m.get('DirRemain')
-        if m.get('UrlRemain') is not None:
-            self.url_remain = m.get('UrlRemain')
+        if m.get('BlockRemain') is not None:
+            self.block_remain = m.get('BlockRemain')
         if m.get('DirQuota') is not None:
             self.dir_quota = m.get('DirQuota')
-        if m.get('UrlQuota') is not None:
-            self.url_quota = m.get('UrlQuota')
+        if m.get('DirRemain') is not None:
+            self.dir_remain = m.get('DirRemain')
         if m.get('PreloadQuota') is not None:
             self.preload_quota = m.get('PreloadQuota')
+        if m.get('PreloadRemain') is not None:
+            self.preload_remain = m.get('PreloadRemain')
+        if m.get('RegexQuota') is not None:
+            self.regex_quota = m.get('RegexQuota')
+        if m.get('RegexRemain') is not None:
+            self.regex_remain = m.get('RegexRemain')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UrlQuota') is not None:
+            self.url_quota = m.get('UrlQuota')
+        if m.get('UrlRemain') is not None:
+            self.url_remain = m.get('UrlRemain')
         return self
 
 
@@ -13910,14 +15216,14 @@ class DescribeDcdnRefreshTaskByIdRequest(TeaModel):
 
 
 class DescribeDcdnRefreshTaskByIdResponseBodyTasks(TeaModel):
-    def __init__(self, status=None, creation_time=None, object_type=None, process=None, description=None,
-                 object_path=None, task_id=None):
-        self.status = status  # type: str
+    def __init__(self, creation_time=None, description=None, object_path=None, object_type=None, process=None,
+                 status=None, task_id=None):
         self.creation_time = creation_time  # type: str
-        self.object_type = object_type  # type: str
-        self.process = process  # type: str
         self.description = description  # type: str
         self.object_path = object_path  # type: str
+        self.object_type = object_type  # type: str
+        self.process = process  # type: str
+        self.status = status  # type: str
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13929,46 +15235,46 @@ class DescribeDcdnRefreshTaskByIdResponseBodyTasks(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
-        if self.object_type is not None:
-            result['ObjectType'] = self.object_type
-        if self.process is not None:
-            result['Process'] = self.process
         if self.description is not None:
             result['Description'] = self.description
         if self.object_path is not None:
             result['ObjectPath'] = self.object_path
+        if self.object_type is not None:
+            result['ObjectType'] = self.object_type
+        if self.process is not None:
+            result['Process'] = self.process
+        if self.status is not None:
+            result['Status'] = self.status
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
-        if m.get('ObjectType') is not None:
-            self.object_type = m.get('ObjectType')
-        if m.get('Process') is not None:
-            self.process = m.get('Process')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('ObjectPath') is not None:
             self.object_path = m.get('ObjectPath')
+        if m.get('ObjectType') is not None:
+            self.object_type = m.get('ObjectType')
+        if m.get('Process') is not None:
+            self.process = m.get('Process')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
 
 
 class DescribeDcdnRefreshTaskByIdResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, tasks=None):
-        self.total_count = total_count  # type: long
+    def __init__(self, request_id=None, tasks=None, total_count=None):
         self.request_id = request_id  # type: str
         self.tasks = tasks  # type: list[DescribeDcdnRefreshTaskByIdResponseBodyTasks]
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.tasks:
@@ -13982,20 +15288,18 @@ class DescribeDcdnRefreshTaskByIdResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Tasks'] = []
         if self.tasks is not None:
             for k in self.tasks:
                 result['Tasks'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.tasks = []
@@ -14003,6 +15307,8 @@ class DescribeDcdnRefreshTaskByIdResponseBody(TeaModel):
             for k in m.get('Tasks'):
                 temp_model = DescribeDcdnRefreshTaskByIdResponseBodyTasks()
                 self.tasks.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -14040,19 +15346,19 @@ class DescribeDcdnRefreshTaskByIdResponse(TeaModel):
 
 
 class DescribeDcdnRefreshTasksRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, task_id=None, object_path=None, page_number=None,
-                 object_type=None, domain_name=None, status=None, page_size=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.task_id = task_id  # type: str
-        self.object_path = object_path  # type: str
-        self.page_number = page_number  # type: int
-        self.object_type = object_type  # type: str
+    def __init__(self, domain_name=None, end_time=None, object_path=None, object_type=None, owner_id=None,
+                 page_number=None, page_size=None, security_token=None, start_time=None, status=None, task_id=None):
         self.domain_name = domain_name  # type: str
-        self.status = status  # type: str
-        self.page_size = page_size  # type: int
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
+        self.object_path = object_path  # type: str
+        self.object_type = object_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.security_token = security_token  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -14063,66 +15369,66 @@ class DescribeDcdnRefreshTasksRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.task_id is not None:
-            result['TaskId'] = self.task_id
-        if self.object_path is not None:
-            result['ObjectPath'] = self.object_path
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.object_type is not None:
-            result['ObjectType'] = self.object_type
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.object_path is not None:
+            result['ObjectPath'] = self.object_path
+        if self.object_type is not None:
+            result['ObjectType'] = self.object_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('TaskId') is not None:
-            self.task_id = m.get('TaskId')
-        if m.get('ObjectPath') is not None:
-            self.object_path = m.get('ObjectPath')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('ObjectType') is not None:
-            self.object_type = m.get('ObjectType')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('ObjectPath') is not None:
+            self.object_path = m.get('ObjectPath')
+        if m.get('ObjectType') is not None:
+            self.object_type = m.get('ObjectType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class DescribeDcdnRefreshTasksResponseBodyTasksTask(TeaModel):
-    def __init__(self, status=None, creation_time=None, object_type=None, process=None, description=None,
-                 object_path=None, task_id=None):
-        self.status = status  # type: str
+    def __init__(self, creation_time=None, description=None, object_path=None, object_type=None, process=None,
+                 status=None, task_id=None):
         self.creation_time = creation_time  # type: str
-        self.object_type = object_type  # type: str
-        self.process = process  # type: str
         self.description = description  # type: str
         self.object_path = object_path  # type: str
+        self.object_type = object_type  # type: str
+        self.process = process  # type: str
+        self.status = status  # type: str
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -14134,36 +15440,36 @@ class DescribeDcdnRefreshTasksResponseBodyTasksTask(TeaModel):
             return _map
 
         result = dict()
-        if self.status is not None:
-            result['Status'] = self.status
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
-        if self.object_type is not None:
-            result['ObjectType'] = self.object_type
-        if self.process is not None:
-            result['Process'] = self.process
         if self.description is not None:
             result['Description'] = self.description
         if self.object_path is not None:
             result['ObjectPath'] = self.object_path
+        if self.object_type is not None:
+            result['ObjectType'] = self.object_type
+        if self.process is not None:
+            result['Process'] = self.process
+        if self.status is not None:
+            result['Status'] = self.status
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
-        if m.get('ObjectType') is not None:
-            self.object_type = m.get('ObjectType')
-        if m.get('Process') is not None:
-            self.process = m.get('Process')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('ObjectPath') is not None:
             self.object_path = m.get('ObjectPath')
+        if m.get('ObjectType') is not None:
+            self.object_type = m.get('ObjectType')
+        if m.get('Process') is not None:
+            self.process = m.get('Process')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -14202,12 +15508,12 @@ class DescribeDcdnRefreshTasksResponseBodyTasks(TeaModel):
 
 
 class DescribeDcdnRefreshTasksResponseBody(TeaModel):
-    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, tasks=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, page_number=None, page_size=None, request_id=None, tasks=None, total_count=None):
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
-        self.total_count = total_count  # type: long
+        self.request_id = request_id  # type: str
         self.tasks = tasks  # type: DescribeDcdnRefreshTasksResponseBodyTasks
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.tasks:
@@ -14219,31 +15525,31 @@ class DescribeDcdnRefreshTasksResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.tasks is not None:
             result['Tasks'] = self.tasks.to_map()
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('Tasks') is not None:
             temp_model = DescribeDcdnRefreshTasksResponseBodyTasks()
             self.tasks = temp_model.from_map(m['Tasks'])
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -14309,67 +15615,6 @@ class DescribeDcdnRegionAndIspRequest(TeaModel):
         return self
 
 
-class DescribeDcdnRegionAndIspResponseBodyRegionsRegion(TeaModel):
-    def __init__(self, name_en=None, name_zh=None):
-        self.name_en = name_en  # type: str
-        self.name_zh = name_zh  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeDcdnRegionAndIspResponseBodyRegionsRegion, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.name_en is not None:
-            result['NameEn'] = self.name_en
-        if self.name_zh is not None:
-            result['NameZh'] = self.name_zh
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('NameEn') is not None:
-            self.name_en = m.get('NameEn')
-        if m.get('NameZh') is not None:
-            self.name_zh = m.get('NameZh')
-        return self
-
-
-class DescribeDcdnRegionAndIspResponseBodyRegions(TeaModel):
-    def __init__(self, region=None):
-        self.region = region  # type: list[DescribeDcdnRegionAndIspResponseBodyRegionsRegion]
-
-    def validate(self):
-        if self.region:
-            for k in self.region:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeDcdnRegionAndIspResponseBodyRegions, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Region'] = []
-        if self.region is not None:
-            for k in self.region:
-                result['Region'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.region = []
-        if m.get('Region') is not None:
-            for k in m.get('Region'):
-                temp_model = DescribeDcdnRegionAndIspResponseBodyRegionsRegion()
-                self.region.append(temp_model.from_map(k))
-        return self
-
-
 class DescribeDcdnRegionAndIspResponseBodyIspsIsp(TeaModel):
     def __init__(self, name_en=None, name_zh=None):
         self.name_en = name_en  # type: str
@@ -14431,17 +15676,78 @@ class DescribeDcdnRegionAndIspResponseBodyIsps(TeaModel):
         return self
 
 
-class DescribeDcdnRegionAndIspResponseBody(TeaModel):
-    def __init__(self, request_id=None, regions=None, isps=None):
-        self.request_id = request_id  # type: str
-        self.regions = regions  # type: DescribeDcdnRegionAndIspResponseBodyRegions
-        self.isps = isps  # type: DescribeDcdnRegionAndIspResponseBodyIsps
+class DescribeDcdnRegionAndIspResponseBodyRegionsRegion(TeaModel):
+    def __init__(self, name_en=None, name_zh=None):
+        self.name_en = name_en  # type: str
+        self.name_zh = name_zh  # type: str
 
     def validate(self):
-        if self.regions:
-            self.regions.validate()
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnRegionAndIspResponseBodyRegionsRegion, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name_en is not None:
+            result['NameEn'] = self.name_en
+        if self.name_zh is not None:
+            result['NameZh'] = self.name_zh
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NameEn') is not None:
+            self.name_en = m.get('NameEn')
+        if m.get('NameZh') is not None:
+            self.name_zh = m.get('NameZh')
+        return self
+
+
+class DescribeDcdnRegionAndIspResponseBodyRegions(TeaModel):
+    def __init__(self, region=None):
+        self.region = region  # type: list[DescribeDcdnRegionAndIspResponseBodyRegionsRegion]
+
+    def validate(self):
+        if self.region:
+            for k in self.region:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnRegionAndIspResponseBodyRegions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Region'] = []
+        if self.region is not None:
+            for k in self.region:
+                result['Region'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.region = []
+        if m.get('Region') is not None:
+            for k in m.get('Region'):
+                temp_model = DescribeDcdnRegionAndIspResponseBodyRegionsRegion()
+                self.region.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnRegionAndIspResponseBody(TeaModel):
+    def __init__(self, isps=None, regions=None, request_id=None):
+        self.isps = isps  # type: DescribeDcdnRegionAndIspResponseBodyIsps
+        self.regions = regions  # type: DescribeDcdnRegionAndIspResponseBodyRegions
+        self.request_id = request_id  # type: str
+
+    def validate(self):
         if self.isps:
             self.isps.validate()
+        if self.regions:
+            self.regions.validate()
 
     def to_map(self):
         _map = super(DescribeDcdnRegionAndIspResponseBody, self).to_map()
@@ -14449,24 +15755,24 @@ class DescribeDcdnRegionAndIspResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.regions is not None:
-            result['Regions'] = self.regions.to_map()
         if self.isps is not None:
             result['Isps'] = self.isps.to_map()
+        if self.regions is not None:
+            result['Regions'] = self.regions.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Regions') is not None:
-            temp_model = DescribeDcdnRegionAndIspResponseBodyRegions()
-            self.regions = temp_model.from_map(m['Regions'])
         if m.get('Isps') is not None:
             temp_model = DescribeDcdnRegionAndIspResponseBodyIsps()
             self.isps = temp_model.from_map(m['Isps'])
+        if m.get('Regions') is not None:
+            temp_model = DescribeDcdnRegionAndIspResponseBodyRegions()
+            self.regions = temp_model.from_map(m['Regions'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -14504,16 +15810,16 @@ class DescribeDcdnRegionAndIspResponse(TeaModel):
 
 
 class DescribeDcdnReportRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, report_id=None, area=None, is_overseas=None, http_code=None,
-                 start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
-        self.domain_name = domain_name  # type: str
-        self.report_id = report_id  # type: long
+    def __init__(self, area=None, domain_name=None, end_time=None, http_code=None, is_overseas=None, owner_id=None,
+                 report_id=None, start_time=None):
         self.area = area  # type: str
-        self.is_overseas = is_overseas  # type: str
-        self.http_code = http_code  # type: str
-        self.start_time = start_time  # type: str
+        self.domain_name = domain_name  # type: str
         self.end_time = end_time  # type: str
+        self.http_code = http_code  # type: str
+        self.is_overseas = is_overseas  # type: str
+        self.owner_id = owner_id  # type: long
+        self.report_id = report_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -14524,42 +15830,42 @@ class DescribeDcdnReportRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.report_id is not None:
-            result['ReportId'] = self.report_id
         if self.area is not None:
             result['Area'] = self.area
-        if self.is_overseas is not None:
-            result['IsOverseas'] = self.is_overseas
-        if self.http_code is not None:
-            result['HttpCode'] = self.http_code
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.is_overseas is not None:
+            result['IsOverseas'] = self.is_overseas
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('ReportId') is not None:
-            self.report_id = m.get('ReportId')
         if m.get('Area') is not None:
             self.area = m.get('Area')
-        if m.get('IsOverseas') is not None:
-            self.is_overseas = m.get('IsOverseas')
-        if m.get('HttpCode') is not None:
-            self.http_code = m.get('HttpCode')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('IsOverseas') is not None:
+            self.is_overseas = m.get('IsOverseas')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -14626,11 +15932,9 @@ class DescribeDcdnReportResponse(TeaModel):
 
 
 class DescribeDcdnReportListRequest(TeaModel):
-    def __init__(self, owner_id=None, report_id=None, status=None, permission=None):
+    def __init__(self, owner_id=None, report_id=None):
         self.owner_id = owner_id  # type: long
         self.report_id = report_id  # type: long
-        self.status = status  # type: str
-        self.permission = permission  # type: str
 
     def validate(self):
         pass
@@ -14645,10 +15949,6 @@ class DescribeDcdnReportListRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.report_id is not None:
             result['ReportId'] = self.report_id
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.permission is not None:
-            result['Permission'] = self.permission
         return result
 
     def from_map(self, m=None):
@@ -14657,10 +15957,6 @@ class DescribeDcdnReportListRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('ReportId') is not None:
             self.report_id = m.get('ReportId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Permission') is not None:
-            self.permission = m.get('Permission')
         return self
 
 
@@ -14726,11 +16022,485 @@ class DescribeDcdnReportListResponse(TeaModel):
         return self
 
 
+class DescribeDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
+    def __init__(self, business_type=None, owner_id=None, project_name=None):
+        self.business_type = business_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.project_name = project_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealtimeLogDeliveryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        return self
+
+
+class DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
+    def __init__(self, business_type=None, data_center=None, domain_name=None, field_name=None, project_name=None,
+                 slslog_store=None, slsproject=None, slsregion=None, sampling_rate=None, type=None):
+        self.business_type = business_type  # type: str
+        self.data_center = data_center  # type: str
+        self.domain_name = domain_name  # type: str
+        self.field_name = field_name  # type: str
+        self.project_name = project_name  # type: str
+        self.slslog_store = slslog_store  # type: str
+        self.slsproject = slsproject  # type: str
+        self.slsregion = slsregion  # type: str
+        self.sampling_rate = sampling_rate  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.data_center is not None:
+            result['DataCenter'] = self.data_center
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.field_name is not None:
+            result['FieldName'] = self.field_name
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.slslog_store is not None:
+            result['SLSLogStore'] = self.slslog_store
+        if self.slsproject is not None:
+            result['SLSProject'] = self.slsproject
+        if self.slsregion is not None:
+            result['SLSRegion'] = self.slsregion
+        if self.sampling_rate is not None:
+            result['SamplingRate'] = self.sampling_rate
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('DataCenter') is not None:
+            self.data_center = m.get('DataCenter')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('FieldName') is not None:
+            self.field_name = m.get('FieldName')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('SLSLogStore') is not None:
+            self.slslog_store = m.get('SLSLogStore')
+        if m.get('SLSProject') is not None:
+            self.slsproject = m.get('SLSProject')
+        if m.get('SLSRegion') is not None:
+            self.slsregion = m.get('SLSRegion')
+        if m.get('SamplingRate') is not None:
+            self.sampling_rate = m.get('SamplingRate')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeDcdnSLSRealtimeLogDeliveryResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealtimeLogDeliveryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = DescribeDcdnSLSRealtimeLogDeliveryResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnSLSRealtimeLogDeliveryResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnSLSRealtimeLogDeliveryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSLSRealtimeLogDeliveryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnSLSRealtimeLogDeliveryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnSMCertificateDetailRequest(TeaModel):
+    def __init__(self, cert_identifier=None, owner_id=None, security_token=None):
+        self.cert_identifier = cert_identifier  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_identifier is not None:
+            result['CertIdentifier'] = self.cert_identifier
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertIdentifier') is not None:
+            self.cert_identifier = m.get('CertIdentifier')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeDcdnSMCertificateDetailResponseBody(TeaModel):
+    def __init__(self, cert_expire_time=None, cert_identifier=None, cert_name=None, cert_org=None, common_name=None,
+                 encrypt_certificate=None, request_id=None, sans=None, sign_certificate=None):
+        self.cert_expire_time = cert_expire_time  # type: str
+        self.cert_identifier = cert_identifier  # type: str
+        self.cert_name = cert_name  # type: str
+        self.cert_org = cert_org  # type: str
+        self.common_name = common_name  # type: str
+        self.encrypt_certificate = encrypt_certificate  # type: str
+        self.request_id = request_id  # type: str
+        self.sans = sans  # type: str
+        self.sign_certificate = sign_certificate  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_expire_time is not None:
+            result['CertExpireTime'] = self.cert_expire_time
+        if self.cert_identifier is not None:
+            result['CertIdentifier'] = self.cert_identifier
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_org is not None:
+            result['CertOrg'] = self.cert_org
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.encrypt_certificate is not None:
+            result['EncryptCertificate'] = self.encrypt_certificate
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.sans is not None:
+            result['Sans'] = self.sans
+        if self.sign_certificate is not None:
+            result['SignCertificate'] = self.sign_certificate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertExpireTime') is not None:
+            self.cert_expire_time = m.get('CertExpireTime')
+        if m.get('CertIdentifier') is not None:
+            self.cert_identifier = m.get('CertIdentifier')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertOrg') is not None:
+            self.cert_org = m.get('CertOrg')
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('EncryptCertificate') is not None:
+            self.encrypt_certificate = m.get('EncryptCertificate')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Sans') is not None:
+            self.sans = m.get('Sans')
+        if m.get('SignCertificate') is not None:
+            self.sign_certificate = m.get('SignCertificate')
+        return self
+
+
+class DescribeDcdnSMCertificateDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnSMCertificateDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnSMCertificateDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnSMCertificateListRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeDcdnSMCertificateListResponseBodyCertificateListModelCertList(TeaModel):
+    def __init__(self, cert_identifier=None, cert_name=None, common=None, issuer=None):
+        self.cert_identifier = cert_identifier  # type: str
+        self.cert_name = cert_name  # type: str
+        self.common = common  # type: str
+        self.issuer = issuer  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateListResponseBodyCertificateListModelCertList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_identifier is not None:
+            result['CertIdentifier'] = self.cert_identifier
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.common is not None:
+            result['Common'] = self.common
+        if self.issuer is not None:
+            result['Issuer'] = self.issuer
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertIdentifier') is not None:
+            self.cert_identifier = m.get('CertIdentifier')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('Common') is not None:
+            self.common = m.get('Common')
+        if m.get('Issuer') is not None:
+            self.issuer = m.get('Issuer')
+        return self
+
+
+class DescribeDcdnSMCertificateListResponseBodyCertificateListModel(TeaModel):
+    def __init__(self, cert_list=None, count=None):
+        self.cert_list = cert_list  # type: list[DescribeDcdnSMCertificateListResponseBodyCertificateListModelCertList]
+        self.count = count  # type: int
+
+    def validate(self):
+        if self.cert_list:
+            for k in self.cert_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateListResponseBodyCertificateListModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CertList'] = []
+        if self.cert_list is not None:
+            for k in self.cert_list:
+                result['CertList'].append(k.to_map() if k else None)
+        if self.count is not None:
+            result['Count'] = self.count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.cert_list = []
+        if m.get('CertList') is not None:
+            for k in m.get('CertList'):
+                temp_model = DescribeDcdnSMCertificateListResponseBodyCertificateListModelCertList()
+                self.cert_list.append(temp_model.from_map(k))
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        return self
+
+
+class DescribeDcdnSMCertificateListResponseBody(TeaModel):
+    def __init__(self, certificate_list_model=None, request_id=None):
+        self.certificate_list_model = certificate_list_model  # type: DescribeDcdnSMCertificateListResponseBodyCertificateListModel
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.certificate_list_model:
+            self.certificate_list_model.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.certificate_list_model is not None:
+            result['CertificateListModel'] = self.certificate_list_model.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertificateListModel') is not None:
+            temp_model = DescribeDcdnSMCertificateListResponseBodyCertificateListModel()
+            self.certificate_list_model = temp_model.from_map(m['CertificateListModel'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnSMCertificateListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnSMCertificateListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSMCertificateListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnSMCertificateListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnSecFuncInfoRequest(TeaModel):
-    def __init__(self, owner_id=None, sec_func_type=None, lang=None):
+    def __init__(self, lang=None, owner_id=None, sec_func_type=None):
+        self.lang = lang  # type: str
         self.owner_id = owner_id  # type: long
         self.sec_func_type = sec_func_type  # type: str
-        self.lang = lang  # type: str
 
     def validate(self):
         pass
@@ -14741,22 +16511,22 @@ class DescribeDcdnSecFuncInfoRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.sec_func_type is not None:
             result['SecFuncType'] = self.sec_func_type
-        if self.lang is not None:
-            result['Lang'] = self.lang
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecFuncType') is not None:
             self.sec_func_type = m.get('SecFuncType')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
         return self
 
 
@@ -14790,12 +16560,12 @@ class DescribeDcdnSecFuncInfoResponseBodyContent(TeaModel):
 
 
 class DescribeDcdnSecFuncInfoResponseBody(TeaModel):
-    def __init__(self, request_id=None, description=None, ret_code=None, http_status=None, content=None):
-        self.request_id = request_id  # type: str
-        self.description = description  # type: str
-        self.ret_code = ret_code  # type: str
-        self.http_status = http_status  # type: str
+    def __init__(self, content=None, description=None, http_status=None, request_id=None, ret_code=None):
         self.content = content  # type: list[DescribeDcdnSecFuncInfoResponseBodyContent]
+        self.description = description  # type: str
+        self.http_status = http_status  # type: str
+        self.request_id = request_id  # type: str
+        self.ret_code = ret_code  # type: str
 
     def validate(self):
         if self.content:
@@ -14809,35 +16579,35 @@ class DescribeDcdnSecFuncInfoResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.ret_code is not None:
-            result['RetCode'] = self.ret_code
-        if self.http_status is not None:
-            result['HttpStatus'] = self.http_status
         result['Content'] = []
         if self.content is not None:
             for k in self.content:
                 result['Content'].append(k.to_map() if k else None)
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.http_status is not None:
+            result['HttpStatus'] = self.http_status
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.ret_code is not None:
+            result['RetCode'] = self.ret_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('RetCode') is not None:
-            self.ret_code = m.get('RetCode')
-        if m.get('HttpStatus') is not None:
-            self.http_status = m.get('HttpStatus')
         self.content = []
         if m.get('Content') is not None:
             for k in m.get('Content'):
                 temp_model = DescribeDcdnSecFuncInfoResponseBodyContent()
                 self.content.append(temp_model.from_map(k))
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('HttpStatus') is not None:
+            self.http_status = m.get('HttpStatus')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RetCode') is not None:
+            self.ret_code = m.get('RetCode')
         return self
 
 
@@ -14870,6 +16640,176 @@ class DescribeDcdnSecFuncInfoResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeDcdnSecFuncInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnSecSpecInfoRequest(TeaModel):
+    def __init__(self, owner_id=None):
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSecSpecInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnSecSpecInfoResponseBodySpecInfosRuleConfigs(TeaModel):
+    def __init__(self, code=None, expr=None, value=None):
+        self.code = code  # type: str
+        self.expr = expr  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnSecSpecInfoResponseBodySpecInfosRuleConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.expr is not None:
+            result['Expr'] = self.expr
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Expr') is not None:
+            self.expr = m.get('Expr')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnSecSpecInfoResponseBodySpecInfos(TeaModel):
+    def __init__(self, rule_code=None, rule_configs=None):
+        self.rule_code = rule_code  # type: str
+        self.rule_configs = rule_configs  # type: list[DescribeDcdnSecSpecInfoResponseBodySpecInfosRuleConfigs]
+
+    def validate(self):
+        if self.rule_configs:
+            for k in self.rule_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSecSpecInfoResponseBodySpecInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.rule_code is not None:
+            result['RuleCode'] = self.rule_code
+        result['RuleConfigs'] = []
+        if self.rule_configs is not None:
+            for k in self.rule_configs:
+                result['RuleConfigs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RuleCode') is not None:
+            self.rule_code = m.get('RuleCode')
+        self.rule_configs = []
+        if m.get('RuleConfigs') is not None:
+            for k in m.get('RuleConfigs'):
+                temp_model = DescribeDcdnSecSpecInfoResponseBodySpecInfosRuleConfigs()
+                self.rule_configs.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnSecSpecInfoResponseBody(TeaModel):
+    def __init__(self, request_id=None, spec_infos=None, version=None):
+        self.request_id = request_id  # type: str
+        self.spec_infos = spec_infos  # type: list[DescribeDcdnSecSpecInfoResponseBodySpecInfos]
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.spec_infos:
+            for k in self.spec_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSecSpecInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SpecInfos'] = []
+        if self.spec_infos is not None:
+            for k in self.spec_infos:
+                result['SpecInfos'].append(k.to_map() if k else None)
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.spec_infos = []
+        if m.get('SpecInfos') is not None:
+            for k in m.get('SpecInfos'):
+                temp_model = DescribeDcdnSecSpecInfoResponseBodySpecInfos()
+                self.spec_infos.append(temp_model.from_map(k))
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class DescribeDcdnSecSpecInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnSecSpecInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnSecSpecInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnSecSpecInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14960,19 +16900,19 @@ class DescribeDcdnServiceResponseBodyOperationLocks(TeaModel):
 
 
 class DescribeDcdnServiceResponseBody(TeaModel):
-    def __init__(self, websocket_changing_time=None, websocket_changing_type=None, changing_affect_time=None,
-                 changing_charge_type=None, request_id=None, opening_time=None, internet_charge_type=None, websocket_type=None,
-                 instance_id=None, operation_locks=None):
-        self.websocket_changing_time = websocket_changing_time  # type: str
-        self.websocket_changing_type = websocket_changing_type  # type: str
+    def __init__(self, changing_affect_time=None, changing_charge_type=None, instance_id=None,
+                 internet_charge_type=None, opening_time=None, operation_locks=None, request_id=None, websocket_changing_time=None,
+                 websocket_changing_type=None, websocket_type=None):
         self.changing_affect_time = changing_affect_time  # type: str
         self.changing_charge_type = changing_charge_type  # type: str
-        self.request_id = request_id  # type: str
-        self.opening_time = opening_time  # type: str
-        self.internet_charge_type = internet_charge_type  # type: str
-        self.websocket_type = websocket_type  # type: str
         self.instance_id = instance_id  # type: str
+        self.internet_charge_type = internet_charge_type  # type: str
+        self.opening_time = opening_time  # type: str
         self.operation_locks = operation_locks  # type: DescribeDcdnServiceResponseBodyOperationLocks
+        self.request_id = request_id  # type: str
+        self.websocket_changing_time = websocket_changing_time  # type: str
+        self.websocket_changing_type = websocket_changing_type  # type: str
+        self.websocket_type = websocket_type  # type: str
 
     def validate(self):
         if self.operation_locks:
@@ -14984,51 +16924,51 @@ class DescribeDcdnServiceResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.websocket_changing_time is not None:
-            result['WebsocketChangingTime'] = self.websocket_changing_time
-        if self.websocket_changing_type is not None:
-            result['WebsocketChangingType'] = self.websocket_changing_type
         if self.changing_affect_time is not None:
             result['ChangingAffectTime'] = self.changing_affect_time
         if self.changing_charge_type is not None:
             result['ChangingChargeType'] = self.changing_charge_type
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.opening_time is not None:
-            result['OpeningTime'] = self.opening_time
-        if self.internet_charge_type is not None:
-            result['InternetChargeType'] = self.internet_charge_type
-        if self.websocket_type is not None:
-            result['WebsocketType'] = self.websocket_type
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.opening_time is not None:
+            result['OpeningTime'] = self.opening_time
         if self.operation_locks is not None:
             result['OperationLocks'] = self.operation_locks.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.websocket_changing_time is not None:
+            result['WebsocketChangingTime'] = self.websocket_changing_time
+        if self.websocket_changing_type is not None:
+            result['WebsocketChangingType'] = self.websocket_changing_type
+        if self.websocket_type is not None:
+            result['WebsocketType'] = self.websocket_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('WebsocketChangingTime') is not None:
-            self.websocket_changing_time = m.get('WebsocketChangingTime')
-        if m.get('WebsocketChangingType') is not None:
-            self.websocket_changing_type = m.get('WebsocketChangingType')
         if m.get('ChangingAffectTime') is not None:
             self.changing_affect_time = m.get('ChangingAffectTime')
         if m.get('ChangingChargeType') is not None:
             self.changing_charge_type = m.get('ChangingChargeType')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('OpeningTime') is not None:
-            self.opening_time = m.get('OpeningTime')
-        if m.get('InternetChargeType') is not None:
-            self.internet_charge_type = m.get('InternetChargeType')
-        if m.get('WebsocketType') is not None:
-            self.websocket_type = m.get('WebsocketType')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('OpeningTime') is not None:
+            self.opening_time = m.get('OpeningTime')
         if m.get('OperationLocks') is not None:
             temp_model = DescribeDcdnServiceResponseBodyOperationLocks()
             self.operation_locks = temp_model.from_map(m['OperationLocks'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('WebsocketChangingTime') is not None:
+            self.websocket_changing_time = m.get('WebsocketChangingTime')
+        if m.get('WebsocketChangingType') is not None:
+            self.websocket_changing_type = m.get('WebsocketChangingType')
+        if m.get('WebsocketType') is not None:
+            self.websocket_type = m.get('WebsocketType')
         return self
 
 
@@ -15114,9 +17054,9 @@ class DescribeDcdnStagingIpResponseBodyIPV4s(TeaModel):
 
 
 class DescribeDcdnStagingIpResponseBody(TeaModel):
-    def __init__(self, request_id=None, ipv4s=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, ipv4s=None, request_id=None):
         self.ipv4s = ipv4s  # type: DescribeDcdnStagingIpResponseBodyIPV4s
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.ipv4s:
@@ -15128,19 +17068,19 @@ class DescribeDcdnStagingIpResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.ipv4s is not None:
             result['IPV4s'] = self.ipv4s.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('IPV4s') is not None:
             temp_model = DescribeDcdnStagingIpResponseBodyIPV4s()
             self.ipv4s = temp_model.from_map(m['IPV4s'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -15178,9 +17118,8 @@ class DescribeDcdnStagingIpResponse(TeaModel):
 
 
 class DescribeDcdnSubListRequest(TeaModel):
-    def __init__(self, owner_id=None, status=None):
+    def __init__(self, owner_id=None):
         self.owner_id = owner_id  # type: long
-        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -15193,16 +17132,12 @@ class DescribeDcdnSubListRequest(TeaModel):
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
-        if self.status is not None:
-            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         return self
 
 
@@ -15298,10 +17233,10 @@ class DescribeDcdnTagResourcesRequestTag(TeaModel):
 
 
 class DescribeDcdnTagResourcesRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_type=None, resource_id=None, tag=None):
+    def __init__(self, owner_id=None, resource_id=None, resource_type=None, tag=None):
         self.owner_id = owner_id  # type: long
-        self.resource_type = resource_type  # type: str
         self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[DescribeDcdnTagResourcesRequestTag]
 
     def validate(self):
@@ -15318,10 +17253,10 @@ class DescribeDcdnTagResourcesRequest(TeaModel):
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -15332,10 +17267,10 @@ class DescribeDcdnTagResourcesRequest(TeaModel):
         m = m or dict()
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -15481,11 +17416,11 @@ class DescribeDcdnTagResourcesResponse(TeaModel):
 
 
 class DescribeDcdnTopDomainsByFlowRequest(TeaModel):
-    def __init__(self, owner_id=None, start_time=None, end_time=None, limit=None):
-        self.owner_id = owner_id  # type: long
-        self.start_time = start_time  # type: str
+    def __init__(self, end_time=None, limit=None, owner_id=None, start_time=None):
         self.end_time = end_time  # type: str
         self.limit = limit  # type: long
+        self.owner_id = owner_id  # type: long
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -15496,39 +17431,39 @@ class DescribeDcdnTopDomainsByFlowRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.limit is not None:
             result['Limit'] = self.limit
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Limit') is not None:
             self.limit = m.get('Limit')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnTopDomainsByFlowResponseBodyTopDomainsTopDomain(TeaModel):
-    def __init__(self, max_bps=None, rank=None, total_access=None, traffic_percent=None, domain_name=None,
-                 total_traffic=None, max_bps_time=None):
+    def __init__(self, domain_name=None, max_bps=None, max_bps_time=None, rank=None, total_access=None,
+                 total_traffic=None, traffic_percent=None):
+        self.domain_name = domain_name  # type: str
         self.max_bps = max_bps  # type: long
+        self.max_bps_time = max_bps_time  # type: str
         self.rank = rank  # type: long
         self.total_access = total_access  # type: long
-        self.traffic_percent = traffic_percent  # type: str
-        self.domain_name = domain_name  # type: str
         self.total_traffic = total_traffic  # type: str
-        self.max_bps_time = max_bps_time  # type: str
+        self.traffic_percent = traffic_percent  # type: str
 
     def validate(self):
         pass
@@ -15539,38 +17474,38 @@ class DescribeDcdnTopDomainsByFlowResponseBodyTopDomainsTopDomain(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.max_bps is not None:
             result['MaxBps'] = self.max_bps
+        if self.max_bps_time is not None:
+            result['MaxBpsTime'] = self.max_bps_time
         if self.rank is not None:
             result['Rank'] = self.rank
         if self.total_access is not None:
             result['TotalAccess'] = self.total_access
-        if self.traffic_percent is not None:
-            result['TrafficPercent'] = self.traffic_percent
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.total_traffic is not None:
             result['TotalTraffic'] = self.total_traffic
-        if self.max_bps_time is not None:
-            result['MaxBpsTime'] = self.max_bps_time
+        if self.traffic_percent is not None:
+            result['TrafficPercent'] = self.traffic_percent
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('MaxBps') is not None:
             self.max_bps = m.get('MaxBps')
+        if m.get('MaxBpsTime') is not None:
+            self.max_bps_time = m.get('MaxBpsTime')
         if m.get('Rank') is not None:
             self.rank = m.get('Rank')
         if m.get('TotalAccess') is not None:
             self.total_access = m.get('TotalAccess')
-        if m.get('TrafficPercent') is not None:
-            self.traffic_percent = m.get('TrafficPercent')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('TotalTraffic') is not None:
             self.total_traffic = m.get('TotalTraffic')
-        if m.get('MaxBpsTime') is not None:
-            self.max_bps_time = m.get('MaxBpsTime')
+        if m.get('TrafficPercent') is not None:
+            self.traffic_percent = m.get('TrafficPercent')
         return self
 
 
@@ -15607,13 +17542,13 @@ class DescribeDcdnTopDomainsByFlowResponseBodyTopDomains(TeaModel):
 
 
 class DescribeDcdnTopDomainsByFlowResponseBody(TeaModel):
-    def __init__(self, domain_online_count=None, end_time=None, start_time=None, request_id=None, domain_count=None,
+    def __init__(self, domain_count=None, domain_online_count=None, end_time=None, request_id=None, start_time=None,
                  top_domains=None):
+        self.domain_count = domain_count  # type: long
         self.domain_online_count = domain_online_count  # type: long
         self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
         self.request_id = request_id  # type: str
-        self.domain_count = domain_count  # type: long
+        self.start_time = start_time  # type: str
         self.top_domains = top_domains  # type: DescribeDcdnTopDomainsByFlowResponseBodyTopDomains
 
     def validate(self):
@@ -15626,32 +17561,32 @@ class DescribeDcdnTopDomainsByFlowResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_count is not None:
+            result['DomainCount'] = self.domain_count
         if self.domain_online_count is not None:
             result['DomainOnlineCount'] = self.domain_online_count
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.domain_count is not None:
-            result['DomainCount'] = self.domain_count
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.top_domains is not None:
             result['TopDomains'] = self.top_domains.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainCount') is not None:
+            self.domain_count = m.get('DomainCount')
         if m.get('DomainOnlineCount') is not None:
             self.domain_online_count = m.get('DomainOnlineCount')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('DomainCount') is not None:
-            self.domain_count = m.get('DomainCount')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('TopDomains') is not None:
             temp_model = DescribeDcdnTopDomainsByFlowResponseBodyTopDomains()
             self.top_domains = temp_model.from_map(m['TopDomains'])
@@ -15692,10 +17627,10 @@ class DescribeDcdnTopDomainsByFlowResponse(TeaModel):
 
 
 class DescribeDcdnUserBillHistoryRequest(TeaModel):
-    def __init__(self, owner_id=None, start_time=None, end_time=None):
+    def __init__(self, end_time=None, owner_id=None, start_time=None):
+        self.end_time = end_time  # type: str
         self.owner_id = owner_id  # type: long
         self.start_time = start_time  # type: str
-        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -15706,32 +17641,32 @@ class DescribeDcdnUserBillHistoryRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         return self
 
 
 class DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBillingDataBillingDataItem(TeaModel):
-    def __init__(self, flow=None, bandwidth=None, count=None, cdn_region=None, charge_type=None):
-        self.flow = flow  # type: float
+    def __init__(self, bandwidth=None, cdn_region=None, charge_type=None, count=None, flow=None):
         self.bandwidth = bandwidth  # type: float
-        self.count = count  # type: float
         self.cdn_region = cdn_region  # type: str
         self.charge_type = charge_type  # type: str
+        self.count = count  # type: float
+        self.flow = flow  # type: float
 
     def validate(self):
         pass
@@ -15742,30 +17677,30 @@ class DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemB
             return _map
 
         result = dict()
-        if self.flow is not None:
-            result['Flow'] = self.flow
         if self.bandwidth is not None:
             result['Bandwidth'] = self.bandwidth
-        if self.count is not None:
-            result['Count'] = self.count
         if self.cdn_region is not None:
             result['CdnRegion'] = self.cdn_region
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.flow is not None:
+            result['Flow'] = self.flow
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Flow') is not None:
-            self.flow = m.get('Flow')
         if m.get('Bandwidth') is not None:
             self.bandwidth = m.get('Bandwidth')
-        if m.get('Count') is not None:
-            self.count = m.get('Count')
         if m.get('CdnRegion') is not None:
             self.cdn_region = m.get('CdnRegion')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('Flow') is not None:
+            self.flow = m.get('Flow')
         return self
 
 
@@ -15802,11 +17737,11 @@ class DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemB
 
 
 class DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItem(TeaModel):
-    def __init__(self, dimension=None, bill_type=None, bill_time=None, billing_data=None):
-        self.dimension = dimension  # type: str
-        self.bill_type = bill_type  # type: str
+    def __init__(self, bill_time=None, bill_type=None, billing_data=None, dimension=None):
         self.bill_time = bill_time  # type: str
+        self.bill_type = bill_type  # type: str
         self.billing_data = billing_data  # type: DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBillingData
+        self.dimension = dimension  # type: str
 
     def validate(self):
         if self.billing_data:
@@ -15818,27 +17753,27 @@ class DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItem(
             return _map
 
         result = dict()
-        if self.dimension is not None:
-            result['Dimension'] = self.dimension
-        if self.bill_type is not None:
-            result['BillType'] = self.bill_type
         if self.bill_time is not None:
             result['BillTime'] = self.bill_time
+        if self.bill_type is not None:
+            result['BillType'] = self.bill_type
         if self.billing_data is not None:
             result['BillingData'] = self.billing_data.to_map()
+        if self.dimension is not None:
+            result['Dimension'] = self.dimension
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Dimension') is not None:
-            self.dimension = m.get('Dimension')
-        if m.get('BillType') is not None:
-            self.bill_type = m.get('BillType')
         if m.get('BillTime') is not None:
             self.bill_time = m.get('BillTime')
+        if m.get('BillType') is not None:
+            self.bill_type = m.get('BillType')
         if m.get('BillingData') is not None:
             temp_model = DescribeDcdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBillingData()
             self.billing_data = temp_model.from_map(m['BillingData'])
+        if m.get('Dimension') is not None:
+            self.dimension = m.get('Dimension')
         return self
 
 
@@ -15875,9 +17810,9 @@ class DescribeDcdnUserBillHistoryResponseBodyBillHistoryData(TeaModel):
 
 
 class DescribeDcdnUserBillHistoryResponseBody(TeaModel):
-    def __init__(self, request_id=None, bill_history_data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, bill_history_data=None, request_id=None):
         self.bill_history_data = bill_history_data  # type: DescribeDcdnUserBillHistoryResponseBodyBillHistoryData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.bill_history_data:
@@ -15889,19 +17824,19 @@ class DescribeDcdnUserBillHistoryResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.bill_history_data is not None:
             result['BillHistoryData'] = self.bill_history_data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('BillHistoryData') is not None:
             temp_model = DescribeDcdnUserBillHistoryResponseBodyBillHistoryData()
             self.bill_history_data = temp_model.from_map(m['BillHistoryData'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -15939,10 +17874,10 @@ class DescribeDcdnUserBillHistoryResponse(TeaModel):
 
 
 class DescribeDcdnUserBillTypeRequest(TeaModel):
-    def __init__(self, owner_id=None, start_time=None, end_time=None):
+    def __init__(self, end_time=None, owner_id=None, start_time=None):
+        self.end_time = end_time  # type: str
         self.owner_id = owner_id  # type: long
         self.start_time = start_time  # type: str
-        self.end_time = end_time  # type: str
 
     def validate(self):
         pass
@@ -15953,34 +17888,34 @@ class DescribeDcdnUserBillTypeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
         return self
 
 
 class DescribeDcdnUserBillTypeResponseBodyBillTypeDataBillTypeDataItem(TeaModel):
-    def __init__(self, end_time=None, start_time=None, billing_cycle=None, product=None, bill_type=None,
-                 dimension=None):
-        self.end_time = end_time  # type: str
-        self.start_time = start_time  # type: str
-        self.billing_cycle = billing_cycle  # type: str
-        self.product = product  # type: str
+    def __init__(self, bill_type=None, billing_cycle=None, dimension=None, end_time=None, product=None,
+                 start_time=None):
         self.bill_type = bill_type  # type: str
+        self.billing_cycle = billing_cycle  # type: str
         self.dimension = dimension  # type: str
+        self.end_time = end_time  # type: str
+        self.product = product  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -15991,34 +17926,34 @@ class DescribeDcdnUserBillTypeResponseBodyBillTypeDataBillTypeDataItem(TeaModel)
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.billing_cycle is not None:
-            result['BillingCycle'] = self.billing_cycle
-        if self.product is not None:
-            result['Product'] = self.product
         if self.bill_type is not None:
             result['BillType'] = self.bill_type
+        if self.billing_cycle is not None:
+            result['BillingCycle'] = self.billing_cycle
         if self.dimension is not None:
             result['Dimension'] = self.dimension
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.product is not None:
+            result['Product'] = self.product
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('BillingCycle') is not None:
-            self.billing_cycle = m.get('BillingCycle')
-        if m.get('Product') is not None:
-            self.product = m.get('Product')
         if m.get('BillType') is not None:
             self.bill_type = m.get('BillType')
+        if m.get('BillingCycle') is not None:
+            self.billing_cycle = m.get('BillingCycle')
         if m.get('Dimension') is not None:
             self.dimension = m.get('Dimension')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -16055,9 +17990,9 @@ class DescribeDcdnUserBillTypeResponseBodyBillTypeData(TeaModel):
 
 
 class DescribeDcdnUserBillTypeResponseBody(TeaModel):
-    def __init__(self, request_id=None, bill_type_data=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, bill_type_data=None, request_id=None):
         self.bill_type_data = bill_type_data  # type: DescribeDcdnUserBillTypeResponseBodyBillTypeData
+        self.request_id = request_id  # type: str
 
     def validate(self):
         if self.bill_type_data:
@@ -16069,19 +18004,19 @@ class DescribeDcdnUserBillTypeResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.bill_type_data is not None:
             result['BillTypeData'] = self.bill_type_data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('BillTypeData') is not None:
             temp_model = DescribeDcdnUserBillTypeResponseBodyBillTypeData()
             self.bill_type_data = temp_model.from_map(m['BillTypeData'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -16148,20 +18083,21 @@ class DescribeDcdnUserDomainsRequestTag(TeaModel):
 
 
 class DescribeDcdnUserDomainsRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, page_size=None, page_number=None, domain_name=None,
-                 domain_status=None, domain_search_type=None, check_domain_show=None, resource_group_id=None,
-                 change_start_time=None, change_end_time=None, tag=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.page_size = page_size  # type: int
-        self.page_number = page_number  # type: int
-        self.domain_name = domain_name  # type: str
-        self.domain_status = domain_status  # type: str
-        self.domain_search_type = domain_search_type  # type: str
-        self.check_domain_show = check_domain_show  # type: bool
-        self.resource_group_id = resource_group_id  # type: str
-        self.change_start_time = change_start_time  # type: str
+    def __init__(self, change_end_time=None, change_start_time=None, check_domain_show=None, coverage=None,
+                 domain_name=None, domain_search_type=None, domain_status=None, owner_id=None, page_number=None, page_size=None,
+                 resource_group_id=None, security_token=None, tag=None):
         self.change_end_time = change_end_time  # type: str
+        self.change_start_time = change_start_time  # type: str
+        self.check_domain_show = check_domain_show  # type: bool
+        self.coverage = coverage  # type: str
+        self.domain_name = domain_name  # type: str
+        self.domain_search_type = domain_search_type  # type: str
+        self.domain_status = domain_status  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
+        self.security_token = security_token  # type: str
         self.tag = tag  # type: list[DescribeDcdnUserDomainsRequestTag]
 
     def validate(self):
@@ -16176,28 +18112,30 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
-        if self.domain_search_type is not None:
-            result['DomainSearchType'] = self.domain_search_type
-        if self.check_domain_show is not None:
-            result['CheckDomainShow'] = self.check_domain_show
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.change_start_time is not None:
-            result['ChangeStartTime'] = self.change_start_time
         if self.change_end_time is not None:
             result['ChangeEndTime'] = self.change_end_time
+        if self.change_start_time is not None:
+            result['ChangeStartTime'] = self.change_start_time
+        if self.check_domain_show is not None:
+            result['CheckDomainShow'] = self.check_domain_show
+        if self.coverage is not None:
+            result['Coverage'] = self.coverage
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.domain_search_type is not None:
+            result['DomainSearchType'] = self.domain_search_type
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -16206,28 +18144,30 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
-        if m.get('DomainSearchType') is not None:
-            self.domain_search_type = m.get('DomainSearchType')
-        if m.get('CheckDomainShow') is not None:
-            self.check_domain_show = m.get('CheckDomainShow')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('ChangeStartTime') is not None:
-            self.change_start_time = m.get('ChangeStartTime')
         if m.get('ChangeEndTime') is not None:
             self.change_end_time = m.get('ChangeEndTime')
+        if m.get('ChangeStartTime') is not None:
+            self.change_start_time = m.get('ChangeStartTime')
+        if m.get('CheckDomainShow') is not None:
+            self.check_domain_show = m.get('CheckDomainShow')
+        if m.get('Coverage') is not None:
+            self.coverage = m.get('Coverage')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('DomainSearchType') is not None:
+            self.domain_search_type = m.get('DomainSearchType')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -16237,12 +18177,12 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
 
 
 class DescribeDcdnUserDomainsResponseBodyDomainsPageDataSourcesSource(TeaModel):
-    def __init__(self, type=None, weight=None, priority=None, port=None, content=None):
+    def __init__(self, content=None, port=None, priority=None, type=None, weight=None):
+        self.content = content  # type: str
+        self.port = port  # type: int
+        self.priority = priority  # type: str
         self.type = type  # type: str
         self.weight = weight  # type: str
-        self.priority = priority  # type: str
-        self.port = port  # type: int
-        self.content = content  # type: str
 
     def validate(self):
         pass
@@ -16253,30 +18193,30 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageDataSourcesSource(TeaModel):
             return _map
 
         result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
             result['Weight'] = self.weight
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.content is not None:
-            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
@@ -16313,17 +18253,17 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources(TeaModel):
 
 
 class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
-    def __init__(self, gmt_created=None, description=None, sslprotocol=None, resource_group_id=None, sandbox=None,
-                 domain_status=None, cname=None, gmt_modified=None, domain_name=None, sources=None):
-        self.gmt_created = gmt_created  # type: str
-        self.description = description  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        self.sandbox = sandbox  # type: str
-        self.domain_status = domain_status  # type: str
+    def __init__(self, cname=None, description=None, domain_name=None, domain_status=None, gmt_created=None,
+                 gmt_modified=None, resource_group_id=None, sslprotocol=None, sandbox=None, sources=None):
         self.cname = cname  # type: str
-        self.gmt_modified = gmt_modified  # type: str
+        self.description = description  # type: str
         self.domain_name = domain_name  # type: str
+        self.domain_status = domain_status  # type: str
+        self.gmt_created = gmt_created  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sandbox = sandbox  # type: str
         self.sources = sources  # type: DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources
 
     def validate(self):
@@ -16336,48 +18276,48 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
             return _map
 
         result = dict()
-        if self.gmt_created is not None:
-            result['GmtCreated'] = self.gmt_created
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
-        if self.sandbox is not None:
-            result['Sandbox'] = self.sandbox
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
         if self.cname is not None:
             result['Cname'] = self.cname
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
+        if self.description is not None:
+            result['Description'] = self.description
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.gmt_created is not None:
+            result['GmtCreated'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sandbox is not None:
+            result['Sandbox'] = self.sandbox
         if self.sources is not None:
             result['Sources'] = self.sources.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreated') is not None:
-            self.gmt_created = m.get('GmtCreated')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
-        if m.get('Sandbox') is not None:
-            self.sandbox = m.get('Sandbox')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('GmtCreated') is not None:
+            self.gmt_created = m.get('GmtCreated')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('Sandbox') is not None:
+            self.sandbox = m.get('Sandbox')
         if m.get('Sources') is not None:
             temp_model = DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources()
             self.sources = temp_model.from_map(m['Sources'])
@@ -16417,12 +18357,12 @@ class DescribeDcdnUserDomainsResponseBodyDomains(TeaModel):
 
 
 class DescribeDcdnUserDomainsResponseBody(TeaModel):
-    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, domains=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: DescribeDcdnUserDomainsResponseBodyDomains
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
         self.total_count = total_count  # type: long
-        self.domains = domains  # type: DescribeDcdnUserDomainsResponseBodyDomains
 
     def validate(self):
         if self.domains:
@@ -16434,31 +18374,31 @@ class DescribeDcdnUserDomainsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
+        if self.domains is not None:
+            result['Domains'] = self.domains.to_map()
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
-        if self.domains is not None:
-            result['Domains'] = self.domains.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
+        if m.get('Domains') is not None:
+            temp_model = DescribeDcdnUserDomainsResponseBodyDomains()
+            self.domains = temp_model.from_map(m['Domains'])
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
-        if m.get('Domains') is not None:
-            temp_model = DescribeDcdnUserDomainsResponseBodyDomains()
-            self.domains = temp_model.from_map(m['Domains'])
         return self
 
 
@@ -16496,9 +18436,12 @@ class DescribeDcdnUserDomainsResponse(TeaModel):
 
 
 class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
-    def __init__(self, owner_id=None, func_id=None, page_number=None, page_size=None, resource_group_id=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, func_filter=None, func_id=None, owner_id=None, page_number=None,
+                 page_size=None, resource_group_id=None):
+        self.domain_name = domain_name  # type: str
+        self.func_filter = func_filter  # type: str
         self.func_id = func_id  # type: int
+        self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.resource_group_id = resource_group_id  # type: str
@@ -16512,10 +18455,14 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.func_filter is not None:
+            result['FuncFilter'] = self.func_filter
         if self.func_id is not None:
             result['FuncId'] = self.func_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -16526,10 +18473,14 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('FuncFilter') is not None:
+            self.func_filter = m.get('FuncFilter')
         if m.get('FuncId') is not None:
             self.func_id = m.get('FuncId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -16540,12 +18491,12 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
 
 
 class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSourcesSource(TeaModel):
-    def __init__(self, type=None, weight=None, priority=None, port=None, content=None):
+    def __init__(self, content=None, port=None, priority=None, type=None, weight=None):
+        self.content = content  # type: str
+        self.port = port  # type: int
+        self.priority = priority  # type: str
         self.type = type  # type: str
         self.weight = weight  # type: str
-        self.priority = priority  # type: str
-        self.port = port  # type: int
-        self.content = content  # type: str
 
     def validate(self):
         pass
@@ -16556,30 +18507,30 @@ class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSourcesSource(TeaM
             return _map
 
         result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.priority is not None:
+            result['Priority'] = self.priority
         if self.type is not None:
             result['Type'] = self.type
         if self.weight is not None:
             result['Weight'] = self.weight
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.content is not None:
-            result['Content'] = self.content
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Weight') is not None:
             self.weight = m.get('Weight')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('Content') is not None:
-            self.content = m.get('Content')
         return self
 
 
@@ -16616,19 +18567,18 @@ class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSources(TeaModel):
 
 
 class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageData(TeaModel):
-    def __init__(self, gmt_created=None, ssl_protocol=None, description=None, resource_group_id=None, sandbox=None,
-                 domain_status=None, cname=None, gmt_modified=None, cdn_type=None, domain_name=None, sources=None):
-        self.gmt_created = gmt_created  # type: str
-        self.ssl_protocol = ssl_protocol  # type: str
+    def __init__(self, cname=None, description=None, domain_name=None, domain_status=None, gmt_created=None,
+                 gmt_modified=None, resource_group_id=None, sandbox=None, sources=None, ssl_protocol=None):
+        self.cname = cname  # type: str
         self.description = description  # type: str
+        self.domain_name = domain_name  # type: str
+        self.domain_status = domain_status  # type: str
+        self.gmt_created = gmt_created  # type: str
+        self.gmt_modified = gmt_modified  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.sandbox = sandbox  # type: str
-        self.domain_status = domain_status  # type: str
-        self.cname = cname  # type: str
-        self.gmt_modified = gmt_modified  # type: str
-        self.cdn_type = cdn_type  # type: str
-        self.domain_name = domain_name  # type: str
         self.sources = sources  # type: DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSources
+        self.ssl_protocol = ssl_protocol  # type: str
 
     def validate(self):
         if self.sources:
@@ -16640,55 +18590,51 @@ class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageData(TeaModel):
             return _map
 
         result = dict()
-        if self.gmt_created is not None:
-            result['GmtCreated'] = self.gmt_created
-        if self.ssl_protocol is not None:
-            result['SslProtocol'] = self.ssl_protocol
+        if self.cname is not None:
+            result['Cname'] = self.cname
         if self.description is not None:
             result['Description'] = self.description
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.domain_status is not None:
+            result['DomainStatus'] = self.domain_status
+        if self.gmt_created is not None:
+            result['GmtCreated'] = self.gmt_created
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.sandbox is not None:
             result['Sandbox'] = self.sandbox
-        if self.domain_status is not None:
-            result['DomainStatus'] = self.domain_status
-        if self.cname is not None:
-            result['Cname'] = self.cname
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.cdn_type is not None:
-            result['CdnType'] = self.cdn_type
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.sources is not None:
             result['Sources'] = self.sources.to_map()
+        if self.ssl_protocol is not None:
+            result['SslProtocol'] = self.ssl_protocol
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GmtCreated') is not None:
-            self.gmt_created = m.get('GmtCreated')
-        if m.get('SslProtocol') is not None:
-            self.ssl_protocol = m.get('SslProtocol')
+        if m.get('Cname') is not None:
+            self.cname = m.get('Cname')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('DomainStatus') is not None:
+            self.domain_status = m.get('DomainStatus')
+        if m.get('GmtCreated') is not None:
+            self.gmt_created = m.get('GmtCreated')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sandbox') is not None:
             self.sandbox = m.get('Sandbox')
-        if m.get('DomainStatus') is not None:
-            self.domain_status = m.get('DomainStatus')
-        if m.get('Cname') is not None:
-            self.cname = m.get('Cname')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('CdnType') is not None:
-            self.cdn_type = m.get('CdnType')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('Sources') is not None:
             temp_model = DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSources()
             self.sources = temp_model.from_map(m['Sources'])
+        if m.get('SslProtocol') is not None:
+            self.ssl_protocol = m.get('SslProtocol')
         return self
 
 
@@ -16725,12 +18671,12 @@ class DescribeDcdnUserDomainsByFuncResponseBodyDomains(TeaModel):
 
 
 class DescribeDcdnUserDomainsByFuncResponseBody(TeaModel):
-    def __init__(self, request_id=None, page_number=None, page_size=None, total_count=None, domains=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: DescribeDcdnUserDomainsByFuncResponseBodyDomains
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
+        self.request_id = request_id  # type: str
         self.total_count = total_count  # type: long
-        self.domains = domains  # type: DescribeDcdnUserDomainsByFuncResponseBodyDomains
 
     def validate(self):
         if self.domains:
@@ -16742,31 +18688,31 @@ class DescribeDcdnUserDomainsByFuncResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
+        if self.domains is not None:
+            result['Domains'] = self.domains.to_map()
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
-        if self.domains is not None:
-            result['Domains'] = self.domains.to_map()
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
+        if m.get('Domains') is not None:
+            temp_model = DescribeDcdnUserDomainsByFuncResponseBodyDomains()
+            self.domains = temp_model.from_map(m['Domains'])
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
-        if m.get('Domains') is not None:
-            temp_model = DescribeDcdnUserDomainsByFuncResponseBodyDomains()
-            self.domains = temp_model.from_map(m['Domains'])
         return self
 
 
@@ -16833,19 +18779,19 @@ class DescribeDcdnUserQuotaRequest(TeaModel):
 
 
 class DescribeDcdnUserQuotaResponseBody(TeaModel):
-    def __init__(self, block_quota=None, refresh_url_remain=None, domain_quota=None, block_remain=None,
-                 preload_remain=None, request_id=None, refresh_url_quota=None, preload_quota=None, refresh_dir_quota=None,
-                 refresh_dir_remain=None):
+    def __init__(self, block_quota=None, block_remain=None, domain_quota=None, preload_quota=None,
+                 preload_remain=None, refresh_dir_quota=None, refresh_dir_remain=None, refresh_url_quota=None,
+                 refresh_url_remain=None, request_id=None):
         self.block_quota = block_quota  # type: int
-        self.refresh_url_remain = refresh_url_remain  # type: int
-        self.domain_quota = domain_quota  # type: int
         self.block_remain = block_remain  # type: int
-        self.preload_remain = preload_remain  # type: int
-        self.request_id = request_id  # type: str
-        self.refresh_url_quota = refresh_url_quota  # type: int
+        self.domain_quota = domain_quota  # type: int
         self.preload_quota = preload_quota  # type: int
+        self.preload_remain = preload_remain  # type: int
         self.refresh_dir_quota = refresh_dir_quota  # type: int
         self.refresh_dir_remain = refresh_dir_remain  # type: int
+        self.refresh_url_quota = refresh_url_quota  # type: int
+        self.refresh_url_remain = refresh_url_remain  # type: int
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
@@ -16858,48 +18804,48 @@ class DescribeDcdnUserQuotaResponseBody(TeaModel):
         result = dict()
         if self.block_quota is not None:
             result['BlockQuota'] = self.block_quota
-        if self.refresh_url_remain is not None:
-            result['RefreshUrlRemain'] = self.refresh_url_remain
-        if self.domain_quota is not None:
-            result['DomainQuota'] = self.domain_quota
         if self.block_remain is not None:
             result['BlockRemain'] = self.block_remain
-        if self.preload_remain is not None:
-            result['PreloadRemain'] = self.preload_remain
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.refresh_url_quota is not None:
-            result['RefreshUrlQuota'] = self.refresh_url_quota
+        if self.domain_quota is not None:
+            result['DomainQuota'] = self.domain_quota
         if self.preload_quota is not None:
             result['PreloadQuota'] = self.preload_quota
+        if self.preload_remain is not None:
+            result['PreloadRemain'] = self.preload_remain
         if self.refresh_dir_quota is not None:
             result['RefreshDirQuota'] = self.refresh_dir_quota
         if self.refresh_dir_remain is not None:
             result['RefreshDirRemain'] = self.refresh_dir_remain
+        if self.refresh_url_quota is not None:
+            result['RefreshUrlQuota'] = self.refresh_url_quota
+        if self.refresh_url_remain is not None:
+            result['RefreshUrlRemain'] = self.refresh_url_remain
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('BlockQuota') is not None:
             self.block_quota = m.get('BlockQuota')
-        if m.get('RefreshUrlRemain') is not None:
-            self.refresh_url_remain = m.get('RefreshUrlRemain')
-        if m.get('DomainQuota') is not None:
-            self.domain_quota = m.get('DomainQuota')
         if m.get('BlockRemain') is not None:
             self.block_remain = m.get('BlockRemain')
-        if m.get('PreloadRemain') is not None:
-            self.preload_remain = m.get('PreloadRemain')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('RefreshUrlQuota') is not None:
-            self.refresh_url_quota = m.get('RefreshUrlQuota')
+        if m.get('DomainQuota') is not None:
+            self.domain_quota = m.get('DomainQuota')
         if m.get('PreloadQuota') is not None:
             self.preload_quota = m.get('PreloadQuota')
+        if m.get('PreloadRemain') is not None:
+            self.preload_remain = m.get('PreloadRemain')
         if m.get('RefreshDirQuota') is not None:
             self.refresh_dir_quota = m.get('RefreshDirQuota')
         if m.get('RefreshDirRemain') is not None:
             self.refresh_dir_remain = m.get('RefreshDirRemain')
+        if m.get('RefreshUrlQuota') is not None:
+            self.refresh_url_quota = m.get('RefreshUrlQuota')
+        if m.get('RefreshUrlRemain') is not None:
+            self.refresh_url_remain = m.get('RefreshUrlRemain')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         return self
 
 
@@ -16936,10 +18882,170 @@ class DescribeDcdnUserQuotaResponse(TeaModel):
         return self
 
 
+class DescribeDcdnUserRealTimeDeliveryFieldRequest(TeaModel):
+    def __init__(self, business_type=None, owner_id=None):
+        self.business_type = business_type  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserRealTimeDeliveryFieldRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContentFields(TeaModel):
+    def __init__(self, description=None, field_name=None, selected=None):
+        self.description = description  # type: str
+        self.field_name = field_name  # type: str
+        self.selected = selected  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContentFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.field_name is not None:
+            result['FieldName'] = self.field_name
+        if self.selected is not None:
+            result['Selected'] = self.selected
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('FieldName') is not None:
+            self.field_name = m.get('FieldName')
+        if m.get('Selected') is not None:
+            self.selected = m.get('Selected')
+        return self
+
+
+class DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContent(TeaModel):
+    def __init__(self, fields=None):
+        self.fields = fields  # type: list[DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContentFields]
+
+    def validate(self):
+        if self.fields:
+            for k in self.fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Fields'] = []
+        if self.fields is not None:
+            for k in self.fields:
+                result['Fields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.fields = []
+        if m.get('Fields') is not None:
+            for k in m.get('Fields'):
+                temp_model = DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContentFields()
+                self.fields.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnUserRealTimeDeliveryFieldResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserRealTimeDeliveryFieldResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = DescribeDcdnUserRealTimeDeliveryFieldResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnUserRealTimeDeliveryFieldResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnUserRealTimeDeliveryFieldResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserRealTimeDeliveryFieldResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnUserRealTimeDeliveryFieldResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnUserResourcePackageRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None):
+    def __init__(self, owner_id=None, security_token=None, status=None):
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -16954,6 +19060,8 @@ class DescribeDcdnUserResourcePackageRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
@@ -16962,20 +19070,22 @@ class DescribeDcdnUserResourcePackageRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
 class DescribeDcdnUserResourcePackageResponseBodyResourcePackageInfosResourcePackageInfo(TeaModel):
-    def __init__(self, end_time=None, status=None, display_name=None, start_time=None, commodity_code=None,
-                 curr_capacity=None, init_capacity=None, instance_id=None, template_name=None):
-        self.end_time = end_time  # type: str
-        self.status = status  # type: str
-        self.display_name = display_name  # type: str
-        self.start_time = start_time  # type: str
+    def __init__(self, commodity_code=None, curr_capacity=None, display_name=None, end_time=None,
+                 init_capacity=None, instance_id=None, start_time=None, status=None, template_name=None):
         self.commodity_code = commodity_code  # type: str
         self.curr_capacity = curr_capacity  # type: str
+        self.display_name = display_name  # type: str
+        self.end_time = end_time  # type: str
         self.init_capacity = init_capacity  # type: str
         self.instance_id = instance_id  # type: str
+        self.start_time = start_time  # type: str
+        self.status = status  # type: str
         self.template_name = template_name  # type: str
 
     def validate(self):
@@ -16987,44 +19097,44 @@ class DescribeDcdnUserResourcePackageResponseBodyResourcePackageInfosResourcePac
             return _map
 
         result = dict()
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.display_name is not None:
-            result['DisplayName'] = self.display_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
         if self.curr_capacity is not None:
             result['CurrCapacity'] = self.curr_capacity
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.init_capacity is not None:
             result['InitCapacity'] = self.init_capacity
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
         if self.template_name is not None:
             result['TemplateName'] = self.template_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('DisplayName') is not None:
-            self.display_name = m.get('DisplayName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
         if m.get('CurrCapacity') is not None:
             self.curr_capacity = m.get('CurrCapacity')
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('InitCapacity') is not None:
             self.init_capacity = m.get('InitCapacity')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('TemplateName') is not None:
             self.template_name = m.get('TemplateName')
         return self
@@ -17127,11 +19237,11 @@ class DescribeDcdnUserResourcePackageResponse(TeaModel):
 
 
 class DescribeDcdnUserSecDropRequest(TeaModel):
-    def __init__(self, owner_id=None, data=None, sec_func=None, metric=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, data=None, metric=None, owner_id=None, sec_func=None):
         self.data = data  # type: str
-        self.sec_func = sec_func  # type: str
         self.metric = metric  # type: str
+        self.owner_id = owner_id  # type: long
+        self.sec_func = sec_func  # type: str
 
     def validate(self):
         pass
@@ -17142,34 +19252,34 @@ class DescribeDcdnUserSecDropRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.data is not None:
             result['Data'] = self.data
-        if self.sec_func is not None:
-            result['SecFunc'] = self.sec_func
         if self.metric is not None:
             result['Metric'] = self.metric
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.sec_func is not None:
+            result['SecFunc'] = self.sec_func
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('SecFunc') is not None:
-            self.sec_func = m.get('SecFunc')
         if m.get('Metric') is not None:
             self.metric = m.get('Metric')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecFunc') is not None:
+            self.sec_func = m.get('SecFunc')
         return self
 
 
 class DescribeDcdnUserSecDropResponseBody(TeaModel):
-    def __init__(self, msg=None, request_id=None, drops=None, uuid_str=None):
+    def __init__(self, drops=None, msg=None, request_id=None, uuid_str=None):
+        self.drops = drops  # type: int
         self.msg = msg  # type: str
         self.request_id = request_id  # type: str
-        self.drops = drops  # type: int
         self.uuid_str = uuid_str  # type: str
 
     def validate(self):
@@ -17181,24 +19291,24 @@ class DescribeDcdnUserSecDropResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.drops is not None:
+            result['Drops'] = self.drops
         if self.msg is not None:
             result['Msg'] = self.msg
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.drops is not None:
-            result['Drops'] = self.drops
         if self.uuid_str is not None:
             result['UuidStr'] = self.uuid_str
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Drops') is not None:
+            self.drops = m.get('Drops')
         if m.get('Msg') is not None:
             self.msg = m.get('Msg')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Drops') is not None:
-            self.drops = m.get('Drops')
         if m.get('UuidStr') is not None:
             self.uuid_str = m.get('UuidStr')
         return self
@@ -17238,18 +19348,18 @@ class DescribeDcdnUserSecDropResponse(TeaModel):
 
 
 class DescribeDcdnUserSecDropByMinuteRequest(TeaModel):
-    def __init__(self, owner_id=None, sec_func=None, rule_name=None, object=None, domain_name=None, start_time=None,
-                 end_time=None, page_size=None, page_number=None, lang=None):
-        self.owner_id = owner_id  # type: long
-        self.sec_func = sec_func  # type: str
-        self.rule_name = rule_name  # type: str
-        self.object = object  # type: str
+    def __init__(self, domain_name=None, end_time=None, lang=None, object=None, owner_id=None, page_number=None,
+                 page_size=None, rule_name=None, sec_func=None, start_time=None):
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
         self.end_time = end_time  # type: str
-        self.page_size = page_size  # type: long
-        self.page_number = page_number  # type: long
         self.lang = lang  # type: str
+        self.object = object  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.rule_name = rule_name  # type: str
+        self.sec_func = sec_func  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -17260,61 +19370,61 @@ class DescribeDcdnUserSecDropByMinuteRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.sec_func is not None:
-            result['SecFunc'] = self.sec_func
-        if self.rule_name is not None:
-            result['RuleName'] = self.rule_name
-        if self.object is not None:
-            result['Object'] = self.object
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.page_number is not None:
-            result['PageNumber'] = self.page_number
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.object is not None:
+            result['Object'] = self.object
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.sec_func is not None:
+            result['SecFunc'] = self.sec_func
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecFunc') is not None:
-            self.sec_func = m.get('SecFunc')
-        if m.get('RuleName') is not None:
-            self.rule_name = m.get('RuleName')
-        if m.get('Object') is not None:
-            self.object = m.get('Object')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PageNumber') is not None:
-            self.page_number = m.get('PageNumber')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('Object') is not None:
+            self.object = m.get('Object')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('SecFunc') is not None:
+            self.sec_func = m.get('SecFunc')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDcdnUserSecDropByMinuteResponseBodyRows(TeaModel):
-    def __init__(self, domain=None, tm_str=None, drops=None, object=None, sec_func=None, rule_name=None):
+    def __init__(self, domain=None, drops=None, object=None, rule_name=None, sec_func=None, tm_str=None):
         self.domain = domain  # type: str
-        self.tm_str = tm_str  # type: str
         self.drops = drops  # type: int
         self.object = object  # type: str
-        self.sec_func = sec_func  # type: str
         self.rule_name = rule_name  # type: str
+        self.sec_func = sec_func  # type: str
+        self.tm_str = tm_str  # type: str
 
     def validate(self):
         pass
@@ -17327,45 +19437,45 @@ class DescribeDcdnUserSecDropByMinuteResponseBodyRows(TeaModel):
         result = dict()
         if self.domain is not None:
             result['Domain'] = self.domain
-        if self.tm_str is not None:
-            result['TmStr'] = self.tm_str
         if self.drops is not None:
             result['Drops'] = self.drops
         if self.object is not None:
             result['Object'] = self.object
-        if self.sec_func is not None:
-            result['SecFunc'] = self.sec_func
         if self.rule_name is not None:
             result['RuleName'] = self.rule_name
+        if self.sec_func is not None:
+            result['SecFunc'] = self.sec_func
+        if self.tm_str is not None:
+            result['TmStr'] = self.tm_str
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
-        if m.get('TmStr') is not None:
-            self.tm_str = m.get('TmStr')
         if m.get('Drops') is not None:
             self.drops = m.get('Drops')
         if m.get('Object') is not None:
             self.object = m.get('Object')
-        if m.get('SecFunc') is not None:
-            self.sec_func = m.get('SecFunc')
         if m.get('RuleName') is not None:
             self.rule_name = m.get('RuleName')
+        if m.get('SecFunc') is not None:
+            self.sec_func = m.get('SecFunc')
+        if m.get('TmStr') is not None:
+            self.tm_str = m.get('TmStr')
         return self
 
 
 class DescribeDcdnUserSecDropByMinuteResponseBody(TeaModel):
-    def __init__(self, request_id=None, description=None, len=None, page_number=None, page_size=None,
-                 total_count=None, rows=None):
-        self.request_id = request_id  # type: str
+    def __init__(self, description=None, len=None, page_number=None, page_size=None, request_id=None, rows=None,
+                 total_count=None):
         self.description = description  # type: str
         self.len = len  # type: int
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
+        self.request_id = request_id  # type: str
         self.rows = rows  # type: list[DescribeDcdnUserSecDropByMinuteResponseBodyRows]
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.rows:
@@ -17379,8 +19489,6 @@ class DescribeDcdnUserSecDropByMinuteResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.description is not None:
             result['Description'] = self.description
         if self.len is not None:
@@ -17389,18 +19497,18 @@ class DescribeDcdnUserSecDropByMinuteResponseBody(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
         result['Rows'] = []
         if self.rows is not None:
             for k in self.rows:
                 result['Rows'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('Len') is not None:
@@ -17409,13 +19517,15 @@ class DescribeDcdnUserSecDropByMinuteResponseBody(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
         self.rows = []
         if m.get('Rows') is not None:
             for k in m.get('Rows'):
                 temp_model = DescribeDcdnUserSecDropByMinuteResponseBodyRows()
                 self.rows.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -17576,9 +19686,9 @@ class DescribeDcdnUserTagsResponse(TeaModel):
 
 
 class DescribeDcdnVerifyContentRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -17589,18 +19699,18 @@ class DescribeDcdnVerifyContentRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -17667,10 +19777,11 @@ class DescribeDcdnVerifyContentResponse(TeaModel):
 
 
 class DescribeDcdnWafDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, region_id=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, region_id=None, resource_group_id=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
-        self.domain_name = domain_name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -17681,31 +19792,35 @@ class DescribeDcdnWafDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
 class DescribeDcdnWafDomainResponseBodyOutPutDomains(TeaModel):
-    def __init__(self, acl_status=None, status=None, domain=None, cc_status=None, waf_status=None):
+    def __init__(self, acl_status=None, cc_status=None, domain=None, status=None, waf_status=None):
         self.acl_status = acl_status  # type: int
-        self.status = status  # type: int
-        self.domain = domain  # type: str
         self.cc_status = cc_status  # type: int
+        self.domain = domain  # type: str
+        self.status = status  # type: int
         self.waf_status = waf_status  # type: int
 
     def validate(self):
@@ -17719,12 +19834,12 @@ class DescribeDcdnWafDomainResponseBodyOutPutDomains(TeaModel):
         result = dict()
         if self.acl_status is not None:
             result['AclStatus'] = self.acl_status
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.domain is not None:
-            result['Domain'] = self.domain
         if self.cc_status is not None:
             result['CcStatus'] = self.cc_status
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.status is not None:
+            result['Status'] = self.status
         if self.waf_status is not None:
             result['WafStatus'] = self.waf_status
         return result
@@ -17733,22 +19848,22 @@ class DescribeDcdnWafDomainResponseBodyOutPutDomains(TeaModel):
         m = m or dict()
         if m.get('AclStatus') is not None:
             self.acl_status = m.get('AclStatus')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Domain') is not None:
-            self.domain = m.get('Domain')
         if m.get('CcStatus') is not None:
             self.cc_status = m.get('CcStatus')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('WafStatus') is not None:
             self.waf_status = m.get('WafStatus')
         return self
 
 
 class DescribeDcdnWafDomainResponseBody(TeaModel):
-    def __init__(self, total_count=None, request_id=None, out_put_domains=None):
-        self.total_count = total_count  # type: int
-        self.request_id = request_id  # type: str
+    def __init__(self, out_put_domains=None, request_id=None, total_count=None):
         self.out_put_domains = out_put_domains  # type: list[DescribeDcdnWafDomainResponseBodyOutPutDomains]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.out_put_domains:
@@ -17762,27 +19877,27 @@ class DescribeDcdnWafDomainResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         result['OutPutDomains'] = []
         if self.out_put_domains is not None:
             for k in self.out_put_domains:
                 result['OutPutDomains'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         self.out_put_domains = []
         if m.get('OutPutDomains') is not None:
             for k in m.get('OutPutDomains'):
                 temp_model = DescribeDcdnWafDomainResponseBodyOutPutDomains()
                 self.out_put_domains.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -17819,10 +19934,211 @@ class DescribeDcdnWafDomainResponse(TeaModel):
         return self
 
 
-class DescribeRoutineRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None):
+class DescribeDcdnsecServiceRequest(TeaModel):
+    def __init__(self, owner_id=None, security_token=None):
         self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnsecServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeDcdnsecServiceResponseBodyOperationLocksLockReason(TeaModel):
+    def __init__(self, lock_reason=None):
+        self.lock_reason = lock_reason  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnsecServiceResponseBodyOperationLocksLockReason, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lock_reason is not None:
+            result['LockReason'] = self.lock_reason
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LockReason') is not None:
+            self.lock_reason = m.get('LockReason')
+        return self
+
+
+class DescribeDcdnsecServiceResponseBodyOperationLocks(TeaModel):
+    def __init__(self, lock_reason=None):
+        self.lock_reason = lock_reason  # type: list[DescribeDcdnsecServiceResponseBodyOperationLocksLockReason]
+
+    def validate(self):
+        if self.lock_reason:
+            for k in self.lock_reason:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnsecServiceResponseBodyOperationLocks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['LockReason'] = []
+        if self.lock_reason is not None:
+            for k in self.lock_reason:
+                result['LockReason'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.lock_reason = []
+        if m.get('LockReason') is not None:
+            for k in m.get('LockReason'):
+                temp_model = DescribeDcdnsecServiceResponseBodyOperationLocksLockReason()
+                self.lock_reason.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnsecServiceResponseBody(TeaModel):
+    def __init__(self, changing_affect_time=None, changing_charge_type=None, domain_num=None, end_time=None,
+                 flow_type=None, instance_id=None, internet_charge_type=None, operation_locks=None, request_id=None,
+                 request_type=None, start_time=None, version=None):
+        self.changing_affect_time = changing_affect_time  # type: str
+        self.changing_charge_type = changing_charge_type  # type: str
+        self.domain_num = domain_num  # type: str
+        self.end_time = end_time  # type: str
+        self.flow_type = flow_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.internet_charge_type = internet_charge_type  # type: str
+        self.operation_locks = operation_locks  # type: DescribeDcdnsecServiceResponseBodyOperationLocks
+        self.request_id = request_id  # type: str
+        self.request_type = request_type  # type: str
+        self.start_time = start_time  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.operation_locks:
+            self.operation_locks.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnsecServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.changing_affect_time is not None:
+            result['ChangingAffectTime'] = self.changing_affect_time
+        if self.changing_charge_type is not None:
+            result['ChangingChargeType'] = self.changing_charge_type
+        if self.domain_num is not None:
+            result['DomainNum'] = self.domain_num
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.flow_type is not None:
+            result['FlowType'] = self.flow_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.operation_locks is not None:
+            result['OperationLocks'] = self.operation_locks.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.request_type is not None:
+            result['RequestType'] = self.request_type
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChangingAffectTime') is not None:
+            self.changing_affect_time = m.get('ChangingAffectTime')
+        if m.get('ChangingChargeType') is not None:
+            self.changing_charge_type = m.get('ChangingChargeType')
+        if m.get('DomainNum') is not None:
+            self.domain_num = m.get('DomainNum')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('FlowType') is not None:
+            self.flow_type = m.get('FlowType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('OperationLocks') is not None:
+            temp_model = DescribeDcdnsecServiceResponseBodyOperationLocks()
+            self.operation_locks = temp_model.from_map(m['OperationLocks'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('RequestType') is not None:
+            self.request_type = m.get('RequestType')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class DescribeDcdnsecServiceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnsecServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnsecServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnsecServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeRoutineRequest(TeaModel):
+    def __init__(self, name=None, owner_id=None):
         self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -17833,18 +20149,18 @@ class DescribeRoutineRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.name is not None:
             result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -17997,9 +20313,9 @@ class DescribeRoutineCanaryEnvsResponse(TeaModel):
 
 
 class DescribeRoutineCodeRevisionRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, select_code_revision=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, name=None, owner_id=None, select_code_revision=None):
         self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
         self.select_code_revision = select_code_revision  # type: str
 
     def validate(self):
@@ -18011,20 +20327,20 @@ class DescribeRoutineCodeRevisionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.name is not None:
             result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.select_code_revision is not None:
             result['SelectCodeRevision'] = self.select_code_revision
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('SelectCodeRevision') is not None:
             self.select_code_revision = m.get('SelectCodeRevision')
         return self
@@ -18294,12 +20610,12 @@ class DescribeUserDcdnIpaStatusRequest(TeaModel):
 
 
 class DescribeUserDcdnIpaStatusResponseBody(TeaModel):
-    def __init__(self, in_debt=None, on_service=None, request_id=None, in_debt_overdue=None, enabled=None):
+    def __init__(self, enabled=None, in_debt=None, in_debt_overdue=None, on_service=None, request_id=None):
+        self.enabled = enabled  # type: bool
         self.in_debt = in_debt  # type: bool
+        self.in_debt_overdue = in_debt_overdue  # type: bool
         self.on_service = on_service  # type: bool
         self.request_id = request_id  # type: str
-        self.in_debt_overdue = in_debt_overdue  # type: bool
-        self.enabled = enabled  # type: bool
 
     def validate(self):
         pass
@@ -18310,30 +20626,30 @@ class DescribeUserDcdnIpaStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
         if self.in_debt is not None:
             result['InDebt'] = self.in_debt
+        if self.in_debt_overdue is not None:
+            result['InDebtOverdue'] = self.in_debt_overdue
         if self.on_service is not None:
             result['OnService'] = self.on_service
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.in_debt_overdue is not None:
-            result['InDebtOverdue'] = self.in_debt_overdue
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
         if m.get('InDebt') is not None:
             self.in_debt = m.get('InDebt')
+        if m.get('InDebtOverdue') is not None:
+            self.in_debt_overdue = m.get('InDebtOverdue')
         if m.get('OnService') is not None:
             self.on_service = m.get('OnService')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InDebtOverdue') is not None:
-            self.in_debt_overdue = m.get('InDebtOverdue')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         return self
 
 
@@ -18400,12 +20716,12 @@ class DescribeUserDcdnStatusRequest(TeaModel):
 
 
 class DescribeUserDcdnStatusResponseBody(TeaModel):
-    def __init__(self, in_debt=None, on_service=None, request_id=None, in_debt_overdue=None, enabled=None):
+    def __init__(self, enabled=None, in_debt=None, in_debt_overdue=None, on_service=None, request_id=None):
+        self.enabled = enabled  # type: bool
         self.in_debt = in_debt  # type: bool
+        self.in_debt_overdue = in_debt_overdue  # type: bool
         self.on_service = on_service  # type: bool
         self.request_id = request_id  # type: str
-        self.in_debt_overdue = in_debt_overdue  # type: bool
-        self.enabled = enabled  # type: bool
 
     def validate(self):
         pass
@@ -18416,30 +20732,30 @@ class DescribeUserDcdnStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
         if self.in_debt is not None:
             result['InDebt'] = self.in_debt
+        if self.in_debt_overdue is not None:
+            result['InDebtOverdue'] = self.in_debt_overdue
         if self.on_service is not None:
             result['OnService'] = self.on_service
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.in_debt_overdue is not None:
-            result['InDebtOverdue'] = self.in_debt_overdue
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
         if m.get('InDebt') is not None:
             self.in_debt = m.get('InDebt')
+        if m.get('InDebtOverdue') is not None:
+            self.in_debt_overdue = m.get('InDebtOverdue')
         if m.get('OnService') is not None:
             self.on_service = m.get('OnService')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InDebtOverdue') is not None:
-            self.in_debt_overdue = m.get('InDebtOverdue')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         return self
 
 
@@ -18506,12 +20822,12 @@ class DescribeUserErStatusRequest(TeaModel):
 
 
 class DescribeUserErStatusResponseBody(TeaModel):
-    def __init__(self, in_debt=None, on_service=None, request_id=None, in_debt_overdue=None, enabled=None):
+    def __init__(self, enabled=None, in_debt=None, in_debt_overdue=None, on_service=None, request_id=None):
+        self.enabled = enabled  # type: bool
         self.in_debt = in_debt  # type: bool
+        self.in_debt_overdue = in_debt_overdue  # type: bool
         self.on_service = on_service  # type: bool
         self.request_id = request_id  # type: str
-        self.in_debt_overdue = in_debt_overdue  # type: bool
-        self.enabled = enabled  # type: bool
 
     def validate(self):
         pass
@@ -18522,30 +20838,30 @@ class DescribeUserErStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
         if self.in_debt is not None:
             result['InDebt'] = self.in_debt
+        if self.in_debt_overdue is not None:
+            result['InDebtOverdue'] = self.in_debt_overdue
         if self.on_service is not None:
             result['OnService'] = self.on_service
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.in_debt_overdue is not None:
-            result['InDebtOverdue'] = self.in_debt_overdue
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
         if m.get('InDebt') is not None:
             self.in_debt = m.get('InDebt')
+        if m.get('InDebtOverdue') is not None:
+            self.in_debt_overdue = m.get('InDebtOverdue')
         if m.get('OnService') is not None:
             self.on_service = m.get('OnService')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InDebtOverdue') is not None:
-            self.in_debt_overdue = m.get('InDebtOverdue')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         return self
 
 
@@ -18612,12 +20928,12 @@ class DescribeUserLogserviceStatusRequest(TeaModel):
 
 
 class DescribeUserLogserviceStatusResponseBody(TeaModel):
-    def __init__(self, in_debt=None, on_service=None, request_id=None, in_debt_overdue=None, enabled=None):
+    def __init__(self, enabled=None, in_debt=None, in_debt_overdue=None, on_service=None, request_id=None):
+        self.enabled = enabled  # type: bool
         self.in_debt = in_debt  # type: bool
+        self.in_debt_overdue = in_debt_overdue  # type: bool
         self.on_service = on_service  # type: bool
         self.request_id = request_id  # type: str
-        self.in_debt_overdue = in_debt_overdue  # type: bool
-        self.enabled = enabled  # type: bool
 
     def validate(self):
         pass
@@ -18628,30 +20944,30 @@ class DescribeUserLogserviceStatusResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.enabled is not None:
+            result['Enabled'] = self.enabled
         if self.in_debt is not None:
             result['InDebt'] = self.in_debt
+        if self.in_debt_overdue is not None:
+            result['InDebtOverdue'] = self.in_debt_overdue
         if self.on_service is not None:
             result['OnService'] = self.on_service
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.in_debt_overdue is not None:
-            result['InDebtOverdue'] = self.in_debt_overdue
-        if self.enabled is not None:
-            result['Enabled'] = self.enabled
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Enabled') is not None:
+            self.enabled = m.get('Enabled')
         if m.get('InDebt') is not None:
             self.in_debt = m.get('InDebt')
+        if m.get('InDebtOverdue') is not None:
+            self.in_debt_overdue = m.get('InDebtOverdue')
         if m.get('OnService') is not None:
             self.on_service = m.get('OnService')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('InDebtOverdue') is not None:
-            self.in_debt_overdue = m.get('InDebtOverdue')
-        if m.get('Enabled') is not None:
-            self.enabled = m.get('Enabled')
         return self
 
 
@@ -18688,179 +21004,12 @@ class DescribeUserLogserviceStatusResponse(TeaModel):
         return self
 
 
-class DisableDcdnDomainOfflineLogDeliveryRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
-        self.domain_name = domain_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DisableDcdnDomainOfflineLogDeliveryRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        return self
-
-
-class DisableDcdnDomainOfflineLogDeliveryResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DisableDcdnDomainOfflineLogDeliveryResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DisableDcdnDomainOfflineLogDeliveryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DisableDcdnDomainOfflineLogDeliveryResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DisableDcdnDomainOfflineLogDeliveryResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DisableDcdnDomainOfflineLogDeliveryResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DisableDcdnOfflineLogDeliveryRequest(TeaModel):
-    def __init__(self, owner_id=None):
-        self.owner_id = owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DisableDcdnOfflineLogDeliveryRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        return self
-
-
-class DisableDcdnOfflineLogDeliveryResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DisableDcdnOfflineLogDeliveryResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DisableDcdnOfflineLogDeliveryResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DisableDcdnOfflineLogDeliveryResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DisableDcdnOfflineLogDeliveryResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DisableDcdnOfflineLogDeliveryResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class EditRoutineConfRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, description=None, env_conf=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, description=None, env_conf=None, name=None, owner_id=None):
         self.description = description  # type: str
         self.env_conf = env_conf  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -18871,35 +21020,35 @@ class EditRoutineConfRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.description is not None:
             result['Description'] = self.description
         if self.env_conf is not None:
             result['EnvConf'] = self.env_conf
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EnvConf') is not None:
             self.env_conf = m.get('EnvConf')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
 class EditRoutineConfShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, description=None, env_conf_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, description=None, env_conf_shrink=None, name=None, owner_id=None):
         self.description = description  # type: str
         self.env_conf_shrink = env_conf_shrink  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -18910,26 +21059,26 @@ class EditRoutineConfShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.description is not None:
             result['Description'] = self.description
         if self.env_conf_shrink is not None:
             result['EnvConf'] = self.env_conf_shrink
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EnvConf') is not None:
             self.env_conf_shrink = m.get('EnvConf')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -18995,63 +21144,171 @@ class EditRoutineConfResponse(TeaModel):
         return self
 
 
-class EnableDcdnDomainOfflineLogDeliveryRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
+class ListDcdnEsTemplateInfoRequest(TeaModel):
+    def __init__(self, language=None, op=None, owner_id=None, page_number=None, page_size=None):
+        self.language = language  # type: str
+        self.op = op  # type: str
         self.owner_id = owner_id  # type: long
-        self.domain_name = domain_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(EnableDcdnDomainOfflineLogDeliveryRequest, self).to_map()
+        _map = super(ListDcdnEsTemplateInfoRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.op is not None:
+            result['Op'] = self.op
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('Op') is not None:
+            self.op = m.get('Op')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         return self
 
 
-class EnableDcdnDomainOfflineLogDeliveryResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
+class ListDcdnEsTemplateInfoResponseBodyDataItemsDataItem(TeaModel):
+    def __init__(self, id=None, tmpl_def=None, tmpl_desc=None, tmpl_name=None):
+        self.id = id  # type: int
+        self.tmpl_def = tmpl_def  # type: str
+        self.tmpl_desc = tmpl_desc  # type: str
+        self.tmpl_name = tmpl_name  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(EnableDcdnDomainOfflineLogDeliveryResponseBody, self).to_map()
+        _map = super(ListDcdnEsTemplateInfoResponseBodyDataItemsDataItem, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.tmpl_def is not None:
+            result['TmplDef'] = self.tmpl_def
+        if self.tmpl_desc is not None:
+            result['TmplDesc'] = self.tmpl_desc
+        if self.tmpl_name is not None:
+            result['TmplName'] = self.tmpl_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('TmplDef') is not None:
+            self.tmpl_def = m.get('TmplDef')
+        if m.get('TmplDesc') is not None:
+            self.tmpl_desc = m.get('TmplDesc')
+        if m.get('TmplName') is not None:
+            self.tmpl_name = m.get('TmplName')
         return self
 
 
-class EnableDcdnDomainOfflineLogDeliveryResponse(TeaModel):
+class ListDcdnEsTemplateInfoResponseBodyDataItems(TeaModel):
+    def __init__(self, data_item=None):
+        self.data_item = data_item  # type: list[ListDcdnEsTemplateInfoResponseBodyDataItemsDataItem]
+
+    def validate(self):
+        if self.data_item:
+            for k in self.data_item:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDcdnEsTemplateInfoResponseBodyDataItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataItem'] = []
+        if self.data_item is not None:
+            for k in self.data_item:
+                result['DataItem'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_item = []
+        if m.get('DataItem') is not None:
+            for k in m.get('DataItem'):
+                temp_model = ListDcdnEsTemplateInfoResponseBodyDataItemsDataItem()
+                self.data_item.append(temp_model.from_map(k))
+        return self
+
+
+class ListDcdnEsTemplateInfoResponseBody(TeaModel):
+    def __init__(self, data_items=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.data_items = data_items  # type: ListDcdnEsTemplateInfoResponseBodyDataItems
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.data_items:
+            self.data_items.validate()
+
+    def to_map(self):
+        _map = super(ListDcdnEsTemplateInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_items is not None:
+            result['DataItems'] = self.data_items.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataItems') is not None:
+            temp_model = ListDcdnEsTemplateInfoResponseBodyDataItems()
+            self.data_items = temp_model.from_map(m['DataItems'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListDcdnEsTemplateInfoResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: EnableDcdnDomainOfflineLogDeliveryResponseBody
+        self.body = body  # type: ListDcdnEsTemplateInfoResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -19060,7 +21317,7 @@ class EnableDcdnDomainOfflineLogDeliveryResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(EnableDcdnDomainOfflineLogDeliveryResponse, self).to_map()
+        _map = super(ListDcdnEsTemplateInfoResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -19076,15 +21333,230 @@ class EnableDcdnDomainOfflineLogDeliveryResponse(TeaModel):
         if m.get('headers') is not None:
             self.headers = m.get('headers')
         if m.get('body') is not None:
-            temp_model = EnableDcdnDomainOfflineLogDeliveryResponseBody()
+            temp_model = ListDcdnEsTemplateInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDcdnRealTimeDeliveryProjectRequest(TeaModel):
+    def __init__(self, business_type=None, domain_name=None, owner_id=None, page_number=None, page_size=None):
+        self.business_type = business_type  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDcdnRealTimeDeliveryProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListDcdnRealTimeDeliveryProjectResponseBodyContentProjects(TeaModel):
+    def __init__(self, business_type=None, data_center=None, domain_name=None, field_name=None, project_name=None,
+                 slslog_store=None, slsproject=None, slsregion=None, sampling_rate=None, type=None):
+        self.business_type = business_type  # type: str
+        self.data_center = data_center  # type: str
+        self.domain_name = domain_name  # type: str
+        self.field_name = field_name  # type: str
+        self.project_name = project_name  # type: str
+        self.slslog_store = slslog_store  # type: str
+        self.slsproject = slsproject  # type: str
+        self.slsregion = slsregion  # type: str
+        self.sampling_rate = sampling_rate  # type: float
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDcdnRealTimeDeliveryProjectResponseBodyContentProjects, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.data_center is not None:
+            result['DataCenter'] = self.data_center
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.field_name is not None:
+            result['FieldName'] = self.field_name
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.slslog_store is not None:
+            result['SLSLogStore'] = self.slslog_store
+        if self.slsproject is not None:
+            result['SLSProject'] = self.slsproject
+        if self.slsregion is not None:
+            result['SLSRegion'] = self.slsregion
+        if self.sampling_rate is not None:
+            result['SamplingRate'] = self.sampling_rate
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('DataCenter') is not None:
+            self.data_center = m.get('DataCenter')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('FieldName') is not None:
+            self.field_name = m.get('FieldName')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('SLSLogStore') is not None:
+            self.slslog_store = m.get('SLSLogStore')
+        if m.get('SLSProject') is not None:
+            self.slsproject = m.get('SLSProject')
+        if m.get('SLSRegion') is not None:
+            self.slsregion = m.get('SLSRegion')
+        if m.get('SamplingRate') is not None:
+            self.sampling_rate = m.get('SamplingRate')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListDcdnRealTimeDeliveryProjectResponseBodyContent(TeaModel):
+    def __init__(self, projects=None):
+        self.projects = projects  # type: list[ListDcdnRealTimeDeliveryProjectResponseBodyContentProjects]
+
+    def validate(self):
+        if self.projects:
+            for k in self.projects:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDcdnRealTimeDeliveryProjectResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Projects'] = []
+        if self.projects is not None:
+            for k in self.projects:
+                result['Projects'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.projects = []
+        if m.get('Projects') is not None:
+            for k in m.get('Projects'):
+                temp_model = ListDcdnRealTimeDeliveryProjectResponseBodyContentProjects()
+                self.projects.append(temp_model.from_map(k))
+        return self
+
+
+class ListDcdnRealTimeDeliveryProjectResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None, total_count=None):
+        self.content = content  # type: ListDcdnRealTimeDeliveryProjectResponseBodyContent
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(ListDcdnRealTimeDeliveryProjectResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = ListDcdnRealTimeDeliveryProjectResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListDcdnRealTimeDeliveryProjectResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListDcdnRealTimeDeliveryProjectResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDcdnRealTimeDeliveryProjectResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDcdnRealTimeDeliveryProjectResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
 class ModifyDCdnDomainSchdmByPropertyRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, property=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None, property=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
         self.property = property  # type: str
 
     def validate(self):
@@ -19096,20 +21568,20 @@ class ModifyDCdnDomainSchdmByPropertyRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.property is not None:
             result['Property'] = self.property
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('Property') is not None:
             self.property = m.get('Property')
         return self
@@ -19173,10 +21645,10 @@ class ModifyDCdnDomainSchdmByPropertyResponse(TeaModel):
 
 
 class OpenDcdnServiceRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, bill_type=None, websocket_bill_type=None):
+    def __init__(self, bill_type=None, owner_id=None, security_token=None, websocket_bill_type=None):
+        self.bill_type = bill_type  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.bill_type = bill_type  # type: str
         self.websocket_bill_type = websocket_bill_type  # type: str
 
     def validate(self):
@@ -19188,24 +21660,24 @@ class OpenDcdnServiceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.bill_type is not None:
+            result['BillType'] = self.bill_type
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.bill_type is not None:
-            result['BillType'] = self.bill_type
         if self.websocket_bill_type is not None:
             result['WebsocketBillType'] = self.websocket_bill_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BillType') is not None:
+            self.bill_type = m.get('BillType')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('BillType') is not None:
-            self.bill_type = m.get('BillType')
         if m.get('WebsocketBillType') is not None:
             self.websocket_bill_type = m.get('WebsocketBillType')
         return self
@@ -19269,11 +21741,11 @@ class OpenDcdnServiceResponse(TeaModel):
 
 
 class PreloadDcdnObjectCachesRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, object_path=None, area=None):
+    def __init__(self, area=None, object_path=None, owner_id=None, security_token=None):
+        self.area = area  # type: str
+        self.object_path = object_path  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.object_path = object_path  # type: str
-        self.area = area  # type: str
 
     def validate(self):
         pass
@@ -19284,26 +21756,26 @@ class PreloadDcdnObjectCachesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.object_path is not None:
+            result['ObjectPath'] = self.object_path
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.object_path is not None:
-            result['ObjectPath'] = self.object_path
-        if self.area is not None:
-            result['Area'] = self.area
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('ObjectPath') is not None:
+            self.object_path = m.get('ObjectPath')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('ObjectPath') is not None:
-            self.object_path = m.get('ObjectPath')
-        if m.get('Area') is not None:
-            self.area = m.get('Area')
         return self
 
 
@@ -19370,10 +21842,10 @@ class PreloadDcdnObjectCachesResponse(TeaModel):
 
 
 class PublishDcdnStagingConfigToProductionRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, function_name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, function_name=None, owner_id=None):
         self.domain_name = domain_name  # type: str
         self.function_name = function_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -19384,22 +21856,22 @@ class PublishDcdnStagingConfigToProductionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -19461,11 +21933,11 @@ class PublishDcdnStagingConfigToProductionResponse(TeaModel):
 
 
 class PublishRoutineCodeRevisionRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, select_code_revision=None, envs=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
-        self.select_code_revision = select_code_revision  # type: str
+    def __init__(self, envs=None, name=None, owner_id=None, select_code_revision=None):
         self.envs = envs  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.select_code_revision = select_code_revision  # type: str
 
     def validate(self):
         pass
@@ -19476,35 +21948,35 @@ class PublishRoutineCodeRevisionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.select_code_revision is not None:
-            result['SelectCodeRevision'] = self.select_code_revision
         if self.envs is not None:
             result['Envs'] = self.envs
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.select_code_revision is not None:
+            result['SelectCodeRevision'] = self.select_code_revision
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('SelectCodeRevision') is not None:
-            self.select_code_revision = m.get('SelectCodeRevision')
         if m.get('Envs') is not None:
             self.envs = m.get('Envs')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SelectCodeRevision') is not None:
+            self.select_code_revision = m.get('SelectCodeRevision')
         return self
 
 
 class PublishRoutineCodeRevisionShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, select_code_revision=None, envs_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
-        self.select_code_revision = select_code_revision  # type: str
+    def __init__(self, envs_shrink=None, name=None, owner_id=None, select_code_revision=None):
         self.envs_shrink = envs_shrink  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.select_code_revision = select_code_revision  # type: str
 
     def validate(self):
         pass
@@ -19515,26 +21987,26 @@ class PublishRoutineCodeRevisionShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.select_code_revision is not None:
-            result['SelectCodeRevision'] = self.select_code_revision
         if self.envs_shrink is not None:
             result['Envs'] = self.envs_shrink
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.select_code_revision is not None:
+            result['SelectCodeRevision'] = self.select_code_revision
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('SelectCodeRevision') is not None:
-            self.select_code_revision = m.get('SelectCodeRevision')
         if m.get('Envs') is not None:
             self.envs_shrink = m.get('Envs')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SelectCodeRevision') is not None:
+            self.select_code_revision = m.get('SelectCodeRevision')
         return self
 
 
@@ -19601,11 +22073,11 @@ class PublishRoutineCodeRevisionResponse(TeaModel):
 
 
 class RefreshDcdnObjectCachesRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, object_path=None, object_type=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
+    def __init__(self, object_path=None, object_type=None, owner_id=None, security_token=None):
         self.object_path = object_path  # type: str
         self.object_type = object_type  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
 
     def validate(self):
         pass
@@ -19616,26 +22088,26 @@ class RefreshDcdnObjectCachesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.object_path is not None:
             result['ObjectPath'] = self.object_path
         if self.object_type is not None:
             result['ObjectType'] = self.object_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('ObjectPath') is not None:
             self.object_path = m.get('ObjectPath')
         if m.get('ObjectType') is not None:
             self.object_type = m.get('ObjectType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
         return self
 
 
@@ -19702,9 +22174,9 @@ class RefreshDcdnObjectCachesResponse(TeaModel):
 
 
 class RollbackDcdnStagingConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -19715,18 +22187,18 @@ class RollbackDcdnStagingConfigRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -19788,16 +22260,16 @@ class RollbackDcdnStagingConfigResponse(TeaModel):
 
 
 class SetDcdnConfigOfVersionRequest(TeaModel):
-    def __init__(self, owner_id=None, owner_account=None, security_token=None, version_id=None, config_id=None,
-                 function_id=None, function_name=None, function_args=None):
-        self.owner_id = owner_id  # type: long
-        self.owner_account = owner_account  # type: str
-        self.security_token = security_token  # type: str
-        self.version_id = version_id  # type: str
+    def __init__(self, config_id=None, function_args=None, function_id=None, function_name=None, owner_account=None,
+                 owner_id=None, security_token=None, version_id=None):
         self.config_id = config_id  # type: str
+        self.function_args = function_args  # type: str
         self.function_id = function_id  # type: long
         self.function_name = function_name  # type: str
-        self.function_args = function_args  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+        self.version_id = version_id  # type: str
 
     def validate(self):
         pass
@@ -19808,42 +22280,42 @@ class SetDcdnConfigOfVersionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.version_id is not None:
-            result['VersionId'] = self.version_id
         if self.config_id is not None:
             result['ConfigId'] = self.config_id
+        if self.function_args is not None:
+            result['FunctionArgs'] = self.function_args
         if self.function_id is not None:
             result['FunctionId'] = self.function_id
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
-        if self.function_args is not None:
-            result['FunctionArgs'] = self.function_args
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.version_id is not None:
+            result['VersionId'] = self.version_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('VersionId') is not None:
-            self.version_id = m.get('VersionId')
         if m.get('ConfigId') is not None:
             self.config_id = m.get('ConfigId')
+        if m.get('FunctionArgs') is not None:
+            self.function_args = m.get('FunctionArgs')
         if m.get('FunctionId') is not None:
             self.function_id = m.get('FunctionId')
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
-        if m.get('FunctionArgs') is not None:
-            self.function_args = m.get('FunctionArgs')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('VersionId') is not None:
+            self.version_id = m.get('VersionId')
         return self
 
 
@@ -19904,138 +22376,11 @@ class SetDcdnConfigOfVersionResponse(TeaModel):
         return self
 
 
-class SetDcdnDomainCertificateRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, cert_name=None, cert_type=None,
-                 sslprotocol=None, sslpub=None, sslpri=None, region=None, force_set=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
-        self.cert_name = cert_name  # type: str
-        self.cert_type = cert_type  # type: str
-        self.sslprotocol = sslprotocol  # type: str
-        self.sslpub = sslpub  # type: str
-        self.sslpri = sslpri  # type: str
-        self.region = region  # type: str
-        self.force_set = force_set  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SetDcdnDomainCertificateRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.cert_name is not None:
-            result['CertName'] = self.cert_name
-        if self.cert_type is not None:
-            result['CertType'] = self.cert_type
-        if self.sslprotocol is not None:
-            result['SSLProtocol'] = self.sslprotocol
-        if self.sslpub is not None:
-            result['SSLPub'] = self.sslpub
-        if self.sslpri is not None:
-            result['SSLPri'] = self.sslpri
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.force_set is not None:
-            result['ForceSet'] = self.force_set
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
-        if m.get('CertName') is not None:
-            self.cert_name = m.get('CertName')
-        if m.get('CertType') is not None:
-            self.cert_type = m.get('CertType')
-        if m.get('SSLProtocol') is not None:
-            self.sslprotocol = m.get('SSLProtocol')
-        if m.get('SSLPub') is not None:
-            self.sslpub = m.get('SSLPub')
-        if m.get('SSLPri') is not None:
-            self.sslpri = m.get('SSLPri')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('ForceSet') is not None:
-            self.force_set = m.get('ForceSet')
-        return self
-
-
-class SetDcdnDomainCertificateResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SetDcdnDomainCertificateResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class SetDcdnDomainCertificateResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: SetDcdnDomainCertificateResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(SetDcdnDomainCertificateResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = SetDcdnDomainCertificateResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class SetDcdnDomainCSRCertificateRequest(TeaModel):
-    def __init__(self, owner_id=None, server_certificate=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, server_certificate=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.server_certificate = server_certificate  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -20046,22 +22391,22 @@ class SetDcdnDomainCSRCertificateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.server_certificate is not None:
             result['ServerCertificate'] = self.server_certificate
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('ServerCertificate') is not None:
             self.server_certificate = m.get('ServerCertificate')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -20122,11 +22467,239 @@ class SetDcdnDomainCSRCertificateResponse(TeaModel):
         return self
 
 
-class SetDcdnDomainStagingConfigRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, functions=None):
+class SetDcdnDomainCertificateRequest(TeaModel):
+    def __init__(self, cert_name=None, cert_type=None, domain_name=None, force_set=None, owner_id=None, region=None,
+                 sslpri=None, sslprotocol=None, sslpub=None, security_token=None):
+        self.cert_name = cert_name  # type: str
+        self.cert_type = cert_type  # type: str
+        self.domain_name = domain_name  # type: str
+        self.force_set = force_set  # type: str
         self.owner_id = owner_id  # type: long
+        self.region = region  # type: str
+        self.sslpri = sslpri  # type: str
+        self.sslprotocol = sslprotocol  # type: str
+        self.sslpub = sslpub  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.force_set is not None:
+            result['ForceSet'] = self.force_set
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.sslpri is not None:
+            result['SSLPri'] = self.sslpri
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.sslpub is not None:
+            result['SSLPub'] = self.sslpub
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('ForceSet') is not None:
+            self.force_set = m.get('ForceSet')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('SSLPri') is not None:
+            self.sslpri = m.get('SSLPri')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('SSLPub') is not None:
+            self.sslpub = m.get('SSLPub')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class SetDcdnDomainCertificateResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDcdnDomainCertificateResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetDcdnDomainCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDcdnDomainCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetDcdnDomainCertificateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDcdnDomainSMCertificateRequest(TeaModel):
+    def __init__(self, cert_identifier=None, domain_name=None, owner_id=None, sslprotocol=None, security_token=None):
+        self.cert_identifier = cert_identifier  # type: str
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.sslprotocol = sslprotocol  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainSMCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_identifier is not None:
+            result['CertIdentifier'] = self.cert_identifier
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.sslprotocol is not None:
+            result['SSLProtocol'] = self.sslprotocol
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertIdentifier') is not None:
+            self.cert_identifier = m.get('CertIdentifier')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SSLProtocol') is not None:
+            self.sslprotocol = m.get('SSLProtocol')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class SetDcdnDomainSMCertificateResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnDomainSMCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDcdnDomainSMCertificateResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetDcdnDomainSMCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDcdnDomainSMCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetDcdnDomainSMCertificateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDcdnDomainStagingConfigRequest(TeaModel):
+    def __init__(self, domain_name=None, functions=None, owner_id=None):
         self.domain_name = domain_name  # type: str
         self.functions = functions  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -20137,22 +22710,22 @@ class SetDcdnDomainStagingConfigRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.functions is not None:
             result['Functions'] = self.functions
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('Functions') is not None:
             self.functions = m.get('Functions')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -20209,6 +22782,213 @@ class SetDcdnDomainStagingConfigResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = SetDcdnDomainStagingConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDcdnFullDomainsBlockIPRequest(TeaModel):
+    def __init__(self, block_interval=None, iplist=None, operation_type=None, owner_id=None):
+        self.block_interval = block_interval  # type: int
+        self.iplist = iplist  # type: str
+        self.operation_type = operation_type  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnFullDomainsBlockIPRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.block_interval is not None:
+            result['BlockInterval'] = self.block_interval
+        if self.iplist is not None:
+            result['IPList'] = self.iplist
+        if self.operation_type is not None:
+            result['OperationType'] = self.operation_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BlockInterval') is not None:
+            self.block_interval = m.get('BlockInterval')
+        if m.get('IPList') is not None:
+            self.iplist = m.get('IPList')
+        if m.get('OperationType') is not None:
+            self.operation_type = m.get('OperationType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class SetDcdnFullDomainsBlockIPResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnFullDomainsBlockIPResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDcdnFullDomainsBlockIPResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetDcdnFullDomainsBlockIPResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDcdnFullDomainsBlockIPResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetDcdnFullDomainsBlockIPResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetDcdnUserConfigRequest(TeaModel):
+    def __init__(self, configs=None, function_id=None, owner_account=None, owner_id=None, security_token=None):
+        self.configs = configs  # type: str
+        self.function_id = function_id  # type: int
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnUserConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.configs is not None:
+            result['Configs'] = self.configs
+        if self.function_id is not None:
+            result['FunctionId'] = self.function_id
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Configs') is not None:
+            self.configs = m.get('Configs')
+        if m.get('FunctionId') is not None:
+            self.function_id = m.get('FunctionId')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class SetDcdnUserConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetDcdnUserConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SetDcdnUserConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetDcdnUserConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetDcdnUserConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetDcdnUserConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -20334,10 +23114,10 @@ class SetRoutineSubdomainResponse(TeaModel):
 
 
 class StartDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -20348,22 +23128,22 @@ class StartDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -20425,10 +23205,10 @@ class StartDcdnDomainResponse(TeaModel):
 
 
 class StartDcdnIpaDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -20439,22 +23219,22 @@ class StartDcdnIpaDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -20516,10 +23296,10 @@ class StartDcdnIpaDomainResponse(TeaModel):
 
 
 class StopDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -20530,22 +23310,22 @@ class StopDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -20607,10 +23387,10 @@ class StopDcdnDomainResponse(TeaModel):
 
 
 class StopDcdnIpaDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None):
+    def __init__(self, domain_name=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.domain_name = domain_name  # type: str
 
     def validate(self):
         pass
@@ -20621,22 +23401,22 @@ class StopDcdnIpaDomainRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         return self
 
 
@@ -20727,10 +23507,10 @@ class TagDcdnResourcesRequestTag(TeaModel):
 
 
 class TagDcdnResourcesRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_type=None, resource_id=None, tag=None):
+    def __init__(self, owner_id=None, resource_id=None, resource_type=None, tag=None):
         self.owner_id = owner_id  # type: long
-        self.resource_type = resource_type  # type: str
         self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[TagDcdnResourcesRequestTag]
 
     def validate(self):
@@ -20747,10 +23527,10 @@ class TagDcdnResourcesRequest(TeaModel):
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -20761,10 +23541,10 @@ class TagDcdnResourcesRequest(TeaModel):
         m = m or dict()
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -20831,11 +23611,11 @@ class TagDcdnResourcesResponse(TeaModel):
 
 
 class UntagDcdnResourcesRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_type=None, all=None, resource_id=None, tag_key=None):
-        self.owner_id = owner_id  # type: long
-        self.resource_type = resource_type  # type: str
+    def __init__(self, all=None, owner_id=None, resource_id=None, resource_type=None, tag_key=None):
         self.all = all  # type: bool
+        self.owner_id = owner_id  # type: long
         self.resource_id = resource_id  # type: list[str]
+        self.resource_type = resource_type  # type: str
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -20847,28 +23627,28 @@ class UntagDcdnResourcesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_type is not None:
-            result['ResourceType'] = self.resource_type
         if self.all is not None:
             result['All'] = self.all
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.tag_key is not None:
             result['TagKey'] = self.tag_key
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceType') is not None:
-            self.resource_type = m.get('ResourceType')
         if m.get('All') is not None:
             self.all = m.get('All')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('TagKey') is not None:
             self.tag_key = m.get('TagKey')
         return self
@@ -20932,16 +23712,15 @@ class UntagDcdnResourcesResponse(TeaModel):
 
 
 class UpdateDcdnDeliverTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, deliver_id=None, name=None, status=None, reports=None, domain_name=None,
-                 deliver=None, schedule=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, deliver=None, deliver_id=None, domain_name=None, name=None, owner_id=None, reports=None,
+                 schedule=None):
+        self.deliver = deliver  # type: str
         self.deliver_id = deliver_id  # type: long
-        self.name = name  # type: str
-        self.status = status  # type: str
-        self.reports = reports  # type: str
         self.domain_name = domain_name  # type: str
-        self.deliver = deliver  # type: dict[str, any]
-        self.schedule = schedule  # type: dict[str, any]
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.reports = reports  # type: str
+        self.schedule = schedule  # type: str
 
     def validate(self):
         pass
@@ -20952,102 +23731,38 @@ class UpdateDcdnDeliverTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.deliver_id is not None:
-            result['DeliverId'] = self.deliver_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.reports is not None:
-            result['Reports'] = self.reports
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
         if self.deliver is not None:
             result['Deliver'] = self.deliver
+        if self.deliver_id is not None:
+            result['DeliverId'] = self.deliver_id
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.reports is not None:
+            result['Reports'] = self.reports
         if self.schedule is not None:
             result['Schedule'] = self.schedule
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('DeliverId') is not None:
-            self.deliver_id = m.get('DeliverId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Reports') is not None:
-            self.reports = m.get('Reports')
-        if m.get('DomainName') is not None:
-            self.domain_name = m.get('DomainName')
         if m.get('Deliver') is not None:
             self.deliver = m.get('Deliver')
-        if m.get('Schedule') is not None:
-            self.schedule = m.get('Schedule')
-        return self
-
-
-class UpdateDcdnDeliverTaskShrinkRequest(TeaModel):
-    def __init__(self, owner_id=None, deliver_id=None, name=None, status=None, reports=None, domain_name=None,
-                 deliver_shrink=None, schedule_shrink=None):
-        self.owner_id = owner_id  # type: long
-        self.deliver_id = deliver_id  # type: long
-        self.name = name  # type: str
-        self.status = status  # type: str
-        self.reports = reports  # type: str
-        self.domain_name = domain_name  # type: str
-        self.deliver_shrink = deliver_shrink  # type: str
-        self.schedule_shrink = schedule_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateDcdnDeliverTaskShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.deliver_id is not None:
-            result['DeliverId'] = self.deliver_id
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.reports is not None:
-            result['Reports'] = self.reports
-        if self.domain_name is not None:
-            result['DomainName'] = self.domain_name
-        if self.deliver_shrink is not None:
-            result['Deliver'] = self.deliver_shrink
-        if self.schedule_shrink is not None:
-            result['Schedule'] = self.schedule_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DeliverId') is not None:
             self.deliver_id = m.get('DeliverId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('Reports') is not None:
-            self.reports = m.get('Reports')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('Deliver') is not None:
-            self.deliver_shrink = m.get('Deliver')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('Reports') is not None:
+            self.reports = m.get('Reports')
         if m.get('Schedule') is not None:
-            self.schedule_shrink = m.get('Schedule')
+            self.schedule = m.get('Schedule')
         return self
 
 
@@ -21109,13 +23824,13 @@ class UpdateDcdnDeliverTaskResponse(TeaModel):
 
 
 class UpdateDcdnDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, sources=None, resource_group_id=None,
+    def __init__(self, domain_name=None, owner_id=None, resource_group_id=None, security_token=None, sources=None,
                  top_level_domain=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
         self.domain_name = domain_name  # type: str
-        self.sources = sources  # type: str
+        self.owner_id = owner_id  # type: long
         self.resource_group_id = resource_group_id  # type: str
+        self.security_token = security_token  # type: str
+        self.sources = sources  # type: str
         self.top_level_domain = top_level_domain  # type: str
 
     def validate(self):
@@ -21127,32 +23842,32 @@ class UpdateDcdnDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.sources is not None:
-            result['Sources'] = self.sources
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.sources is not None:
+            result['Sources'] = self.sources
         if self.top_level_domain is not None:
             result['TopLevelDomain'] = self.top_level_domain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('Sources') is not None:
-            self.sources = m.get('Sources')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('Sources') is not None:
+            self.sources = m.get('Sources')
         if m.get('TopLevelDomain') is not None:
             self.top_level_domain = m.get('TopLevelDomain')
         return self
@@ -21216,13 +23931,13 @@ class UpdateDcdnDomainResponse(TeaModel):
 
 
 class UpdateDcdnIpaDomainRequest(TeaModel):
-    def __init__(self, owner_id=None, security_token=None, domain_name=None, sources=None, resource_group_id=None,
+    def __init__(self, domain_name=None, owner_id=None, resource_group_id=None, security_token=None, sources=None,
                  top_level_domain=None):
-        self.owner_id = owner_id  # type: long
-        self.security_token = security_token  # type: str
         self.domain_name = domain_name  # type: str
-        self.sources = sources  # type: str
+        self.owner_id = owner_id  # type: long
         self.resource_group_id = resource_group_id  # type: str
+        self.security_token = security_token  # type: str
+        self.sources = sources  # type: str
         self.top_level_domain = top_level_domain  # type: str
 
     def validate(self):
@@ -21234,32 +23949,32 @@ class UpdateDcdnIpaDomainRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.security_token is not None:
-            result['SecurityToken'] = self.security_token
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.sources is not None:
-            result['Sources'] = self.sources
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.sources is not None:
+            result['Sources'] = self.sources
         if self.top_level_domain is not None:
             result['TopLevelDomain'] = self.top_level_domain
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('SecurityToken') is not None:
-            self.security_token = m.get('SecurityToken')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('Sources') is not None:
-            self.sources = m.get('Sources')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('Sources') is not None:
+            self.sources = m.get('Sources')
         if m.get('TopLevelDomain') is not None:
             self.top_level_domain = m.get('TopLevelDomain')
         return self
@@ -21322,14 +24037,208 @@ class UpdateDcdnIpaDomainResponse(TeaModel):
         return self
 
 
-class UpdateDcdnSubTaskRequest(TeaModel):
-    def __init__(self, owner_id=None, status=None, report_ids=None, domain_name=None, start_time=None, end_time=None):
-        self.owner_id = owner_id  # type: long
-        self.status = status  # type: str
-        self.report_ids = report_ids  # type: str
+class UpdateDcdnSLSRealtimeLogDeliveryRequest(TeaModel):
+    def __init__(self, data_center=None, domain_name=None, owner_id=None, project_name=None, slslog_store=None,
+                 slsproject=None, slsregion=None, sampling_rate=None):
+        self.data_center = data_center  # type: str
         self.domain_name = domain_name  # type: str
-        self.start_time = start_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.project_name = project_name  # type: str
+        self.slslog_store = slslog_store  # type: str
+        self.slsproject = slsproject  # type: str
+        self.slsregion = slsregion  # type: str
+        self.sampling_rate = sampling_rate  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDcdnSLSRealtimeLogDeliveryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data_center is not None:
+            result['DataCenter'] = self.data_center
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.project_name is not None:
+            result['ProjectName'] = self.project_name
+        if self.slslog_store is not None:
+            result['SLSLogStore'] = self.slslog_store
+        if self.slsproject is not None:
+            result['SLSProject'] = self.slsproject
+        if self.slsregion is not None:
+            result['SLSRegion'] = self.slsregion
+        if self.sampling_rate is not None:
+            result['SamplingRate'] = self.sampling_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DataCenter') is not None:
+            self.data_center = m.get('DataCenter')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ProjectName') is not None:
+            self.project_name = m.get('ProjectName')
+        if m.get('SLSLogStore') is not None:
+            self.slslog_store = m.get('SLSLogStore')
+        if m.get('SLSProject') is not None:
+            self.slsproject = m.get('SLSProject')
+        if m.get('SLSRegion') is not None:
+            self.slsregion = m.get('SLSRegion')
+        if m.get('SamplingRate') is not None:
+            self.sampling_rate = m.get('SamplingRate')
+        return self
+
+
+class UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContentDomains(TeaModel):
+    def __init__(self, desc=None, domain_name=None, region=None, status=None):
+        self.desc = desc  # type: str
+        self.domain_name = domain_name  # type: str
+        self.region = region  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContentDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.desc is not None:
+            result['Desc'] = self.desc
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Desc') is not None:
+            self.desc = m.get('Desc')
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContent(TeaModel):
+    def __init__(self, domains=None):
+        self.domains = domains  # type: list[UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContentDomains]
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContentDomains()
+                self.domains.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateDcdnSLSRealtimeLogDeliveryResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContent
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            self.content.validate()
+
+    def to_map(self):
+        _map = super(UpdateDcdnSLSRealtimeLogDeliveryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            temp_model = UpdateDcdnSLSRealtimeLogDeliveryResponseBodyContent()
+            self.content = temp_model.from_map(m['Content'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDcdnSLSRealtimeLogDeliveryResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateDcdnSLSRealtimeLogDeliveryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDcdnSLSRealtimeLogDeliveryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateDcdnSLSRealtimeLogDeliveryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateDcdnSubTaskRequest(TeaModel):
+    def __init__(self, domain_name=None, end_time=None, owner_id=None, report_ids=None, start_time=None):
+        self.domain_name = domain_name  # type: str
         self.end_time = end_time  # type: str
+        self.owner_id = owner_id  # type: long
+        self.report_ids = report_ids  # type: str
+        self.start_time = start_time  # type: str
 
     def validate(self):
         pass
@@ -21340,34 +24249,30 @@ class UpdateDcdnSubTaskRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.report_ids is not None:
-            result['ReportIds'] = self.report_ids
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.report_ids is not None:
+            result['ReportIds'] = self.report_ids
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('ReportIds') is not None:
-            self.report_ids = m.get('ReportIds')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ReportIds') is not None:
+            self.report_ids = m.get('ReportIds')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
@@ -21428,11 +24333,102 @@ class UpdateDcdnSubTaskResponse(TeaModel):
         return self
 
 
-class UploadRoutineCodeRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, code_description=None):
+class UpdateDcdnUserRealTimeDeliveryFieldRequest(TeaModel):
+    def __init__(self, business_type=None, fields=None, owner_id=None):
+        self.business_type = business_type  # type: str
+        self.fields = fields  # type: str
         self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDcdnUserRealTimeDeliveryFieldRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.fields is not None:
+            result['Fields'] = self.fields
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('Fields') is not None:
+            self.fields = m.get('Fields')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class UpdateDcdnUserRealTimeDeliveryFieldResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDcdnUserRealTimeDeliveryFieldResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDcdnUserRealTimeDeliveryFieldResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateDcdnUserRealTimeDeliveryFieldResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDcdnUserRealTimeDeliveryFieldResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateDcdnUserRealTimeDeliveryFieldResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UploadRoutineCodeRequest(TeaModel):
+    def __init__(self, code_description=None, name=None, owner_id=None):
         self.code_description = code_description  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -21443,22 +24439,22 @@ class UploadRoutineCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.code_description is not None:
             result['CodeDescription'] = self.code_description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('CodeDescription') is not None:
             self.code_description = m.get('CodeDescription')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -21525,10 +24521,10 @@ class UploadRoutineCodeResponse(TeaModel):
 
 
 class UploadStagingRoutineCodeRequest(TeaModel):
-    def __init__(self, owner_id=None, name=None, code_description=None):
-        self.owner_id = owner_id  # type: long
-        self.name = name  # type: str
+    def __init__(self, code_description=None, name=None, owner_id=None):
         self.code_description = code_description  # type: str
+        self.name = name  # type: str
+        self.owner_id = owner_id  # type: long
 
     def validate(self):
         pass
@@ -21539,22 +24535,22 @@ class UploadStagingRoutineCodeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.name is not None:
-            result['Name'] = self.name
         if self.code_description is not None:
             result['CodeDescription'] = self.code_description
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
         if m.get('CodeDescription') is not None:
             self.code_description = m.get('CodeDescription')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         return self
 
 
@@ -21621,9 +24617,9 @@ class UploadStagingRoutineCodeResponse(TeaModel):
 
 
 class VerifyDcdnDomainOwnerRequest(TeaModel):
-    def __init__(self, owner_id=None, domain_name=None, verify_type=None):
-        self.owner_id = owner_id  # type: long
+    def __init__(self, domain_name=None, owner_id=None, verify_type=None):
         self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
         self.verify_type = verify_type  # type: str
 
     def validate(self):
@@ -21635,20 +24631,20 @@ class VerifyDcdnDomainOwnerRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
         if self.verify_type is not None:
             result['VerifyType'] = self.verify_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
         if m.get('VerifyType') is not None:
             self.verify_type = m.get('VerifyType')
         return self

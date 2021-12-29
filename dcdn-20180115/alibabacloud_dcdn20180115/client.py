@@ -88,12 +88,42 @@ class Client(OpenApiClient):
 
     def add_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_url):
+            query['CheckUrl'] = request.check_url
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sources):
+            query['Sources'] = request.sources
+        if not UtilClient.is_unset(request.top_level_domain):
+            query['TopLevelDomain'] = request.top_level_domain
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.AddDcdnDomainResponse(),
-            self.do_rpcrequest('AddDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_dcdn_domain(self, request):
@@ -102,12 +132,44 @@ class Client(OpenApiClient):
 
     def add_dcdn_ipa_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_url):
+            query['CheckUrl'] = request.check_url
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sources):
+            query['Sources'] = request.sources
+        if not UtilClient.is_unset(request.top_level_domain):
+            query['TopLevelDomain'] = request.top_level_domain
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddDcdnIpaDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.AddDcdnIpaDomainResponse(),
-            self.do_rpcrequest('AddDcdnIpaDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_dcdn_ipa_domain(self, request):
@@ -116,12 +178,42 @@ class Client(OpenApiClient):
 
     def batch_add_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_url):
+            query['CheckUrl'] = request.check_url
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sources):
+            query['Sources'] = request.sources
+        if not UtilClient.is_unset(request.top_level_domain):
+            query['TopLevelDomain'] = request.top_level_domain
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchAddDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchAddDcdnDomainResponse(),
-            self.do_rpcrequest('BatchAddDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_add_dcdn_domain(self, request):
@@ -130,12 +222,34 @@ class Client(OpenApiClient):
 
     def batch_delete_dcdn_domain_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.function_names):
+            query['FunctionNames'] = request.function_names
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchDeleteDcdnDomainConfigs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchDeleteDcdnDomainConfigsResponse(),
-            self.do_rpcrequest('BatchDeleteDcdnDomainConfigs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_delete_dcdn_domain_configs(self, request):
@@ -144,12 +258,42 @@ class Client(OpenApiClient):
 
     def batch_set_dcdn_domain_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cert_name):
+            query['CertName'] = request.cert_name
+        if not UtilClient.is_unset(request.cert_type):
+            query['CertType'] = request.cert_type
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.sslpri):
+            query['SSLPri'] = request.sslpri
+        if not UtilClient.is_unset(request.sslprotocol):
+            query['SSLProtocol'] = request.sslprotocol
+        if not UtilClient.is_unset(request.sslpub):
+            query['SSLPub'] = request.sslpub
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchSetDcdnDomainCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchSetDcdnDomainCertificateResponse(),
-            self.do_rpcrequest('BatchSetDcdnDomainCertificate', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_set_dcdn_domain_certificate(self, request):
@@ -158,12 +302,34 @@ class Client(OpenApiClient):
 
     def batch_set_dcdn_domain_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.functions):
+            query['Functions'] = request.functions
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchSetDcdnDomainConfigs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchSetDcdnDomainConfigsResponse(),
-            self.do_rpcrequest('BatchSetDcdnDomainConfigs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_set_dcdn_domain_configs(self, request):
@@ -172,12 +338,34 @@ class Client(OpenApiClient):
 
     def batch_set_dcdn_ipa_domain_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.functions):
+            query['Functions'] = request.functions
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchSetDcdnIpaDomainConfigs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchSetDcdnIpaDomainConfigsResponse(),
-            self.do_rpcrequest('BatchSetDcdnIpaDomainConfigs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_set_dcdn_ipa_domain_configs(self, request):
@@ -186,12 +374,30 @@ class Client(OpenApiClient):
 
     def batch_start_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchStartDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchStartDcdnDomainResponse(),
-            self.do_rpcrequest('BatchStartDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_start_dcdn_domain(self, request):
@@ -200,26 +406,90 @@ class Client(OpenApiClient):
 
     def batch_stop_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchStopDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.BatchStopDcdnDomainResponse(),
-            self.do_rpcrequest('BatchStopDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def batch_stop_dcdn_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.batch_stop_dcdn_domain_with_options(request, runtime)
 
+    def check_dcdn_project_exist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckDcdnProjectExist',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.CheckDcdnProjectExistResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_dcdn_project_exist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.check_dcdn_project_exist_with_options(request, runtime)
+
     def commit_staging_routine_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.code_description):
+            body['CodeDescription'] = request.code_description
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CommitStagingRoutineCode',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.CommitStagingRoutineCodeResponse(),
-            self.do_rpcrequest('CommitStagingRoutineCode', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def commit_staging_routine_code(self, request):
@@ -228,60 +498,162 @@ class Client(OpenApiClient):
 
     def create_dcdn_certificate_signing_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.city):
+            query['City'] = request.city
+        if not UtilClient.is_unset(request.common_name):
+            query['CommonName'] = request.common_name
+        if not UtilClient.is_unset(request.country):
+            query['Country'] = request.country
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.organization):
+            query['Organization'] = request.organization
+        if not UtilClient.is_unset(request.organization_unit):
+            query['OrganizationUnit'] = request.organization_unit
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sans):
+            query['SANs'] = request.sans
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDcdnCertificateSigningRequest',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.CreateDcdnCertificateSigningRequestResponse(),
-            self.do_rpcrequest('CreateDcdnCertificateSigningRequest', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dcdn_certificate_signing_request(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_dcdn_certificate_signing_request_with_options(request, runtime)
 
-    def create_dcdn_deliver_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = dcdn_20180115_models.CreateDcdnDeliverTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.deliver):
-            request.deliver_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deliver, 'Deliver', 'json')
-        if not UtilClient.is_unset(tmp_req.schedule):
-            request.schedule_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule, 'Schedule', 'json')
+    def create_dcdn_deliver_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.deliver):
+            body['Deliver'] = request.deliver
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.reports):
+            body['Reports'] = request.reports
+        if not UtilClient.is_unset(request.schedule):
+            body['Schedule'] = request.schedule
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDcdnDeliverTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.CreateDcdnDeliverTaskResponse(),
-            self.do_rpcrequest('CreateDcdnDeliverTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dcdn_deliver_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_dcdn_deliver_task_with_options(request, runtime)
 
-    def create_dcdn_domain_offline_log_delivery_with_options(self, request, runtime):
+    def create_dcdn_slsreal_time_log_delivery_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.business_type):
+            body['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.data_center):
+            body['DataCenter'] = request.data_center
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.slslog_store):
+            body['SLSLogStore'] = request.slslog_store
+        if not UtilClient.is_unset(request.slsproject):
+            body['SLSProject'] = request.slsproject
+        if not UtilClient.is_unset(request.slsregion):
+            body['SLSRegion'] = request.slsregion
+        if not UtilClient.is_unset(request.sampling_rate):
+            body['SamplingRate'] = request.sampling_rate
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDcdnSLSRealTimeLogDelivery',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            dcdn_20180115_models.CreateDcdnDomainOfflineLogDeliveryResponse(),
-            self.do_rpcrequest('CreateDcdnDomainOfflineLogDelivery', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dcdn_20180115_models.CreateDcdnSLSRealTimeLogDeliveryResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def create_dcdn_domain_offline_log_delivery(self, request):
+    def create_dcdn_slsreal_time_log_delivery(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.create_dcdn_domain_offline_log_delivery_with_options(request, runtime)
+        return self.create_dcdn_slsreal_time_log_delivery_with_options(request, runtime)
 
     def create_dcdn_sub_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.report_ids):
+            body['ReportIds'] = request.report_ids
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDcdnSubTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.CreateDcdnSubTaskResponse(),
-            self.do_rpcrequest('CreateDcdnSubTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dcdn_sub_task(self, request):
@@ -294,26 +666,146 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.env_conf):
             request.env_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.env_conf, 'EnvConf', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_conf_shrink):
+            body['EnvConf'] = request.env_conf_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRoutine',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.CreateRoutineResponse(),
-            self.do_rpcrequest('CreateRoutine', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_routine(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_routine_with_options(request, runtime)
 
+    def create_slr_and_sls_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.region):
+            body['Region'] = request.region
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSlrAndSlsProject',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.CreateSlrAndSlsProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_slr_and_sls_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_slr_and_sls_project_with_options(request, runtime)
+
+    def dcdn_http_request_test_tool_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dcdn_20180115_models.DcdnHttpRequestTestToolShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.header):
+            request.header_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.header, 'Header', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.args):
+            body['Args'] = request.args
+        if not UtilClient.is_unset(request.body):
+            body['Body'] = request.body
+        if not UtilClient.is_unset(request.header_shrink):
+            body['Header'] = request.header_shrink
+        if not UtilClient.is_unset(request.host):
+            body['Host'] = request.host
+        if not UtilClient.is_unset(request.method):
+            body['Method'] = request.method
+        if not UtilClient.is_unset(request.proxy_ip):
+            body['ProxyIp'] = request.proxy_ip
+        if not UtilClient.is_unset(request.scheme):
+            body['Scheme'] = request.scheme
+        if not UtilClient.is_unset(request.uri):
+            body['Uri'] = request.uri
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DcdnHttpRequestTestTool',
+            version='2018-01-15',
+            protocol='HTTP',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DcdnHttpRequestTestToolResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dcdn_http_request_test_tool(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.dcdn_http_request_test_tool_with_options(request, runtime)
+
     def delete_dcdn_deliver_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.deliver_id):
+            query['DeliverId'] = request.deliver_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnDeliverTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnDeliverTaskResponse(),
-            self.do_rpcrequest('DeleteDcdnDeliverTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_deliver_task(self, request):
@@ -322,12 +814,32 @@ class Client(OpenApiClient):
 
     def delete_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnDomainResponse(),
-            self.do_rpcrequest('DeleteDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_domain(self, request):
@@ -336,12 +848,32 @@ class Client(OpenApiClient):
 
     def delete_dcdn_ipa_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnIpaDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnIpaDomainResponse(),
-            self.do_rpcrequest('DeleteDcdnIpaDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_ipa_domain(self, request):
@@ -350,26 +882,98 @@ class Client(OpenApiClient):
 
     def delete_dcdn_ipa_specific_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnIpaSpecificConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnIpaSpecificConfigResponse(),
-            self.do_rpcrequest('DeleteDcdnIpaSpecificConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_ipa_specific_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dcdn_ipa_specific_config_with_options(request, runtime)
 
+    def delete_dcdn_real_time_log_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnRealTimeLogProject',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DeleteDcdnRealTimeLogProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dcdn_real_time_log_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dcdn_real_time_log_project_with_options(request, runtime)
+
     def delete_dcdn_specific_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnSpecificConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnSpecificConfigResponse(),
-            self.do_rpcrequest('DeleteDcdnSpecificConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_specific_config(self, request):
@@ -378,12 +982,32 @@ class Client(OpenApiClient):
 
     def delete_dcdn_specific_staging_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnSpecificStagingConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnSpecificStagingConfigResponse(),
-            self.do_rpcrequest('DeleteDcdnSpecificStagingConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_specific_staging_config(self, request):
@@ -392,12 +1016,26 @@ class Client(OpenApiClient):
 
     def delete_dcdn_sub_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnSubTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteDcdnSubTaskResponse(),
-            self.do_rpcrequest('DeleteDcdnSubTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dcdn_sub_task(self, request):
@@ -406,12 +1044,30 @@ class Client(OpenApiClient):
 
     def delete_routine_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRoutine',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteRoutineResponse(),
-            self.do_rpcrequest('DeleteRoutine', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_routine(self, request):
@@ -420,12 +1076,32 @@ class Client(OpenApiClient):
 
     def delete_routine_code_revision_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.select_code_revision):
+            body['SelectCodeRevision'] = request.select_code_revision
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRoutineCodeRevision',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteRoutineCodeRevisionResponse(),
-            self.do_rpcrequest('DeleteRoutineCodeRevision', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_routine_code_revision(self, request):
@@ -438,26 +1114,98 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.envs):
             request.envs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.envs, 'Envs', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.envs_shrink):
+            body['Envs'] = request.envs_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRoutineConfEnvs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DeleteRoutineConfEnvsResponse(),
-            self.do_rpcrequest('DeleteRoutineConfEnvs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_routine_conf_envs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_routine_conf_envs_with_options(request, runtime)
 
+    def describe_dcdn_acl_fields_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnAclFields',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnAclFieldsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_acl_fields(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_acl_fields_with_options(request, runtime)
+
     def describe_dcdn_bgp_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp):
+            query['Isp'] = request.isp
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnBgpBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnBgpBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnBgpBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_bgp_bps_data(self, request):
@@ -466,12 +1214,34 @@ class Client(OpenApiClient):
 
     def describe_dcdn_bgp_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp):
+            query['Isp'] = request.isp
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnBgpTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnBgpTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnBgpTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_bgp_traffic_data(self, request):
@@ -482,11 +1252,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnBlockedRegions',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnBlockedRegionsResponse(),
-            self.do_rpcrequest('DescribeDcdnBlockedRegions', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_blocked_regions(self, request):
@@ -495,12 +1276,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_certificate_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cert_name):
+            query['CertName'] = request.cert_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnCertificateDetail',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnCertificateDetailResponse(),
-            self.do_rpcrequest('DescribeDcdnCertificateDetail', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_certificate_detail(self, request):
@@ -509,40 +1308,162 @@ class Client(OpenApiClient):
 
     def describe_dcdn_certificate_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnCertificateList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnCertificateListResponse(),
-            self.do_rpcrequest('DescribeDcdnCertificateList', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_certificate_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_certificate_list_with_options(request, runtime)
 
+    def describe_dcdn_config_group_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_group_id):
+            query['ConfigGroupId'] = request.config_group_id
+        if not UtilClient.is_unset(request.config_group_name):
+            query['ConfigGroupName'] = request.config_group_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnConfigGroupDetail',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnConfigGroupDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_config_group_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_config_group_detail_with_options(request, runtime)
+
     def describe_dcdn_config_of_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.function_id):
+            query['FunctionId'] = request.function_id
+        if not UtilClient.is_unset(request.function_name):
+            query['FunctionName'] = request.function_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnConfigOfVersion',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnConfigOfVersionResponse(),
-            self.do_rpcrequest('DescribeDcdnConfigOfVersion', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_config_of_version(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_config_of_version_with_options(request, runtime)
 
+    def describe_dcdn_deleted_domains_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDeletedDomains',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDeletedDomainsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_deleted_domains(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_deleted_domains_with_options(request, runtime)
+
     def describe_dcdn_deliver_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.deliver_id):
+            query['DeliverId'] = request.deliver_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDeliverList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDeliverListResponse(),
-            self.do_rpcrequest('DescribeDcdnDeliverList', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_deliver_list(self, request):
@@ -551,12 +1472,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_bps_data(self, request):
@@ -565,26 +1512,102 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_by_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sslpub):
+            query['SSLPub'] = request.sslpub
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainByCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainByCertificateResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainByCertificate', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_by_certificate(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_by_certificate_with_options(request, runtime)
 
+    def describe_dcdn_domain_cc_activity_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.trigger_object):
+            query['TriggerObject'] = request.trigger_object
+        if not UtilClient.is_unset(request.value):
+            query['Value'] = request.value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainCcActivityLog',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainCcActivityLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_cc_activity_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_cc_activity_log_with_options(request, runtime)
+
     def describe_dcdn_domain_certificate_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainCertificateInfo',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainCertificateInfoResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainCertificateInfo', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_certificate_info(self, request):
@@ -595,11 +1618,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainCname',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainCnameResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainCname', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_cname(self, request):
@@ -608,12 +1642,34 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.function_names):
+            query['FunctionNames'] = request.function_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainConfigs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainConfigsResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainConfigs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_configs(self, request):
@@ -622,12 +1678,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainDetail',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainDetailResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainDetail', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_detail(self, request):
@@ -636,12 +1710,34 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_hit_rate_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainHitRateData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainHitRateDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainHitRateData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_hit_rate_data(self, request):
@@ -650,12 +1746,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_http_code_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainHttpCodeData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainHttpCodeDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainHttpCodeData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_http_code_data(self, request):
@@ -664,12 +1786,42 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_ipa_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.fix_time_gap):
+            query['FixTimeGap'] = request.fix_time_gap
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.time_merge):
+            query['TimeMerge'] = request.time_merge
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainIpaBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainIpaBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainIpaBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_ipa_bps_data(self, request):
@@ -678,12 +1830,42 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_ipa_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.fix_time_gap):
+            query['FixTimeGap'] = request.fix_time_gap
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.time_merge):
+            query['TimeMerge'] = request.time_merge
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainIpaTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainIpaTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainIpaTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_ipa_traffic_data(self, request):
@@ -692,12 +1874,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_isp_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainIspData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainIspDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainIspData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_isp_data(self, request):
@@ -706,12 +1908,36 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainLog',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainLogResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainLog', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_log(self, request):
@@ -720,12 +1946,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_multi_usage_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainMultiUsageData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainMultiUsageDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainMultiUsageData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_multi_usage_data(self, request):
@@ -734,12 +1980,34 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_origin_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainOriginBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainOriginBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainOriginBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_origin_bps_data(self, request):
@@ -748,12 +2016,34 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_origin_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainOriginTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainOriginTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainOriginTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_origin_traffic_data(self, request):
@@ -762,12 +2052,28 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_property_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainProperty',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainPropertyResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainProperty', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_property(self, request):
@@ -776,12 +2082,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_pv_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainPvData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainPvDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainPvData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_pv_data(self, request):
@@ -790,12 +2116,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_qps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainQpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainQpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainQpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_qps_data(self, request):
@@ -806,11 +2158,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeBpsData', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_bps_data(self, request):
@@ -821,11 +2184,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeByteHitRateData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeByteHitRateDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeByteHitRateData', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_byte_hit_rate_data(self, request):
@@ -836,11 +2210,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeDetailData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeDetailDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeDetailData', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_detail_data(self, request):
@@ -849,12 +2234,36 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_http_code_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeHttpCodeData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeHttpCodeDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeHttpCodeData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_http_code_data(self, request):
@@ -865,11 +2274,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeQpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeQpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeQpsData', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_qps_data(self, request):
@@ -880,11 +2300,22 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            query=query
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeReqHitRateData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeReqHitRateDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeReqHitRateData', '2018-01-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_req_hit_rate_data(self, request):
@@ -893,12 +2324,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_src_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeSrcBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeSrcBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeSrcBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_src_bps_data(self, request):
@@ -907,12 +2358,36 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_src_http_code_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeSrcHttpCodeData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeSrcHttpCodeDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeSrcHttpCodeData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_src_http_code_data(self, request):
@@ -921,12 +2396,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_src_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeSrcTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeSrcTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeSrcTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_src_traffic_data(self, request):
@@ -935,12 +2430,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRealTimeTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRealTimeTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRealTimeTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_real_time_traffic_data(self, request):
@@ -949,12 +2464,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_region_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainRegionData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainRegionDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainRegionData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_region_data(self, request):
@@ -963,12 +2498,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_staging_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.function_names):
+            query['FunctionNames'] = request.function_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainStagingConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainStagingConfigResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainStagingConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_staging_config(self, request):
@@ -977,12 +2530,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_top_refer_visit_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainTopReferVisit',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainTopReferVisitResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainTopReferVisit', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_top_refer_visit(self, request):
@@ -991,12 +2564,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_top_url_visit_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainTopUrlVisit',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainTopUrlVisitResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainTopUrlVisit', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_top_url_visit(self, request):
@@ -1005,26 +2598,114 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_traffic_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_traffic_data_with_options(request, runtime)
 
+    def describe_dcdn_domain_usage_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.area):
+            query['Area'] = request.area
+        if not UtilClient.is_unset(request.data_protocol):
+            query['DataProtocol'] = request.data_protocol
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.field):
+            query['Field'] = request.field
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainUsageData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainUsageDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_usage_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_usage_data_with_options(request, runtime)
+
     def describe_dcdn_domain_uv_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainUvData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainUvDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainUvData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_uv_data(self, request):
@@ -1033,12 +2714,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainWebsocketBpsData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainWebsocketBpsDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainWebsocketBpsData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_websocket_bps_data(self, request):
@@ -1047,12 +2754,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_http_code_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainWebsocketHttpCodeData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainWebsocketHttpCodeDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainWebsocketHttpCodeData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_websocket_http_code_data(self, request):
@@ -1061,40 +2794,206 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainWebsocketTrafficData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnDomainWebsocketTrafficDataResponse(),
-            self.do_rpcrequest('DescribeDcdnDomainWebsocketTrafficData', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_domain_websocket_traffic_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_websocket_traffic_data_with_options(request, runtime)
 
+    def describe_dcdn_es_exception_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnEsExceptionData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnEsExceptionDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_es_exception_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_es_exception_data_with_options(request, runtime)
+
+    def describe_dcdn_es_execute_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnEsExecuteData',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnEsExecuteDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_es_execute_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_es_execute_data_with_options(request, runtime)
+
     def describe_dcdn_https_domain_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnHttpsDomainList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnHttpsDomainListResponse(),
-            self.do_rpcrequest('DescribeDcdnHttpsDomainList', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_https_domain_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_https_domain_list_with_options(request, runtime)
 
+    def describe_dcdn_ip_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ip):
+            query['IP'] = request.ip
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnIpInfo',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnIpInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_ip_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_ip_info_with_options(request, runtime)
+
     def describe_dcdn_ipa_domain_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.function_names):
+            query['FunctionNames'] = request.function_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnIpaDomainConfigs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnIpaDomainConfigsResponse(),
-            self.do_rpcrequest('DescribeDcdnIpaDomainConfigs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_ipa_domain_configs(self, request):
@@ -1103,12 +3002,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_ipa_domain_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnIpaDomainDetail',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnIpaDomainDetailResponse(),
-            self.do_rpcrequest('DescribeDcdnIpaDomainDetail', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_ipa_domain_detail(self, request):
@@ -1117,12 +3034,28 @@ class Client(OpenApiClient):
 
     def describe_dcdn_ipa_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnIpaService',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnIpaServiceResponse(),
-            self.do_rpcrequest('DescribeDcdnIpaService', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_ipa_service(self, request):
@@ -1131,96 +3064,108 @@ class Client(OpenApiClient):
 
     def describe_dcdn_ipa_user_domains_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_domain_show):
+            query['CheckDomainShow'] = request.check_domain_show
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.domain_search_type):
+            query['DomainSearchType'] = request.domain_search_type
+        if not UtilClient.is_unset(request.domain_status):
+            query['DomainStatus'] = request.domain_status
+        if not UtilClient.is_unset(request.func_filter):
+            query['FuncFilter'] = request.func_filter
+        if not UtilClient.is_unset(request.func_id):
+            query['FuncId'] = request.func_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnIpaUserDomains',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnIpaUserDomainsResponse(),
-            self.do_rpcrequest('DescribeDcdnIpaUserDomains', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_ipa_user_domains(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_ipa_user_domains_with_options(request, runtime)
 
-    def describe_dcdn_ip_info_with_options(self, request, runtime):
+    def describe_dcdn_real_time_delivery_field_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnRealTimeDeliveryField',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnIpInfoResponse(),
-            self.do_rpcrequest('DescribeDcdnIpInfo', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dcdn_20180115_models.DescribeDcdnRealTimeDeliveryFieldResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_dcdn_ip_info(self, request):
+    def describe_dcdn_real_time_delivery_field(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_ip_info_with_options(request, runtime)
-
-    def describe_dcdn_offline_log_delivery_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnOfflineLogDeliveryResponse(),
-            self.do_rpcrequest('DescribeDcdnOfflineLogDelivery', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dcdn_offline_log_delivery(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_offline_log_delivery_with_options(request, runtime)
-
-    def describe_dcdn_offline_log_delivery_field_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnOfflineLogDeliveryFieldResponse(),
-            self.do_rpcrequest('DescribeDcdnOfflineLogDeliveryField', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dcdn_offline_log_delivery_field(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_offline_log_delivery_field_with_options(request, runtime)
-
-    def describe_dcdn_offline_log_delivery_regions_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnOfflineLogDeliveryRegionsResponse(),
-            self.do_rpcrequest('DescribeDcdnOfflineLogDeliveryRegions', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dcdn_offline_log_delivery_regions(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_offline_log_delivery_regions_with_options(request, runtime)
-
-    def describe_dcdn_offline_log_delivery_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DescribeDcdnOfflineLogDeliveryStatusResponse(),
-            self.do_rpcrequest('DescribeDcdnOfflineLogDeliveryStatus', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dcdn_offline_log_delivery_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dcdn_offline_log_delivery_status_with_options(request, runtime)
+        return self.describe_dcdn_real_time_delivery_field_with_options(request, runtime)
 
     def describe_dcdn_refresh_quota_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnRefreshQuota',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnRefreshQuotaResponse(),
-            self.do_rpcrequest('DescribeDcdnRefreshQuota', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_refresh_quota(self, request):
@@ -1229,12 +3174,28 @@ class Client(OpenApiClient):
 
     def describe_dcdn_refresh_task_by_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnRefreshTaskById',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnRefreshTaskByIdResponse(),
-            self.do_rpcrequest('DescribeDcdnRefreshTaskById', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_refresh_task_by_id(self, request):
@@ -1243,12 +3204,46 @@ class Client(OpenApiClient):
 
     def describe_dcdn_refresh_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.object_path):
+            query['ObjectPath'] = request.object_path
+        if not UtilClient.is_unset(request.object_type):
+            query['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnRefreshTasks',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnRefreshTasksResponse(),
-            self.do_rpcrequest('DescribeDcdnRefreshTasks', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_refresh_tasks(self, request):
@@ -1257,12 +3252,28 @@ class Client(OpenApiClient):
 
     def describe_dcdn_region_and_isp_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnRegionAndIsp',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnRegionAndIspResponse(),
-            self.do_rpcrequest('DescribeDcdnRegionAndIsp', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_region_and_isp(self, request):
@@ -1271,12 +3282,40 @@ class Client(OpenApiClient):
 
     def describe_dcdn_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.area):
+            query['Area'] = request.area
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.http_code):
+            query['HttpCode'] = request.http_code
+        if not UtilClient.is_unset(request.is_overseas):
+            query['IsOverseas'] = request.is_overseas
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.report_id):
+            query['ReportId'] = request.report_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnReport',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnReportResponse(),
-            self.do_rpcrequest('DescribeDcdnReport', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_report(self, request):
@@ -1285,40 +3324,214 @@ class Client(OpenApiClient):
 
     def describe_dcdn_report_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.report_id):
+            query['ReportId'] = request.report_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnReportList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnReportListResponse(),
-            self.do_rpcrequest('DescribeDcdnReportList', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_report_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_report_list_with_options(request, runtime)
 
+    def describe_dcdn_slsrealtime_log_delivery_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSLSRealtimeLogDelivery',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnSLSRealtimeLogDeliveryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_slsrealtime_log_delivery(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_slsrealtime_log_delivery_with_options(request, runtime)
+
+    def describe_dcdn_smcertificate_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cert_identifier):
+            query['CertIdentifier'] = request.cert_identifier
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSMCertificateDetail',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnSMCertificateDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_smcertificate_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_smcertificate_detail_with_options(request, runtime)
+
+    def describe_dcdn_smcertificate_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSMCertificateList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnSMCertificateListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_smcertificate_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_smcertificate_list_with_options(request, runtime)
+
     def describe_dcdn_sec_func_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sec_func_type):
+            query['SecFuncType'] = request.sec_func_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSecFuncInfo',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnSecFuncInfoResponse(),
-            self.do_rpcrequest('DescribeDcdnSecFuncInfo', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_sec_func_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_sec_func_info_with_options(request, runtime)
 
+    def describe_dcdn_sec_spec_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSecSpecInfo',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnSecSpecInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_sec_spec_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_sec_spec_info_with_options(request, runtime)
+
     def describe_dcdn_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnService',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnServiceResponse(),
-            self.do_rpcrequest('DescribeDcdnService', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_service(self, request):
@@ -1327,12 +3540,26 @@ class Client(OpenApiClient):
 
     def describe_dcdn_staging_ip_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnStagingIp',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnStagingIpResponse(),
-            self.do_rpcrequest('DescribeDcdnStagingIp', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_staging_ip(self, request):
@@ -1341,12 +3568,26 @@ class Client(OpenApiClient):
 
     def describe_dcdn_sub_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnSubList',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnSubListResponse(),
-            self.do_rpcrequest('DescribeDcdnSubList', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_sub_list(self, request):
@@ -1355,12 +3596,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnTagResources',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnTagResourcesResponse(),
-            self.do_rpcrequest('DescribeDcdnTagResources', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_tag_resources(self, request):
@@ -1369,12 +3630,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_top_domains_by_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnTopDomainsByFlow',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnTopDomainsByFlowResponse(),
-            self.do_rpcrequest('DescribeDcdnTopDomainsByFlow', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_top_domains_by_flow(self, request):
@@ -1383,12 +3664,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_bill_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserBillHistory',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserBillHistoryResponse(),
-            self.do_rpcrequest('DescribeDcdnUserBillHistory', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_bill_history(self, request):
@@ -1397,12 +3696,30 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_bill_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserBillType',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserBillTypeResponse(),
-            self.do_rpcrequest('DescribeDcdnUserBillType', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_bill_type(self, request):
@@ -1411,12 +3728,50 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_domains_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.change_end_time):
+            query['ChangeEndTime'] = request.change_end_time
+        if not UtilClient.is_unset(request.change_start_time):
+            query['ChangeStartTime'] = request.change_start_time
+        if not UtilClient.is_unset(request.check_domain_show):
+            query['CheckDomainShow'] = request.check_domain_show
+        if not UtilClient.is_unset(request.coverage):
+            query['Coverage'] = request.coverage
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.domain_search_type):
+            query['DomainSearchType'] = request.domain_search_type
+        if not UtilClient.is_unset(request.domain_status):
+            query['DomainStatus'] = request.domain_status
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserDomains',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserDomainsResponse(),
-            self.do_rpcrequest('DescribeDcdnUserDomains', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_domains(self, request):
@@ -1425,12 +3780,38 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_domains_by_func_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.func_filter):
+            query['FuncFilter'] = request.func_filter
+        if not UtilClient.is_unset(request.func_id):
+            query['FuncId'] = request.func_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserDomainsByFunc',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserDomainsByFuncResponse(),
-            self.do_rpcrequest('DescribeDcdnUserDomainsByFunc', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_domains_by_func(self, request):
@@ -1439,26 +3820,86 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_quota_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserQuota',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserQuotaResponse(),
-            self.do_rpcrequest('DescribeDcdnUserQuota', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_quota(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_user_quota_with_options(request, runtime)
 
+    def describe_dcdn_user_real_time_delivery_field_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserRealTimeDeliveryField',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnUserRealTimeDeliveryFieldResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_user_real_time_delivery_field(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_user_real_time_delivery_field_with_options(request, runtime)
+
     def describe_dcdn_user_resource_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserResourcePackage',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserResourcePackageResponse(),
-            self.do_rpcrequest('DescribeDcdnUserResourcePackage', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_resource_package(self, request):
@@ -1467,12 +3908,32 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_sec_drop_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data):
+            query['Data'] = request.data
+        if not UtilClient.is_unset(request.metric):
+            query['Metric'] = request.metric
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sec_func):
+            query['SecFunc'] = request.sec_func
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserSecDrop',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserSecDropResponse(),
-            self.do_rpcrequest('DescribeDcdnUserSecDrop', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_sec_drop(self, request):
@@ -1481,12 +3942,44 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_sec_drop_by_minute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.object):
+            query['Object'] = request.object
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.sec_func):
+            query['SecFunc'] = request.sec_func
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserSecDropByMinute',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserSecDropByMinuteResponse(),
-            self.do_rpcrequest('DescribeDcdnUserSecDropByMinute', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_sec_drop_by_minute(self, request):
@@ -1495,12 +3988,26 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnUserTags',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnUserTagsResponse(),
-            self.do_rpcrequest('DescribeDcdnUserTags', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_user_tags(self, request):
@@ -1509,12 +4016,28 @@ class Client(OpenApiClient):
 
     def describe_dcdn_verify_content_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnVerifyContent',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnVerifyContentResponse(),
-            self.do_rpcrequest('DescribeDcdnVerifyContent', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_verify_content(self, request):
@@ -1523,26 +4046,94 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnWafDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeDcdnWafDomainResponse(),
-            self.do_rpcrequest('DescribeDcdnWafDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dcdn_waf_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_waf_domain_with_options(request, runtime)
 
+    def describe_dcdnsec_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnsecService',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnsecServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdnsec_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdnsec_service_with_options(request, runtime)
+
     def describe_routine_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoutine',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeRoutineResponse(),
-            self.do_rpcrequest('DescribeRoutine', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_routine(self, request):
@@ -1551,12 +4142,26 @@ class Client(OpenApiClient):
 
     def describe_routine_canary_envs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoutineCanaryEnvs',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeRoutineCanaryEnvsResponse(),
-            self.do_rpcrequest('DescribeRoutineCanaryEnvs', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_routine_canary_envs(self, request):
@@ -1565,12 +4170,32 @@ class Client(OpenApiClient):
 
     def describe_routine_code_revision_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.select_code_revision):
+            body['SelectCodeRevision'] = request.select_code_revision
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoutineCodeRevision',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeRoutineCodeRevisionResponse(),
-            self.do_rpcrequest('DescribeRoutineCodeRevision', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_routine_code_revision(self, request):
@@ -1579,12 +4204,26 @@ class Client(OpenApiClient):
 
     def describe_routine_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoutineSpec',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeRoutineSpecResponse(),
-            self.do_rpcrequest('DescribeRoutineSpec', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_routine_spec(self, request):
@@ -1593,12 +4232,26 @@ class Client(OpenApiClient):
 
     def describe_routine_user_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRoutineUserInfo',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeRoutineUserInfoResponse(),
-            self.do_rpcrequest('DescribeRoutineUserInfo', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_routine_user_info(self, request):
@@ -1607,12 +4260,28 @@ class Client(OpenApiClient):
 
     def describe_user_dcdn_ipa_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserDcdnIpaStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeUserDcdnIpaStatusResponse(),
-            self.do_rpcrequest('DescribeUserDcdnIpaStatus', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_user_dcdn_ipa_status(self, request):
@@ -1621,12 +4290,28 @@ class Client(OpenApiClient):
 
     def describe_user_dcdn_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserDcdnStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeUserDcdnStatusResponse(),
-            self.do_rpcrequest('DescribeUserDcdnStatus', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_user_dcdn_status(self, request):
@@ -1635,12 +4320,28 @@ class Client(OpenApiClient):
 
     def describe_user_er_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserErStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeUserErStatusResponse(),
-            self.do_rpcrequest('DescribeUserErStatus', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_user_er_status(self, request):
@@ -1649,45 +4350,33 @@ class Client(OpenApiClient):
 
     def describe_user_logservice_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserLogserviceStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.DescribeUserLogserviceStatusResponse(),
-            self.do_rpcrequest('DescribeUserLogserviceStatus', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_user_logservice_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_logservice_status_with_options(request, runtime)
-
-    def disable_dcdn_domain_offline_log_delivery_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DisableDcdnDomainOfflineLogDeliveryResponse(),
-            self.do_rpcrequest('DisableDcdnDomainOfflineLogDelivery', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def disable_dcdn_domain_offline_log_delivery(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.disable_dcdn_domain_offline_log_delivery_with_options(request, runtime)
-
-    def disable_dcdn_offline_log_delivery_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DisableDcdnOfflineLogDeliveryResponse(),
-            self.do_rpcrequest('DisableDcdnOfflineLogDelivery', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def disable_dcdn_offline_log_delivery(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.disable_dcdn_offline_log_delivery_with_options(request, runtime)
 
     def edit_routine_conf_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1695,40 +4384,128 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.env_conf):
             request.env_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.env_conf, 'EnvConf', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_conf_shrink):
+            body['EnvConf'] = request.env_conf_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='EditRoutineConf',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.EditRoutineConfResponse(),
-            self.do_rpcrequest('EditRoutineConf', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def edit_routine_conf(self, request):
         runtime = util_models.RuntimeOptions()
         return self.edit_routine_conf_with_options(request, runtime)
 
-    def enable_dcdn_domain_offline_log_delivery_with_options(self, request, runtime):
+    def list_dcdn_es_template_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDcdnEsTemplateInfo',
+            version='2018-01-15',
+            protocol='HTTP',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            dcdn_20180115_models.EnableDcdnDomainOfflineLogDeliveryResponse(),
-            self.do_rpcrequest('EnableDcdnDomainOfflineLogDelivery', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            dcdn_20180115_models.ListDcdnEsTemplateInfoResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def enable_dcdn_domain_offline_log_delivery(self, request):
+    def list_dcdn_es_template_info(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.enable_dcdn_domain_offline_log_delivery_with_options(request, runtime)
+        return self.list_dcdn_es_template_info_with_options(request, runtime)
+
+    def list_dcdn_real_time_delivery_project_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDcdnRealTimeDeliveryProject',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.ListDcdnRealTimeDeliveryProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dcdn_real_time_delivery_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dcdn_real_time_delivery_project_with_options(request, runtime)
 
     def modify_dcdn_domain_schdm_by_property_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.property):
+            query['Property'] = request.property
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDCdnDomainSchdmByProperty',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.ModifyDCdnDomainSchdmByPropertyResponse(),
-            self.do_rpcrequest('ModifyDCdnDomainSchdmByProperty', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dcdn_domain_schdm_by_property(self, request):
@@ -1737,12 +4514,32 @@ class Client(OpenApiClient):
 
     def open_dcdn_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.bill_type):
+            query['BillType'] = request.bill_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.websocket_bill_type):
+            query['WebsocketBillType'] = request.websocket_bill_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='OpenDcdnService',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.OpenDcdnServiceResponse(),
-            self.do_rpcrequest('OpenDcdnService', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def open_dcdn_service(self, request):
@@ -1751,12 +4548,32 @@ class Client(OpenApiClient):
 
     def preload_dcdn_object_caches_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.area):
+            query['Area'] = request.area
+        if not UtilClient.is_unset(request.object_path):
+            query['ObjectPath'] = request.object_path
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PreloadDcdnObjectCaches',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.PreloadDcdnObjectCachesResponse(),
-            self.do_rpcrequest('PreloadDcdnObjectCaches', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def preload_dcdn_object_caches(self, request):
@@ -1765,12 +4582,30 @@ class Client(OpenApiClient):
 
     def publish_dcdn_staging_config_to_production_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.function_name):
+            query['FunctionName'] = request.function_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PublishDcdnStagingConfigToProduction',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.PublishDcdnStagingConfigToProductionResponse(),
-            self.do_rpcrequest('PublishDcdnStagingConfigToProduction', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def publish_dcdn_staging_config_to_production(self, request):
@@ -1783,12 +4618,34 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.envs):
             request.envs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.envs, 'Envs', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.envs_shrink):
+            body['Envs'] = request.envs_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.select_code_revision):
+            body['SelectCodeRevision'] = request.select_code_revision
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PublishRoutineCodeRevision',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.PublishRoutineCodeRevisionResponse(),
-            self.do_rpcrequest('PublishRoutineCodeRevision', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def publish_routine_code_revision(self, request):
@@ -1797,12 +4654,32 @@ class Client(OpenApiClient):
 
     def refresh_dcdn_object_caches_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.object_path):
+            query['ObjectPath'] = request.object_path
+        if not UtilClient.is_unset(request.object_type):
+            query['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RefreshDcdnObjectCaches',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.RefreshDcdnObjectCachesResponse(),
-            self.do_rpcrequest('RefreshDcdnObjectCaches', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def refresh_dcdn_object_caches(self, request):
@@ -1811,12 +4688,28 @@ class Client(OpenApiClient):
 
     def rollback_dcdn_staging_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RollbackDcdnStagingConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.RollbackDcdnStagingConfigResponse(),
-            self.do_rpcrequest('RollbackDcdnStagingConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def rollback_dcdn_staging_config(self, request):
@@ -1825,59 +4718,263 @@ class Client(OpenApiClient):
 
     def set_dcdn_config_of_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_id):
+            query['ConfigId'] = request.config_id
+        if not UtilClient.is_unset(request.function_args):
+            query['FunctionArgs'] = request.function_args
+        if not UtilClient.is_unset(request.function_id):
+            query['FunctionId'] = request.function_id
+        if not UtilClient.is_unset(request.function_name):
+            query['FunctionName'] = request.function_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnConfigOfVersion',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.SetDcdnConfigOfVersionResponse(),
-            self.do_rpcrequest('SetDcdnConfigOfVersion', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_dcdn_config_of_version(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_dcdn_config_of_version_with_options(request, runtime)
 
-    def set_dcdn_domain_certificate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.SetDcdnDomainCertificateResponse(),
-            self.do_rpcrequest('SetDcdnDomainCertificate', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def set_dcdn_domain_certificate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.set_dcdn_domain_certificate_with_options(request, runtime)
-
     def set_dcdn_domain_csrcertificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.server_certificate):
+            query['ServerCertificate'] = request.server_certificate
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnDomainCSRCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.SetDcdnDomainCSRCertificateResponse(),
-            self.do_rpcrequest('SetDcdnDomainCSRCertificate', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_dcdn_domain_csrcertificate(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_dcdn_domain_csrcertificate_with_options(request, runtime)
 
+    def set_dcdn_domain_certificate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cert_name):
+            query['CertName'] = request.cert_name
+        if not UtilClient.is_unset(request.cert_type):
+            query['CertType'] = request.cert_type
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.force_set):
+            query['ForceSet'] = request.force_set
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.sslpri):
+            query['SSLPri'] = request.sslpri
+        if not UtilClient.is_unset(request.sslprotocol):
+            query['SSLProtocol'] = request.sslprotocol
+        if not UtilClient.is_unset(request.sslpub):
+            query['SSLPub'] = request.sslpub
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnDomainCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnDomainCertificateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_domain_certificate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_domain_certificate_with_options(request, runtime)
+
+    def set_dcdn_domain_smcertificate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cert_identifier):
+            query['CertIdentifier'] = request.cert_identifier
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sslprotocol):
+            query['SSLProtocol'] = request.sslprotocol
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnDomainSMCertificate',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnDomainSMCertificateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_domain_smcertificate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_domain_smcertificate_with_options(request, runtime)
+
     def set_dcdn_domain_staging_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.functions):
+            query['Functions'] = request.functions
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnDomainStagingConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.SetDcdnDomainStagingConfigResponse(),
-            self.do_rpcrequest('SetDcdnDomainStagingConfig', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_dcdn_domain_staging_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_dcdn_domain_staging_config_with_options(request, runtime)
+
+    def set_dcdn_full_domains_block_ipwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.block_interval):
+            body['BlockInterval'] = request.block_interval
+        if not UtilClient.is_unset(request.iplist):
+            body['IPList'] = request.iplist
+        if not UtilClient.is_unset(request.operation_type):
+            body['OperationType'] = request.operation_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnFullDomainsBlockIP',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnFullDomainsBlockIPResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_full_domains_block_ip(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_full_domains_block_ipwith_options(request, runtime)
+
+    def set_dcdn_user_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.configs):
+            query['Configs'] = request.configs
+        if not UtilClient.is_unset(request.function_id):
+            query['FunctionId'] = request.function_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDcdnUserConfig',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.SetDcdnUserConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_dcdn_user_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_dcdn_user_config_with_options(request, runtime)
 
     def set_routine_subdomain_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1885,12 +4982,30 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.subdomains):
             request.subdomains_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.subdomains, 'Subdomains', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.subdomains_shrink):
+            body['Subdomains'] = request.subdomains_shrink
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetRoutineSubdomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.SetRoutineSubdomainResponse(),
-            self.do_rpcrequest('SetRoutineSubdomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_routine_subdomain(self, request):
@@ -1899,12 +5014,30 @@ class Client(OpenApiClient):
 
     def start_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.StartDcdnDomainResponse(),
-            self.do_rpcrequest('StartDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def start_dcdn_domain(self, request):
@@ -1913,12 +5046,30 @@ class Client(OpenApiClient):
 
     def start_dcdn_ipa_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDcdnIpaDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.StartDcdnIpaDomainResponse(),
-            self.do_rpcrequest('StartDcdnIpaDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def start_dcdn_ipa_domain(self, request):
@@ -1927,12 +5078,30 @@ class Client(OpenApiClient):
 
     def stop_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.StopDcdnDomainResponse(),
-            self.do_rpcrequest('StopDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_dcdn_domain(self, request):
@@ -1941,12 +5110,30 @@ class Client(OpenApiClient):
 
     def stop_dcdn_ipa_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDcdnIpaDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.StopDcdnIpaDomainResponse(),
-            self.do_rpcrequest('StopDcdnIpaDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_dcdn_ipa_domain(self, request):
@@ -1955,12 +5142,32 @@ class Client(OpenApiClient):
 
     def tag_dcdn_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagDcdnResources',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.TagDcdnResourcesResponse(),
-            self.do_rpcrequest('TagDcdnResources', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def tag_dcdn_resources(self, request):
@@ -1969,32 +5176,76 @@ class Client(OpenApiClient):
 
     def untag_dcdn_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UntagDcdnResources',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UntagDcdnResourcesResponse(),
-            self.do_rpcrequest('UntagDcdnResources', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def untag_dcdn_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.untag_dcdn_resources_with_options(request, runtime)
 
-    def update_dcdn_deliver_task_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = dcdn_20180115_models.UpdateDcdnDeliverTaskShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.deliver):
-            request.deliver_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.deliver, 'Deliver', 'json')
-        if not UtilClient.is_unset(tmp_req.schedule):
-            request.schedule_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.schedule, 'Schedule', 'json')
+    def update_dcdn_deliver_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.deliver):
+            body['Deliver'] = request.deliver
+        if not UtilClient.is_unset(request.deliver_id):
+            body['DeliverId'] = request.deliver_id
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.reports):
+            body['Reports'] = request.reports
+        if not UtilClient.is_unset(request.schedule):
+            body['Schedule'] = request.schedule
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnDeliverTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UpdateDcdnDeliverTaskResponse(),
-            self.do_rpcrequest('UpdateDcdnDeliverTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dcdn_deliver_task(self, request):
@@ -2003,12 +5254,36 @@ class Client(OpenApiClient):
 
     def update_dcdn_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sources):
+            query['Sources'] = request.sources
+        if not UtilClient.is_unset(request.top_level_domain):
+            query['TopLevelDomain'] = request.top_level_domain
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UpdateDcdnDomainResponse(),
-            self.do_rpcrequest('UpdateDcdnDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dcdn_domain(self, request):
@@ -2017,40 +5292,178 @@ class Client(OpenApiClient):
 
     def update_dcdn_ipa_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sources):
+            query['Sources'] = request.sources
+        if not UtilClient.is_unset(request.top_level_domain):
+            query['TopLevelDomain'] = request.top_level_domain
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnIpaDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UpdateDcdnIpaDomainResponse(),
-            self.do_rpcrequest('UpdateDcdnIpaDomain', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dcdn_ipa_domain(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_dcdn_ipa_domain_with_options(request, runtime)
 
+    def update_dcdn_slsrealtime_log_delivery_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.data_center):
+            body['DataCenter'] = request.data_center
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.slslog_store):
+            body['SLSLogStore'] = request.slslog_store
+        if not UtilClient.is_unset(request.slsproject):
+            body['SLSProject'] = request.slsproject
+        if not UtilClient.is_unset(request.slsregion):
+            body['SLSRegion'] = request.slsregion
+        if not UtilClient.is_unset(request.sampling_rate):
+            body['SamplingRate'] = request.sampling_rate
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnSLSRealtimeLogDelivery',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.UpdateDcdnSLSRealtimeLogDeliveryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_dcdn_slsrealtime_log_delivery(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_dcdn_slsrealtime_log_delivery_with_options(request, runtime)
+
     def update_dcdn_sub_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.domain_name):
+            body['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.report_ids):
+            body['ReportIds'] = request.report_ids
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnSubTask',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UpdateDcdnSubTaskResponse(),
-            self.do_rpcrequest('UpdateDcdnSubTask', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_dcdn_sub_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_dcdn_sub_task_with_options(request, runtime)
 
+    def update_dcdn_user_real_time_delivery_field_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDcdnUserRealTimeDeliveryField',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.UpdateDcdnUserRealTimeDeliveryFieldResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_dcdn_user_real_time_delivery_field(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_dcdn_user_real_time_delivery_field_with_options(request, runtime)
+
     def upload_routine_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.code_description):
+            body['CodeDescription'] = request.code_description
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UploadRoutineCode',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UploadRoutineCodeResponse(),
-            self.do_rpcrequest('UploadRoutineCode', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upload_routine_code(self, request):
@@ -2059,12 +5472,32 @@ class Client(OpenApiClient):
 
     def upload_staging_routine_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        body = {}
+        if not UtilClient.is_unset(request.code_description):
+            body['CodeDescription'] = request.code_description
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UploadStagingRoutineCode',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.UploadStagingRoutineCodeResponse(),
-            self.do_rpcrequest('UploadStagingRoutineCode', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upload_staging_routine_code(self, request):
@@ -2073,12 +5506,30 @@ class Client(OpenApiClient):
 
     def verify_dcdn_domain_owner_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.verify_type):
+            query['VerifyType'] = request.verify_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='VerifyDcdnDomainOwner',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             dcdn_20180115_models.VerifyDcdnDomainOwnerResponse(),
-            self.do_rpcrequest('VerifyDcdnDomainOwner', '2018-01-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def verify_dcdn_domain_owner(self, request):
