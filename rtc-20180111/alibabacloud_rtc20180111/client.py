@@ -33,27 +33,44 @@ class Client(OpenApiClient):
     def add_record_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['BackgroundColor'] = request.background_color
-        query['Backgrounds'] = request.backgrounds
-        query['ClockWidgets'] = request.clock_widgets
-        query['DelayStopTime'] = request.delay_stop_time
-        query['EnableM3u8DateTime'] = request.enable_m3u_8date_time
-        query['FileSplitInterval'] = request.file_split_interval
-        query['Formats'] = request.formats
-        query['HttpCallbackUrl'] = request.http_callback_url
-        query['LayoutIds'] = request.layout_ids
-        query['MediaEncode'] = request.media_encode
-        query['MnsQueue'] = request.mns_queue
-        query['Name'] = request.name
-        query['OssBucket'] = request.oss_bucket
-        query['OssFilePrefix'] = request.oss_file_prefix
-        query['OwnerId'] = request.owner_id
-        query['TaskProfile'] = request.task_profile
-        query['Watermarks'] = request.watermarks
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.background_color):
+            query['BackgroundColor'] = request.background_color
+        if not UtilClient.is_unset(request.backgrounds):
+            query['Backgrounds'] = request.backgrounds
+        if not UtilClient.is_unset(request.clock_widgets):
+            query['ClockWidgets'] = request.clock_widgets
+        if not UtilClient.is_unset(request.delay_stop_time):
+            query['DelayStopTime'] = request.delay_stop_time
+        if not UtilClient.is_unset(request.enable_m3u_8date_time):
+            query['EnableM3u8DateTime'] = request.enable_m3u_8date_time
+        if not UtilClient.is_unset(request.file_split_interval):
+            query['FileSplitInterval'] = request.file_split_interval
+        if not UtilClient.is_unset(request.formats):
+            query['Formats'] = request.formats
+        if not UtilClient.is_unset(request.http_callback_url):
+            query['HttpCallbackUrl'] = request.http_callback_url
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.mns_queue):
+            query['MnsQueue'] = request.mns_queue
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oss_bucket):
+            query['OssBucket'] = request.oss_bucket
+        if not UtilClient.is_unset(request.oss_file_prefix):
+            query['OssFilePrefix'] = request.oss_file_prefix
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_profile):
+            query['TaskProfile'] = request.task_profile
+        if not UtilClient.is_unset(request.watermarks):
+            query['Watermarks'] = request.watermarks
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddRecordTemplate',
@@ -63,7 +80,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -78,17 +95,24 @@ class Client(OpenApiClient):
     def create_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['CallBack'] = request.call_back
-        query['ChannelIdPrefixes'] = request.channel_id_prefixes
-        query['ChannelIds'] = request.channel_ids
-        query['MediaEncode'] = request.media_encode
-        query['OwnerId'] = request.owner_id
-        query['PlayDomain'] = request.play_domain
-        query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.call_back):
+            query['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.channel_id_prefixes):
+            query['ChannelIdPrefixes'] = request.channel_id_prefixes
+        if not UtilClient.is_unset(request.channel_ids):
+            query['ChannelIds'] = request.channel_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_domain):
+            query['PlayDomain'] = request.play_domain
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateAutoLiveStreamRule',
@@ -98,7 +122,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -113,16 +137,24 @@ class Client(OpenApiClient):
     def create_event_subscribe_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['CallbackUrl'] = request.callback_url
-        query['ChannelId'] = request.channel_id
-        query['ClientToken'] = request.client_token
-        query['Events'] = request.events
-        query['OwnerId'] = request.owner_id
-        query['Users'] = request.users
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.callback_url):
+            query['CallbackUrl'] = request.callback_url
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.events):
+            query['Events'] = request.events
+        if not UtilClient.is_unset(request.need_callback_auth):
+            query['NeedCallbackAuth'] = request.need_callback_auth
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.users):
+            query['Users'] = request.users
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateEventSubscribe',
@@ -132,7 +164,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -147,14 +179,18 @@ class Client(OpenApiClient):
     def create_mpulayout_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['AudioMixCount'] = request.audio_mix_count
-        query['Name'] = request.name
-        query['OwnerId'] = request.owner_id
-        query['Panes'] = request.panes
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.audio_mix_count):
+            query['AudioMixCount'] = request.audio_mix_count
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.panes):
+            query['Panes'] = request.panes
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateMPULayout',
@@ -164,7 +200,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -179,12 +215,14 @@ class Client(OpenApiClient):
     def delete_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteAutoLiveStreamRule',
@@ -194,7 +232,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -209,12 +247,14 @@ class Client(OpenApiClient):
     def delete_channel_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteChannel',
@@ -224,7 +264,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -239,12 +279,14 @@ class Client(OpenApiClient):
     def delete_event_subscribe_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['SubscribeId'] = request.subscribe_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.subscribe_id):
+            query['SubscribeId'] = request.subscribe_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteEventSubscribe',
@@ -254,7 +296,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -269,12 +311,14 @@ class Client(OpenApiClient):
     def delete_mpulayout_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['LayoutId'] = request.layout_id
-        query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.layout_id):
+            query['LayoutId'] = request.layout_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteMPULayout',
@@ -284,7 +328,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -299,12 +343,14 @@ class Client(OpenApiClient):
     def delete_record_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteRecordTemplate',
@@ -314,7 +360,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -329,15 +375,20 @@ class Client(OpenApiClient):
     def describe_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['Order'] = request.order
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApps',
@@ -347,7 +398,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -362,11 +413,12 @@ class Client(OpenApiClient):
     def describe_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAutoLiveStreamRule',
@@ -376,7 +428,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -391,15 +443,20 @@ class Client(OpenApiClient):
     def describe_channel_participants_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['Order'] = request.order
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeChannelParticipants',
@@ -409,7 +466,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -424,12 +481,14 @@ class Client(OpenApiClient):
     def describe_channel_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeChannelUsers',
@@ -439,7 +498,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -454,15 +513,20 @@ class Client(OpenApiClient):
     def describe_mpulayout_info_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['LayoutId'] = request.layout_id
-        query['Name'] = request.name
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.layout_id):
+            query['LayoutId'] = request.layout_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeMPULayoutInfoList',
@@ -472,7 +536,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -487,17 +551,24 @@ class Client(OpenApiClient):
     def describe_record_files_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['EndTime'] = request.end_time
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['TaskIds'] = request.task_ids
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.task_ids):
+            query['TaskIds'] = request.task_ids
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeRecordFiles',
@@ -507,7 +578,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -522,14 +593,18 @@ class Client(OpenApiClient):
     def describe_record_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['TemplateIds'] = request.template_ids
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.template_ids):
+            query['TemplateIds'] = request.template_ids
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeRecordTemplates',
@@ -539,7 +614,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -554,13 +629,16 @@ class Client(OpenApiClient):
     def describe_user_info_in_channel_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['OwnerId'] = request.owner_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeUserInfoInChannel',
@@ -570,7 +648,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -585,12 +663,14 @@ class Client(OpenApiClient):
     def disable_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DisableAutoLiveStreamRule',
@@ -600,7 +680,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -615,12 +695,14 @@ class Client(OpenApiClient):
     def enable_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='EnableAutoLiveStreamRule',
@@ -630,7 +712,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -645,12 +727,14 @@ class Client(OpenApiClient):
     def get_mputask_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMPUTaskStatus',
@@ -660,7 +744,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -675,12 +759,14 @@ class Client(OpenApiClient):
     def modify_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['AppName'] = request.app_name
-        query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyApp',
@@ -690,7 +776,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -705,15 +791,20 @@ class Client(OpenApiClient):
     def modify_mpulayout_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['AudioMixCount'] = request.audio_mix_count
-        query['LayoutId'] = request.layout_id
-        query['Name'] = request.name
-        query['OwnerId'] = request.owner_id
-        query['Panes'] = request.panes
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.audio_mix_count):
+            query['AudioMixCount'] = request.audio_mix_count
+        if not UtilClient.is_unset(request.layout_id):
+            query['LayoutId'] = request.layout_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.panes):
+            query['Panes'] = request.panes
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyMPULayout',
@@ -723,7 +814,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -738,13 +829,16 @@ class Client(OpenApiClient):
     def remove_terminals_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['OwnerId'] = request.owner_id
-        query['TerminalIds'] = request.terminal_ids
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.terminal_ids):
+            query['TerminalIds'] = request.terminal_ids
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveTerminals',
@@ -754,7 +848,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -769,38 +863,73 @@ class Client(OpenApiClient):
     def start_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['BackgroundColor'] = request.background_color
-        query['Backgrounds'] = request.backgrounds
-        query['ChannelId'] = request.channel_id
-        query['ClockWidgets'] = request.clock_widgets
-        query['CropMode'] = request.crop_mode
-        query['LayoutIds'] = request.layout_ids
-        query['MediaEncode'] = request.media_encode
-        query['MixMode'] = request.mix_mode
-        query['OwnerId'] = request.owner_id
-        query['PayloadType'] = request.payload_type
-        query['ReportVad'] = request.report_vad
-        query['RtpExtInfo'] = request.rtp_ext_info
-        query['SourceType'] = request.source_type
-        query['StreamType'] = request.stream_type
-        query['StreamURL'] = request.stream_url
-        query['SubSpecAudioUsers'] = request.sub_spec_audio_users
-        query['SubSpecCameraUsers'] = request.sub_spec_camera_users
-        query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
-        query['SubSpecUsers'] = request.sub_spec_users
-        query['TaskId'] = request.task_id
-        query['TaskType'] = request.task_type
-        query['TimeStampRef'] = request.time_stamp_ref
-        query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
-        query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
-        query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
-        query['UserPanes'] = request.user_panes
-        query['VadInterval'] = request.vad_interval
-        query['Watermarks'] = request.watermarks
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.background_color):
+            query['BackgroundColor'] = request.background_color
+        if not UtilClient.is_unset(request.backgrounds):
+            query['Backgrounds'] = request.backgrounds
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.clock_widgets):
+            query['ClockWidgets'] = request.clock_widgets
+        if not UtilClient.is_unset(request.crop_mode):
+            query['CropMode'] = request.crop_mode
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.mix_mode):
+            query['MixMode'] = request.mix_mode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.payload_type):
+            query['PayloadType'] = request.payload_type
+        if not UtilClient.is_unset(request.report_vad):
+            query['ReportVad'] = request.report_vad
+        if not UtilClient.is_unset(request.rtp_ext_info):
+            query['RtpExtInfo'] = request.rtp_ext_info
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        if not UtilClient.is_unset(request.stream_url):
+            query['StreamURL'] = request.stream_url
+        if not UtilClient.is_unset(request.sub_spec_audio_users):
+            query['SubSpecAudioUsers'] = request.sub_spec_audio_users
+        if not UtilClient.is_unset(request.sub_spec_camera_users):
+            query['SubSpecCameraUsers'] = request.sub_spec_camera_users
+        if not UtilClient.is_unset(request.sub_spec_share_screen_users):
+            query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
+        if not UtilClient.is_unset(request.sub_spec_users):
+            query['SubSpecUsers'] = request.sub_spec_users
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.time_stamp_ref):
+            query['TimeStampRef'] = request.time_stamp_ref
+        if not UtilClient.is_unset(request.unsub_spec_audio_users):
+            query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
+        if not UtilClient.is_unset(request.unsub_spec_camera_users):
+            query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
+        if not UtilClient.is_unset(request.unsub_spec_share_screen_users):
+            query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
+        if not UtilClient.is_unset(request.user_panes):
+            query['UserPanes'] = request.user_panes
+        if not UtilClient.is_unset(request.vad_interval):
+            query['VadInterval'] = request.vad_interval
+        if not UtilClient.is_unset(request.watermarks):
+            query['Watermarks'] = request.watermarks
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.enhanced_param):
+            body_flat['EnhancedParam'] = request.enhanced_param
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='StartMPUTask',
@@ -825,29 +954,48 @@ class Client(OpenApiClient):
     def start_record_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['CropMode'] = request.crop_mode
-        query['LayoutIds'] = request.layout_ids
-        query['MediaEncode'] = request.media_encode
-        query['MixMode'] = request.mix_mode
-        query['OwnerId'] = request.owner_id
-        query['SourceType'] = request.source_type
-        query['StreamType'] = request.stream_type
-        query['SubSpecAudioUsers'] = request.sub_spec_audio_users
-        query['SubSpecCameraUsers'] = request.sub_spec_camera_users
-        query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
-        query['SubSpecUsers'] = request.sub_spec_users
-        query['TaskId'] = request.task_id
-        query['TaskProfile'] = request.task_profile
-        query['TemplateId'] = request.template_id
-        query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
-        query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
-        query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
-        query['UserPanes'] = request.user_panes
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.crop_mode):
+            query['CropMode'] = request.crop_mode
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.mix_mode):
+            query['MixMode'] = request.mix_mode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        if not UtilClient.is_unset(request.sub_spec_audio_users):
+            query['SubSpecAudioUsers'] = request.sub_spec_audio_users
+        if not UtilClient.is_unset(request.sub_spec_camera_users):
+            query['SubSpecCameraUsers'] = request.sub_spec_camera_users
+        if not UtilClient.is_unset(request.sub_spec_share_screen_users):
+            query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
+        if not UtilClient.is_unset(request.sub_spec_users):
+            query['SubSpecUsers'] = request.sub_spec_users
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_profile):
+            query['TaskProfile'] = request.task_profile
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.unsub_spec_audio_users):
+            query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
+        if not UtilClient.is_unset(request.unsub_spec_camera_users):
+            query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
+        if not UtilClient.is_unset(request.unsub_spec_share_screen_users):
+            query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
+        if not UtilClient.is_unset(request.user_panes):
+            query['UserPanes'] = request.user_panes
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StartRecordTask',
@@ -857,7 +1005,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -872,12 +1020,14 @@ class Client(OpenApiClient):
     def stop_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopMPUTask',
@@ -887,7 +1037,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -902,12 +1052,14 @@ class Client(OpenApiClient):
     def stop_record_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['OwnerId'] = request.owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopRecordTask',
@@ -917,7 +1069,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -932,18 +1084,26 @@ class Client(OpenApiClient):
     def update_auto_live_stream_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['CallBack'] = request.call_back
-        query['ChannelIdPrefixes'] = request.channel_id_prefixes
-        query['ChannelIds'] = request.channel_ids
-        query['MediaEncode'] = request.media_encode
-        query['OwnerId'] = request.owner_id
-        query['PlayDomain'] = request.play_domain
-        query['RuleId'] = request.rule_id
-        query['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.call_back):
+            query['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.channel_id_prefixes):
+            query['ChannelIdPrefixes'] = request.channel_id_prefixes
+        if not UtilClient.is_unset(request.channel_ids):
+            query['ChannelIds'] = request.channel_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_domain):
+            query['PlayDomain'] = request.play_domain
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.rule_name):
+            query['RuleName'] = request.rule_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateAutoLiveStreamRule',
@@ -953,7 +1113,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -968,30 +1128,50 @@ class Client(OpenApiClient):
     def update_mputask_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['BackgroundColor'] = request.background_color
-        query['Backgrounds'] = request.backgrounds
-        query['ClockWidgets'] = request.clock_widgets
-        query['CropMode'] = request.crop_mode
-        query['LayoutIds'] = request.layout_ids
-        query['MediaEncode'] = request.media_encode
-        query['MixMode'] = request.mix_mode
-        query['OwnerId'] = request.owner_id
-        query['SourceType'] = request.source_type
-        query['StreamType'] = request.stream_type
-        query['SubSpecAudioUsers'] = request.sub_spec_audio_users
-        query['SubSpecCameraUsers'] = request.sub_spec_camera_users
-        query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
-        query['SubSpecUsers'] = request.sub_spec_users
-        query['TaskId'] = request.task_id
-        query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
-        query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
-        query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
-        query['UserPanes'] = request.user_panes
-        query['Watermarks'] = request.watermarks
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.background_color):
+            query['BackgroundColor'] = request.background_color
+        if not UtilClient.is_unset(request.backgrounds):
+            query['Backgrounds'] = request.backgrounds
+        if not UtilClient.is_unset(request.clock_widgets):
+            query['ClockWidgets'] = request.clock_widgets
+        if not UtilClient.is_unset(request.crop_mode):
+            query['CropMode'] = request.crop_mode
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.mix_mode):
+            query['MixMode'] = request.mix_mode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.stream_type):
+            query['StreamType'] = request.stream_type
+        if not UtilClient.is_unset(request.sub_spec_audio_users):
+            query['SubSpecAudioUsers'] = request.sub_spec_audio_users
+        if not UtilClient.is_unset(request.sub_spec_camera_users):
+            query['SubSpecCameraUsers'] = request.sub_spec_camera_users
+        if not UtilClient.is_unset(request.sub_spec_share_screen_users):
+            query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
+        if not UtilClient.is_unset(request.sub_spec_users):
+            query['SubSpecUsers'] = request.sub_spec_users
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.unsub_spec_audio_users):
+            query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
+        if not UtilClient.is_unset(request.unsub_spec_camera_users):
+            query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
+        if not UtilClient.is_unset(request.unsub_spec_share_screen_users):
+            query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
+        if not UtilClient.is_unset(request.user_panes):
+            query['UserPanes'] = request.user_panes
+        if not UtilClient.is_unset(request.watermarks):
+            query['Watermarks'] = request.watermarks
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateMPUTask',
@@ -1001,7 +1181,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1016,23 +1196,36 @@ class Client(OpenApiClient):
     def update_record_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ChannelId'] = request.channel_id
-        query['LayoutIds'] = request.layout_ids
-        query['OwnerId'] = request.owner_id
-        query['SubSpecAudioUsers'] = request.sub_spec_audio_users
-        query['SubSpecCameraUsers'] = request.sub_spec_camera_users
-        query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
-        query['SubSpecUsers'] = request.sub_spec_users
-        query['TaskId'] = request.task_id
-        query['TemplateId'] = request.template_id
-        query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
-        query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
-        query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
-        query['UserPanes'] = request.user_panes
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.sub_spec_audio_users):
+            query['SubSpecAudioUsers'] = request.sub_spec_audio_users
+        if not UtilClient.is_unset(request.sub_spec_camera_users):
+            query['SubSpecCameraUsers'] = request.sub_spec_camera_users
+        if not UtilClient.is_unset(request.sub_spec_share_screen_users):
+            query['SubSpecShareScreenUsers'] = request.sub_spec_share_screen_users
+        if not UtilClient.is_unset(request.sub_spec_users):
+            query['SubSpecUsers'] = request.sub_spec_users
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.unsub_spec_audio_users):
+            query['UnsubSpecAudioUsers'] = request.unsub_spec_audio_users
+        if not UtilClient.is_unset(request.unsub_spec_camera_users):
+            query['UnsubSpecCameraUsers'] = request.unsub_spec_camera_users
+        if not UtilClient.is_unset(request.unsub_spec_share_screen_users):
+            query['UnsubSpecShareScreenUsers'] = request.unsub_spec_share_screen_users
+        if not UtilClient.is_unset(request.user_panes):
+            query['UserPanes'] = request.user_panes
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateRecordTask',
@@ -1042,7 +1235,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1057,28 +1250,46 @@ class Client(OpenApiClient):
     def update_record_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['BackgroundColor'] = request.background_color
-        query['Backgrounds'] = request.backgrounds
-        query['ClockWidgets'] = request.clock_widgets
-        query['DelayStopTime'] = request.delay_stop_time
-        query['EnableM3u8DateTime'] = request.enable_m3u_8date_time
-        query['FileSplitInterval'] = request.file_split_interval
-        query['Formats'] = request.formats
-        query['HttpCallbackUrl'] = request.http_callback_url
-        query['LayoutIds'] = request.layout_ids
-        query['MediaEncode'] = request.media_encode
-        query['MnsQueue'] = request.mns_queue
-        query['Name'] = request.name
-        query['OssBucket'] = request.oss_bucket
-        query['OssFilePrefix'] = request.oss_file_prefix
-        query['OwnerId'] = request.owner_id
-        query['TaskProfile'] = request.task_profile
-        query['TemplateId'] = request.template_id
-        query['Watermarks'] = request.watermarks
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.background_color):
+            query['BackgroundColor'] = request.background_color
+        if not UtilClient.is_unset(request.backgrounds):
+            query['Backgrounds'] = request.backgrounds
+        if not UtilClient.is_unset(request.clock_widgets):
+            query['ClockWidgets'] = request.clock_widgets
+        if not UtilClient.is_unset(request.delay_stop_time):
+            query['DelayStopTime'] = request.delay_stop_time
+        if not UtilClient.is_unset(request.enable_m3u_8date_time):
+            query['EnableM3u8DateTime'] = request.enable_m3u_8date_time
+        if not UtilClient.is_unset(request.file_split_interval):
+            query['FileSplitInterval'] = request.file_split_interval
+        if not UtilClient.is_unset(request.formats):
+            query['Formats'] = request.formats
+        if not UtilClient.is_unset(request.http_callback_url):
+            query['HttpCallbackUrl'] = request.http_callback_url
+        if not UtilClient.is_unset(request.layout_ids):
+            query['LayoutIds'] = request.layout_ids
+        if not UtilClient.is_unset(request.media_encode):
+            query['MediaEncode'] = request.media_encode
+        if not UtilClient.is_unset(request.mns_queue):
+            query['MnsQueue'] = request.mns_queue
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.oss_bucket):
+            query['OssBucket'] = request.oss_bucket
+        if not UtilClient.is_unset(request.oss_file_prefix):
+            query['OssFilePrefix'] = request.oss_file_prefix
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.task_profile):
+            query['TaskProfile'] = request.task_profile
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.watermarks):
+            query['Watermarks'] = request.watermarks
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateRecordTemplate',
@@ -1088,7 +1299,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(

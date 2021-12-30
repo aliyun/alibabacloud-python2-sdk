@@ -489,12 +489,13 @@ class CreateAutoLiveStreamRuleResponse(TeaModel):
 
 class CreateEventSubscribeRequest(TeaModel):
     def __init__(self, app_id=None, callback_url=None, channel_id=None, client_token=None, events=None,
-                 owner_id=None, users=None):
+                 need_callback_auth=None, owner_id=None, users=None):
         self.app_id = app_id  # type: str
         self.callback_url = callback_url  # type: str
         self.channel_id = channel_id  # type: str
         self.client_token = client_token  # type: str
         self.events = events  # type: list[str]
+        self.need_callback_auth = need_callback_auth  # type: bool
         self.owner_id = owner_id  # type: long
         self.users = users  # type: list[str]
 
@@ -517,6 +518,8 @@ class CreateEventSubscribeRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.events is not None:
             result['Events'] = self.events
+        if self.need_callback_auth is not None:
+            result['NeedCallbackAuth'] = self.need_callback_auth
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.users is not None:
@@ -535,6 +538,8 @@ class CreateEventSubscribeRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('Events') is not None:
             self.events = m.get('Events')
+        if m.get('NeedCallbackAuth') is not None:
+            self.need_callback_auth = m.get('NeedCallbackAuth')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('Users') is not None:
@@ -2619,7 +2624,7 @@ class DescribeRecordTemplatesResponseBodyTemplates(TeaModel):
         self.file_split_interval = file_split_interval  # type: int
         self.formats = formats  # type: list[str]
         self.http_callback_url = http_callback_url  # type: str
-        self.layout_ids = layout_ids  # type: list[int]
+        self.layout_ids = layout_ids  # type: list[long]
         self.media_encode = media_encode  # type: int
         self.mns_queue = mns_queue  # type: str
         self.name = name  # type: str
