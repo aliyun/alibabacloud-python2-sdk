@@ -159,6 +159,125 @@ class AePropRecResponse(TeaModel):
         return self
 
 
+class AlivisionImgdupRequest(TeaModel):
+    def __init__(self, image_height=None, image_width=None, output_image_num=None, pic_num=None, pic_url=None):
+        self.image_height = image_height  # type: int
+        self.image_width = image_width  # type: int
+        self.output_image_num = output_image_num  # type: int
+        self.pic_num = pic_num  # type: int
+        self.pic_url = pic_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AlivisionImgdupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_height is not None:
+            result['ImageHeight'] = self.image_height
+        if self.image_width is not None:
+            result['ImageWidth'] = self.image_width
+        if self.output_image_num is not None:
+            result['OutputImageNum'] = self.output_image_num
+        if self.pic_num is not None:
+            result['PicNum'] = self.pic_num
+        if self.pic_url is not None:
+            result['PicUrl'] = self.pic_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageHeight') is not None:
+            self.image_height = m.get('ImageHeight')
+        if m.get('ImageWidth') is not None:
+            self.image_width = m.get('ImageWidth')
+        if m.get('OutputImageNum') is not None:
+            self.output_image_num = m.get('OutputImageNum')
+        if m.get('PicNum') is not None:
+            self.pic_num = m.get('PicNum')
+        if m.get('PicUrl') is not None:
+            self.pic_url = m.get('PicUrl')
+        return self
+
+
+class AlivisionImgdupAdvanceRequest(TeaModel):
+    def __init__(self, pic_url_object=None, image_height=None, image_width=None, output_image_num=None,
+                 pic_num=None):
+        self.pic_url_object = pic_url_object  # type: READABLE
+        self.image_height = image_height  # type: int
+        self.image_width = image_width  # type: int
+        self.output_image_num = output_image_num  # type: int
+        self.pic_num = pic_num  # type: int
+
+    def validate(self):
+        self.validate_required(self.pic_url_object, 'pic_url_object')
+
+    def to_map(self):
+        _map = super(AlivisionImgdupAdvanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pic_url_object is not None:
+            result['PicUrlObject'] = self.pic_url_object
+        if self.image_height is not None:
+            result['ImageHeight'] = self.image_height
+        if self.image_width is not None:
+            result['ImageWidth'] = self.image_width
+        if self.output_image_num is not None:
+            result['OutputImageNum'] = self.output_image_num
+        if self.pic_num is not None:
+            result['PicNum'] = self.pic_num
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PicUrlObject') is not None:
+            self.pic_url_object = m.get('PicUrlObject')
+        if m.get('ImageHeight') is not None:
+            self.image_height = m.get('ImageHeight')
+        if m.get('ImageWidth') is not None:
+            self.image_width = m.get('ImageWidth')
+        if m.get('OutputImageNum') is not None:
+            self.output_image_num = m.get('OutputImageNum')
+        if m.get('PicNum') is not None:
+            self.pic_num = m.get('PicNum')
+        return self
+
+
+class AlivisionImgdupResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: dict
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(AlivisionImgdupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
 class CreateImageAmazonTaskRequest(TeaModel):
     def __init__(self, gif=None, img_url_list=None, template_mode=None, text_list=None):
         self.gif = gif  # type: bool
@@ -312,6 +431,114 @@ class CreateImageAmazonTaskResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = CreateImageAmazonTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FaceshifterTRequest(TeaModel):
+    def __init__(self, age=None, gender=None, pic_url=None, race=None):
+        self.age = age  # type: int
+        self.gender = gender  # type: int
+        self.pic_url = pic_url  # type: str
+        self.race = race  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FaceshifterTRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.age is not None:
+            result['Age'] = self.age
+        if self.gender is not None:
+            result['Gender'] = self.gender
+        if self.pic_url is not None:
+            result['PicUrl'] = self.pic_url
+        if self.race is not None:
+            result['Race'] = self.race
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Age') is not None:
+            self.age = m.get('Age')
+        if m.get('Gender') is not None:
+            self.gender = m.get('Gender')
+        if m.get('PicUrl') is not None:
+            self.pic_url = m.get('PicUrl')
+        if m.get('Race') is not None:
+            self.race = m.get('Race')
+        return self
+
+
+class FaceshifterTAdvanceRequest(TeaModel):
+    def __init__(self, pic_url_object=None, age=None, gender=None, race=None):
+        self.pic_url_object = pic_url_object  # type: READABLE
+        self.age = age  # type: int
+        self.gender = gender  # type: int
+        self.race = race  # type: int
+
+    def validate(self):
+        self.validate_required(self.pic_url_object, 'pic_url_object')
+
+    def to_map(self):
+        _map = super(FaceshifterTAdvanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pic_url_object is not None:
+            result['PicUrlObject'] = self.pic_url_object
+        if self.age is not None:
+            result['Age'] = self.age
+        if self.gender is not None:
+            result['Gender'] = self.gender
+        if self.race is not None:
+            result['Race'] = self.race
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PicUrlObject') is not None:
+            self.pic_url_object = m.get('PicUrlObject')
+        if m.get('Age') is not None:
+            self.age = m.get('Age')
+        if m.get('Gender') is not None:
+            self.gender = m.get('Gender')
+        if m.get('Race') is not None:
+            self.race = m.get('Race')
+        return self
+
+
+class FaceshifterTResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: dict
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(FaceshifterTResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
@@ -593,6 +820,104 @@ class GetTaskStatusResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = GetTaskStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class KuajingSegRequest(TeaModel):
+    def __init__(self, pic_url=None, return_pic_format=None, return_pic_type=None):
+        self.pic_url = pic_url  # type: str
+        self.return_pic_format = return_pic_format  # type: str
+        self.return_pic_type = return_pic_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(KuajingSegRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pic_url is not None:
+            result['PicUrl'] = self.pic_url
+        if self.return_pic_format is not None:
+            result['ReturnPicFormat'] = self.return_pic_format
+        if self.return_pic_type is not None:
+            result['ReturnPicType'] = self.return_pic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PicUrl') is not None:
+            self.pic_url = m.get('PicUrl')
+        if m.get('ReturnPicFormat') is not None:
+            self.return_pic_format = m.get('ReturnPicFormat')
+        if m.get('ReturnPicType') is not None:
+            self.return_pic_type = m.get('ReturnPicType')
+        return self
+
+
+class KuajingSegAdvanceRequest(TeaModel):
+    def __init__(self, pic_url_object=None, return_pic_format=None, return_pic_type=None):
+        self.pic_url_object = pic_url_object  # type: READABLE
+        self.return_pic_format = return_pic_format  # type: str
+        self.return_pic_type = return_pic_type  # type: str
+
+    def validate(self):
+        self.validate_required(self.pic_url_object, 'pic_url_object')
+
+    def to_map(self):
+        _map = super(KuajingSegAdvanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pic_url_object is not None:
+            result['PicUrlObject'] = self.pic_url_object
+        if self.return_pic_format is not None:
+            result['ReturnPicFormat'] = self.return_pic_format
+        if self.return_pic_type is not None:
+            result['ReturnPicType'] = self.return_pic_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PicUrlObject') is not None:
+            self.pic_url_object = m.get('PicUrlObject')
+        if m.get('ReturnPicFormat') is not None:
+            self.return_pic_format = m.get('ReturnPicFormat')
+        if m.get('ReturnPicType') is not None:
+            self.return_pic_type = m.get('ReturnPicType')
+        return self
+
+
+class KuajingSegResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: dict
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(KuajingSegResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
