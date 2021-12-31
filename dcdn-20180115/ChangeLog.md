@@ -1,3 +1,6 @@
+2021-12-31 Version: 1.0.2
+- Update ErrorCode.
+
 2021-12-29 Version: 1.0.1
 - AMP version.
 
