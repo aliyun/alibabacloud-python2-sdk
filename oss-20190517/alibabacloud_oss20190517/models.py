@@ -1826,6 +1826,49 @@ class RefererConfiguration(TeaModel):
         return self
 
 
+class RegionInfo(TeaModel):
+    def __init__(self, accelerate_endpoint=None, internal_endpoint=None, internet_endpoint=None, region=None):
+        # accelerate endpoint
+        self.accelerate_endpoint = accelerate_endpoint  # type: str
+        # internal endpoint
+        self.internal_endpoint = internal_endpoint  # type: str
+        # internet endpoint
+        self.internet_endpoint = internet_endpoint  # type: str
+        # region
+        self.region = region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegionInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accelerate_endpoint is not None:
+            result['AccelerateEndpoint'] = self.accelerate_endpoint
+        if self.internal_endpoint is not None:
+            result['InternalEndpoint'] = self.internal_endpoint
+        if self.internet_endpoint is not None:
+            result['InternetEndpoint'] = self.internet_endpoint
+        if self.region is not None:
+            result['Region'] = self.region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccelerateEndpoint') is not None:
+            self.accelerate_endpoint = m.get('AccelerateEndpoint')
+        if m.get('InternalEndpoint') is not None:
+            self.internal_endpoint = m.get('InternalEndpoint')
+        if m.get('InternetEndpoint') is not None:
+            self.internet_endpoint = m.get('InternetEndpoint')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        return self
+
+
 class ReplicationConfiguration(TeaModel):
     def __init__(self, rule=None):
         self.rule = rule  # type: ReplicationRule
@@ -4024,6 +4067,95 @@ class DeleteObjectTaggingResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        return self
+
+
+class DescribeRegionsRequest(TeaModel):
+    def __init__(self, regions=None):
+        self.regions = regions  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRegionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.regions is not None:
+            result['regions'] = self.regions
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('regions') is not None:
+            self.regions = m.get('regions')
+        return self
+
+
+class DescribeRegionsResponseBody(TeaModel):
+    def __init__(self, region_infos=None):
+        self.region_infos = region_infos  # type: list[RegionInfo]
+
+    def validate(self):
+        if self.region_infos:
+            for k in self.region_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['RegionInfo'] = []
+        if self.region_infos is not None:
+            for k in self.region_infos:
+                result['RegionInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.region_infos = []
+        if m.get('RegionInfo') is not None:
+            for k in m.get('RegionInfo'):
+                temp_model = RegionInfo()
+                self.region_infos.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeRegionsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeRegionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeRegionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
