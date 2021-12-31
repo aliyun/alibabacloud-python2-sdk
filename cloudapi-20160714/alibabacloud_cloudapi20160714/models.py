@@ -16096,13 +16096,13 @@ class DescribePluginsResponseBodyPluginsPluginAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, modified_time=None, plugin_data=None, plugin_id=None,
                  plugin_name=None, plugin_type=None, region_id=None, tags=None):
         self.created_time = created_time  # type: str
-        self.description = description  # type: int
+        self.description = description  # type: str
         self.modified_time = modified_time  # type: str
         self.plugin_data = plugin_data  # type: str
         self.plugin_id = plugin_id  # type: str
         self.plugin_name = plugin_name  # type: str
         self.plugin_type = plugin_type  # type: str
-        self.region_id = region_id  # type: int
+        self.region_id = region_id  # type: str
         self.tags = tags  # type: DescribePluginsResponseBodyPluginsPluginAttributeTags
 
     def validate(self):
@@ -18543,16 +18543,23 @@ class DescribeUpdateVpcInfoTaskResponse(TeaModel):
 
 
 class DescribeVpcAccessesRequest(TeaModel):
-    def __init__(self, name=None, page_number=None, page_size=None, security_token=None, vpc_access_id=None):
+    def __init__(self, instance_id=None, name=None, page_number=None, page_size=None, port=None, security_token=None,
+                 vpc_access_id=None, vpc_id=None):
+        # 实例ID
+        self.instance_id = instance_id  # type: str
         # VPC授权名称
         self.name = name  # type: str
         # 当前页码
         self.page_number = page_number  # type: int
         # 每页展示条目
         self.page_size = page_size  # type: int
+        # 端口号
+        self.port = port  # type: str
         self.security_token = security_token  # type: str
         # Vpc授权ID
         self.vpc_access_id = vpc_access_id  # type: str
+        # Vpc ID
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         pass
@@ -18563,30 +18570,42 @@ class DescribeVpcAccessesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         if self.name is not None:
             result['Name'] = self.name
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.port is not None:
+            result['Port'] = self.port
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
         if self.vpc_access_id is not None:
             result['VpcAccessId'] = self.vpc_access_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
         if m.get('VpcAccessId') is not None:
             self.vpc_access_id = m.get('VpcAccessId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 

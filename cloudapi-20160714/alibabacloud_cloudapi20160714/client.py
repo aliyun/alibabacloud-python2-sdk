@@ -59,13 +59,16 @@ class Client(OpenApiClient):
     def abolish_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AbolishApi',
@@ -75,7 +78,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -90,13 +93,16 @@ class Client(OpenApiClient):
     def add_ip_control_policy_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['CidrIp'] = request.cidr_ip
-        query['IpControlId'] = request.ip_control_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.cidr_ip):
+            query['CidrIp'] = request.cidr_ip
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddIpControlPolicyItem',
@@ -106,7 +112,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -121,14 +127,18 @@ class Client(OpenApiClient):
     def add_traffic_special_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['SpecialKey'] = request.special_key
-        query['SpecialType'] = request.special_type
-        query['TrafficControlId'] = request.traffic_control_id
-        query['TrafficValue'] = request.traffic_value
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.special_key):
+            query['SpecialKey'] = request.special_key
+        if not UtilClient.is_unset(request.special_type):
+            query['SpecialType'] = request.special_type
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.traffic_value):
+            query['TrafficValue'] = request.traffic_value
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddTrafficSpecialControl',
@@ -138,7 +148,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -153,15 +163,20 @@ class Client(OpenApiClient):
     def attach_plugin_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['PluginId'] = request.plugin_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AttachPlugin',
@@ -171,7 +186,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -186,11 +201,12 @@ class Client(OpenApiClient):
     def batch_abolish_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Api'] = request.api
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.api):
+            query['Api'] = request.api
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='BatchAbolishApis',
@@ -200,7 +216,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -215,13 +231,16 @@ class Client(OpenApiClient):
     def batch_deploy_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Api'] = request.api
-        query['Description'] = request.description
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api):
+            query['Api'] = request.api
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='BatchDeployApis',
@@ -231,7 +250,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -246,34 +265,58 @@ class Client(OpenApiClient):
     def create_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AllowSignatureMethod'] = request.allow_signature_method
-        query['ApiName'] = request.api_name
-        query['AppCodeAuthType'] = request.app_code_auth_type
-        query['AuthType'] = request.auth_type
-        query['ConstantParameters'] = request.constant_parameters
-        query['Description'] = request.description
-        query['DisableInternet'] = request.disable_internet
-        query['ErrorCodeSamples'] = request.error_code_samples
-        query['FailResultSample'] = request.fail_result_sample
-        query['ForceNonceCheck'] = request.force_nonce_check
-        query['GroupId'] = request.group_id
-        query['OpenIdConnectConfig'] = request.open_id_connect_config
-        query['RequestConfig'] = request.request_config
-        query['RequestParameters'] = request.request_parameters
-        query['ResultBodyModel'] = request.result_body_model
-        query['ResultDescriptions'] = request.result_descriptions
-        query['ResultSample'] = request.result_sample
-        query['ResultType'] = request.result_type
-        query['SecurityToken'] = request.security_token
-        query['ServiceConfig'] = request.service_config
-        query['ServiceParameters'] = request.service_parameters
-        query['ServiceParametersMap'] = request.service_parameters_map
-        query['SystemParameters'] = request.system_parameters
-        query['Visibility'] = request.visibility
-        query['WebSocketApiType'] = request.web_socket_api_type
+        if not UtilClient.is_unset(request.allow_signature_method):
+            query['AllowSignatureMethod'] = request.allow_signature_method
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.app_code_auth_type):
+            query['AppCodeAuthType'] = request.app_code_auth_type
+        if not UtilClient.is_unset(request.auth_type):
+            query['AuthType'] = request.auth_type
+        if not UtilClient.is_unset(request.constant_parameters):
+            query['ConstantParameters'] = request.constant_parameters
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.disable_internet):
+            query['DisableInternet'] = request.disable_internet
+        if not UtilClient.is_unset(request.error_code_samples):
+            query['ErrorCodeSamples'] = request.error_code_samples
+        if not UtilClient.is_unset(request.fail_result_sample):
+            query['FailResultSample'] = request.fail_result_sample
+        if not UtilClient.is_unset(request.force_nonce_check):
+            query['ForceNonceCheck'] = request.force_nonce_check
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.open_id_connect_config):
+            query['OpenIdConnectConfig'] = request.open_id_connect_config
+        if not UtilClient.is_unset(request.request_config):
+            query['RequestConfig'] = request.request_config
+        if not UtilClient.is_unset(request.request_parameters):
+            query['RequestParameters'] = request.request_parameters
+        if not UtilClient.is_unset(request.result_body_model):
+            query['ResultBodyModel'] = request.result_body_model
+        if not UtilClient.is_unset(request.result_descriptions):
+            query['ResultDescriptions'] = request.result_descriptions
+        if not UtilClient.is_unset(request.result_sample):
+            query['ResultSample'] = request.result_sample
+        if not UtilClient.is_unset(request.result_type):
+            query['ResultType'] = request.result_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.service_config):
+            query['ServiceConfig'] = request.service_config
+        if not UtilClient.is_unset(request.service_parameters):
+            query['ServiceParameters'] = request.service_parameters
+        if not UtilClient.is_unset(request.service_parameters_map):
+            query['ServiceParametersMap'] = request.service_parameters_map
+        if not UtilClient.is_unset(request.system_parameters):
+            query['SystemParameters'] = request.system_parameters
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.web_socket_api_type):
+            query['WebSocketApiType'] = request.web_socket_api_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateApi',
@@ -283,7 +326,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -298,15 +341,20 @@ class Client(OpenApiClient):
     def create_api_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BasePath'] = request.base_path
-        query['Description'] = request.description
-        query['GroupName'] = request.group_name
-        query['InstanceId'] = request.instance_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.base_path):
+            query['BasePath'] = request.base_path
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateApiGroup',
@@ -316,7 +364,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -331,16 +379,22 @@ class Client(OpenApiClient):
     def create_api_stage_variable_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageId'] = request.stage_id
-        query['StageRouteModel'] = request.stage_route_model
-        query['SupportRoute'] = request.support_route
-        query['VariableName'] = request.variable_name
-        query['VariableValue'] = request.variable_value
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_id):
+            query['StageId'] = request.stage_id
+        if not UtilClient.is_unset(request.stage_route_model):
+            query['StageRouteModel'] = request.stage_route_model
+        if not UtilClient.is_unset(request.support_route):
+            query['SupportRoute'] = request.support_route
+        if not UtilClient.is_unset(request.variable_name):
+            query['VariableName'] = request.variable_name
+        if not UtilClient.is_unset(request.variable_value):
+            query['VariableValue'] = request.variable_value
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateApiStageVariable',
@@ -350,7 +404,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -365,14 +419,18 @@ class Client(OpenApiClient):
     def create_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppName'] = request.app_name
-        query['Description'] = request.description
-        query['SecurityToken'] = request.security_token
-        query['Source'] = request.source
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateApp',
@@ -382,7 +440,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -397,18 +455,26 @@ class Client(OpenApiClient):
     def create_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['ChargeType'] = request.charge_type
-        query['Duration'] = request.duration
-        query['HttpsPolicy'] = request.https_policy
-        query['InstanceName'] = request.instance_name
-        query['InstanceSpec'] = request.instance_spec
-        query['PricingCycle'] = request.pricing_cycle
-        query['Token'] = request.token
-        query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.https_policy):
+            query['HttpsPolicy'] = request.https_policy
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_spec):
+            query['InstanceSpec'] = request.instance_spec
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateInstance',
@@ -418,7 +484,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -433,11 +499,12 @@ class Client(OpenApiClient):
     def create_intranet_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateIntranetDomain',
@@ -447,7 +514,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -462,14 +529,18 @@ class Client(OpenApiClient):
     def create_ip_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['IpControlName'] = request.ip_control_name
-        query['IpControlPolicys'] = request.ip_control_policys
-        query['IpControlType'] = request.ip_control_type
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.ip_control_name):
+            query['IpControlName'] = request.ip_control_name
+        if not UtilClient.is_unset(request.ip_control_policys):
+            query['IpControlPolicys'] = request.ip_control_policys
+        if not UtilClient.is_unset(request.ip_control_type):
+            query['IpControlType'] = request.ip_control_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateIpControl',
@@ -479,7 +550,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -494,13 +565,16 @@ class Client(OpenApiClient):
     def create_log_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['LogType'] = request.log_type
-        query['SecurityToken'] = request.security_token
-        query['SlsLogStore'] = request.sls_log_store
-        query['SlsProject'] = request.sls_project
+        if not UtilClient.is_unset(request.log_type):
+            query['LogType'] = request.log_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sls_log_store):
+            query['SlsLogStore'] = request.sls_log_store
+        if not UtilClient.is_unset(request.sls_project):
+            query['SlsProject'] = request.sls_project
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateLogConfig',
@@ -510,7 +584,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -525,13 +599,16 @@ class Client(OpenApiClient):
     def create_model_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['ModelName'] = request.model_name
-        query['Schema'] = request.schema
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.model_name):
+            query['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateModel',
@@ -541,7 +618,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -556,13 +633,16 @@ class Client(OpenApiClient):
     def create_monitor_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Auth'] = request.auth
-        query['GroupId'] = request.group_id
-        query['RawMonitorGroupId'] = request.raw_monitor_group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.auth):
+            query['Auth'] = request.auth
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.raw_monitor_group_id):
+            query['RawMonitorGroupId'] = request.raw_monitor_group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateMonitorGroup',
@@ -572,7 +652,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -587,15 +667,20 @@ class Client(OpenApiClient):
     def create_plugin_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['PluginData'] = request.plugin_data
-        query['PluginName'] = request.plugin_name
-        query['PluginType'] = request.plugin_type
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.plugin_data):
+            query['PluginData'] = request.plugin_data
+        if not UtilClient.is_unset(request.plugin_name):
+            query['PluginName'] = request.plugin_name
+        if not UtilClient.is_unset(request.plugin_type):
+            query['PluginType'] = request.plugin_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreatePlugin',
@@ -605,7 +690,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -620,13 +705,16 @@ class Client(OpenApiClient):
     def create_signature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['SignatureKey'] = request.signature_key
-        query['SignatureName'] = request.signature_name
-        query['SignatureSecret'] = request.signature_secret
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_key):
+            query['SignatureKey'] = request.signature_key
+        if not UtilClient.is_unset(request.signature_name):
+            query['SignatureName'] = request.signature_name
+        if not UtilClient.is_unset(request.signature_secret):
+            query['SignatureSecret'] = request.signature_secret
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateSignature',
@@ -636,7 +724,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -651,16 +739,22 @@ class Client(OpenApiClient):
     def create_traffic_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiDefault'] = request.api_default
-        query['AppDefault'] = request.app_default
-        query['Description'] = request.description
-        query['SecurityToken'] = request.security_token
-        query['TrafficControlName'] = request.traffic_control_name
-        query['TrafficControlUnit'] = request.traffic_control_unit
-        query['UserDefault'] = request.user_default
+        if not UtilClient.is_unset(request.api_default):
+            query['ApiDefault'] = request.api_default
+        if not UtilClient.is_unset(request.app_default):
+            query['AppDefault'] = request.app_default
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.traffic_control_name):
+            query['TrafficControlName'] = request.traffic_control_name
+        if not UtilClient.is_unset(request.traffic_control_unit):
+            query['TrafficControlUnit'] = request.traffic_control_unit
+        if not UtilClient.is_unset(request.user_default):
+            query['UserDefault'] = request.user_default
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateTrafficControl',
@@ -670,7 +764,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -685,11 +779,12 @@ class Client(OpenApiClient):
     def delete_all_traffic_special_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteAllTrafficSpecialControl',
@@ -699,7 +794,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -714,12 +809,14 @@ class Client(OpenApiClient):
     def delete_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteApi',
@@ -729,7 +826,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -744,12 +841,14 @@ class Client(OpenApiClient):
     def delete_api_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteApiGroup',
@@ -759,7 +858,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -774,13 +873,16 @@ class Client(OpenApiClient):
     def delete_api_stage_variable_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageId'] = request.stage_id
-        query['VariableName'] = request.variable_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_id):
+            query['StageId'] = request.stage_id
+        if not UtilClient.is_unset(request.variable_name):
+            query['VariableName'] = request.variable_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteApiStageVariable',
@@ -790,7 +892,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -805,12 +907,14 @@ class Client(OpenApiClient):
     def delete_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteApp',
@@ -820,7 +924,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -835,12 +939,14 @@ class Client(OpenApiClient):
     def delete_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDomain',
@@ -850,7 +956,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -865,13 +971,16 @@ class Client(OpenApiClient):
     def delete_domain_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CertificateId'] = request.certificate_id
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.certificate_id):
+            query['CertificateId'] = request.certificate_id
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDomainCertificate',
@@ -881,7 +990,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -896,11 +1005,12 @@ class Client(OpenApiClient):
     def delete_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteInstance',
@@ -910,7 +1020,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -925,11 +1035,12 @@ class Client(OpenApiClient):
     def delete_ip_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpControlId'] = request.ip_control_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteIpControl',
@@ -939,7 +1050,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -954,11 +1065,12 @@ class Client(OpenApiClient):
     def delete_log_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['LogType'] = request.log_type
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.log_type):
+            query['LogType'] = request.log_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteLogConfig',
@@ -968,7 +1080,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -983,11 +1095,12 @@ class Client(OpenApiClient):
     def delete_model_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.model_name):
+            query['ModelName'] = request.model_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteModel',
@@ -997,7 +1110,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1012,12 +1125,14 @@ class Client(OpenApiClient):
     def delete_plugin_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PluginId'] = request.plugin_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeletePlugin',
@@ -1027,7 +1142,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1042,11 +1157,12 @@ class Client(OpenApiClient):
     def delete_signature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteSignature',
@@ -1056,7 +1172,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1071,11 +1187,12 @@ class Client(OpenApiClient):
     def delete_traffic_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteTrafficControl',
@@ -1085,7 +1202,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1100,13 +1217,16 @@ class Client(OpenApiClient):
     def delete_traffic_special_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['SpecialKey'] = request.special_key
-        query['SpecialType'] = request.special_type
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.special_key):
+            query['SpecialKey'] = request.special_key
+        if not UtilClient.is_unset(request.special_type):
+            query['SpecialType'] = request.special_type
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteTrafficSpecialControl',
@@ -1116,7 +1236,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1131,14 +1251,18 @@ class Client(OpenApiClient):
     def deploy_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeployApi',
@@ -1148,7 +1272,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1163,11 +1287,12 @@ class Client(OpenApiClient):
     def describe_abolish_api_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OperationUid'] = request.operation_uid
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.operation_uid):
+            query['OperationUid'] = request.operation_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAbolishApiTask',
@@ -1177,7 +1302,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1192,12 +1317,14 @@ class Client(OpenApiClient):
     def describe_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApi',
@@ -1207,7 +1334,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1222,13 +1349,16 @@ class Client(OpenApiClient):
     def describe_api_doc_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiDoc',
@@ -1238,7 +1368,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1253,12 +1383,14 @@ class Client(OpenApiClient):
     def describe_api_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiGroup',
@@ -1268,7 +1400,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1283,11 +1415,12 @@ class Client(OpenApiClient):
     def describe_api_group_vpc_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiGroupVpcWhitelist',
@@ -1297,7 +1430,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1312,18 +1445,26 @@ class Client(OpenApiClient):
     def describe_api_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EnableTagAuth'] = request.enable_tag_auth
-        query['GroupId'] = request.group_id
-        query['GroupName'] = request.group_name
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['Sort'] = request.sort
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.enable_tag_auth):
+            query['EnableTagAuth'] = request.enable_tag_auth
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sort):
+            query['Sort'] = request.sort
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiGroups',
@@ -1333,7 +1474,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1348,16 +1489,22 @@ class Client(OpenApiClient):
     def describe_api_histories_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiHistories',
@@ -1367,7 +1514,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1382,14 +1529,18 @@ class Client(OpenApiClient):
     def describe_api_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['HistoryVersion'] = request.history_version
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.history_version):
+            query['HistoryVersion'] = request.history_version
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiHistory',
@@ -1399,7 +1550,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1414,15 +1565,20 @@ class Client(OpenApiClient):
     def describe_api_ip_controls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiIpControls',
@@ -1432,7 +1588,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1447,15 +1603,20 @@ class Client(OpenApiClient):
     def describe_api_latency_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['EndTime'] = request.end_time
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiLatencyData',
@@ -1465,7 +1626,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1480,12 +1641,14 @@ class Client(OpenApiClient):
     def describe_api_market_attributes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiMarketAttributes',
@@ -1495,7 +1658,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1510,15 +1673,20 @@ class Client(OpenApiClient):
     def describe_api_qps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['EndTime'] = request.end_time
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiQpsData',
@@ -1528,7 +1696,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1543,15 +1711,20 @@ class Client(OpenApiClient):
     def describe_api_signatures_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiSignatures',
@@ -1561,7 +1734,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1576,15 +1749,20 @@ class Client(OpenApiClient):
     def describe_api_traffic_controls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiTrafficControls',
@@ -1594,7 +1772,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1609,15 +1787,20 @@ class Client(OpenApiClient):
     def describe_api_traffic_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['EndTime'] = request.end_time
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApiTrafficData',
@@ -1627,7 +1810,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1642,19 +1825,28 @@ class Client(OpenApiClient):
     def describe_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['CatalogId'] = request.catalog_id
-        query['EnableTagAuth'] = request.enable_tag_auth
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
-        query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.catalog_id):
+            query['CatalogId'] = request.catalog_id
+        if not UtilClient.is_unset(request.enable_tag_auth):
+            query['EnableTagAuth'] = request.enable_tag_auth
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApis',
@@ -1664,7 +1856,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1679,17 +1871,24 @@ class Client(OpenApiClient):
     def describe_apis_by_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiName'] = request.api_name
-        query['ApiUid'] = request.api_uid
-        query['AppId'] = request.app_id
-        query['Method'] = request.method
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['Path'] = request.path
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.api_uid):
+            query['ApiUid'] = request.api_uid
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.method):
+            query['Method'] = request.method
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApisByApp',
@@ -1699,7 +1898,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1714,13 +1913,16 @@ class Client(OpenApiClient):
     def describe_apis_by_ip_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpControlId'] = request.ip_control_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApisByIpControl',
@@ -1730,7 +1932,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1745,13 +1947,16 @@ class Client(OpenApiClient):
     def describe_apis_by_signature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApisBySignature',
@@ -1761,7 +1966,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1776,13 +1981,16 @@ class Client(OpenApiClient):
     def describe_apis_by_traffic_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApisByTrafficControl',
@@ -1792,7 +2000,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1807,11 +2015,12 @@ class Client(OpenApiClient):
     def describe_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApp',
@@ -1821,7 +2030,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1836,19 +2045,28 @@ class Client(OpenApiClient):
     def describe_app_attributes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppCode'] = request.app_code
-        query['AppId'] = request.app_id
-        query['AppKey'] = request.app_key
-        query['AppName'] = request.app_name
-        query['EnableTagAuth'] = request.enable_tag_auth
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['Sort'] = request.sort
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.app_code):
+            query['AppCode'] = request.app_code
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.enable_tag_auth):
+            query['EnableTagAuth'] = request.enable_tag_auth
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sort):
+            query['Sort'] = request.sort
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAppAttributes',
@@ -1858,7 +2076,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1873,12 +2091,14 @@ class Client(OpenApiClient):
     def describe_app_security_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAppSecurity',
@@ -1888,7 +2108,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1903,14 +2123,18 @@ class Client(OpenApiClient):
     def describe_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['AppOwner'] = request.app_owner
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_owner):
+            query['AppOwner'] = request.app_owner
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeApps',
@@ -1920,7 +2144,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1935,13 +2159,16 @@ class Client(OpenApiClient):
     def describe_authorized_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAuthorizedApis',
@@ -1951,7 +2178,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1966,18 +2193,26 @@ class Client(OpenApiClient):
     def describe_authorized_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['AppId'] = request.app_id
-        query['AppName'] = request.app_name
-        query['AppOwnerId'] = request.app_owner_id
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.app_owner_id):
+            query['AppOwnerId'] = request.app_owner_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeAuthorizedApps',
@@ -1987,7 +2222,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2002,11 +2237,12 @@ class Client(OpenApiClient):
     def describe_deploy_api_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OperationUid'] = request.operation_uid
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.operation_uid):
+            query['OperationUid'] = request.operation_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDeployApiTask',
@@ -2016,7 +2252,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2031,13 +2267,16 @@ class Client(OpenApiClient):
     def describe_deployed_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDeployedApi',
@@ -2047,7 +2286,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2062,18 +2301,26 @@ class Client(OpenApiClient):
     def describe_deployed_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['EnableTagAuth'] = request.enable_tag_auth
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.enable_tag_auth):
+            query['EnableTagAuth'] = request.enable_tag_auth
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDeployedApis',
@@ -2083,7 +2330,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2098,12 +2345,14 @@ class Client(OpenApiClient):
     def describe_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDomain',
@@ -2113,7 +2362,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2128,16 +2377,22 @@ class Client(OpenApiClient):
     def describe_history_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeHistoryApis',
@@ -2147,7 +2402,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2162,14 +2417,18 @@ class Client(OpenApiClient):
     def describe_ip_control_policy_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpControlId'] = request.ip_control_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['PolicyItemId'] = request.policy_item_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.policy_item_id):
+            query['PolicyItemId'] = request.policy_item_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeIpControlPolicyItems',
@@ -2179,7 +2438,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2194,15 +2453,20 @@ class Client(OpenApiClient):
     def describe_ip_controls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpControlId'] = request.ip_control_id
-        query['IpControlName'] = request.ip_control_name
-        query['IpControlType'] = request.ip_control_type
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.ip_control_name):
+            query['IpControlName'] = request.ip_control_name
+        if not UtilClient.is_unset(request.ip_control_type):
+            query['IpControlType'] = request.ip_control_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeIpControls',
@@ -2212,7 +2476,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2227,11 +2491,12 @@ class Client(OpenApiClient):
     def describe_log_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['LogType'] = request.log_type
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.log_type):
+            query['LogType'] = request.log_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeLogConfig',
@@ -2241,7 +2506,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2256,11 +2521,12 @@ class Client(OpenApiClient):
     def describe_market_remains_quota_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DomainName'] = request.domain_name
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeMarketRemainsQuota',
@@ -2270,7 +2536,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2285,14 +2551,18 @@ class Client(OpenApiClient):
     def describe_models_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['ModelId'] = request.model_id
-        query['ModelName'] = request.model_name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.model_id):
+            query['ModelId'] = request.model_id
+        if not UtilClient.is_unset(request.model_name):
+            query['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeModels',
@@ -2302,7 +2572,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2317,11 +2587,12 @@ class Client(OpenApiClient):
     def describe_plugin_schemas_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Language'] = request.language
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePluginSchemas',
@@ -2331,7 +2602,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2346,12 +2617,14 @@ class Client(OpenApiClient):
     def describe_plugin_templates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Language'] = request.language
-        query['PluginName'] = request.plugin_name
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.plugin_name):
+            query['PluginName'] = request.plugin_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePluginTemplates',
@@ -2361,7 +2634,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2376,16 +2649,22 @@ class Client(OpenApiClient):
     def describe_plugins_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['PluginId'] = request.plugin_id
-        query['PluginName'] = request.plugin_name
-        query['PluginType'] = request.plugin_type
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.plugin_name):
+            query['PluginName'] = request.plugin_name
+        if not UtilClient.is_unset(request.plugin_type):
+            query['PluginType'] = request.plugin_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePlugins',
@@ -2395,7 +2674,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2410,13 +2689,16 @@ class Client(OpenApiClient):
     def describe_plugins_by_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePluginsByApi',
@@ -2426,7 +2708,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2441,11 +2723,12 @@ class Client(OpenApiClient):
     def describe_purchased_api_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePurchasedApiGroup',
@@ -2455,7 +2738,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2470,12 +2753,14 @@ class Client(OpenApiClient):
     def describe_purchased_api_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePurchasedApiGroups',
@@ -2485,7 +2770,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2500,17 +2785,24 @@ class Client(OpenApiClient):
     def describe_purchased_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribePurchasedApis',
@@ -2520,7 +2812,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2535,11 +2827,12 @@ class Client(OpenApiClient):
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Language'] = request.language
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeRegions',
@@ -2549,7 +2842,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2564,14 +2857,18 @@ class Client(OpenApiClient):
     def describe_signatures_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
-        query['SignatureName'] = request.signature_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.signature_name):
+            query['SignatureName'] = request.signature_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeSignatures',
@@ -2581,7 +2878,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2596,13 +2893,16 @@ class Client(OpenApiClient):
     def describe_signatures_by_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeSignaturesByApi',
@@ -2612,7 +2912,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2627,10 +2927,10 @@ class Client(OpenApiClient):
     def describe_system_parameters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeSystemParameters',
@@ -2640,7 +2940,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2655,17 +2955,24 @@ class Client(OpenApiClient):
     def describe_traffic_controls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['TrafficControlId'] = request.traffic_control_id
-        query['TrafficControlName'] = request.traffic_control_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.traffic_control_name):
+            query['TrafficControlName'] = request.traffic_control_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeTrafficControls',
@@ -2675,7 +2982,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2690,13 +2997,16 @@ class Client(OpenApiClient):
     def describe_traffic_controls_by_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeTrafficControlsByApi',
@@ -2706,7 +3016,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2721,11 +3031,12 @@ class Client(OpenApiClient):
     def describe_update_vpc_info_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OperationUid'] = request.operation_uid
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.operation_uid):
+            query['OperationUid'] = request.operation_uid
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeUpdateVpcInfoTask',
@@ -2735,7 +3046,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2750,14 +3061,24 @@ class Client(OpenApiClient):
     def describe_vpc_accesses_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SecurityToken'] = request.security_token
-        query['VpcAccessId'] = request.vpc_access_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_access_id):
+            query['VpcAccessId'] = request.vpc_access_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeVpcAccesses',
@@ -2767,7 +3088,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2782,11 +3103,12 @@ class Client(OpenApiClient):
     def describe_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Language'] = request.language
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeZones',
@@ -2796,7 +3118,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2815,14 +3137,22 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.global_condition):
             request.global_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.global_condition, 'GlobalCondition', 'json')
         query = {}
-        query['DataFormat'] = request.data_format
-        query['GlobalCondition'] = request.global_condition_shrink
-        query['GroupId'] = request.group_id
-        query['Overwrite'] = request.overwrite
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.data_format):
+            query['DataFormat'] = request.data_format
+        if not UtilClient.is_unset(request.global_condition_shrink):
+            query['GlobalCondition'] = request.global_condition_shrink
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.overwrite):
+            query['Overwrite'] = request.overwrite
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        body = {}
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DryRunSwagger',
@@ -2851,15 +3181,24 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.global_condition):
             request.global_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.global_condition, 'GlobalCondition', 'json')
         query = {}
-        query['DataFormat'] = request.data_format
-        query['DryRun'] = request.dry_run
-        query['GlobalCondition'] = request.global_condition_shrink
-        query['GroupId'] = request.group_id
-        query['Overwrite'] = request.overwrite
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.data_format):
+            query['DataFormat'] = request.data_format
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.global_condition_shrink):
+            query['GlobalCondition'] = request.global_condition_shrink
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.overwrite):
+            query['Overwrite'] = request.overwrite
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        body = {}
+        if not UtilClient.is_unset(request.data):
+            body['Data'] = request.data
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ImportSwagger',
@@ -2884,13 +3223,16 @@ class Client(OpenApiClient):
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['NextToken'] = request.next_token
-        query['ResourceId'] = request.resource_id
-        query['ResourceType'] = request.resource_type
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListTagResources',
@@ -2900,7 +3242,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2915,35 +3257,60 @@ class Client(OpenApiClient):
     def modify_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AllowSignatureMethod'] = request.allow_signature_method
-        query['ApiId'] = request.api_id
-        query['ApiName'] = request.api_name
-        query['AppCodeAuthType'] = request.app_code_auth_type
-        query['AuthType'] = request.auth_type
-        query['ConstantParameters'] = request.constant_parameters
-        query['Description'] = request.description
-        query['DisableInternet'] = request.disable_internet
-        query['ErrorCodeSamples'] = request.error_code_samples
-        query['FailResultSample'] = request.fail_result_sample
-        query['ForceNonceCheck'] = request.force_nonce_check
-        query['GroupId'] = request.group_id
-        query['OpenIdConnectConfig'] = request.open_id_connect_config
-        query['RequestConfig'] = request.request_config
-        query['RequestParameters'] = request.request_parameters
-        query['ResultBodyModel'] = request.result_body_model
-        query['ResultDescriptions'] = request.result_descriptions
-        query['ResultSample'] = request.result_sample
-        query['ResultType'] = request.result_type
-        query['SecurityToken'] = request.security_token
-        query['ServiceConfig'] = request.service_config
-        query['ServiceParameters'] = request.service_parameters
-        query['ServiceParametersMap'] = request.service_parameters_map
-        query['SystemParameters'] = request.system_parameters
-        query['Visibility'] = request.visibility
-        query['WebSocketApiType'] = request.web_socket_api_type
+        if not UtilClient.is_unset(request.allow_signature_method):
+            query['AllowSignatureMethod'] = request.allow_signature_method
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_name):
+            query['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.app_code_auth_type):
+            query['AppCodeAuthType'] = request.app_code_auth_type
+        if not UtilClient.is_unset(request.auth_type):
+            query['AuthType'] = request.auth_type
+        if not UtilClient.is_unset(request.constant_parameters):
+            query['ConstantParameters'] = request.constant_parameters
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.disable_internet):
+            query['DisableInternet'] = request.disable_internet
+        if not UtilClient.is_unset(request.error_code_samples):
+            query['ErrorCodeSamples'] = request.error_code_samples
+        if not UtilClient.is_unset(request.fail_result_sample):
+            query['FailResultSample'] = request.fail_result_sample
+        if not UtilClient.is_unset(request.force_nonce_check):
+            query['ForceNonceCheck'] = request.force_nonce_check
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.open_id_connect_config):
+            query['OpenIdConnectConfig'] = request.open_id_connect_config
+        if not UtilClient.is_unset(request.request_config):
+            query['RequestConfig'] = request.request_config
+        if not UtilClient.is_unset(request.request_parameters):
+            query['RequestParameters'] = request.request_parameters
+        if not UtilClient.is_unset(request.result_body_model):
+            query['ResultBodyModel'] = request.result_body_model
+        if not UtilClient.is_unset(request.result_descriptions):
+            query['ResultDescriptions'] = request.result_descriptions
+        if not UtilClient.is_unset(request.result_sample):
+            query['ResultSample'] = request.result_sample
+        if not UtilClient.is_unset(request.result_type):
+            query['ResultType'] = request.result_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.service_config):
+            query['ServiceConfig'] = request.service_config
+        if not UtilClient.is_unset(request.service_parameters):
+            query['ServiceParameters'] = request.service_parameters
+        if not UtilClient.is_unset(request.service_parameters_map):
+            query['ServiceParametersMap'] = request.service_parameters_map
+        if not UtilClient.is_unset(request.system_parameters):
+            query['SystemParameters'] = request.system_parameters
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.web_socket_api_type):
+            query['WebSocketApiType'] = request.web_socket_api_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyApi',
@@ -2953,7 +3320,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2968,22 +3335,34 @@ class Client(OpenApiClient):
     def modify_api_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BasePath'] = request.base_path
-        query['CompatibleFlags'] = request.compatible_flags
-        query['CustomTraceConfig'] = request.custom_trace_config
-        query['CustomerConfigs'] = request.customer_configs
-        query['DefaultDomain'] = request.default_domain
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['GroupName'] = request.group_name
-        query['PassthroughHeaders'] = request.passthrough_headers
-        query['RpcPattern'] = request.rpc_pattern
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
-        query['UserLogConfig'] = request.user_log_config
+        if not UtilClient.is_unset(request.base_path):
+            query['BasePath'] = request.base_path
+        if not UtilClient.is_unset(request.compatible_flags):
+            query['CompatibleFlags'] = request.compatible_flags
+        if not UtilClient.is_unset(request.custom_trace_config):
+            query['CustomTraceConfig'] = request.custom_trace_config
+        if not UtilClient.is_unset(request.customer_configs):
+            query['CustomerConfigs'] = request.customer_configs
+        if not UtilClient.is_unset(request.default_domain):
+            query['DefaultDomain'] = request.default_domain
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.passthrough_headers):
+            query['PassthroughHeaders'] = request.passthrough_headers
+        if not UtilClient.is_unset(request.rpc_pattern):
+            query['RpcPattern'] = request.rpc_pattern
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.user_log_config):
+            query['UserLogConfig'] = request.user_log_config
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyApiGroup',
@@ -2993,7 +3372,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3008,12 +3387,14 @@ class Client(OpenApiClient):
     def modify_api_group_vpc_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['VpcIds'] = request.vpc_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_ids):
+            query['VpcIds'] = request.vpc_ids
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyApiGroupVpcWhitelist',
@@ -3023,7 +3404,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3038,14 +3419,18 @@ class Client(OpenApiClient):
     def modify_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['AppName'] = request.app_name
-        query['Description'] = request.description
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyApp',
@@ -3055,7 +3440,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3070,13 +3455,16 @@ class Client(OpenApiClient):
     def modify_instance_spec_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['InstanceId'] = request.instance_id
-        query['InstanceSpec'] = request.instance_spec
-        query['Token'] = request.token
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_spec):
+            query['InstanceSpec'] = request.instance_spec
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyInstanceSpec',
@@ -3086,7 +3474,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3101,13 +3489,16 @@ class Client(OpenApiClient):
     def modify_ip_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['IpControlId'] = request.ip_control_id
-        query['IpControlName'] = request.ip_control_name
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.ip_control_name):
+            query['IpControlName'] = request.ip_control_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyIpControl',
@@ -3117,7 +3508,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3132,14 +3523,18 @@ class Client(OpenApiClient):
     def modify_ip_control_policy_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['CidrIp'] = request.cidr_ip
-        query['IpControlId'] = request.ip_control_id
-        query['PolicyItemId'] = request.policy_item_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.cidr_ip):
+            query['CidrIp'] = request.cidr_ip
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.policy_item_id):
+            query['PolicyItemId'] = request.policy_item_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyIpControlPolicyItem',
@@ -3149,7 +3544,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3164,13 +3559,16 @@ class Client(OpenApiClient):
     def modify_log_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['LogType'] = request.log_type
-        query['SecurityToken'] = request.security_token
-        query['SlsLogStore'] = request.sls_log_store
-        query['SlsProject'] = request.sls_project
+        if not UtilClient.is_unset(request.log_type):
+            query['LogType'] = request.log_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.sls_log_store):
+            query['SlsLogStore'] = request.sls_log_store
+        if not UtilClient.is_unset(request.sls_project):
+            query['SlsProject'] = request.sls_project
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyLogConfig',
@@ -3180,7 +3578,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3195,14 +3593,18 @@ class Client(OpenApiClient):
     def modify_model_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['ModelName'] = request.model_name
-        query['NewModelName'] = request.new_model_name
-        query['Schema'] = request.schema
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.model_name):
+            query['ModelName'] = request.model_name
+        if not UtilClient.is_unset(request.new_model_name):
+            query['NewModelName'] = request.new_model_name
+        if not UtilClient.is_unset(request.schema):
+            query['Schema'] = request.schema
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyModel',
@@ -3212,7 +3614,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3227,15 +3629,20 @@ class Client(OpenApiClient):
     def modify_plugin_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['PluginData'] = request.plugin_data
-        query['PluginId'] = request.plugin_id
-        query['PluginName'] = request.plugin_name
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.plugin_data):
+            query['PluginData'] = request.plugin_data
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.plugin_name):
+            query['PluginName'] = request.plugin_name
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyPlugin',
@@ -3245,7 +3652,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3260,14 +3667,18 @@ class Client(OpenApiClient):
     def modify_signature_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
-        query['SignatureKey'] = request.signature_key
-        query['SignatureName'] = request.signature_name
-        query['SignatureSecret'] = request.signature_secret
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.signature_key):
+            query['SignatureKey'] = request.signature_key
+        if not UtilClient.is_unset(request.signature_name):
+            query['SignatureName'] = request.signature_name
+        if not UtilClient.is_unset(request.signature_secret):
+            query['SignatureSecret'] = request.signature_secret
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifySignature',
@@ -3277,7 +3688,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3292,17 +3703,24 @@ class Client(OpenApiClient):
     def modify_traffic_control_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiDefault'] = request.api_default
-        query['AppDefault'] = request.app_default
-        query['Description'] = request.description
-        query['SecurityToken'] = request.security_token
-        query['TrafficControlId'] = request.traffic_control_id
-        query['TrafficControlName'] = request.traffic_control_name
-        query['TrafficControlUnit'] = request.traffic_control_unit
-        query['UserDefault'] = request.user_default
+        if not UtilClient.is_unset(request.api_default):
+            query['ApiDefault'] = request.api_default
+        if not UtilClient.is_unset(request.app_default):
+            query['AppDefault'] = request.app_default
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.traffic_control_name):
+            query['TrafficControlName'] = request.traffic_control_name
+        if not UtilClient.is_unset(request.traffic_control_unit):
+            query['TrafficControlUnit'] = request.traffic_control_unit
+        if not UtilClient.is_unset(request.user_default):
+            query['UserDefault'] = request.user_default
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyTrafficControl',
@@ -3312,7 +3730,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3334,7 +3752,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3349,12 +3767,14 @@ class Client(OpenApiClient):
     def reactivate_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ReactivateDomain',
@@ -3364,7 +3784,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3379,15 +3799,20 @@ class Client(OpenApiClient):
     def remove_apis_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['AppId'] = request.app_id
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveApisAuthorities',
@@ -3397,7 +3822,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3412,14 +3837,18 @@ class Client(OpenApiClient):
     def remove_apps_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['AppIds'] = request.app_ids
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.app_ids):
+            query['AppIds'] = request.app_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveAppsAuthorities',
@@ -3429,7 +3858,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3444,14 +3873,18 @@ class Client(OpenApiClient):
     def remove_ip_control_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['IpControlId'] = request.ip_control_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveIpControlApis',
@@ -3461,7 +3894,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3476,12 +3909,14 @@ class Client(OpenApiClient):
     def remove_ip_control_policy_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpControlId'] = request.ip_control_id
-        query['PolicyItemIds'] = request.policy_item_ids
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.policy_item_ids):
+            query['PolicyItemIds'] = request.policy_item_ids
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveIpControlPolicyItem',
@@ -3491,7 +3926,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3506,14 +3941,18 @@ class Client(OpenApiClient):
     def remove_signature_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveSignatureApis',
@@ -3523,7 +3962,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3538,14 +3977,18 @@ class Client(OpenApiClient):
     def remove_traffic_control_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveTrafficControlApis',
@@ -3555,7 +3998,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3570,14 +4013,18 @@ class Client(OpenApiClient):
     def remove_vpc_access_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NeedBatchWork'] = request.need_batch_work
-        query['Port'] = request.port
-        query['SecurityToken'] = request.security_token
-        query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.need_batch_work):
+            query['NeedBatchWork'] = request.need_batch_work
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveVpcAccess',
@@ -3587,7 +4034,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3602,14 +4049,18 @@ class Client(OpenApiClient):
     def remove_vpc_access_and_abolish_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NeedBatchWork'] = request.need_batch_work
-        query['Port'] = request.port
-        query['SecurityToken'] = request.security_token
-        query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.need_batch_work):
+            query['NeedBatchWork'] = request.need_batch_work
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveVpcAccessAndAbolishApis',
@@ -3619,7 +4070,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3634,11 +4085,12 @@ class Client(OpenApiClient):
     def reset_app_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppCode'] = request.app_code
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_code):
+            query['AppCode'] = request.app_code
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ResetAppCode',
@@ -3648,7 +4100,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3663,11 +4115,12 @@ class Client(OpenApiClient):
     def reset_app_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppKey'] = request.app_key
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ResetAppSecret',
@@ -3677,7 +4130,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3692,12 +4145,14 @@ class Client(OpenApiClient):
     def sdk_generate_by_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['Language'] = request.language
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SdkGenerateByApp',
@@ -3707,7 +4162,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3722,12 +4177,14 @@ class Client(OpenApiClient):
     def sdk_generate_by_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GroupId'] = request.group_id
-        query['Language'] = request.language
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SdkGenerateByGroup',
@@ -3737,7 +4194,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3752,16 +4209,22 @@ class Client(OpenApiClient):
     def set_apis_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['AppId'] = request.app_id
-        query['AuthValidTime'] = request.auth_valid_time
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.auth_valid_time):
+            query['AuthValidTime'] = request.auth_valid_time
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetApisAuthorities',
@@ -3771,7 +4234,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3786,16 +4249,22 @@ class Client(OpenApiClient):
     def set_apps_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['AppIds'] = request.app_ids
-        query['AuthValidTime'] = request.auth_valid_time
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.app_ids):
+            query['AppIds'] = request.app_ids
+        if not UtilClient.is_unset(request.auth_valid_time):
+            query['AuthValidTime'] = request.auth_valid_time
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetAppsAuthorities',
@@ -3805,7 +4274,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3820,14 +4289,18 @@ class Client(OpenApiClient):
     def set_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BindStageName'] = request.bind_stage_name
-        query['CustomDomainType'] = request.custom_domain_type
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['IsForce'] = request.is_force
+        if not UtilClient.is_unset(request.bind_stage_name):
+            query['BindStageName'] = request.bind_stage_name
+        if not UtilClient.is_unset(request.custom_domain_type):
+            query['CustomDomainType'] = request.custom_domain_type
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.is_force):
+            query['IsForce'] = request.is_force
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetDomain',
@@ -3837,7 +4310,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3852,16 +4325,22 @@ class Client(OpenApiClient):
     def set_domain_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CaCertificateBody'] = request.ca_certificate_body
-        query['CertificateBody'] = request.certificate_body
-        query['CertificateName'] = request.certificate_name
-        query['CertificatePrivateKey'] = request.certificate_private_key
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.ca_certificate_body):
+            query['CaCertificateBody'] = request.ca_certificate_body
+        if not UtilClient.is_unset(request.certificate_body):
+            query['CertificateBody'] = request.certificate_body
+        if not UtilClient.is_unset(request.certificate_name):
+            query['CertificateName'] = request.certificate_name
+        if not UtilClient.is_unset(request.certificate_private_key):
+            query['CertificatePrivateKey'] = request.certificate_private_key
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetDomainCertificate',
@@ -3871,7 +4350,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3886,13 +4365,16 @@ class Client(OpenApiClient):
     def set_domain_web_socket_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ActionValue'] = request.action_value
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.action_value):
+            query['ActionValue'] = request.action_value
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetDomainWebSocketStatus',
@@ -3902,7 +4384,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3917,14 +4399,18 @@ class Client(OpenApiClient):
     def set_ip_control_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['IpControlId'] = request.ip_control_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.ip_control_id):
+            query['IpControlId'] = request.ip_control_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetIpControlApis',
@@ -3934,7 +4420,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3949,14 +4435,18 @@ class Client(OpenApiClient):
     def set_signature_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['SignatureId'] = request.signature_id
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetSignatureApis',
@@ -3966,7 +4456,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3981,14 +4471,18 @@ class Client(OpenApiClient):
     def set_traffic_control_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiIds'] = request.api_ids
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
-        query['TrafficControlId'] = request.traffic_control_id
+        if not UtilClient.is_unset(request.api_ids):
+            query['ApiIds'] = request.api_ids
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.traffic_control_id):
+            query['TrafficControlId'] = request.traffic_control_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetTrafficControlApis',
@@ -3998,7 +4492,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4013,15 +4507,20 @@ class Client(OpenApiClient):
     def set_vpc_access_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['InstanceId'] = request.instance_id
-        query['Name'] = request.name
-        query['Port'] = request.port
-        query['SecurityToken'] = request.security_token
-        query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetVpcAccess',
@@ -4031,7 +4530,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4046,13 +4545,16 @@ class Client(OpenApiClient):
     def set_wildcard_domain_patterns_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DomainName'] = request.domain_name
-        query['GroupId'] = request.group_id
-        query['SecurityToken'] = request.security_token
-        query['WildcardDomainPatterns'] = request.wildcard_domain_patterns
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.wildcard_domain_patterns):
+            query['WildcardDomainPatterns'] = request.wildcard_domain_patterns
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetWildcardDomainPatterns',
@@ -4062,7 +4564,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4077,15 +4579,20 @@ class Client(OpenApiClient):
     def switch_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApiId'] = request.api_id
-        query['Description'] = request.description
-        query['GroupId'] = request.group_id
-        query['HistoryVersion'] = request.history_version
-        query['SecurityToken'] = request.security_token
-        query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.history_version):
+            query['HistoryVersion'] = request.history_version
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SwitchApi',
@@ -4095,7 +4602,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4110,13 +4617,16 @@ class Client(OpenApiClient):
     def tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ResourceId'] = request.resource_id
-        query['ResourceType'] = request.resource_type
-        query['SecurityToken'] = request.security_token
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='TagResources',
@@ -4126,7 +4636,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4141,14 +4651,18 @@ class Client(OpenApiClient):
     def untag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['All'] = request.all
-        query['ResourceId'] = request.resource_id
-        query['ResourceType'] = request.resource_type
-        query['SecurityToken'] = request.security_token
-        query['TagKey'] = request.tag_key
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UntagResources',
@@ -4158,7 +4672,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
