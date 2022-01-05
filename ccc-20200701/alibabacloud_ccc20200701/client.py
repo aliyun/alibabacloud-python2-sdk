@@ -57,8 +57,10 @@ class Client(OpenApiClient):
     def abort_campaign_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -85,9 +87,12 @@ class Client(OpenApiClient):
     def add_numbers_to_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NumberList'] = request.number_list
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -114,9 +119,12 @@ class Client(OpenApiClient):
     def add_personal_numbers_to_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NumberList'] = request.number_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -143,9 +151,12 @@ class Client(OpenApiClient):
     def add_phone_number_to_skill_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Number'] = request.number
-        query['SkillGroupIdList'] = request.skill_group_id_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        if not UtilClient.is_unset(request.skill_group_id_list):
+            query['SkillGroupIdList'] = request.skill_group_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -172,11 +183,16 @@ class Client(OpenApiClient):
     def add_phone_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactFlowId'] = request.contact_flow_id
-        query['InstanceId'] = request.instance_id
-        query['NumberGroupId'] = request.number_group_id
-        query['NumberList'] = request.number_list
-        query['Usage'] = request.usage
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_group_id):
+            query['NumberGroupId'] = request.number_group_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.usage):
+            query['Usage'] = request.usage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -203,9 +219,12 @@ class Client(OpenApiClient):
     def add_skill_groups_to_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillLevelList'] = request.skill_level_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_level_list):
+            query['SkillLevelList'] = request.skill_level_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -232,9 +251,12 @@ class Client(OpenApiClient):
     def add_users_to_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupId'] = request.skill_group_id
-        query['UserSkillLevelList'] = request.user_skill_level_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.user_skill_level_list):
+            query['UserSkillLevelList'] = request.user_skill_level_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -261,10 +283,14 @@ class Client(OpenApiClient):
     def answer_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -291,11 +317,16 @@ class Client(OpenApiClient):
     def assign_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['RamIdList'] = request.ram_id_list
-        query['RoleId'] = request.role_id
-        query['SkillLevelList'] = request.skill_level_list
-        query['WorkMode'] = request.work_mode
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.ram_id_list):
+            query['RamIdList'] = request.ram_id_list
+        if not UtilClient.is_unset(request.role_id):
+            query['RoleId'] = request.role_id
+        if not UtilClient.is_unset(request.skill_level_list):
+            query['SkillLevelList'] = request.skill_level_list
+        if not UtilClient.is_unset(request.work_mode):
+            query['WorkMode'] = request.work_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -322,12 +353,18 @@ class Client(OpenApiClient):
     def barge_in_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BargedUserId'] = request.barged_user_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.barged_user_id):
+            query['BargedUserId'] = request.barged_user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -354,13 +391,20 @@ class Client(OpenApiClient):
     def blind_transfer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['Transferee'] = request.transferee
-        query['Transferor'] = request.transferor
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.transferee):
+            query['Transferee'] = request.transferee
+        if not UtilClient.is_unset(request.transferor):
+            query['Transferor'] = request.transferor
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -387,10 +431,14 @@ class Client(OpenApiClient):
     def cancel_attended_transfer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -417,10 +465,14 @@ class Client(OpenApiClient):
     def change_work_mode_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
-        query['WorkMode'] = request.work_mode
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.work_mode):
+            query['WorkMode'] = request.work_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -447,12 +499,18 @@ class Client(OpenApiClient):
     def coach_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CoachedUserId'] = request.coached_user_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.coached_user_id):
+            query['CoachedUserId'] = request.coached_user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -479,10 +537,14 @@ class Client(OpenApiClient):
     def complete_attended_transfer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -513,21 +575,36 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.case_list):
             request.case_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.case_list, 'CaseList', 'json')
         query = {}
-        query['CallableTime'] = request.callable_time
-        query['CaseFileKey'] = request.case_file_key
-        query['CaseList'] = request.case_list_shrink
-        query['ContactFlowId'] = request.contact_flow_id
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['MaxAttemptCount'] = request.max_attempt_count
-        query['MinAttemptInterval'] = request.min_attempt_interval
-        query['Name'] = request.name
-        query['QueueId'] = request.queue_id
-        query['Simulation'] = request.simulation
-        query['SimulationParameters'] = request.simulation_parameters
-        query['StartTime'] = request.start_time
-        query['StrategyParameters'] = request.strategy_parameters
-        query['StrategyType'] = request.strategy_type
+        if not UtilClient.is_unset(request.callable_time):
+            query['CallableTime'] = request.callable_time
+        if not UtilClient.is_unset(request.case_file_key):
+            query['CaseFileKey'] = request.case_file_key
+        if not UtilClient.is_unset(request.case_list_shrink):
+            query['CaseList'] = request.case_list_shrink
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.max_attempt_count):
+            query['MaxAttemptCount'] = request.max_attempt_count
+        if not UtilClient.is_unset(request.min_attempt_interval):
+            query['MinAttemptInterval'] = request.min_attempt_interval
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.simulation):
+            query['Simulation'] = request.simulation
+        if not UtilClient.is_unset(request.simulation_parameters):
+            query['SimulationParameters'] = request.simulation_parameters
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.strategy_parameters):
+            query['StrategyParameters'] = request.strategy_parameters
+        if not UtilClient.is_unset(request.strategy_type):
+            query['StrategyType'] = request.strategy_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -554,11 +631,16 @@ class Client(OpenApiClient):
     def create_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AdminRamIdList'] = request.admin_ram_id_list
-        query['Description'] = request.description
-        query['DomainName'] = request.domain_name
-        query['Name'] = request.name
-        query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.admin_ram_id_list):
+            query['AdminRamIdList'] = request.admin_ram_id_list
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -585,10 +667,14 @@ class Client(OpenApiClient):
     def create_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['DisplayName'] = request.display_name
-        query['InstanceId'] = request.instance_id
-        query['Name'] = request.name
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -615,15 +701,24 @@ class Client(OpenApiClient):
     def create_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DisplayName'] = request.display_name
-        query['Email'] = request.email
-        query['InstanceId'] = request.instance_id
-        query['LoginName'] = request.login_name
-        query['Mobile'] = request.mobile
-        query['ResetPassword'] = request.reset_password
-        query['RoleId'] = request.role_id
-        query['SkillLevelList'] = request.skill_level_list
-        query['WorkMode'] = request.work_mode
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.login_name):
+            query['LoginName'] = request.login_name
+        if not UtilClient.is_unset(request.mobile):
+            query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.reset_password):
+            query['ResetPassword'] = request.reset_password
+        if not UtilClient.is_unset(request.role_id):
+            query['RoleId'] = request.role_id
+        if not UtilClient.is_unset(request.skill_level_list):
+            query['SkillLevelList'] = request.skill_level_list
+        if not UtilClient.is_unset(request.work_mode):
+            query['WorkMode'] = request.work_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -650,9 +745,12 @@ class Client(OpenApiClient):
     def delete_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Force'] = request.force
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -679,8 +777,10 @@ class Client(OpenApiClient):
     def get_call_detail_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactId'] = request.contact_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -707,8 +807,10 @@ class Client(OpenApiClient):
     def get_campaign_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -735,10 +837,14 @@ class Client(OpenApiClient):
     def get_historical_caller_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallingNumber'] = request.calling_number
-        query['InstanceId'] = request.instance_id
-        query['StartTime'] = request.start_time
-        query['StopTime'] = request.stop_time
+        if not UtilClient.is_unset(request.calling_number):
+            query['CallingNumber'] = request.calling_number
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.stop_time):
+            query['StopTime'] = request.stop_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -765,9 +871,12 @@ class Client(OpenApiClient):
     def get_historical_instance_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -794,7 +903,8 @@ class Client(OpenApiClient):
     def get_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -821,9 +931,12 @@ class Client(OpenApiClient):
     def get_instance_trending_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -850,8 +963,10 @@ class Client(OpenApiClient):
     def get_login_details_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -878,8 +993,10 @@ class Client(OpenApiClient):
     def get_mono_recording_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactId'] = request.contact_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -906,8 +1023,10 @@ class Client(OpenApiClient):
     def get_multi_channel_recording_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactId'] = request.contact_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -934,8 +1053,10 @@ class Client(OpenApiClient):
     def get_number_location_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Number'] = request.number
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -962,7 +1083,8 @@ class Client(OpenApiClient):
     def get_realtime_instance_states_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -989,8 +1111,10 @@ class Client(OpenApiClient):
     def get_turn_credentials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1017,7 +1141,8 @@ class Client(OpenApiClient):
     def get_turn_server_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1044,9 +1169,12 @@ class Client(OpenApiClient):
     def get_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Extension'] = request.extension
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.extension):
+            query['Extension'] = request.extension
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1073,12 +1201,18 @@ class Client(OpenApiClient):
     def hold_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['Music'] = request.music
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.music):
+            query['Music'] = request.music
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1105,13 +1239,20 @@ class Client(OpenApiClient):
     def initiate_attended_transfer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['Transferee'] = request.transferee
-        query['Transferor'] = request.transferor
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.transferee):
+            query['Transferee'] = request.transferee
+        if not UtilClient.is_unset(request.transferor):
+            query['Transferor'] = request.transferor
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1138,12 +1279,18 @@ class Client(OpenApiClient):
     def intercept_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['InterceptedUserId'] = request.intercepted_user_id
-        query['JobId'] = request.job_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.intercepted_user_id):
+            query['InterceptedUserId'] = request.intercepted_user_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1170,11 +1317,16 @@ class Client(OpenApiClient):
     def launch_authentication_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactFlowId'] = request.contact_flow_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1201,11 +1353,16 @@ class Client(OpenApiClient):
     def launch_survey_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactFlowId'] = request.contact_flow_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1232,10 +1389,14 @@ class Client(OpenApiClient):
     def list_agent_state_logs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AgentId'] = request.agent_id
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.agent_id):
+            query['AgentId'] = request.agent_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1288,10 +1449,14 @@ class Client(OpenApiClient):
     def list_brief_skill_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1318,25 +1483,44 @@ class Client(OpenApiClient):
     def list_call_detail_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AgentId'] = request.agent_id
-        query['CalledNumber'] = request.called_number
-        query['CallingNumber'] = request.calling_number
-        query['ContactDisposition'] = request.contact_disposition
-        query['ContactId'] = request.contact_id
-        query['ContactType'] = request.contact_type
-        query['Criteria'] = request.criteria
-        query['EarlyMediaStateList'] = request.early_media_state_list
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['OrderByField'] = request.order_by_field
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SatisfactionDescriptionList'] = request.satisfaction_description_list
-        query['SatisfactionList'] = request.satisfaction_list
-        query['SatisfactionSurveyChannel'] = request.satisfaction_survey_channel
-        query['SkillGroupId'] = request.skill_group_id
-        query['SortOrder'] = request.sort_order
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.agent_id):
+            query['AgentId'] = request.agent_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.calling_number):
+            query['CallingNumber'] = request.calling_number
+        if not UtilClient.is_unset(request.contact_disposition):
+            query['ContactDisposition'] = request.contact_disposition
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.contact_type):
+            query['ContactType'] = request.contact_type
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.early_media_state_list):
+            query['EarlyMediaStateList'] = request.early_media_state_list
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.order_by_field):
+            query['OrderByField'] = request.order_by_field
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.satisfaction_description_list):
+            query['SatisfactionDescriptionList'] = request.satisfaction_description_list
+        if not UtilClient.is_unset(request.satisfaction_list):
+            query['SatisfactionList'] = request.satisfaction_list
+        if not UtilClient.is_unset(request.satisfaction_survey_channel):
+            query['SatisfactionSurveyChannel'] = request.satisfaction_survey_channel
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.sort_order):
+            query['SortOrder'] = request.sort_order
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1389,16 +1573,26 @@ class Client(OpenApiClient):
     def list_campaigns_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ActualStartTimeFrom'] = request.actual_start_time_from
-        query['ActualStartTimeTo'] = request.actual_start_time_to
-        query['InstanceId'] = request.instance_id
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['PlanedStartTimeFrom'] = request.planed_start_time_from
-        query['PlanedStartTimeTo'] = request.planed_start_time_to
-        query['QueueId'] = request.queue_id
-        query['State'] = request.state
+        if not UtilClient.is_unset(request.actual_start_time_from):
+            query['ActualStartTimeFrom'] = request.actual_start_time_from
+        if not UtilClient.is_unset(request.actual_start_time_to):
+            query['ActualStartTimeTo'] = request.actual_start_time_to
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.planed_start_time_from):
+            query['PlanedStartTimeFrom'] = request.planed_start_time_from
+        if not UtilClient.is_unset(request.planed_start_time_to):
+            query['PlanedStartTimeTo'] = request.planed_start_time_to
+        if not UtilClient.is_unset(request.queue_id):
+            query['QueueId'] = request.queue_id
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1425,11 +1619,16 @@ class Client(OpenApiClient):
     def list_cases_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1456,9 +1655,12 @@ class Client(OpenApiClient):
     def list_config_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['ObjectId'] = request.object_id
-        query['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.object_id):
+            query['ObjectId'] = request.object_id
+        if not UtilClient.is_unset(request.object_type):
+            query['ObjectType'] = request.object_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1485,10 +1687,14 @@ class Client(OpenApiClient):
     def list_contact_flows_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1515,8 +1721,10 @@ class Client(OpenApiClient):
     def list_devices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1543,11 +1751,16 @@ class Client(OpenApiClient):
     def list_historical_agent_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['StopTime'] = request.stop_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.stop_time):
+            query['StopTime'] = request.stop_time
         body = {}
         if not UtilClient.is_unset(request.agent_id_list):
             body['AgentIdList'] = request.agent_id_list
@@ -1578,11 +1791,16 @@ class Client(OpenApiClient):
     def list_historical_skill_group_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         body = {}
         if not UtilClient.is_unset(request.skill_group_id_list):
             body['SkillGroupIdList'] = request.skill_group_id_list
@@ -1613,8 +1831,10 @@ class Client(OpenApiClient):
     def list_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1641,8 +1861,10 @@ class Client(OpenApiClient):
     def list_instances_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1669,11 +1891,16 @@ class Client(OpenApiClient):
     def list_interval_agent_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AgentId'] = request.agent_id
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['Interval'] = request.interval
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.agent_id):
+            query['AgentId'] = request.agent_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1700,10 +1927,14 @@ class Client(OpenApiClient):
     def list_interval_instance_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['Interval'] = request.interval
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1730,11 +1961,16 @@ class Client(OpenApiClient):
     def list_interval_skill_group_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['Interval'] = request.interval
-        query['SkillGroupId'] = request.skill_group_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1761,10 +1997,14 @@ class Client(OpenApiClient):
     def list_ivr_tracking_details_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactId'] = request.contact_id
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1791,11 +2031,16 @@ class Client(OpenApiClient):
     def list_outbound_numbers_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SkillGroupIdList'] = request.skill_group_id_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.skill_group_id_list):
+            query['SkillGroupIdList'] = request.skill_group_id_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1822,12 +2067,18 @@ class Client(OpenApiClient):
     def list_personal_numbers_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['IsMember'] = request.is_member
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.is_member):
+            query['IsMember'] = request.is_member
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1854,12 +2105,18 @@ class Client(OpenApiClient):
     def list_phone_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Active'] = request.active
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
-        query['Usage'] = request.usage
+        if not UtilClient.is_unset(request.active):
+            query['Active'] = request.active
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.usage):
+            query['Usage'] = request.usage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1886,13 +2143,20 @@ class Client(OpenApiClient):
     def list_phone_numbers_of_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Active'] = request.active
-        query['InstanceId'] = request.instance_id
-        query['IsMember'] = request.is_member
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.active):
+            query['Active'] = request.active
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.is_member):
+            query['IsMember'] = request.is_member
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1919,7 +2183,8 @@ class Client(OpenApiClient):
     def list_privileges_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1946,10 +2211,14 @@ class Client(OpenApiClient):
     def list_ram_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1976,11 +2245,16 @@ class Client(OpenApiClient):
     def list_realtime_agent_states_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AgentName'] = request.agent_name
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.agent_name):
+            query['AgentName'] = request.agent_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         body = {}
         if not UtilClient.is_unset(request.agent_id_list):
             body['AgentIdList'] = request.agent_id_list
@@ -2013,9 +2287,12 @@ class Client(OpenApiClient):
     def list_realtime_skill_group_states_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         body = {}
         if not UtilClient.is_unset(request.skill_group_id_list):
             body['SkillGroupIdList'] = request.skill_group_id_list
@@ -2046,11 +2323,16 @@ class Client(OpenApiClient):
     def list_recent_call_detail_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Criteria'] = request.criteria
-        query['EndTime'] = request.end_time
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         body = {}
         if not UtilClient.is_unset(request.start_time):
             body['StartTime'] = request.start_time
@@ -2081,7 +2363,8 @@ class Client(OpenApiClient):
     def list_roles_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2108,8 +2391,10 @@ class Client(OpenApiClient):
     def list_sip_call_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactIdList'] = request.contact_id_list
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.contact_id_list):
+            query['ContactIdList'] = request.contact_id_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2136,8 +2421,10 @@ class Client(OpenApiClient):
     def list_sip_traces_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2164,10 +2451,14 @@ class Client(OpenApiClient):
     def list_skill_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2194,12 +2485,18 @@ class Client(OpenApiClient):
     def list_skill_levels_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['IsMember'] = request.is_member
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.is_member):
+            query['IsMember'] = request.is_member
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2226,10 +2523,14 @@ class Client(OpenApiClient):
     def list_unassigned_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2256,12 +2557,18 @@ class Client(OpenApiClient):
     def list_user_levels_of_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['IsMember'] = request.is_member
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.is_member):
+            query['IsMember'] = request.is_member
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2288,10 +2595,14 @@ class Client(OpenApiClient):
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['SearchPattern'] = request.search_pattern
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2318,14 +2629,22 @@ class Client(OpenApiClient):
     def make_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Callee'] = request.callee
-        query['Caller'] = request.caller
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['MaskedCallee'] = request.masked_callee
-        query['Tags'] = request.tags
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.callee):
+            query['Callee'] = request.callee
+        if not UtilClient.is_unset(request.caller):
+            query['Caller'] = request.caller
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.masked_callee):
+            query['MaskedCallee'] = request.masked_callee
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2352,8 +2671,10 @@ class Client(OpenApiClient):
     def modify_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2380,10 +2701,14 @@ class Client(OpenApiClient):
     def modify_phone_number_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ContactFlowId'] = request.contact_flow_id
-        query['InstanceId'] = request.instance_id
-        query['Number'] = request.number
-        query['Usage'] = request.usage
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        if not UtilClient.is_unset(request.usage):
+            query['Usage'] = request.usage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2410,10 +2735,14 @@ class Client(OpenApiClient):
     def modify_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['DisplayName'] = request.display_name
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2440,9 +2769,12 @@ class Client(OpenApiClient):
     def modify_skill_levels_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillLevelList'] = request.skill_level_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_level_list):
+            query['SkillLevelList'] = request.skill_level_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2469,11 +2801,16 @@ class Client(OpenApiClient):
     def modify_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Mobile'] = request.mobile
-        query['RoleId'] = request.role_id
-        query['UserId'] = request.user_id
-        query['WorkMode'] = request.work_mode
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.mobile):
+            query['Mobile'] = request.mobile
+        if not UtilClient.is_unset(request.role_id):
+            query['RoleId'] = request.role_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.work_mode):
+            query['WorkMode'] = request.work_mode
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2500,9 +2837,12 @@ class Client(OpenApiClient):
     def modify_user_levels_of_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupId'] = request.skill_group_id
-        query['UserLevelList'] = request.user_level_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.user_level_list):
+            query['UserLevelList'] = request.user_level_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2529,11 +2869,16 @@ class Client(OpenApiClient):
     def monitor_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['MonitoredUserId'] = request.monitored_user_id
-        query['TimeoutSeconds'] = request.timeout_seconds
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.monitored_user_id):
+            query['MonitoredUserId'] = request.monitored_user_id
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2560,11 +2905,16 @@ class Client(OpenApiClient):
     def mute_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2591,8 +2941,10 @@ class Client(OpenApiClient):
     def pause_campaign_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2619,10 +2971,14 @@ class Client(OpenApiClient):
     def pick_outbound_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNumber'] = request.called_number
-        query['Count'] = request.count
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupIdList'] = request.skill_group_id_list
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.count):
+            query['Count'] = request.count
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id_list):
+            query['SkillGroupIdList'] = request.skill_group_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2649,9 +3005,12 @@ class Client(OpenApiClient):
     def poll_user_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2678,10 +3037,14 @@ class Client(OpenApiClient):
     def ready_for_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['OutboundScenario'] = request.outbound_scenario
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.outbound_scenario):
+            query['OutboundScenario'] = request.outbound_scenario
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2708,10 +3071,14 @@ class Client(OpenApiClient):
     def register_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['Password'] = request.password
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2738,11 +3105,16 @@ class Client(OpenApiClient):
     def release_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2769,9 +3141,12 @@ class Client(OpenApiClient):
     def remove_personal_numbers_from_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NumberList'] = request.number_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2798,9 +3173,12 @@ class Client(OpenApiClient):
     def remove_phone_number_from_skill_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Number'] = request.number
-        query['SkillGroupIdList'] = request.skill_group_id_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        if not UtilClient.is_unset(request.skill_group_id_list):
+            query['SkillGroupIdList'] = request.skill_group_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2827,8 +3205,10 @@ class Client(OpenApiClient):
     def remove_phone_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2855,9 +3235,12 @@ class Client(OpenApiClient):
     def remove_phone_numbers_from_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['NumberList'] = request.number_list
-        query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2884,9 +3267,12 @@ class Client(OpenApiClient):
     def remove_skill_groups_from_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupIdList'] = request.skill_group_id_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id_list):
+            query['SkillGroupIdList'] = request.skill_group_id_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2913,8 +3299,10 @@ class Client(OpenApiClient):
     def remove_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['UserIdList'] = request.user_id_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id_list):
+            query['UserIdList'] = request.user_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2941,9 +3329,12 @@ class Client(OpenApiClient):
     def remove_users_from_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['SkillGroupId'] = request.skill_group_id
-        query['UserIdList'] = request.user_id_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.user_id_list):
+            query['UserIdList'] = request.user_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2970,9 +3361,12 @@ class Client(OpenApiClient):
     def reset_agent_state_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2999,9 +3393,12 @@ class Client(OpenApiClient):
     def reset_user_password_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['InstanceId'] = request.instance_id
-        query['Password'] = request.password
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3028,8 +3425,10 @@ class Client(OpenApiClient):
     def resume_campaign_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3056,11 +3455,16 @@ class Client(OpenApiClient):
     def retrieve_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3087,12 +3491,18 @@ class Client(OpenApiClient):
     def save_rtcstats_v2with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['GeneralInfo'] = request.general_info
-        query['GoogAddress'] = request.goog_address
-        query['InstanceId'] = request.instance_id
-        query['ReceiverReport'] = request.receiver_report
-        query['SenderReport'] = request.sender_report
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.general_info):
+            query['GeneralInfo'] = request.general_info
+        if not UtilClient.is_unset(request.goog_address):
+            query['GoogAddress'] = request.goog_address
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.receiver_report):
+            query['ReceiverReport'] = request.receiver_report
+        if not UtilClient.is_unset(request.sender_report):
+            query['SenderReport'] = request.sender_report
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3119,15 +3529,24 @@ class Client(OpenApiClient):
     def save_terminal_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppName'] = request.app_name
-        query['CallId'] = request.call_id
-        query['Content'] = request.content
-        query['DataType'] = request.data_type
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['MethodName'] = request.method_name
-        query['Status'] = request.status
-        query['UniqueRequestId'] = request.unique_request_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.data_type):
+            query['DataType'] = request.data_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.method_name):
+            query['MethodName'] = request.method_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.unique_request_id):
+            query['UniqueRequestId'] = request.unique_request_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3154,12 +3573,18 @@ class Client(OpenApiClient):
     def save_web_rtcstats_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['GeneralInfo'] = request.general_info
-        query['GoogAddress'] = request.goog_address
-        query['InstanceId'] = request.instance_id
-        query['ReceiverReport'] = request.receiver_report
-        query['SenderReport'] = request.sender_report
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.general_info):
+            query['GeneralInfo'] = request.general_info
+        if not UtilClient.is_unset(request.goog_address):
+            query['GoogAddress'] = request.goog_address
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.receiver_report):
+            query['ReceiverReport'] = request.receiver_report
+        if not UtilClient.is_unset(request.sender_report):
+            query['SenderReport'] = request.sender_report
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3186,11 +3611,16 @@ class Client(OpenApiClient):
     def save_web_rtc_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['Content'] = request.content
-        query['ContentType'] = request.content_type
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.content_type):
+            query['ContentType'] = request.content_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3217,12 +3647,18 @@ class Client(OpenApiClient):
     def send_dtmf_signaling_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['Dtmf'] = request.dtmf
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.dtmf):
+            query['Dtmf'] = request.dtmf
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3249,10 +3685,14 @@ class Client(OpenApiClient):
     def sign_in_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['SignedSkillGroupIdList'] = request.signed_skill_group_id_list
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.signed_skill_group_id_list):
+            query['SignedSkillGroupIdList'] = request.signed_skill_group_id_list
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3279,9 +3719,12 @@ class Client(OpenApiClient):
     def sign_out_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3308,13 +3751,20 @@ class Client(OpenApiClient):
     def start_back_2back_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AdditionalBroker'] = request.additional_broker
-        query['Broker'] = request.broker
-        query['Callee'] = request.callee
-        query['Caller'] = request.caller
-        query['InstanceId'] = request.instance_id
-        query['Tags'] = request.tags
-        query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.additional_broker):
+            query['AdditionalBroker'] = request.additional_broker
+        if not UtilClient.is_unset(request.broker):
+            query['Broker'] = request.broker
+        if not UtilClient.is_unset(request.callee):
+            query['Callee'] = request.callee
+        if not UtilClient.is_unset(request.caller):
+            query['Caller'] = request.caller
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3341,15 +3791,24 @@ class Client(OpenApiClient):
     def start_predictive_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Callee'] = request.callee
-        query['Caller'] = request.caller
-        query['ContactFlowId'] = request.contact_flow_id
-        query['ContactFlowVariables'] = request.contact_flow_variables
-        query['InstanceId'] = request.instance_id
-        query['MaskedCallee'] = request.masked_callee
-        query['SkillGroupId'] = request.skill_group_id
-        query['Tags'] = request.tags
-        query['TimeoutSeconds'] = request.timeout_seconds
+        if not UtilClient.is_unset(request.callee):
+            query['Callee'] = request.callee
+        if not UtilClient.is_unset(request.caller):
+            query['Caller'] = request.caller
+        if not UtilClient.is_unset(request.contact_flow_id):
+            query['ContactFlowId'] = request.contact_flow_id
+        if not UtilClient.is_unset(request.contact_flow_variables):
+            query['ContactFlowVariables'] = request.contact_flow_variables
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.masked_callee):
+            query['MaskedCallee'] = request.masked_callee
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.timeout_seconds):
+            query['TimeoutSeconds'] = request.timeout_seconds
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3376,8 +3835,10 @@ class Client(OpenApiClient):
     def submit_campaign_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CampaignId'] = request.campaign_id
-        query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.campaign_id):
+            query['CampaignId'] = request.campaign_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3404,10 +3865,14 @@ class Client(OpenApiClient):
     def take_break_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Code'] = request.code
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3434,11 +3899,16 @@ class Client(OpenApiClient):
     def unmute_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ChannelId'] = request.channel_id
-        query['DeviceId'] = request.device_id
-        query['InstanceId'] = request.instance_id
-        query['JobId'] = request.job_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.channel_id):
+            query['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3465,10 +3935,14 @@ class Client(OpenApiClient):
     def update_config_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConfigItems'] = request.config_items
-        query['InstanceId'] = request.instance_id
-        query['ObjectId'] = request.object_id
-        query['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.config_items):
+            query['ConfigItems'] = request.config_items
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.object_id):
+            query['ObjectId'] = request.object_id
+        if not UtilClient.is_unset(request.object_type):
+            query['ObjectType'] = request.object_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

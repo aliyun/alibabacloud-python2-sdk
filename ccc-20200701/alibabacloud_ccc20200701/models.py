@@ -6713,7 +6713,7 @@ class GetLoginDetailsRequest(TeaModel):
 
 class GetLoginDetailsResponseBodyData(TeaModel):
     def __init__(self, agent_server_url=None, device_id=None, display_name=None, extension=None, signature=None,
-                 sip_server_url=None, user_id=None, user_key=None):
+                 sip_server_url=None, user_id=None, user_key=None, work_mode=None):
         self.agent_server_url = agent_server_url  # type: str
         self.device_id = device_id  # type: str
         self.display_name = display_name  # type: str
@@ -6722,6 +6722,7 @@ class GetLoginDetailsResponseBodyData(TeaModel):
         self.sip_server_url = sip_server_url  # type: str
         self.user_id = user_id  # type: str
         self.user_key = user_key  # type: str
+        self.work_mode = work_mode  # type: str
 
     def validate(self):
         pass
@@ -6748,6 +6749,8 @@ class GetLoginDetailsResponseBodyData(TeaModel):
             result['UserId'] = self.user_id
         if self.user_key is not None:
             result['UserKey'] = self.user_key
+        if self.work_mode is not None:
+            result['WorkMode'] = self.work_mode
         return result
 
     def from_map(self, m=None):
@@ -6768,6 +6771,8 @@ class GetLoginDetailsResponseBodyData(TeaModel):
             self.user_id = m.get('UserId')
         if m.get('UserKey') is not None:
             self.user_key = m.get('UserKey')
+        if m.get('WorkMode') is not None:
+            self.work_mode = m.get('WorkMode')
         return self
 
 
@@ -20552,8 +20557,8 @@ class ListUsersResponseBodyDataListSkillLevelList(TeaModel):
 
 class ListUsersResponseBodyDataList(TeaModel):
     def __init__(self, display_id=None, display_name=None, email=None, login_name=None, mobile=None,
-                 personal_outbound_number_list=None, primary_account=None, role_id=None, role_name=None, skill_level_list=None, user_id=None,
-                 work_mode=None):
+                 personal_outbound_number_list=None, primary_account=None, ram_id=None, role_id=None, role_name=None, skill_level_list=None,
+                 user_id=None, work_mode=None):
         self.display_id = display_id  # type: str
         self.display_name = display_name  # type: str
         self.email = email  # type: str
@@ -20561,6 +20566,7 @@ class ListUsersResponseBodyDataList(TeaModel):
         self.mobile = mobile  # type: str
         self.personal_outbound_number_list = personal_outbound_number_list  # type: list[ListUsersResponseBodyDataListPersonalOutboundNumberList]
         self.primary_account = primary_account  # type: bool
+        self.ram_id = ram_id  # type: long
         self.role_id = role_id  # type: str
         self.role_name = role_name  # type: str
         self.skill_level_list = skill_level_list  # type: list[ListUsersResponseBodyDataListSkillLevelList]
@@ -20599,6 +20605,8 @@ class ListUsersResponseBodyDataList(TeaModel):
                 result['PersonalOutboundNumberList'].append(k.to_map() if k else None)
         if self.primary_account is not None:
             result['PrimaryAccount'] = self.primary_account
+        if self.ram_id is not None:
+            result['RamId'] = self.ram_id
         if self.role_id is not None:
             result['RoleId'] = self.role_id
         if self.role_name is not None:
@@ -20632,6 +20640,8 @@ class ListUsersResponseBodyDataList(TeaModel):
                 self.personal_outbound_number_list.append(temp_model.from_map(k))
         if m.get('PrimaryAccount') is not None:
             self.primary_account = m.get('PrimaryAccount')
+        if m.get('RamId') is not None:
+            self.ram_id = m.get('RamId')
         if m.get('RoleId') is not None:
             self.role_id = m.get('RoleId')
         if m.get('RoleName') is not None:
