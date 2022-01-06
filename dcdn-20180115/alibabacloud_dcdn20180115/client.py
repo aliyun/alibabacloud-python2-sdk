@@ -732,56 +732,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_slr_and_sls_project_with_options(request, runtime)
 
-    def dcdn_http_request_test_tool_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = dcdn_20180115_models.DcdnHttpRequestTestToolShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.header):
-            request.header_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.header, 'Header', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        body = {}
-        if not UtilClient.is_unset(request.args):
-            body['Args'] = request.args
-        if not UtilClient.is_unset(request.body):
-            body['Body'] = request.body
-        if not UtilClient.is_unset(request.header_shrink):
-            body['Header'] = request.header_shrink
-        if not UtilClient.is_unset(request.host):
-            body['Host'] = request.host
-        if not UtilClient.is_unset(request.method):
-            body['Method'] = request.method
-        if not UtilClient.is_unset(request.proxy_ip):
-            body['ProxyIp'] = request.proxy_ip
-        if not UtilClient.is_unset(request.scheme):
-            body['Scheme'] = request.scheme
-        if not UtilClient.is_unset(request.uri):
-            body['Uri'] = request.uri
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='DcdnHttpRequestTestTool',
-            version='2018-01-15',
-            protocol='HTTP',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.DcdnHttpRequestTestToolResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def dcdn_http_request_test_tool(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.dcdn_http_request_test_tool_with_options(request, runtime)
-
     def delete_dcdn_deliver_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4417,32 +4367,6 @@ class Client(OpenApiClient):
     def edit_routine_conf(self, request):
         runtime = util_models.RuntimeOptions()
         return self.edit_routine_conf_with_options(request, runtime)
-
-    def list_dcdn_es_template_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListDcdnEsTemplateInfo',
-            version='2018-01-15',
-            protocol='HTTP',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dcdn_20180115_models.ListDcdnEsTemplateInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_dcdn_es_template_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_dcdn_es_template_info_with_options(request, runtime)
 
     def list_dcdn_real_time_delivery_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)

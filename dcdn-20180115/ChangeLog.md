@@ -1,3 +1,6 @@
+2022-01-06 Version: 1.0.3
+- Update ErrorCode.
+
 2021-12-31 Version: 1.0.2
 - Update ErrorCode.
 
