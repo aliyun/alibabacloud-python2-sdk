@@ -1238,6 +1238,129 @@ class CreateAclResponse(TeaModel):
         return self
 
 
+class CreateApplicationMonitorRequest(TeaModel):
+    def __init__(self, accelerator_id=None, address=None, client_token=None, detect_threshold=None,
+                 listener_id=None, options_json=None, region_id=None, task_name=None):
+        self.accelerator_id = accelerator_id  # type: str
+        self.address = address  # type: str
+        self.client_token = client_token  # type: str
+        self.detect_threshold = detect_threshold  # type: int
+        self.listener_id = listener_id  # type: str
+        self.options_json = options_json  # type: str
+        self.region_id = region_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accelerator_id is not None:
+            result['AcceleratorId'] = self.accelerator_id
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.detect_threshold is not None:
+            result['DetectThreshold'] = self.detect_threshold
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.options_json is not None:
+            result['OptionsJson'] = self.options_json
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceleratorId') is not None:
+            self.accelerator_id = m.get('AcceleratorId')
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DetectThreshold') is not None:
+            self.detect_threshold = m.get('DetectThreshold')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('OptionsJson') is not None:
+            self.options_json = m.get('OptionsJson')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class CreateApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None, task_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class CreateApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateBandwidthPackageRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_use_coupon=None, bandwidth=None, bandwidth_type=None, billing_type=None,
                  cbn_geographic_region_id_a=None, cbn_geographic_region_id_b=None, charge_type=None, client_token=None, duration=None,
@@ -3465,6 +3588,97 @@ class DeleteAclResponse(TeaModel):
         return self
 
 
+class DeleteApplicationMonitorRequest(TeaModel):
+    def __init__(self, client_token=None, region_id=None, task_id=None):
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DeleteApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteBandwidthPackageRequest(TeaModel):
     def __init__(self, bandwidth_package_id=None, client_token=None, region_id=None):
         self.bandwidth_package_id = bandwidth_package_id  # type: str
@@ -4880,6 +5094,190 @@ class DescribeAcceleratorAutoRenewAttributeResponse(TeaModel):
         return self
 
 
+class DescribeApplicationMonitorRequest(TeaModel):
+    def __init__(self, client_token=None, region_id=None, task_id=None):
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DescribeApplicationMonitorResponseBodyIspCityList(TeaModel):
+    def __init__(self, city=None, city_name=None, isp=None, isp_name=None):
+        self.city = city  # type: str
+        self.city_name = city_name  # type: str
+        self.isp = isp  # type: str
+        self.isp_name = isp_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApplicationMonitorResponseBodyIspCityList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city is not None:
+            result['City'] = self.city
+        if self.city_name is not None:
+            result['CityName'] = self.city_name
+        if self.isp is not None:
+            result['Isp'] = self.isp
+        if self.isp_name is not None:
+            result['IspName'] = self.isp_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('CityName') is not None:
+            self.city_name = m.get('CityName')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
+        if m.get('IspName') is not None:
+            self.isp_name = m.get('IspName')
+        return self
+
+
+class DescribeApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, accelerator_id=None, address=None, detect_threshold=None, isp_city_list=None,
+                 listener_id=None, options_json=None, region_id=None, request_id=None, task_id=None, task_name=None):
+        self.accelerator_id = accelerator_id  # type: str
+        self.address = address  # type: str
+        self.detect_threshold = detect_threshold  # type: str
+        self.isp_city_list = isp_city_list  # type: list[DescribeApplicationMonitorResponseBodyIspCityList]
+        self.listener_id = listener_id  # type: str
+        self.options_json = options_json  # type: str
+        self.region_id = region_id  # type: str
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        if self.isp_city_list:
+            for k in self.isp_city_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accelerator_id is not None:
+            result['AcceleratorId'] = self.accelerator_id
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.detect_threshold is not None:
+            result['DetectThreshold'] = self.detect_threshold
+        result['IspCityList'] = []
+        if self.isp_city_list is not None:
+            for k in self.isp_city_list:
+                result['IspCityList'].append(k.to_map() if k else None)
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.options_json is not None:
+            result['OptionsJson'] = self.options_json
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceleratorId') is not None:
+            self.accelerator_id = m.get('AcceleratorId')
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('DetectThreshold') is not None:
+            self.detect_threshold = m.get('DetectThreshold')
+        self.isp_city_list = []
+        if m.get('IspCityList') is not None:
+            for k in m.get('IspCityList'):
+                temp_model = DescribeApplicationMonitorResponseBodyIspCityList()
+                self.isp_city_list.append(temp_model.from_map(k))
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('OptionsJson') is not None:
+            self.options_json = m.get('OptionsJson')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class DescribeApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeBandwidthPackageRequest(TeaModel):
     def __init__(self, bandwidth_package_id=None, region_id=None):
         self.bandwidth_package_id = bandwidth_package_id  # type: str
@@ -6179,6 +6577,188 @@ class DetachLogStoreFromEndpointGroupResponse(TeaModel):
         return self
 
 
+class DetectApplicationMonitorRequest(TeaModel):
+    def __init__(self, client_token=None, region_id=None, task_id=None):
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetectApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DetectApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetectApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DetectApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DetectApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DetectApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DetectApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DisableApplicationMonitorRequest(TeaModel):
+    def __init__(self, client_token=None, region_id=None, task_id=None):
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class DisableApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DisableApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DisableApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DisableApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DisableApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DisableApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DissociateAclsFromListenerRequest(TeaModel):
     def __init__(self, acl_ids=None, client_token=None, dry_run=None, listener_id=None, region_id=None):
         self.acl_ids = acl_ids  # type: list[str]
@@ -6389,6 +6969,97 @@ class DissociateAdditionalCertificatesFromListenerResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DissociateAdditionalCertificatesFromListenerResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableApplicationMonitorRequest(TeaModel):
+    def __init__(self, client_token=None, region_id=None, task_id=None):
+        self.client_token = client_token  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class EnableApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class EnableApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: EnableApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = EnableApplicationMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8088,6 +8759,382 @@ class ListAclsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListAclsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListApplicationMonitorRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, region_id=None, search_value=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.search_value = search_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.search_value is not None:
+            result['SearchValue'] = self.search_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SearchValue') is not None:
+            self.search_value = m.get('SearchValue')
+        return self
+
+
+class ListApplicationMonitorResponseBodyApplicationMonitors(TeaModel):
+    def __init__(self, accelerator_id=None, address=None, detect_threshold=None, listener_id=None,
+                 options_json=None, state=None, task_id=None, task_name=None):
+        self.accelerator_id = accelerator_id  # type: str
+        self.address = address  # type: str
+        self.detect_threshold = detect_threshold  # type: int
+        self.listener_id = listener_id  # type: str
+        self.options_json = options_json  # type: str
+        self.state = state  # type: str
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorResponseBodyApplicationMonitors, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accelerator_id is not None:
+            result['AcceleratorId'] = self.accelerator_id
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.detect_threshold is not None:
+            result['DetectThreshold'] = self.detect_threshold
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.options_json is not None:
+            result['OptionsJson'] = self.options_json
+        if self.state is not None:
+            result['State'] = self.state
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceleratorId') is not None:
+            self.accelerator_id = m.get('AcceleratorId')
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('DetectThreshold') is not None:
+            self.detect_threshold = m.get('DetectThreshold')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('OptionsJson') is not None:
+            self.options_json = m.get('OptionsJson')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class ListApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, application_monitors=None, page_number=None, page_size=None, request_id=None,
+                 total_count=None):
+        self.application_monitors = application_monitors  # type: list[ListApplicationMonitorResponseBodyApplicationMonitors]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.application_monitors:
+            for k in self.application_monitors:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApplicationMonitors'] = []
+        if self.application_monitors is not None:
+            for k in self.application_monitors:
+                result['ApplicationMonitors'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.application_monitors = []
+        if m.get('ApplicationMonitors') is not None:
+            for k in m.get('ApplicationMonitors'):
+                temp_model = ListApplicationMonitorResponseBodyApplicationMonitors()
+                self.application_monitors.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListApplicationMonitorResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListApplicationMonitorDetectResultRequest(TeaModel):
+    def __init__(self, begin_time=None, end_time=None, page_number=None, page_size=None, region_id=None,
+                 task_id=None):
+        self.begin_time = begin_time  # type: long
+        self.end_time = end_time  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorDetectResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResultList(TeaModel):
+    def __init__(self, accelerator_id=None, detail=None, diag_status=None, listener_id=None, port=None,
+                 protocol=None, task_id=None):
+        self.accelerator_id = accelerator_id  # type: str
+        self.detail = detail  # type: str
+        self.diag_status = diag_status  # type: str
+        self.listener_id = listener_id  # type: str
+        self.port = port  # type: str
+        self.protocol = protocol  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResultList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accelerator_id is not None:
+            result['AcceleratorId'] = self.accelerator_id
+        if self.detail is not None:
+            result['Detail'] = self.detail
+        if self.diag_status is not None:
+            result['DiagStatus'] = self.diag_status
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceleratorId') is not None:
+            self.accelerator_id = m.get('AcceleratorId')
+        if m.get('Detail') is not None:
+            self.detail = m.get('Detail')
+        if m.get('DiagStatus') is not None:
+            self.diag_status = m.get('DiagStatus')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class ListApplicationMonitorDetectResultResponseBody(TeaModel):
+    def __init__(self, application_monitor_detect_result_list=None, page_number=None, page_size=None,
+                 request_id=None, total_count=None):
+        self.application_monitor_detect_result_list = application_monitor_detect_result_list  # type: list[ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResultList]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.application_monitor_detect_result_list:
+            for k in self.application_monitor_detect_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorDetectResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApplicationMonitorDetectResultList'] = []
+        if self.application_monitor_detect_result_list is not None:
+            for k in self.application_monitor_detect_result_list:
+                result['ApplicationMonitorDetectResultList'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.application_monitor_detect_result_list = []
+        if m.get('ApplicationMonitorDetectResultList') is not None:
+            for k in m.get('ApplicationMonitorDetectResultList'):
+                temp_model = ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResultList()
+                self.application_monitor_detect_result_list.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListApplicationMonitorDetectResultResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListApplicationMonitorDetectResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationMonitorDetectResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListApplicationMonitorDetectResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -11685,6 +12732,123 @@ class UpdateAclAttributeResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = UpdateAclAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateApplicationMonitorRequest(TeaModel):
+    def __init__(self, address=None, client_token=None, detect_threshold=None, listener_id=None, options_json=None,
+                 region_id=None, task_id=None, task_name=None):
+        self.address = address  # type: str
+        self.client_token = client_token  # type: str
+        self.detect_threshold = detect_threshold  # type: int
+        self.listener_id = listener_id  # type: str
+        self.options_json = options_json  # type: str
+        self.region_id = region_id  # type: str
+        self.task_id = task_id  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateApplicationMonitorRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.address is not None:
+            result['Address'] = self.address
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.detect_threshold is not None:
+            result['DetectThreshold'] = self.detect_threshold
+        if self.listener_id is not None:
+            result['ListenerId'] = self.listener_id
+        if self.options_json is not None:
+            result['OptionsJson'] = self.options_json
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Address') is not None:
+            self.address = m.get('Address')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DetectThreshold') is not None:
+            self.detect_threshold = m.get('DetectThreshold')
+        if m.get('ListenerId') is not None:
+            self.listener_id = m.get('ListenerId')
+        if m.get('OptionsJson') is not None:
+            self.options_json = m.get('OptionsJson')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class UpdateApplicationMonitorResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateApplicationMonitorResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateApplicationMonitorResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateApplicationMonitorResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateApplicationMonitorResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateApplicationMonitorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

@@ -33,11 +33,16 @@ class Client(OpenApiClient):
     def add_entries_to_acl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclEntries'] = request.acl_entries
-        query['AclId'] = request.acl_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_entries):
+            query['AclEntries'] = request.acl_entries
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -64,12 +69,18 @@ class Client(OpenApiClient):
     def associate_acls_with_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclIds'] = request.acl_ids
-        query['AclType'] = request.acl_type
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_ids):
+            query['AclIds'] = request.acl_ids
+        if not UtilClient.is_unset(request.acl_type):
+            query['AclType'] = request.acl_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -96,11 +107,16 @@ class Client(OpenApiClient):
     def associate_additional_certificates_with_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['Certificates'] = request.certificates
-        query['ClientToken'] = request.client_token
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.certificates):
+            query['Certificates'] = request.certificates
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -127,10 +143,14 @@ class Client(OpenApiClient):
     def attach_ddos_to_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['DdosId'] = request.ddos_id
-        query['DdosRegionId'] = request.ddos_region_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.ddos_id):
+            query['DdosId'] = request.ddos_id
+        if not UtilClient.is_unset(request.ddos_region_id):
+            query['DdosRegionId'] = request.ddos_region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -157,14 +177,22 @@ class Client(OpenApiClient):
     def attach_log_store_to_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['EndpointGroupIds'] = request.endpoint_group_ids
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
-        query['SlsLogStoreName'] = request.sls_log_store_name
-        query['SlsProjectName'] = request.sls_project_name
-        query['SlsRegionId'] = request.sls_region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_ids):
+            query['EndpointGroupIds'] = request.endpoint_group_ids
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.sls_log_store_name):
+            query['SlsLogStoreName'] = request.sls_log_store_name
+        if not UtilClient.is_unset(request.sls_project_name):
+            query['SlsProjectName'] = request.sls_project_name
+        if not UtilClient.is_unset(request.sls_region_id):
+            query['SlsRegionId'] = request.sls_region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -191,9 +219,12 @@ class Client(OpenApiClient):
     def bandwidth_package_add_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -220,9 +251,12 @@ class Client(OpenApiClient):
     def bandwidth_package_remove_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -249,14 +283,22 @@ class Client(OpenApiClient):
     def config_endpoint_probe_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Enable'] = request.enable
-        query['Endpoint'] = request.endpoint
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['EndpointType'] = request.endpoint_type
-        query['ProbePort'] = request.probe_port
-        query['ProbeProtocol'] = request.probe_protocol
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.endpoint):
+            query['Endpoint'] = request.endpoint
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_type):
+            query['EndpointType'] = request.endpoint_type
+        if not UtilClient.is_unset(request.probe_port):
+            query['ProbePort'] = request.probe_port
+        if not UtilClient.is_unset(request.probe_protocol):
+            query['ProbeProtocol'] = request.probe_protocol
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -283,16 +325,26 @@ class Client(OpenApiClient):
     def create_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['AutoRenew'] = request.auto_renew
-        query['AutoRenewDuration'] = request.auto_renew_duration
-        query['AutoUseCoupon'] = request.auto_use_coupon
-        query['ClientToken'] = request.client_token
-        query['Duration'] = request.duration
-        query['Name'] = request.name
-        query['PricingCycle'] = request.pricing_cycle
-        query['RegionId'] = request.region_id
-        query['Spec'] = request.spec
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_duration):
+            query['AutoRenewDuration'] = request.auto_renew_duration
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.spec):
+            query['Spec'] = request.spec
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -319,12 +371,18 @@ class Client(OpenApiClient):
     def create_acl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclEntries'] = request.acl_entries
-        query['AclName'] = request.acl_name
-        query['AddressIPVersion'] = request.address_ipversion
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_entries):
+            query['AclEntries'] = request.acl_entries
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.address_ipversion):
+            query['AddressIPVersion'] = request.address_ipversion
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -348,23 +406,79 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_acl_with_options(request, runtime)
 
+    def create_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.detect_threshold):
+            query['DetectThreshold'] = request.detect_threshold
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.options_json):
+            query['OptionsJson'] = request.options_json
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.CreateApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_application_monitor_with_options(request, runtime)
+
     def create_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['AutoUseCoupon'] = request.auto_use_coupon
-        query['Bandwidth'] = request.bandwidth
-        query['BandwidthType'] = request.bandwidth_type
-        query['BillingType'] = request.billing_type
-        query['CbnGeographicRegionIdA'] = request.cbn_geographic_region_id_a
-        query['CbnGeographicRegionIdB'] = request.cbn_geographic_region_id_b
-        query['ChargeType'] = request.charge_type
-        query['ClientToken'] = request.client_token
-        query['Duration'] = request.duration
-        query['PricingCycle'] = request.pricing_cycle
-        query['Ratio'] = request.ratio
-        query['RegionId'] = request.region_id
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.bandwidth_type):
+            query['BandwidthType'] = request.bandwidth_type
+        if not UtilClient.is_unset(request.billing_type):
+            query['BillingType'] = request.billing_type
+        if not UtilClient.is_unset(request.cbn_geographic_region_id_a):
+            query['CbnGeographicRegionIdA'] = request.cbn_geographic_region_id_a
+        if not UtilClient.is_unset(request.cbn_geographic_region_id_b):
+            query['CbnGeographicRegionIdB'] = request.cbn_geographic_region_id_b
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.ratio):
+            query['Ratio'] = request.ratio
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -391,14 +505,22 @@ class Client(OpenApiClient):
     def create_basic_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['AutoRenew'] = request.auto_renew
-        query['AutoRenewDuration'] = request.auto_renew_duration
-        query['AutoUseCoupon'] = request.auto_use_coupon
-        query['ClientToken'] = request.client_token
-        query['Duration'] = request.duration
-        query['PricingCycle'] = request.pricing_cycle
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_duration):
+            query['AutoRenewDuration'] = request.auto_renew_duration
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.pricing_cycle):
+            query['PricingCycle'] = request.pricing_cycle
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -425,14 +547,22 @@ class Client(OpenApiClient):
     def create_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['EndpointAddress'] = request.endpoint_address
-        query['EndpointGroupRegion'] = request.endpoint_group_region
-        query['EndpointType'] = request.endpoint_type
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_address):
+            query['EndpointAddress'] = request.endpoint_address
+        if not UtilClient.is_unset(request.endpoint_group_region):
+            query['EndpointGroupRegion'] = request.endpoint_group_region
+        if not UtilClient.is_unset(request.endpoint_type):
+            query['EndpointType'] = request.endpoint_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -459,10 +589,14 @@ class Client(OpenApiClient):
     def create_basic_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccelerateRegionId'] = request.accelerate_region_id
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerate_region_id):
+            query['AccelerateRegionId'] = request.accelerate_region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -489,24 +623,42 @@ class Client(OpenApiClient):
     def create_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['EndpointConfigurations'] = request.endpoint_configurations
-        query['EndpointGroupRegion'] = request.endpoint_group_region
-        query['EndpointGroupType'] = request.endpoint_group_type
-        query['EndpointRequestProtocol'] = request.endpoint_request_protocol
-        query['HealthCheckEnabled'] = request.health_check_enabled
-        query['HealthCheckIntervalSeconds'] = request.health_check_interval_seconds
-        query['HealthCheckPath'] = request.health_check_path
-        query['HealthCheckPort'] = request.health_check_port
-        query['HealthCheckProtocol'] = request.health_check_protocol
-        query['ListenerId'] = request.listener_id
-        query['Name'] = request.name
-        query['PortOverrides'] = request.port_overrides
-        query['RegionId'] = request.region_id
-        query['ThresholdCount'] = request.threshold_count
-        query['TrafficPercentage'] = request.traffic_percentage
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_configurations):
+            query['EndpointConfigurations'] = request.endpoint_configurations
+        if not UtilClient.is_unset(request.endpoint_group_region):
+            query['EndpointGroupRegion'] = request.endpoint_group_region
+        if not UtilClient.is_unset(request.endpoint_group_type):
+            query['EndpointGroupType'] = request.endpoint_group_type
+        if not UtilClient.is_unset(request.endpoint_request_protocol):
+            query['EndpointRequestProtocol'] = request.endpoint_request_protocol
+        if not UtilClient.is_unset(request.health_check_enabled):
+            query['HealthCheckEnabled'] = request.health_check_enabled
+        if not UtilClient.is_unset(request.health_check_interval_seconds):
+            query['HealthCheckIntervalSeconds'] = request.health_check_interval_seconds
+        if not UtilClient.is_unset(request.health_check_path):
+            query['HealthCheckPath'] = request.health_check_path
+        if not UtilClient.is_unset(request.health_check_port):
+            query['HealthCheckPort'] = request.health_check_port
+        if not UtilClient.is_unset(request.health_check_protocol):
+            query['HealthCheckProtocol'] = request.health_check_protocol
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.port_overrides):
+            query['PortOverrides'] = request.port_overrides
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.threshold_count):
+            query['ThresholdCount'] = request.threshold_count
+        if not UtilClient.is_unset(request.traffic_percentage):
+            query['TrafficPercentage'] = request.traffic_percentage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -533,12 +685,18 @@ class Client(OpenApiClient):
     def create_endpoint_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_configurations):
+            query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -565,11 +723,16 @@ class Client(OpenApiClient):
     def create_forwarding_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['ForwardingRules'] = request.forwarding_rules
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.forwarding_rules):
+            query['ForwardingRules'] = request.forwarding_rules
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -596,10 +759,14 @@ class Client(OpenApiClient):
     def create_ip_sets_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccelerateRegion'] = request.accelerate_region
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerate_region):
+            query['AccelerateRegion'] = request.accelerate_region
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -626,18 +793,30 @@ class Client(OpenApiClient):
     def create_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['Certificates'] = request.certificates
-        query['ClientAffinity'] = request.client_affinity
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['PortRanges'] = request.port_ranges
-        query['Protocol'] = request.protocol
-        query['ProxyProtocol'] = request.proxy_protocol
-        query['RegionId'] = request.region_id
-        query['SecurityPolicyId'] = request.security_policy_id
-        query['XForwardedForConfig'] = request.xforwarded_for_config
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.certificates):
+            query['Certificates'] = request.certificates
+        if not UtilClient.is_unset(request.client_affinity):
+            query['ClientAffinity'] = request.client_affinity
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.port_ranges):
+            query['PortRanges'] = request.port_ranges
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.proxy_protocol):
+            query['ProxyProtocol'] = request.proxy_protocol
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_policy_id):
+            query['SecurityPolicyId'] = request.security_policy_id
+        if not UtilClient.is_unset(request.xforwarded_for_config):
+            query['XForwardedForConfig'] = request.xforwarded_for_config
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -664,11 +843,16 @@ class Client(OpenApiClient):
     def create_spare_ips_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
-        query['SpareIps'] = request.spare_ips
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.spare_ips):
+            query['SpareIps'] = request.spare_ips
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -695,8 +879,10 @@ class Client(OpenApiClient):
     def delete_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -723,10 +909,14 @@ class Client(OpenApiClient):
     def delete_acl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclId'] = request.acl_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -750,12 +940,47 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_acl_with_options(request, runtime)
 
+    def delete_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DeleteApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_application_monitor_with_options(request, runtime)
+
     def delete_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -782,8 +1007,10 @@ class Client(OpenApiClient):
     def delete_basic_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -810,8 +1037,10 @@ class Client(OpenApiClient):
     def delete_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -838,9 +1067,12 @@ class Client(OpenApiClient):
     def delete_basic_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['IpSetId'] = request.ip_set_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -867,9 +1099,12 @@ class Client(OpenApiClient):
     def delete_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -896,10 +1131,14 @@ class Client(OpenApiClient):
     def delete_endpoint_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['EndpointGroupIds'] = request.endpoint_group_ids
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_ids):
+            query['EndpointGroupIds'] = request.endpoint_group_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -926,11 +1165,16 @@ class Client(OpenApiClient):
     def delete_forwarding_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['ForwardingRuleIds'] = request.forwarding_rule_ids
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.forwarding_rule_ids):
+            query['ForwardingRuleIds'] = request.forwarding_rule_ids
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -957,10 +1201,14 @@ class Client(OpenApiClient):
     def delete_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['IpSetId'] = request.ip_set_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -987,8 +1235,10 @@ class Client(OpenApiClient):
     def delete_ip_sets_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpSetIds'] = request.ip_set_ids
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.ip_set_ids):
+            query['IpSetIds'] = request.ip_set_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1015,9 +1265,12 @@ class Client(OpenApiClient):
     def delete_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1044,11 +1297,16 @@ class Client(OpenApiClient):
     def delete_spare_ips_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
-        query['SpareIps'] = request.spare_ips
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.spare_ips):
+            query['SpareIps'] = request.spare_ips
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1075,8 +1333,10 @@ class Client(OpenApiClient):
     def describe_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1103,8 +1363,10 @@ class Client(OpenApiClient):
     def describe_accelerator_auto_renew_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1128,11 +1390,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_accelerator_auto_renew_attribute_with_options(request, runtime)
 
+    def describe_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_application_monitor_with_options(request, runtime)
+
     def describe_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1159,8 +1455,10 @@ class Client(OpenApiClient):
     def describe_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1187,8 +1485,10 @@ class Client(OpenApiClient):
     def describe_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpSetId'] = request.ip_set_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1215,8 +1515,10 @@ class Client(OpenApiClient):
     def describe_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1243,7 +1545,8 @@ class Client(OpenApiClient):
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1270,8 +1573,10 @@ class Client(OpenApiClient):
     def detach_ddos_from_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1298,11 +1603,16 @@ class Client(OpenApiClient):
     def detach_log_store_from_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['EndpointGroupIds'] = request.endpoint_group_ids
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_ids):
+            query['EndpointGroupIds'] = request.endpoint_group_ids
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1326,14 +1636,83 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_log_store_from_endpoint_group_with_options(request, runtime)
 
+    def detect_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetectApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DetectApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detect_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detect_application_monitor_with_options(request, runtime)
+
+    def disable_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DisableApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_application_monitor_with_options(request, runtime)
+
     def dissociate_acls_from_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclIds'] = request.acl_ids
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_ids):
+            query['AclIds'] = request.acl_ids
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1360,11 +1739,16 @@ class Client(OpenApiClient):
     def dissociate_additional_certificates_from_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['Domains'] = request.domains
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.domains):
+            query['Domains'] = request.domains
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1388,11 +1772,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.dissociate_additional_certificates_from_listener_with_options(request, runtime)
 
+    def enable_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.EnableApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_application_monitor_with_options(request, runtime)
+
     def get_acl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclId'] = request.acl_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1419,8 +1837,10 @@ class Client(OpenApiClient):
     def get_basic_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1447,9 +1867,12 @@ class Client(OpenApiClient):
     def get_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1476,9 +1899,12 @@ class Client(OpenApiClient):
     def get_basic_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['IpSetId'] = request.ip_set_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1505,11 +1931,16 @@ class Client(OpenApiClient):
     def get_health_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1536,11 +1967,16 @@ class Client(OpenApiClient):
     def get_spare_ip_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
-        query['SpareIp'] = request.spare_ip
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.spare_ip):
+            query['SpareIp'] = request.spare_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1567,7 +2003,8 @@ class Client(OpenApiClient):
     def list_accelerate_areas_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1594,11 +2031,16 @@ class Client(OpenApiClient):
     def list_accelerators_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['State'] = request.state
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1625,12 +2067,18 @@ class Client(OpenApiClient):
     def list_acls_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclIds'] = request.acl_ids
-        query['AclName'] = request.acl_name
-        query['ClientToken'] = request.client_token
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_ids):
+            query['AclIds'] = request.acl_ids
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1654,11 +2102,85 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_acls_with_options(request, runtime)
 
+    def list_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.search_value):
+            query['SearchValue'] = request.search_value
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_application_monitor_with_options(request, runtime)
+
+    def list_application_monitor_detect_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.begin_time):
+            query['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApplicationMonitorDetectResult',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.ListApplicationMonitorDetectResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_application_monitor_detect_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_application_monitor_detect_result_with_options(request, runtime)
+
     def list_available_accelerate_areas_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1685,8 +2207,10 @@ class Client(OpenApiClient):
     def list_available_busi_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1713,12 +2237,18 @@ class Client(OpenApiClient):
     def list_bandwidth_packages_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['State'] = request.state
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1745,9 +2275,12 @@ class Client(OpenApiClient):
     def list_bandwidthackages_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1774,11 +2307,16 @@ class Client(OpenApiClient):
     def list_basic_accelerators_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['State'] = request.state
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1805,7 +2343,8 @@ class Client(OpenApiClient):
     def list_busi_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1832,14 +2371,22 @@ class Client(OpenApiClient):
     def list_endpoint_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['AccessLogSwitch'] = request.access_log_switch
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['EndpointGroupType'] = request.endpoint_group_type
-        query['ListenerId'] = request.listener_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.access_log_switch):
+            query['AccessLogSwitch'] = request.access_log_switch
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_group_type):
+            query['EndpointGroupType'] = request.endpoint_group_type
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1866,13 +2413,20 @@ class Client(OpenApiClient):
     def list_forwarding_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['ForwardingRuleId'] = request.forwarding_rule_id
-        query['ListenerId'] = request.listener_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.forwarding_rule_id):
+            query['ForwardingRuleId'] = request.forwarding_rule_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1899,10 +2453,14 @@ class Client(OpenApiClient):
     def list_ip_sets_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1929,12 +2487,18 @@ class Client(OpenApiClient):
     def list_listener_certificates_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ListenerId'] = request.listener_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['RegionId'] = request.region_id
-        query['Role'] = request.role
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.role):
+            query['Role'] = request.role
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1961,10 +2525,14 @@ class Client(OpenApiClient):
     def list_listeners_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1991,10 +2559,14 @@ class Client(OpenApiClient):
     def list_spare_ips_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2021,9 +2593,12 @@ class Client(OpenApiClient):
     def list_system_security_policies_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2050,11 +2625,16 @@ class Client(OpenApiClient):
     def remove_entries_from_acl_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclEntries'] = request.acl_entries
-        query['AclId'] = request.acl_id
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_entries):
+            query['AclEntries'] = request.acl_entries
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2081,9 +2661,12 @@ class Client(OpenApiClient):
     def replace_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['RegionId'] = request.region_id
-        query['TargetBandwidthPackageId'] = request.target_bandwidth_package_id
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.target_bandwidth_package_id):
+            query['TargetBandwidthPackageId'] = request.target_bandwidth_package_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2110,14 +2693,22 @@ class Client(OpenApiClient):
     def update_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['AutoPay'] = request.auto_pay
-        query['AutoUseCoupon'] = request.auto_use_coupon
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
-        query['Spec'] = request.spec
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.spec):
+            query['Spec'] = request.spec
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2144,13 +2735,20 @@ class Client(OpenApiClient):
     def update_accelerator_auto_renew_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['AutoRenew'] = request.auto_renew
-        query['AutoRenewDuration'] = request.auto_renew_duration
-        query['ClientToken'] = request.client_token
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
-        query['RenewalStatus'] = request.renewal_status
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.auto_renew_duration):
+            query['AutoRenewDuration'] = request.auto_renew_duration
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.renewal_status):
+            query['RenewalStatus'] = request.renewal_status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2177,8 +2775,10 @@ class Client(OpenApiClient):
     def update_accelerator_confirm_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2205,11 +2805,16 @@ class Client(OpenApiClient):
     def update_acl_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AclId'] = request.acl_id
-        query['AclName'] = request.acl_name
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.acl_id):
+            query['AclId'] = request.acl_id
+        if not UtilClient.is_unset(request.acl_name):
+            query['AclName'] = request.acl_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2233,17 +2838,67 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_acl_attribute_with_options(request, runtime)
 
+    def update_application_monitor_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.address):
+            query['Address'] = request.address
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.detect_threshold):
+            query['DetectThreshold'] = request.detect_threshold
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.options_json):
+            query['OptionsJson'] = request.options_json
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateApplicationMonitor',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.UpdateApplicationMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_application_monitor(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_application_monitor_with_options(request, runtime)
+
     def update_bandwidth_package_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AutoPay'] = request.auto_pay
-        query['AutoUseCoupon'] = request.auto_use_coupon
-        query['Bandwidth'] = request.bandwidth
-        query['BandwidthPackageId'] = request.bandwidth_package_id
-        query['BandwidthType'] = request.bandwidth_type
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.bandwidth_package_id):
+            query['BandwidthPackageId'] = request.bandwidth_package_id
+        if not UtilClient.is_unset(request.bandwidth_type):
+            query['BandwidthType'] = request.bandwidth_type
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2270,11 +2925,16 @@ class Client(OpenApiClient):
     def update_basic_accelerator_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2301,13 +2961,20 @@ class Client(OpenApiClient):
     def update_basic_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['EndpointAddress'] = request.endpoint_address
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['EndpointType'] = request.endpoint_type
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_address):
+            query['EndpointAddress'] = request.endpoint_address
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_type):
+            query['EndpointType'] = request.endpoint_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2334,22 +3001,38 @@ class Client(OpenApiClient):
     def update_endpoint_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['EndpointConfigurations'] = request.endpoint_configurations
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['EndpointGroupRegion'] = request.endpoint_group_region
-        query['EndpointRequestProtocol'] = request.endpoint_request_protocol
-        query['HealthCheckEnabled'] = request.health_check_enabled
-        query['HealthCheckIntervalSeconds'] = request.health_check_interval_seconds
-        query['HealthCheckPath'] = request.health_check_path
-        query['HealthCheckPort'] = request.health_check_port
-        query['HealthCheckProtocol'] = request.health_check_protocol
-        query['Name'] = request.name
-        query['PortOverrides'] = request.port_overrides
-        query['RegionId'] = request.region_id
-        query['ThresholdCount'] = request.threshold_count
-        query['TrafficPercentage'] = request.traffic_percentage
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_configurations):
+            query['EndpointConfigurations'] = request.endpoint_configurations
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.endpoint_group_region):
+            query['EndpointGroupRegion'] = request.endpoint_group_region
+        if not UtilClient.is_unset(request.endpoint_request_protocol):
+            query['EndpointRequestProtocol'] = request.endpoint_request_protocol
+        if not UtilClient.is_unset(request.health_check_enabled):
+            query['HealthCheckEnabled'] = request.health_check_enabled
+        if not UtilClient.is_unset(request.health_check_interval_seconds):
+            query['HealthCheckIntervalSeconds'] = request.health_check_interval_seconds
+        if not UtilClient.is_unset(request.health_check_path):
+            query['HealthCheckPath'] = request.health_check_path
+        if not UtilClient.is_unset(request.health_check_port):
+            query['HealthCheckPort'] = request.health_check_port
+        if not UtilClient.is_unset(request.health_check_protocol):
+            query['HealthCheckProtocol'] = request.health_check_protocol
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.port_overrides):
+            query['PortOverrides'] = request.port_overrides
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.threshold_count):
+            query['ThresholdCount'] = request.threshold_count
+        if not UtilClient.is_unset(request.traffic_percentage):
+            query['TrafficPercentage'] = request.traffic_percentage
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2376,11 +3059,16 @@ class Client(OpenApiClient):
     def update_endpoint_group_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['EndpointGroupId'] = request.endpoint_group_id
-        query['Name'] = request.name
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2407,11 +3095,16 @@ class Client(OpenApiClient):
     def update_endpoint_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['DryRun'] = request.dry_run
-        query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.endpoint_group_configurations):
+            query['EndpointGroupConfigurations'] = request.endpoint_group_configurations
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2438,11 +3131,16 @@ class Client(OpenApiClient):
     def update_forwarding_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceleratorId'] = request.accelerator_id
-        query['ClientToken'] = request.client_token
-        query['ForwardingRules'] = request.forwarding_rules
-        query['ListenerId'] = request.listener_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.forwarding_rules):
+            query['ForwardingRules'] = request.forwarding_rules
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2469,10 +3167,14 @@ class Client(OpenApiClient):
     def update_ip_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Bandwidth'] = request.bandwidth
-        query['ClientToken'] = request.client_token
-        query['IpSetId'] = request.ip_set_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ip_set_id):
+            query['IpSetId'] = request.ip_set_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2499,8 +3201,10 @@ class Client(OpenApiClient):
     def update_ip_sets_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['IpSets'] = request.ip_sets
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.ip_sets):
+            query['IpSets'] = request.ip_sets
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2527,19 +3231,32 @@ class Client(OpenApiClient):
     def update_listener_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BackendPorts'] = request.backend_ports
-        query['Certificates'] = request.certificates
-        query['ClientAffinity'] = request.client_affinity
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['ListenerId'] = request.listener_id
-        query['Name'] = request.name
-        query['PortRanges'] = request.port_ranges
-        query['Protocol'] = request.protocol
-        query['ProxyProtocol'] = request.proxy_protocol
-        query['RegionId'] = request.region_id
-        query['SecurityPolicyId'] = request.security_policy_id
-        query['XForwardedForConfig'] = request.xforwarded_for_config
+        if not UtilClient.is_unset(request.backend_ports):
+            query['BackendPorts'] = request.backend_ports
+        if not UtilClient.is_unset(request.certificates):
+            query['Certificates'] = request.certificates
+        if not UtilClient.is_unset(request.client_affinity):
+            query['ClientAffinity'] = request.client_affinity
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.port_ranges):
+            query['PortRanges'] = request.port_ranges
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.proxy_protocol):
+            query['ProxyProtocol'] = request.proxy_protocol
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_policy_id):
+            query['SecurityPolicyId'] = request.security_policy_id
+        if not UtilClient.is_unset(request.xforwarded_for_config):
+            query['XForwardedForConfig'] = request.xforwarded_for_config
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
