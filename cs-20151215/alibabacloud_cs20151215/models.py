@@ -676,13 +676,14 @@ class CreateClusterRequest(TeaModel):
                  master_system_disk_category=None, master_system_disk_performance_level=None, master_system_disk_size=None,
                  master_system_disk_snapshot_policy_id=None, master_vswitch_ids=None, name=None, nat_gateway=None, node_cidr_mask=None,
                  node_name_mode=None, node_port_range=None, num_of_nodes=None, os_type=None, platform=None, pod_vswitch_ids=None,
-                 profile=None, proxy_mode=None, rds_instances=None, region_id=None, runtime=None, security_group_id=None,
-                 service_account_issuer=None, service_cidr=None, service_discovery_types=None, snat_entry=None, soc_enabled=None,
-                 ssh_flags=None, tags=None, taints=None, timeout_mins=None, timezone=None, user_ca=None, user_data=None,
-                 vpcid=None, vswitch_ids=None, worker_auto_renew=None, worker_auto_renew_period=None,
-                 worker_data_disks=None, worker_instance_charge_type=None, worker_instance_types=None, worker_period=None,
-                 worker_period_unit=None, worker_system_disk_category=None, worker_system_disk_performance_level=None,
-                 worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None, worker_vswitch_ids=None, zone_id=None):
+                 profile=None, proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None, runtime=None,
+                 security_group_id=None, service_account_issuer=None, service_cidr=None, service_discovery_types=None,
+                 snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None, taints=None, timeout_mins=None, timezone=None,
+                 user_ca=None, user_data=None, vpcid=None, vswitch_ids=None, worker_auto_renew=None,
+                 worker_auto_renew_period=None, worker_data_disks=None, worker_instance_charge_type=None, worker_instance_types=None,
+                 worker_period=None, worker_period_unit=None, worker_system_disk_category=None,
+                 worker_system_disk_performance_level=None, worker_system_disk_size=None, worker_system_disk_snapshot_policy_id=None,
+                 worker_vswitch_ids=None, zone_id=None):
         # 集群组件配置
         self.addons = addons  # type: list[Addon]
         # 合法的请求token身份，用于apiserver服务端认证请求token是否合法。
@@ -791,6 +792,8 @@ class CreateClusterRequest(TeaModel):
         self.rds_instances = rds_instances  # type: list[str]
         # 地域ID
         self.region_id = region_id  # type: str
+        # 集群所属资源组ID
+        self.resource_group_id = resource_group_id  # type: str
         self.runtime = runtime  # type: Runtime
         # 安全组ID，和is_enterprise_security_group二选一
         self.security_group_id = security_group_id  # type: str
@@ -985,6 +988,8 @@ class CreateClusterRequest(TeaModel):
             result['rds_instances'] = self.rds_instances
         if self.region_id is not None:
             result['region_id'] = self.region_id
+        if self.resource_group_id is not None:
+            result['resource_group_id'] = self.resource_group_id
         if self.runtime is not None:
             result['runtime'] = self.runtime.to_map()
         if self.security_group_id is not None:
@@ -1164,6 +1169,8 @@ class CreateClusterRequest(TeaModel):
             self.rds_instances = m.get('rds_instances')
         if m.get('region_id') is not None:
             self.region_id = m.get('region_id')
+        if m.get('resource_group_id') is not None:
+            self.resource_group_id = m.get('resource_group_id')
         if m.get('runtime') is not None:
             temp_model = Runtime()
             self.runtime = temp_model.from_map(m['runtime'])
@@ -1684,12 +1691,13 @@ class CreateClusterNodePoolRequestScalingGroupTags(TeaModel):
 
 class CreateClusterNodePoolRequestScalingGroup(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
-                 deploymentset_id=None, image_id=None, image_type=None, instance_charge_type=None, instance_types=None,
-                 internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None,
-                 on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
-                 rds_instances=None, scaling_policy=None, security_group_id=None, security_group_ids=None,
-                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
-                 system_disk_category=None, system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 deploymentset_id=None, desired_size=None, image_id=None, image_type=None, instance_charge_type=None,
+                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None,
+                 login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
+                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, rds_instances=None, scaling_policy=None,
+                 security_group_id=None, security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None,
+                 spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_performance_level=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
         # 节点是否开启自动续费
         self.auto_renew = auto_renew  # type: bool
         # 节点自动续费周期
@@ -1700,6 +1708,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
         self.data_disks = data_disks  # type: list[DataDisk]
         # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
+        # 姐弟池期望节点数
+        self.desired_size = desired_size  # type: long
         # 自定义镜像。
         self.image_id = image_id  # type: str
         # 操作系统镜像类型，和platform二选一
@@ -1787,6 +1797,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                 result['data_disks'].append(k.to_map() if k else None)
         if self.deploymentset_id is not None:
             result['deploymentset_id'] = self.deploymentset_id
+        if self.desired_size is not None:
+            result['desired_size'] = self.desired_size
         if self.image_id is not None:
             result['image_id'] = self.image_id
         if self.image_type is not None:
@@ -1862,6 +1874,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                 self.data_disks.append(temp_model.from_map(k))
         if m.get('deploymentset_id') is not None:
             self.deploymentset_id = m.get('deploymentset_id')
+        if m.get('desired_size') is not None:
+            self.desired_size = m.get('desired_size')
         if m.get('image_id') is not None:
             self.image_id = m.get('image_id')
         if m.get('image_type') is not None:
@@ -4463,12 +4477,13 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit(TeaMod
 
 class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
-                 deploymentset_id=None, image_id=None, instance_charge_type=None, instance_types=None, internet_charge_type=None,
-                 internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
-                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, ram_policy=None, rds_instances=None,
-                 scaling_group_id=None, scaling_policy=None, security_group_id=None, security_group_ids=None,
-                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
-                 system_disk_category=None, system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 deploymentset_id=None, desired_size=None, image_id=None, instance_charge_type=None, instance_types=None,
+                 internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None,
+                 on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
+                 ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None, security_group_id=None,
+                 security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
+                 spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
+                 tags=None, vswitch_ids=None):
         # 节点是否开启自动续费。
         self.auto_renew = auto_renew  # type: bool
         # 节点自动续费周期。
@@ -4479,6 +4494,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
         self.data_disks = data_disks  # type: list[DataDisk]
         # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
+        # 节点池期望节点数
+        self.desired_size = desired_size  # type: long
         # 自定义镜像ID。
         self.image_id = image_id  # type: str
         # 节点付费类型。
@@ -4568,6 +4585,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                 result['data_disks'].append(k.to_map() if k else None)
         if self.deploymentset_id is not None:
             result['deploymentset_id'] = self.deploymentset_id
+        if self.desired_size is not None:
+            result['desired_size'] = self.desired_size
         if self.image_id is not None:
             result['image_id'] = self.image_id
         if self.instance_charge_type is not None:
@@ -4645,6 +4664,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                 self.data_disks.append(temp_model.from_map(k))
         if m.get('deploymentset_id') is not None:
             self.deploymentset_id = m.get('deploymentset_id')
+        if m.get('desired_size') is not None:
+            self.desired_size = m.get('desired_size')
         if m.get('image_id') is not None:
             self.image_id = m.get('image_id')
         if m.get('instance_charge_type') is not None:
@@ -5318,12 +5339,13 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit(Te
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
-                 deploymentset_id=None, image_id=None, instance_charge_type=None, instance_types=None, internet_charge_type=None,
-                 internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
-                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, ram_policy=None, rds_instances=None,
-                 scaling_group_id=None, scaling_policy=None, security_group_id=None, security_group_ids=None,
-                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
-                 system_disk_category=None, system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 deploymentset_id=None, desired_size=None, image_id=None, instance_charge_type=None, instance_types=None,
+                 internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None,
+                 on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
+                 ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None, security_group_id=None,
+                 security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
+                 spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
+                 tags=None, vswitch_ids=None):
         # 自动续费	
         self.auto_renew = auto_renew  # type: bool
         # 自动付费时长	
@@ -5334,6 +5356,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
         self.data_disks = data_disks  # type: list[DataDisk]
         # 部署集ID。
         self.deploymentset_id = deploymentset_id  # type: str
+        # 节点池期望节点数
+        self.desired_size = desired_size  # type: long
         # 镜像ID	
         self.image_id = image_id  # type: str
         # 节点付费类型	
@@ -5423,6 +5447,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                 result['data_disks'].append(k.to_map() if k else None)
         if self.deploymentset_id is not None:
             result['deploymentset_id'] = self.deploymentset_id
+        if self.desired_size is not None:
+            result['desired_size'] = self.desired_size
         if self.image_id is not None:
             result['image_id'] = self.image_id
         if self.instance_charge_type is not None:
@@ -5500,6 +5526,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                 self.data_disks.append(temp_model.from_map(k))
         if m.get('deploymentset_id') is not None:
             self.deploymentset_id = m.get('deploymentset_id')
+        if m.get('desired_size') is not None:
+            self.desired_size = m.get('desired_size')
         if m.get('image_id') is not None:
             self.image_id = m.get('image_id')
         if m.get('instance_charge_type') is not None:
@@ -11431,7 +11459,7 @@ class ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
 
 class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
-                 image_id=None, instance_charge_type=None, instance_types=None, internet_charge_type=None,
+                 desired_size=None, image_id=None, instance_charge_type=None, instance_types=None, internet_charge_type=None,
                  internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
                  on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, rds_instances=None, scaling_policy=None,
                  spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
@@ -11444,6 +11472,8 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
         # 数据盘配置。
         self.data_disks = data_disks  # type: list[DataDisk]
+        # 节点池期望节点数
+        self.desired_size = desired_size  # type: long
         # 自定义镜像
         self.image_id = image_id  # type: str
         # 节点付费类型。
@@ -11523,6 +11553,8 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
         if self.data_disks is not None:
             for k in self.data_disks:
                 result['data_disks'].append(k.to_map() if k else None)
+        if self.desired_size is not None:
+            result['desired_size'] = self.desired_size
         if self.image_id is not None:
             result['image_id'] = self.image_id
         if self.instance_charge_type is not None:
@@ -11590,6 +11622,8 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
             for k in m.get('data_disks'):
                 temp_model = DataDisk()
                 self.data_disks.append(temp_model.from_map(k))
+        if m.get('desired_size') is not None:
+            self.desired_size = m.get('desired_size')
         if m.get('image_id') is not None:
             self.image_id = m.get('image_id')
         if m.get('instance_charge_type') is not None:
