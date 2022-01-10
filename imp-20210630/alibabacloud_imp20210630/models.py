@@ -4909,9 +4909,10 @@ class GetLiveRoomResponseBodyResultPluginInstanceInfoList(TeaModel):
 
 class GetLiveRoomResponseBodyResult(TeaModel):
     def __init__(self, anchor_id=None, anchor_nick=None, app_id=None, artc_info=None, chat_id=None, cover_url=None,
-                 create_time=None, end_time=None, extension=None, hls_url=None, live_id=None, live_url=None, notice=None,
-                 online_count=None, playback_url=None, plugin_instance_info_list=None, push_url=None, pv=None, room_id=None,
-                 start_time=None, status=None, title=None, uv=None):
+                 create_time=None, end_time=None, extension=None, hls_url=None, hls_url_https=None, live_id=None, live_url=None,
+                 live_url_https=None, notice=None, online_count=None, playback_url=None, playback_url_https=None,
+                 plugin_instance_info_list=None, push_url=None, pv=None, room_id=None, rtmp_url=None, start_time=None, status=None, title=None,
+                 uv=None):
         # 主播ID。
         self.anchor_id = anchor_id  # type: str
         # 主播昵称
@@ -4932,16 +4933,22 @@ class GetLiveRoomResponseBodyResult(TeaModel):
         self.extension = extension  # type: dict[str, str]
         # 原画HLS播放地址。
         self.hls_url = hls_url  # type: str
+        # https协议的原画HLS播放地址。
+        self.hls_url_https = hls_url_https  # type: str
         # 直播ID。
         self.live_id = live_id  # type: str
         # 直播拉流地址。
         self.live_url = live_url  # type: str
+        # https协议的直播拉流地址。
+        self.live_url_https = live_url_https  # type: str
         # 公告。
         self.notice = notice  # type: str
         # 在线用户数。
         self.online_count = online_count  # type: long
         # 直播回放地址。
         self.playback_url = playback_url  # type: str
+        # https协议的直播回放地址
+        self.playback_url_https = playback_url_https  # type: str
         # 活跃插件列表。
         self.plugin_instance_info_list = plugin_instance_info_list  # type: list[GetLiveRoomResponseBodyResultPluginInstanceInfoList]
         # 直播推流地址。
@@ -4950,6 +4957,8 @@ class GetLiveRoomResponseBodyResult(TeaModel):
         self.pv = pv  # type: long
         # 房间ID。
         self.room_id = room_id  # type: str
+        # rtmp协议的播放地址
+        self.rtmp_url = rtmp_url  # type: str
         # 直播开始时间，单位：毫秒。
         self.start_time = start_time  # type: long
         # 直播状态，0-在播 1-下播。
@@ -4993,16 +5002,22 @@ class GetLiveRoomResponseBodyResult(TeaModel):
             result['Extension'] = self.extension
         if self.hls_url is not None:
             result['HlsUrl'] = self.hls_url
+        if self.hls_url_https is not None:
+            result['HlsUrlHttps'] = self.hls_url_https
         if self.live_id is not None:
             result['LiveId'] = self.live_id
         if self.live_url is not None:
             result['LiveUrl'] = self.live_url
+        if self.live_url_https is not None:
+            result['LiveUrlHttps'] = self.live_url_https
         if self.notice is not None:
             result['Notice'] = self.notice
         if self.online_count is not None:
             result['OnlineCount'] = self.online_count
         if self.playback_url is not None:
             result['PlaybackUrl'] = self.playback_url
+        if self.playback_url_https is not None:
+            result['PlaybackUrlHttps'] = self.playback_url_https
         result['PluginInstanceInfoList'] = []
         if self.plugin_instance_info_list is not None:
             for k in self.plugin_instance_info_list:
@@ -5013,6 +5028,8 @@ class GetLiveRoomResponseBodyResult(TeaModel):
             result['Pv'] = self.pv
         if self.room_id is not None:
             result['RoomId'] = self.room_id
+        if self.rtmp_url is not None:
+            result['RtmpUrl'] = self.rtmp_url
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.status is not None:
@@ -5046,16 +5063,22 @@ class GetLiveRoomResponseBodyResult(TeaModel):
             self.extension = m.get('Extension')
         if m.get('HlsUrl') is not None:
             self.hls_url = m.get('HlsUrl')
+        if m.get('HlsUrlHttps') is not None:
+            self.hls_url_https = m.get('HlsUrlHttps')
         if m.get('LiveId') is not None:
             self.live_id = m.get('LiveId')
         if m.get('LiveUrl') is not None:
             self.live_url = m.get('LiveUrl')
+        if m.get('LiveUrlHttps') is not None:
+            self.live_url_https = m.get('LiveUrlHttps')
         if m.get('Notice') is not None:
             self.notice = m.get('Notice')
         if m.get('OnlineCount') is not None:
             self.online_count = m.get('OnlineCount')
         if m.get('PlaybackUrl') is not None:
             self.playback_url = m.get('PlaybackUrl')
+        if m.get('PlaybackUrlHttps') is not None:
+            self.playback_url_https = m.get('PlaybackUrlHttps')
         self.plugin_instance_info_list = []
         if m.get('PluginInstanceInfoList') is not None:
             for k in m.get('PluginInstanceInfoList'):
@@ -5067,6 +5090,8 @@ class GetLiveRoomResponseBodyResult(TeaModel):
             self.pv = m.get('Pv')
         if m.get('RoomId') is not None:
             self.room_id = m.get('RoomId')
+        if m.get('RtmpUrl') is not None:
+            self.rtmp_url = m.get('RtmpUrl')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('Status') is not None:
