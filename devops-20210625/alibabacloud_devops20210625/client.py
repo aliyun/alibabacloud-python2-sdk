@@ -146,6 +146,43 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def create_project(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_project_with_options(organization_id, request, headers, runtime)
+
+    def create_project_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        body = {}
+        if not UtilClient.is_unset(request.custom_code):
+            body['customCode'] = request.custom_code
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
+        if not UtilClient.is_unset(request.template_identifier):
+            body['templateIdentifier'] = request.template_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProject',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/projects/createProject' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def create_resource_member(self, organization_id, resource_type, resource_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -178,6 +215,45 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.CreateResourceMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_sprint(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_sprint_with_options(organization_id, request, headers, runtime)
+
+    def create_sprint_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        body = {}
+        if not UtilClient.is_unset(request.end_date):
+            body['endDate'] = request.end_date
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.space_identifier):
+            body['spaceIdentifier'] = request.space_identifier
+        if not UtilClient.is_unset(request.staff_ids):
+            body['staffIds'] = request.staff_ids
+        if not UtilClient.is_unset(request.start_date):
+            body['startDate'] = request.start_date
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateSprint',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/sprints/create' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateSprintResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -394,6 +470,38 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def delete_project(self, organization_id, project_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_project_with_options(organization_id, project_id, request, headers, runtime)
+
+    def delete_project_with_options(self, organization_id, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        project_id = OpenApiUtilClient.get_encode_param(project_id)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['projectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteProject',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/projects/%s/delete' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def delete_resource_member(self, organization_id, resource_type, resource_id, account_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -473,6 +581,42 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.FrozenWorkspaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_custom_field_option(self, organization_id, field_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_custom_field_option_with_options(organization_id, field_id, request, headers, runtime)
+
+    def get_custom_field_option_with_options(self, organization_id, field_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        field_id = OpenApiUtilClient.get_encode_param(field_id)
+        query = {}
+        if not UtilClient.is_unset(request.space_identifier):
+            query['spaceIdentifier'] = request.space_identifier
+        if not UtilClient.is_unset(request.space_type):
+            query['spaceType'] = request.space_type
+        if not UtilClient.is_unset(request.workitem_type_identifier):
+            query['workitemTypeIdentifier'] = request.workitem_type_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCustomFieldOption',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/fields/%s/getCustomOption' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(field_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetCustomFieldOptionResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -790,6 +934,92 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.GetVariableGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_work_item_activity(self, organization_id, workitem_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_work_item_activity_with_options(organization_id, workitem_id, headers, runtime)
+
+    def get_work_item_activity_with_options(self, organization_id, workitem_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetWorkItemActivity',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s/getActivity' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkItemActivityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_work_item_info(self, organization_id, workitem_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_work_item_info_with_options(organization_id, workitem_id, headers, runtime)
+
+    def get_work_item_info_with_options(self, organization_id, workitem_id, headers, runtime):
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetWorkItemInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkItemInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_work_item_work_flow_info(self, organization_id, workitem_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_work_item_work_flow_info_with_options(organization_id, workitem_id, request, headers, runtime)
+
+    def get_work_item_work_flow_info_with_options(self, organization_id, workitem_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        workitem_id = OpenApiUtilClient.get_encode_param(workitem_id)
+        query = {}
+        if not UtilClient.is_unset(request.configuration_id):
+            query['configurationId'] = request.configuration_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkItemWorkFlowInfo',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s/getWorkflowInfo' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(workitem_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkItemWorkFlowInfoResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1851,6 +2081,46 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def update_project_member(self, organization_id, project_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_project_member_with_options(organization_id, project_id, request, headers, runtime)
+
+    def update_project_member_with_options(self, organization_id, project_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        project_id = OpenApiUtilClient.get_encode_param(project_id)
+        body = {}
+        if not UtilClient.is_unset(request.role_identifier):
+            body['roleIdentifier'] = request.role_identifier
+        if not UtilClient.is_unset(request.target_identifier):
+            body['targetIdentifier'] = request.target_identifier
+        if not UtilClient.is_unset(request.target_type):
+            body['targetType'] = request.target_type
+        if not UtilClient.is_unset(request.user_identifier):
+            body['userIdentifier'] = request.user_identifier
+        if not UtilClient.is_unset(request.user_type):
+            body['userType'] = request.user_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateProjectMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/projects/%s/updateMember' % (TeaConverter.to_unicode(organization_id), TeaConverter.to_unicode(project_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateProjectMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def update_resource_member(self, organization_id, resource_type, resource_id, account_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1918,5 +2188,40 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             devops_20210625_models.UpdateVariableGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_work_item(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_work_item_with_options(organization_id, request, headers, runtime)
+
+    def update_work_item_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        organization_id = OpenApiUtilClient.get_encode_param(organization_id)
+        body = {}
+        if not UtilClient.is_unset(request.identifier):
+            body['identifier'] = request.identifier
+        if not UtilClient.is_unset(request.property_key):
+            body['propertyKey'] = request.property_key
+        if not UtilClient.is_unset(request.property_value):
+            body['propertyValue'] = request.property_value
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkItem',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/update' % TeaConverter.to_unicode(organization_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateWorkItemResponse(),
             self.call_api(params, req, runtime)
         )
