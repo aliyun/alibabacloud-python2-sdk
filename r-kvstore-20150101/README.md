@@ -14,8 +14,8 @@ English | [简体中文](README-CN.md)
 Python SDK uses a common package management tool named `pip`. If pip is not installed, see the [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") to install pip.
 
 ```bash
-# Install the alibabacloud_r_kvstore20150101
-pip install alibabacloud_r_kvstore20150101
+# Install the alibabacloud_r_kvstore20150101_py2
+pip install alibabacloud_r_kvstore20150101_py2
 ```
 
 ## Issues
