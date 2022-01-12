@@ -7062,14 +7062,12 @@ class DescribeDBInstancesResponse(TeaModel):
 
 
 class DescribeDBInstancesOverviewRequest(TeaModel):
-    def __init__(self, architecture_type=None, charge_type=None, engine_version=None, expire_time=None,
-                 instance_class=None, instance_ids=None, instance_status=None, instance_type=None, network_type=None,
-                 owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, search_key=None, security_token=None, v_switch_id=None, vpc_id=None, zone_id=None):
-        self.architecture_type = architecture_type  # type: str
+    def __init__(self, charge_type=None, engine_version=None, instance_class=None, instance_ids=None,
+                 instance_status=None, instance_type=None, network_type=None, owner_account=None, owner_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None, v_switch_id=None,
+                 vpc_id=None, zone_id=None):
         self.charge_type = charge_type  # type: str
         self.engine_version = engine_version  # type: str
-        self.expire_time = expire_time  # type: str
         self.instance_class = instance_class  # type: str
         self.instance_ids = instance_ids  # type: str
         self.instance_status = instance_status  # type: str
@@ -7077,11 +7075,9 @@ class DescribeDBInstancesOverviewRequest(TeaModel):
         self.network_type = network_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        self.search_key = search_key  # type: str
         self.security_token = security_token  # type: str
         self.v_switch_id = v_switch_id  # type: str
         self.vpc_id = vpc_id  # type: str
@@ -7096,14 +7092,10 @@ class DescribeDBInstancesOverviewRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.architecture_type is not None:
-            result['ArchitectureType'] = self.architecture_type
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.engine_version is not None:
             result['EngineVersion'] = self.engine_version
-        if self.expire_time is not None:
-            result['ExpireTime'] = self.expire_time
         if self.instance_class is not None:
             result['InstanceClass'] = self.instance_class
         if self.instance_ids is not None:
@@ -7118,16 +7110,12 @@ class DescribeDBInstancesOverviewRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
-        if self.search_key is not None:
-            result['SearchKey'] = self.search_key
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
         if self.v_switch_id is not None:
@@ -7140,14 +7128,10 @@ class DescribeDBInstancesOverviewRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ArchitectureType') is not None:
-            self.architecture_type = m.get('ArchitectureType')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('EngineVersion') is not None:
             self.engine_version = m.get('EngineVersion')
-        if m.get('ExpireTime') is not None:
-            self.expire_time = m.get('ExpireTime')
         if m.get('InstanceClass') is not None:
             self.instance_class = m.get('InstanceClass')
         if m.get('InstanceIds') is not None:
@@ -7162,16 +7146,12 @@ class DescribeDBInstancesOverviewRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('SearchKey') is not None:
-            self.search_key = m.get('SearchKey')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
         if m.get('VSwitchId') is not None:
@@ -7292,11 +7272,12 @@ class DescribeDBInstancesOverviewResponseBodyDBInstancesTags(TeaModel):
 
 
 class DescribeDBInstancesOverviewResponseBodyDBInstances(TeaModel):
-    def __init__(self, charge_type=None, creation_time=None, dbinstance_class=None, dbinstance_description=None,
-                 dbinstance_id=None, dbinstance_status=None, dbinstance_storage=None, dbinstance_type=None, destroy_time=None,
-                 engine=None, engine_version=None, expire_time=None, kind_code=None, last_downgrade_time=None,
+    def __init__(self, capacity_unit=None, charge_type=None, creation_time=None, dbinstance_class=None,
+                 dbinstance_description=None, dbinstance_id=None, dbinstance_status=None, dbinstance_storage=None, dbinstance_type=None,
+                 destroy_time=None, engine=None, engine_version=None, expire_time=None, kind_code=None, last_downgrade_time=None,
                  lock_mode=None, mongos_list=None, network_type=None, region_id=None, replication_factor=None,
                  resource_group_id=None, shard_list=None, tags=None, vpc_auth_mode=None, zone_id=None):
+        self.capacity_unit = capacity_unit  # type: str
         self.charge_type = charge_type  # type: str
         self.creation_time = creation_time  # type: str
         self.dbinstance_class = dbinstance_class  # type: str
@@ -7342,6 +7323,8 @@ class DescribeDBInstancesOverviewResponseBodyDBInstances(TeaModel):
             return _map
 
         result = dict()
+        if self.capacity_unit is not None:
+            result['CapacityUnit'] = self.capacity_unit
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.creation_time is not None:
@@ -7400,6 +7383,8 @@ class DescribeDBInstancesOverviewResponseBodyDBInstances(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CapacityUnit') is not None:
+            self.capacity_unit = m.get('CapacityUnit')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('CreationTime') is not None:
@@ -7463,9 +7448,8 @@ class DescribeDBInstancesOverviewResponseBodyDBInstances(TeaModel):
 class DescribeDBInstancesOverviewResponseBody(TeaModel):
     def __init__(self, dbinstances=None, request_id=None, total_count=None):
         self.dbinstances = dbinstances  # type: list[DescribeDBInstancesOverviewResponseBodyDBInstances]
-        # Id of the request
         self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: int
+        self.total_count = total_count  # type: str
 
     def validate(self):
         if self.dbinstances:
