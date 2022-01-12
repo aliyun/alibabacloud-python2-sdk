@@ -3961,10 +3961,12 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions(Te
 
 
 class GetFeatureDetailsResponseBodyTerraformSupportedVersions(TeaModel):
-    def __init__(self, provider_versions=None, terraform_version=None, transform=None):
+    def __init__(self, provider_versions=None, terraform_version=None, transform=None,
+                 update_allowed_transforms=None):
         self.provider_versions = provider_versions  # type: list[GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions]
         self.terraform_version = terraform_version  # type: str
         self.transform = transform  # type: str
+        self.update_allowed_transforms = update_allowed_transforms  # type: list[str]
 
     def validate(self):
         if self.provider_versions:
@@ -3986,6 +3988,8 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersions(TeaModel):
             result['TerraformVersion'] = self.terraform_version
         if self.transform is not None:
             result['Transform'] = self.transform
+        if self.update_allowed_transforms is not None:
+            result['UpdateAllowedTransforms'] = self.update_allowed_transforms
         return result
 
     def from_map(self, m=None):
@@ -3999,6 +4003,8 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersions(TeaModel):
             self.terraform_version = m.get('TerraformVersion')
         if m.get('Transform') is not None:
             self.transform = m.get('Transform')
+        if m.get('UpdateAllowedTransforms') is not None:
+            self.update_allowed_transforms = m.get('UpdateAllowedTransforms')
         return self
 
 
@@ -4888,7 +4894,8 @@ class GetStackResponseBody(TeaModel):
                  drift_detection_time=None, log=None, notification_urls=None, outputs=None, parameters=None, parent_stack_id=None,
                  ram_role_name=None, region_id=None, request_id=None, resource_group_id=None, resource_progress=None,
                  root_stack_id=None, stack_drift_status=None, stack_id=None, stack_name=None, stack_type=None, status=None,
-                 status_reason=None, tags=None, template_description=None, timeout_in_minutes=None, update_time=None):
+                 status_reason=None, tags=None, template_description=None, template_id=None, template_scratch_id=None,
+                 template_url=None, template_version=None, timeout_in_minutes=None, update_time=None):
         self.create_time = create_time  # type: str
         self.deletion_protection = deletion_protection  # type: str
         self.description = description  # type: str
@@ -4913,6 +4920,10 @@ class GetStackResponseBody(TeaModel):
         self.status_reason = status_reason  # type: str
         self.tags = tags  # type: list[GetStackResponseBodyTags]
         self.template_description = template_description  # type: str
+        self.template_id = template_id  # type: str
+        self.template_scratch_id = template_scratch_id  # type: str
+        self.template_url = template_url  # type: str
+        self.template_version = template_version  # type: str
         self.timeout_in_minutes = timeout_in_minutes  # type: int
         self.update_time = update_time  # type: str
 
@@ -4988,6 +4999,14 @@ class GetStackResponseBody(TeaModel):
                 result['Tags'].append(k.to_map() if k else None)
         if self.template_description is not None:
             result['TemplateDescription'] = self.template_description
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        if self.template_scratch_id is not None:
+            result['TemplateScratchId'] = self.template_scratch_id
+        if self.template_url is not None:
+            result['TemplateURL'] = self.template_url
+        if self.template_version is not None:
+            result['TemplateVersion'] = self.template_version
         if self.timeout_in_minutes is not None:
             result['TimeoutInMinutes'] = self.timeout_in_minutes
         if self.update_time is not None:
@@ -5052,6 +5071,14 @@ class GetStackResponseBody(TeaModel):
                 self.tags.append(temp_model.from_map(k))
         if m.get('TemplateDescription') is not None:
             self.template_description = m.get('TemplateDescription')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        if m.get('TemplateScratchId') is not None:
+            self.template_scratch_id = m.get('TemplateScratchId')
+        if m.get('TemplateURL') is not None:
+            self.template_url = m.get('TemplateURL')
+        if m.get('TemplateVersion') is not None:
+            self.template_version = m.get('TemplateVersion')
         if m.get('TimeoutInMinutes') is not None:
             self.timeout_in_minutes = m.get('TimeoutInMinutes')
         if m.get('UpdateTime') is not None:
