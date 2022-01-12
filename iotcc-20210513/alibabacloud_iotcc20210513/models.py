@@ -3357,12 +3357,12 @@ class ListConnectionPoolAllIpsResponseBodyConnectionPoolIps(TeaModel):
 
 class ListConnectionPoolAllIpsResponseBody(TeaModel):
     def __init__(self, connection_pool_ips=None, max_results=None, next_token=None, request_id=None,
-                 total_count=None):
+                 total_ips_count=None):
         self.connection_pool_ips = connection_pool_ips  # type: list[ListConnectionPoolAllIpsResponseBodyConnectionPoolIps]
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
         self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: int
+        self.total_ips_count = total_ips_count  # type: int
 
     def validate(self):
         if self.connection_pool_ips:
@@ -3386,8 +3386,8 @@ class ListConnectionPoolAllIpsResponseBody(TeaModel):
             result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
+        if self.total_ips_count is not None:
+            result['TotalIpsCount'] = self.total_ips_count
         return result
 
     def from_map(self, m=None):
@@ -3403,8 +3403,8 @@ class ListConnectionPoolAllIpsResponseBody(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
+        if m.get('TotalIpsCount') is not None:
+            self.total_ips_count = m.get('TotalIpsCount')
         return self
 
 
@@ -4171,9 +4171,11 @@ class ListIoTCloudConnectorGroupsRequest(TeaModel):
 
 
 class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConnectors(TeaModel):
-    def __init__(self, create_time=None, io_tcloud_connector_description=None, io_tcloud_connector_id=None,
-                 io_tcloud_connector_name=None, io_tcloud_connector_status=None):
+    def __init__(self, apn=None, create_time=None, isp=None, io_tcloud_connector_description=None,
+                 io_tcloud_connector_id=None, io_tcloud_connector_name=None, io_tcloud_connector_status=None):
+        self.apn = apn  # type: str
         self.create_time = create_time  # type: long
+        self.isp = isp  # type: str
         self.io_tcloud_connector_description = io_tcloud_connector_description  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.io_tcloud_connector_name = io_tcloud_connector_name  # type: str
@@ -4188,8 +4190,12 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConn
             return _map
 
         result = dict()
+        if self.apn is not None:
+            result['APN'] = self.apn
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
+        if self.isp is not None:
+            result['ISP'] = self.isp
         if self.io_tcloud_connector_description is not None:
             result['IoTCloudConnectorDescription'] = self.io_tcloud_connector_description
         if self.io_tcloud_connector_id is not None:
@@ -4202,8 +4208,12 @@ class ListIoTCloudConnectorGroupsResponseBodyIoTCloudConnectorGroupsIoTCloudConn
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('APN') is not None:
+            self.apn = m.get('APN')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
+        if m.get('ISP') is not None:
+            self.isp = m.get('ISP')
         if m.get('IoTCloudConnectorDescription') is not None:
             self.io_tcloud_connector_description = m.get('IoTCloudConnectorDescription')
         if m.get('IoTCloudConnectorId') is not None:
@@ -4360,10 +4370,12 @@ class ListIoTCloudConnectorGroupsResponse(TeaModel):
 
 
 class ListIoTCloudConnectorsRequest(TeaModel):
-    def __init__(self, apn=None, isp=None, io_tcloud_connector_ids=None, io_tcloud_connector_name=None,
-                 io_tcloud_connector_status=None, is_in_group=None, max_results=None, next_token=None, region_id=None, vpc_id=None):
+    def __init__(self, apn=None, isp=None, io_tcloud_connector_group_id=None, io_tcloud_connector_ids=None,
+                 io_tcloud_connector_name=None, io_tcloud_connector_status=None, is_in_group=None, max_results=None, next_token=None,
+                 region_id=None, vpc_id=None):
         self.apn = apn  # type: list[str]
         self.isp = isp  # type: list[str]
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
         self.io_tcloud_connector_ids = io_tcloud_connector_ids  # type: list[str]
         self.io_tcloud_connector_name = io_tcloud_connector_name  # type: list[str]
         self.io_tcloud_connector_status = io_tcloud_connector_status  # type: list[str]
@@ -4386,6 +4398,8 @@ class ListIoTCloudConnectorsRequest(TeaModel):
             result['APN'] = self.apn
         if self.isp is not None:
             result['ISP'] = self.isp
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
         if self.io_tcloud_connector_ids is not None:
             result['IoTCloudConnectorIds'] = self.io_tcloud_connector_ids
         if self.io_tcloud_connector_name is not None:
@@ -4410,6 +4424,8 @@ class ListIoTCloudConnectorsRequest(TeaModel):
             self.apn = m.get('APN')
         if m.get('ISP') is not None:
             self.isp = m.get('ISP')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
         if m.get('IoTCloudConnectorIds') is not None:
             self.io_tcloud_connector_ids = m.get('IoTCloudConnectorIds')
         if m.get('IoTCloudConnectorName') is not None:
