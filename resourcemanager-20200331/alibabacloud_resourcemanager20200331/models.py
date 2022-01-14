@@ -355,6 +355,97 @@ class AttachPolicyResponse(TeaModel):
         return self
 
 
+class BindSecureMobilePhoneRequest(TeaModel):
+    def __init__(self, account_id=None, secure_mobile_phone=None, verification_code=None):
+        self.account_id = account_id  # type: str
+        self.secure_mobile_phone = secure_mobile_phone  # type: str
+        self.verification_code = verification_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindSecureMobilePhoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.secure_mobile_phone is not None:
+            result['SecureMobilePhone'] = self.secure_mobile_phone
+        if self.verification_code is not None:
+            result['VerificationCode'] = self.verification_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('SecureMobilePhone') is not None:
+            self.secure_mobile_phone = m.get('SecureMobilePhone')
+        if m.get('VerificationCode') is not None:
+            self.verification_code = m.get('VerificationCode')
+        return self
+
+
+class BindSecureMobilePhoneResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindSecureMobilePhoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BindSecureMobilePhoneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BindSecureMobilePhoneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindSecureMobilePhoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BindSecureMobilePhoneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CancelCreateCloudAccountRequest(TeaModel):
     def __init__(self, record_id=None):
         self.record_id = record_id  # type: str
@@ -2293,87 +2384,6 @@ class DeclineHandshakeResponse(TeaModel):
         return self
 
 
-class DeleteAccountRequest(TeaModel):
-    def __init__(self, account_id=None):
-        self.account_id = account_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteAccountRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.account_id is not None:
-            result['AccountId'] = self.account_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccountId') is not None:
-            self.account_id = m.get('AccountId')
-        return self
-
-
-class DeleteAccountResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteAccountResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class DeleteAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DeleteAccountResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DeleteAccountResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DeleteAccountResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DeleteControlPolicyRequest(TeaModel):
     def __init__(self, policy_id=None):
         self.policy_id = policy_id  # type: str
@@ -3527,6 +3537,154 @@ class EnableControlPolicyResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = EnableControlPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class EnableResourceDirectoryRequest(TeaModel):
+    def __init__(self, enable_mode=None, maname=None, masecure_mobile_phone=None, verification_code=None):
+        self.enable_mode = enable_mode  # type: str
+        self.maname = maname  # type: str
+        self.masecure_mobile_phone = masecure_mobile_phone  # type: str
+        self.verification_code = verification_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableResourceDirectoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_mode is not None:
+            result['EnableMode'] = self.enable_mode
+        if self.maname is not None:
+            result['MAName'] = self.maname
+        if self.masecure_mobile_phone is not None:
+            result['MASecureMobilePhone'] = self.masecure_mobile_phone
+        if self.verification_code is not None:
+            result['VerificationCode'] = self.verification_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableMode') is not None:
+            self.enable_mode = m.get('EnableMode')
+        if m.get('MAName') is not None:
+            self.maname = m.get('MAName')
+        if m.get('MASecureMobilePhone') is not None:
+            self.masecure_mobile_phone = m.get('MASecureMobilePhone')
+        if m.get('VerificationCode') is not None:
+            self.verification_code = m.get('VerificationCode')
+        return self
+
+
+class EnableResourceDirectoryResponseBodyResourceDirectory(TeaModel):
+    def __init__(self, create_time=None, master_account_id=None, master_account_name=None,
+                 resource_directory_id=None, root_folder_id=None):
+        self.create_time = create_time  # type: str
+        self.master_account_id = master_account_id  # type: str
+        self.master_account_name = master_account_name  # type: str
+        self.resource_directory_id = resource_directory_id  # type: str
+        self.root_folder_id = root_folder_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(EnableResourceDirectoryResponseBodyResourceDirectory, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.master_account_id is not None:
+            result['MasterAccountId'] = self.master_account_id
+        if self.master_account_name is not None:
+            result['MasterAccountName'] = self.master_account_name
+        if self.resource_directory_id is not None:
+            result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.root_folder_id is not None:
+            result['RootFolderId'] = self.root_folder_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('MasterAccountId') is not None:
+            self.master_account_id = m.get('MasterAccountId')
+        if m.get('MasterAccountName') is not None:
+            self.master_account_name = m.get('MasterAccountName')
+        if m.get('ResourceDirectoryId') is not None:
+            self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('RootFolderId') is not None:
+            self.root_folder_id = m.get('RootFolderId')
+        return self
+
+
+class EnableResourceDirectoryResponseBody(TeaModel):
+    def __init__(self, request_id=None, resource_directory=None):
+        self.request_id = request_id  # type: str
+        self.resource_directory = resource_directory  # type: EnableResourceDirectoryResponseBodyResourceDirectory
+
+    def validate(self):
+        if self.resource_directory:
+            self.resource_directory.validate()
+
+    def to_map(self):
+        _map = super(EnableResourceDirectoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.resource_directory is not None:
+            result['ResourceDirectory'] = self.resource_directory.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ResourceDirectory') is not None:
+            temp_model = EnableResourceDirectoryResponseBodyResourceDirectory()
+            self.resource_directory = temp_model.from_map(m['ResourceDirectory'])
+        return self
+
+
+class EnableResourceDirectoryResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: EnableResourceDirectoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(EnableResourceDirectoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = EnableResourceDirectoryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5663,7 +5821,7 @@ class ListAccountsRequest(TeaModel):
 
 class ListAccountsResponseBodyAccountsAccount(TeaModel):
     def __init__(self, account_id=None, display_name=None, folder_id=None, join_method=None, join_time=None,
-                 modify_time=None, resource_directory_id=None, status=None, type=None):
+                 modify_time=None, resource_directory_id=None, resource_directory_path=None, status=None, type=None):
         self.account_id = account_id  # type: str
         self.display_name = display_name  # type: str
         self.folder_id = folder_id  # type: str
@@ -5671,6 +5829,7 @@ class ListAccountsResponseBodyAccountsAccount(TeaModel):
         self.join_time = join_time  # type: str
         self.modify_time = modify_time  # type: str
         self.resource_directory_id = resource_directory_id  # type: str
+        self.resource_directory_path = resource_directory_path  # type: str
         self.status = status  # type: str
         self.type = type  # type: str
 
@@ -5697,6 +5856,8 @@ class ListAccountsResponseBodyAccountsAccount(TeaModel):
             result['ModifyTime'] = self.modify_time
         if self.resource_directory_id is not None:
             result['ResourceDirectoryId'] = self.resource_directory_id
+        if self.resource_directory_path is not None:
+            result['ResourceDirectoryPath'] = self.resource_directory_path
         if self.status is not None:
             result['Status'] = self.status
         if self.type is not None:
@@ -5719,6 +5880,8 @@ class ListAccountsResponseBodyAccountsAccount(TeaModel):
             self.modify_time = m.get('ModifyTime')
         if m.get('ResourceDirectoryId') is not None:
             self.resource_directory_id = m.get('ResourceDirectoryId')
+        if m.get('ResourceDirectoryPath') is not None:
+            self.resource_directory_path = m.get('ResourceDirectoryPath')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Type') is not None:
@@ -8137,9 +8300,13 @@ class ListPolicyVersionsResponse(TeaModel):
 
 
 class ListResourceGroupsRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, status=None):
+    def __init__(self, display_name=None, name=None, page_number=None, page_size=None, resource_group_id=None,
+                 status=None):
+        self.display_name = display_name  # type: str
+        self.name = name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -8151,20 +8318,32 @@ class ListResourceGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.display_name is not None:
+            result['DisplayName'] = self.display_name
+        if self.name is not None:
+            result['Name'] = self.name
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DisplayName') is not None:
+            self.display_name = m.get('DisplayName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -10102,6 +10281,178 @@ class ResendPromoteResourceAccountEmailResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ResendPromoteResourceAccountEmailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendVerificationCodeForBindSecureMobilePhoneRequest(TeaModel):
+    def __init__(self, account_id=None, secure_mobile_phone=None):
+        self.account_id = account_id  # type: str
+        self.secure_mobile_phone = secure_mobile_phone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForBindSecureMobilePhoneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.secure_mobile_phone is not None:
+            result['SecureMobilePhone'] = self.secure_mobile_phone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('SecureMobilePhone') is not None:
+            self.secure_mobile_phone = m.get('SecureMobilePhone')
+        return self
+
+
+class SendVerificationCodeForBindSecureMobilePhoneResponseBody(TeaModel):
+    def __init__(self, expiration_date=None, request_id=None):
+        self.expiration_date = expiration_date  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForBindSecureMobilePhoneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expiration_date is not None:
+            result['ExpirationDate'] = self.expiration_date
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExpirationDate') is not None:
+            self.expiration_date = m.get('ExpirationDate')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SendVerificationCodeForBindSecureMobilePhoneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SendVerificationCodeForBindSecureMobilePhoneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForBindSecureMobilePhoneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SendVerificationCodeForBindSecureMobilePhoneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendVerificationCodeForEnableRDRequest(TeaModel):
+    def __init__(self, secure_mobile_phone=None):
+        self.secure_mobile_phone = secure_mobile_phone  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForEnableRDRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.secure_mobile_phone is not None:
+            result['SecureMobilePhone'] = self.secure_mobile_phone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SecureMobilePhone') is not None:
+            self.secure_mobile_phone = m.get('SecureMobilePhone')
+        return self
+
+
+class SendVerificationCodeForEnableRDResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForEnableRDResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SendVerificationCodeForEnableRDResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SendVerificationCodeForEnableRDResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendVerificationCodeForEnableRDResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SendVerificationCodeForEnableRDResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
