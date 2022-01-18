@@ -4137,9 +4137,10 @@ class GetResourceTypeRequest(TeaModel):
 
 
 class GetResourceTypeResponseBody(TeaModel):
-    def __init__(self, attributes=None, properties=None, request_id=None, resource_type=None,
+    def __init__(self, attributes=None, entity_type=None, properties=None, request_id=None, resource_type=None,
                  support_drift_detection=None, support_scratch_detection=None):
         self.attributes = attributes  # type: dict[str, any]
+        self.entity_type = entity_type  # type: str
         self.properties = properties  # type: dict[str, any]
         self.request_id = request_id  # type: str
         self.resource_type = resource_type  # type: str
@@ -4157,6 +4158,8 @@ class GetResourceTypeResponseBody(TeaModel):
         result = dict()
         if self.attributes is not None:
             result['Attributes'] = self.attributes
+        if self.entity_type is not None:
+            result['EntityType'] = self.entity_type
         if self.properties is not None:
             result['Properties'] = self.properties
         if self.request_id is not None:
@@ -4173,6 +4176,8 @@ class GetResourceTypeResponseBody(TeaModel):
         m = m or dict()
         if m.get('Attributes') is not None:
             self.attributes = m.get('Attributes')
+        if m.get('EntityType') is not None:
+            self.entity_type = m.get('EntityType')
         if m.get('Properties') is not None:
             self.properties = m.get('Properties')
         if m.get('RequestId') is not None:
@@ -7934,6 +7939,30 @@ class ListChangeSetsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListChangeSetsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListResourceTypesRequest(TeaModel):
+    def __init__(self, entity_type=None):
+        self.entity_type = entity_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListResourceTypesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_type is not None:
+            result['EntityType'] = self.entity_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EntityType') is not None:
+            self.entity_type = m.get('EntityType')
         return self
 
 

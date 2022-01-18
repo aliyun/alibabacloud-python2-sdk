@@ -1538,8 +1538,14 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_change_sets_with_options(request, runtime)
 
-    def list_resource_types_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def list_resource_types_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='ListResourceTypes',
             version='2019-09-10',
@@ -1556,9 +1562,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_resource_types(self):
+    def list_resource_types(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.list_resource_types_with_options(runtime)
+        return self.list_resource_types_with_options(request, runtime)
 
     def list_stack_events_with_options(self, request, runtime):
         UtilClient.validate_model(request)
