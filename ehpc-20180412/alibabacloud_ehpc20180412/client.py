@@ -787,9 +787,12 @@ class Client(OpenApiClient):
     def describe_gwscluster_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AsyncMode'] = request.async_mode
-        query['ClusterId'] = request.cluster_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.async_mode):
+            query['AsyncMode'] = request.async_mode
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1047,32 +1050,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_price_with_options(request, runtime)
 
-    def ecd_delete_desktops_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='EcdDeleteDesktops',
-            version='2018-04-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ehpc20180412_models.EcdDeleteDesktopsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def ecd_delete_desktops(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.ecd_delete_desktops_with_options(request, runtime)
-
     def edit_job_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1255,32 +1232,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_gwsconnect_ticket_with_options(request, runtime)
 
-    def get_health_monitor_logs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetHealthMonitorLogs',
-            version='2018-04-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ehpc20180412_models.GetHealthMonitorLogsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_health_monitor_logs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_health_monitor_logs_with_options(request, runtime)
-
     def get_hybrid_cluster_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1384,32 +1335,6 @@ class Client(OpenApiClient):
     def get_visual_service_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_visual_service_status_with_options(request, runtime)
-
-    def get_workbench_token_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetWorkbenchToken',
-            version='2018-04-12',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ehpc20180412_models.GetWorkbenchTokenResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_workbench_token(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_workbench_token_with_options(request, runtime)
 
     def initialize_ehpcwith_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2598,13 +2523,20 @@ class Client(OpenApiClient):
     def set_gwscluster_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AsyncMode'] = request.async_mode
-        query['Clipboard'] = request.clipboard
-        query['ClusterId'] = request.cluster_id
-        query['LocalDrive'] = request.local_drive
-        query['UdpPort'] = request.udp_port
-        query['UsbRedirect'] = request.usb_redirect
-        query['Watermark'] = request.watermark
+        if not UtilClient.is_unset(request.async_mode):
+            query['AsyncMode'] = request.async_mode
+        if not UtilClient.is_unset(request.clipboard):
+            query['Clipboard'] = request.clipboard
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.local_drive):
+            query['LocalDrive'] = request.local_drive
+        if not UtilClient.is_unset(request.udp_port):
+            query['UdpPort'] = request.udp_port
+        if not UtilClient.is_unset(request.usb_redirect):
+            query['UsbRedirect'] = request.usb_redirect
+        if not UtilClient.is_unset(request.watermark):
+            query['Watermark'] = request.watermark
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
