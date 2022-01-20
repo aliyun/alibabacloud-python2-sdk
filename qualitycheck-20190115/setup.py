@@ -19,12 +19,13 @@
 """
 
 import os
+import sys
 from setuptools import setup, find_packages
 
 """
 setup module for alibabacloud_qualitycheck20190115_py2.
 
-Created on 11/03/2021
+Created on 20/01/2022
 
 @author: Alibaba Cloud SDK
 """
@@ -37,15 +38,21 @@ AUTHOR_EMAIL = "sdk-team@alibabacloud.com"
 URL = "https://github.com/aliyun/alibabacloud-python2-sdk"
 VERSION = __import__(PACKAGE).__version__
 REQUIRES = [
-    "alibabacloud_tea_util_py2>=0.0.2, <1.0.0",
-    "alibabacloud_tea_openapi_py2>=0.0.2, <1.0.0",
-    "alibabacloud_endpoint_util_py2>=0.0.1, <1.0.0"
+    "alibabacloud_tea_util_py2>=0.0.5, <1.0.0",
+    "alibabacloud_tea_openapi_py2>=0.1.1, <1.0.0",
+    "alibabacloud_openapi_util_py2>=0.0.8, <1.0.0",
+    "alibabacloud_endpoint_util_py2>=0.0.2, <1.0.0"
 ]
 
 LONG_DESCRIPTION = ''
+
 if os.path.exists('./README.md'):
-    with open("README.md") as fp:
-        LONG_DESCRIPTION = fp.read()
+    if sys.version_info.major == 2:
+        with open("README.md") as fp:
+            LONG_DESCRIPTION = fp.read()
+    else:
+        with open("README.md", encoding="utf-8") as fp:
+            LONG_DESCRIPTION = fp.read()
 
 setup(
     name=NAME,
@@ -69,6 +76,12 @@ setup(
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Topic :: Software Development"
     )
 )
