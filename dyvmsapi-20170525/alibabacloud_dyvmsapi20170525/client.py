@@ -33,13 +33,16 @@ class Client(OpenApiClient):
     def add_rtc_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddRtcAccount',
@@ -49,7 +52,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -64,17 +67,24 @@ class Client(OpenApiClient):
     def add_virtual_number_relation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CorpNameList'] = request.corp_name_list
-        query['NumberList'] = request.number_list
-        query['OwnerId'] = request.owner_id
-        query['PhoneNum'] = request.phone_num
-        query['ProdCode'] = request.prod_code
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['RouteType'] = request.route_type
+        if not UtilClient.is_unset(request.corp_name_list):
+            query['CorpNameList'] = request.corp_name_list
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.phone_num):
+            query['PhoneNum'] = request.phone_num
+        if not UtilClient.is_unset(request.prod_code):
+            query['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.route_type):
+            query['RouteType'] = request.route_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddVirtualNumberRelation',
@@ -84,7 +94,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -99,23 +109,36 @@ class Client(OpenApiClient):
     def batch_robot_smart_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['CorpName'] = request.corp_name
-        query['DialogId'] = request.dialog_id
-        query['EarlyMediaAsr'] = request.early_media_asr
-        query['IsSelfLine'] = request.is_self_line
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['ScheduleCall'] = request.schedule_call
-        query['ScheduleTime'] = request.schedule_time
-        query['TaskName'] = request.task_name
-        query['TtsParam'] = request.tts_param
-        query['TtsParamHead'] = request.tts_param_head
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.corp_name):
+            query['CorpName'] = request.corp_name
+        if not UtilClient.is_unset(request.dialog_id):
+            query['DialogId'] = request.dialog_id
+        if not UtilClient.is_unset(request.early_media_asr):
+            query['EarlyMediaAsr'] = request.early_media_asr
+        if not UtilClient.is_unset(request.is_self_line):
+            query['IsSelfLine'] = request.is_self_line
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.schedule_call):
+            query['ScheduleCall'] = request.schedule_call
+        if not UtilClient.is_unset(request.schedule_time):
+            query['ScheduleTime'] = request.schedule_time
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.tts_param):
+            query['TtsParam'] = request.tts_param
+        if not UtilClient.is_unset(request.tts_param_head):
+            query['TtsParamHead'] = request.tts_param_head
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='BatchRobotSmartCall',
@@ -125,7 +148,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -140,13 +163,16 @@ class Client(OpenApiClient):
     def cancel_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CancelCall',
@@ -156,7 +182,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -171,13 +197,16 @@ class Client(OpenApiClient):
     def cancel_order_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CancelOrderRobotTask',
@@ -187,7 +216,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -202,13 +231,16 @@ class Client(OpenApiClient):
     def cancel_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CancelRobotTask',
@@ -218,7 +250,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -233,21 +265,32 @@ class Client(OpenApiClient):
     def click_to_dial_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AsrFlag'] = request.asr_flag
-        query['AsrModelId'] = request.asr_model_id
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['CallerNumber'] = request.caller_number
-        query['CallerShowNumber'] = request.caller_show_number
-        query['OutId'] = request.out_id
-        query['OwnerId'] = request.owner_id
-        query['RecordFlag'] = request.record_flag
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['SessionTimeout'] = request.session_timeout
+        if not UtilClient.is_unset(request.asr_flag):
+            query['AsrFlag'] = request.asr_flag
+        if not UtilClient.is_unset(request.asr_model_id):
+            query['AsrModelId'] = request.asr_model_id
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.caller_number):
+            query['CallerNumber'] = request.caller_number
+        if not UtilClient.is_unset(request.caller_show_number):
+            query['CallerShowNumber'] = request.caller_show_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.record_flag):
+            query['RecordFlag'] = request.record_flag
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.session_timeout):
+            query['SessionTimeout'] = request.session_timeout
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ClickToDial',
@@ -257,7 +300,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -272,23 +315,36 @@ class Client(OpenApiClient):
     def create_call_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BizType'] = request.biz_type
-        query['Data'] = request.data
-        query['DataType'] = request.data_type
-        query['FireTime'] = request.fire_time
-        query['OwnerId'] = request.owner_id
-        query['Resource'] = request.resource
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['ResourceType'] = request.resource_type
-        query['ScheduleType'] = request.schedule_type
-        query['StopTime'] = request.stop_time
-        query['TaskName'] = request.task_name
-        query['TemplateCode'] = request.template_code
-        query['TemplateName'] = request.template_name
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.data):
+            query['Data'] = request.data
+        if not UtilClient.is_unset(request.data_type):
+            query['DataType'] = request.data_type
+        if not UtilClient.is_unset(request.fire_time):
+            query['FireTime'] = request.fire_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.schedule_type):
+            query['ScheduleType'] = request.schedule_type
+        if not UtilClient.is_unset(request.stop_time):
+            query['StopTime'] = request.stop_time
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.template_code):
+            query['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateCallTask',
@@ -298,7 +354,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -313,22 +369,34 @@ class Client(OpenApiClient):
     def create_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Caller'] = request.caller
-        query['CorpName'] = request.corp_name
-        query['DialogId'] = request.dialog_id
-        query['IsSelfLine'] = request.is_self_line
-        query['NumberStatusIdent'] = request.number_status_ident
-        query['OwnerId'] = request.owner_id
-        query['RecallInterval'] = request.recall_interval
-        query['RecallStateCodes'] = request.recall_state_codes
-        query['RecallTimes'] = request.recall_times
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['RetryType'] = request.retry_type
-        query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.caller):
+            query['Caller'] = request.caller
+        if not UtilClient.is_unset(request.corp_name):
+            query['CorpName'] = request.corp_name
+        if not UtilClient.is_unset(request.dialog_id):
+            query['DialogId'] = request.dialog_id
+        if not UtilClient.is_unset(request.is_self_line):
+            query['IsSelfLine'] = request.is_self_line
+        if not UtilClient.is_unset(request.number_status_ident):
+            query['NumberStatusIdent'] = request.number_status_ident
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.recall_interval):
+            query['RecallInterval'] = request.recall_interval
+        if not UtilClient.is_unset(request.recall_state_codes):
+            query['RecallStateCodes'] = request.recall_state_codes
+        if not UtilClient.is_unset(request.recall_times):
+            query['RecallTimes'] = request.recall_times
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.retry_type):
+            query['RetryType'] = request.retry_type
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateRobotTask',
@@ -338,7 +406,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -353,13 +421,16 @@ class Client(OpenApiClient):
     def delete_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteRobotTask',
@@ -369,7 +440,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -384,15 +455,20 @@ class Client(OpenApiClient):
     def execute_call_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FireTime'] = request.fire_time
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Status'] = request.status
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.fire_time):
+            query['FireTime'] = request.fire_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ExecuteCallTask',
@@ -402,7 +478,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -417,13 +493,16 @@ class Client(OpenApiClient):
     def get_call_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['RtcId'] = request.rtc_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.rtc_id):
+            query['RtcId'] = request.rtc_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetCallInfo',
@@ -433,7 +512,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -448,13 +527,16 @@ class Client(OpenApiClient):
     def get_hotline_qualification_by_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetHotlineQualificationByOrder',
@@ -464,7 +546,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -479,12 +561,14 @@ class Client(OpenApiClient):
     def get_mqtt_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMqttToken',
@@ -494,7 +578,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -509,15 +593,20 @@ class Client(OpenApiClient):
     def get_rtc_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DeviceId'] = request.device_id
-        query['IsCustomAccount'] = request.is_custom_account
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.is_custom_account):
+            query['IsCustomAccount'] = request.is_custom_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetRtcToken',
@@ -527,7 +616,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -542,13 +631,16 @@ class Client(OpenApiClient):
     def get_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TokenType'] = request.token_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.token_type):
+            query['TokenType'] = request.token_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetToken',
@@ -558,7 +650,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -573,22 +665,34 @@ class Client(OpenApiClient):
     def ivr_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ByeCode'] = request.bye_code
-        query['ByeTtsParams'] = request.bye_tts_params
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['MenuKeyMap'] = request.menu_key_map
-        query['OutId'] = request.out_id
-        query['OwnerId'] = request.owner_id
-        query['PlayTimes'] = request.play_times
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['StartCode'] = request.start_code
-        query['StartTtsParams'] = request.start_tts_params
-        query['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.bye_code):
+            query['ByeCode'] = request.bye_code
+        if not UtilClient.is_unset(request.bye_tts_params):
+            query['ByeTtsParams'] = request.bye_tts_params
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.menu_key_map):
+            query['MenuKeyMap'] = request.menu_key_map
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_times):
+            query['PlayTimes'] = request.play_times
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_code):
+            query['StartCode'] = request.start_code
+        if not UtilClient.is_unset(request.start_tts_params):
+            query['StartTtsParams'] = request.start_tts_params
+        if not UtilClient.is_unset(request.timeout):
+            query['Timeout'] = request.timeout
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='IvrCall',
@@ -598,7 +702,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -613,19 +717,28 @@ class Client(OpenApiClient):
     def list_call_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BizType'] = request.biz_type
-        query['OwnerId'] = request.owner_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Status'] = request.status
-        query['TaskId'] = request.task_id
-        query['TaskName'] = request.task_name
-        query['TemplateName'] = request.template_name
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListCallTask',
@@ -635,7 +748,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -650,17 +763,24 @@ class Client(OpenApiClient):
     def list_call_task_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNum'] = request.called_num
-        query['OwnerId'] = request.owner_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Status'] = request.status
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.called_num):
+            query['CalledNum'] = request.called_num
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListCallTaskDetail',
@@ -670,7 +790,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -685,16 +805,22 @@ class Client(OpenApiClient):
     def list_hotline_transfer_number_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['HotlineNumber'] = request.hotline_number
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['QualificationId'] = request.qualification_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.hotline_number):
+            query['HotlineNumber'] = request.hotline_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.qualification_id):
+            query['QualificationId'] = request.qualification_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListHotlineTransferNumber',
@@ -704,7 +830,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -719,16 +845,22 @@ class Client(OpenApiClient):
     def list_hotline_transfer_register_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['HotlineNumber'] = request.hotline_number
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['QualificationId'] = request.qualification_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.hotline_number):
+            query['HotlineNumber'] = request.hotline_number
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.qualification_id):
+            query['QualificationId'] = request.qualification_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListHotlineTransferRegisterFile',
@@ -738,7 +870,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -753,15 +885,20 @@ class Client(OpenApiClient):
     def query_call_detail_by_call_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['OwnerId'] = request.owner_id
-        query['ProdId'] = request.prod_id
-        query['QueryDate'] = request.query_date
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.prod_id):
+            query['ProdId'] = request.prod_id
+        if not UtilClient.is_unset(request.query_date):
+            query['QueryDate'] = request.query_date
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryCallDetailByCallId',
@@ -771,7 +908,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -786,15 +923,20 @@ class Client(OpenApiClient):
     def query_call_detail_by_task_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Callee'] = request.callee
-        query['OwnerId'] = request.owner_id
-        query['QueryDate'] = request.query_date
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.callee):
+            query['Callee'] = request.callee
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.query_date):
+            query['QueryDate'] = request.query_date
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryCallDetailByTaskId',
@@ -804,7 +946,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -819,13 +961,16 @@ class Client(OpenApiClient):
     def query_call_in_pool_transfer_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['PhoneNumber'] = request.phone_number
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryCallInPoolTransferConfig',
@@ -835,7 +980,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -850,17 +995,24 @@ class Client(OpenApiClient):
     def query_call_in_transfer_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallInCaller'] = request.call_in_caller
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['PhoneNumber'] = request.phone_number
-        query['QueryDate'] = request.query_date
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.call_in_caller):
+            query['CallInCaller'] = request.call_in_caller
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.query_date):
+            query['QueryDate'] = request.query_date
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryCallInTransferRecord',
@@ -870,7 +1022,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -885,13 +1037,16 @@ class Client(OpenApiClient):
     def query_robot_info_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AuditStatus'] = request.audit_status
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.audit_status):
+            query['AuditStatus'] = request.audit_status
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotInfoList',
@@ -901,7 +1056,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -916,15 +1071,20 @@ class Client(OpenApiClient):
     def query_robot_task_call_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Callee'] = request.callee
-        query['OwnerId'] = request.owner_id
-        query['QueryDate'] = request.query_date
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.callee):
+            query['Callee'] = request.callee
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.query_date):
+            query['QueryDate'] = request.query_date
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotTaskCallDetail',
@@ -934,7 +1094,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -949,22 +1109,34 @@ class Client(OpenApiClient):
     def query_robot_task_call_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallResult'] = request.call_result
-        query['Called'] = request.called
-        query['DialogCountFrom'] = request.dialog_count_from
-        query['DialogCountTo'] = request.dialog_count_to
-        query['DurationFrom'] = request.duration_from
-        query['DurationTo'] = request.duration_to
-        query['HangupDirection'] = request.hangup_direction
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.call_result):
+            query['CallResult'] = request.call_result
+        if not UtilClient.is_unset(request.called):
+            query['Called'] = request.called
+        if not UtilClient.is_unset(request.dialog_count_from):
+            query['DialogCountFrom'] = request.dialog_count_from
+        if not UtilClient.is_unset(request.dialog_count_to):
+            query['DialogCountTo'] = request.dialog_count_to
+        if not UtilClient.is_unset(request.duration_from):
+            query['DurationFrom'] = request.duration_from
+        if not UtilClient.is_unset(request.duration_to):
+            query['DurationTo'] = request.duration_to
+        if not UtilClient.is_unset(request.hangup_direction):
+            query['HangupDirection'] = request.hangup_direction
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotTaskCallList',
@@ -974,7 +1146,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -989,13 +1161,16 @@ class Client(OpenApiClient):
     def query_robot_task_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotTaskDetail',
@@ -1005,7 +1180,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1020,17 +1195,24 @@ class Client(OpenApiClient):
     def query_robot_task_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Status'] = request.status
-        query['TaskName'] = request.task_name
-        query['Time'] = request.time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.time):
+            query['Time'] = request.time
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotTaskList',
@@ -1040,7 +1222,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1055,12 +1237,14 @@ class Client(OpenApiClient):
     def query_robotv_2all_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryRobotv2AllList',
@@ -1070,7 +1254,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1085,16 +1269,22 @@ class Client(OpenApiClient):
     def query_virtual_number_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['ProdCode'] = request.prod_code
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['RouteType'] = request.route_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.prod_code):
+            query['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.route_type):
+            query['RouteType'] = request.route_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryVirtualNumber',
@@ -1104,7 +1294,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1119,21 +1309,32 @@ class Client(OpenApiClient):
     def query_virtual_number_relation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['PhoneNum'] = request.phone_num
-        query['ProdCode'] = request.prod_code
-        query['QualificationId'] = request.qualification_id
-        query['RegionNameCity'] = request.region_name_city
-        query['RelatedNum'] = request.related_num
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['RouteType'] = request.route_type
-        query['SpecId'] = request.spec_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.phone_num):
+            query['PhoneNum'] = request.phone_num
+        if not UtilClient.is_unset(request.prod_code):
+            query['ProdCode'] = request.prod_code
+        if not UtilClient.is_unset(request.qualification_id):
+            query['QualificationId'] = request.qualification_id
+        if not UtilClient.is_unset(request.region_name_city):
+            query['RegionNameCity'] = request.region_name_city
+        if not UtilClient.is_unset(request.related_num):
+            query['RelatedNum'] = request.related_num
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.route_type):
+            query['RouteType'] = request.route_type
+        if not UtilClient.is_unset(request.spec_id):
+            query['SpecId'] = request.spec_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryVirtualNumberRelation',
@@ -1143,7 +1344,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1155,16 +1356,55 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_virtual_number_relation_with_options(request, runtime)
 
+    def query_voice_file_audit_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.voice_codes):
+            query['VoiceCodes'] = request.voice_codes
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryVoiceFileAuditInfo',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyvmsapi_20170525_models.QueryVoiceFileAuditInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_voice_file_audit_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_voice_file_audit_info_with_options(request, runtime)
+
     def refresh_mqtt_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientId'] = request.client_id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.client_id):
+            query['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RefreshMqttToken',
@@ -1174,7 +1414,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1189,15 +1429,20 @@ class Client(OpenApiClient):
     def send_verification_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BizType'] = request.biz_type
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Target'] = request.target
-        query['VerifyType'] = request.verify_type
+        if not UtilClient.is_unset(request.biz_type):
+            query['BizType'] = request.biz_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.verify_type):
+            query['VerifyType'] = request.verify_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SendVerification',
@@ -1207,7 +1452,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1222,16 +1467,22 @@ class Client(OpenApiClient):
     def set_transfer_callee_pool_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledRouteMode'] = request.called_route_mode
-        query['Details'] = request.details
-        query['OwnerId'] = request.owner_id
-        query['PhoneNumber'] = request.phone_number
-        query['QualificationId'] = request.qualification_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.called_route_mode):
+            query['CalledRouteMode'] = request.called_route_mode
+        if not UtilClient.is_unset(request.details):
+            query['Details'] = request.details
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.qualification_id):
+            query['QualificationId'] = request.qualification_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetTransferCalleePoolConfig',
@@ -1241,7 +1492,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1256,20 +1507,30 @@ class Client(OpenApiClient):
     def single_call_by_tts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['OutId'] = request.out_id
-        query['OwnerId'] = request.owner_id
-        query['PlayTimes'] = request.play_times
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Speed'] = request.speed
-        query['TtsCode'] = request.tts_code
-        query['TtsParam'] = request.tts_param
-        query['Volume'] = request.volume
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_times):
+            query['PlayTimes'] = request.play_times
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.speed):
+            query['Speed'] = request.speed
+        if not UtilClient.is_unset(request.tts_code):
+            query['TtsCode'] = request.tts_code
+        if not UtilClient.is_unset(request.tts_param):
+            query['TtsParam'] = request.tts_param
+        if not UtilClient.is_unset(request.volume):
+            query['Volume'] = request.volume
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SingleCallByTts',
@@ -1279,7 +1540,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1294,19 +1555,28 @@ class Client(OpenApiClient):
     def single_call_by_voice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['OutId'] = request.out_id
-        query['OwnerId'] = request.owner_id
-        query['PlayTimes'] = request.play_times
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Speed'] = request.speed
-        query['VoiceCode'] = request.voice_code
-        query['Volume'] = request.volume
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.play_times):
+            query['PlayTimes'] = request.play_times
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.speed):
+            query['Speed'] = request.speed
+        if not UtilClient.is_unset(request.voice_code):
+            query['VoiceCode'] = request.voice_code
+        if not UtilClient.is_unset(request.volume):
+            query['Volume'] = request.volume
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SingleCallByVoice',
@@ -1316,7 +1586,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1331,38 +1601,66 @@ class Client(OpenApiClient):
     def smart_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ActionCodeBreak'] = request.action_code_break
-        query['ActionCodeTimeBreak'] = request.action_code_time_break
-        query['AsrBaseId'] = request.asr_base_id
-        query['AsrModelId'] = request.asr_model_id
-        query['BackgroundFileCode'] = request.background_file_code
-        query['BackgroundSpeed'] = request.background_speed
-        query['BackgroundVolume'] = request.background_volume
-        query['CalledNumber'] = request.called_number
-        query['CalledShowNumber'] = request.called_show_number
-        query['DynamicId'] = request.dynamic_id
-        query['EarlyMediaAsr'] = request.early_media_asr
-        query['EnableITN'] = request.enable_itn
-        query['MuteTime'] = request.mute_time
-        query['OutId'] = request.out_id
-        query['OwnerId'] = request.owner_id
-        query['PauseTime'] = request.pause_time
-        query['RecordFlag'] = request.record_flag
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['SessionTimeout'] = request.session_timeout
-        query['Speed'] = request.speed
-        query['StreamAsr'] = request.stream_asr
-        query['TtsConf'] = request.tts_conf
-        query['TtsSpeed'] = request.tts_speed
-        query['TtsStyle'] = request.tts_style
-        query['TtsVolume'] = request.tts_volume
-        query['VoiceCode'] = request.voice_code
-        query['VoiceCodeParam'] = request.voice_code_param
-        query['Volume'] = request.volume
+        if not UtilClient.is_unset(request.action_code_break):
+            query['ActionCodeBreak'] = request.action_code_break
+        if not UtilClient.is_unset(request.action_code_time_break):
+            query['ActionCodeTimeBreak'] = request.action_code_time_break
+        if not UtilClient.is_unset(request.asr_base_id):
+            query['AsrBaseId'] = request.asr_base_id
+        if not UtilClient.is_unset(request.asr_model_id):
+            query['AsrModelId'] = request.asr_model_id
+        if not UtilClient.is_unset(request.background_file_code):
+            query['BackgroundFileCode'] = request.background_file_code
+        if not UtilClient.is_unset(request.background_speed):
+            query['BackgroundSpeed'] = request.background_speed
+        if not UtilClient.is_unset(request.background_volume):
+            query['BackgroundVolume'] = request.background_volume
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.called_show_number):
+            query['CalledShowNumber'] = request.called_show_number
+        if not UtilClient.is_unset(request.dynamic_id):
+            query['DynamicId'] = request.dynamic_id
+        if not UtilClient.is_unset(request.early_media_asr):
+            query['EarlyMediaAsr'] = request.early_media_asr
+        if not UtilClient.is_unset(request.enable_itn):
+            query['EnableITN'] = request.enable_itn
+        if not UtilClient.is_unset(request.mute_time):
+            query['MuteTime'] = request.mute_time
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pause_time):
+            query['PauseTime'] = request.pause_time
+        if not UtilClient.is_unset(request.record_flag):
+            query['RecordFlag'] = request.record_flag
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.session_timeout):
+            query['SessionTimeout'] = request.session_timeout
+        if not UtilClient.is_unset(request.speed):
+            query['Speed'] = request.speed
+        if not UtilClient.is_unset(request.stream_asr):
+            query['StreamAsr'] = request.stream_asr
+        if not UtilClient.is_unset(request.tts_conf):
+            query['TtsConf'] = request.tts_conf
+        if not UtilClient.is_unset(request.tts_speed):
+            query['TtsSpeed'] = request.tts_speed
+        if not UtilClient.is_unset(request.tts_style):
+            query['TtsStyle'] = request.tts_style
+        if not UtilClient.is_unset(request.tts_volume):
+            query['TtsVolume'] = request.tts_volume
+        if not UtilClient.is_unset(request.voice_code):
+            query['VoiceCode'] = request.voice_code
+        if not UtilClient.is_unset(request.voice_code_param):
+            query['VoiceCodeParam'] = request.voice_code_param
+        if not UtilClient.is_unset(request.volume):
+            query['Volume'] = request.volume
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SmartCall',
@@ -1372,7 +1670,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1387,15 +1685,20 @@ class Client(OpenApiClient):
     def smart_call_operate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CallId'] = request.call_id
-        query['Command'] = request.command
-        query['OwnerId'] = request.owner_id
-        query['Param'] = request.param
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.call_id):
+            query['CallId'] = request.call_id
+        if not UtilClient.is_unset(request.command):
+            query['Command'] = request.command
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.param):
+            query['Param'] = request.param
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SmartCallOperate',
@@ -1405,7 +1708,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1420,14 +1723,18 @@ class Client(OpenApiClient):
     def start_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['ScheduleTime'] = request.schedule_time
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.schedule_time):
+            query['ScheduleTime'] = request.schedule_time
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StartRobotTask',
@@ -1437,7 +1744,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1452,13 +1759,16 @@ class Client(OpenApiClient):
     def stop_robot_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopRobotTask',
@@ -1468,7 +1778,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1483,22 +1793,34 @@ class Client(OpenApiClient):
     def submit_hotline_transfer_register_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Agreement'] = request.agreement
-        query['HotlineNumber'] = request.hotline_number
-        query['OperatorIdentityCard'] = request.operator_identity_card
-        query['OperatorMail'] = request.operator_mail
-        query['OperatorMailVerifyCode'] = request.operator_mail_verify_code
-        query['OperatorMobile'] = request.operator_mobile
-        query['OperatorMobileVerifyCode'] = request.operator_mobile_verify_code
-        query['OperatorName'] = request.operator_name
-        query['OwnerId'] = request.owner_id
-        query['QualificationId'] = request.qualification_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TransferPhoneNumberInfos'] = request.transfer_phone_number_infos
+        if not UtilClient.is_unset(request.agreement):
+            query['Agreement'] = request.agreement
+        if not UtilClient.is_unset(request.hotline_number):
+            query['HotlineNumber'] = request.hotline_number
+        if not UtilClient.is_unset(request.operator_identity_card):
+            query['OperatorIdentityCard'] = request.operator_identity_card
+        if not UtilClient.is_unset(request.operator_mail):
+            query['OperatorMail'] = request.operator_mail
+        if not UtilClient.is_unset(request.operator_mail_verify_code):
+            query['OperatorMailVerifyCode'] = request.operator_mail_verify_code
+        if not UtilClient.is_unset(request.operator_mobile):
+            query['OperatorMobile'] = request.operator_mobile
+        if not UtilClient.is_unset(request.operator_mobile_verify_code):
+            query['OperatorMobileVerifyCode'] = request.operator_mobile_verify_code
+        if not UtilClient.is_unset(request.operator_name):
+            query['OperatorName'] = request.operator_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.qualification_id):
+            query['QualificationId'] = request.qualification_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.transfer_phone_number_infos):
+            query['TransferPhoneNumberInfos'] = request.transfer_phone_number_infos
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SubmitHotlineTransferRegister',
@@ -1508,7 +1830,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1523,16 +1845,22 @@ class Client(OpenApiClient):
     def upload_robot_task_called_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalledNumber'] = request.called_number
-        query['Id'] = request.id
-        query['OwnerId'] = request.owner_id
-        query['ResourceOwnerAccount'] = request.resource_owner_account
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['TtsParam'] = request.tts_param
-        query['TtsParamHead'] = request.tts_param_head
+        if not UtilClient.is_unset(request.called_number):
+            query['CalledNumber'] = request.called_number
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tts_param):
+            query['TtsParam'] = request.tts_param
+        if not UtilClient.is_unset(request.tts_param_head):
+            query['TtsParamHead'] = request.tts_param_head
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UploadRobotTaskCalledFile',
@@ -1542,7 +1870,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(

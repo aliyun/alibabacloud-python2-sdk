@@ -4942,6 +4942,165 @@ class QueryVirtualNumberRelationResponse(TeaModel):
         return self
 
 
+class QueryVoiceFileAuditInfoRequest(TeaModel):
+    def __init__(self, business_type=None, owner_id=None, resource_owner_account=None, resource_owner_id=None,
+                 voice_codes=None):
+        self.business_type = business_type  # type: int
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.voice_codes = voice_codes  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVoiceFileAuditInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.business_type is not None:
+            result['BusinessType'] = self.business_type
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.voice_codes is not None:
+            result['VoiceCodes'] = self.voice_codes
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BusinessType') is not None:
+            self.business_type = m.get('BusinessType')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('VoiceCodes') is not None:
+            self.voice_codes = m.get('VoiceCodes')
+        return self
+
+
+class QueryVoiceFileAuditInfoResponseBodyData(TeaModel):
+    def __init__(self, audit_state=None, reject_info=None, voice_code=None):
+        self.audit_state = audit_state  # type: str
+        self.reject_info = reject_info  # type: str
+        self.voice_code = voice_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVoiceFileAuditInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.audit_state is not None:
+            result['AuditState'] = self.audit_state
+        if self.reject_info is not None:
+            result['RejectInfo'] = self.reject_info
+        if self.voice_code is not None:
+            result['VoiceCode'] = self.voice_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuditState') is not None:
+            self.audit_state = m.get('AuditState')
+        if m.get('RejectInfo') is not None:
+            self.reject_info = m.get('RejectInfo')
+        if m.get('VoiceCode') is not None:
+            self.voice_code = m.get('VoiceCode')
+        return self
+
+
+class QueryVoiceFileAuditInfoResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[QueryVoiceFileAuditInfoResponseBodyData]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryVoiceFileAuditInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = QueryVoiceFileAuditInfoResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class QueryVoiceFileAuditInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryVoiceFileAuditInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryVoiceFileAuditInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryVoiceFileAuditInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RefreshMqttTokenRequest(TeaModel):
     def __init__(self, client_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
         self.client_id = client_id  # type: str
