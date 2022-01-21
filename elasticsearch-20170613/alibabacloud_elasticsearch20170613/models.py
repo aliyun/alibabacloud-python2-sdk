@@ -14872,8 +14872,10 @@ class ListILMPoliciesResponse(TeaModel):
 
 
 class ListIndexTemplatesRequest(TeaModel):
-    def __init__(self, index_template=None):
+    def __init__(self, index_template=None, page=None, size=None):
         self.index_template = index_template  # type: str
+        self.page = page  # type: int
+        self.size = size  # type: int
 
     def validate(self):
         pass
@@ -14886,12 +14888,20 @@ class ListIndexTemplatesRequest(TeaModel):
         result = dict()
         if self.index_template is not None:
             result['indexTemplate'] = self.index_template
+        if self.page is not None:
+            result['page'] = self.page
+        if self.size is not None:
+            result['size'] = self.size
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('indexTemplate') is not None:
             self.index_template = m.get('indexTemplate')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('size') is not None:
+            self.size = m.get('size')
         return self
 
 
@@ -21034,14 +21044,52 @@ class RunPipelinesResponse(TeaModel):
         return self
 
 
+class ShrinkNodeRequestBody(TeaModel):
+    def __init__(self, host=None, port=None, zone_id=None):
+        self.host = host  # type: str
+        self.port = port  # type: int
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ShrinkNodeRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host is not None:
+            result['host'] = self.host
+        if self.port is not None:
+            result['port'] = self.port
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
 class ShrinkNodeRequest(TeaModel):
-    def __init__(self, client_token=None, ignore_status=None, node_type=None):
+    def __init__(self, body=None, client_token=None, ignore_status=None, node_type=None):
+        self.body = body  # type: list[ShrinkNodeRequestBody]
         self.client_token = client_token  # type: str
         self.ignore_status = ignore_status  # type: bool
         self.node_type = node_type  # type: str
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ShrinkNodeRequest, self).to_map()
@@ -21049,6 +21097,10 @@ class ShrinkNodeRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.client_token is not None:
             result['clientToken'] = self.client_token
         if self.ignore_status is not None:
@@ -21059,6 +21111,11 @@ class ShrinkNodeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = ShrinkNodeRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('clientToken') is not None:
             self.client_token = m.get('clientToken')
         if m.get('ignoreStatus') is not None:
@@ -21640,13 +21697,51 @@ class TagResourcesResponse(TeaModel):
         return self
 
 
+class TransferNodeRequestBody(TeaModel):
+    def __init__(self, host=None, port=None, zone_id=None):
+        self.host = host  # type: str
+        self.port = port  # type: int
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransferNodeRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host is not None:
+            result['host'] = self.host
+        if self.port is not None:
+            result['port'] = self.port
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
 class TransferNodeRequest(TeaModel):
-    def __init__(self, client_token=None, node_type=None):
+    def __init__(self, body=None, client_token=None, node_type=None):
+        self.body = body  # type: list[TransferNodeRequestBody]
         self.client_token = client_token  # type: str
         self.node_type = node_type  # type: str
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(TransferNodeRequest, self).to_map()
@@ -21654,6 +21749,10 @@ class TransferNodeRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.client_token is not None:
             result['clientToken'] = self.client_token
         if self.node_type is not None:
@@ -21662,6 +21761,11 @@ class TransferNodeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = TransferNodeRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('clientToken') is not None:
             self.client_token = m.get('clientToken')
         if m.get('nodeType') is not None:
@@ -27230,13 +27334,51 @@ class ValidateConnectionResponse(TeaModel):
         return self
 
 
+class ValidateShrinkNodesRequestBody(TeaModel):
+    def __init__(self, host=None, port=None, zone_id=None):
+        self.host = host  # type: str
+        self.port = port  # type: int
+        self.zone_id = zone_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ValidateShrinkNodesRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host is not None:
+            result['host'] = self.host
+        if self.port is not None:
+            result['port'] = self.port
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
 class ValidateShrinkNodesRequest(TeaModel):
-    def __init__(self, ignore_status=None, node_type=None):
+    def __init__(self, body=None, ignore_status=None, node_type=None):
+        self.body = body  # type: list[ValidateShrinkNodesRequestBody]
         self.ignore_status = ignore_status  # type: bool
         self.node_type = node_type  # type: str
 
     def validate(self):
-        pass
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ValidateShrinkNodesRequest, self).to_map()
@@ -27244,6 +27386,10 @@ class ValidateShrinkNodesRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.ignore_status is not None:
             result['ignoreStatus'] = self.ignore_status
         if self.node_type is not None:
@@ -27252,6 +27398,11 @@ class ValidateShrinkNodesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = ValidateShrinkNodesRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('ignoreStatus') is not None:
             self.ignore_status = m.get('ignoreStatus')
         if m.get('nodeType') is not None:
@@ -27412,12 +27563,50 @@ class ValidateSlrPermissionResponse(TeaModel):
         return self
 
 
-class ValidateTransferableNodesRequest(TeaModel):
-    def __init__(self, node_type=None):
-        self.node_type = node_type  # type: str
+class ValidateTransferableNodesRequestBody(TeaModel):
+    def __init__(self, host=None, port=None, zone_id=None):
+        self.host = host  # type: str
+        self.port = port  # type: int
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(ValidateTransferableNodesRequestBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.host is not None:
+            result['host'] = self.host
+        if self.port is not None:
+            result['port'] = self.port
+        if self.zone_id is not None:
+            result['zoneId'] = self.zone_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('host') is not None:
+            self.host = m.get('host')
+        if m.get('port') is not None:
+            self.port = m.get('port')
+        if m.get('zoneId') is not None:
+            self.zone_id = m.get('zoneId')
+        return self
+
+
+class ValidateTransferableNodesRequest(TeaModel):
+    def __init__(self, body=None, node_type=None):
+        self.body = body  # type: list[ValidateTransferableNodesRequestBody]
+        self.node_type = node_type  # type: str
+
+    def validate(self):
+        if self.body:
+            for k in self.body:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ValidateTransferableNodesRequest, self).to_map()
@@ -27425,12 +27614,21 @@ class ValidateTransferableNodesRequest(TeaModel):
             return _map
 
         result = dict()
+        result['body'] = []
+        if self.body is not None:
+            for k in self.body:
+                result['body'].append(k.to_map() if k else None)
         if self.node_type is not None:
             result['nodeType'] = self.node_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        self.body = []
+        if m.get('body') is not None:
+            for k in m.get('body'):
+                temp_model = ValidateTransferableNodesRequestBody()
+                self.body.append(temp_model.from_map(k))
         if m.get('nodeType') is not None:
             self.node_type = m.get('nodeType')
         return self

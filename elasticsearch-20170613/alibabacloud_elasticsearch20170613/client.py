@@ -2963,6 +2963,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.index_template):
             query['indexTemplate'] = request.index_template
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -4244,7 +4248,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='ShrinkNode',
@@ -4456,7 +4461,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='TransferNode',
@@ -5904,7 +5910,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='ValidateShrinkNodes',
@@ -5967,7 +5974,8 @@ class Client(OpenApiClient):
             query['nodeType'] = request.node_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='ValidateTransferableNodes',
