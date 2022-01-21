@@ -49,9 +49,12 @@ class Client(OpenApiClient):
     def clone_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -78,10 +81,14 @@ class Client(OpenApiClient):
     def clone_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -108,11 +115,16 @@ class Client(OpenApiClient):
     def commit_flow_entity_snapshot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EntityId'] = request.entity_id
-        query['EntityType'] = request.entity_type
-        query['Message'] = request.message
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.message):
+            query['Message'] = request.message
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -139,53 +151,100 @@ class Client(OpenApiClient):
     def create_cluster_v2with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AuthorizeContent'] = request.authorize_content
-        query['Auto'] = request.auto
-        query['AutoPayOrder'] = request.auto_pay_order
-        query['BootstrapAction'] = request.bootstrap_action
-        query['ChargeType'] = request.charge_type
-        query['ClickHouseConf'] = request.click_house_conf
-        query['ClientToken'] = request.client_token
-        query['ClusterType'] = request.cluster_type
-        query['Config'] = request.config
-        query['Configurations'] = request.configurations
-        query['DepositType'] = request.deposit_type
-        query['EmrVer'] = request.emr_ver
-        query['EnableEas'] = request.enable_eas
-        query['EnableHighAvailability'] = request.enable_high_availability
-        query['EnableSsh'] = request.enable_ssh
-        query['ExtraAttributes'] = request.extra_attributes
-        query['HostComponentInfo'] = request.host_component_info
-        query['HostGroup'] = request.host_group
-        query['InitCustomHiveMetaDB'] = request.init_custom_hive_meta_db
-        query['InstanceGeneration'] = request.instance_generation
-        query['IsOpenPublicIp'] = request.is_open_public_ip
-        query['KeyPairName'] = request.key_pair_name
-        query['LogPath'] = request.log_path
-        query['MachineType'] = request.machine_type
-        query['MasterPwd'] = request.master_pwd
-        query['MetaStoreConf'] = request.meta_store_conf
-        query['MetaStoreType'] = request.meta_store_type
-        query['Name'] = request.name
-        query['NetType'] = request.net_type
-        query['Period'] = request.period
-        query['PromotionInfo'] = request.promotion_info
-        query['RegionId'] = request.region_id
-        query['RelatedClusterId'] = request.related_cluster_id
-        query['ResourceGroupId'] = request.resource_group_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['SecurityGroupId'] = request.security_group_id
-        query['SecurityGroupName'] = request.security_group_name
-        query['ServiceInfo'] = request.service_info
-        query['Tag'] = request.tag
-        query['UseCustomHiveMetaDB'] = request.use_custom_hive_meta_db
-        query['UseLocalMetaDb'] = request.use_local_meta_db
-        query['UserDefinedEmrEcsRole'] = request.user_defined_emr_ecs_role
-        query['UserInfo'] = request.user_info
-        query['VSwitchId'] = request.v_switch_id
-        query['VpcId'] = request.vpc_id
-        query['WhiteListType'] = request.white_list_type
-        query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.authorize_content):
+            query['AuthorizeContent'] = request.authorize_content
+        if not UtilClient.is_unset(request.auto):
+            query['Auto'] = request.auto
+        if not UtilClient.is_unset(request.auto_pay_order):
+            query['AutoPayOrder'] = request.auto_pay_order
+        if not UtilClient.is_unset(request.bootstrap_action):
+            query['BootstrapAction'] = request.bootstrap_action
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.click_house_conf):
+            query['ClickHouseConf'] = request.click_house_conf
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cluster_type):
+            query['ClusterType'] = request.cluster_type
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
+        if not UtilClient.is_unset(request.configurations):
+            query['Configurations'] = request.configurations
+        if not UtilClient.is_unset(request.deposit_type):
+            query['DepositType'] = request.deposit_type
+        if not UtilClient.is_unset(request.emr_ver):
+            query['EmrVer'] = request.emr_ver
+        if not UtilClient.is_unset(request.enable_eas):
+            query['EnableEas'] = request.enable_eas
+        if not UtilClient.is_unset(request.enable_high_availability):
+            query['EnableHighAvailability'] = request.enable_high_availability
+        if not UtilClient.is_unset(request.enable_ssh):
+            query['EnableSsh'] = request.enable_ssh
+        if not UtilClient.is_unset(request.extra_attributes):
+            query['ExtraAttributes'] = request.extra_attributes
+        if not UtilClient.is_unset(request.host_component_info):
+            query['HostComponentInfo'] = request.host_component_info
+        if not UtilClient.is_unset(request.host_group):
+            query['HostGroup'] = request.host_group
+        if not UtilClient.is_unset(request.init_custom_hive_meta_db):
+            query['InitCustomHiveMetaDB'] = request.init_custom_hive_meta_db
+        if not UtilClient.is_unset(request.instance_generation):
+            query['InstanceGeneration'] = request.instance_generation
+        if not UtilClient.is_unset(request.is_open_public_ip):
+            query['IsOpenPublicIp'] = request.is_open_public_ip
+        if not UtilClient.is_unset(request.key_pair_name):
+            query['KeyPairName'] = request.key_pair_name
+        if not UtilClient.is_unset(request.log_path):
+            query['LogPath'] = request.log_path
+        if not UtilClient.is_unset(request.machine_type):
+            query['MachineType'] = request.machine_type
+        if not UtilClient.is_unset(request.master_pwd):
+            query['MasterPwd'] = request.master_pwd
+        if not UtilClient.is_unset(request.meta_store_conf):
+            query['MetaStoreConf'] = request.meta_store_conf
+        if not UtilClient.is_unset(request.meta_store_type):
+            query['MetaStoreType'] = request.meta_store_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.net_type):
+            query['NetType'] = request.net_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.promotion_info):
+            query['PromotionInfo'] = request.promotion_info
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.related_cluster_id):
+            query['RelatedClusterId'] = request.related_cluster_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.security_group_name):
+            query['SecurityGroupName'] = request.security_group_name
+        if not UtilClient.is_unset(request.service_info):
+            query['ServiceInfo'] = request.service_info
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.use_custom_hive_meta_db):
+            query['UseCustomHiveMetaDB'] = request.use_custom_hive_meta_db
+        if not UtilClient.is_unset(request.use_local_meta_db):
+            query['UseLocalMetaDb'] = request.use_local_meta_db
+        if not UtilClient.is_unset(request.user_defined_emr_ecs_role):
+            query['UserDefinedEmrEcsRole'] = request.user_defined_emr_ecs_role
+        if not UtilClient.is_unset(request.user_info):
+            query['UserInfo'] = request.user_info
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.white_list_type):
+            query['WhiteListType'] = request.white_list_type
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -212,24 +271,42 @@ class Client(OpenApiClient):
     def create_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AlertConf'] = request.alert_conf
-        query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
-        query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
-        query['Application'] = request.application
-        query['ClientToken'] = request.client_token
-        query['ClusterId'] = request.cluster_id
-        query['CreateCluster'] = request.create_cluster
-        query['CronExpression'] = request.cron_expression
-        query['Description'] = request.description
-        query['EndSchedule'] = request.end_schedule
-        query['HostName'] = request.host_name
-        query['Name'] = request.name
-        query['Namespace'] = request.namespace
-        query['ParentCategory'] = request.parent_category
-        query['ParentFlowList'] = request.parent_flow_list
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['StartSchedule'] = request.start_schedule
+        if not UtilClient.is_unset(request.alert_conf):
+            query['AlertConf'] = request.alert_conf
+        if not UtilClient.is_unset(request.alert_ding_ding_group_biz_id):
+            query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
+        if not UtilClient.is_unset(request.alert_user_group_biz_id):
+            query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
+        if not UtilClient.is_unset(request.application):
+            query['Application'] = request.application
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.create_cluster):
+            query['CreateCluster'] = request.create_cluster
+        if not UtilClient.is_unset(request.cron_expression):
+            query['CronExpression'] = request.cron_expression
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.end_schedule):
+            query['EndSchedule'] = request.end_schedule
+        if not UtilClient.is_unset(request.host_name):
+            query['HostName'] = request.host_name
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.parent_category):
+            query['ParentCategory'] = request.parent_category
+        if not UtilClient.is_unset(request.parent_flow_list):
+            query['ParentFlowList'] = request.parent_flow_list
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_schedule):
+            query['StartSchedule'] = request.start_schedule
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -256,12 +333,18 @@ class Client(OpenApiClient):
     def create_flow_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Name'] = request.name
-        query['ParentId'] = request.parent_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.parent_id):
+            query['ParentId'] = request.parent_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -288,10 +371,14 @@ class Client(OpenApiClient):
     def create_flow_edit_lock_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EntityId'] = request.entity_id
-        query['Force'] = request.force
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -318,26 +405,46 @@ class Client(OpenApiClient):
     def create_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Adhoc'] = request.adhoc
-        query['AlertConf'] = request.alert_conf
-        query['ClientToken'] = request.client_token
-        query['ClusterId'] = request.cluster_id
-        query['CustomVariables'] = request.custom_variables
-        query['Description'] = request.description
-        query['EnvConf'] = request.env_conf
-        query['FailAct'] = request.fail_act
-        query['Mode'] = request.mode
-        query['MonitorConf'] = request.monitor_conf
-        query['Name'] = request.name
-        query['ParamConf'] = request.param_conf
-        query['Params'] = request.params
-        query['ParentCategory'] = request.parent_category
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceList'] = request.resource_list
-        query['RetryPolicy'] = request.retry_policy
-        query['RunConf'] = request.run_conf
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.adhoc):
+            query['Adhoc'] = request.adhoc
+        if not UtilClient.is_unset(request.alert_conf):
+            query['AlertConf'] = request.alert_conf
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.custom_variables):
+            query['CustomVariables'] = request.custom_variables
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_conf):
+            query['EnvConf'] = request.env_conf
+        if not UtilClient.is_unset(request.fail_act):
+            query['FailAct'] = request.fail_act
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.monitor_conf):
+            query['MonitorConf'] = request.monitor_conf
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.param_conf):
+            query['ParamConf'] = request.param_conf
+        if not UtilClient.is_unset(request.params):
+            query['Params'] = request.params
+        if not UtilClient.is_unset(request.parent_category):
+            query['ParentCategory'] = request.parent_category
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_list):
+            query['ResourceList'] = request.resource_list
+        if not UtilClient.is_unset(request.retry_policy):
+            query['RetryPolicy'] = request.retry_policy
+        if not UtilClient.is_unset(request.run_conf):
+            query['RunConf'] = request.run_conf
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -364,12 +471,18 @@ class Client(OpenApiClient):
     def create_flow_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['ProductType'] = request.product_type
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.product_type):
+            query['ProductType'] = request.product_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -396,15 +509,24 @@ class Client(OpenApiClient):
     def create_flow_project_cluster_setting_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ClusterId'] = request.cluster_id
-        query['DefaultQueue'] = request.default_queue
-        query['DefaultUser'] = request.default_user
-        query['HostList'] = request.host_list
-        query['ProjectId'] = request.project_id
-        query['QueueList'] = request.queue_list
-        query['RegionId'] = request.region_id
-        query['UserList'] = request.user_list
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.default_queue):
+            query['DefaultQueue'] = request.default_queue
+        if not UtilClient.is_unset(request.default_user):
+            query['DefaultUser'] = request.default_user
+        if not UtilClient.is_unset(request.host_list):
+            query['HostList'] = request.host_list
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.queue_list):
+            query['QueueList'] = request.queue_list
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_list):
+            query['UserList'] = request.user_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -431,10 +553,14 @@ class Client(OpenApiClient):
     def create_flow_project_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['User'] = request.user
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -461,9 +587,12 @@ class Client(OpenApiClient):
     def delete_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -490,9 +619,12 @@ class Client(OpenApiClient):
     def delete_flow_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -519,9 +651,12 @@ class Client(OpenApiClient):
     def delete_flow_edit_lock_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EntityId'] = request.entity_id
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -548,8 +683,10 @@ class Client(OpenApiClient):
     def delete_flow_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -576,9 +713,12 @@ class Client(OpenApiClient):
     def delete_flow_project_cluster_setting_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -605,9 +745,12 @@ class Client(OpenApiClient):
     def delete_flow_project_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['UserName'] = request.user_name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_name):
+            query['UserName'] = request.user_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -634,9 +777,12 @@ class Client(OpenApiClient):
     def describe_cluster_v2with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -663,9 +809,12 @@ class Client(OpenApiClient):
     def describe_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -692,12 +841,18 @@ class Client(OpenApiClient):
     def describe_flow_category_tree_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CategoryId'] = request.category_id
-        query['Keyword'] = request.keyword
-        query['Mode'] = request.mode
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -724,9 +879,12 @@ class Client(OpenApiClient):
     def describe_flow_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -753,9 +911,12 @@ class Client(OpenApiClient):
     def describe_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -782,9 +943,12 @@ class Client(OpenApiClient):
     def describe_flow_node_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -811,14 +975,22 @@ class Client(OpenApiClient):
     def describe_flow_node_instance_container_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppId'] = request.app_id
-        query['ContainerId'] = request.container_id
-        query['Length'] = request.length
-        query['LogName'] = request.log_name
-        query['NodeInstanceId'] = request.node_instance_id
-        query['Offset'] = request.offset
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.container_id):
+            query['ContainerId'] = request.container_id
+        if not UtilClient.is_unset(request.length):
+            query['Length'] = request.length
+        if not UtilClient.is_unset(request.log_name):
+            query['LogName'] = request.log_name
+        if not UtilClient.is_unset(request.node_instance_id):
+            query['NodeInstanceId'] = request.node_instance_id
+        if not UtilClient.is_unset(request.offset):
+            query['Offset'] = request.offset
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -845,16 +1017,26 @@ class Client(OpenApiClient):
     def describe_flow_node_instance_launcher_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['Length'] = request.length
-        query['Lines'] = request.lines
-        query['NodeInstanceId'] = request.node_instance_id
-        query['Offset'] = request.offset
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Reverse'] = request.reverse
-        query['Start'] = request.start
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.length):
+            query['Length'] = request.length
+        if not UtilClient.is_unset(request.lines):
+            query['Lines'] = request.lines
+        if not UtilClient.is_unset(request.node_instance_id):
+            query['NodeInstanceId'] = request.node_instance_id
+        if not UtilClient.is_unset(request.offset):
+            query['Offset'] = request.offset
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.reverse):
+            query['Reverse'] = request.reverse
+        if not UtilClient.is_unset(request.start):
+            query['Start'] = request.start
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -881,8 +1063,10 @@ class Client(OpenApiClient):
     def describe_flow_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -909,9 +1093,12 @@ class Client(OpenApiClient):
     def describe_flow_project_cluster_setting_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -938,15 +1125,24 @@ class Client(OpenApiClient):
     def describe_flow_slawith_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['From'] = request.from_
-        query['Metrics'] = request.metrics
-        query['PeriodType'] = request.period_type
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['To'] = request.to
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.from_):
+            query['From'] = request.from_
+        if not UtilClient.is_unset(request.metrics):
+            query['Metrics'] = request.metrics
+        if not UtilClient.is_unset(request.period_type):
+            query['PeriodType'] = request.period_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.to):
+            query['To'] = request.to
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -973,9 +1169,12 @@ class Client(OpenApiClient):
     def describe_flow_variable_collection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EntityId'] = request.entity_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1002,21 +1201,36 @@ class Client(OpenApiClient):
     def get_flow_audit_logs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CurrentSize'] = request.current_size
-        query['EntityGroupId'] = request.entity_group_id
-        query['EntityId'] = request.entity_id
-        query['EntityType'] = request.entity_type
-        query['Limit'] = request.limit
-        query['Operation'] = request.operation
-        query['OperatorId'] = request.operator_id
-        query['OrderField'] = request.order_field
-        query['OrderMode'] = request.order_mode
-        query['PageCount'] = request.page_count
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.current_size):
+            query['CurrentSize'] = request.current_size
+        if not UtilClient.is_unset(request.entity_group_id):
+            query['EntityGroupId'] = request.entity_group_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        if not UtilClient.is_unset(request.operation):
+            query['Operation'] = request.operation
+        if not UtilClient.is_unset(request.operator_id):
+            query['OperatorId'] = request.operator_id
+        if not UtilClient.is_unset(request.order_field):
+            query['OrderField'] = request.order_field
+        if not UtilClient.is_unset(request.order_mode):
+            query['OrderMode'] = request.order_mode
+        if not UtilClient.is_unset(request.page_count):
+            query['PageCount'] = request.page_count
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1043,9 +1257,12 @@ class Client(OpenApiClient):
     def kill_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowInstanceId'] = request.flow_instance_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.flow_instance_id):
+            query['FlowInstanceId'] = request.flow_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1072,9 +1289,12 @@ class Client(OpenApiClient):
     def kill_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['JobInstanceId'] = request.job_instance_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.job_instance_id):
+            query['JobInstanceId'] = request.job_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1101,21 +1321,36 @@ class Client(OpenApiClient):
     def list_clusters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterTypeList'] = request.cluster_type_list
-        query['CreateType'] = request.create_type
-        query['DefaultStatus'] = request.default_status
-        query['DepositType'] = request.deposit_type
-        query['ExpiredTagList'] = request.expired_tag_list
-        query['IsDesc'] = request.is_desc
-        query['MachineType'] = request.machine_type
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['StatusList'] = request.status_list
-        query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.cluster_type_list):
+            query['ClusterTypeList'] = request.cluster_type_list
+        if not UtilClient.is_unset(request.create_type):
+            query['CreateType'] = request.create_type
+        if not UtilClient.is_unset(request.default_status):
+            query['DefaultStatus'] = request.default_status
+        if not UtilClient.is_unset(request.deposit_type):
+            query['DepositType'] = request.deposit_type
+        if not UtilClient.is_unset(request.expired_tag_list):
+            query['ExpiredTagList'] = request.expired_tag_list
+        if not UtilClient.is_unset(request.is_desc):
+            query['IsDesc'] = request.is_desc
+        if not UtilClient.is_unset(request.machine_type):
+            query['MachineType'] = request.machine_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1142,16 +1377,26 @@ class Client(OpenApiClient):
     def list_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['Id'] = request.id
-        query['JobId'] = request.job_id
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['Periodic'] = request.periodic
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.periodic):
+            query['Periodic'] = request.periodic
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1178,11 +1423,16 @@ class Client(OpenApiClient):
     def list_flow_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1209,9 +1459,12 @@ class Client(OpenApiClient):
     def list_flow_cluster_all_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProductType'] = request.product_type
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.product_type):
+            query['ProductType'] = request.product_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1238,10 +1491,14 @@ class Client(OpenApiClient):
     def list_flow_cluster_all_hosts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1268,10 +1525,14 @@ class Client(OpenApiClient):
     def list_flow_cluster_host_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1298,20 +1559,34 @@ class Client(OpenApiClient):
     def list_flow_entity_snapshot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CommitterId'] = request.committer_id
-        query['CurrentSize'] = request.current_size
-        query['EntityGroupId'] = request.entity_group_id
-        query['EntityId'] = request.entity_id
-        query['EntityType'] = request.entity_type
-        query['Limit'] = request.limit
-        query['OrderField'] = request.order_field
-        query['OrderMode'] = request.order_mode
-        query['PageCount'] = request.page_count
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Revision'] = request.revision
+        if not UtilClient.is_unset(request.committer_id):
+            query['CommitterId'] = request.committer_id
+        if not UtilClient.is_unset(request.current_size):
+            query['CurrentSize'] = request.current_size
+        if not UtilClient.is_unset(request.entity_group_id):
+            query['EntityGroupId'] = request.entity_group_id
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.limit):
+            query['Limit'] = request.limit
+        if not UtilClient.is_unset(request.order_field):
+            query['OrderField'] = request.order_field
+        if not UtilClient.is_unset(request.order_mode):
+            query['OrderMode'] = request.order_mode
+        if not UtilClient.is_unset(request.page_count):
+            query['PageCount'] = request.page_count
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.revision):
+            query['Revision'] = request.revision
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1338,19 +1613,32 @@ class Client(OpenApiClient):
     def list_flow_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowId'] = request.flow_id
-        query['FlowName'] = request.flow_name
-        query['Id'] = request.id
-        query['InstanceId'] = request.instance_id
-        query['OrderBy'] = request.order_by
-        query['OrderType'] = request.order_type
-        query['Owner'] = request.owner
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['StatusList'] = request.status_list
-        query['TimeRange'] = request.time_range
+        if not UtilClient.is_unset(request.flow_id):
+            query['FlowId'] = request.flow_id
+        if not UtilClient.is_unset(request.flow_name):
+            query['FlowName'] = request.flow_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.order_by):
+            query['OrderBy'] = request.order_by
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.time_range):
+            query['TimeRange'] = request.time_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1377,15 +1665,24 @@ class Client(OpenApiClient):
     def list_flow_job_history_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['InstanceId'] = request.instance_id
-        query['JobType'] = request.job_type
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['StatusList'] = request.status_list
-        query['TimeRange'] = request.time_range
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_type):
+            query['JobType'] = request.job_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.time_range):
+            query['TimeRange'] = request.time_range
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1412,14 +1709,22 @@ class Client(OpenApiClient):
     def list_flow_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Adhoc'] = request.adhoc
-        query['Id'] = request.id
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Type'] = request.type
+        if not UtilClient.is_unset(request.adhoc):
+            query['Adhoc'] = request.adhoc
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1446,11 +1751,16 @@ class Client(OpenApiClient):
     def list_flow_node_instance_container_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['NodeInstanceId'] = request.node_instance_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.node_instance_id):
+            query['NodeInstanceId'] = request.node_instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1477,12 +1787,18 @@ class Client(OpenApiClient):
     def list_flow_node_sql_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Length'] = request.length
-        query['NodeInstanceId'] = request.node_instance_id
-        query['Offset'] = request.offset
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['SqlIndex'] = request.sql_index
+        if not UtilClient.is_unset(request.length):
+            query['Length'] = request.length
+        if not UtilClient.is_unset(request.node_instance_id):
+            query['NodeInstanceId'] = request.node_instance_id
+        if not UtilClient.is_unset(request.offset):
+            query['Offset'] = request.offset
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.sql_index):
+            query['SqlIndex'] = request.sql_index
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1509,10 +1825,14 @@ class Client(OpenApiClient):
     def list_flow_project_cluster_setting_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1539,10 +1859,14 @@ class Client(OpenApiClient):
     def list_flow_project_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1569,13 +1893,20 @@ class Client(OpenApiClient):
     def list_flow_projects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProductType'] = request.product_type
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_type):
+            query['ProductType'] = request.product_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1598,42 +1929,6 @@ class Client(OpenApiClient):
     def list_flow_projects(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_flow_projects_with_options(request, runtime)
-
-    def list_flows_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['ClusterId'] = request.cluster_id
-        query['Id'] = request.id
-        query['JobId'] = request.job_id
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['Periodic'] = request.periodic
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['Status'] = request.status
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListFlows',
-            version='2020-06-17',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ddi_20200617_models.ListFlowsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_flows(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_flows_with_options(request, runtime)
 
     def list_main_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1664,25 +1959,44 @@ class Client(OpenApiClient):
     def modify_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AlertConf'] = request.alert_conf
-        query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
-        query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
-        query['Application'] = request.application
-        query['ClusterId'] = request.cluster_id
-        query['CreateCluster'] = request.create_cluster
-        query['CronExpr'] = request.cron_expr
-        query['Description'] = request.description
-        query['EndSchedule'] = request.end_schedule
-        query['HostName'] = request.host_name
-        query['Id'] = request.id
-        query['Name'] = request.name
-        query['ParentCategory'] = request.parent_category
-        query['ParentFlowList'] = request.parent_flow_list
-        query['Periodic'] = request.periodic
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['StartSchedule'] = request.start_schedule
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.alert_conf):
+            query['AlertConf'] = request.alert_conf
+        if not UtilClient.is_unset(request.alert_ding_ding_group_biz_id):
+            query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
+        if not UtilClient.is_unset(request.alert_user_group_biz_id):
+            query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
+        if not UtilClient.is_unset(request.application):
+            query['Application'] = request.application
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.create_cluster):
+            query['CreateCluster'] = request.create_cluster
+        if not UtilClient.is_unset(request.cron_expr):
+            query['CronExpr'] = request.cron_expr
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.end_schedule):
+            query['EndSchedule'] = request.end_schedule
+        if not UtilClient.is_unset(request.host_name):
+            query['HostName'] = request.host_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.parent_category):
+            query['ParentCategory'] = request.parent_category
+        if not UtilClient.is_unset(request.parent_flow_list):
+            query['ParentFlowList'] = request.parent_flow_list
+        if not UtilClient.is_unset(request.periodic):
+            query['Periodic'] = request.periodic
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_schedule):
+            query['StartSchedule'] = request.start_schedule
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1709,11 +2023,16 @@ class Client(OpenApiClient):
     def modify_flow_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Id'] = request.id
-        query['Name'] = request.name
-        query['ParentId'] = request.parent_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.parent_id):
+            query['ParentId'] = request.parent_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1740,26 +2059,46 @@ class Client(OpenApiClient):
     def modify_flow_for_web_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AlertConf'] = request.alert_conf
-        query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
-        query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
-        query['ClusterId'] = request.cluster_id
-        query['CreateCluster'] = request.create_cluster
-        query['CronExpr'] = request.cron_expr
-        query['Description'] = request.description
-        query['EndSchedule'] = request.end_schedule
-        query['Graph'] = request.graph
-        query['HostName'] = request.host_name
-        query['Id'] = request.id
-        query['Name'] = request.name
-        query['Namespace'] = request.namespace
-        query['ParentCategory'] = request.parent_category
-        query['ParentFlowList'] = request.parent_flow_list
-        query['Periodic'] = request.periodic
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['StartSchedule'] = request.start_schedule
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.alert_conf):
+            query['AlertConf'] = request.alert_conf
+        if not UtilClient.is_unset(request.alert_ding_ding_group_biz_id):
+            query['AlertDingDingGroupBizId'] = request.alert_ding_ding_group_biz_id
+        if not UtilClient.is_unset(request.alert_user_group_biz_id):
+            query['AlertUserGroupBizId'] = request.alert_user_group_biz_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.create_cluster):
+            query['CreateCluster'] = request.create_cluster
+        if not UtilClient.is_unset(request.cron_expr):
+            query['CronExpr'] = request.cron_expr
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.end_schedule):
+            query['EndSchedule'] = request.end_schedule
+        if not UtilClient.is_unset(request.graph):
+            query['Graph'] = request.graph
+        if not UtilClient.is_unset(request.host_name):
+            query['HostName'] = request.host_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.parent_category):
+            query['ParentCategory'] = request.parent_category
+        if not UtilClient.is_unset(request.parent_flow_list):
+            query['ParentFlowList'] = request.parent_flow_list
+        if not UtilClient.is_unset(request.periodic):
+            query['Periodic'] = request.periodic
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_schedule):
+            query['StartSchedule'] = request.start_schedule
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1786,25 +2125,44 @@ class Client(OpenApiClient):
     def modify_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AlertConf'] = request.alert_conf
-        query['ClusterId'] = request.cluster_id
-        query['CustomVariables'] = request.custom_variables
-        query['Description'] = request.description
-        query['EnvConf'] = request.env_conf
-        query['FailAct'] = request.fail_act
-        query['Id'] = request.id
-        query['KnoxPassword'] = request.knox_password
-        query['KnoxUser'] = request.knox_user
-        query['Mode'] = request.mode
-        query['MonitorConf'] = request.monitor_conf
-        query['Name'] = request.name
-        query['ParamConf'] = request.param_conf
-        query['Params'] = request.params
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
-        query['ResourceList'] = request.resource_list
-        query['RetryPolicy'] = request.retry_policy
-        query['RunConf'] = request.run_conf
+        if not UtilClient.is_unset(request.alert_conf):
+            query['AlertConf'] = request.alert_conf
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.custom_variables):
+            query['CustomVariables'] = request.custom_variables
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_conf):
+            query['EnvConf'] = request.env_conf
+        if not UtilClient.is_unset(request.fail_act):
+            query['FailAct'] = request.fail_act
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.knox_password):
+            query['KnoxPassword'] = request.knox_password
+        if not UtilClient.is_unset(request.knox_user):
+            query['KnoxUser'] = request.knox_user
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.monitor_conf):
+            query['MonitorConf'] = request.monitor_conf
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.param_conf):
+            query['ParamConf'] = request.param_conf
+        if not UtilClient.is_unset(request.params):
+            query['Params'] = request.params
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_list):
+            query['ResourceList'] = request.resource_list
+        if not UtilClient.is_unset(request.retry_policy):
+            query['RetryPolicy'] = request.retry_policy
+        if not UtilClient.is_unset(request.run_conf):
+            query['RunConf'] = request.run_conf
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1831,10 +2189,14 @@ class Client(OpenApiClient):
     def modify_flow_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1861,14 +2223,22 @@ class Client(OpenApiClient):
     def modify_flow_project_cluster_setting_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['DefaultQueue'] = request.default_queue
-        query['DefaultUser'] = request.default_user
-        query['HostList'] = request.host_list
-        query['ProjectId'] = request.project_id
-        query['QueueList'] = request.queue_list
-        query['RegionId'] = request.region_id
-        query['UserList'] = request.user_list
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.default_queue):
+            query['DefaultQueue'] = request.default_queue
+        if not UtilClient.is_unset(request.default_user):
+            query['DefaultUser'] = request.default_user
+        if not UtilClient.is_unset(request.host_list):
+            query['HostList'] = request.host_list
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.queue_list):
+            query['QueueList'] = request.queue_list
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_list):
+            query['UserList'] = request.user_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1895,9 +2265,12 @@ class Client(OpenApiClient):
     def modify_flow_variable_collection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Data'] = request.data
-        query['RegionId'] = request.region_id
-        query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.data):
+            query['Data'] = request.data
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1924,10 +2297,14 @@ class Client(OpenApiClient):
     def release_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ForceRelease'] = request.force_release
-        query['Id'] = request.id
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.force_release):
+            query['ForceRelease'] = request.force_release
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1954,10 +2331,14 @@ class Client(OpenApiClient):
     def rerun_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowInstanceId'] = request.flow_instance_id
-        query['ProjectId'] = request.project_id
-        query['ReRunFail'] = request.re_run_fail
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.flow_instance_id):
+            query['FlowInstanceId'] = request.flow_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.re_run_fail):
+            query['ReRunFail'] = request.re_run_fail
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1984,12 +2365,18 @@ class Client(OpenApiClient):
     def restore_flow_entity_snapshot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EntityId'] = request.entity_id
-        query['EntityType'] = request.entity_type
-        query['OperatorId'] = request.operator_id
-        query['RegionId'] = request.region_id
-        query['ResourceOwnerId'] = request.resource_owner_id
-        query['Revision'] = request.revision
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.operator_id):
+            query['OperatorId'] = request.operator_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.revision):
+            query['Revision'] = request.revision
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2016,9 +2403,12 @@ class Client(OpenApiClient):
     def resume_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowInstanceId'] = request.flow_instance_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.flow_instance_id):
+            query['FlowInstanceId'] = request.flow_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2045,9 +2435,12 @@ class Client(OpenApiClient):
     def start_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowInstanceId'] = request.flow_instance_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.flow_instance_id):
+            query['FlowInstanceId'] = request.flow_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2074,10 +2467,14 @@ class Client(OpenApiClient):
     def submit_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Conf'] = request.conf
-        query['FlowId'] = request.flow_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.conf):
+            query['Conf'] = request.conf
+        if not UtilClient.is_unset(request.flow_id):
+            query['FlowId'] = request.flow_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2104,12 +2501,18 @@ class Client(OpenApiClient):
     def submit_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['Conf'] = request.conf
-        query['HostName'] = request.host_name
-        query['JobId'] = request.job_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.conf):
+            query['Conf'] = request.conf
+        if not UtilClient.is_unset(request.host_name):
+            query['HostName'] = request.host_name
+        if not UtilClient.is_unset(request.job_id):
+            query['JobId'] = request.job_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2136,9 +2539,12 @@ class Client(OpenApiClient):
     def suspend_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowInstanceId'] = request.flow_instance_id
-        query['ProjectId'] = request.project_id
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.flow_instance_id):
+            query['FlowInstanceId'] = request.flow_instance_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
