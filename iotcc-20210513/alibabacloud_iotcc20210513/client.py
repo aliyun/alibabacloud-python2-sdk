@@ -908,6 +908,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_connection_pool_ip_operation_result_with_options(request, runtime)
 
+    def get_diagnose_result_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.diagnose_task_id):
+            query['DiagnoseTaskId'] = request.diagnose_task_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDiagnoseResultForSingleCard',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.GetDiagnoseResultForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_diagnose_result_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_diagnose_result_for_single_card_with_options(request, runtime)
+
     def get_io_tcloud_connector_access_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1209,6 +1239,44 @@ class Client(OpenApiClient):
     def list_connection_pools(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_connection_pools_with_options(request, runtime)
+
+    def list_diagnose_info_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDiagnoseInfoForSingleCard',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListDiagnoseInfoForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_diagnose_info_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_diagnose_info_for_single_card_with_options(request, runtime)
 
     def list_group_authorization_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1551,6 +1619,50 @@ class Client(OpenApiClient):
     def remove_io_tcloud_connector_from_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.remove_io_tcloud_connector_from_group_with_options(request, runtime)
+
+    def submit_diagnose_task_for_single_card_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.begin_time):
+            query['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.destination_type):
+            query['DestinationType'] = request.destination_type
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_uid):
+            query['ResourceUid'] = request.resource_uid
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitDiagnoseTaskForSingleCard',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.SubmitDiagnoseTaskForSingleCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_diagnose_task_for_single_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_diagnose_task_for_single_card_with_options(request, runtime)
 
     def update_authorization_rule_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)

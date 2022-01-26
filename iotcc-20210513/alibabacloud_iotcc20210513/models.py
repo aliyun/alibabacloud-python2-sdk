@@ -2517,6 +2517,223 @@ class GetConnectionPoolIpOperationResultResponse(TeaModel):
         return self
 
 
+class GetDiagnoseResultForSingleCardRequest(TeaModel):
+    def __init__(self, diagnose_task_id=None, region_id=None):
+        self.diagnose_task_id = diagnose_task_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diagnose_task_id is not None:
+            result['DiagnoseTaskId'] = self.diagnose_task_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiagnoseTaskId') is not None:
+            self.diagnose_task_id = m.get('DiagnoseTaskId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem(TeaModel):
+    def __init__(self, part=None, status=None):
+        self.part = part  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.part is not None:
+            result['Part'] = self.part
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Part') is not None:
+            self.part = m.get('Part')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
+    def __init__(self, error_des=None, error_level=None, error_part=None, error_suggestion=None):
+        self.error_des = error_des  # type: str
+        self.error_level = error_level  # type: str
+        self.error_part = error_part  # type: str
+        self.error_suggestion = error_suggestion  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBodyErrorResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_des is not None:
+            result['ErrorDes'] = self.error_des
+        if self.error_level is not None:
+            result['ErrorLevel'] = self.error_level
+        if self.error_part is not None:
+            result['ErrorPart'] = self.error_part
+        if self.error_suggestion is not None:
+            result['ErrorSuggestion'] = self.error_suggestion
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorDes') is not None:
+            self.error_des = m.get('ErrorDes')
+        if m.get('ErrorLevel') is not None:
+            self.error_level = m.get('ErrorLevel')
+        if m.get('ErrorPart') is not None:
+            self.error_part = m.get('ErrorPart')
+        if m.get('ErrorSuggestion') is not None:
+            self.error_suggestion = m.get('ErrorSuggestion')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponseBody(TeaModel):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, diagnose_item=None, end_time=None,
+                 error_result=None, iccid=None, io_tcloud_connector_id=None, request_id=None, status=None):
+        self.begin_time = begin_time  # type: long
+        self.card_ip = card_ip  # type: str
+        self.destination = destination  # type: str
+        self.diagnose_item = diagnose_item  # type: list[GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem]
+        self.end_time = end_time  # type: long
+        self.error_result = error_result  # type: list[GetDiagnoseResultForSingleCardResponseBodyErrorResult]
+        self.iccid = iccid  # type: str
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.diagnose_item:
+            for k in self.diagnose_item:
+                if k:
+                    k.validate()
+        if self.error_result:
+            for k in self.error_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.card_ip is not None:
+            result['CardIp'] = self.card_ip
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        result['DiagnoseItem'] = []
+        if self.diagnose_item is not None:
+            for k in self.diagnose_item:
+                result['DiagnoseItem'].append(k.to_map() if k else None)
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        result['ErrorResult'] = []
+        if self.error_result is not None:
+            for k in self.error_result:
+                result['ErrorResult'].append(k.to_map() if k else None)
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CardIp') is not None:
+            self.card_ip = m.get('CardIp')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        self.diagnose_item = []
+        if m.get('DiagnoseItem') is not None:
+            for k in m.get('DiagnoseItem'):
+                temp_model = GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem()
+                self.diagnose_item.append(temp_model.from_map(k))
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        self.error_result = []
+        if m.get('ErrorResult') is not None:
+            for k in m.get('ErrorResult'):
+                temp_model = GetDiagnoseResultForSingleCardResponseBodyErrorResult()
+                self.error_result.append(temp_model.from_map(k))
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetDiagnoseResultForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetDiagnoseResultForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDiagnoseResultForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetDiagnoseResultForSingleCardResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetIoTCloudConnectorAccessLogRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, io_tcloud_connector_id=None, region_id=None):
         self.client_token = client_token  # type: str
@@ -3797,6 +4014,191 @@ class ListConnectionPoolsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListConnectionPoolsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListDiagnoseInfoForSingleCardRequest(TeaModel):
+    def __init__(self, io_tcloud_connector_id=None, max_results=None, next_token=None, region_id=None, source=None,
+                 source_type=None):
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.source = source  # type: str
+        self.source_type = source_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, end_time=None, iccid=None,
+                 io_tcloud_connector_id=None, status=None):
+        self.begin_time = begin_time  # type: long
+        self.card_ip = card_ip  # type: str
+        self.destination = destination  # type: str
+        self.end_time = end_time  # type: long
+        self.iccid = iccid  # type: str
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.card_ip is not None:
+            result['CardIp'] = self.card_ip
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CardIp') is not None:
+            self.card_ip = m.get('CardIp')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponseBody(TeaModel):
+    def __init__(self, diagnose_info=None, max_results=None, next_token=None, request_id=None):
+        self.diagnose_info = diagnose_info  # type: list[ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo]
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.diagnose_info:
+            for k in self.diagnose_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DiagnoseInfo'] = []
+        if self.diagnose_info is not None:
+            for k in self.diagnose_info:
+                result['DiagnoseInfo'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.diagnose_info = []
+        if m.get('DiagnoseInfo') is not None:
+            for k in m.get('DiagnoseInfo'):
+                temp_model = ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo()
+                self.diagnose_info.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListDiagnoseInfoForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListDiagnoseInfoForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDiagnoseInfoForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDiagnoseInfoForSingleCardResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5331,6 +5733,133 @@ class RemoveIoTCloudConnectorFromGroupResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = RemoveIoTCloudConnectorFromGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardRequest(TeaModel):
+    def __init__(self, begin_time=None, destination=None, destination_type=None, end_time=None,
+                 io_tcloud_connector_id=None, region_id=None, resource_uid=None, source=None, source_type=None):
+        self.begin_time = begin_time  # type: long
+        self.destination = destination  # type: str
+        self.destination_type = destination_type  # type: str
+        self.end_time = end_time  # type: long
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_uid = resource_uid  # type: long
+        self.source = source  # type: str
+        self.source_type = source_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_uid is not None:
+            result['ResourceUid'] = self.resource_uid
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceUid') is not None:
+            self.resource_uid = m.get('ResourceUid')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardResponseBody(TeaModel):
+    def __init__(self, diagnose_task_id=None, request_id=None):
+        self.diagnose_task_id = diagnose_task_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diagnose_task_id is not None:
+            result['DiagnoseTaskId'] = self.diagnose_task_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiagnoseTaskId') is not None:
+            self.diagnose_task_id = m.get('DiagnoseTaskId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SubmitDiagnoseTaskForSingleCardResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SubmitDiagnoseTaskForSingleCardResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitDiagnoseTaskForSingleCardResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SubmitDiagnoseTaskForSingleCardResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
