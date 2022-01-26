@@ -2576,8 +2576,8 @@ class GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem(TeaModel):
 
 
 class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
-    def __init__(self, error_des=None, error_level=None, error_part=None, error_suggestion=None):
-        self.error_des = error_des  # type: str
+    def __init__(self, error_desc=None, error_level=None, error_part=None, error_suggestion=None):
+        self.error_desc = error_desc  # type: str
         self.error_level = error_level  # type: str
         self.error_part = error_part  # type: str
         self.error_suggestion = error_suggestion  # type: str
@@ -2591,8 +2591,8 @@ class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
             return _map
 
         result = dict()
-        if self.error_des is not None:
-            result['ErrorDes'] = self.error_des
+        if self.error_desc is not None:
+            result['ErrorDesc'] = self.error_desc
         if self.error_level is not None:
             result['ErrorLevel'] = self.error_level
         if self.error_part is not None:
@@ -2603,8 +2603,8 @@ class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ErrorDes') is not None:
-            self.error_des = m.get('ErrorDes')
+        if m.get('ErrorDesc') is not None:
+            self.error_desc = m.get('ErrorDesc')
         if m.get('ErrorLevel') is not None:
             self.error_level = m.get('ErrorLevel')
         if m.get('ErrorPart') is not None:
