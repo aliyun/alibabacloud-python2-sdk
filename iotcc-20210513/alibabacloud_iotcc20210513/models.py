@@ -4069,15 +4069,17 @@ class ListDiagnoseInfoForSingleCardRequest(TeaModel):
 
 
 class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
-    def __init__(self, begin_time=None, card_ip=None, destination=None, end_time=None, iccid=None,
-                 io_tcloud_connector_id=None, status=None):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, diagnose_time=None, end_time=None,
+                 iccid=None, io_tcloud_connector_id=None, status=None, task_id=None):
         self.begin_time = begin_time  # type: long
         self.card_ip = card_ip  # type: str
         self.destination = destination  # type: str
+        self.diagnose_time = diagnose_time  # type: long
         self.end_time = end_time  # type: long
         self.iccid = iccid  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.status = status  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -4094,6 +4096,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             result['CardIp'] = self.card_ip
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.diagnose_time is not None:
+            result['DiagnoseTime'] = self.diagnose_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.iccid is not None:
@@ -4102,6 +4106,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
         return result
 
     def from_map(self, m=None):
@@ -4112,6 +4118,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             self.card_ip = m.get('CardIp')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DiagnoseTime') is not None:
+            self.diagnose_time = m.get('DiagnoseTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('Iccid') is not None:
@@ -4120,15 +4128,18 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
         return self
 
 
 class ListDiagnoseInfoForSingleCardResponseBody(TeaModel):
-    def __init__(self, diagnose_info=None, max_results=None, next_token=None, request_id=None):
+    def __init__(self, diagnose_info=None, max_results=None, next_token=None, request_id=None, total_count=None):
         self.diagnose_info = diagnose_info  # type: list[ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo]
         self.max_results = max_results  # type: long
-        self.next_token = next_token  # type: long
+        self.next_token = next_token  # type: str
         self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
 
     def validate(self):
         if self.diagnose_info:
@@ -4152,6 +4163,8 @@ class ListDiagnoseInfoForSingleCardResponseBody(TeaModel):
             result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
@@ -4167,6 +4180,8 @@ class ListDiagnoseInfoForSingleCardResponseBody(TeaModel):
             self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
