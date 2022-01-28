@@ -5164,6 +5164,143 @@ class GetCampaignResponse(TeaModel):
         return self
 
 
+class GetCaseFileUploadUrlRequest(TeaModel):
+    def __init__(self, file_name=None, instance_id=None):
+        self.file_name = file_name  # type: str
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCaseFileUploadUrlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetCaseFileUploadUrlResponseBodyData(TeaModel):
+    def __init__(self, case_file_key=None, url=None):
+        self.case_file_key = case_file_key  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCaseFileUploadUrlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.case_file_key is not None:
+            result['CaseFileKey'] = self.case_file_key
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CaseFileKey') is not None:
+            self.case_file_key = m.get('CaseFileKey')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class GetCaseFileUploadUrlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetCaseFileUploadUrlResponseBodyData
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetCaseFileUploadUrlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetCaseFileUploadUrlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetCaseFileUploadUrlResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetCaseFileUploadUrlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetCaseFileUploadUrlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetCaseFileUploadUrlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetHistoricalCallerReportRequest(TeaModel):
     def __init__(self, calling_number=None, instance_id=None, start_time=None, stop_time=None):
         self.calling_number = calling_number  # type: str
@@ -6712,16 +6849,21 @@ class GetLoginDetailsRequest(TeaModel):
 
 
 class GetLoginDetailsResponseBodyData(TeaModel):
-    def __init__(self, agent_server_url=None, device_id=None, display_name=None, extension=None, signature=None,
-                 sip_server_url=None, user_id=None, user_key=None, work_mode=None):
+    def __init__(self, agent_server_url=None, device_ext=None, device_id=None, device_state=None, display_name=None,
+                 extension=None, signature=None, signature_2=None, sip_server_url=None, user_id=None, user_key=None,
+                 user_key_2=None, work_mode=None):
         self.agent_server_url = agent_server_url  # type: str
+        self.device_ext = device_ext  # type: str
         self.device_id = device_id  # type: str
+        self.device_state = device_state  # type: str
         self.display_name = display_name  # type: str
         self.extension = extension  # type: str
         self.signature = signature  # type: str
+        self.signature_2 = signature_2  # type: str
         self.sip_server_url = sip_server_url  # type: str
         self.user_id = user_id  # type: str
         self.user_key = user_key  # type: str
+        self.user_key_2 = user_key_2  # type: str
         self.work_mode = work_mode  # type: str
 
     def validate(self):
@@ -6735,20 +6877,28 @@ class GetLoginDetailsResponseBodyData(TeaModel):
         result = dict()
         if self.agent_server_url is not None:
             result['AgentServerUrl'] = self.agent_server_url
+        if self.device_ext is not None:
+            result['DeviceExt'] = self.device_ext
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
+        if self.device_state is not None:
+            result['DeviceState'] = self.device_state
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.extension is not None:
             result['Extension'] = self.extension
         if self.signature is not None:
             result['Signature'] = self.signature
+        if self.signature_2 is not None:
+            result['Signature2'] = self.signature_2
         if self.sip_server_url is not None:
             result['SipServerUrl'] = self.sip_server_url
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_key is not None:
             result['UserKey'] = self.user_key
+        if self.user_key_2 is not None:
+            result['UserKey2'] = self.user_key_2
         if self.work_mode is not None:
             result['WorkMode'] = self.work_mode
         return result
@@ -6757,20 +6907,28 @@ class GetLoginDetailsResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('AgentServerUrl') is not None:
             self.agent_server_url = m.get('AgentServerUrl')
+        if m.get('DeviceExt') is not None:
+            self.device_ext = m.get('DeviceExt')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
+        if m.get('DeviceState') is not None:
+            self.device_state = m.get('DeviceState')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('Extension') is not None:
             self.extension = m.get('Extension')
         if m.get('Signature') is not None:
             self.signature = m.get('Signature')
+        if m.get('Signature2') is not None:
+            self.signature_2 = m.get('Signature2')
         if m.get('SipServerUrl') is not None:
             self.sip_server_url = m.get('SipServerUrl')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserKey') is not None:
             self.user_key = m.get('UserKey')
+        if m.get('UserKey2') is not None:
+            self.user_key_2 = m.get('UserKey2')
         if m.get('WorkMode') is not None:
             self.work_mode = m.get('WorkMode')
         return self
@@ -7733,8 +7891,12 @@ class GetUserRequest(TeaModel):
 
 
 class GetUserResponseBodyData(TeaModel):
-    def __init__(self, display_name=None, email=None, extension=None, instance_id=None, login_name=None, mobile=None,
-                 role_id=None, role_name=None, user_id=None, work_mode=None):
+    def __init__(self, device_ext=None, device_id=None, device_state=None, display_name=None, email=None,
+                 extension=None, instance_id=None, login_name=None, mobile=None, role_id=None, role_name=None, user_id=None,
+                 work_mode=None):
+        self.device_ext = device_ext  # type: str
+        self.device_id = device_id  # type: str
+        self.device_state = device_state  # type: str
         self.display_name = display_name  # type: str
         self.email = email  # type: str
         self.extension = extension  # type: str
@@ -7755,6 +7917,12 @@ class GetUserResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.device_ext is not None:
+            result['DeviceExt'] = self.device_ext
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.device_state is not None:
+            result['DeviceState'] = self.device_state
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.email is not None:
@@ -7779,6 +7947,12 @@ class GetUserResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DeviceExt') is not None:
+            self.device_ext = m.get('DeviceExt')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('DeviceState') is not None:
+            self.device_state = m.get('DeviceState')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('Email') is not None:
@@ -20556,12 +20730,17 @@ class ListUsersResponseBodyDataListSkillLevelList(TeaModel):
 
 
 class ListUsersResponseBodyDataList(TeaModel):
-    def __init__(self, display_id=None, display_name=None, email=None, login_name=None, mobile=None,
-                 personal_outbound_number_list=None, primary_account=None, ram_id=None, role_id=None, role_name=None, skill_level_list=None,
-                 user_id=None, work_mode=None):
+    def __init__(self, device_ext=None, device_id=None, device_state=None, display_id=None, display_name=None,
+                 email=None, extension=None, login_name=None, mobile=None, personal_outbound_number_list=None,
+                 primary_account=None, ram_id=None, role_id=None, role_name=None, skill_level_list=None, user_id=None,
+                 work_mode=None):
+        self.device_ext = device_ext  # type: str
+        self.device_id = device_id  # type: str
+        self.device_state = device_state  # type: str
         self.display_id = display_id  # type: str
         self.display_name = display_name  # type: str
         self.email = email  # type: str
+        self.extension = extension  # type: str
         self.login_name = login_name  # type: str
         self.mobile = mobile  # type: str
         self.personal_outbound_number_list = personal_outbound_number_list  # type: list[ListUsersResponseBodyDataListPersonalOutboundNumberList]
@@ -20589,12 +20768,20 @@ class ListUsersResponseBodyDataList(TeaModel):
             return _map
 
         result = dict()
+        if self.device_ext is not None:
+            result['DeviceExt'] = self.device_ext
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.device_state is not None:
+            result['DeviceState'] = self.device_state
         if self.display_id is not None:
             result['DisplayId'] = self.display_id
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
         if self.email is not None:
             result['Email'] = self.email
+        if self.extension is not None:
+            result['Extension'] = self.extension
         if self.login_name is not None:
             result['LoginName'] = self.login_name
         if self.mobile is not None:
@@ -20623,12 +20810,20 @@ class ListUsersResponseBodyDataList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DeviceExt') is not None:
+            self.device_ext = m.get('DeviceExt')
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('DeviceState') is not None:
+            self.device_state = m.get('DeviceState')
         if m.get('DisplayId') is not None:
             self.display_id = m.get('DisplayId')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
         if m.get('Email') is not None:
             self.email = m.get('Email')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
         if m.get('LoginName') is not None:
             self.login_name = m.get('LoginName')
         if m.get('Mobile') is not None:
@@ -23664,6 +23859,122 @@ class RegisterDeviceResponse(TeaModel):
         return self
 
 
+class RegisterDevicesRequest(TeaModel):
+    def __init__(self, device_id=None, instance_id=None, password=None, user_id_list_json=None):
+        self.device_id = device_id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.password = password  # type: str
+        self.user_id_list_json = user_id_list_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegisterDevicesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.device_id is not None:
+            result['DeviceId'] = self.device_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.user_id_list_json is not None:
+            result['UserIdListJson'] = self.user_id_list_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeviceId') is not None:
+            self.device_id = m.get('DeviceId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('UserIdListJson') is not None:
+            self.user_id_list_json = m.get('UserIdListJson')
+        return self
+
+
+class RegisterDevicesResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, params=None, request_id=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.params = params  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RegisterDevicesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.params is not None:
+            result['Params'] = self.params
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RegisterDevicesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RegisterDevicesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RegisterDevicesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RegisterDevicesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ReleaseCallRequest(TeaModel):
     def __init__(self, channel_id=None, device_id=None, instance_id=None, job_id=None, user_id=None):
         self.channel_id = channel_id  # type: str
@@ -23902,8 +24213,9 @@ class ReleaseCallResponseBodyDataUserContext(TeaModel):
 
 
 class ReleaseCallResponseBodyData(TeaModel):
-    def __init__(self, call_context=None, user_context=None):
+    def __init__(self, call_context=None, context_id=None, user_context=None):
         self.call_context = call_context  # type: ReleaseCallResponseBodyDataCallContext
+        self.context_id = context_id  # type: long
         self.user_context = user_context  # type: ReleaseCallResponseBodyDataUserContext
 
     def validate(self):
@@ -23920,6 +24232,8 @@ class ReleaseCallResponseBodyData(TeaModel):
         result = dict()
         if self.call_context is not None:
             result['CallContext'] = self.call_context.to_map()
+        if self.context_id is not None:
+            result['ContextId'] = self.context_id
         if self.user_context is not None:
             result['UserContext'] = self.user_context.to_map()
         return result
@@ -23929,6 +24243,8 @@ class ReleaseCallResponseBodyData(TeaModel):
         if m.get('CallContext') is not None:
             temp_model = ReleaseCallResponseBodyDataCallContext()
             self.call_context = temp_model.from_map(m['CallContext'])
+        if m.get('ContextId') is not None:
+            self.context_id = m.get('ContextId')
         if m.get('UserContext') is not None:
             temp_model = ReleaseCallResponseBodyDataUserContext()
             self.user_context = temp_model.from_map(m['UserContext'])

@@ -834,6 +834,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_campaign_with_options(request, runtime)
 
+    def get_case_file_upload_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_name):
+            query['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCaseFileUploadUrl',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetCaseFileUploadUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_case_file_upload_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_case_file_upload_url_with_options(request, runtime)
+
     def get_historical_caller_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3101,6 +3131,40 @@ class Client(OpenApiClient):
     def register_device(self, request):
         runtime = util_models.RuntimeOptions()
         return self.register_device_with_options(request, runtime)
+
+    def register_devices_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.user_id_list_json):
+            query['UserIdListJson'] = request.user_id_list_json
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RegisterDevices',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.RegisterDevicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def register_devices(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.register_devices_with_options(request, runtime)
 
     def release_call_with_options(self, request, runtime):
         UtilClient.validate_model(request)
