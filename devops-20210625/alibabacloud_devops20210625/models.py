@@ -412,13 +412,9 @@ class CreateProjectRequest(TeaModel):
 
 
 class CreateProjectResponseBodyProject(TeaModel):
-    def __init__(self, category=None, category_identifier=None, creator=None, custom_code=None, description=None,
-                 gmt_create=None, gmt_modified=None, icon=None, icon_big=None, icon_group=None, icon_small=None, id=None,
-                 identifier=None, identifier_path=None, logical_status=None, modifier=None, name=None,
-                 organization_identifier=None, parent_identifier=None, scope=None, status_identifier=None, status_stage_identifier=None,
-                 sub_type=None, type_identifier=None):
-        # 空间大类
-        self.category = category  # type: str
+    def __init__(self, category_identifier=None, creator=None, custom_code=None, description=None, gmt_create=None,
+                 gmt_modified=None, icon=None, identifier=None, logical_status=None, modifier=None, name=None,
+                 organization_identifier=None, scope=None, status_identifier=None, status_stage_identifier=None, type_identifier=None):
         # 空间大类id
         self.category_identifier = category_identifier  # type: str
         # 创建人id
@@ -433,18 +429,8 @@ class CreateProjectResponseBodyProject(TeaModel):
         self.gmt_modified = gmt_modified  # type: long
         # 图标
         self.icon = icon  # type: str
-        # 大图标
-        self.icon_big = icon_big  # type: str
-        # 图表组，json格式字符串
-        self.icon_group = icon_group  # type: str
-        # 小图标
-        self.icon_small = icon_small  # type: str
-        # 项目id
-        self.id = id  # type: str
         # 项目唯一标识符
         self.identifier = identifier  # type: str
-        # 空间路径
-        self.identifier_path = identifier_path  # type: str
         # 项目状态
         self.logical_status = logical_status  # type: str
         # 修改人
@@ -453,16 +439,12 @@ class CreateProjectResponseBodyProject(TeaModel):
         self.name = name  # type: str
         # 企业id
         self.organization_identifier = organization_identifier  # type: str
-        # 父项目id
-        self.parent_identifier = parent_identifier  # type: str
         # 可见范围
         self.scope = scope  # type: str
         # 状态id
         self.status_identifier = status_identifier  # type: str
         # 状态阶段
         self.status_stage_identifier = status_stage_identifier  # type: str
-        # 空间小类
-        self.sub_type = sub_type  # type: str
         # 空间小类id
         self.type_identifier = type_identifier  # type: str
 
@@ -475,8 +457,6 @@ class CreateProjectResponseBodyProject(TeaModel):
             return _map
 
         result = dict()
-        if self.category is not None:
-            result['category'] = self.category
         if self.category_identifier is not None:
             result['categoryIdentifier'] = self.category_identifier
         if self.creator is not None:
@@ -491,18 +471,8 @@ class CreateProjectResponseBodyProject(TeaModel):
             result['gmtModified'] = self.gmt_modified
         if self.icon is not None:
             result['icon'] = self.icon
-        if self.icon_big is not None:
-            result['iconBig'] = self.icon_big
-        if self.icon_group is not None:
-            result['iconGroup'] = self.icon_group
-        if self.icon_small is not None:
-            result['iconSmall'] = self.icon_small
-        if self.id is not None:
-            result['id'] = self.id
         if self.identifier is not None:
             result['identifier'] = self.identifier
-        if self.identifier_path is not None:
-            result['identifierPath'] = self.identifier_path
         if self.logical_status is not None:
             result['logicalStatus'] = self.logical_status
         if self.modifier is not None:
@@ -511,24 +481,18 @@ class CreateProjectResponseBodyProject(TeaModel):
             result['name'] = self.name
         if self.organization_identifier is not None:
             result['organizationIdentifier'] = self.organization_identifier
-        if self.parent_identifier is not None:
-            result['parentIdentifier'] = self.parent_identifier
         if self.scope is not None:
             result['scope'] = self.scope
         if self.status_identifier is not None:
             result['statusIdentifier'] = self.status_identifier
         if self.status_stage_identifier is not None:
             result['statusStageIdentifier'] = self.status_stage_identifier
-        if self.sub_type is not None:
-            result['subType'] = self.sub_type
         if self.type_identifier is not None:
             result['typeIdentifier'] = self.type_identifier
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('category') is not None:
-            self.category = m.get('category')
         if m.get('categoryIdentifier') is not None:
             self.category_identifier = m.get('categoryIdentifier')
         if m.get('creator') is not None:
@@ -543,18 +507,8 @@ class CreateProjectResponseBodyProject(TeaModel):
             self.gmt_modified = m.get('gmtModified')
         if m.get('icon') is not None:
             self.icon = m.get('icon')
-        if m.get('iconBig') is not None:
-            self.icon_big = m.get('iconBig')
-        if m.get('iconGroup') is not None:
-            self.icon_group = m.get('iconGroup')
-        if m.get('iconSmall') is not None:
-            self.icon_small = m.get('iconSmall')
-        if m.get('id') is not None:
-            self.id = m.get('id')
         if m.get('identifier') is not None:
             self.identifier = m.get('identifier')
-        if m.get('identifierPath') is not None:
-            self.identifier_path = m.get('identifierPath')
         if m.get('logicalStatus') is not None:
             self.logical_status = m.get('logicalStatus')
         if m.get('modifier') is not None:
@@ -563,16 +517,12 @@ class CreateProjectResponseBodyProject(TeaModel):
             self.name = m.get('name')
         if m.get('organizationIdentifier') is not None:
             self.organization_identifier = m.get('organizationIdentifier')
-        if m.get('parentIdentifier') is not None:
-            self.parent_identifier = m.get('parentIdentifier')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('statusIdentifier') is not None:
             self.status_identifier = m.get('statusIdentifier')
         if m.get('statusStageIdentifier') is not None:
             self.status_stage_identifier = m.get('statusStageIdentifier')
-        if m.get('subType') is not None:
-            self.sub_type = m.get('subType')
         if m.get('typeIdentifier') is not None:
             self.type_identifier = m.get('typeIdentifier')
         return self
@@ -1228,6 +1178,376 @@ class CreateVariableGroupResponse(TeaModel):
         return self
 
 
+class CreateWorkitemRequestFieldValueList(TeaModel):
+    def __init__(self, field_identifier=None, value=None, workitem_identifier=None):
+        # 字段唯一标识
+        self.field_identifier = field_identifier  # type: str
+        # 字段值，写入时使用
+        self.value = value  # type: str
+        # 工作项的唯一标识
+        self.workitem_identifier = workitem_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateWorkitemRequestFieldValueList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.value is not None:
+            result['value'] = self.value
+        if self.workitem_identifier is not None:
+            result['workitemIdentifier'] = self.workitem_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('workitemIdentifier') is not None:
+            self.workitem_identifier = m.get('workitemIdentifier')
+        return self
+
+
+class CreateWorkitemRequest(TeaModel):
+    def __init__(self, assigned_to=None, category=None, description=None, description_format=None,
+                 field_value_list=None, participant=None, space=None, space_identifier=None, space_type=None, sprint=None,
+                 subject=None, tracker=None, verifier=None, workitem_type=None):
+        # 工作项负责人的id，或者企业中的用户名
+        self.assigned_to = assigned_to  # type: str
+        # 工作项的类型id，比如：Bug、Task对应id
+        self.category = category  # type: str
+        # 工作项内容
+        self.description = description  # type: str
+        # 内容格式
+        self.description_format = description_format  # type: str
+        # 自定义字段
+        self.field_value_list = field_value_list  # type: list[CreateWorkitemRequestFieldValueList]
+        # 参与人id列表，或者企业名称列表
+        self.participant = participant  # type: list[str]
+        # 项目id
+        self.space = space  # type: str
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 资源类型
+        self.space_type = space_type  # type: str
+        # 要关联迭代
+        self.sprint = sprint  # type: list[str]
+        # 标题
+        self.subject = subject  # type: str
+        # 抄送人id列表
+        self.tracker = tracker  # type: list[str]
+        # 验证者id列表，或者企业名称列表
+        self.verifier = verifier  # type: list[str]
+        # 工作项小类型id
+        self.workitem_type = workitem_type  # type: str
+
+    def validate(self):
+        if self.field_value_list:
+            for k in self.field_value_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateWorkitemRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to
+        if self.category is not None:
+            result['category'] = self.category
+        if self.description is not None:
+            result['description'] = self.description
+        if self.description_format is not None:
+            result['descriptionFormat'] = self.description_format
+        result['fieldValueList'] = []
+        if self.field_value_list is not None:
+            for k in self.field_value_list:
+                result['fieldValueList'].append(k.to_map() if k else None)
+        if self.participant is not None:
+            result['participant'] = self.participant
+        if self.space is not None:
+            result['space'] = self.space
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.sprint is not None:
+            result['sprint'] = self.sprint
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.tracker is not None:
+            result['tracker'] = self.tracker
+        if self.verifier is not None:
+            result['verifier'] = self.verifier
+        if self.workitem_type is not None:
+            result['workitemType'] = self.workitem_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            self.assigned_to = m.get('assignedTo')
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('descriptionFormat') is not None:
+            self.description_format = m.get('descriptionFormat')
+        self.field_value_list = []
+        if m.get('fieldValueList') is not None:
+            for k in m.get('fieldValueList'):
+                temp_model = CreateWorkitemRequestFieldValueList()
+                self.field_value_list.append(temp_model.from_map(k))
+        if m.get('participant') is not None:
+            self.participant = m.get('participant')
+        if m.get('space') is not None:
+            self.space = m.get('space')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('sprint') is not None:
+            self.sprint = m.get('sprint')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('tracker') is not None:
+            self.tracker = m.get('tracker')
+        if m.get('verifier') is not None:
+            self.verifier = m.get('verifier')
+        if m.get('workitemType') is not None:
+            self.workitem_type = m.get('workitemType')
+        return self
+
+
+class CreateWorkitemResponseBodyWorkitem(TeaModel):
+    def __init__(self, assigned_to=None, category_identifier=None, creator=None, document=None, gmt_create=None,
+                 gmt_modified=None, identifier=None, logical_status=None, modifier=None, parent_identifier=None,
+                 serial_number=None, space_identifier=None, space_name=None, space_type=None, status=None,
+                 status_stage_identifier=None, subject=None, update_status_at=None, workitem_type_identifier=None):
+        # 负责人
+        self.assigned_to = assigned_to  # type: str
+        # 工作项的类型id
+        self.category_identifier = category_identifier  # type: str
+        # 创建人
+        self.creator = creator  # type: str
+        # 工作项内容
+        self.document = document  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 工作项唯一标识
+        self.identifier = identifier  # type: str
+        # 逻辑状态
+        self.logical_status = logical_status  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 父工作项id
+        self.parent_identifier = parent_identifier  # type: str
+        # 编号
+        self.serial_number = serial_number  # type: str
+        # 所属项目id
+        self.space_identifier = space_identifier  # type: str
+        # 所属项目名称
+        self.space_name = space_name  # type: str
+        # 项目类型
+        self.space_type = space_type  # type: str
+        # 状态名称
+        self.status = status  # type: str
+        # 状态阶段id
+        self.status_stage_identifier = status_stage_identifier  # type: str
+        # 工作项标题
+        self.subject = subject  # type: str
+        # 状态更新时间
+        self.update_status_at = update_status_at  # type: long
+        # 工作项类型id
+        self.workitem_type_identifier = workitem_type_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateWorkitemResponseBodyWorkitem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.document is not None:
+            result['document'] = self.document
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.logical_status is not None:
+            result['logicalStatus'] = self.logical_status
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.parent_identifier is not None:
+            result['parentIdentifier'] = self.parent_identifier
+        if self.serial_number is not None:
+            result['serialNumber'] = self.serial_number
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_name is not None:
+            result['spaceName'] = self.space_name
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.status_stage_identifier is not None:
+            result['statusStageIdentifier'] = self.status_stage_identifier
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.update_status_at is not None:
+            result['updateStatusAt'] = self.update_status_at
+        if self.workitem_type_identifier is not None:
+            result['workitemTypeIdentifier'] = self.workitem_type_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            self.assigned_to = m.get('assignedTo')
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('document') is not None:
+            self.document = m.get('document')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('logicalStatus') is not None:
+            self.logical_status = m.get('logicalStatus')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('parentIdentifier') is not None:
+            self.parent_identifier = m.get('parentIdentifier')
+        if m.get('serialNumber') is not None:
+            self.serial_number = m.get('serialNumber')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceName') is not None:
+            self.space_name = m.get('spaceName')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('statusStageIdentifier') is not None:
+            self.status_stage_identifier = m.get('statusStageIdentifier')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('updateStatusAt') is not None:
+            self.update_status_at = m.get('updateStatusAt')
+        if m.get('workitemTypeIdentifier') is not None:
+            self.workitem_type_identifier = m.get('workitemTypeIdentifier')
+        return self
+
+
+class CreateWorkitemResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None, workitem=None):
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 请求id，每次请求都是唯一值，便于后续排查问题
+        self.request_id = request_id  # type: str
+        # true或者false
+        self.success = success  # type: bool
+        # 工作项信息
+        self.workitem = workitem  # type: CreateWorkitemResponseBodyWorkitem
+
+    def validate(self):
+        if self.workitem:
+            self.workitem.validate()
+
+    def to_map(self):
+        _map = super(CreateWorkitemResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.workitem is not None:
+            result['workitem'] = self.workitem.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('workitem') is not None:
+            temp_model = CreateWorkitemResponseBodyWorkitem()
+            self.workitem = temp_model.from_map(m['workitem'])
+        return self
+
+
+class CreateWorkitemResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateWorkitemResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateWorkitemResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateWorkitemResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateWorkspaceRequest(TeaModel):
     def __init__(self, code_url=None, code_version=None, file_path=None, name=None, request_from=None,
                  resource_identifier=None, reuse=None, workspace_template=None):
@@ -1740,9 +2060,8 @@ class DeletePipelineResponse(TeaModel):
 
 
 class DeleteProjectRequest(TeaModel):
-    def __init__(self, project_id=None):
-        # 项目id
-        self.project_id = project_id  # type: str
+    def __init__(self, identifier=None):
+        self.identifier = identifier  # type: str
 
     def validate(self):
         pass
@@ -1753,14 +2072,14 @@ class DeleteProjectRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.project_id is not None:
-            result['projectId'] = self.project_id
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('projectId') is not None:
-            self.project_id = m.get('projectId')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
         return self
 
 
@@ -4315,6 +4634,178 @@ class GetProjectInfoResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetProjectInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSprintInfoResponseBodySprint(TeaModel):
+    def __init__(self, creator=None, description=None, end_date=None, gmt_create=None, gmt_modified=None,
+                 identifier=None, modifier=None, name=None, scope=None, space_identifier=None, start_date=None, status=None):
+        # 创建人id
+        self.creator = creator  # type: str
+        # 描述信息
+        self.description = description  # type: str
+        # 结束时间
+        self.end_date = end_date  # type: long
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 迭代唯一标识符
+        self.identifier = identifier  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 迭代名称
+        self.name = name  # type: str
+        # 可见范围
+        self.scope = scope  # type: str
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 开始时间
+        self.start_date = start_date  # type: long
+        # 状态
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSprintInfoResponseBodySprint, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.description is not None:
+            result['description'] = self.description
+        if self.end_date is not None:
+            result['endDate'] = self.end_date
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.scope is not None:
+            result['scope'] = self.scope
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.start_date is not None:
+            result['startDate'] = self.start_date
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('endDate') is not None:
+            self.end_date = m.get('endDate')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('startDate') is not None:
+            self.start_date = m.get('startDate')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class GetSprintInfoResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, sprint=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        # 迭代信息
+        self.sprint = sprint  # type: GetSprintInfoResponseBodySprint
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.sprint:
+            self.sprint.validate()
+
+    def to_map(self):
+        _map = super(GetSprintInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.sprint is not None:
+            result['sprint'] = self.sprint.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('sprint') is not None:
+            temp_model = GetSprintInfoResponseBodySprint()
+            self.sprint = temp_model.from_map(m['sprint'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class GetSprintInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetSprintInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSprintInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetSprintInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7706,6 +8197,703 @@ class ListProjectMembersResponse(TeaModel):
         return self
 
 
+class ListProjectTemplatesRequest(TeaModel):
+    def __init__(self, category=None):
+        # 模板类型
+        self.category = category  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectTemplatesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        return self
+
+
+class ListProjectTemplatesResponseBodyTemplates(TeaModel):
+    def __init__(self, copy_from=None, creator=None, description=None, gmt_create=None, gmt_modified=None, icon=None,
+                 identifier=None, modifier=None, name=None, name_en=None, resource_category=None, resource_type=None,
+                 space_identifier=None, space_type=None, type=None):
+        self.copy_from = copy_from  # type: str
+        # 创建人id
+        self.creator = creator  # type: str
+        # 描述信息
+        self.description = description  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 模板封面
+        self.icon = icon  # type: str
+        # 模板唯一标识符
+        self.identifier = identifier  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 模板名称
+        self.name = name  # type: str
+        # 模板英文名称
+        self.name_en = name_en  # type: str
+        # 所属资源类型
+        self.resource_category = resource_category  # type: str
+        self.resource_type = resource_type  # type: str
+        self.space_identifier = space_identifier  # type: str
+        self.space_type = space_type  # type: str
+        # 模板类型 0-system/4-custom/16-instance
+        self.type = type  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectTemplatesResponseBodyTemplates, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.copy_from is not None:
+            result['copyFrom'] = self.copy_from
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.description is not None:
+            result['description'] = self.description
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_en is not None:
+            result['nameEn'] = self.name_en
+        if self.resource_category is not None:
+            result['resourceCategory'] = self.resource_category
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('copyFrom') is not None:
+            self.copy_from = m.get('copyFrom')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameEn') is not None:
+            self.name_en = m.get('nameEn')
+        if m.get('resourceCategory') is not None:
+            self.resource_category = m.get('resourceCategory')
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListProjectTemplatesResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None, templates=None):
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 请求id，每次请求都是唯一值，便于后续排查问题
+        self.request_id = request_id  # type: str
+        # true或者false
+        self.success = success  # type: bool
+        # 项目模板信息
+        self.templates = templates  # type: list[ListProjectTemplatesResponseBodyTemplates]
+
+    def validate(self):
+        if self.templates:
+            for k in self.templates:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListProjectTemplatesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        result['templates'] = []
+        if self.templates is not None:
+            for k in self.templates:
+                result['templates'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.templates = []
+        if m.get('templates') is not None:
+            for k in m.get('templates'):
+                temp_model = ListProjectTemplatesResponseBodyTemplates()
+                self.templates.append(temp_model.from_map(k))
+        return self
+
+
+class ListProjectTemplatesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListProjectTemplatesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListProjectTemplatesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListProjectTemplatesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListProjectWorkitemTypesRequest(TeaModel):
+    def __init__(self, category=None, space_type=None):
+        # 工作项类型
+        self.category = category  # type: str
+        # 空间类型
+        self.space_type = space_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectWorkitemTypesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        return self
+
+
+class ListProjectWorkitemTypesResponseBodyWorkitemTypes(TeaModel):
+    def __init__(self, add_user=None, category_identifier=None, creator=None, default_type=None, description=None,
+                 enable=None, gmt_add=None, gmt_create=None, identifier=None, name=None, name_en=None, system_default=None):
+        # 添加到项目中的添加人
+        self.add_user = add_user  # type: str
+        # 工作项类型
+        self.category_identifier = category_identifier  # type: str
+        # 工作项类型创建人
+        self.creator = creator  # type: str
+        # 在项目中是否为默认类型
+        self.default_type = default_type  # type: bool
+        # 描述
+        self.description = description  # type: str
+        # 是否启用
+        self.enable = enable  # type: bool
+        # 添加到项目中的时间
+        self.gmt_add = gmt_add  # type: long
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 工作项类型id
+        self.identifier = identifier  # type: str
+        # 工作项类型的名称
+        self.name = name  # type: str
+        # 工作项类型的英文名称
+        self.name_en = name_en  # type: str
+        # 是否系统默认
+        self.system_default = system_default  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectWorkitemTypesResponseBodyWorkitemTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.add_user is not None:
+            result['addUser'] = self.add_user
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.default_type is not None:
+            result['defaultType'] = self.default_type
+        if self.description is not None:
+            result['description'] = self.description
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.gmt_add is not None:
+            result['gmtAdd'] = self.gmt_add
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_en is not None:
+            result['nameEn'] = self.name_en
+        if self.system_default is not None:
+            result['systemDefault'] = self.system_default
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('addUser') is not None:
+            self.add_user = m.get('addUser')
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('defaultType') is not None:
+            self.default_type = m.get('defaultType')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('gmtAdd') is not None:
+            self.gmt_add = m.get('gmtAdd')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameEn') is not None:
+            self.name_en = m.get('nameEn')
+        if m.get('systemDefault') is not None:
+            self.system_default = m.get('systemDefault')
+        return self
+
+
+class ListProjectWorkitemTypesResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, success=None, workitem_types=None):
+        # 错误返回码
+        self.error_code = error_code  # type: str
+        # 错误返回信息
+        self.error_message = error_message  # type: str
+        # openapi平台的request id
+        self.request_id = request_id  # type: str
+        # 接口是否正常返回
+        self.success = success  # type: bool
+        # 工作项类型
+        self.workitem_types = workitem_types  # type: list[ListProjectWorkitemTypesResponseBodyWorkitemTypes]
+
+    def validate(self):
+        if self.workitem_types:
+            for k in self.workitem_types:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListProjectWorkitemTypesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        result['workitemTypes'] = []
+        if self.workitem_types is not None:
+            for k in self.workitem_types:
+                result['workitemTypes'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.workitem_types = []
+        if m.get('workitemTypes') is not None:
+            for k in m.get('workitemTypes'):
+                temp_model = ListProjectWorkitemTypesResponseBodyWorkitemTypes()
+                self.workitem_types.append(temp_model.from_map(k))
+        return self
+
+
+class ListProjectWorkitemTypesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListProjectWorkitemTypesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListProjectWorkitemTypesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListProjectWorkitemTypesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListProjectsRequest(TeaModel):
+    def __init__(self, category=None, conditions=None, extra_conditions=None, max_results=None, next_token=None,
+                 scope=None):
+        # 项目类型
+        self.category = category  # type: str
+        self.conditions = conditions  # type: str
+        self.extra_conditions = extra_conditions  # type: str
+        # 每页最大返回数量，0-200，默认值20
+        self.max_results = max_results  # type: long
+        # 分页中的起始序列
+        self.next_token = next_token  # type: str
+        # 公开类型
+        self.scope = scope  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['category'] = self.category
+        if self.conditions is not None:
+            result['conditions'] = self.conditions
+        if self.extra_conditions is not None:
+            result['extraConditions'] = self.extra_conditions
+        if self.max_results is not None:
+            result['maxResults'] = self.max_results
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.scope is not None:
+            result['scope'] = self.scope
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('category') is not None:
+            self.category = m.get('category')
+        if m.get('conditions') is not None:
+            self.conditions = m.get('conditions')
+        if m.get('extraConditions') is not None:
+            self.extra_conditions = m.get('extraConditions')
+        if m.get('maxResults') is not None:
+            self.max_results = m.get('maxResults')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        return self
+
+
+class ListProjectsResponseBodyProjects(TeaModel):
+    def __init__(self, category_identifier=None, creator=None, custom_code=None, delete_time=None, description=None,
+                 gmt_create=None, icon=None, identifier=None, logical_status=None, name=None, scope=None,
+                 status_stage_identifier=None, type_identifier=None):
+        # 类型
+        self.category_identifier = category_identifier  # type: str
+        # 创建人
+        self.creator = creator  # type: str
+        # 自定义编号
+        self.custom_code = custom_code  # type: str
+        # 删除时间
+        self.delete_time = delete_time  # type: long
+        # 描述信息
+        self.description = description  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 项目封面
+        self.icon = icon  # type: str
+        # 项目唯一标识符
+        self.identifier = identifier  # type: str
+        # 逻辑状态
+        self.logical_status = logical_status  # type: str
+        # 项目名称
+        self.name = name  # type: str
+        # 公开还是私有
+        self.scope = scope  # type: str
+        # 状态阶段
+        self.status_stage_identifier = status_stage_identifier  # type: str
+        # 类型id
+        self.type_identifier = type_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProjectsResponseBodyProjects, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.custom_code is not None:
+            result['customCode'] = self.custom_code
+        if self.delete_time is not None:
+            result['deleteTime'] = self.delete_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.icon is not None:
+            result['icon'] = self.icon
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.logical_status is not None:
+            result['logicalStatus'] = self.logical_status
+        if self.name is not None:
+            result['name'] = self.name
+        if self.scope is not None:
+            result['scope'] = self.scope
+        if self.status_stage_identifier is not None:
+            result['statusStageIdentifier'] = self.status_stage_identifier
+        if self.type_identifier is not None:
+            result['typeIdentifier'] = self.type_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('customCode') is not None:
+            self.custom_code = m.get('customCode')
+        if m.get('deleteTime') is not None:
+            self.delete_time = m.get('deleteTime')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('icon') is not None:
+            self.icon = m.get('icon')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('logicalStatus') is not None:
+            self.logical_status = m.get('logicalStatus')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        if m.get('statusStageIdentifier') is not None:
+            self.status_stage_identifier = m.get('statusStageIdentifier')
+        if m.get('typeIdentifier') is not None:
+            self.type_identifier = m.get('typeIdentifier')
+        return self
+
+
+class ListProjectsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, max_results=None, next_token=None, projects=None,
+                 request_id=None, success=None, total_count=None):
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 每页数量
+        self.max_results = max_results  # type: long
+        # 分页Token，没有下一页则为空
+        self.next_token = next_token  # type: str
+        # 项目信息
+        self.projects = projects  # type: list[ListProjectsResponseBodyProjects]
+        # 请求id，每次请求都是唯一值，便于后续排查问题
+        self.request_id = request_id  # type: str
+        # true或者false
+        self.success = success  # type: bool
+        # 总数
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.projects:
+            for k in self.projects:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListProjectsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.max_results is not None:
+            result['maxResults'] = self.max_results
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        result['projects'] = []
+        if self.projects is not None:
+            for k in self.projects:
+                result['projects'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.total_count is not None:
+            result['totalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('maxResults') is not None:
+            self.max_results = m.get('maxResults')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        self.projects = []
+        if m.get('projects') is not None:
+            for k in m.get('projects'):
+                temp_model = ListProjectsResponseBodyProjects()
+                self.projects.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('totalCount') is not None:
+            self.total_count = m.get('totalCount')
+        return self
+
+
+class ListProjectsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListProjectsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListProjectsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListProjectsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListResourceMembersResponseBodyResourceMembers(TeaModel):
     def __init__(self, account_id=None, role_name=None, username=None):
         # 账号id
@@ -7993,6 +9181,250 @@ class ListServiceConnectionsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListServiceConnectionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSprintsRequest(TeaModel):
+    def __init__(self, max_results=None, next_token=None, space_identifier=None, space_type=None):
+        # 每页最大返回数量，0-200，默认值20
+        self.max_results = max_results  # type: long
+        # 分页中的起始序列
+        self.next_token = next_token  # type: str
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 类型
+        self.space_type = space_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSprintsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_results is not None:
+            result['maxResults'] = self.max_results
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('maxResults') is not None:
+            self.max_results = m.get('maxResults')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        return self
+
+
+class ListSprintsResponseBodySprints(TeaModel):
+    def __init__(self, creator=None, description=None, end_date=None, gmt_create=None, gmt_modified=None,
+                 identifier=None, modifier=None, name=None, scope=None, space_identifier=None, start_date=None, status=None):
+        # 创建人id
+        self.creator = creator  # type: str
+        # 描述信息
+        self.description = description  # type: str
+        # 结束时间
+        self.end_date = end_date  # type: long
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 迭代唯一标识符
+        self.identifier = identifier  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 迭代名称
+        self.name = name  # type: str
+        # 可见范围
+        self.scope = scope  # type: str
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 开始时间
+        self.start_date = start_date  # type: long
+        # 状态，未开始:Todo, 进行中:Doing, 已完成:Done
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSprintsResponseBodySprints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.description is not None:
+            result['description'] = self.description
+        if self.end_date is not None:
+            result['endDate'] = self.end_date
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.scope is not None:
+            result['scope'] = self.scope
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.start_date is not None:
+            result['startDate'] = self.start_date
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('endDate') is not None:
+            self.end_date = m.get('endDate')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('scope') is not None:
+            self.scope = m.get('scope')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('startDate') is not None:
+            self.start_date = m.get('startDate')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class ListSprintsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, max_results=None, next_token=None, request_id=None,
+                 sprints=None, success=None, total_count=None):
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 每页数量
+        self.max_results = max_results  # type: long
+        # 分页Token，没有下一页则为空
+        self.next_token = next_token  # type: str
+        # 请求id，每次请求都是唯一值，便于后续排查问题
+        self.request_id = request_id  # type: str
+        # 迭代信息
+        self.sprints = sprints  # type: list[ListSprintsResponseBodySprints]
+        # true或者false
+        self.success = success  # type: bool
+        # 总数
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.sprints:
+            for k in self.sprints:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSprintsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.max_results is not None:
+            result['maxResults'] = self.max_results
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['sprints'] = []
+        if self.sprints is not None:
+            for k in self.sprints:
+                result['sprints'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        if self.total_count is not None:
+            result['totalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('maxResults') is not None:
+            self.max_results = m.get('maxResults')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.sprints = []
+        if m.get('sprints') is not None:
+            for k in m.get('sprints'):
+                temp_model = ListSprintsResponseBodySprints()
+                self.sprints.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('totalCount') is not None:
+            self.total_count = m.get('totalCount')
+        return self
+
+
+class ListSprintsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListSprintsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSprintsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListSprintsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8298,6 +9730,547 @@ class ListVariableGroupsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListVariableGroupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListWorkItemAllFieldsRequest(TeaModel):
+    def __init__(self, space_identifier=None, space_type=None, workitem_type_identifier=None):
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 资源类型
+        self.space_type = space_type  # type: str
+        # 工作项类型id，工作项类型的列表和id可以从ListProjectWorkitemType中获取
+        self.workitem_type_identifier = workitem_type_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkItemAllFieldsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.workitem_type_identifier is not None:
+            result['workitemTypeIdentifier'] = self.workitem_type_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('workitemTypeIdentifier') is not None:
+            self.workitem_type_identifier = m.get('workitemTypeIdentifier')
+        return self
+
+
+class ListWorkItemAllFieldsResponseBodyFieldsOptions(TeaModel):
+    def __init__(self, display_value=None, field_identifier=None, identifier=None, level=None, position=None,
+                 value=None, value_en=None):
+        # 根据语言环境获取当前展示的值
+        self.display_value = display_value  # type: str
+        # 字段唯一标识
+        self.field_identifier = field_identifier  # type: str
+        # 待选值的唯一标识
+        self.identifier = identifier  # type: str
+        # 展示级别，数字范围1~9，数字越大，颜色越浅。
+        self.level = level  # type: long
+        # 待选值顺序
+        self.position = position  # type: long
+        # 待选值中文名称
+        self.value = value  # type: str
+        # 待选值英文名称
+        self.value_en = value_en  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkItemAllFieldsResponseBodyFieldsOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.display_value is not None:
+            result['displayValue'] = self.display_value
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.level is not None:
+            result['level'] = self.level
+        if self.position is not None:
+            result['position'] = self.position
+        if self.value is not None:
+            result['value'] = self.value
+        if self.value_en is not None:
+            result['valueEn'] = self.value_en
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('displayValue') is not None:
+            self.display_value = m.get('displayValue')
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('position') is not None:
+            self.position = m.get('position')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('valueEn') is not None:
+            self.value_en = m.get('valueEn')
+        return self
+
+
+class ListWorkItemAllFieldsResponseBodyFields(TeaModel):
+    def __init__(self, class_name=None, creator=None, default_value=None, description=None, format=None,
+                 gmt_create=None, gmt_modified=None, identifier=None, is_required=None, is_show_when_create=None,
+                 is_system_required=None, link_with_service=None, modifier=None, name=None, options=None, resource_type=None, type=None):
+        # 字段类型
+        self.class_name = class_name  # type: str
+        # 创建人id
+        self.creator = creator  # type: str
+        # 默认值
+        self.default_value = default_value  # type: str
+        # 描述信息
+        self.description = description  # type: str
+        # 字段格式
+        self.format = format  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 字段唯一标识符
+        self.identifier = identifier  # type: str
+        # 是否必填
+        self.is_required = is_required  # type: bool
+        # 创建时是否展示
+        self.is_show_when_create = is_show_when_create  # type: bool
+        # 是否是系统必须字段，比如：负责人、状态等。
+        self.is_system_required = is_system_required  # type: bool
+        # 联动的服务，比如：迭代 迭代服务开启/关闭，这个字段字段加进/剔除出对应的模板； 字段模板里，这类字段不能手动添加或删除
+        self.link_with_service = link_with_service  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 字段名称
+        self.name = name  # type: str
+        # 待选值
+        self.options = options  # type: list[ListWorkItemAllFieldsResponseBodyFieldsOptions]
+        # 区分不同的适用对象
+        self.resource_type = resource_type  # type: str
+        # 区分不同的类型，如系统字段、用户自定义字段
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.options:
+            for k in self.options:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkItemAllFieldsResponseBodyFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.class_name is not None:
+            result['className'] = self.class_name
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.default_value is not None:
+            result['defaultValue'] = self.default_value
+        if self.description is not None:
+            result['description'] = self.description
+        if self.format is not None:
+            result['format'] = self.format
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.is_required is not None:
+            result['isRequired'] = self.is_required
+        if self.is_show_when_create is not None:
+            result['isShowWhenCreate'] = self.is_show_when_create
+        if self.is_system_required is not None:
+            result['isSystemRequired'] = self.is_system_required
+        if self.link_with_service is not None:
+            result['linkWithService'] = self.link_with_service
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        result['options'] = []
+        if self.options is not None:
+            for k in self.options:
+                result['options'].append(k.to_map() if k else None)
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('className') is not None:
+            self.class_name = m.get('className')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('defaultValue') is not None:
+            self.default_value = m.get('defaultValue')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('format') is not None:
+            self.format = m.get('format')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('isRequired') is not None:
+            self.is_required = m.get('isRequired')
+        if m.get('isShowWhenCreate') is not None:
+            self.is_show_when_create = m.get('isShowWhenCreate')
+        if m.get('isSystemRequired') is not None:
+            self.is_system_required = m.get('isSystemRequired')
+        if m.get('linkWithService') is not None:
+            self.link_with_service = m.get('linkWithService')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.options = []
+        if m.get('options') is not None:
+            for k in m.get('options'):
+                temp_model = ListWorkItemAllFieldsResponseBodyFieldsOptions()
+                self.options.append(temp_model.from_map(k))
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListWorkItemAllFieldsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, fields=None, request_id=None, success=None):
+        # 错误码
+        self.error_code = error_code  # type: str
+        # 错误信息
+        self.error_msg = error_msg  # type: str
+        # 字段信息
+        self.fields = fields  # type: list[ListWorkItemAllFieldsResponseBodyFields]
+        # 请求id，每次请求都是唯一值，便于后续排查问题
+        self.request_id = request_id  # type: str
+        # true或者false
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.fields:
+            for k in self.fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkItemAllFieldsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        result['fields'] = []
+        if self.fields is not None:
+            for k in self.fields:
+                result['fields'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        self.fields = []
+        if m.get('fields') is not None:
+            for k in m.get('fields'):
+                temp_model = ListWorkItemAllFieldsResponseBodyFields()
+                self.fields.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListWorkItemAllFieldsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListWorkItemAllFieldsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListWorkItemAllFieldsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListWorkItemAllFieldsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListWorkItemWorkFlowStatusRequest(TeaModel):
+    def __init__(self, space_identifier=None, space_type=None, workitem_category_identifier=None,
+                 workitem_type_identifier=None):
+        # 项目id
+        self.space_identifier = space_identifier  # type: str
+        # 空间类型
+        self.space_type = space_type  # type: str
+        # 工作项大类型
+        self.workitem_category_identifier = workitem_category_identifier  # type: str
+        # 工作项小类型id
+        self.workitem_type_identifier = workitem_type_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkItemWorkFlowStatusRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.workitem_category_identifier is not None:
+            result['workitemCategoryIdentifier'] = self.workitem_category_identifier
+        if self.workitem_type_identifier is not None:
+            result['workitemTypeIdentifier'] = self.workitem_type_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('workitemCategoryIdentifier') is not None:
+            self.workitem_category_identifier = m.get('workitemCategoryIdentifier')
+        if m.get('workitemTypeIdentifier') is not None:
+            self.workitem_type_identifier = m.get('workitemTypeIdentifier')
+        return self
+
+
+class ListWorkItemWorkFlowStatusResponseBodyStatuses(TeaModel):
+    def __init__(self, creator=None, description=None, gmt_create=None, gmt_modified=None, identifier=None,
+                 modifier=None, name=None, resource_type=None, source=None, workflow_stage_identifier=None,
+                 workflow_stage_name=None):
+        # 状态的创建人
+        self.creator = creator  # type: str
+        # 描述
+        self.description = description  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 更新时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 工作流状态id
+        self.identifier = identifier  # type: str
+        # 修改人
+        self.modifier = modifier  # type: str
+        # 工作流状态名称
+        self.name = name  # type: str
+        # 状态作用的资源类型
+        self.resource_type = resource_type  # type: str
+        # 状态来源
+        self.source = source  # type: str
+        # 阶段信息-阶段的唯一标识
+        self.workflow_stage_identifier = workflow_stage_identifier  # type: str
+        # 阶段信息-名称
+        self.workflow_stage_name = workflow_stage_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListWorkItemWorkFlowStatusResponseBodyStatuses, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.description is not None:
+            result['description'] = self.description
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
+        if self.source is not None:
+            result['source'] = self.source
+        if self.workflow_stage_identifier is not None:
+            result['workflowStageIdentifier'] = self.workflow_stage_identifier
+        if self.workflow_stage_name is not None:
+            result['workflowStageName'] = self.workflow_stage_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
+        if m.get('source') is not None:
+            self.source = m.get('source')
+        if m.get('workflowStageIdentifier') is not None:
+            self.workflow_stage_identifier = m.get('workflowStageIdentifier')
+        if m.get('workflowStageName') is not None:
+            self.workflow_stage_name = m.get('workflowStageName')
+        return self
+
+
+class ListWorkItemWorkFlowStatusResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, statuses=None, success=None):
+        # 错误返回码
+        self.error_code = error_code  # type: str
+        # 错误返回信息
+        self.error_message = error_message  # type: str
+        # openapi平台的request id
+        self.request_id = request_id  # type: str
+        # 工作流状态
+        self.statuses = statuses  # type: list[ListWorkItemWorkFlowStatusResponseBodyStatuses]
+        # 接口是否正常返回
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.statuses:
+            for k in self.statuses:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListWorkItemWorkFlowStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['statuses'] = []
+        if self.statuses is not None:
+            for k in self.statuses:
+                result['statuses'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.statuses = []
+        if m.get('statuses') is not None:
+            for k in m.get('statuses'):
+                temp_model = ListWorkItemWorkFlowStatusResponseBodyStatuses()
+                self.statuses.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListWorkItemWorkFlowStatusResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListWorkItemWorkFlowStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListWorkItemWorkFlowStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListWorkItemWorkFlowStatusResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
