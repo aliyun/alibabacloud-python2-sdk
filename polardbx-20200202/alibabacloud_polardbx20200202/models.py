@@ -844,8 +844,8 @@ class CreateDBResponse(TeaModel):
 class CreateDBInstanceRequest(TeaModel):
     def __init__(self, auto_renew=None, client_token=None, dbnode_class=None, dbnode_count=None,
                  engine_version=None, is_read_dbinstance=None, network_type=None, pay_type=None, period=None,
-                 primary_dbinstance_name=None, region_id=None, resource_group_id=None, used_time=None, vpcid=None, v_switch_id=None,
-                 zone_id=None):
+                 primary_dbinstance_name=None, primary_zone=None, region_id=None, resource_group_id=None, secondary_zone=None,
+                 tertiary_zone=None, topology_type=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
         self.auto_renew = auto_renew  # type: bool
         self.client_token = client_token  # type: str
         self.dbnode_class = dbnode_class  # type: str
@@ -856,8 +856,12 @@ class CreateDBInstanceRequest(TeaModel):
         self.pay_type = pay_type  # type: str
         self.period = period  # type: str
         self.primary_dbinstance_name = primary_dbinstance_name  # type: str
+        self.primary_zone = primary_zone  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.secondary_zone = secondary_zone  # type: str
+        self.tertiary_zone = tertiary_zone  # type: str
+        self.topology_type = topology_type  # type: str
         self.used_time = used_time  # type: int
         self.vpcid = vpcid  # type: str
         self.v_switch_id = v_switch_id  # type: str
@@ -892,10 +896,18 @@ class CreateDBInstanceRequest(TeaModel):
             result['Period'] = self.period
         if self.primary_dbinstance_name is not None:
             result['PrimaryDBInstanceName'] = self.primary_dbinstance_name
+        if self.primary_zone is not None:
+            result['PrimaryZone'] = self.primary_zone
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.secondary_zone is not None:
+            result['SecondaryZone'] = self.secondary_zone
+        if self.tertiary_zone is not None:
+            result['TertiaryZone'] = self.tertiary_zone
+        if self.topology_type is not None:
+            result['TopologyType'] = self.topology_type
         if self.used_time is not None:
             result['UsedTime'] = self.used_time
         if self.vpcid is not None:
@@ -928,10 +940,18 @@ class CreateDBInstanceRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('PrimaryDBInstanceName') is not None:
             self.primary_dbinstance_name = m.get('PrimaryDBInstanceName')
+        if m.get('PrimaryZone') is not None:
+            self.primary_zone = m.get('PrimaryZone')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecondaryZone') is not None:
+            self.secondary_zone = m.get('SecondaryZone')
+        if m.get('TertiaryZone') is not None:
+            self.tertiary_zone = m.get('TertiaryZone')
+        if m.get('TopologyType') is not None:
+            self.topology_type = m.get('TopologyType')
         if m.get('UsedTime') is not None:
             self.used_time = m.get('UsedTime')
         if m.get('VPCId') is not None:
@@ -3759,6 +3779,35 @@ class DescribeDBInstanceTopologyRequest(TeaModel):
         return self
 
 
+class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsAzoneRoleList(TeaModel):
+    def __init__(self, azone=None, role=None):
+        self.azone = azone  # type: str
+        self.role = role  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsAzoneRoleList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.azone is not None:
+            result['Azone'] = self.azone
+        if self.role is not None:
+            result['Role'] = self.role
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Azone') is not None:
+            self.azone = m.get('Azone')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        return self
+
+
 class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsConnectionIp(TeaModel):
     def __init__(self, connection_string=None, dbinstance_net_type=None, port=None):
         self.connection_string = connection_string  # type: str
@@ -3794,11 +3843,14 @@ class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsConnec
 
 
 class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItems(TeaModel):
-    def __init__(self, character_type=None, connection_ip=None, dbinstance_conn_type=None,
-                 dbinstance_create_time=None, dbinstance_description=None, dbinstance_id=None, dbinstance_name=None,
-                 dbinstance_status=None, dbinstance_status_description=None, disk_size=None, engine=None, engine_version=None,
-                 lock_mode=None, lock_reason=None, maintain_end_time=None, maintain_start_time=None, max_connections=None,
-                 max_iops=None):
+    def __init__(self, activated=None, azone=None, azone_role_list=None, character_type=None, connection_ip=None,
+                 dbinstance_conn_type=None, dbinstance_create_time=None, dbinstance_description=None, dbinstance_id=None,
+                 dbinstance_name=None, dbinstance_status=None, dbinstance_status_description=None, disk_size=None, engine=None,
+                 engine_version=None, lock_mode=None, lock_reason=None, maintain_end_time=None, maintain_start_time=None,
+                 max_connections=None, max_iops=None, region=None, role=None):
+        self.activated = activated  # type: bool
+        self.azone = azone  # type: str
+        self.azone_role_list = azone_role_list  # type: list[DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsAzoneRoleList]
         self.character_type = character_type  # type: str
         self.connection_ip = connection_ip  # type: list[DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsConnectionIp]
         self.dbinstance_conn_type = dbinstance_conn_type  # type: int
@@ -3817,8 +3869,14 @@ class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItems(TeaMo
         self.maintain_start_time = maintain_start_time  # type: str
         self.max_connections = max_connections  # type: int
         self.max_iops = max_iops  # type: int
+        self.region = region  # type: str
+        self.role = role  # type: str
 
     def validate(self):
+        if self.azone_role_list:
+            for k in self.azone_role_list:
+                if k:
+                    k.validate()
         if self.connection_ip:
             for k in self.connection_ip:
                 if k:
@@ -3830,6 +3888,14 @@ class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItems(TeaMo
             return _map
 
         result = dict()
+        if self.activated is not None:
+            result['Activated'] = self.activated
+        if self.azone is not None:
+            result['Azone'] = self.azone
+        result['AzoneRoleList'] = []
+        if self.azone_role_list is not None:
+            for k in self.azone_role_list:
+                result['AzoneRoleList'].append(k.to_map() if k else None)
         if self.character_type is not None:
             result['CharacterType'] = self.character_type
         result['ConnectionIp'] = []
@@ -3868,10 +3934,23 @@ class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItems(TeaMo
             result['MaxConnections'] = self.max_connections
         if self.max_iops is not None:
             result['MaxIops'] = self.max_iops
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.role is not None:
+            result['Role'] = self.role
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Activated') is not None:
+            self.activated = m.get('Activated')
+        if m.get('Azone') is not None:
+            self.azone = m.get('Azone')
+        self.azone_role_list = []
+        if m.get('AzoneRoleList') is not None:
+            for k in m.get('AzoneRoleList'):
+                temp_model = DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItemsAzoneRoleList()
+                self.azone_role_list.append(temp_model.from_map(k))
         if m.get('CharacterType') is not None:
             self.character_type = m.get('CharacterType')
         self.connection_ip = []
@@ -3911,6 +3990,10 @@ class DescribeDBInstanceTopologyResponseBodyDataLogicInstanceTopologyItems(TeaMo
             self.max_connections = m.get('MaxConnections')
         if m.get('MaxIops') is not None:
             self.max_iops = m.get('MaxIops')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
         return self
 
 
@@ -7818,11 +7901,13 @@ class ModifyDBInstanceClassResponse(TeaModel):
 
 
 class ModifyDBInstanceConfigRequest(TeaModel):
-    def __init__(self, config_name=None, config_value=None, dbinstance_name=None, region_id=None):
+    def __init__(self, config_name=None, config_value=None, dbinstance_name=None, region_id=None,
+                 resource_group_id=None):
         self.config_name = config_name  # type: str
         self.config_value = config_value  # type: str
         self.dbinstance_name = dbinstance_name  # type: str
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -7841,6 +7926,8 @@ class ModifyDBInstanceConfigRequest(TeaModel):
             result['DBInstanceName'] = self.dbinstance_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -7853,6 +7940,8 @@ class ModifyDBInstanceConfigRequest(TeaModel):
             self.dbinstance_name = m.get('DBInstanceName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 

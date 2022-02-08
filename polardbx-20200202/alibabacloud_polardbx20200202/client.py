@@ -354,10 +354,18 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.primary_dbinstance_name):
             query['PrimaryDBInstanceName'] = request.primary_dbinstance_name
+        if not UtilClient.is_unset(request.primary_zone):
+            query['PrimaryZone'] = request.primary_zone
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.secondary_zone):
+            query['SecondaryZone'] = request.secondary_zone
+        if not UtilClient.is_unset(request.tertiary_zone):
+            query['TertiaryZone'] = request.tertiary_zone
+        if not UtilClient.is_unset(request.topology_type):
+            query['TopologyType'] = request.topology_type
         if not UtilClient.is_unset(request.used_time):
             query['UsedTime'] = request.used_time
         if not UtilClient.is_unset(request.vpcid):
@@ -1590,6 +1598,8 @@ class Client(OpenApiClient):
             query['DBInstanceName'] = request.dbinstance_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
