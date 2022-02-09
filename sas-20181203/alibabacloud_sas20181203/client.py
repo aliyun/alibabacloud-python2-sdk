@@ -535,34 +535,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_honey_pot_with_options(request, runtime)
 
-    def describe_access_key_leak_detail_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.id):
-            query['Id'] = request.id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAccessKeyLeakDetail',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeAccessKeyLeakDetailResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_access_key_leak_detail(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_access_key_leak_detail_with_options(request, runtime)
-
     def describe_accesskey_leak_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1270,6 +1242,8 @@ class Client(OpenApiClient):
             query['LogicalExp'] = request.logical_exp
         if not UtilClient.is_unset(request.machine_types):
             query['MachineTypes'] = request.machine_types
+        if not UtilClient.is_unset(request.no_group_trace):
+            query['NoGroupTrace'] = request.no_group_trace
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
@@ -1374,46 +1348,6 @@ class Client(OpenApiClient):
     def describe_container_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_container_statistics_with_options(request, runtime)
-
-    def describe_container_tags_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.app_name):
-            query['AppName'] = request.app_name
-        if not UtilClient.is_unset(request.cluster_id):
-            query['ClusterId'] = request.cluster_id
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.field_name):
-            query['FieldName'] = request.field_name
-        if not UtilClient.is_unset(request.field_value):
-            query['FieldValue'] = request.field_value
-        if not UtilClient.is_unset(request.namespace):
-            query['Namespace'] = request.namespace
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeContainerTags',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeContainerTagsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_container_tags(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_container_tags_with_options(request, runtime)
 
     def describe_criteria_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2115,6 +2049,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_honey_pot_susp_statistics_with_options(request, runtime)
 
+    def describe_image_baseline_check_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.criteria_type):
+            query['CriteriaType'] = request.criteria_type
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.risk_level):
+            query['RiskLevel'] = request.risk_level
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageBaselineCheckSummary',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageBaselineCheckSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_baseline_check_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_baseline_check_summary_with_options(request, runtime)
+
     def describe_image_fix_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2216,6 +2188,52 @@ class Client(OpenApiClient):
     def describe_image_grouped_vul_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_image_grouped_vul_list_with_options(request, runtime)
+
+    def describe_image_list_with_baseline_name_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.baseline_name_key):
+            query['BaselineNameKey'] = request.baseline_name_key
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.criteria_type):
+            query['CriteriaType'] = request.criteria_type
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.image_digest):
+            query['ImageDigest'] = request.image_digest
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.repo_instance_id):
+            query['RepoInstanceId'] = request.repo_instance_id
+        if not UtilClient.is_unset(request.repo_name):
+            query['RepoName'] = request.repo_name
+        if not UtilClient.is_unset(request.repo_namespace):
+            query['RepoNamespace'] = request.repo_namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageListWithBaselineName',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeImageListWithBaselineNameResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_list_with_baseline_name(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_list_with_baseline_name_with_options(request, runtime)
 
     def describe_image_scan_auth_count_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -2630,6 +2648,8 @@ class Client(OpenApiClient):
     def describe_property_port_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.bind_ip):
+            query['BindIp'] = request.bind_ip
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.page_size):
@@ -2710,6 +2730,10 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.proc_time_end):
+            query['ProcTimeEnd'] = request.proc_time_end
+        if not UtilClient.is_unset(request.proc_time_start):
+            query['ProcTimeStart'] = request.proc_time_start
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.user):
@@ -2776,6 +2800,8 @@ class Client(OpenApiClient):
     def describe_property_sca_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.biz):
+            query['Biz'] = request.biz
         if not UtilClient.is_unset(request.biz_type):
             query['BizType'] = request.biz_type
         if not UtilClient.is_unset(request.current_page):
@@ -2786,10 +2812,22 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pid):
+            query['Pid'] = request.pid
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.process_started_end):
+            query['ProcessStartedEnd'] = request.process_started_end
+        if not UtilClient.is_unset(request.process_started_start):
+            query['ProcessStartedStart'] = request.process_started_start
         if not UtilClient.is_unset(request.remark):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.sca_name):
             query['ScaName'] = request.sca_name
+        if not UtilClient.is_unset(request.sca_name_pattern):
+            query['ScaNamePattern'] = request.sca_name_pattern
+        if not UtilClient.is_unset(request.sca_version):
+            query['ScaVersion'] = request.sca_version
         if not UtilClient.is_unset(request.search_info):
             query['SearchInfo'] = request.search_info
         if not UtilClient.is_unset(request.search_info_sub):
@@ -2798,6 +2836,8 @@ class Client(OpenApiClient):
             query['SearchItem'] = request.search_item
         if not UtilClient.is_unset(request.search_item_sub):
             query['SearchItemSub'] = request.search_item_sub
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
         if not UtilClient.is_unset(request.uuid):
             query['Uuid'] = request.uuid
         req = open_api_models.OpenApiRequest(
@@ -2828,6 +2868,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.install_time_end):
+            query['InstallTimeEnd'] = request.install_time_end
+        if not UtilClient.is_unset(request.install_time_start):
+            query['InstallTimeStart'] = request.install_time_start
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_size):
@@ -2932,6 +2976,10 @@ class Client(OpenApiClient):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.is_root):
             query['IsRoot'] = request.is_root
+        if not UtilClient.is_unset(request.last_login_time_end):
+            query['LastLoginTimeEnd'] = request.last_login_time_end
+        if not UtilClient.is_unset(request.last_login_time_start):
+            query['LastLoginTimeStart'] = request.last_login_time_start
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.remark):
@@ -3725,38 +3773,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_susp_event_detail_with_options(request, runtime)
 
-    def describe_susp_event_export_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.export_id):
-            query['ExportId'] = request.export_id
-        if not UtilClient.is_unset(request.from_):
-            query['From'] = request.from_
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSuspEventExportInfo',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeSuspEventExportInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_susp_event_export_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_susp_event_export_info_with_options(request, runtime)
-
     def describe_susp_event_quara_files_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3896,42 +3912,6 @@ class Client(OpenApiClient):
     def describe_suspicious_uuidconfig(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_suspicious_uuidconfig_with_options(request, runtime)
-
-    def describe_uni_backup_policies_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.policy_name):
-            query['PolicyName'] = request.policy_name
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeUniBackupPolicies',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeUniBackupPoliciesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_uni_backup_policies(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_uni_backup_policies_with_options(request, runtime)
 
     def describe_user_backup_machines_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -4273,42 +4253,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_vul_list_with_options(request, runtime)
 
-    def describe_vul_list_page_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.current_page):
-            query['CurrentPage'] = request.current_page
-        if not UtilClient.is_unset(request.cve_id):
-            query['CveId'] = request.cve_id
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        if not UtilClient.is_unset(request.vul_name_like):
-            query['VulNameLike'] = request.vul_name_like
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeVulListPage',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeVulListPageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_vul_list_page(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_vul_list_page_with_options(request, runtime)
-
     def describe_vul_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4483,62 +4427,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.export_record_with_options(request, runtime)
 
-    def export_susp_events_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.cluster_id):
-            query['ClusterId'] = request.cluster_id
-        if not UtilClient.is_unset(request.container_field_name):
-            query['ContainerFieldName'] = request.container_field_name
-        if not UtilClient.is_unset(request.container_field_value):
-            query['ContainerFieldValue'] = request.container_field_value
-        if not UtilClient.is_unset(request.dealed):
-            query['Dealed'] = request.dealed
-        if not UtilClient.is_unset(request.from_):
-            query['From'] = request.from_
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.levels):
-            query['Levels'] = request.levels
-        if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
-        if not UtilClient.is_unset(request.parent_event_types):
-            query['ParentEventTypes'] = request.parent_event_types
-        if not UtilClient.is_unset(request.remark):
-            query['Remark'] = request.remark
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        if not UtilClient.is_unset(request.status):
-            query['Status'] = request.status
-        if not UtilClient.is_unset(request.target_type):
-            query['TargetType'] = request.target_type
-        if not UtilClient.is_unset(request.time_end):
-            query['TimeEnd'] = request.time_end
-        if not UtilClient.is_unset(request.time_start):
-            query['TimeStart'] = request.time_start
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ExportSuspEvents',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.ExportSuspEventsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def export_susp_events(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.export_susp_events_with_options(request, runtime)
-
     def export_vul_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4584,62 +4472,6 @@ class Client(OpenApiClient):
     def export_vul(self, request):
         runtime = util_models.RuntimeOptions()
         return self.export_vul_with_options(request, runtime)
-
-    def export_warning_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.dealed):
-            query['Dealed'] = request.dealed
-        if not UtilClient.is_unset(request.export_type):
-            query['ExportType'] = request.export_type
-        if not UtilClient.is_unset(request.is_cleartext_pwd):
-            query['IsCleartextPwd'] = request.is_cleartext_pwd
-        if not UtilClient.is_unset(request.is_summary_export):
-            query['IsSummaryExport'] = request.is_summary_export
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.risk_ids):
-            query['RiskIds'] = request.risk_ids
-        if not UtilClient.is_unset(request.risk_levels):
-            query['RiskLevels'] = request.risk_levels
-        if not UtilClient.is_unset(request.risk_name):
-            query['RiskName'] = request.risk_name
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        if not UtilClient.is_unset(request.status_list):
-            query['StatusList'] = request.status_list
-        if not UtilClient.is_unset(request.strategy_id):
-            query['StrategyId'] = request.strategy_id
-        if not UtilClient.is_unset(request.sub_type_names):
-            query['SubTypeNames'] = request.sub_type_names
-        if not UtilClient.is_unset(request.type_name):
-            query['TypeName'] = request.type_name
-        if not UtilClient.is_unset(request.type_names):
-            query['TypeNames'] = request.type_names
-        if not UtilClient.is_unset(request.uuids):
-            query['Uuids'] = request.uuids
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ExportWarning',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.ExportWarningResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def export_warning(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.export_warning_with_options(request, runtime)
 
     def fix_check_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5056,36 +4888,6 @@ class Client(OpenApiClient):
     def modify_backup_policy_status(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_backup_policy_status_with_options(request, runtime)
-
-    def modify_clear_logstore_storage_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.from_):
-            query['From'] = request.from_
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ModifyClearLogstoreStorage',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.ModifyClearLogstoreStorageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_clear_logstore_storage(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_clear_logstore_storage_with_options(request, runtime)
 
     def modify_create_vul_whitelist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6078,34 +5880,6 @@ class Client(OpenApiClient):
     def refresh_container_assets(self, request):
         runtime = util_models.RuntimeOptions()
         return self.refresh_container_assets_with_options(request, runtime)
-
-    def refresh_container_network_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.cluster_id):
-            query['ClusterId'] = request.cluster_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='RefreshContainerNetwork',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.RefreshContainerNetworkResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def refresh_container_network(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.refresh_container_network_with_options(request, runtime)
 
     def rollback_susp_event_quara_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)

@@ -1376,185 +1376,6 @@ class DeleteVpcHoneyPotResponse(TeaModel):
         return self
 
 
-class DescribeAccessKeyLeakDetailRequest(TeaModel):
-    def __init__(self, id=None):
-        self.id = id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeAccessKeyLeakDetailRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.id is not None:
-            result['Id'] = self.id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        return self
-
-
-class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
-    def __init__(self, accesskey_id=None, asset=None, code=None, deal_time=None, deal_type=None,
-                 github_file_name=None, github_file_type=None, github_file_update_time=None, github_file_url=None,
-                 github_repo_name=None, github_repo_url=None, github_user=None, github_user_pic_url=None, gmt_create=None,
-                 gmt_modified=None, remark=None, request_id=None, source=None, type=None, whitelist_status=None):
-        self.accesskey_id = accesskey_id  # type: str
-        self.asset = asset  # type: str
-        self.code = code  # type: str
-        self.deal_time = deal_time  # type: str
-        self.deal_type = deal_type  # type: str
-        self.github_file_name = github_file_name  # type: str
-        self.github_file_type = github_file_type  # type: str
-        self.github_file_update_time = github_file_update_time  # type: str
-        self.github_file_url = github_file_url  # type: str
-        self.github_repo_name = github_repo_name  # type: str
-        self.github_repo_url = github_repo_url  # type: str
-        self.github_user = github_user  # type: str
-        self.github_user_pic_url = github_user_pic_url  # type: str
-        self.gmt_create = gmt_create  # type: str
-        self.gmt_modified = gmt_modified  # type: str
-        self.remark = remark  # type: str
-        self.request_id = request_id  # type: str
-        self.source = source  # type: str
-        self.type = type  # type: str
-        self.whitelist_status = whitelist_status  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeAccessKeyLeakDetailResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.accesskey_id is not None:
-            result['AccesskeyId'] = self.accesskey_id
-        if self.asset is not None:
-            result['Asset'] = self.asset
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.deal_time is not None:
-            result['DealTime'] = self.deal_time
-        if self.deal_type is not None:
-            result['DealType'] = self.deal_type
-        if self.github_file_name is not None:
-            result['GithubFileName'] = self.github_file_name
-        if self.github_file_type is not None:
-            result['GithubFileType'] = self.github_file_type
-        if self.github_file_update_time is not None:
-            result['GithubFileUpdateTime'] = self.github_file_update_time
-        if self.github_file_url is not None:
-            result['GithubFileUrl'] = self.github_file_url
-        if self.github_repo_name is not None:
-            result['GithubRepoName'] = self.github_repo_name
-        if self.github_repo_url is not None:
-            result['GithubRepoUrl'] = self.github_repo_url
-        if self.github_user is not None:
-            result['GithubUser'] = self.github_user
-        if self.github_user_pic_url is not None:
-            result['GithubUserPicUrl'] = self.github_user_pic_url
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.remark is not None:
-            result['Remark'] = self.remark
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.source is not None:
-            result['Source'] = self.source
-        if self.type is not None:
-            result['Type'] = self.type
-        if self.whitelist_status is not None:
-            result['WhitelistStatus'] = self.whitelist_status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AccesskeyId') is not None:
-            self.accesskey_id = m.get('AccesskeyId')
-        if m.get('Asset') is not None:
-            self.asset = m.get('Asset')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('DealTime') is not None:
-            self.deal_time = m.get('DealTime')
-        if m.get('DealType') is not None:
-            self.deal_type = m.get('DealType')
-        if m.get('GithubFileName') is not None:
-            self.github_file_name = m.get('GithubFileName')
-        if m.get('GithubFileType') is not None:
-            self.github_file_type = m.get('GithubFileType')
-        if m.get('GithubFileUpdateTime') is not None:
-            self.github_file_update_time = m.get('GithubFileUpdateTime')
-        if m.get('GithubFileUrl') is not None:
-            self.github_file_url = m.get('GithubFileUrl')
-        if m.get('GithubRepoName') is not None:
-            self.github_repo_name = m.get('GithubRepoName')
-        if m.get('GithubRepoUrl') is not None:
-            self.github_repo_url = m.get('GithubRepoUrl')
-        if m.get('GithubUser') is not None:
-            self.github_user = m.get('GithubUser')
-        if m.get('GithubUserPicUrl') is not None:
-            self.github_user_pic_url = m.get('GithubUserPicUrl')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('Remark') is not None:
-            self.remark = m.get('Remark')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Source') is not None:
-            self.source = m.get('Source')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        if m.get('WhitelistStatus') is not None:
-            self.whitelist_status = m.get('WhitelistStatus')
-        return self
-
-
-class DescribeAccessKeyLeakDetailResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeAccessKeyLeakDetailResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeAccessKeyLeakDetailResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeAccessKeyLeakDetailResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeAccesskeyLeakListRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None, query=None, start_ts=None, status=None):
         self.current_page = current_page  # type: int
@@ -5466,12 +5287,13 @@ class DescribeCheckWarningsResponse(TeaModel):
 
 class DescribeCloudCenterInstancesRequest(TeaModel):
     def __init__(self, criteria=None, current_page=None, importance=None, logical_exp=None, machine_types=None,
-                 page_size=None, region_id=None):
+                 no_group_trace=None, page_size=None, region_id=None):
         self.criteria = criteria  # type: str
         self.current_page = current_page  # type: int
         self.importance = importance  # type: int
         self.logical_exp = logical_exp  # type: str
         self.machine_types = machine_types  # type: str
+        self.no_group_trace = no_group_trace  # type: bool
         self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
 
@@ -5494,6 +5316,8 @@ class DescribeCloudCenterInstancesRequest(TeaModel):
             result['LogicalExp'] = self.logical_exp
         if self.machine_types is not None:
             result['MachineTypes'] = self.machine_types
+        if self.no_group_trace is not None:
+            result['NoGroupTrace'] = self.no_group_trace
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.region_id is not None:
@@ -5512,6 +5336,8 @@ class DescribeCloudCenterInstancesRequest(TeaModel):
             self.logical_exp = m.get('LogicalExp')
         if m.get('MachineTypes') is not None:
             self.machine_types = m.get('MachineTypes')
+        if m.get('NoGroupTrace') is not None:
+            self.no_group_trace = m.get('NoGroupTrace')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
@@ -6220,123 +6046,6 @@ class DescribeContainerStatisticsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeContainerStatisticsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeContainerTagsRequest(TeaModel):
-    def __init__(self, app_name=None, cluster_id=None, current_page=None, field_name=None, field_value=None,
-                 namespace=None, page_size=None):
-        self.app_name = app_name  # type: str
-        self.cluster_id = cluster_id  # type: str
-        self.current_page = current_page  # type: int
-        self.field_name = field_name  # type: str
-        self.field_value = field_value  # type: str
-        self.namespace = namespace  # type: str
-        self.page_size = page_size  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeContainerTagsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.app_name is not None:
-            result['AppName'] = self.app_name
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.field_name is not None:
-            result['FieldName'] = self.field_name
-        if self.field_value is not None:
-            result['FieldValue'] = self.field_value
-        if self.namespace is not None:
-            result['Namespace'] = self.namespace
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AppName') is not None:
-            self.app_name = m.get('AppName')
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('FieldName') is not None:
-            self.field_name = m.get('FieldName')
-        if m.get('FieldValue') is not None:
-            self.field_value = m.get('FieldValue')
-        if m.get('Namespace') is not None:
-            self.namespace = m.get('Namespace')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        return self
-
-
-class DescribeContainerTagsResponseBody(TeaModel):
-    def __init__(self, request_id=None, tag_values=None):
-        self.request_id = request_id  # type: str
-        self.tag_values = tag_values  # type: list[str]
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeContainerTagsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.tag_values is not None:
-            result['TagValues'] = self.tag_values
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TagValues') is not None:
-            self.tag_values = m.get('TagValues')
-        return self
-
-
-class DescribeContainerTagsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeContainerTagsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeContainerTagsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeContainerTagsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8679,14 +8388,15 @@ class DescribeFieldStatisticsRequest(TeaModel):
 
 class DescribeFieldStatisticsResponseBodyGroupedFields(TeaModel):
     def __init__(self, ali_yun_instance_count=None, exposed_instance_count=None, general_asset_count=None,
-                 group_count=None, idc_instance_count=None, important_asset_count=None, instance_count=None,
-                 instance_sync_task_count=None, new_instance_count=None, not_running_status_count=None, offline_instance_count=None,
-                 pause_instance_count=None, region_count=None, risk_instance_count=None, tencent_instance_count=None,
-                 test_asset_count=None, unprotected_instance_count=None, vpc_count=None):
+                 group_count=None, huawei_instance_count=None, idc_instance_count=None, important_asset_count=None,
+                 instance_count=None, instance_sync_task_count=None, new_instance_count=None, not_running_status_count=None,
+                 offline_instance_count=None, pause_instance_count=None, region_count=None, risk_instance_count=None,
+                 tencent_instance_count=None, test_asset_count=None, unprotected_instance_count=None, vpc_count=None):
         self.ali_yun_instance_count = ali_yun_instance_count  # type: int
         self.exposed_instance_count = exposed_instance_count  # type: int
         self.general_asset_count = general_asset_count  # type: int
         self.group_count = group_count  # type: int
+        self.huawei_instance_count = huawei_instance_count  # type: int
         self.idc_instance_count = idc_instance_count  # type: int
         self.important_asset_count = important_asset_count  # type: int
         self.instance_count = instance_count  # type: int
@@ -8719,6 +8429,8 @@ class DescribeFieldStatisticsResponseBodyGroupedFields(TeaModel):
             result['GeneralAssetCount'] = self.general_asset_count
         if self.group_count is not None:
             result['GroupCount'] = self.group_count
+        if self.huawei_instance_count is not None:
+            result['HuaweiInstanceCount'] = self.huawei_instance_count
         if self.idc_instance_count is not None:
             result['IdcInstanceCount'] = self.idc_instance_count
         if self.important_asset_count is not None:
@@ -8759,6 +8471,8 @@ class DescribeFieldStatisticsResponseBodyGroupedFields(TeaModel):
             self.general_asset_count = m.get('GeneralAssetCount')
         if m.get('GroupCount') is not None:
             self.group_count = m.get('GroupCount')
+        if m.get('HuaweiInstanceCount') is not None:
+            self.huawei_instance_count = m.get('HuaweiInstanceCount')
         if m.get('IdcInstanceCount') is not None:
             self.idc_instance_count = m.get('IdcInstanceCount')
         if m.get('ImportantAssetCount') is not None:
@@ -10201,6 +9915,249 @@ class DescribeHoneyPotSuspStatisticsResponse(TeaModel):
         return self
 
 
+class DescribeImageBaselineCheckSummaryRequest(TeaModel):
+    def __init__(self, criteria=None, criteria_type=None, current_page=None, lang=None, page_size=None,
+                 risk_level=None):
+        self.criteria = criteria  # type: str
+        self.criteria_type = criteria_type  # type: str
+        self.current_page = current_page  # type: int
+        self.lang = lang  # type: str
+        self.page_size = page_size  # type: int
+        self.risk_level = risk_level  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageBaselineCheckSummaryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.criteria is not None:
+            result['Criteria'] = self.criteria
+        if self.criteria_type is not None:
+            result['CriteriaType'] = self.criteria_type
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.risk_level is not None:
+            result['RiskLevel'] = self.risk_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Criteria') is not None:
+            self.criteria = m.get('Criteria')
+        if m.get('CriteriaType') is not None:
+            self.criteria_type = m.get('CriteriaType')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RiskLevel') is not None:
+            self.risk_level = m.get('RiskLevel')
+        return self
+
+
+class DescribeImageBaselineCheckSummaryResponseBodyBaselineResultSummary(TeaModel):
+    def __init__(self, baseline_class_alias=None, baseline_class_key=None, baseline_name_alias=None,
+                 baseline_name_key=None, baseline_name_level=None, first_scan_time=None, high_risk_image=None, last_scan_time=None,
+                 low_risk_image=None, middle_risk_image=None, status=None):
+        self.baseline_class_alias = baseline_class_alias  # type: str
+        self.baseline_class_key = baseline_class_key  # type: str
+        self.baseline_name_alias = baseline_name_alias  # type: str
+        self.baseline_name_key = baseline_name_key  # type: str
+        self.baseline_name_level = baseline_name_level  # type: str
+        self.first_scan_time = first_scan_time  # type: long
+        self.high_risk_image = high_risk_image  # type: int
+        self.last_scan_time = last_scan_time  # type: long
+        self.low_risk_image = low_risk_image  # type: int
+        self.middle_risk_image = middle_risk_image  # type: int
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageBaselineCheckSummaryResponseBodyBaselineResultSummary, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baseline_class_alias is not None:
+            result['BaselineClassAlias'] = self.baseline_class_alias
+        if self.baseline_class_key is not None:
+            result['BaselineClassKey'] = self.baseline_class_key
+        if self.baseline_name_alias is not None:
+            result['BaselineNameAlias'] = self.baseline_name_alias
+        if self.baseline_name_key is not None:
+            result['BaselineNameKey'] = self.baseline_name_key
+        if self.baseline_name_level is not None:
+            result['BaselineNameLevel'] = self.baseline_name_level
+        if self.first_scan_time is not None:
+            result['FirstScanTime'] = self.first_scan_time
+        if self.high_risk_image is not None:
+            result['HighRiskImage'] = self.high_risk_image
+        if self.last_scan_time is not None:
+            result['LastScanTime'] = self.last_scan_time
+        if self.low_risk_image is not None:
+            result['LowRiskImage'] = self.low_risk_image
+        if self.middle_risk_image is not None:
+            result['MiddleRiskImage'] = self.middle_risk_image
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BaselineClassAlias') is not None:
+            self.baseline_class_alias = m.get('BaselineClassAlias')
+        if m.get('BaselineClassKey') is not None:
+            self.baseline_class_key = m.get('BaselineClassKey')
+        if m.get('BaselineNameAlias') is not None:
+            self.baseline_name_alias = m.get('BaselineNameAlias')
+        if m.get('BaselineNameKey') is not None:
+            self.baseline_name_key = m.get('BaselineNameKey')
+        if m.get('BaselineNameLevel') is not None:
+            self.baseline_name_level = m.get('BaselineNameLevel')
+        if m.get('FirstScanTime') is not None:
+            self.first_scan_time = m.get('FirstScanTime')
+        if m.get('HighRiskImage') is not None:
+            self.high_risk_image = m.get('HighRiskImage')
+        if m.get('LastScanTime') is not None:
+            self.last_scan_time = m.get('LastScanTime')
+        if m.get('LowRiskImage') is not None:
+            self.low_risk_image = m.get('LowRiskImage')
+        if m.get('MiddleRiskImage') is not None:
+            self.middle_risk_image = m.get('MiddleRiskImage')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DescribeImageBaselineCheckSummaryResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageBaselineCheckSummaryResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeImageBaselineCheckSummaryResponseBody(TeaModel):
+    def __init__(self, baseline_result_summary=None, page_info=None, request_id=None):
+        self.baseline_result_summary = baseline_result_summary  # type: list[DescribeImageBaselineCheckSummaryResponseBodyBaselineResultSummary]
+        self.page_info = page_info  # type: DescribeImageBaselineCheckSummaryResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.baseline_result_summary:
+            for k in self.baseline_result_summary:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageBaselineCheckSummaryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BaselineResultSummary'] = []
+        if self.baseline_result_summary is not None:
+            for k in self.baseline_result_summary:
+                result['BaselineResultSummary'].append(k.to_map() if k else None)
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.baseline_result_summary = []
+        if m.get('BaselineResultSummary') is not None:
+            for k in m.get('BaselineResultSummary'):
+                temp_model = DescribeImageBaselineCheckSummaryResponseBodyBaselineResultSummary()
+                self.baseline_result_summary.append(temp_model.from_map(k))
+        if m.get('PageInfo') is not None:
+            temp_model = DescribeImageBaselineCheckSummaryResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeImageBaselineCheckSummaryResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeImageBaselineCheckSummaryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageBaselineCheckSummaryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeImageBaselineCheckSummaryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeImageFixTaskRequest(TeaModel):
     def __init__(self, current_page=None, end_time=None, page_size=None, start_time=None, status=None):
         self.current_page = current_page  # type: int
@@ -10717,6 +10674,310 @@ class DescribeImageGroupedVulListResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeImageGroupedVulListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeImageListWithBaselineNameRequest(TeaModel):
+    def __init__(self, baseline_name_key=None, criteria=None, criteria_type=None, current_page=None,
+                 image_digest=None, lang=None, page_size=None, repo_instance_id=None, repo_name=None, repo_namespace=None):
+        self.baseline_name_key = baseline_name_key  # type: str
+        self.criteria = criteria  # type: str
+        self.criteria_type = criteria_type  # type: str
+        self.current_page = current_page  # type: int
+        self.image_digest = image_digest  # type: str
+        self.lang = lang  # type: str
+        self.page_size = page_size  # type: int
+        self.repo_instance_id = repo_instance_id  # type: str
+        self.repo_name = repo_name  # type: str
+        self.repo_namespace = repo_namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageListWithBaselineNameRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.baseline_name_key is not None:
+            result['BaselineNameKey'] = self.baseline_name_key
+        if self.criteria is not None:
+            result['Criteria'] = self.criteria
+        if self.criteria_type is not None:
+            result['CriteriaType'] = self.criteria_type
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.image_digest is not None:
+            result['ImageDigest'] = self.image_digest
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.repo_instance_id is not None:
+            result['RepoInstanceId'] = self.repo_instance_id
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.repo_namespace is not None:
+            result['RepoNamespace'] = self.repo_namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BaselineNameKey') is not None:
+            self.baseline_name_key = m.get('BaselineNameKey')
+        if m.get('Criteria') is not None:
+            self.criteria = m.get('Criteria')
+        if m.get('CriteriaType') is not None:
+            self.criteria_type = m.get('CriteriaType')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('ImageDigest') is not None:
+            self.image_digest = m.get('ImageDigest')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RepoInstanceId') is not None:
+            self.repo_instance_id = m.get('RepoInstanceId')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RepoNamespace') is not None:
+            self.repo_namespace = m.get('RepoNamespace')
+        return self
+
+
+class DescribeImageListWithBaselineNameResponseBodyImageInfos(TeaModel):
+    def __init__(self, digest=None, high_risk_image=None, image_create=None, image_id=None, image_size=None,
+                 image_update=None, instance_id=None, low_risk_image=None, middle_risk_image=None, no_risk_image=None,
+                 region_id=None, repo_id=None, repo_name=None, repo_namespace=None, repo_type=None, risk_status=None, tag=None,
+                 total_item_count=None, uuid=None):
+        self.digest = digest  # type: str
+        self.high_risk_image = high_risk_image  # type: int
+        self.image_create = image_create  # type: long
+        self.image_id = image_id  # type: str
+        self.image_size = image_size  # type: int
+        self.image_update = image_update  # type: long
+        self.instance_id = instance_id  # type: str
+        self.low_risk_image = low_risk_image  # type: int
+        self.middle_risk_image = middle_risk_image  # type: int
+        self.no_risk_image = no_risk_image  # type: int
+        self.region_id = region_id  # type: str
+        self.repo_id = repo_id  # type: str
+        self.repo_name = repo_name  # type: str
+        self.repo_namespace = repo_namespace  # type: str
+        self.repo_type = repo_type  # type: str
+        self.risk_status = risk_status  # type: str
+        self.tag = tag  # type: str
+        self.total_item_count = total_item_count  # type: int
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageListWithBaselineNameResponseBodyImageInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.digest is not None:
+            result['Digest'] = self.digest
+        if self.high_risk_image is not None:
+            result['HighRiskImage'] = self.high_risk_image
+        if self.image_create is not None:
+            result['ImageCreate'] = self.image_create
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.image_size is not None:
+            result['ImageSize'] = self.image_size
+        if self.image_update is not None:
+            result['ImageUpdate'] = self.image_update
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.low_risk_image is not None:
+            result['LowRiskImage'] = self.low_risk_image
+        if self.middle_risk_image is not None:
+            result['MiddleRiskImage'] = self.middle_risk_image
+        if self.no_risk_image is not None:
+            result['NoRiskImage'] = self.no_risk_image
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.repo_id is not None:
+            result['RepoId'] = self.repo_id
+        if self.repo_name is not None:
+            result['RepoName'] = self.repo_name
+        if self.repo_namespace is not None:
+            result['RepoNamespace'] = self.repo_namespace
+        if self.repo_type is not None:
+            result['RepoType'] = self.repo_type
+        if self.risk_status is not None:
+            result['RiskStatus'] = self.risk_status
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.total_item_count is not None:
+            result['TotalItemCount'] = self.total_item_count
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Digest') is not None:
+            self.digest = m.get('Digest')
+        if m.get('HighRiskImage') is not None:
+            self.high_risk_image = m.get('HighRiskImage')
+        if m.get('ImageCreate') is not None:
+            self.image_create = m.get('ImageCreate')
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('ImageSize') is not None:
+            self.image_size = m.get('ImageSize')
+        if m.get('ImageUpdate') is not None:
+            self.image_update = m.get('ImageUpdate')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('LowRiskImage') is not None:
+            self.low_risk_image = m.get('LowRiskImage')
+        if m.get('MiddleRiskImage') is not None:
+            self.middle_risk_image = m.get('MiddleRiskImage')
+        if m.get('NoRiskImage') is not None:
+            self.no_risk_image = m.get('NoRiskImage')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RepoId') is not None:
+            self.repo_id = m.get('RepoId')
+        if m.get('RepoName') is not None:
+            self.repo_name = m.get('RepoName')
+        if m.get('RepoNamespace') is not None:
+            self.repo_namespace = m.get('RepoNamespace')
+        if m.get('RepoType') is not None:
+            self.repo_type = m.get('RepoType')
+        if m.get('RiskStatus') is not None:
+            self.risk_status = m.get('RiskStatus')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('TotalItemCount') is not None:
+            self.total_item_count = m.get('TotalItemCount')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class DescribeImageListWithBaselineNameResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageListWithBaselineNameResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeImageListWithBaselineNameResponseBody(TeaModel):
+    def __init__(self, image_infos=None, page_info=None, request_id=None):
+        self.image_infos = image_infos  # type: list[DescribeImageListWithBaselineNameResponseBodyImageInfos]
+        self.page_info = page_info  # type: DescribeImageListWithBaselineNameResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.image_infos:
+            for k in self.image_infos:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageListWithBaselineNameResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ImageInfos'] = []
+        if self.image_infos is not None:
+            for k in self.image_infos:
+                result['ImageInfos'].append(k.to_map() if k else None)
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.image_infos = []
+        if m.get('ImageInfos') is not None:
+            for k in m.get('ImageInfos'):
+                temp_model = DescribeImageListWithBaselineNameResponseBodyImageInfos()
+                self.image_infos.append(temp_model.from_map(k))
+        if m.get('PageInfo') is not None:
+            temp_model = DescribeImageListWithBaselineNameResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeImageListWithBaselineNameResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeImageListWithBaselineNameResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageListWithBaselineNameResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeImageListWithBaselineNameResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -13099,7 +13360,9 @@ class DescribePropertyCronDetailResponse(TeaModel):
 
 
 class DescribePropertyPortDetailRequest(TeaModel):
-    def __init__(self, current_page=None, page_size=None, port=None, proc_name=None, remark=None, uuid=None):
+    def __init__(self, bind_ip=None, current_page=None, page_size=None, port=None, proc_name=None, remark=None,
+                 uuid=None):
+        self.bind_ip = bind_ip  # type: str
         self.current_page = current_page  # type: int
         self.page_size = page_size  # type: int
         self.port = port  # type: str
@@ -13116,6 +13379,8 @@ class DescribePropertyPortDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.bind_ip is not None:
+            result['BindIp'] = self.bind_ip
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.page_size is not None:
@@ -13132,6 +13397,8 @@ class DescribePropertyPortDetailRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BindIp') is not None:
+            self.bind_ip = m.get('BindIp')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('PageSize') is not None:
@@ -13540,11 +13807,14 @@ class DescribePropertyPortItemResponse(TeaModel):
 
 
 class DescribePropertyProcDetailRequest(TeaModel):
-    def __init__(self, cmdline=None, current_page=None, name=None, page_size=None, remark=None, user=None, uuid=None):
+    def __init__(self, cmdline=None, current_page=None, name=None, page_size=None, proc_time_end=None,
+                 proc_time_start=None, remark=None, user=None, uuid=None):
         self.cmdline = cmdline  # type: str
         self.current_page = current_page  # type: int
         self.name = name  # type: str
         self.page_size = page_size  # type: int
+        self.proc_time_end = proc_time_end  # type: long
+        self.proc_time_start = proc_time_start  # type: long
         self.remark = remark  # type: str
         self.user = user  # type: str
         self.uuid = uuid  # type: str
@@ -13566,6 +13836,10 @@ class DescribePropertyProcDetailRequest(TeaModel):
             result['Name'] = self.name
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.proc_time_end is not None:
+            result['ProcTimeEnd'] = self.proc_time_end
+        if self.proc_time_start is not None:
+            result['ProcTimeStart'] = self.proc_time_start
         if self.remark is not None:
             result['Remark'] = self.remark
         if self.user is not None:
@@ -13584,6 +13858,10 @@ class DescribePropertyProcDetailRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ProcTimeEnd') is not None:
+            self.proc_time_end = m.get('ProcTimeEnd')
+        if m.get('ProcTimeStart') is not None:
+            self.proc_time_start = m.get('ProcTimeStart')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
         if m.get('User') is not None:
@@ -13634,8 +13912,8 @@ class DescribePropertyProcDetailResponseBodyPageInfo(TeaModel):
 
 class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
     def __init__(self, cmdline=None, create=None, create_timestamp=None, euid_name=None, instance_id=None,
-                 instance_name=None, internet_ip=None, intranet_ip=None, md_5=None, name=None, path=None, pid=None, pname=None,
-                 start_time=None, user=None, uuid=None):
+                 instance_name=None, internet_ip=None, intranet_ip=None, is_package=None, md_5=None, name=None, path=None, pid=None,
+                 pname=None, start_time=None, start_time_dt=None, state=None, user=None, uuid=None):
         self.cmdline = cmdline  # type: str
         self.create = create  # type: str
         self.create_timestamp = create_timestamp  # type: long
@@ -13644,12 +13922,15 @@ class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
         self.instance_name = instance_name  # type: str
         self.internet_ip = internet_ip  # type: str
         self.intranet_ip = intranet_ip  # type: str
+        self.is_package = is_package  # type: int
         self.md_5 = md_5  # type: str
         self.name = name  # type: str
         self.path = path  # type: str
         self.pid = pid  # type: str
         self.pname = pname  # type: str
         self.start_time = start_time  # type: str
+        self.start_time_dt = start_time_dt  # type: long
+        self.state = state  # type: str
         self.user = user  # type: str
         self.uuid = uuid  # type: str
 
@@ -13678,6 +13959,8 @@ class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
             result['InternetIp'] = self.internet_ip
         if self.intranet_ip is not None:
             result['IntranetIp'] = self.intranet_ip
+        if self.is_package is not None:
+            result['IsPackage'] = self.is_package
         if self.md_5 is not None:
             result['Md5'] = self.md_5
         if self.name is not None:
@@ -13690,6 +13973,10 @@ class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
             result['Pname'] = self.pname
         if self.start_time is not None:
             result['StartTime'] = self.start_time
+        if self.start_time_dt is not None:
+            result['StartTimeDt'] = self.start_time_dt
+        if self.state is not None:
+            result['State'] = self.state
         if self.user is not None:
             result['User'] = self.user
         if self.uuid is not None:
@@ -13714,6 +14001,8 @@ class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
             self.internet_ip = m.get('InternetIp')
         if m.get('IntranetIp') is not None:
             self.intranet_ip = m.get('IntranetIp')
+        if m.get('IsPackage') is not None:
+            self.is_package = m.get('IsPackage')
         if m.get('Md5') is not None:
             self.md_5 = m.get('Md5')
         if m.get('Name') is not None:
@@ -13726,6 +14015,10 @@ class DescribePropertyProcDetailResponseBodyPropertys(TeaModel):
             self.pname = m.get('Pname')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('StartTimeDt') is not None:
+            self.start_time_dt = m.get('StartTimeDt')
+        if m.get('State') is not None:
+            self.state = m.get('State')
         if m.get('User') is not None:
             self.user = m.get('User')
         if m.get('Uuid') is not None:
@@ -13997,19 +14290,29 @@ class DescribePropertyProcItemResponse(TeaModel):
 
 
 class DescribePropertyScaDetailRequest(TeaModel):
-    def __init__(self, biz_type=None, current_page=None, lang=None, name=None, page_size=None, remark=None,
-                 sca_name=None, search_info=None, search_info_sub=None, search_item=None, search_item_sub=None, uuid=None):
+    def __init__(self, biz=None, biz_type=None, current_page=None, lang=None, name=None, page_size=None, pid=None,
+                 port=None, process_started_end=None, process_started_start=None, remark=None, sca_name=None,
+                 sca_name_pattern=None, sca_version=None, search_info=None, search_info_sub=None, search_item=None,
+                 search_item_sub=None, user=None, uuid=None):
+        self.biz = biz  # type: str
         self.biz_type = biz_type  # type: str
         self.current_page = current_page  # type: int
         self.lang = lang  # type: str
         self.name = name  # type: long
         self.page_size = page_size  # type: int
+        self.pid = pid  # type: str
+        self.port = port  # type: str
+        self.process_started_end = process_started_end  # type: long
+        self.process_started_start = process_started_start  # type: long
         self.remark = remark  # type: str
         self.sca_name = sca_name  # type: str
+        self.sca_name_pattern = sca_name_pattern  # type: str
+        self.sca_version = sca_version  # type: str
         self.search_info = search_info  # type: str
         self.search_info_sub = search_info_sub  # type: str
         self.search_item = search_item  # type: str
         self.search_item_sub = search_item_sub  # type: str
+        self.user = user  # type: str
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -14021,6 +14324,8 @@ class DescribePropertyScaDetailRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.biz is not None:
+            result['Biz'] = self.biz
         if self.biz_type is not None:
             result['BizType'] = self.biz_type
         if self.current_page is not None:
@@ -14031,10 +14336,22 @@ class DescribePropertyScaDetailRequest(TeaModel):
             result['Name'] = self.name
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.pid is not None:
+            result['Pid'] = self.pid
+        if self.port is not None:
+            result['Port'] = self.port
+        if self.process_started_end is not None:
+            result['ProcessStartedEnd'] = self.process_started_end
+        if self.process_started_start is not None:
+            result['ProcessStartedStart'] = self.process_started_start
         if self.remark is not None:
             result['Remark'] = self.remark
         if self.sca_name is not None:
             result['ScaName'] = self.sca_name
+        if self.sca_name_pattern is not None:
+            result['ScaNamePattern'] = self.sca_name_pattern
+        if self.sca_version is not None:
+            result['ScaVersion'] = self.sca_version
         if self.search_info is not None:
             result['SearchInfo'] = self.search_info
         if self.search_info_sub is not None:
@@ -14043,12 +14360,16 @@ class DescribePropertyScaDetailRequest(TeaModel):
             result['SearchItem'] = self.search_item
         if self.search_item_sub is not None:
             result['SearchItemSub'] = self.search_item_sub
+        if self.user is not None:
+            result['User'] = self.user
         if self.uuid is not None:
             result['Uuid'] = self.uuid
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Biz') is not None:
+            self.biz = m.get('Biz')
         if m.get('BizType') is not None:
             self.biz_type = m.get('BizType')
         if m.get('CurrentPage') is not None:
@@ -14059,10 +14380,22 @@ class DescribePropertyScaDetailRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Pid') is not None:
+            self.pid = m.get('Pid')
+        if m.get('Port') is not None:
+            self.port = m.get('Port')
+        if m.get('ProcessStartedEnd') is not None:
+            self.process_started_end = m.get('ProcessStartedEnd')
+        if m.get('ProcessStartedStart') is not None:
+            self.process_started_start = m.get('ProcessStartedStart')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
         if m.get('ScaName') is not None:
             self.sca_name = m.get('ScaName')
+        if m.get('ScaNamePattern') is not None:
+            self.sca_name_pattern = m.get('ScaNamePattern')
+        if m.get('ScaVersion') is not None:
+            self.sca_version = m.get('ScaVersion')
         if m.get('SearchInfo') is not None:
             self.search_info = m.get('SearchInfo')
         if m.get('SearchInfoSub') is not None:
@@ -14071,6 +14404,8 @@ class DescribePropertyScaDetailRequest(TeaModel):
             self.search_item = m.get('SearchItem')
         if m.get('SearchItemSub') is not None:
             self.search_item_sub = m.get('SearchItemSub')
+        if m.get('User') is not None:
+            self.user = m.get('User')
         if m.get('Uuid') is not None:
             self.uuid = m.get('Uuid')
         return self
@@ -14357,9 +14692,11 @@ class DescribePropertyScaDetailResponse(TeaModel):
 
 
 class DescribePropertySoftwareDetailRequest(TeaModel):
-    def __init__(self, current_page=None, name=None, page_size=None, path=None, remark=None, software_version=None,
-                 uuid=None):
+    def __init__(self, current_page=None, install_time_end=None, install_time_start=None, name=None, page_size=None,
+                 path=None, remark=None, software_version=None, uuid=None):
         self.current_page = current_page  # type: int
+        self.install_time_end = install_time_end  # type: long
+        self.install_time_start = install_time_start  # type: long
         self.name = name  # type: str
         self.page_size = page_size  # type: int
         self.path = path  # type: str
@@ -14378,6 +14715,10 @@ class DescribePropertySoftwareDetailRequest(TeaModel):
         result = dict()
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.install_time_end is not None:
+            result['InstallTimeEnd'] = self.install_time_end
+        if self.install_time_start is not None:
+            result['InstallTimeStart'] = self.install_time_start
         if self.name is not None:
             result['Name'] = self.name
         if self.page_size is not None:
@@ -14396,6 +14737,10 @@ class DescribePropertySoftwareDetailRequest(TeaModel):
         m = m or dict()
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('InstallTimeEnd') is not None:
+            self.install_time_end = m.get('InstallTimeEnd')
+        if m.get('InstallTimeStart') is not None:
+            self.install_time_start = m.get('InstallTimeStart')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PageSize') is not None:
@@ -14451,11 +14796,13 @@ class DescribePropertySoftwareDetailResponseBodyPageInfo(TeaModel):
 
 
 class DescribePropertySoftwareDetailResponseBodyPropertys(TeaModel):
-    def __init__(self, create=None, create_timestamp=None, install_time=None, instance_id=None, instance_name=None,
-                 internet_ip=None, intranet_ip=None, ip=None, name=None, path=None, uuid=None, version=None):
+    def __init__(self, create=None, create_timestamp=None, install_time=None, install_time_dt=None,
+                 instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None, ip=None, name=None, path=None,
+                 uuid=None, version=None):
         self.create = create  # type: long
         self.create_timestamp = create_timestamp  # type: long
         self.install_time = install_time  # type: str
+        self.install_time_dt = install_time_dt  # type: long
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
         self.internet_ip = internet_ip  # type: str
@@ -14481,6 +14828,8 @@ class DescribePropertySoftwareDetailResponseBodyPropertys(TeaModel):
             result['CreateTimestamp'] = self.create_timestamp
         if self.install_time is not None:
             result['InstallTime'] = self.install_time
+        if self.install_time_dt is not None:
+            result['InstallTimeDt'] = self.install_time_dt
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.instance_name is not None:
@@ -14509,6 +14858,8 @@ class DescribePropertySoftwareDetailResponseBodyPropertys(TeaModel):
             self.create_timestamp = m.get('CreateTimestamp')
         if m.get('InstallTime') is not None:
             self.install_time = m.get('InstallTime')
+        if m.get('InstallTimeDt') is not None:
+            self.install_time_dt = m.get('InstallTimeDt')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceName') is not None:
@@ -14927,9 +15278,12 @@ class DescribePropertyUsageNewestResponse(TeaModel):
 
 
 class DescribePropertyUserDetailRequest(TeaModel):
-    def __init__(self, current_page=None, is_root=None, page_size=None, remark=None, user=None, uuid=None):
+    def __init__(self, current_page=None, is_root=None, last_login_time_end=None, last_login_time_start=None,
+                 page_size=None, remark=None, user=None, uuid=None):
         self.current_page = current_page  # type: int
         self.is_root = is_root  # type: str
+        self.last_login_time_end = last_login_time_end  # type: long
+        self.last_login_time_start = last_login_time_start  # type: long
         self.page_size = page_size  # type: int
         self.remark = remark  # type: str
         self.user = user  # type: str
@@ -14948,6 +15302,10 @@ class DescribePropertyUserDetailRequest(TeaModel):
             result['CurrentPage'] = self.current_page
         if self.is_root is not None:
             result['IsRoot'] = self.is_root
+        if self.last_login_time_end is not None:
+            result['LastLoginTimeEnd'] = self.last_login_time_end
+        if self.last_login_time_start is not None:
+            result['LastLoginTimeStart'] = self.last_login_time_start
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.remark is not None:
@@ -14964,6 +15322,10 @@ class DescribePropertyUserDetailRequest(TeaModel):
             self.current_page = m.get('CurrentPage')
         if m.get('IsRoot') is not None:
             self.is_root = m.get('IsRoot')
+        if m.get('LastLoginTimeEnd') is not None:
+            self.last_login_time_end = m.get('LastLoginTimeEnd')
+        if m.get('LastLoginTimeStart') is not None:
+            self.last_login_time_start = m.get('LastLoginTimeStart')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('Remark') is not None:
@@ -15016,9 +15378,10 @@ class DescribePropertyUserDetailResponseBodyPageInfo(TeaModel):
 
 class DescribePropertyUserDetailResponseBodyPropertys(TeaModel):
     def __init__(self, accounts_expiration_date=None, create=None, create_timestamp=None, group_names=None,
-                 instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None, ip=None, is_root=None,
-                 last_login_ip=None, last_login_time=None, last_login_timestamp=None, password_expiration_date=None, status=None,
-                 user=None, uuid=None):
+                 instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None, ip=None, is_could_login=None,
+                 is_passwd_expired=None, is_passwd_locked=None, is_root=None, is_sudoer=None, is_user_expired=None,
+                 last_login_ip=None, last_login_time=None, last_login_time_dt=None, last_login_timestamp=None,
+                 password_expiration_date=None, status=None, user=None, uuid=None):
         self.accounts_expiration_date = accounts_expiration_date  # type: str
         self.create = create  # type: str
         self.create_timestamp = create_timestamp  # type: long
@@ -15028,9 +15391,15 @@ class DescribePropertyUserDetailResponseBodyPropertys(TeaModel):
         self.internet_ip = internet_ip  # type: str
         self.intranet_ip = intranet_ip  # type: str
         self.ip = ip  # type: str
+        self.is_could_login = is_could_login  # type: int
+        self.is_passwd_expired = is_passwd_expired  # type: int
+        self.is_passwd_locked = is_passwd_locked  # type: int
         self.is_root = is_root  # type: str
+        self.is_sudoer = is_sudoer  # type: int
+        self.is_user_expired = is_user_expired  # type: int
         self.last_login_ip = last_login_ip  # type: str
         self.last_login_time = last_login_time  # type: str
+        self.last_login_time_dt = last_login_time_dt  # type: long
         self.last_login_timestamp = last_login_timestamp  # type: long
         self.password_expiration_date = password_expiration_date  # type: str
         self.status = status  # type: str
@@ -15064,12 +15433,24 @@ class DescribePropertyUserDetailResponseBodyPropertys(TeaModel):
             result['IntranetIp'] = self.intranet_ip
         if self.ip is not None:
             result['Ip'] = self.ip
+        if self.is_could_login is not None:
+            result['IsCouldLogin'] = self.is_could_login
+        if self.is_passwd_expired is not None:
+            result['IsPasswdExpired'] = self.is_passwd_expired
+        if self.is_passwd_locked is not None:
+            result['IsPasswdLocked'] = self.is_passwd_locked
         if self.is_root is not None:
             result['IsRoot'] = self.is_root
+        if self.is_sudoer is not None:
+            result['IsSudoer'] = self.is_sudoer
+        if self.is_user_expired is not None:
+            result['IsUserExpired'] = self.is_user_expired
         if self.last_login_ip is not None:
             result['LastLoginIp'] = self.last_login_ip
         if self.last_login_time is not None:
             result['LastLoginTime'] = self.last_login_time
+        if self.last_login_time_dt is not None:
+            result['LastLoginTimeDt'] = self.last_login_time_dt
         if self.last_login_timestamp is not None:
             result['LastLoginTimestamp'] = self.last_login_timestamp
         if self.password_expiration_date is not None:
@@ -15102,12 +15483,24 @@ class DescribePropertyUserDetailResponseBodyPropertys(TeaModel):
             self.intranet_ip = m.get('IntranetIp')
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
+        if m.get('IsCouldLogin') is not None:
+            self.is_could_login = m.get('IsCouldLogin')
+        if m.get('IsPasswdExpired') is not None:
+            self.is_passwd_expired = m.get('IsPasswdExpired')
+        if m.get('IsPasswdLocked') is not None:
+            self.is_passwd_locked = m.get('IsPasswdLocked')
         if m.get('IsRoot') is not None:
             self.is_root = m.get('IsRoot')
+        if m.get('IsSudoer') is not None:
+            self.is_sudoer = m.get('IsSudoer')
+        if m.get('IsUserExpired') is not None:
+            self.is_user_expired = m.get('IsUserExpired')
         if m.get('LastLoginIp') is not None:
             self.last_login_ip = m.get('LastLoginIp')
         if m.get('LastLoginTime') is not None:
             self.last_login_time = m.get('LastLoginTime')
+        if m.get('LastLoginTimeDt') is not None:
+            self.last_login_time_dt = m.get('LastLoginTimeDt')
         if m.get('LastLoginTimestamp') is not None:
             self.last_login_timestamp = m.get('LastLoginTimestamp')
         if m.get('PasswordExpirationDate') is not None:
@@ -19581,148 +19974,6 @@ class DescribeSuspEventDetailResponse(TeaModel):
         return self
 
 
-class DescribeSuspEventExportInfoRequest(TeaModel):
-    def __init__(self, export_id=None, from_=None, source_ip=None):
-        self.export_id = export_id  # type: int
-        self.from_ = from_  # type: str
-        self.source_ip = source_ip  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeSuspEventExportInfoRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.export_id is not None:
-            result['ExportId'] = self.export_id
-        if self.from_ is not None:
-            result['From'] = self.from_
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ExportId') is not None:
-            self.export_id = m.get('ExportId')
-        if m.get('From') is not None:
-            self.from_ = m.get('From')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        return self
-
-
-class DescribeSuspEventExportInfoResponseBody(TeaModel):
-    def __init__(self, export_status=None, file_name=None, gmt_create=None, gmt_modified=None, id=None, link=None,
-                 progress=None, properties=None, request_id=None, total_count=None, type=None):
-        self.export_status = export_status  # type: str
-        self.file_name = file_name  # type: str
-        self.gmt_create = gmt_create  # type: long
-        self.gmt_modified = gmt_modified  # type: long
-        self.id = id  # type: int
-        self.link = link  # type: str
-        self.progress = progress  # type: int
-        self.properties = properties  # type: str
-        self.request_id = request_id  # type: str
-        self.total_count = total_count  # type: int
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeSuspEventExportInfoResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.export_status is not None:
-            result['ExportStatus'] = self.export_status
-        if self.file_name is not None:
-            result['FileName'] = self.file_name
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.link is not None:
-            result['Link'] = self.link
-        if self.progress is not None:
-            result['Progress'] = self.progress
-        if self.properties is not None:
-            result['Properties'] = self.properties
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        if self.type is not None:
-            result['Type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ExportStatus') is not None:
-            self.export_status = m.get('ExportStatus')
-        if m.get('FileName') is not None:
-            self.file_name = m.get('FileName')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('Link') is not None:
-            self.link = m.get('Link')
-        if m.get('Progress') is not None:
-            self.progress = m.get('Progress')
-        if m.get('Properties') is not None:
-            self.properties = m.get('Properties')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        if m.get('Type') is not None:
-            self.type = m.get('Type')
-        return self
-
-
-class DescribeSuspEventExportInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeSuspEventExportInfoResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeSuspEventExportInfoResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeSuspEventExportInfoResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeSuspEventQuaraFilesRequest(TeaModel):
     def __init__(self, current_page=None, from_=None, group_id=None, grouping_id=None, page_size=None,
                  quara_tag=None, source_ip=None, status=None):
@@ -20626,279 +20877,6 @@ class DescribeSuspiciousUUIDConfigResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeSuspiciousUUIDConfigResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class DescribeUniBackupPoliciesRequest(TeaModel):
-    def __init__(self, current_page=None, page_size=None, policy_name=None, resource_owner_id=None, source_ip=None):
-        self.current_page = current_page  # type: int
-        self.page_size = page_size  # type: int
-        self.policy_name = policy_name  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.source_ip = source_ip  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeUniBackupPoliciesRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        return self
-
-
-class DescribeUniBackupPoliciesResponseBodyPageInfo(TeaModel):
-    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
-        self.count = count  # type: int
-        self.current_page = current_page  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeUniBackupPoliciesResponseBodyPageInfo, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.count is not None:
-            result['Count'] = self.count
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Count') is not None:
-            self.count = m.get('Count')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class DescribeUniBackupPoliciesResponseBodyUniBackupPolicies(TeaModel):
-    def __init__(self, agent_error_message=None, agent_status=None, database_name=None, database_type=None,
-                 error_code=None, error_message=None, instance_id=None, instance_name=None, instance_status=None,
-                 instance_uuid=None, latest_back_result=None, latest_backup_time=None, plan_status=None, policy_id=None,
-                 policy_name=None, policy_status=None, uni_back_up_count=None, uni_region_id=None):
-        self.agent_error_message = agent_error_message  # type: str
-        self.agent_status = agent_status  # type: str
-        self.database_name = database_name  # type: str
-        self.database_type = database_type  # type: str
-        self.error_code = error_code  # type: str
-        self.error_message = error_message  # type: str
-        self.instance_id = instance_id  # type: str
-        self.instance_name = instance_name  # type: str
-        self.instance_status = instance_status  # type: str
-        self.instance_uuid = instance_uuid  # type: str
-        self.latest_back_result = latest_back_result  # type: str
-        self.latest_backup_time = latest_backup_time  # type: str
-        self.plan_status = plan_status  # type: str
-        self.policy_id = policy_id  # type: long
-        self.policy_name = policy_name  # type: str
-        self.policy_status = policy_status  # type: str
-        self.uni_back_up_count = uni_back_up_count  # type: int
-        self.uni_region_id = uni_region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeUniBackupPoliciesResponseBodyUniBackupPolicies, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.agent_error_message is not None:
-            result['AgentErrorMessage'] = self.agent_error_message
-        if self.agent_status is not None:
-            result['AgentStatus'] = self.agent_status
-        if self.database_name is not None:
-            result['DatabaseName'] = self.database_name
-        if self.database_type is not None:
-            result['DatabaseType'] = self.database_type
-        if self.error_code is not None:
-            result['ErrorCode'] = self.error_code
-        if self.error_message is not None:
-            result['ErrorMessage'] = self.error_message
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.instance_name is not None:
-            result['InstanceName'] = self.instance_name
-        if self.instance_status is not None:
-            result['InstanceStatus'] = self.instance_status
-        if self.instance_uuid is not None:
-            result['InstanceUuid'] = self.instance_uuid
-        if self.latest_back_result is not None:
-            result['LatestBackResult'] = self.latest_back_result
-        if self.latest_backup_time is not None:
-            result['LatestBackupTime'] = self.latest_backup_time
-        if self.plan_status is not None:
-            result['PlanStatus'] = self.plan_status
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
-        if self.policy_name is not None:
-            result['PolicyName'] = self.policy_name
-        if self.policy_status is not None:
-            result['PolicyStatus'] = self.policy_status
-        if self.uni_back_up_count is not None:
-            result['UniBackUpCount'] = self.uni_back_up_count
-        if self.uni_region_id is not None:
-            result['UniRegionId'] = self.uni_region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AgentErrorMessage') is not None:
-            self.agent_error_message = m.get('AgentErrorMessage')
-        if m.get('AgentStatus') is not None:
-            self.agent_status = m.get('AgentStatus')
-        if m.get('DatabaseName') is not None:
-            self.database_name = m.get('DatabaseName')
-        if m.get('DatabaseType') is not None:
-            self.database_type = m.get('DatabaseType')
-        if m.get('ErrorCode') is not None:
-            self.error_code = m.get('ErrorCode')
-        if m.get('ErrorMessage') is not None:
-            self.error_message = m.get('ErrorMessage')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('InstanceName') is not None:
-            self.instance_name = m.get('InstanceName')
-        if m.get('InstanceStatus') is not None:
-            self.instance_status = m.get('InstanceStatus')
-        if m.get('InstanceUuid') is not None:
-            self.instance_uuid = m.get('InstanceUuid')
-        if m.get('LatestBackResult') is not None:
-            self.latest_back_result = m.get('LatestBackResult')
-        if m.get('LatestBackupTime') is not None:
-            self.latest_backup_time = m.get('LatestBackupTime')
-        if m.get('PlanStatus') is not None:
-            self.plan_status = m.get('PlanStatus')
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
-        if m.get('PolicyName') is not None:
-            self.policy_name = m.get('PolicyName')
-        if m.get('PolicyStatus') is not None:
-            self.policy_status = m.get('PolicyStatus')
-        if m.get('UniBackUpCount') is not None:
-            self.uni_back_up_count = m.get('UniBackUpCount')
-        if m.get('UniRegionId') is not None:
-            self.uni_region_id = m.get('UniRegionId')
-        return self
-
-
-class DescribeUniBackupPoliciesResponseBody(TeaModel):
-    def __init__(self, page_info=None, request_id=None, uni_backup_policies=None):
-        self.page_info = page_info  # type: DescribeUniBackupPoliciesResponseBodyPageInfo
-        self.request_id = request_id  # type: str
-        self.uni_backup_policies = uni_backup_policies  # type: list[DescribeUniBackupPoliciesResponseBodyUniBackupPolicies]
-
-    def validate(self):
-        if self.page_info:
-            self.page_info.validate()
-        if self.uni_backup_policies:
-            for k in self.uni_backup_policies:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeUniBackupPoliciesResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.page_info is not None:
-            result['PageInfo'] = self.page_info.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        result['UniBackupPolicies'] = []
-        if self.uni_backup_policies is not None:
-            for k in self.uni_backup_policies:
-                result['UniBackupPolicies'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PageInfo') is not None:
-            temp_model = DescribeUniBackupPoliciesResponseBodyPageInfo()
-            self.page_info = temp_model.from_map(m['PageInfo'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        self.uni_backup_policies = []
-        if m.get('UniBackupPolicies') is not None:
-            for k in m.get('UniBackupPolicies'):
-                temp_model = DescribeUniBackupPoliciesResponseBodyUniBackupPolicies()
-                self.uni_backup_policies.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeUniBackupPoliciesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeUniBackupPoliciesResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeUniBackupPoliciesResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeUniBackupPoliciesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22938,188 +22916,6 @@ class DescribeVulListResponse(TeaModel):
         return self
 
 
-class DescribeVulListPageRequest(TeaModel):
-    def __init__(self, current_page=None, cve_id=None, page_size=None, source_ip=None, vul_name_like=None):
-        self.current_page = current_page  # type: int
-        self.cve_id = cve_id  # type: str
-        self.page_size = page_size  # type: int
-        self.source_ip = source_ip  # type: str
-        self.vul_name_like = vul_name_like  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeVulListPageRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.cve_id is not None:
-            result['CveId'] = self.cve_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        if self.vul_name_like is not None:
-            result['VulNameLike'] = self.vul_name_like
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('CveId') is not None:
-            self.cve_id = m.get('CveId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        if m.get('VulNameLike') is not None:
-            self.vul_name_like = m.get('VulNameLike')
-        return self
-
-
-class DescribeVulListPageResponseBodyData(TeaModel):
-    def __init__(self, cve_id=None, id=None, is_aegis=None, is_sas=None, other_id=None, release_time=None, title=None):
-        # cveId
-        self.cve_id = cve_id  # type: str
-        # id
-        self.id = id  # type: long
-        # 是否安骑士扫描
-        self.is_aegis = is_aegis  # type: int
-        # 是否网络扫描
-        self.is_sas = is_sas  # type: int
-        # 编号
-        self.other_id = other_id  # type: str
-        # 发布时间
-        self.release_time = release_time  # type: long
-        # 漏洞标题
-        self.title = title  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeVulListPageResponseBodyData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cve_id is not None:
-            result['CveId'] = self.cve_id
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.is_aegis is not None:
-            result['IsAegis'] = self.is_aegis
-        if self.is_sas is not None:
-            result['IsSas'] = self.is_sas
-        if self.other_id is not None:
-            result['OtherId'] = self.other_id
-        if self.release_time is not None:
-            result['ReleaseTime'] = self.release_time
-        if self.title is not None:
-            result['Title'] = self.title
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CveId') is not None:
-            self.cve_id = m.get('CveId')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('IsAegis') is not None:
-            self.is_aegis = m.get('IsAegis')
-        if m.get('IsSas') is not None:
-            self.is_sas = m.get('IsSas')
-        if m.get('OtherId') is not None:
-            self.other_id = m.get('OtherId')
-        if m.get('ReleaseTime') is not None:
-            self.release_time = m.get('ReleaseTime')
-        if m.get('Title') is not None:
-            self.title = m.get('Title')
-        return self
-
-
-class DescribeVulListPageResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None, total_count=None):
-        # 返回参数
-        self.data = data  # type: list[DescribeVulListPageResponseBodyData]
-        self.request_id = request_id  # type: str
-        # TotalCount本次请求条件下的数据总量，此参数为可选参数，默认可不返回
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        if self.data:
-            for k in self.data:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeVulListPageResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['Data'] = []
-        if self.data is not None:
-            for k in self.data:
-                result['Data'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.data = []
-        if m.get('Data') is not None:
-            for k in m.get('Data'):
-                temp_model = DescribeVulListPageResponseBodyData()
-                self.data.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class DescribeVulListPageResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeVulListPageResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeVulListPageResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = DescribeVulListPageResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeVulWhitelistRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None):
         self.current_page = current_page  # type: int
@@ -24021,169 +23817,6 @@ class ExportRecordResponse(TeaModel):
         return self
 
 
-class ExportSuspEventsRequest(TeaModel):
-    def __init__(self, cluster_id=None, container_field_name=None, container_field_value=None, dealed=None,
-                 from_=None, lang=None, levels=None, name=None, parent_event_types=None, remark=None, source_ip=None,
-                 status=None, target_type=None, time_end=None, time_start=None):
-        self.cluster_id = cluster_id  # type: str
-        self.container_field_name = container_field_name  # type: str
-        self.container_field_value = container_field_value  # type: str
-        self.dealed = dealed  # type: str
-        self.from_ = from_  # type: str
-        self.lang = lang  # type: str
-        self.levels = levels  # type: str
-        self.name = name  # type: str
-        self.parent_event_types = parent_event_types  # type: str
-        self.remark = remark  # type: str
-        self.source_ip = source_ip  # type: str
-        self.status = status  # type: str
-        self.target_type = target_type  # type: str
-        self.time_end = time_end  # type: str
-        self.time_start = time_start  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ExportSuspEventsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        if self.container_field_name is not None:
-            result['ContainerFieldName'] = self.container_field_name
-        if self.container_field_value is not None:
-            result['ContainerFieldValue'] = self.container_field_value
-        if self.dealed is not None:
-            result['Dealed'] = self.dealed
-        if self.from_ is not None:
-            result['From'] = self.from_
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.levels is not None:
-            result['Levels'] = self.levels
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.parent_event_types is not None:
-            result['ParentEventTypes'] = self.parent_event_types
-        if self.remark is not None:
-            result['Remark'] = self.remark
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.target_type is not None:
-            result['TargetType'] = self.target_type
-        if self.time_end is not None:
-            result['TimeEnd'] = self.time_end
-        if self.time_start is not None:
-            result['TimeStart'] = self.time_start
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        if m.get('ContainerFieldName') is not None:
-            self.container_field_name = m.get('ContainerFieldName')
-        if m.get('ContainerFieldValue') is not None:
-            self.container_field_value = m.get('ContainerFieldValue')
-        if m.get('Dealed') is not None:
-            self.dealed = m.get('Dealed')
-        if m.get('From') is not None:
-            self.from_ = m.get('From')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('Levels') is not None:
-            self.levels = m.get('Levels')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('ParentEventTypes') is not None:
-            self.parent_event_types = m.get('ParentEventTypes')
-        if m.get('Remark') is not None:
-            self.remark = m.get('Remark')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('TargetType') is not None:
-            self.target_type = m.get('TargetType')
-        if m.get('TimeEnd') is not None:
-            self.time_end = m.get('TimeEnd')
-        if m.get('TimeStart') is not None:
-            self.time_start = m.get('TimeStart')
-        return self
-
-
-class ExportSuspEventsResponseBody(TeaModel):
-    def __init__(self, file_name=None, id=None, request_id=None):
-        self.file_name = file_name  # type: int
-        self.id = id  # type: int
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ExportSuspEventsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.file_name is not None:
-            result['FileName'] = self.file_name
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('FileName') is not None:
-            self.file_name = m.get('FileName')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ExportSuspEventsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ExportSuspEventsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ExportSuspEventsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ExportSuspEventsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ExportVulRequest(TeaModel):
     def __init__(self, alias_name=None, attach_types=None, dealed=None, group_id=None, lang=None, necessity=None,
                  search_tags=None, type=None, uuids=None, vpc_instance_ids=None):
@@ -24317,169 +23950,6 @@ class ExportVulResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ExportVulResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ExportWarningRequest(TeaModel):
-    def __init__(self, dealed=None, export_type=None, is_cleartext_pwd=None, is_summary_export=None, lang=None,
-                 risk_ids=None, risk_levels=None, risk_name=None, source_ip=None, status_list=None, strategy_id=None,
-                 sub_type_names=None, type_name=None, type_names=None, uuids=None):
-        self.dealed = dealed  # type: str
-        self.export_type = export_type  # type: str
-        self.is_cleartext_pwd = is_cleartext_pwd  # type: int
-        self.is_summary_export = is_summary_export  # type: int
-        self.lang = lang  # type: str
-        self.risk_ids = risk_ids  # type: str
-        self.risk_levels = risk_levels  # type: str
-        self.risk_name = risk_name  # type: str
-        self.source_ip = source_ip  # type: str
-        self.status_list = status_list  # type: str
-        self.strategy_id = strategy_id  # type: long
-        self.sub_type_names = sub_type_names  # type: str
-        self.type_name = type_name  # type: str
-        self.type_names = type_names  # type: str
-        self.uuids = uuids  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ExportWarningRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.dealed is not None:
-            result['Dealed'] = self.dealed
-        if self.export_type is not None:
-            result['ExportType'] = self.export_type
-        if self.is_cleartext_pwd is not None:
-            result['IsCleartextPwd'] = self.is_cleartext_pwd
-        if self.is_summary_export is not None:
-            result['IsSummaryExport'] = self.is_summary_export
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.risk_ids is not None:
-            result['RiskIds'] = self.risk_ids
-        if self.risk_levels is not None:
-            result['RiskLevels'] = self.risk_levels
-        if self.risk_name is not None:
-            result['RiskName'] = self.risk_name
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        if self.status_list is not None:
-            result['StatusList'] = self.status_list
-        if self.strategy_id is not None:
-            result['StrategyId'] = self.strategy_id
-        if self.sub_type_names is not None:
-            result['SubTypeNames'] = self.sub_type_names
-        if self.type_name is not None:
-            result['TypeName'] = self.type_name
-        if self.type_names is not None:
-            result['TypeNames'] = self.type_names
-        if self.uuids is not None:
-            result['Uuids'] = self.uuids
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Dealed') is not None:
-            self.dealed = m.get('Dealed')
-        if m.get('ExportType') is not None:
-            self.export_type = m.get('ExportType')
-        if m.get('IsCleartextPwd') is not None:
-            self.is_cleartext_pwd = m.get('IsCleartextPwd')
-        if m.get('IsSummaryExport') is not None:
-            self.is_summary_export = m.get('IsSummaryExport')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('RiskIds') is not None:
-            self.risk_ids = m.get('RiskIds')
-        if m.get('RiskLevels') is not None:
-            self.risk_levels = m.get('RiskLevels')
-        if m.get('RiskName') is not None:
-            self.risk_name = m.get('RiskName')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        if m.get('StatusList') is not None:
-            self.status_list = m.get('StatusList')
-        if m.get('StrategyId') is not None:
-            self.strategy_id = m.get('StrategyId')
-        if m.get('SubTypeNames') is not None:
-            self.sub_type_names = m.get('SubTypeNames')
-        if m.get('TypeName') is not None:
-            self.type_name = m.get('TypeName')
-        if m.get('TypeNames') is not None:
-            self.type_names = m.get('TypeNames')
-        if m.get('Uuids') is not None:
-            self.uuids = m.get('Uuids')
-        return self
-
-
-class ExportWarningResponseBody(TeaModel):
-    def __init__(self, file_name=None, id=None, request_id=None):
-        self.file_name = file_name  # type: str
-        self.id = id  # type: long
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ExportWarningResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.file_name is not None:
-            result['FileName'] = self.file_name
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('FileName') is not None:
-            self.file_name = m.get('FileName')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ExportWarningResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ExportWarningResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ExportWarningResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ExportWarningResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -25810,92 +25280,6 @@ class ModifyBackupPolicyStatusResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ModifyBackupPolicyStatusResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ModifyClearLogstoreStorageRequest(TeaModel):
-    def __init__(self, from_=None, lang=None):
-        self.from_ = from_  # type: str
-        self.lang = lang  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyClearLogstoreStorageRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.from_ is not None:
-            result['From'] = self.from_
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('From') is not None:
-            self.from_ = m.get('From')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        return self
-
-
-class ModifyClearLogstoreStorageResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyClearLogstoreStorageResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ModifyClearLogstoreStorageResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ModifyClearLogstoreStorageResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ModifyClearLogstoreStorageResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ModifyClearLogstoreStorageResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -28873,87 +28257,6 @@ class RefreshContainerAssetsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = RefreshContainerAssetsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class RefreshContainerNetworkRequest(TeaModel):
-    def __init__(self, cluster_id=None):
-        self.cluster_id = cluster_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RefreshContainerNetworkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cluster_id is not None:
-            result['ClusterId'] = self.cluster_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ClusterId') is not None:
-            self.cluster_id = m.get('ClusterId')
-        return self
-
-
-class RefreshContainerNetworkResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(RefreshContainerNetworkResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class RefreshContainerNetworkResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: RefreshContainerNetworkResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(RefreshContainerNetworkResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = RefreshContainerNetworkResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
