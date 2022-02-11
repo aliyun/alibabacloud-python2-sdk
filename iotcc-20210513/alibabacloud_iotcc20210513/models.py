@@ -4069,15 +4069,19 @@ class ListDiagnoseInfoForSingleCardRequest(TeaModel):
 
 
 class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
-    def __init__(self, begin_time=None, card_ip=None, destination=None, diagnose_time=None, end_time=None,
-                 iccid=None, io_tcloud_connector_id=None, status=None, task_id=None):
+    def __init__(self, begin_time=None, card_ip=None, destination=None, destination_type=None, diagnose_time=None,
+                 end_time=None, iccid=None, io_tcloud_connector_id=None, source=None, source_type=None, status=None,
+                 task_id=None):
         self.begin_time = begin_time  # type: long
         self.card_ip = card_ip  # type: str
         self.destination = destination  # type: str
+        self.destination_type = destination_type  # type: str
         self.diagnose_time = diagnose_time  # type: long
         self.end_time = end_time  # type: long
         self.iccid = iccid  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.source = source  # type: str
+        self.source_type = source_type  # type: str
         self.status = status  # type: str
         self.task_id = task_id  # type: str
 
@@ -4096,6 +4100,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             result['CardIp'] = self.card_ip
         if self.destination is not None:
             result['Destination'] = self.destination
+        if self.destination_type is not None:
+            result['DestinationType'] = self.destination_type
         if self.diagnose_time is not None:
             result['DiagnoseTime'] = self.diagnose_time
         if self.end_time is not None:
@@ -4104,6 +4110,10 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             result['Iccid'] = self.iccid
         if self.io_tcloud_connector_id is not None:
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
         if self.status is not None:
             result['Status'] = self.status
         if self.task_id is not None:
@@ -4118,6 +4128,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             self.card_ip = m.get('CardIp')
         if m.get('Destination') is not None:
             self.destination = m.get('Destination')
+        if m.get('DestinationType') is not None:
+            self.destination_type = m.get('DestinationType')
         if m.get('DiagnoseTime') is not None:
             self.diagnose_time = m.get('DiagnoseTime')
         if m.get('EndTime') is not None:
@@ -4126,6 +4138,10 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             self.iccid = m.get('Iccid')
         if m.get('IoTCloudConnectorId') is not None:
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TaskId') is not None:
