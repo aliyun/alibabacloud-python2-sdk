@@ -1,3 +1,7 @@
+2022-02-11 Version: 1.2.2
+- Add OTA API, including ReupgradeOTATask.
+
+
 2021-04-27 Version: 1.2.1
 - Update AMP API.
 
