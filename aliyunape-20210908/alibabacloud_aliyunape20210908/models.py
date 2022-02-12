@@ -171,6 +171,174 @@ class ApeInnerCommonApiResponse(TeaModel):
         return self
 
 
+class ApeProvinceStationRefRequest(TeaModel):
+    def __init__(self, adcode=None, app_name=None, city=None, cnty=None, country=None, offset=None, page_size=None,
+                 province_code=None, province_name=None, station_name=None):
+        # adcode
+        self.adcode = adcode  # type: long
+        # appName
+        self.app_name = app_name  # type: str
+        # city
+        self.city = city  # type: str
+        # cnty
+        self.cnty = cnty  # type: str
+        # country
+        self.country = country  # type: str
+        # offset
+        self.offset = offset  # type: int
+        # pageSize
+        self.page_size = page_size  # type: int
+        # provinceCode
+        self.province_code = province_code  # type: long
+        # provinceName
+        self.province_name = province_name  # type: str
+        # stationName
+        self.station_name = station_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApeProvinceStationRefRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adcode is not None:
+            result['Adcode'] = self.adcode
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.city is not None:
+            result['City'] = self.city
+        if self.cnty is not None:
+            result['Cnty'] = self.cnty
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.offset is not None:
+            result['Offset'] = self.offset
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.province_code is not None:
+            result['ProvinceCode'] = self.province_code
+        if self.province_name is not None:
+            result['ProvinceName'] = self.province_name
+        if self.station_name is not None:
+            result['StationName'] = self.station_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Adcode') is not None:
+            self.adcode = m.get('Adcode')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('Cnty') is not None:
+            self.cnty = m.get('Cnty')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Offset') is not None:
+            self.offset = m.get('Offset')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProvinceCode') is not None:
+            self.province_code = m.get('ProvinceCode')
+        if m.get('ProvinceName') is not None:
+            self.province_name = m.get('ProvinceName')
+        if m.get('StationName') is not None:
+            self.station_name = m.get('StationName')
+        return self
+
+
+class ApeProvinceStationRefResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, rt=None, success=None):
+        # code
+        self.code = code  # type: str
+        # data
+        self.data = data  # type: any
+        # message
+        self.message = message  # type: str
+        # requestId
+        self.request_id = request_id  # type: str
+        # rt
+        self.rt = rt  # type: long
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApeProvinceStationRefResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ApeProvinceStationRefResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ApeProvinceStationRefResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ApeProvinceStationRefResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ApeProvinceStationRefResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class HistoricalRequest(TeaModel):
     def __init__(self, end_time=None, order_id=None, page_num=None, page_size=None, start_time=None, station=None):
         # endTime

@@ -44,7 +44,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -56,18 +56,69 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.ape_inner_common_api_with_options(request, runtime)
 
+    def ape_province_station_ref_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.adcode):
+            query['Adcode'] = request.adcode
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.city):
+            query['City'] = request.city
+        if not UtilClient.is_unset(request.cnty):
+            query['Cnty'] = request.cnty
+        if not UtilClient.is_unset(request.country):
+            query['Country'] = request.country
+        if not UtilClient.is_unset(request.offset):
+            query['Offset'] = request.offset
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.province_code):
+            query['ProvinceCode'] = request.province_code
+        if not UtilClient.is_unset(request.province_name):
+            query['ProvinceName'] = request.province_name
+        if not UtilClient.is_unset(request.station_name):
+            query['StationName'] = request.station_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ApeProvinceStationRef',
+            version='2021-09-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            aliyunape_20210908_models.ApeProvinceStationRefResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def ape_province_station_ref(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.ape_province_station_ref_with_options(request, runtime)
+
     def historical_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['OrderId'] = request.order_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['StartTime'] = request.start_time
-        query['Station'] = request.station
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.station):
+            query['Station'] = request.station
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='Historical',
@@ -77,7 +128,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -92,12 +143,14 @@ class Client(OpenApiClient):
     def station_day_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
-        query['StartForecast'] = request.start_forecast
-        query['Station'] = request.station
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.start_forecast):
+            query['StartForecast'] = request.start_forecast
+        if not UtilClient.is_unset(request.station):
+            query['Station'] = request.station
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StationDay',
@@ -107,7 +160,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -122,13 +175,16 @@ class Client(OpenApiClient):
     def weatherforecast_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Lat'] = request.lat
-        query['Lon'] = request.lon
-        query['OrderId'] = request.order_id
-        query['StartForecast'] = request.start_forecast
+        if not UtilClient.is_unset(request.lat):
+            query['Lat'] = request.lat
+        if not UtilClient.is_unset(request.lon):
+            query['Lon'] = request.lon
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.start_forecast):
+            query['StartForecast'] = request.start_forecast
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='Weatherforecast',
@@ -138,7 +194,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -153,13 +209,16 @@ class Client(OpenApiClient):
     def weatherforecast_time_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CurHour'] = request.cur_hour
-        query['Lat'] = request.lat
-        query['Lon'] = request.lon
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.cur_hour):
+            query['CurHour'] = request.cur_hour
+        if not UtilClient.is_unset(request.lat):
+            query['Lat'] = request.lat
+        if not UtilClient.is_unset(request.lon):
+            query['Lon'] = request.lon
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='WeatherforecastTime',
@@ -169,7 +228,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -184,13 +243,16 @@ class Client(OpenApiClient):
     def weathermonitor_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CurHour'] = request.cur_hour
-        query['OrderId'] = request.order_id
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.cur_hour):
+            query['CurHour'] = request.cur_hour
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='Weathermonitor',
@@ -200,7 +262,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
