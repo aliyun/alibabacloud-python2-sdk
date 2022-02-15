@@ -46,9 +46,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='AddProblemServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/addServiceGroup',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.AddProblemServiceGroupResponse(),
-            self.do_roarequest('AddProblemServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/addServiceGroup', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def cancel_problem(self, request):
@@ -73,9 +84,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CancelProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/cancel',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CancelProblemResponse(),
-            self.do_roarequest('CancelProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/cancel', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_webhook(self, request):
@@ -96,9 +118,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CheckWebhook',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/check/webhook',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CheckWebhookResponse(),
-            self.do_roarequest('CheckWebhook', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/check/webhook', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def confirm_integration_config(self, request):
@@ -117,9 +150,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ConfirmIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/confirm',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ConfirmIntegrationConfigResponse(),
-            self.do_roarequest('ConfirmIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/confirm', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_escalation_plan(self, request):
@@ -144,9 +188,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateEscalationPlanResponse(),
-            self.do_roarequest('CreateEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_incident(self, request):
@@ -179,9 +234,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/manualSave',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateIncidentResponse(),
-            self.do_roarequest('CreateIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/manualSave', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_incident_subtotal(self, request):
@@ -202,9 +268,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateIncidentSubtotal',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/save/subtotal',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateIncidentSubtotalResponse(),
-            self.do_roarequest('CreateIncidentSubtotal', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/save/subtotal', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_integration_config(self, request):
@@ -223,9 +300,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateIntegrationConfigResponse(),
-            self.do_roarequest('CreateIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem(self, request):
@@ -258,6 +346,8 @@ class Client(OpenApiClient):
             body['problemStatus'] = request.problem_status
         if not UtilClient.is_unset(request.progress_summary):
             body['progressSummary'] = request.progress_summary
+        if not UtilClient.is_unset(request.progress_summary_rich_text_id):
+            body['progressSummaryRichTextId'] = request.progress_summary_rich_text_id
         if not UtilClient.is_unset(request.recovery_time):
             body['recoveryTime'] = request.recovery_time
         if not UtilClient.is_unset(request.related_service_id):
@@ -268,9 +358,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/upgrade',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemResponse(),
-            self.do_roarequest('CreateProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/upgrade', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem_effection_service(self, request):
@@ -299,9 +400,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblemEffectionService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/effectionService/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemEffectionServiceResponse(),
-            self.do_roarequest('CreateProblemEffectionService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/effectionService/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem_measure(self, request):
@@ -336,9 +448,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblemMeasure',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/improvement/measure/save',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemMeasureResponse(),
-            self.do_roarequest('CreateProblemMeasure', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/improvement/measure/save', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem_subtotal(self, request):
@@ -359,9 +482,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblemSubtotal',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/save/subtotal',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemSubtotalResponse(),
-            self.do_roarequest('CreateProblemSubtotal', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/save/subtotal', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem_timeline(self, request):
@@ -386,9 +520,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblemTimeline',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/timeline/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemTimelineResponse(),
-            self.do_roarequest('CreateProblemTimeline', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/timeline/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_problem_timelines(self, request):
@@ -409,9 +554,54 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateProblemTimelines',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/timeline/batchCreate',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateProblemTimelinesResponse(),
-            self.do_roarequest('CreateProblemTimelines', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/timeline/batchCreate', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def create_rich_text(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_rich_text_with_options(request, headers, runtime)
+
+    def create_rich_text_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.rich_text):
+            body['richText'] = request.rich_text
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRichText',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/rich/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.CreateRichTextResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def create_route_rule(self, request):
@@ -426,6 +616,8 @@ class Client(OpenApiClient):
             body['assignObjectId'] = request.assign_object_id
         if not UtilClient.is_unset(request.assign_object_type):
             body['assignObjectType'] = request.assign_object_type
+        if not UtilClient.is_unset(request.child_rule_relation):
+            body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.effection):
@@ -454,9 +646,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/save',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateRouteRuleResponse(),
-            self.do_roarequest('CreateRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/save', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_service(self, request):
@@ -477,9 +680,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/save',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateServiceResponse(),
-            self.do_roarequest('CreateService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/save', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_service_group(self, request):
@@ -494,6 +708,8 @@ class Client(OpenApiClient):
             body['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.enable_webhook):
             body['enableWebhook'] = request.enable_webhook
+        if not UtilClient.is_unset(request.monitor_source_templates):
+            body['monitorSourceTemplates'] = request.monitor_source_templates
         if not UtilClient.is_unset(request.service_group_description):
             body['serviceGroupDescription'] = request.service_group_description
         if not UtilClient.is_unset(request.service_group_name):
@@ -508,9 +724,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/insert',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateServiceGroupResponse(),
-            self.do_roarequest('CreateServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/insert', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_service_group_scheduling(self, request):
@@ -535,9 +762,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateServiceGroupScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/save',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateServiceGroupSchedulingResponse(),
-            self.do_roarequest('CreateServiceGroupScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/save', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_subscription(self, request):
@@ -574,9 +812,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateSubscriptionResponse(),
-            self.do_roarequest('CreateSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_tenant_application(self, request):
@@ -595,9 +844,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateTenantApplication',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/mobileApp/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateTenantApplicationResponse(),
-            self.do_roarequest('CreateTenantApplication', '2021-04-13', 'HTTPS', 'POST', 'AK', '/mobileApp/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_user(self, request):
@@ -622,9 +882,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.CreateUserResponse(),
-            self.do_roarequest('CreateUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/create', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_escalation_plan(self, request):
@@ -643,9 +914,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteEscalationPlanResponse(),
-            self.do_roarequest('DeleteEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_incident(self, request):
@@ -664,9 +946,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteIncidentResponse(),
-            self.do_roarequest('DeleteIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_integration_config(self, request):
@@ -685,9 +978,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteIntegrationConfigResponse(),
-            self.do_roarequest('DeleteIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_problem(self, request):
@@ -706,9 +1010,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteProblemResponse(),
-            self.do_roarequest('DeleteProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_problem_effection_service(self, request):
@@ -729,9 +1044,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteProblemEffectionService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/effectionService/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteProblemEffectionServiceResponse(),
-            self.do_roarequest('DeleteProblemEffectionService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/effectionService/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_problem_measure(self, request):
@@ -752,9 +1078,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteProblemMeasure',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/improvement/measure/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteProblemMeasureResponse(),
-            self.do_roarequest('DeleteProblemMeasure', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/improvement/measure/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_problem_timeline(self, request):
@@ -775,9 +1112,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteProblemTimeline',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/timeline/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteProblemTimelineResponse(),
-            self.do_roarequest('DeleteProblemTimeline', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/timeline/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_route_rule(self, request):
@@ -796,9 +1144,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteRouteRuleResponse(),
-            self.do_roarequest('DeleteRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_service(self, request):
@@ -817,9 +1176,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteServiceResponse(),
-            self.do_roarequest('DeleteService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_service_group(self, request):
@@ -838,9 +1208,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteServiceGroupResponse(),
-            self.do_roarequest('DeleteServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_service_group_user(self, request):
@@ -865,9 +1246,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteServiceGroupUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/deleteServiceGroupUser',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteServiceGroupUserResponse(),
-            self.do_roarequest('DeleteServiceGroupUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/deleteServiceGroupUser', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_subscription(self, request):
@@ -884,9 +1276,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteSubscriptionResponse(),
-            self.do_roarequest('DeleteSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_user(self, request):
@@ -905,9 +1308,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeleteUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/delete',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeleteUserResponse(),
-            self.do_roarequest('DeleteUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/delete', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def deliver_incident(self, request):
@@ -928,9 +1342,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DeliverIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/deliver',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DeliverIncidentResponse(),
-            self.do_roarequest('DeliverIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/deliver', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_escalation_plan(self, request):
@@ -949,9 +1374,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DisableEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/disable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DisableEscalationPlanResponse(),
-            self.do_roarequest('DisableEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/disable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_integration_config(self, request):
@@ -970,9 +1406,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DisableIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/disable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DisableIntegrationConfigResponse(),
-            self.do_roarequest('DisableIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/disable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_route_rule(self, request):
@@ -991,9 +1438,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DisableRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/disable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DisableRouteRuleResponse(),
-            self.do_roarequest('DisableRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/disable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_service_group_webhook(self, request):
@@ -1012,9 +1470,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DisableServiceGroupWebhook',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/disableWebhook',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DisableServiceGroupWebhookResponse(),
-            self.do_roarequest('DisableServiceGroupWebhook', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/disableWebhook', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_subscription(self, request):
@@ -1031,9 +1500,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='DisableSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/doDisable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.DisableSubscriptionResponse(),
-            self.do_roarequest('DisableSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/doDisable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def enable_escalation_plan(self, request):
@@ -1052,9 +1532,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='EnableEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/enable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.EnableEscalationPlanResponse(),
-            self.do_roarequest('EnableEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/enable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def enable_integration_config(self, request):
@@ -1073,9 +1564,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='EnableIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/enable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.EnableIntegrationConfigResponse(),
-            self.do_roarequest('EnableIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/enable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def enable_route_rule(self, request):
@@ -1094,9 +1596,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='EnableRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/enable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.EnableRouteRuleResponse(),
-            self.do_roarequest('EnableRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/enable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def enable_service_group_webhook(self, request):
@@ -1115,9 +1628,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='EnableServiceGroupWebhook',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/enableWebhook',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.EnableServiceGroupWebhookResponse(),
-            self.do_roarequest('EnableServiceGroupWebhook', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/enableWebhook', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def enable_subscription(self, request):
@@ -1134,9 +1658,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='EnableSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/enable',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.EnableSubscriptionResponse(),
-            self.do_roarequest('EnableSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/enable', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def finish_incident(self, request):
@@ -1163,9 +1698,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='FinishIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/finish',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.FinishIncidentResponse(),
-            self.do_roarequest('FinishIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/finish', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def finish_problem(self, request):
@@ -1184,9 +1730,86 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='FinishProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/finish',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.FinishProblemResponse(),
-            self.do_roarequest('FinishProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/finish', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_picture_link(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_picture_link_with_options(request, headers, runtime)
+
+    def generate_picture_link_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.keys):
+            body['keys'] = request.keys
+        if not UtilClient.is_unset(request.problem_id):
+            body['problemId'] = request.problem_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GeneratePictureLink',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/rich/oss/getPictureLink',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.GeneratePictureLinkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_picture_upload_sign(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.generate_picture_upload_sign_with_options(request, headers, runtime)
+
+    def generate_picture_upload_sign_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.files):
+            body['files'] = request.files
+        if not UtilClient.is_unset(request.instance_id):
+            body['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GeneratePictureUploadSign',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/rich/oss/generatePostPolicy',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.GeneratePictureUploadSignResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def generate_problem_picture_link(self, request):
@@ -1205,9 +1828,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GenerateProblemPictureLink',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/oss/getPresignedLink',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GenerateProblemPictureLinkResponse(),
-            self.do_roarequest('GenerateProblemPictureLink', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/oss/getPresignedLink', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def generate_problem_picture_upload_sign(self, request):
@@ -1230,9 +1864,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GenerateProblemPictureUploadSign',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/oss/generatePostPolicy',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GenerateProblemPictureUploadSignResponse(),
-            self.do_roarequest('GenerateProblemPictureUploadSign', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/oss/generatePostPolicy', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_escalation_plan(self, request):
@@ -1251,9 +1896,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetEscalationPlanResponse(),
-            self.do_roarequest('GetEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_event(self, request):
@@ -1270,9 +1926,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetEvent',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/events/getLastTimeEvent',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetEventResponse(),
-            self.do_roarequest('GetEvent', '2021-04-13', 'HTTPS', 'POST', 'AK', '/events/getLastTimeEvent', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_home_page_guidance(self, request):
@@ -1289,9 +1956,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetHomePageGuidance',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/guidance/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetHomePageGuidanceResponse(),
-            self.do_roarequest('GetHomePageGuidance', '2021-04-13', 'HTTPS', 'POST', 'AK', '/guidance/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_incident(self, request):
@@ -1310,9 +1988,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetIncidentResponse(),
-            self.do_roarequest('GetIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_incident_statistics(self, request):
@@ -1329,9 +2018,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetIncidentStatistics',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/count',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetIncidentStatisticsResponse(),
-            self.do_roarequest('GetIncidentStatistics', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/count', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_incident_subtotal_count(self, request):
@@ -1350,9 +2050,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetIncidentSubtotalCount',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/subtotal/count',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetIncidentSubtotalCountResponse(),
-            self.do_roarequest('GetIncidentSubtotalCount', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/subtotal/count', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_integration_config(self, request):
@@ -1371,9 +2082,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetIntegrationConfigResponse(),
-            self.do_roarequest('GetIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_problem(self, request):
@@ -1392,9 +2114,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetProblemResponse(),
-            self.do_roarequest('GetProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_problem_effection_service(self, request):
@@ -1415,9 +2148,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetProblemEffectionService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/effectionService/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetProblemEffectionServiceResponse(),
-            self.do_roarequest('GetProblemEffectionService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/effectionService/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_problem_improvement(self, request):
@@ -1436,9 +2180,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetProblemImprovement',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/improvement/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetProblemImprovementResponse(),
-            self.do_roarequest('GetProblemImprovement', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/improvement/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_problem_preview(self, request):
@@ -1469,9 +2224,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetProblemPreview',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/preview',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetProblemPreviewResponse(),
-            self.do_roarequest('GetProblemPreview', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/preview', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_resource_statistics(self, request):
@@ -1488,9 +2254,54 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetResourceStatistics',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/config/resource/count',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetResourceStatisticsResponse(),
-            self.do_roarequest('GetResourceStatistics', '2021-04-13', 'HTTPS', 'POST', 'AK', '/config/resource/count', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def get_rich_text(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_rich_text_with_options(request, headers, runtime)
+
+    def get_rich_text_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.rich_text_id):
+            body['richTextId'] = request.rich_text_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetRichText',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/rich/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.GetRichTextResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def get_route_rule(self, request):
@@ -1509,9 +2320,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetRouteRuleResponse(),
-            self.do_roarequest('GetRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service(self, request):
@@ -1530,9 +2352,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceResponse(),
-            self.do_roarequest('GetService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service_group(self, request):
@@ -1551,9 +2384,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceGroupResponse(),
-            self.do_roarequest('GetServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service_group_person_scheduling(self, request):
@@ -1578,9 +2422,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetServiceGroupPersonScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/user/getScheduling',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceGroupPersonSchedulingResponse(),
-            self.do_roarequest('GetServiceGroupPersonScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/user/getScheduling', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service_group_scheduling(self, request):
@@ -1599,9 +2454,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetServiceGroupScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceGroupSchedulingResponse(),
-            self.do_roarequest('GetServiceGroupScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service_group_scheduling_preview(self, request):
@@ -1630,9 +2496,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetServiceGroupSchedulingPreview',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/preview',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceGroupSchedulingPreviewResponse(),
-            self.do_roarequest('GetServiceGroupSchedulingPreview', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/preview', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_service_group_special_person_scheduling(self, request):
@@ -1653,9 +2530,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetServiceGroupSpecialPersonScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/getUserScheduling',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetServiceGroupSpecialPersonSchedulingResponse(),
-            self.do_roarequest('GetServiceGroupSpecialPersonScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/getUserScheduling', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_similar_incident_statistics(self, request):
@@ -1682,9 +2570,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetSimilarIncidentStatistics',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/similarIncident/statistics',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetSimilarIncidentStatisticsResponse(),
-            self.do_roarequest('GetSimilarIncidentStatistics', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/similarIncident/statistics', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_subscription(self, request):
@@ -1701,9 +2600,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetSubscriptionResponse(),
-            self.do_roarequest('GetSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_tenant_application(self, request):
@@ -1720,9 +2630,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetTenantApplication',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/mobileApp/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetTenantApplicationResponse(),
-            self.do_roarequest('GetTenantApplication', '2021-04-13', 'HTTPS', 'POST', 'AK', '/mobileApp/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_user(self, request):
@@ -1741,9 +2662,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/getUser',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetUserResponse(),
-            self.do_roarequest('GetUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/getUser', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_user_guide_status(self, request):
@@ -1760,9 +2692,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='GetUserGuideStatus',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/guide/status',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.GetUserGuideStatusResponse(),
-            self.do_roarequest('GetUserGuideStatus', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/guide/status', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_alerts(self, request):
@@ -1787,15 +2730,28 @@ class Client(OpenApiClient):
             body['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.related_service_id):
             body['relatedServiceId'] = request.related_service_id
+        if not UtilClient.is_unset(request.rule_name):
+            body['ruleName'] = request.rule_name
         if not UtilClient.is_unset(request.start_time):
             body['startTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListAlerts',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/alerts/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListAlertsResponse(),
-            self.do_roarequest('ListAlerts', '2021-04-13', 'HTTPS', 'POST', 'AK', '/alerts/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_chart_data_for_service_group(self, request):
@@ -1816,9 +2772,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListChartDataForServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/statistics/chartDataForServiceGroup/',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListChartDataForServiceGroupResponse(),
-            self.do_roarequest('ListChartDataForServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/statistics/chartDataForServiceGroup/', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_chart_data_for_user(self, request):
@@ -1839,9 +2806,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListChartDataForUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/statistics/chartDataForUser/',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListChartDataForUserResponse(),
-            self.do_roarequest('ListChartDataForUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/statistics/chartDataForUser/', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_configs(self, request):
@@ -1858,9 +2836,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListConfigs',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/config/all',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListConfigsResponse(),
-            self.do_roarequest('ListConfigs', '2021-04-13', 'HTTPS', 'POST', 'AK', '/config/all', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_report_for_service_group(self, request):
@@ -1881,9 +2870,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListDataReportForServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/statistics/listDataReportForServiceGroup',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListDataReportForServiceGroupResponse(),
-            self.do_roarequest('ListDataReportForServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/statistics/listDataReportForServiceGroup', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_data_report_for_user(self, request):
@@ -1906,9 +2906,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListDataReportForUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/statistics/listDataReportForUser',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListDataReportForUserResponse(),
-            self.do_roarequest('ListDataReportForUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/statistics/listDataReportForUser', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_dictionaries(self, request):
@@ -1925,9 +2936,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListDictionaries',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/dict/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListDictionariesResponse(),
-            self.do_roarequest('ListDictionaries', '2021-04-13', 'HTTPS', 'POST', 'AK', '/dict/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_escalation_plan_services(self, request):
@@ -1944,9 +2966,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListEscalationPlanServices',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/services',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListEscalationPlanServicesResponse(),
-            self.do_roarequest('ListEscalationPlanServices', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/services', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_escalation_plans(self, request):
@@ -1971,9 +3004,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListEscalationPlans',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListEscalationPlansResponse(),
-            self.do_roarequest('ListEscalationPlans', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_incident_detail_escalation_plans(self, request):
@@ -1992,9 +3036,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIncidentDetailEscalationPlans',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/detail/escalation',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIncidentDetailEscalationPlansResponse(),
-            self.do_roarequest('ListIncidentDetailEscalationPlans', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/detail/escalation', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_incident_detail_timelines(self, request):
@@ -2017,9 +3072,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIncidentDetailTimelines',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/detail/timeline',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIncidentDetailTimelinesResponse(),
-            self.do_roarequest('ListIncidentDetailTimelines', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/detail/timeline', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_incident_subtotals(self, request):
@@ -2038,9 +3104,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIncidentSubtotals',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/list/subtotal',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIncidentSubtotalsResponse(),
-            self.do_roarequest('ListIncidentSubtotals', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/list/subtotal', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_incident_timelines(self, request):
@@ -2061,9 +3138,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIncidentTimelines',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/timeline',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIncidentTimelinesResponse(),
-            self.do_roarequest('ListIncidentTimelines', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/timeline', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_incidents(self, request):
@@ -2094,13 +3182,26 @@ class Client(OpenApiClient):
             body['pageSize'] = request.page_size
         if not UtilClient.is_unset(request.relation_service_id):
             body['relationServiceId'] = request.relation_service_id
+        if not UtilClient.is_unset(request.rule_name):
+            body['ruleName'] = request.rule_name
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIncidents',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIncidentsResponse(),
-            self.do_roarequest('ListIncidents', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_integration_config_timelines(self, request):
@@ -2123,9 +3224,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIntegrationConfigTimelines',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/timeline',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIntegrationConfigTimelinesResponse(),
-            self.do_roarequest('ListIntegrationConfigTimelines', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/timeline', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_integration_configs(self, request):
@@ -2144,9 +3256,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListIntegrationConfigs',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListIntegrationConfigsResponse(),
-            self.do_roarequest('ListIntegrationConfigs', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_monitor_sources(self, request):
@@ -2163,9 +3286,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListMonitorSources',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/monitorSource/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListMonitorSourcesResponse(),
-            self.do_roarequest('ListMonitorSources', '2021-04-13', 'HTTPS', 'POST', 'AK', '/monitorSource/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_problem_detail_operations(self, request):
@@ -2190,9 +3324,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListProblemDetailOperations',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/detail/operations',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListProblemDetailOperationsResponse(),
-            self.do_roarequest('ListProblemDetailOperations', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/detail/operations', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_problem_operations(self, request):
@@ -2213,9 +3358,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListProblemOperations',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/operations',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListProblemOperationsResponse(),
-            self.do_roarequest('ListProblemOperations', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/operations', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_problem_subtotals(self, request):
@@ -2234,9 +3390,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListProblemSubtotals',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/list/subtotal',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListProblemSubtotalsResponse(),
-            self.do_roarequest('ListProblemSubtotals', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/list/subtotal', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_problem_time_lines(self, request):
@@ -2255,9 +3422,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListProblemTimeLines',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/detail/timeLines',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListProblemTimeLinesResponse(),
-            self.do_roarequest('ListProblemTimeLines', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/detail/timeLines', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_problems(self, request):
@@ -2300,9 +3478,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListProblems',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/listProblems',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListProblemsResponse(),
-            self.do_roarequest('ListProblems', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/listProblems', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_route_rules(self, request):
@@ -2319,6 +3508,8 @@ class Client(OpenApiClient):
             body['pageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             body['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.route_type):
+            body['routeType'] = request.route_type
         if not UtilClient.is_unset(request.rule_name):
             body['ruleName'] = request.rule_name
         if not UtilClient.is_unset(request.service_name):
@@ -2327,9 +3518,54 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListRouteRules',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListRouteRulesResponse(),
-            self.do_roarequest('ListRouteRules', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_group_monitor_source_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_group_monitor_source_templates_with_options(request, headers, runtime)
+
+    def list_service_group_monitor_source_templates_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.request_id):
+            body['requestId'] = request.request_id
+        if not UtilClient.is_unset(request.service_group_id):
+            body['serviceGroupId'] = request.service_group_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListServiceGroupMonitorSourceTemplates',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/listServiceGroupMonitorSourceTemplates',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListServiceGroupMonitorSourceTemplatesResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def list_service_groups(self, request):
@@ -2360,9 +3596,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListServiceGroups',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListServiceGroupsResponse(),
-            self.do_roarequest('ListServiceGroups', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_services(self, request):
@@ -2385,9 +3632,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListServices',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListServicesResponse(),
-            self.do_roarequest('ListServices', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_source_events(self, request):
@@ -2420,9 +3678,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListSourceEvents',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/events/listOriginalEvent',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListSourceEventsResponse(),
-            self.do_roarequest('ListSourceEvents', '2021-04-13', 'HTTPS', 'POST', 'AK', '/events/listOriginalEvent', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_source_events_for_monitor_source(self, request):
@@ -2439,9 +3708,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListSourceEventsForMonitorSource',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/events/queryLastestEvents',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListSourceEventsForMonitorSourceResponse(),
-            self.do_roarequest('ListSourceEventsForMonitorSource', '2021-04-13', 'HTTPS', 'POST', 'AK', '/events/queryLastestEvents', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_subscription_service_groups(self, request):
@@ -2460,9 +3740,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListSubscriptionServiceGroups',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/serviceGroup/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListSubscriptionServiceGroupsResponse(),
-            self.do_roarequest('ListSubscriptionServiceGroups', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/serviceGroup/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_subscriptions(self, request):
@@ -2493,9 +3784,60 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListSubscriptions',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListSubscriptionsResponse(),
-            self.do_roarequest('ListSubscriptions', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def list_trend_for_source_event(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_trend_for_source_event_with_options(request, headers, runtime)
+
+    def list_trend_for_source_event_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.end_time):
+            body['endTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.request_id):
+            body['requestId'] = request.request_id
+        if not UtilClient.is_unset(request.start_time):
+            body['startTime'] = request.start_time
+        if not UtilClient.is_unset(request.time_unit):
+            body['timeUnit'] = request.time_unit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListTrendForSourceEvent',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/events/querySourceEventTrend',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.ListTrendForSourceEventResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def list_user_serivce_groups(self, request):
@@ -2514,9 +3856,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListUserSerivceGroups',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/preview/detail',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListUserSerivceGroupsResponse(),
-            self.do_roarequest('ListUserSerivceGroups', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/preview/detail', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_users(self, request):
@@ -2547,9 +3900,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ListUsers',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/list',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ListUsersResponse(),
-            self.do_roarequest('ListUsers', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/list', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def recover_problem(self, request):
@@ -2570,9 +3934,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RecoverProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/recovery',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.RecoverProblemResponse(),
-            self.do_roarequest('RecoverProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/recovery', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def refresh_integration_config_key(self, request):
@@ -2591,9 +3966,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RefreshIntegrationConfigKey',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/refreshKey',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.RefreshIntegrationConfigKeyResponse(),
-            self.do_roarequest('RefreshIntegrationConfigKey', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/refreshKey', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_problem_service_group(self, request):
@@ -2612,9 +3998,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RemoveProblemServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/removeServiceGroup',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.RemoveProblemServiceGroupResponse(),
-            self.do_roarequest('RemoveProblemServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/removeServiceGroup', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def replay_problem(self, request):
@@ -2635,9 +4032,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='ReplayProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/replay',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.ReplayProblemResponse(),
-            self.do_roarequest('ReplayProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/replay', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def respond_incident(self, request):
@@ -2656,9 +4064,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RespondIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/response',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.RespondIncidentResponse(),
-            self.do_roarequest('RespondIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/response', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def revoke_problem_recovery(self, request):
@@ -2679,9 +4098,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='RevokeProblemRecovery',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/revoke',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.RevokeProblemRecoveryResponse(),
-            self.do_roarequest('RevokeProblemRecovery', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/revoke', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_escalation_plan(self, request):
@@ -2708,9 +4138,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateEscalationPlan',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/escalationPlan/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateEscalationPlanResponse(),
-            self.do_roarequest('UpdateEscalationPlan', '2021-04-13', 'HTTPS', 'POST', 'AK', '/escalationPlan/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_incident(self, request):
@@ -2735,9 +4176,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateIncident',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateIncidentResponse(),
-            self.do_roarequest('UpdateIncident', '2021-04-13', 'HTTPS', 'POST', 'AK', '/incident/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_integration_config(self, request):
@@ -2758,9 +4210,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateIntegrationConfig',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/integrationConfig/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateIntegrationConfigResponse(),
-            self.do_roarequest('UpdateIntegrationConfig', '2021-04-13', 'HTTPS', 'POST', 'AK', '/integrationConfig/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem(self, request):
@@ -2785,6 +4248,8 @@ class Client(OpenApiClient):
             body['problemName'] = request.problem_name
         if not UtilClient.is_unset(request.progress_summary):
             body['progressSummary'] = request.progress_summary
+        if not UtilClient.is_unset(request.progress_summary_rich_text_id):
+            body['progressSummaryRichTextId'] = request.progress_summary_rich_text_id
         if not UtilClient.is_unset(request.related_service_id):
             body['relatedServiceId'] = request.related_service_id
         if not UtilClient.is_unset(request.service_group_ids):
@@ -2793,9 +4258,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblem',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemResponse(),
-            self.do_roarequest('UpdateProblem', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem_effection_service(self, request):
@@ -2826,9 +4302,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblemEffectionService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/effectionService/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemEffectionServiceResponse(),
-            self.do_roarequest('UpdateProblemEffectionService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/effectionService/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem_improvement(self, request):
@@ -2873,9 +4360,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblemImprovement',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/improvement/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemImprovementResponse(),
-            self.do_roarequest('UpdateProblemImprovement', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/improvement/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem_measure(self, request):
@@ -2912,9 +4410,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblemMeasure',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/improvement/measure/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemMeasureResponse(),
-            self.do_roarequest('UpdateProblemMeasure', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/improvement/measure/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem_notice(self, request):
@@ -2935,9 +4444,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblemNotice',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/notify',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemNoticeResponse(),
-            self.do_roarequest('UpdateProblemNotice', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/notify', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_problem_timeline(self, request):
@@ -2964,9 +4484,56 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateProblemTimeline',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/problem/process/timeline/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateProblemTimelineResponse(),
-            self.do_roarequest('UpdateProblemTimeline', '2021-04-13', 'HTTPS', 'POST', 'AK', '/problem/process/timeline/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def update_rich_text(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_rich_text_with_options(request, headers, runtime)
+
+    def update_rich_text_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['instanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            body['instanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.rich_text):
+            body['richText'] = request.rich_text
+        if not UtilClient.is_unset(request.rich_text_id):
+            body['richTextId'] = request.rich_text_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRichText',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/rich/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.UpdateRichTextResponse(),
+            self.call_api(params, req, runtime)
         )
 
     def update_route_rule(self, request):
@@ -2981,6 +4548,8 @@ class Client(OpenApiClient):
             body['assignObjectId'] = request.assign_object_id
         if not UtilClient.is_unset(request.assign_object_type):
             body['assignObjectType'] = request.assign_object_type
+        if not UtilClient.is_unset(request.child_rule_relation):
+            body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.effection):
@@ -3009,9 +4578,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/edit',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateRouteRuleResponse(),
-            self.do_roarequest('UpdateRouteRule', '2021-04-13', 'HTTPS', 'POST', 'AK', '/routeRule/edit', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_service(self, request):
@@ -3034,9 +4614,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateService',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateServiceResponse(),
-            self.do_roarequest('UpdateService', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_service_group(self, request):
@@ -3051,6 +4642,8 @@ class Client(OpenApiClient):
             body['clientToken'] = request.client_token
         if not UtilClient.is_unset(request.enable_webhook):
             body['enableWebhook'] = request.enable_webhook
+        if not UtilClient.is_unset(request.monitor_source_templates):
+            body['monitorSourceTemplates'] = request.monitor_source_templates
         if not UtilClient.is_unset(request.service_group_description):
             body['serviceGroupDescription'] = request.service_group_description
         if not UtilClient.is_unset(request.service_group_id):
@@ -3067,9 +4660,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateServiceGroup',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/modify',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateServiceGroupResponse(),
-            self.do_roarequest('UpdateServiceGroup', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/modify', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_service_group_scheduling(self, request):
@@ -3094,9 +4698,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateServiceGroupScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateServiceGroupSchedulingResponse(),
-            self.do_roarequest('UpdateServiceGroupScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_service_group_special_day_scheduling(self, request):
@@ -3119,9 +4734,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateServiceGroupSpecialDayScheduling',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/services/group/scheduling/updateSpecialDayScheduling',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateServiceGroupSpecialDaySchedulingResponse(),
-            self.do_roarequest('UpdateServiceGroupSpecialDayScheduling', '2021-04-13', 'HTTPS', 'POST', 'AK', '/services/group/scheduling/updateSpecialDayScheduling', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_subscription(self, request):
@@ -3158,9 +4784,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateSubscription',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/notify/subscription/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateSubscriptionResponse(),
-            self.do_roarequest('UpdateSubscription', '2021-04-13', 'HTTPS', 'POST', 'AK', '/notify/subscription/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_user(self, request):
@@ -3187,9 +4824,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateUser',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/update',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateUserResponse(),
-            self.do_roarequest('UpdateUser', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/update', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_user_guide_status(self, request):
@@ -3208,7 +4856,50 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateUserGuideStatus',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/user/update/guide/status',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             gemp20210413_models.UpdateUserGuideStatusResponse(),
-            self.do_roarequest('UpdateUserGuideStatus', '2021-04-13', 'HTTPS', 'POST', 'AK', '/user/update/guide/status', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def verify_route_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.verify_route_rule_with_options(request, headers, runtime)
+
+    def verify_route_rule_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.route_rule_id):
+            body['routeRuleId'] = request.route_rule_id
+        if not UtilClient.is_unset(request.test_source_events):
+            body['testSourceEvents'] = request.test_source_events
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='VerifyRouteRule',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/routeRule/verify',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.VerifyRouteRuleResponse(),
+            self.call_api(params, req, runtime)
         )
