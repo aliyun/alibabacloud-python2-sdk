@@ -686,6 +686,133 @@ class CreateConnectionPoolResponse(TeaModel):
         return self
 
 
+class CreateDNSServiceRuleRequest(TeaModel):
+    def __init__(self, authorization_rule_description=None, authorization_rule_name=None, client_token=None,
+                 destination=None, dry_run=None, io_tcloud_connector_id=None, region_id=None, service_type=None, source=None):
+        self.authorization_rule_description = authorization_rule_description  # type: str
+        self.authorization_rule_name = authorization_rule_name  # type: str
+        self.client_token = client_token  # type: str
+        self.destination = destination  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDNSServiceRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_description is not None:
+            result['AuthorizationRuleDescription'] = self.authorization_rule_description
+        if self.authorization_rule_name is not None:
+            result['AuthorizationRuleName'] = self.authorization_rule_name
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleDescription') is not None:
+            self.authorization_rule_description = m.get('AuthorizationRuleDescription')
+        if m.get('AuthorizationRuleName') is not None:
+            self.authorization_rule_name = m.get('AuthorizationRuleName')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class CreateDNSServiceRuleResponseBody(TeaModel):
+    def __init__(self, dnsservice_rule_id=None, request_id=None):
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDNSServiceRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDNSServiceRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateDNSServiceRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDNSServiceRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDNSServiceRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateGroupAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_name=None, client_token=None,
                  destination=None, destination_type=None, dry_run=None, io_tcloud_connector_group_id=None, policy=None,
@@ -820,6 +947,139 @@ class CreateGroupAuthorizationRuleResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateGroupAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateGroupDNSServiceRuleRequest(TeaModel):
+    def __init__(self, client_token=None, dnsservice_rule_description=None, dnsservice_rule_name=None,
+                 destination=None, dry_run=None, io_tcloud_connector_group_id=None, region_id=None, service_type=None,
+                 source=None):
+        self.client_token = client_token  # type: str
+        self.dnsservice_rule_description = dnsservice_rule_description  # type: str
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: str
+        self.destination = destination  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupDNSServiceRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dnsservice_rule_description is not None:
+            result['DNSServiceRuleDescription'] = self.dnsservice_rule_description
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DNSServiceRuleDescription') is not None:
+            self.dnsservice_rule_description = m.get('DNSServiceRuleDescription')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class CreateGroupDNSServiceRuleResponseBody(TeaModel):
+    def __init__(self, dnsservice_rule_id=None, io_tcloud_connector_group_id=None, request_id=None):
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateGroupDNSServiceRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateGroupDNSServiceRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateGroupDNSServiceRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateGroupDNSServiceRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateGroupDNSServiceRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1500,6 +1760,108 @@ class DeleteConnectionPoolResponse(TeaModel):
         return self
 
 
+class DeleteDNSServiceRuleRequest(TeaModel):
+    def __init__(self, client_token=None, dnsservice_rule_id=None, dry_run=None, io_tcloud_connector_id=None,
+                 region_id=None):
+        self.client_token = client_token  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDNSServiceRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteDNSServiceRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDNSServiceRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDNSServiceRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDNSServiceRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDNSServiceRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDNSServiceRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteGroupAuthorizationRuleRequest(TeaModel):
     def __init__(self, authorization_rule_id=None, client_token=None, dry_run=None,
                  io_tcloud_connector_group_id=None, region_id=None):
@@ -1598,6 +1960,108 @@ class DeleteGroupAuthorizationRuleResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteGroupAuthorizationRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteGroupDNSServiceRuleRequest(TeaModel):
+    def __init__(self, client_token=None, dnsservice_rule_id=None, dry_run=None, io_tcloud_connector_group_id=None,
+                 region_id=None):
+        self.client_token = client_token  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupDNSServiceRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteGroupDNSServiceRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteGroupDNSServiceRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteGroupDNSServiceRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteGroupDNSServiceRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteGroupDNSServiceRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteGroupDNSServiceRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2616,14 +3080,14 @@ class GetDiagnoseResultForSingleCardResponseBodyErrorResult(TeaModel):
 
 class GetDiagnoseResultForSingleCardResponseBody(TeaModel):
     def __init__(self, begin_time=None, card_ip=None, destination=None, diagnose_item=None, end_time=None,
-                 error_result=None, iccid=None, io_tcloud_connector_id=None, request_id=None, status=None):
+                 error_result=None, icc_id=None, io_tcloud_connector_id=None, request_id=None, status=None):
         self.begin_time = begin_time  # type: long
         self.card_ip = card_ip  # type: str
         self.destination = destination  # type: str
         self.diagnose_item = diagnose_item  # type: list[GetDiagnoseResultForSingleCardResponseBodyDiagnoseItem]
         self.end_time = end_time  # type: long
         self.error_result = error_result  # type: list[GetDiagnoseResultForSingleCardResponseBodyErrorResult]
-        self.iccid = iccid  # type: str
+        self.icc_id = icc_id  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
@@ -2660,8 +3124,8 @@ class GetDiagnoseResultForSingleCardResponseBody(TeaModel):
         if self.error_result is not None:
             for k in self.error_result:
                 result['ErrorResult'].append(k.to_map() if k else None)
-        if self.iccid is not None:
-            result['Iccid'] = self.iccid
+        if self.icc_id is not None:
+            result['IccId'] = self.icc_id
         if self.io_tcloud_connector_id is not None:
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.request_id is not None:
@@ -2690,8 +3154,8 @@ class GetDiagnoseResultForSingleCardResponseBody(TeaModel):
             for k in m.get('ErrorResult'):
                 temp_model = GetDiagnoseResultForSingleCardResponseBodyErrorResult()
                 self.error_result.append(temp_model.from_map(k))
-        if m.get('Iccid') is not None:
-            self.iccid = m.get('Iccid')
+        if m.get('IccId') is not None:
+            self.icc_id = m.get('IccId')
         if m.get('IoTCloudConnectorId') is not None:
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('RequestId') is not None:
@@ -4018,6 +4482,222 @@ class ListConnectionPoolsResponse(TeaModel):
         return self
 
 
+class ListDNSServiceRulesRequest(TeaModel):
+    def __init__(self, dnsservice_rule_ids=None, dnsservice_rule_name=None, dnsservice_rule_status=None,
+                 destination=None, io_tcloud_connector_id=None, max_results=None, next_token=None, region_id=None,
+                 service_type=None, source=None):
+        self.dnsservice_rule_ids = dnsservice_rule_ids  # type: list[str]
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: list[str]
+        self.dnsservice_rule_status = dnsservice_rule_status  # type: list[str]
+        self.destination = destination  # type: list[str]
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDNSServiceRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_ids is not None:
+            result['DNSServiceRuleIds'] = self.dnsservice_rule_ids
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.dnsservice_rule_status is not None:
+            result['DNSServiceRuleStatus'] = self.dnsservice_rule_status
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleIds') is not None:
+            self.dnsservice_rule_ids = m.get('DNSServiceRuleIds')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('DNSServiceRuleStatus') is not None:
+            self.dnsservice_rule_status = m.get('DNSServiceRuleStatus')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class ListDNSServiceRulesResponseBodyDNSServiceRules(TeaModel):
+    def __init__(self, dnsservice_rule_description=None, dnsservice_rule_id=None, dnsservice_rule_name=None,
+                 dnsservice_rule_status=None, destination=None, io_tcloud_connector_id=None, service_type=None, source=None):
+        self.dnsservice_rule_description = dnsservice_rule_description  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: str
+        self.dnsservice_rule_status = dnsservice_rule_status  # type: str
+        self.destination = destination  # type: str
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListDNSServiceRulesResponseBodyDNSServiceRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_description is not None:
+            result['DNSServiceRuleDescription'] = self.dnsservice_rule_description
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.dnsservice_rule_status is not None:
+            result['DNSServiceRuleStatus'] = self.dnsservice_rule_status
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleDescription') is not None:
+            self.dnsservice_rule_description = m.get('DNSServiceRuleDescription')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('DNSServiceRuleStatus') is not None:
+            self.dnsservice_rule_status = m.get('DNSServiceRuleStatus')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class ListDNSServiceRulesResponseBody(TeaModel):
+    def __init__(self, dnsservice_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.dnsservice_rules = dnsservice_rules  # type: list[ListDNSServiceRulesResponseBodyDNSServiceRules]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.dnsservice_rules:
+            for k in self.dnsservice_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListDNSServiceRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DNSServiceRules'] = []
+        if self.dnsservice_rules is not None:
+            for k in self.dnsservice_rules:
+                result['DNSServiceRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dnsservice_rules = []
+        if m.get('DNSServiceRules') is not None:
+            for k in m.get('DNSServiceRules'):
+                temp_model = ListDNSServiceRulesResponseBodyDNSServiceRules()
+                self.dnsservice_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListDNSServiceRulesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListDNSServiceRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListDNSServiceRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListDNSServiceRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListDiagnoseInfoForSingleCardRequest(TeaModel):
     def __init__(self, io_tcloud_connector_id=None, max_results=None, next_token=None, region_id=None, source=None,
                  source_type=None):
@@ -4070,7 +4750,7 @@ class ListDiagnoseInfoForSingleCardRequest(TeaModel):
 
 class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
     def __init__(self, begin_time=None, card_ip=None, destination=None, destination_type=None, diagnose_time=None,
-                 end_time=None, iccid=None, io_tcloud_connector_id=None, source=None, source_type=None, status=None,
+                 end_time=None, icc_id=None, io_tcloud_connector_id=None, source=None, source_type=None, status=None,
                  task_id=None):
         self.begin_time = begin_time  # type: long
         self.card_ip = card_ip  # type: str
@@ -4078,7 +4758,7 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
         self.destination_type = destination_type  # type: str
         self.diagnose_time = diagnose_time  # type: long
         self.end_time = end_time  # type: long
-        self.iccid = iccid  # type: str
+        self.icc_id = icc_id  # type: str
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
         self.source = source  # type: str
         self.source_type = source_type  # type: str
@@ -4106,8 +4786,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             result['DiagnoseTime'] = self.diagnose_time
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.iccid is not None:
-            result['Iccid'] = self.iccid
+        if self.icc_id is not None:
+            result['IccId'] = self.icc_id
         if self.io_tcloud_connector_id is not None:
             result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
         if self.source is not None:
@@ -4134,8 +4814,8 @@ class ListDiagnoseInfoForSingleCardResponseBodyDiagnoseInfo(TeaModel):
             self.diagnose_time = m.get('DiagnoseTime')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('Iccid') is not None:
-            self.iccid = m.get('Iccid')
+        if m.get('IccId') is not None:
+            self.icc_id = m.get('IccId')
         if m.get('IoTCloudConnectorId') is not None:
             self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
         if m.get('Source') is not None:
@@ -4453,6 +5133,222 @@ class ListGroupAuthorizationRulesResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListGroupAuthorizationRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListGroupDNSServiceRulesRequest(TeaModel):
+    def __init__(self, dnsservice_rule_ids=None, dnsservice_rule_name=None, dnsservice_rule_status=None,
+                 destination=None, io_tcloud_connector_group_id=None, max_results=None, next_token=None, region_id=None,
+                 service_type=None, source=None):
+        self.dnsservice_rule_ids = dnsservice_rule_ids  # type: list[str]
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: list[str]
+        self.dnsservice_rule_status = dnsservice_rule_status  # type: list[str]
+        self.destination = destination  # type: list[str]
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupDNSServiceRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_ids is not None:
+            result['DNSServiceRuleIds'] = self.dnsservice_rule_ids
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.dnsservice_rule_status is not None:
+            result['DNSServiceRuleStatus'] = self.dnsservice_rule_status
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleIds') is not None:
+            self.dnsservice_rule_ids = m.get('DNSServiceRuleIds')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('DNSServiceRuleStatus') is not None:
+            self.dnsservice_rule_status = m.get('DNSServiceRuleStatus')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class ListGroupDNSServiceRulesResponseBodyDNSServiceRules(TeaModel):
+    def __init__(self, dnsservice_rule_description=None, dnsservice_rule_id=None, dnsservice_rule_name=None,
+                 dnsservice_rule_status=None, destination=None, io_tcloud_connector_group_id=None, service_type=None, source=None):
+        self.dnsservice_rule_description = dnsservice_rule_description  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: str
+        self.dnsservice_rule_status = dnsservice_rule_status  # type: str
+        self.destination = destination  # type: str
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListGroupDNSServiceRulesResponseBodyDNSServiceRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dnsservice_rule_description is not None:
+            result['DNSServiceRuleDescription'] = self.dnsservice_rule_description
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.dnsservice_rule_status is not None:
+            result['DNSServiceRuleStatus'] = self.dnsservice_rule_status
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DNSServiceRuleDescription') is not None:
+            self.dnsservice_rule_description = m.get('DNSServiceRuleDescription')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('DNSServiceRuleStatus') is not None:
+            self.dnsservice_rule_status = m.get('DNSServiceRuleStatus')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class ListGroupDNSServiceRulesResponseBody(TeaModel):
+    def __init__(self, dnsservice_rules=None, max_results=None, next_token=None, request_id=None, total_count=None):
+        self.dnsservice_rules = dnsservice_rules  # type: list[ListGroupDNSServiceRulesResponseBodyDNSServiceRules]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.dnsservice_rules:
+            for k in self.dnsservice_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListGroupDNSServiceRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DNSServiceRules'] = []
+        if self.dnsservice_rules is not None:
+            for k in self.dnsservice_rules:
+                result['DNSServiceRules'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dnsservice_rules = []
+        if m.get('DNSServiceRules') is not None:
+            for k in m.get('DNSServiceRules'):
+                temp_model = ListGroupDNSServiceRulesResponseBodyDNSServiceRules()
+                self.dnsservice_rules.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListGroupDNSServiceRulesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListGroupDNSServiceRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListGroupDNSServiceRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListGroupDNSServiceRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5585,6 +6481,210 @@ class ListServiceEntriesResponse(TeaModel):
         return self
 
 
+class MoveAuthorizationRuleToDNSServiceRequest(TeaModel):
+    def __init__(self, authorization_rule_id=None, client_token=None, dry_run=None, io_tcloud_connector_id=None,
+                 region_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveAuthorizationRuleToDNSServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class MoveAuthorizationRuleToDNSServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveAuthorizationRuleToDNSServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class MoveAuthorizationRuleToDNSServiceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: MoveAuthorizationRuleToDNSServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MoveAuthorizationRuleToDNSServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = MoveAuthorizationRuleToDNSServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class MoveGroupAuthorizationRuleToDNSServiceRequest(TeaModel):
+    def __init__(self, authorization_rule_id=None, client_token=None, dry_run=None,
+                 io_tcloud_connector_group_id=None, region_id=None):
+        self.authorization_rule_id = authorization_rule_id  # type: str
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveGroupAuthorizationRuleToDNSServiceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_id is not None:
+            result['AuthorizationRuleId'] = self.authorization_rule_id
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleId') is not None:
+            self.authorization_rule_id = m.get('AuthorizationRuleId')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class MoveGroupAuthorizationRuleToDNSServiceResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MoveGroupAuthorizationRuleToDNSServiceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class MoveGroupAuthorizationRuleToDNSServiceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: MoveGroupAuthorizationRuleToDNSServiceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(MoveGroupAuthorizationRuleToDNSServiceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = MoveGroupAuthorizationRuleToDNSServiceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OpenIoTCloudConnectorServiceRequest(TeaModel):
     def __init__(self, region_id=None):
         self.region_id = region_id  # type: str
@@ -6150,6 +7250,134 @@ class UpdateConnectionPoolAttributeResponse(TeaModel):
         return self
 
 
+class UpdateDNSServiceRuleAttributeRequest(TeaModel):
+    def __init__(self, authorization_rule_description=None, authorization_rule_name=None, client_token=None,
+                 dnsservice_rule_id=None, destination=None, dry_run=None, io_tcloud_connector_id=None, region_id=None,
+                 service_type=None, source=None):
+        self.authorization_rule_description = authorization_rule_description  # type: str
+        self.authorization_rule_name = authorization_rule_name  # type: str
+        self.client_token = client_token  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.destination = destination  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDNSServiceRuleAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.authorization_rule_description is not None:
+            result['AuthorizationRuleDescription'] = self.authorization_rule_description
+        if self.authorization_rule_name is not None:
+            result['AuthorizationRuleName'] = self.authorization_rule_name
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthorizationRuleDescription') is not None:
+            self.authorization_rule_description = m.get('AuthorizationRuleDescription')
+        if m.get('AuthorizationRuleName') is not None:
+            self.authorization_rule_name = m.get('AuthorizationRuleName')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class UpdateDNSServiceRuleAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateDNSServiceRuleAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateDNSServiceRuleAttributeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateDNSServiceRuleAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateDNSServiceRuleAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateDNSServiceRuleAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateGroupAuthorizationRuleAttributeRequest(TeaModel):
     def __init__(self, authorization_rule_description=None, authorization_rule_id=None,
                  authorization_rule_name=None, client_token=None, destination=None, destination_type=None, dry_run=None,
@@ -6289,6 +7517,134 @@ class UpdateGroupAuthorizationRuleAttributeResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = UpdateGroupAuthorizationRuleAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateGroupDNSServiceRuleAttributeRequest(TeaModel):
+    def __init__(self, client_token=None, dnsservice_rule_description=None, dnsservice_rule_id=None,
+                 dnsservice_rule_name=None, destination=None, dry_run=None, io_tcloud_connector_group_id=None, region_id=None,
+                 service_type=None, source=None):
+        self.client_token = client_token  # type: str
+        self.dnsservice_rule_description = dnsservice_rule_description  # type: str
+        self.dnsservice_rule_id = dnsservice_rule_id  # type: str
+        self.dnsservice_rule_name = dnsservice_rule_name  # type: str
+        self.destination = destination  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.io_tcloud_connector_group_id = io_tcloud_connector_group_id  # type: str
+        self.region_id = region_id  # type: str
+        self.service_type = service_type  # type: str
+        self.source = source  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupDNSServiceRuleAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dnsservice_rule_description is not None:
+            result['DNSServiceRuleDescription'] = self.dnsservice_rule_description
+        if self.dnsservice_rule_id is not None:
+            result['DNSServiceRuleId'] = self.dnsservice_rule_id
+        if self.dnsservice_rule_name is not None:
+            result['DNSServiceRuleName'] = self.dnsservice_rule_name
+        if self.destination is not None:
+            result['Destination'] = self.destination
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.io_tcloud_connector_group_id is not None:
+            result['IoTCloudConnectorGroupId'] = self.io_tcloud_connector_group_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.service_type is not None:
+            result['ServiceType'] = self.service_type
+        if self.source is not None:
+            result['Source'] = self.source
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DNSServiceRuleDescription') is not None:
+            self.dnsservice_rule_description = m.get('DNSServiceRuleDescription')
+        if m.get('DNSServiceRuleId') is not None:
+            self.dnsservice_rule_id = m.get('DNSServiceRuleId')
+        if m.get('DNSServiceRuleName') is not None:
+            self.dnsservice_rule_name = m.get('DNSServiceRuleName')
+        if m.get('Destination') is not None:
+            self.destination = m.get('Destination')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('IoTCloudConnectorGroupId') is not None:
+            self.io_tcloud_connector_group_id = m.get('IoTCloudConnectorGroupId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ServiceType') is not None:
+            self.service_type = m.get('ServiceType')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        return self
+
+
+class UpdateGroupDNSServiceRuleAttributeResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupDNSServiceRuleAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateGroupDNSServiceRuleAttributeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: UpdateGroupDNSServiceRuleAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupDNSServiceRuleAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = UpdateGroupDNSServiceRuleAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

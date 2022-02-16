@@ -270,6 +270,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_connection_pool_with_options(request, runtime)
 
+    def create_dnsservice_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authorization_rule_description):
+            query['AuthorizationRuleDescription'] = request.authorization_rule_description
+        if not UtilClient.is_unset(request.authorization_rule_name):
+            query['AuthorizationRuleName'] = request.authorization_rule_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDNSServiceRule',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.CreateDNSServiceRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dnsservice_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dnsservice_rule_with_options(request, runtime)
+
     def create_group_authorization_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -315,6 +359,50 @@ class Client(OpenApiClient):
     def create_group_authorization_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_group_authorization_rule_with_options(request, runtime)
+
+    def create_group_dnsservice_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dnsservice_rule_description):
+            query['DNSServiceRuleDescription'] = request.dnsservice_rule_description
+        if not UtilClient.is_unset(request.dnsservice_rule_name):
+            query['DNSServiceRuleName'] = request.dnsservice_rule_name
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_group_id):
+            query['IoTCloudConnectorGroupId'] = request.io_tcloud_connector_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGroupDNSServiceRule',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.CreateGroupDNSServiceRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_group_dnsservice_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_group_dnsservice_rule_with_options(request, runtime)
 
     def create_io_tcloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -550,6 +638,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_connection_pool_with_options(request, runtime)
 
+    def delete_dnsservice_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dnsservice_rule_id):
+            query['DNSServiceRuleId'] = request.dnsservice_rule_id
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDNSServiceRule',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteDNSServiceRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dnsservice_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dnsservice_rule_with_options(request, runtime)
+
     def delete_group_authorization_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -585,6 +709,42 @@ class Client(OpenApiClient):
     def delete_group_authorization_rule(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_group_authorization_rule_with_options(request, runtime)
+
+    def delete_group_dnsservice_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dnsservice_rule_id):
+            query['DNSServiceRuleId'] = request.dnsservice_rule_id
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_group_id):
+            query['IoTCloudConnectorGroupId'] = request.io_tcloud_connector_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGroupDNSServiceRule',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteGroupDNSServiceRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_group_dnsservice_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_group_dnsservice_rule_with_options(request, runtime)
 
     def delete_io_tcloud_connector_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1240,6 +1400,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_connection_pools_with_options(request, runtime)
 
+    def list_dnsservice_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dnsservice_rule_ids):
+            query['DNSServiceRuleIds'] = request.dnsservice_rule_ids
+        if not UtilClient.is_unset(request.dnsservice_rule_name):
+            query['DNSServiceRuleName'] = request.dnsservice_rule_name
+        if not UtilClient.is_unset(request.dnsservice_rule_status):
+            query['DNSServiceRuleStatus'] = request.dnsservice_rule_status
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDNSServiceRules',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListDNSServiceRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dnsservice_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dnsservice_rules_with_options(request, runtime)
+
     def list_diagnose_info_for_single_card_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1323,6 +1529,52 @@ class Client(OpenApiClient):
     def list_group_authorization_rules(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_group_authorization_rules_with_options(request, runtime)
+
+    def list_group_dnsservice_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dnsservice_rule_ids):
+            query['DNSServiceRuleIds'] = request.dnsservice_rule_ids
+        if not UtilClient.is_unset(request.dnsservice_rule_name):
+            query['DNSServiceRuleName'] = request.dnsservice_rule_name
+        if not UtilClient.is_unset(request.dnsservice_rule_status):
+            query['DNSServiceRuleStatus'] = request.dnsservice_rule_status
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.io_tcloud_connector_group_id):
+            query['IoTCloudConnectorGroupId'] = request.io_tcloud_connector_group_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroupDNSServiceRules',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.ListGroupDNSServiceRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_group_dnsservice_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_group_dnsservice_rules_with_options(request, runtime)
 
     def list_io_tcloud_connector_available_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1556,6 +1808,78 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_service_entries_with_options(request, runtime)
 
+    def move_authorization_rule_to_dnsservice_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authorization_rule_id):
+            query['AuthorizationRuleId'] = request.authorization_rule_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MoveAuthorizationRuleToDNSService',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.MoveAuthorizationRuleToDNSServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def move_authorization_rule_to_dnsservice(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.move_authorization_rule_to_dnsservice_with_options(request, runtime)
+
+    def move_group_authorization_rule_to_dnsservice_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authorization_rule_id):
+            query['AuthorizationRuleId'] = request.authorization_rule_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_group_id):
+            query['IoTCloudConnectorGroupId'] = request.io_tcloud_connector_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MoveGroupAuthorizationRuleToDNSService',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.MoveGroupAuthorizationRuleToDNSServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def move_group_authorization_rule_to_dnsservice(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.move_group_authorization_rule_to_dnsservice_with_options(request, runtime)
+
     def open_io_tcloud_connector_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1756,6 +2080,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_connection_pool_attribute_with_options(request, runtime)
 
+    def update_dnsservice_rule_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authorization_rule_description):
+            query['AuthorizationRuleDescription'] = request.authorization_rule_description
+        if not UtilClient.is_unset(request.authorization_rule_name):
+            query['AuthorizationRuleName'] = request.authorization_rule_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dnsservice_rule_id):
+            query['DNSServiceRuleId'] = request.dnsservice_rule_id
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDNSServiceRuleAttribute',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.UpdateDNSServiceRuleAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_dnsservice_rule_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_dnsservice_rule_attribute_with_options(request, runtime)
+
     def update_group_authorization_rule_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1803,6 +2173,52 @@ class Client(OpenApiClient):
     def update_group_authorization_rule_attribute(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_group_authorization_rule_attribute_with_options(request, runtime)
+
+    def update_group_dnsservice_rule_attribute_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dnsservice_rule_description):
+            query['DNSServiceRuleDescription'] = request.dnsservice_rule_description
+        if not UtilClient.is_unset(request.dnsservice_rule_id):
+            query['DNSServiceRuleId'] = request.dnsservice_rule_id
+        if not UtilClient.is_unset(request.dnsservice_rule_name):
+            query['DNSServiceRuleName'] = request.dnsservice_rule_name
+        if not UtilClient.is_unset(request.destination):
+            query['Destination'] = request.destination
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_group_id):
+            query['IoTCloudConnectorGroupId'] = request.io_tcloud_connector_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGroupDNSServiceRuleAttribute',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.UpdateGroupDNSServiceRuleAttributeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_group_dnsservice_rule_attribute(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_group_dnsservice_rule_attribute_with_options(request, runtime)
 
     def update_io_tcloud_connector_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
