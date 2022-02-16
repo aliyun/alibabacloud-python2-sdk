@@ -15,8 +15,8 @@
 如未安装 `pip`, 请先至pip官网 [pip user guide](https://pip.pypa.io/en/stable/installing/ "pip User Guide") 安装pip .
 
 ```bash
-# 安装 alibabacloud_alikafka20190916
-pip install alibabacloud_alikafka20190916
+# 安装 alibabacloud_alikafka20190916_py2
+pip install alibabacloud_alikafka20190916_py2
 ```
 
 ## 问题
