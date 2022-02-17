@@ -863,6 +863,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_scene_build_task_status_with_options(request, runtime)
 
+    def get_scene_preview_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain):
+            query['Domain'] = request.domain
+        if not UtilClient.is_unset(request.enabled):
+            query['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.preview_token):
+            query['PreviewToken'] = request.preview_token
+        if not UtilClient.is_unset(request.show_tag):
+            query['ShowTag'] = request.show_tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetScenePreviewData',
+            version='2020-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            tdsr_20200101_models.GetScenePreviewDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_scene_preview_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_scene_preview_data_with_options(request, runtime)
+
     def get_scene_preview_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
