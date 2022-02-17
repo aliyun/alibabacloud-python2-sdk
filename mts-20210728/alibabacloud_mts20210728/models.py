@@ -1126,11 +1126,13 @@ class QueryTraceMuResponse(TeaModel):
 
 
 class SubmitCopyrightExtractRequest(TeaModel):
-    def __init__(self, call_back=None, input=None, user_data=None):
+    def __init__(self, call_back=None, input=None, url=None, user_data=None):
         # 任务完成回调
         self.call_back = call_back  # type: str
         # 输入文件oss地址
         self.input = input  # type: str
+        # url链接
+        self.url = url  # type: str
         # 用户数据
         self.user_data = user_data  # type: str
 
@@ -1147,6 +1149,8 @@ class SubmitCopyrightExtractRequest(TeaModel):
             result['CallBack'] = self.call_back
         if self.input is not None:
             result['Input'] = self.input
+        if self.url is not None:
+            result['Url'] = self.url
         if self.user_data is not None:
             result['UserData'] = self.user_data
         return result
@@ -1157,6 +1161,8 @@ class SubmitCopyrightExtractRequest(TeaModel):
             self.call_back = m.get('CallBack')
         if m.get('Input') is not None:
             self.input = m.get('Input')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
         if m.get('UserData') is not None:
             self.user_data = m.get('UserData')
         return self
@@ -1599,7 +1605,8 @@ class SubmitImageCopyrightResponse(TeaModel):
 
 
 class SubmitTraceAbRequest(TeaModel):
-    def __init__(self, call_back=None, input=None, level=None, output=None, url=None, user_data=None):
+    def __init__(self, call_back=None, input=None, level=None, output=None, start_time=None, total_time=None,
+                 url=None, user_data=None):
         # 任务结果回调
         self.call_back = call_back  # type: str
         # 溯源水印ab流处理视频输入
@@ -1608,6 +1615,10 @@ class SubmitTraceAbRequest(TeaModel):
         self.level = level  # type: long
         # 溯源水印ab流处理输出
         self.output = output  # type: str
+        # 嵌入水印开始时间
+        self.start_time = start_time  # type: long
+        # 嵌入水印总时长
+        self.total_time = total_time  # type: long
         # 外部url链接(Input和url二选一)
         self.url = url  # type: str
         # 用户自定义数据，最大长度1024个字节
@@ -1630,6 +1641,10 @@ class SubmitTraceAbRequest(TeaModel):
             result['Level'] = self.level
         if self.output is not None:
             result['Output'] = self.output
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.total_time is not None:
+            result['TotalTime'] = self.total_time
         if self.url is not None:
             result['Url'] = self.url
         if self.user_data is not None:
@@ -1646,6 +1661,10 @@ class SubmitTraceAbRequest(TeaModel):
             self.level = m.get('Level')
         if m.get('Output') is not None:
             self.output = m.get('Output')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('TotalTime') is not None:
+            self.total_time = m.get('TotalTime')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         if m.get('UserData') is not None:
@@ -1763,11 +1782,13 @@ class SubmitTraceAbResponse(TeaModel):
 
 
 class SubmitTraceExtractRequest(TeaModel):
-    def __init__(self, call_back=None, input=None, user_data=None):
+    def __init__(self, call_back=None, input=None, url=None, user_data=None):
         # 任务完成回调
         self.call_back = call_back  # type: str
         # 输入文件oss地址
         self.input = input  # type: str
+        # url链接
+        self.url = url  # type: str
         # 用户数据
         self.user_data = user_data  # type: str
 
@@ -1784,6 +1805,8 @@ class SubmitTraceExtractRequest(TeaModel):
             result['CallBack'] = self.call_back
         if self.input is not None:
             result['Input'] = self.input
+        if self.url is not None:
+            result['Url'] = self.url
         if self.user_data is not None:
             result['UserData'] = self.user_data
         return result
@@ -1794,6 +1817,8 @@ class SubmitTraceExtractRequest(TeaModel):
             self.call_back = m.get('CallBack')
         if m.get('Input') is not None:
             self.input = m.get('Input')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
         if m.get('UserData') is not None:
             self.user_data = m.get('UserData')
         return self
