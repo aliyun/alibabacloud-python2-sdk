@@ -2284,7 +2284,7 @@ class CreateRouteRuleRequest(TeaModel):
         # 路由类型：INCIDENT 触发事件 ALERT仅触发报警
         self.route_type = route_type  # type: str
         # 规则名称
-        self.rule_name = rule_name  # type: bytes
+        self.rule_name = rule_name  # type: str
         # 时间窗口
         self.time_window = time_window  # type: long
         # 时间窗口单位 MINUTE  分钟  SECOND 秒
