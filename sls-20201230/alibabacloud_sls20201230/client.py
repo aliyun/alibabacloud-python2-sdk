@@ -68,7 +68,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateConsumerGroupResponse(),
@@ -80,14 +80,10 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_log_store_with_options(project, request, headers, runtime)
 
-    def create_log_store_with_options(self, project, tmp_req, headers, runtime):
-        UtilClient.validate_model(tmp_req)
+    def create_log_store_with_options(self, project, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
-        request = sls_20201230_models.CreateLogStoreShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.encrypt_conf):
-            request.encrypt_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.encrypt_conf), 'encrypt_conf', 'json')
         body = {}
         if not UtilClient.is_unset(request.append_meta):
             body['appendMeta'] = request.append_meta
@@ -95,8 +91,8 @@ class Client(OpenApiClient):
             body['autoSplit'] = request.auto_split
         if not UtilClient.is_unset(request.enable_tracking):
             body['enable_tracking'] = request.enable_tracking
-        if not UtilClient.is_unset(request.encrypt_conf_shrink):
-            body['encrypt_conf'] = request.encrypt_conf_shrink
+        if not UtilClient.is_unset(request.encrypt_conf):
+            body['encrypt_conf'] = request.encrypt_conf
         if not UtilClient.is_unset(request.logstore_name):
             body['logstoreName'] = request.logstore_name
         if not UtilClient.is_unset(request.max_split_shard):
@@ -119,7 +115,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateLogStoreResponse(),
@@ -151,7 +147,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateProjectResponse(),
@@ -189,7 +185,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateSavedSearchResponse(),
@@ -219,7 +215,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteConsumerGroupResponse(),
@@ -247,7 +243,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteProjectResponse(),
@@ -276,7 +272,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.DeleteSavedSearchResponse(),
@@ -536,7 +532,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateConsumerGroupResponse(),
@@ -548,15 +544,11 @@ class Client(OpenApiClient):
         headers = {}
         return self.update_log_store_with_options(project, logstore, request, headers, runtime)
 
-    def update_log_store_with_options(self, project, logstore, tmp_req, headers, runtime):
-        UtilClient.validate_model(tmp_req)
+    def update_log_store_with_options(self, project, logstore, request, headers, runtime):
+        UtilClient.validate_model(request)
         host_map = {}
         host_map['project'] = project
         logstore = OpenApiUtilClient.get_encode_param(logstore)
-        request = sls_20201230_models.UpdateLogStoreShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.encrypt_conf):
-            request.encrypt_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(TeaCore.to_map(tmp_req.encrypt_conf), 'encrypt_conf', 'json')
         body = {}
         if not UtilClient.is_unset(request.append_meta):
             body['appendMeta'] = request.append_meta
@@ -564,8 +556,10 @@ class Client(OpenApiClient):
             body['autoSplit'] = request.auto_split
         if not UtilClient.is_unset(request.enable_tracking):
             body['enable_tracking'] = request.enable_tracking
-        if not UtilClient.is_unset(request.encrypt_conf_shrink):
-            body['encrypt_conf'] = request.encrypt_conf_shrink
+        if not UtilClient.is_unset(request.encrypt_conf):
+            body['encrypt_conf'] = request.encrypt_conf
+        if not UtilClient.is_unset(request.logstore):
+            body['logstore'] = request.logstore
         if not UtilClient.is_unset(request.logstore_name):
             body['logstoreName'] = request.logstore_name
         if not UtilClient.is_unset(request.max_split_shard):
@@ -588,7 +582,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateLogStoreResponse(),
@@ -621,7 +615,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             sls_20201230_models.UpdateProjectResponse(),
