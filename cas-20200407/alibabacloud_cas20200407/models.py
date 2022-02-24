@@ -823,6 +823,128 @@ class DescribePackageStateResponse(TeaModel):
         return self
 
 
+class ListUserCertificateOrderRequest(TeaModel):
+    def __init__(self, current_page=None, keyword=None, order_type=None, show_size=None, status=None):
+        self.current_page = current_page  # type: long
+        self.keyword = keyword  # type: str
+        self.order_type = order_type  # type: str
+        self.show_size = show_size  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserCertificateOrderRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class ListUserCertificateOrderResponseBody(TeaModel):
+    def __init__(self, certificate_order_list=None, current_page=None, request_id=None, show_size=None,
+                 total_count=None):
+        self.certificate_order_list = certificate_order_list  # type: str
+        self.current_page = current_page  # type: long
+        self.request_id = request_id  # type: str
+        self.show_size = show_size  # type: long
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserCertificateOrderResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.certificate_order_list is not None:
+            result['CertificateOrderList'] = self.certificate_order_list
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.show_size is not None:
+            result['ShowSize'] = self.show_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertificateOrderList') is not None:
+            self.certificate_order_list = m.get('CertificateOrderList')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ShowSize') is not None:
+            self.show_size = m.get('ShowSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListUserCertificateOrderResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListUserCertificateOrderResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserCertificateOrderResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListUserCertificateOrderResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RenewCertificateOrderForPackageRequestRequest(TeaModel):
     def __init__(self, csr=None, order_id=None):
         self.csr = csr  # type: str

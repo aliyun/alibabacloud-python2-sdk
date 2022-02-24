@@ -84,7 +84,8 @@ class Client(OpenApiClient):
     def cancel_certificate_for_package_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -111,7 +112,8 @@ class Client(OpenApiClient):
     def cancel_order_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -138,14 +140,22 @@ class Client(OpenApiClient):
     def create_certificate_for_package_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CompanyName'] = request.company_name
-        query['Csr'] = request.csr
-        query['Domain'] = request.domain
-        query['Email'] = request.email
-        query['Phone'] = request.phone
-        query['ProductCode'] = request.product_code
-        query['Username'] = request.username
-        query['ValidateType'] = request.validate_type
+        if not UtilClient.is_unset(request.company_name):
+            query['CompanyName'] = request.company_name
+        if not UtilClient.is_unset(request.csr):
+            query['Csr'] = request.csr
+        if not UtilClient.is_unset(request.domain):
+            query['Domain'] = request.domain
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.phone):
+            query['Phone'] = request.phone
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        if not UtilClient.is_unset(request.validate_type):
+            query['ValidateType'] = request.validate_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -172,12 +182,18 @@ class Client(OpenApiClient):
     def create_certificate_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Domain'] = request.domain
-        query['Email'] = request.email
-        query['Phone'] = request.phone
-        query['ProductCode'] = request.product_code
-        query['Username'] = request.username
-        query['ValidateType'] = request.validate_type
+        if not UtilClient.is_unset(request.domain):
+            query['Domain'] = request.domain
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.phone):
+            query['Phone'] = request.phone
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        if not UtilClient.is_unset(request.validate_type):
+            query['ValidateType'] = request.validate_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -204,12 +220,18 @@ class Client(OpenApiClient):
     def create_certificate_with_csr_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Csr'] = request.csr
-        query['Email'] = request.email
-        query['Phone'] = request.phone
-        query['ProductCode'] = request.product_code
-        query['Username'] = request.username
-        query['ValidateType'] = request.validate_type
+        if not UtilClient.is_unset(request.csr):
+            query['Csr'] = request.csr
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.phone):
+            query['Phone'] = request.phone
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
+        if not UtilClient.is_unset(request.validate_type):
+            query['ValidateType'] = request.validate_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -236,7 +258,8 @@ class Client(OpenApiClient):
     def delete_certificate_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -263,7 +286,8 @@ class Client(OpenApiClient):
     def describe_certificate_state_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -290,7 +314,8 @@ class Client(OpenApiClient):
     def describe_package_state_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProductCode'] = request.product_code
+        if not UtilClient.is_unset(request.product_code):
+            query['ProductCode'] = request.product_code
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -314,11 +339,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_package_state_with_options(request, runtime)
 
+    def list_user_certificate_order_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.show_size):
+            query['ShowSize'] = request.show_size
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserCertificateOrder',
+            version='2020-04-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cas_20200407_models.ListUserCertificateOrderResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_certificate_order(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_certificate_order_with_options(request, runtime)
+
     def renew_certificate_order_for_package_request_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Csr'] = request.csr
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.csr):
+            query['Csr'] = request.csr
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
