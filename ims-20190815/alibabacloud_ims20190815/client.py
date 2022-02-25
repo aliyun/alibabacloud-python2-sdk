@@ -32,12 +32,28 @@ class Client(OpenApiClient):
 
     def add_client_id_to_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_id):
+            query['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddClientIdToOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.AddClientIdToOIDCProviderResponse(),
-            self.do_rpcrequest('AddClientIdToOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_client_id_to_oidcprovider(self, request):
@@ -46,12 +62,28 @@ class Client(OpenApiClient):
 
     def add_fingerprint_to_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.fingerprint):
+            query['Fingerprint'] = request.fingerprint
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddFingerprintToOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.AddFingerprintToOIDCProviderResponse(),
-            self.do_rpcrequest('AddFingerprintToOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_fingerprint_to_oidcprovider(self, request):
@@ -60,12 +92,28 @@ class Client(OpenApiClient):
 
     def add_user_to_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddUserToGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.AddUserToGroupResponse(),
-            self.do_rpcrequest('AddUserToGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_user_to_group(self, request):
@@ -74,12 +122,32 @@ class Client(OpenApiClient):
 
     def bind_mfadevice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authentication_code_1):
+            query['AuthenticationCode1'] = request.authentication_code_1
+        if not UtilClient.is_unset(request.authentication_code_2):
+            query['AuthenticationCode2'] = request.authentication_code_2
+        if not UtilClient.is_unset(request.serial_number):
+            query['SerialNumber'] = request.serial_number
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindMFADevice',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.BindMFADeviceResponse(),
-            self.do_rpcrequest('BindMFADevice', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def bind_mfadevice(self, request):
@@ -88,12 +156,28 @@ class Client(OpenApiClient):
 
     def change_password_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.new_password):
+            query['NewPassword'] = request.new_password
+        if not UtilClient.is_unset(request.old_password):
+            query['OldPassword'] = request.old_password
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangePassword',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ChangePasswordResponse(),
-            self.do_rpcrequest('ChangePassword', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def change_password(self, request):
@@ -102,12 +186,26 @@ class Client(OpenApiClient):
 
     def create_access_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAccessKey',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateAccessKeyResponse(),
-            self.do_rpcrequest('CreateAccessKey', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_access_key(self, request):
@@ -116,12 +214,26 @@ class Client(OpenApiClient):
 
     def create_app_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAppSecret',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateAppSecretResponse(),
-            self.do_rpcrequest('CreateAppSecret', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_app_secret(self, request):
@@ -130,12 +242,42 @@ class Client(OpenApiClient):
 
     def create_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token_validity):
+            query['AccessTokenValidity'] = request.access_token_validity
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.app_type):
+            query['AppType'] = request.app_type
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.is_multi_tenant):
+            query['IsMultiTenant'] = request.is_multi_tenant
+        if not UtilClient.is_unset(request.predefined_scopes):
+            query['PredefinedScopes'] = request.predefined_scopes
+        if not UtilClient.is_unset(request.redirect_uris):
+            query['RedirectUris'] = request.redirect_uris
+        if not UtilClient.is_unset(request.refresh_token_validity):
+            query['RefreshTokenValidity'] = request.refresh_token_validity
+        if not UtilClient.is_unset(request.secret_required):
+            query['SecretRequired'] = request.secret_required
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateApplication',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateApplicationResponse(),
-            self.do_rpcrequest('CreateApplication', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_application(self, request):
@@ -144,12 +286,30 @@ class Client(OpenApiClient):
 
     def create_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.comments):
+            query['Comments'] = request.comments
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateGroupResponse(),
-            self.do_rpcrequest('CreateGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_group(self, request):
@@ -158,12 +318,34 @@ class Client(OpenApiClient):
 
     def create_login_profile_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.mfabind_required):
+            query['MFABindRequired'] = request.mfabind_required
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.password_reset_required):
+            query['PasswordResetRequired'] = request.password_reset_required
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateLoginProfile',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateLoginProfileResponse(),
-            self.do_rpcrequest('CreateLoginProfile', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_login_profile(self, request):
@@ -172,12 +354,34 @@ class Client(OpenApiClient):
 
     def create_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_ids):
+            query['ClientIds'] = request.client_ids
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.fingerprints):
+            query['Fingerprints'] = request.fingerprints
+        if not UtilClient.is_unset(request.issuer_url):
+            query['IssuerUrl'] = request.issuer_url
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateOIDCProviderResponse(),
-            self.do_rpcrequest('CreateOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_oidcprovider(self, request):
@@ -186,12 +390,30 @@ class Client(OpenApiClient):
 
     def create_samlprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.encoded_samlmetadata_document):
+            query['EncodedSAMLMetadataDocument'] = request.encoded_samlmetadata_document
+        if not UtilClient.is_unset(request.samlprovider_name):
+            query['SAMLProviderName'] = request.samlprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSAMLProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateSAMLProviderResponse(),
-            self.do_rpcrequest('CreateSAMLProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_samlprovider(self, request):
@@ -200,12 +422,34 @@ class Client(OpenApiClient):
 
     def create_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.comments):
+            query['Comments'] = request.comments
+        if not UtilClient.is_unset(request.display_name):
+            query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        if not UtilClient.is_unset(request.mobile_phone):
+            query['MobilePhone'] = request.mobile_phone
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateUser',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateUserResponse(),
-            self.do_rpcrequest('CreateUser', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_user(self, request):
@@ -214,12 +458,26 @@ class Client(OpenApiClient):
 
     def create_virtual_mfadevice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.virtual_mfadevice_name):
+            query['VirtualMFADeviceName'] = request.virtual_mfadevice_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateVirtualMFADevice',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.CreateVirtualMFADeviceResponse(),
-            self.do_rpcrequest('CreateVirtualMFADevice', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_virtual_mfadevice(self, request):
@@ -228,12 +486,28 @@ class Client(OpenApiClient):
 
     def delete_access_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_access_key_id):
+            query['UserAccessKeyId'] = request.user_access_key_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccessKey',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteAccessKeyResponse(),
-            self.do_rpcrequest('DeleteAccessKey', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_access_key(self, request):
@@ -242,12 +516,28 @@ class Client(OpenApiClient):
 
     def delete_app_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_secret_id):
+            query['AppSecretId'] = request.app_secret_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAppSecret',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteAppSecretResponse(),
-            self.do_rpcrequest('DeleteAppSecret', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_app_secret(self, request):
@@ -256,12 +546,26 @@ class Client(OpenApiClient):
 
     def delete_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteApplication',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteApplicationResponse(),
-            self.do_rpcrequest('DeleteApplication', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_application(self, request):
@@ -270,12 +574,26 @@ class Client(OpenApiClient):
 
     def delete_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteGroupResponse(),
-            self.do_rpcrequest('DeleteGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_group(self, request):
@@ -284,12 +602,26 @@ class Client(OpenApiClient):
 
     def delete_login_profile_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteLoginProfile',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteLoginProfileResponse(),
-            self.do_rpcrequest('DeleteLoginProfile', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_login_profile(self, request):
@@ -298,12 +630,26 @@ class Client(OpenApiClient):
 
     def delete_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteOIDCProviderResponse(),
-            self.do_rpcrequest('DeleteOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_oidcprovider(self, request):
@@ -312,12 +658,26 @@ class Client(OpenApiClient):
 
     def delete_samlprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.samlprovider_name):
+            query['SAMLProviderName'] = request.samlprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSAMLProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteSAMLProviderResponse(),
-            self.do_rpcrequest('DeleteSAMLProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_samlprovider(self, request):
@@ -326,12 +686,28 @@ class Client(OpenApiClient):
 
     def delete_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUser',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteUserResponse(),
-            self.do_rpcrequest('DeleteUser', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_user(self, request):
@@ -340,12 +716,26 @@ class Client(OpenApiClient):
 
     def delete_virtual_mfadevice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.serial_number):
+            query['SerialNumber'] = request.serial_number
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteVirtualMFADevice',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DeleteVirtualMFADeviceResponse(),
-            self.do_rpcrequest('DeleteVirtualMFADevice', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_virtual_mfadevice(self, request):
@@ -354,12 +744,26 @@ class Client(OpenApiClient):
 
     def disable_virtual_mfawith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableVirtualMFA',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.DisableVirtualMFAResponse(),
-            self.do_rpcrequest('DisableVirtualMFA', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def disable_virtual_mfa(self, request):
@@ -368,9 +772,20 @@ class Client(OpenApiClient):
 
     def generate_credential_report_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GenerateCredentialReport',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GenerateCredentialReportResponse(),
-            self.do_rpcrequest('GenerateCredentialReport', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def generate_credential_report(self):
@@ -379,12 +794,28 @@ class Client(OpenApiClient):
 
     def get_access_key_last_used_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_access_key_id):
+            query['UserAccessKeyId'] = request.user_access_key_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAccessKeyLastUsed',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetAccessKeyLastUsedResponse(),
-            self.do_rpcrequest('GetAccessKeyLastUsed', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_access_key_last_used(self, request):
@@ -393,9 +824,20 @@ class Client(OpenApiClient):
 
     def get_account_mfainfo_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAccountMFAInfo',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetAccountMFAInfoResponse(),
-            self.do_rpcrequest('GetAccountMFAInfo', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_account_mfainfo(self):
@@ -404,9 +846,20 @@ class Client(OpenApiClient):
 
     def get_account_security_practice_report_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAccountSecurityPracticeReport',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetAccountSecurityPracticeReportResponse(),
-            self.do_rpcrequest('GetAccountSecurityPracticeReport', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_account_security_practice_report(self):
@@ -415,9 +868,20 @@ class Client(OpenApiClient):
 
     def get_account_summary_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAccountSummary',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetAccountSummaryResponse(),
-            self.do_rpcrequest('GetAccountSummary', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_account_summary(self):
@@ -426,12 +890,28 @@ class Client(OpenApiClient):
 
     def get_app_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_secret_id):
+            query['AppSecretId'] = request.app_secret_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAppSecret',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetAppSecretResponse(),
-            self.do_rpcrequest('GetAppSecret', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_app_secret(self, request):
@@ -440,12 +920,26 @@ class Client(OpenApiClient):
 
     def get_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApplication',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetApplicationResponse(),
-            self.do_rpcrequest('GetApplication', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_application(self, request):
@@ -454,9 +948,20 @@ class Client(OpenApiClient):
 
     def get_credential_report_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetCredentialReport',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetCredentialReportResponse(),
-            self.do_rpcrequest('GetCredentialReport', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_credential_report(self):
@@ -465,9 +970,20 @@ class Client(OpenApiClient):
 
     def get_default_domain_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetDefaultDomain',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetDefaultDomainResponse(),
-            self.do_rpcrequest('GetDefaultDomain', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_default_domain(self):
@@ -476,12 +992,26 @@ class Client(OpenApiClient):
 
     def get_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetGroupResponse(),
-            self.do_rpcrequest('GetGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_group(self, request):
@@ -490,12 +1020,26 @@ class Client(OpenApiClient):
 
     def get_login_profile_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLoginProfile',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetLoginProfileResponse(),
-            self.do_rpcrequest('GetLoginProfile', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_login_profile(self, request):
@@ -504,12 +1048,26 @@ class Client(OpenApiClient):
 
     def get_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetOIDCProviderResponse(),
-            self.do_rpcrequest('GetOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_oidcprovider(self, request):
@@ -518,9 +1076,20 @@ class Client(OpenApiClient):
 
     def get_password_policy_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetPasswordPolicy',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetPasswordPolicyResponse(),
-            self.do_rpcrequest('GetPasswordPolicy', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_password_policy(self):
@@ -529,12 +1098,26 @@ class Client(OpenApiClient):
 
     def get_samlprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.samlprovider_name):
+            query['SAMLProviderName'] = request.samlprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSAMLProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetSAMLProviderResponse(),
-            self.do_rpcrequest('GetSAMLProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_samlprovider(self, request):
@@ -543,9 +1126,20 @@ class Client(OpenApiClient):
 
     def get_security_preference_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetSecurityPreference',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetSecurityPreferenceResponse(),
-            self.do_rpcrequest('GetSecurityPreference', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_security_preference(self):
@@ -554,12 +1148,30 @@ class Client(OpenApiClient):
 
     def get_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_access_key_id):
+            query['UserAccessKeyId'] = request.user_access_key_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUser',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetUserResponse(),
-            self.do_rpcrequest('GetUser', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_user(self, request):
@@ -568,12 +1180,26 @@ class Client(OpenApiClient):
 
     def get_user_mfainfo_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserMFAInfo',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.GetUserMFAInfoResponse(),
-            self.do_rpcrequest('GetUserMFAInfo', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_user_mfainfo(self, request):
@@ -582,9 +1208,20 @@ class Client(OpenApiClient):
 
     def get_user_sso_settings_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetUserSsoSettings',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.GetUserSsoSettingsResponse(),
-            self.do_rpcrequest('GetUserSsoSettings', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_user_sso_settings(self):
@@ -593,12 +1230,26 @@ class Client(OpenApiClient):
 
     def list_access_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAccessKeys',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListAccessKeysResponse(),
-            self.do_rpcrequest('ListAccessKeys', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_access_keys(self, request):
@@ -607,12 +1258,26 @@ class Client(OpenApiClient):
 
     def list_app_secret_ids_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAppSecretIds',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListAppSecretIdsResponse(),
-            self.do_rpcrequest('ListAppSecretIds', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_app_secret_ids(self, request):
@@ -621,9 +1286,20 @@ class Client(OpenApiClient):
 
     def list_applications_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListApplications',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             ims_20190815_models.ListApplicationsResponse(),
-            self.do_rpcrequest('ListApplications', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_applications(self):
@@ -632,12 +1308,28 @@ class Client(OpenApiClient):
 
     def list_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroups',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListGroupsResponse(),
-            self.do_rpcrequest('ListGroups', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_groups(self, request):
@@ -646,12 +1338,26 @@ class Client(OpenApiClient):
 
     def list_groups_for_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListGroupsForUser',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListGroupsForUserResponse(),
-            self.do_rpcrequest('ListGroupsForUser', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_groups_for_user(self, request):
@@ -660,12 +1366,28 @@ class Client(OpenApiClient):
 
     def list_oidcproviders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListOIDCProviders',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListOIDCProvidersResponse(),
-            self.do_rpcrequest('ListOIDCProviders', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_oidcproviders(self, request):
@@ -674,12 +1396,26 @@ class Client(OpenApiClient):
 
     def list_predefined_scopes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_type):
+            query['AppType'] = request.app_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPredefinedScopes',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListPredefinedScopesResponse(),
-            self.do_rpcrequest('ListPredefinedScopes', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_predefined_scopes(self, request):
@@ -688,12 +1424,28 @@ class Client(OpenApiClient):
 
     def list_samlproviders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSAMLProviders',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListSAMLProvidersResponse(),
-            self.do_rpcrequest('ListSAMLProviders', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_samlproviders(self, request):
@@ -702,12 +1454,28 @@ class Client(OpenApiClient):
 
     def list_user_basic_infos_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserBasicInfos',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListUserBasicInfosResponse(),
-            self.do_rpcrequest('ListUserBasicInfos', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_user_basic_infos(self, request):
@@ -716,12 +1484,28 @@ class Client(OpenApiClient):
 
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUsers',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListUsersResponse(),
-            self.do_rpcrequest('ListUsers', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_users(self, request):
@@ -730,12 +1514,30 @@ class Client(OpenApiClient):
 
     def list_users_for_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUsersForGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListUsersForGroupResponse(),
-            self.do_rpcrequest('ListUsersForGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_users_for_group(self, request):
@@ -744,12 +1546,28 @@ class Client(OpenApiClient):
 
     def list_virtual_mfadevices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['Marker'] = request.marker
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListVirtualMFADevices',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.ListVirtualMFADevicesResponse(),
-            self.do_rpcrequest('ListVirtualMFADevices', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_virtual_mfadevices(self, request):
@@ -758,12 +1576,28 @@ class Client(OpenApiClient):
 
     def remove_client_id_from_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_id):
+            query['ClientId'] = request.client_id
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveClientIdFromOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.RemoveClientIdFromOIDCProviderResponse(),
-            self.do_rpcrequest('RemoveClientIdFromOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_client_id_from_oidcprovider(self, request):
@@ -772,12 +1606,28 @@ class Client(OpenApiClient):
 
     def remove_fingerprint_from_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.fingerprint):
+            query['Fingerprint'] = request.fingerprint
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveFingerprintFromOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.RemoveFingerprintFromOIDCProviderResponse(),
-            self.do_rpcrequest('RemoveFingerprintFromOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_fingerprint_from_oidcprovider(self, request):
@@ -786,12 +1636,28 @@ class Client(OpenApiClient):
 
     def remove_user_from_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveUserFromGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.RemoveUserFromGroupResponse(),
-            self.do_rpcrequest('RemoveUserFromGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_user_from_group(self, request):
@@ -800,12 +1666,26 @@ class Client(OpenApiClient):
 
     def set_default_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.default_domain_name):
+            query['DefaultDomainName'] = request.default_domain_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDefaultDomain',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.SetDefaultDomainResponse(),
-            self.do_rpcrequest('SetDefaultDomain', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_default_domain(self, request):
@@ -814,30 +1694,88 @@ class Client(OpenApiClient):
 
     def set_password_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.hard_expire):
+            query['HardExpire'] = request.hard_expire
+        if not UtilClient.is_unset(request.max_login_attemps):
+            query['MaxLoginAttemps'] = request.max_login_attemps
+        if not UtilClient.is_unset(request.max_password_age):
+            query['MaxPasswordAge'] = request.max_password_age
+        if not UtilClient.is_unset(request.minimum_password_different_character):
+            query['MinimumPasswordDifferentCharacter'] = request.minimum_password_different_character
+        if not UtilClient.is_unset(request.minimum_password_length):
+            query['MinimumPasswordLength'] = request.minimum_password_length
+        if not UtilClient.is_unset(request.password_not_contain_user_name):
+            query['PasswordNotContainUserName'] = request.password_not_contain_user_name
+        if not UtilClient.is_unset(request.password_reuse_prevention):
+            query['PasswordReusePrevention'] = request.password_reuse_prevention
+        if not UtilClient.is_unset(request.require_lowercase_characters):
+            query['RequireLowercaseCharacters'] = request.require_lowercase_characters
+        if not UtilClient.is_unset(request.require_numbers):
+            query['RequireNumbers'] = request.require_numbers
+        if not UtilClient.is_unset(request.require_symbols):
+            query['RequireSymbols'] = request.require_symbols
+        if not UtilClient.is_unset(request.require_uppercase_characters):
+            query['RequireUppercaseCharacters'] = request.require_uppercase_characters
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetPasswordPolicy',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.SetPasswordPolicyResponse(),
-            self.do_rpcrequest('SetPasswordPolicy', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_password_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_password_policy_with_options(request, runtime)
 
-    def set_security_preference_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = ims_20190815_models.SetSecurityPreferenceShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.verification_types):
-            request.verification_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.verification_types, 'VerificationTypes', 'json')
+    def set_security_preference_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.allow_user_to_change_password):
+            query['AllowUserToChangePassword'] = request.allow_user_to_change_password
+        if not UtilClient.is_unset(request.allow_user_to_manage_access_keys):
+            query['AllowUserToManageAccessKeys'] = request.allow_user_to_manage_access_keys
+        if not UtilClient.is_unset(request.allow_user_to_manage_mfadevices):
+            query['AllowUserToManageMFADevices'] = request.allow_user_to_manage_mfadevices
+        if not UtilClient.is_unset(request.allow_user_to_manage_personal_ding_talk):
+            query['AllowUserToManagePersonalDingTalk'] = request.allow_user_to_manage_personal_ding_talk
+        if not UtilClient.is_unset(request.enable_save_mfaticket):
+            query['EnableSaveMFATicket'] = request.enable_save_mfaticket
+        if not UtilClient.is_unset(request.enforce_mfafor_login):
+            query['EnforceMFAForLogin'] = request.enforce_mfafor_login
+        if not UtilClient.is_unset(request.login_network_masks):
+            query['LoginNetworkMasks'] = request.login_network_masks
+        if not UtilClient.is_unset(request.login_session_duration):
+            query['LoginSessionDuration'] = request.login_session_duration
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetSecurityPreference',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.SetSecurityPreferenceResponse(),
-            self.do_rpcrequest('SetSecurityPreference', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_security_preference(self, request):
@@ -846,12 +1784,30 @@ class Client(OpenApiClient):
 
     def set_user_sso_settings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auxiliary_domain):
+            query['AuxiliaryDomain'] = request.auxiliary_domain
+        if not UtilClient.is_unset(request.metadata_document):
+            query['MetadataDocument'] = request.metadata_document
+        if not UtilClient.is_unset(request.sso_enabled):
+            query['SsoEnabled'] = request.sso_enabled
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetUserSsoSettings',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.SetUserSsoSettingsResponse(),
-            self.do_rpcrequest('SetUserSsoSettings', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def set_user_sso_settings(self, request):
@@ -860,12 +1816,26 @@ class Client(OpenApiClient):
 
     def unbind_mfadevice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindMFADevice',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UnbindMFADeviceResponse(),
-            self.do_rpcrequest('UnbindMFADevice', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def unbind_mfadevice(self, request):
@@ -874,12 +1844,30 @@ class Client(OpenApiClient):
 
     def update_access_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.user_access_key_id):
+            query['UserAccessKeyId'] = request.user_access_key_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAccessKey',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateAccessKeyResponse(),
-            self.do_rpcrequest('UpdateAccessKey', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_access_key(self, request):
@@ -888,12 +1876,40 @@ class Client(OpenApiClient):
 
     def update_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.new_access_token_validity):
+            query['NewAccessTokenValidity'] = request.new_access_token_validity
+        if not UtilClient.is_unset(request.new_display_name):
+            query['NewDisplayName'] = request.new_display_name
+        if not UtilClient.is_unset(request.new_is_multi_tenant):
+            query['NewIsMultiTenant'] = request.new_is_multi_tenant
+        if not UtilClient.is_unset(request.new_predefined_scopes):
+            query['NewPredefinedScopes'] = request.new_predefined_scopes
+        if not UtilClient.is_unset(request.new_redirect_uris):
+            query['NewRedirectUris'] = request.new_redirect_uris
+        if not UtilClient.is_unset(request.new_refresh_token_validity):
+            query['NewRefreshTokenValidity'] = request.new_refresh_token_validity
+        if not UtilClient.is_unset(request.new_secret_required):
+            query['NewSecretRequired'] = request.new_secret_required
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateApplication',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateApplicationResponse(),
-            self.do_rpcrequest('UpdateApplication', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_application(self, request):
@@ -902,12 +1918,32 @@ class Client(OpenApiClient):
 
     def update_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.new_comments):
+            query['NewComments'] = request.new_comments
+        if not UtilClient.is_unset(request.new_display_name):
+            query['NewDisplayName'] = request.new_display_name
+        if not UtilClient.is_unset(request.new_group_name):
+            query['NewGroupName'] = request.new_group_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateGroup',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateGroupResponse(),
-            self.do_rpcrequest('UpdateGroup', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_group(self, request):
@@ -916,12 +1952,34 @@ class Client(OpenApiClient):
 
     def update_login_profile_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.mfabind_required):
+            query['MFABindRequired'] = request.mfabind_required
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.password_reset_required):
+            query['PasswordResetRequired'] = request.password_reset_required
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateLoginProfile',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateLoginProfileResponse(),
-            self.do_rpcrequest('UpdateLoginProfile', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_login_profile(self, request):
@@ -930,12 +1988,30 @@ class Client(OpenApiClient):
 
     def update_oidcprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_ids):
+            query['ClientIds'] = request.client_ids
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.oidcprovider_name):
+            query['OIDCProviderName'] = request.oidcprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateOIDCProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateOIDCProviderResponse(),
-            self.do_rpcrequest('UpdateOIDCProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_oidcprovider(self, request):
@@ -944,12 +2020,30 @@ class Client(OpenApiClient):
 
     def update_samlprovider_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.new_description):
+            query['NewDescription'] = request.new_description
+        if not UtilClient.is_unset(request.new_encoded_samlmetadata_document):
+            query['NewEncodedSAMLMetadataDocument'] = request.new_encoded_samlmetadata_document
+        if not UtilClient.is_unset(request.samlprovider_name):
+            query['SAMLProviderName'] = request.samlprovider_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateSAMLProvider',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateSAMLProviderResponse(),
-            self.do_rpcrequest('UpdateSAMLProvider', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_samlprovider(self, request):
@@ -958,12 +2052,38 @@ class Client(OpenApiClient):
 
     def update_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.new_comments):
+            query['NewComments'] = request.new_comments
+        if not UtilClient.is_unset(request.new_display_name):
+            query['NewDisplayName'] = request.new_display_name
+        if not UtilClient.is_unset(request.new_email):
+            query['NewEmail'] = request.new_email
+        if not UtilClient.is_unset(request.new_mobile_phone):
+            query['NewMobilePhone'] = request.new_mobile_phone
+        if not UtilClient.is_unset(request.new_user_principal_name):
+            query['NewUserPrincipalName'] = request.new_user_principal_name
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_principal_name):
+            query['UserPrincipalName'] = request.user_principal_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUser',
+            version='2019-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             ims_20190815_models.UpdateUserResponse(),
-            self.do_rpcrequest('UpdateUser', '2019-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_user(self, request):
