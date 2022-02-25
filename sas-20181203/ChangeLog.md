@@ -1,3 +1,6 @@
+2022-02-25 Version: 1.0.12
+- Generated python2 2018-12-03 for Sas.
+
 2022-02-21 Version: 1.0.11
 - Support DescribeImageListWithBaselineName API.
 
