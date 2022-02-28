@@ -4507,9 +4507,10 @@ class GetServiceProvisionsResponseBodyServiceProvisionsRoleProvision(TeaModel):
 
 
 class GetServiceProvisionsResponseBodyServiceProvisions(TeaModel):
-    def __init__(self, auto_enable_service=None, enable_url=None, role_provision=None, service_name=None,
-                 status=None, status_reason=None):
+    def __init__(self, auto_enable_service=None, dependent_service_names=None, enable_url=None,
+                 role_provision=None, service_name=None, status=None, status_reason=None):
         self.auto_enable_service = auto_enable_service  # type: bool
+        self.dependent_service_names = dependent_service_names  # type: list[str]
         self.enable_url = enable_url  # type: str
         self.role_provision = role_provision  # type: GetServiceProvisionsResponseBodyServiceProvisionsRoleProvision
         self.service_name = service_name  # type: str
@@ -4528,6 +4529,8 @@ class GetServiceProvisionsResponseBodyServiceProvisions(TeaModel):
         result = dict()
         if self.auto_enable_service is not None:
             result['AutoEnableService'] = self.auto_enable_service
+        if self.dependent_service_names is not None:
+            result['DependentServiceNames'] = self.dependent_service_names
         if self.enable_url is not None:
             result['EnableURL'] = self.enable_url
         if self.role_provision is not None:
@@ -4544,6 +4547,8 @@ class GetServiceProvisionsResponseBodyServiceProvisions(TeaModel):
         m = m or dict()
         if m.get('AutoEnableService') is not None:
             self.auto_enable_service = m.get('AutoEnableService')
+        if m.get('DependentServiceNames') is not None:
+            self.dependent_service_names = m.get('DependentServiceNames')
         if m.get('EnableURL') is not None:
             self.enable_url = m.get('EnableURL')
         if m.get('RoleProvision') is not None:
@@ -4898,9 +4903,10 @@ class GetStackResponseBody(TeaModel):
     def __init__(self, create_time=None, deletion_protection=None, description=None, disable_rollback=None,
                  drift_detection_time=None, interface=None, log=None, notification_urls=None, outputs=None, parameters=None,
                  parent_stack_id=None, ram_role_name=None, region_id=None, request_id=None, resource_group_id=None,
-                 resource_progress=None, root_stack_id=None, stack_drift_status=None, stack_id=None, stack_name=None, stack_type=None,
-                 status=None, status_reason=None, tags=None, template_description=None, template_id=None,
-                 template_scratch_id=None, template_url=None, template_version=None, timeout_in_minutes=None, update_time=None):
+                 resource_progress=None, root_stack_id=None, service_managed=None, service_name=None, stack_drift_status=None,
+                 stack_id=None, stack_name=None, stack_type=None, status=None, status_reason=None, tags=None,
+                 template_description=None, template_id=None, template_scratch_id=None, template_url=None, template_version=None,
+                 timeout_in_minutes=None, update_time=None):
         self.create_time = create_time  # type: str
         self.deletion_protection = deletion_protection  # type: str
         self.description = description  # type: str
@@ -4918,6 +4924,8 @@ class GetStackResponseBody(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_progress = resource_progress  # type: GetStackResponseBodyResourceProgress
         self.root_stack_id = root_stack_id  # type: str
+        self.service_managed = service_managed  # type: bool
+        self.service_name = service_name  # type: str
         self.stack_drift_status = stack_drift_status  # type: str
         self.stack_id = stack_id  # type: str
         self.stack_name = stack_name  # type: str
@@ -4989,6 +4997,10 @@ class GetStackResponseBody(TeaModel):
             result['ResourceProgress'] = self.resource_progress.to_map()
         if self.root_stack_id is not None:
             result['RootStackId'] = self.root_stack_id
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
         if self.stack_drift_status is not None:
             result['StackDriftStatus'] = self.stack_drift_status
         if self.stack_id is not None:
@@ -5062,6 +5074,10 @@ class GetStackResponseBody(TeaModel):
             self.resource_progress = temp_model.from_map(m['ResourceProgress'])
         if m.get('RootStackId') is not None:
             self.root_stack_id = m.get('RootStackId')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
         if m.get('StackDriftStatus') is not None:
             self.stack_drift_status = m.get('StackDriftStatus')
         if m.get('StackId') is not None:
@@ -9762,14 +9778,17 @@ class ListStacksResponseBodyStacksTags(TeaModel):
 
 class ListStacksResponseBodyStacks(TeaModel):
     def __init__(self, create_time=None, disable_rollback=None, drift_detection_time=None, parent_stack_id=None,
-                 region_id=None, resource_group_id=None, stack_drift_status=None, stack_id=None, stack_name=None,
-                 stack_type=None, status=None, status_reason=None, tags=None, timeout_in_minutes=None, update_time=None):
+                 region_id=None, resource_group_id=None, service_managed=None, service_name=None, stack_drift_status=None,
+                 stack_id=None, stack_name=None, stack_type=None, status=None, status_reason=None, tags=None,
+                 timeout_in_minutes=None, update_time=None):
         self.create_time = create_time  # type: str
         self.disable_rollback = disable_rollback  # type: bool
         self.drift_detection_time = drift_detection_time  # type: str
         self.parent_stack_id = parent_stack_id  # type: str
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.service_managed = service_managed  # type: bool
+        self.service_name = service_name  # type: str
         self.stack_drift_status = stack_drift_status  # type: str
         self.stack_id = stack_id  # type: str
         self.stack_name = stack_name  # type: str
@@ -9804,6 +9823,10 @@ class ListStacksResponseBodyStacks(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.service_managed is not None:
+            result['ServiceManaged'] = self.service_managed
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
         if self.stack_drift_status is not None:
             result['StackDriftStatus'] = self.stack_drift_status
         if self.stack_id is not None:
@@ -9840,6 +9863,10 @@ class ListStacksResponseBodyStacks(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ServiceManaged') is not None:
+            self.service_managed = m.get('ServiceManaged')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
         if m.get('StackDriftStatus') is not None:
             self.stack_drift_status = m.get('StackDriftStatus')
         if m.get('StackId') is not None:
