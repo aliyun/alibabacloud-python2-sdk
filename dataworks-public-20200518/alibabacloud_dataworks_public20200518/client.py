@@ -12,7 +12,7 @@ from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_dataworks_public20200518 import models as dataworks_public_20200518_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
-from RPC import models as rpc_models
+from alibabacloud_tea_rpc import models as rpc_models
 from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
 from alibabacloud_openplatform20191219 import models as open_platform_models
 from alibabacloud_oss_sdk import models as oss_models
@@ -66,8 +66,15 @@ class Client(OpenApiClient):
 
     def abolish_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='AbolishDataServiceApi',
@@ -92,13 +99,16 @@ class Client(OpenApiClient):
     def add_project_member_to_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['RoleCode'] = request.role_code
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_code):
+            query['RoleCode'] = request.role_code
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddProjectMemberToRole',
@@ -108,7 +118,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -123,11 +133,12 @@ class Client(OpenApiClient):
     def add_to_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CategoryId'] = request.category_id
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='AddToMetaCategory',
@@ -137,7 +148,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -152,12 +163,14 @@ class Client(OpenApiClient):
     def approve_permission_apply_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApproveAction'] = request.approve_action
-        query['ApproveComment'] = request.approve_comment
-        query['FlowId'] = request.flow_id
+        if not UtilClient.is_unset(request.approve_action):
+            query['ApproveAction'] = request.approve_action
+        if not UtilClient.is_unset(request.approve_comment):
+            query['ApproveComment'] = request.approve_comment
+        if not UtilClient.is_unset(request.flow_id):
+            query['FlowId'] = request.flow_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ApprovePermissionApplyOrder',
@@ -167,7 +180,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -179,69 +192,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.approve_permission_apply_order_with_options(request, runtime)
 
-    def check_engine_meta_partition_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['DataSourceType'] = request.data_source_type
-        query['Partition'] = request.partition
-        query['TableGuid'] = request.table_guid
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='CheckEngineMetaPartition',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.CheckEngineMetaPartitionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def check_engine_meta_partition(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_engine_meta_partition_with_options(request, runtime)
-
-    def check_engine_meta_table_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['DataSourceType'] = request.data_source_type
-        query['TableGuid'] = request.table_guid
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='CheckEngineMetaTable',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.CheckEngineMetaTableResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def check_engine_meta_table(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.check_engine_meta_table_with_options(request, runtime)
-
     def check_file_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.check_detail_url):
+            body['CheckDetailUrl'] = request.check_detail_url
+        if not UtilClient.is_unset(request.checker_instance_id):
+            body['CheckerInstanceId'] = request.checker_instance_id
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CheckFileDeployment',
@@ -266,15 +227,20 @@ class Client(OpenApiClient):
     def check_meta_partition_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['Partition'] = request.partition
-        query['TableGuid'] = request.table_guid
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.partition):
+            query['Partition'] = request.partition
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CheckMetaPartition',
@@ -284,7 +250,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -299,14 +265,18 @@ class Client(OpenApiClient):
     def check_meta_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['TableGuid'] = request.table_guid
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CheckMetaTable',
@@ -316,7 +286,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -328,32 +298,23 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_meta_table_with_options(request, runtime)
 
-    def check_meta_table_task_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        params = open_api_models.Params(
-            action='CheckMetaTableTask',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.CheckMetaTableTaskResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def check_meta_table_task(self):
-        runtime = util_models.RuntimeOptions()
-        return self.check_meta_table_task_with_options(runtime)
-
     def create_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_name):
+            body['BusinessName'] = request.business_name
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.use_type):
+            body['UseType'] = request.use_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateBusiness',
@@ -378,16 +339,22 @@ class Client(OpenApiClient):
     def create_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConnectionType'] = request.connection_type
-        query['Content'] = request.content
-        query['Description'] = request.description
-        query['EnvType'] = request.env_type
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
-        query['SubType'] = request.sub_type
+        if not UtilClient.is_unset(request.connection_type):
+            query['ConnectionType'] = request.connection_type
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sub_type):
+            query['SubType'] = request.sub_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateConnection',
@@ -397,7 +364,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -412,15 +379,20 @@ class Client(OpenApiClient):
     def create_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['TaskContent'] = request.task_content
-        query['TaskName'] = request.task_name
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_content):
+            query['TaskContent'] = request.task_content
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.task_param):
+            query['TaskParam'] = request.task_param
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateDISyncTask',
@@ -430,7 +402,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -444,8 +416,31 @@ class Client(OpenApiClient):
 
     def create_dag_complement_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_begin_time):
+            body['BizBeginTime'] = request.biz_begin_time
+        if not UtilClient.is_unset(request.biz_end_time):
+            body['BizEndTime'] = request.biz_end_time
+        if not UtilClient.is_unset(request.end_biz_date):
+            body['EndBizDate'] = request.end_biz_date
+        if not UtilClient.is_unset(request.exclude_node_ids):
+            body['ExcludeNodeIds'] = request.exclude_node_ids
+        if not UtilClient.is_unset(request.include_node_ids):
+            body['IncludeNodeIds'] = request.include_node_ids
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.node_params):
+            body['NodeParams'] = request.node_params
+        if not UtilClient.is_unset(request.parallelism):
+            body['Parallelism'] = request.parallelism
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.root_node_id):
+            body['RootNodeId'] = request.root_node_id
+        if not UtilClient.is_unset(request.start_biz_date):
+            body['StartBizDate'] = request.start_biz_date
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDagComplement',
@@ -469,8 +464,19 @@ class Client(OpenApiClient):
 
     def create_dag_test_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.node_params):
+            body['NodeParams'] = request.node_params
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDagTest',
@@ -494,8 +500,41 @@ class Client(OpenApiClient):
 
     def create_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_description):
+            body['ApiDescription'] = request.api_description
+        if not UtilClient.is_unset(request.api_mode):
+            body['ApiMode'] = request.api_mode
+        if not UtilClient.is_unset(request.api_name):
+            body['ApiName'] = request.api_name
+        if not UtilClient.is_unset(request.api_path):
+            body['ApiPath'] = request.api_path
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.protocols):
+            body['Protocols'] = request.protocols
+        if not UtilClient.is_unset(request.registration_details):
+            body['RegistrationDetails'] = request.registration_details
+        if not UtilClient.is_unset(request.request_method):
+            body['RequestMethod'] = request.request_method
+        if not UtilClient.is_unset(request.response_content_type):
+            body['ResponseContentType'] = request.response_content_type
+        if not UtilClient.is_unset(request.script_details):
+            body['ScriptDetails'] = request.script_details
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.timeout):
+            body['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.visible_range):
+            body['VisibleRange'] = request.visible_range
+        if not UtilClient.is_unset(request.wizard_details):
+            body['WizardDetails'] = request.wizard_details
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDataServiceApi',
@@ -519,8 +558,19 @@ class Client(OpenApiClient):
 
     def create_data_service_api_authority_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.authorized_project_id):
+            body['AuthorizedProjectId'] = request.authorized_project_id
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDataServiceApiAuthority',
@@ -544,8 +594,19 @@ class Client(OpenApiClient):
 
     def create_data_service_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_name):
+            body['FolderName'] = request.folder_name
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.parent_id):
+            body['ParentId'] = request.parent_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDataServiceFolder',
@@ -569,8 +630,19 @@ class Client(OpenApiClient):
 
     def create_data_service_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_gateway_group_id):
+            body['ApiGatewayGroupId'] = request.api_gateway_group_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.group_name):
+            body['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateDataServiceGroup',
@@ -595,16 +667,22 @@ class Client(OpenApiClient):
     def create_data_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Content'] = request.content
-        query['DataSourceType'] = request.data_source_type
-        query['Description'] = request.description
-        query['EnvType'] = request.env_type
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
-        query['SubType'] = request.sub_type
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sub_type):
+            query['SubType'] = request.sub_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateDataSource',
@@ -614,7 +692,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -628,8 +706,21 @@ class Client(OpenApiClient):
 
     def create_export_migration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.export_mode):
+            body['ExportMode'] = request.export_mode
+        if not UtilClient.is_unset(request.export_object_status):
+            body['ExportObjectStatus'] = request.export_object_status
+        if not UtilClient.is_unset(request.incremental_since):
+            body['IncrementalSince'] = request.incremental_since
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateExportMigration',
@@ -653,8 +744,63 @@ class Client(OpenApiClient):
 
     def create_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.advanced_settings):
+            body['AdvancedSettings'] = request.advanced_settings
+        if not UtilClient.is_unset(request.auto_parsing):
+            body['AutoParsing'] = request.auto_parsing
+        if not UtilClient.is_unset(request.auto_rerun_interval_millis):
+            body['AutoRerunIntervalMillis'] = request.auto_rerun_interval_millis
+        if not UtilClient.is_unset(request.auto_rerun_times):
+            body['AutoRerunTimes'] = request.auto_rerun_times
+        if not UtilClient.is_unset(request.connection_name):
+            body['ConnectionName'] = request.connection_name
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
+        if not UtilClient.is_unset(request.cron_express):
+            body['CronExpress'] = request.cron_express
+        if not UtilClient.is_unset(request.cycle_type):
+            body['CycleType'] = request.cycle_type
+        if not UtilClient.is_unset(request.dependent_node_id_list):
+            body['DependentNodeIdList'] = request.dependent_node_id_list
+        if not UtilClient.is_unset(request.dependent_type):
+            body['DependentType'] = request.dependent_type
+        if not UtilClient.is_unset(request.end_effect_date):
+            body['EndEffectDate'] = request.end_effect_date
+        if not UtilClient.is_unset(request.file_description):
+            body['FileDescription'] = request.file_description
+        if not UtilClient.is_unset(request.file_folder_path):
+            body['FileFolderPath'] = request.file_folder_path
+        if not UtilClient.is_unset(request.file_name):
+            body['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.file_type):
+            body['FileType'] = request.file_type
+        if not UtilClient.is_unset(request.input_list):
+            body['InputList'] = request.input_list
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.para_value):
+            body['ParaValue'] = request.para_value
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.rerun_mode):
+            body['RerunMode'] = request.rerun_mode
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_group_identifier):
+            body['ResourceGroupIdentifier'] = request.resource_group_identifier
+        if not UtilClient.is_unset(request.scheduler_type):
+            body['SchedulerType'] = request.scheduler_type
+        if not UtilClient.is_unset(request.start_effect_date):
+            body['StartEffectDate'] = request.start_effect_date
+        if not UtilClient.is_unset(request.start_immediately):
+            body['StartImmediately'] = request.start_immediately
+        if not UtilClient.is_unset(request.stop):
+            body['Stop'] = request.stop
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateFile',
@@ -678,8 +824,15 @@ class Client(OpenApiClient):
 
     def create_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_path):
+            body['FolderPath'] = request.folder_path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateFolder',
@@ -703,8 +856,27 @@ class Client(OpenApiClient):
 
     def create_import_migration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.calculate_engine_map):
+            body['CalculateEngineMap'] = request.calculate_engine_map
+        if not UtilClient.is_unset(request.commit_rule):
+            body['CommitRule'] = request.commit_rule
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.package_file):
+            body['PackageFile'] = request.package_file
+        if not UtilClient.is_unset(request.package_type):
+            body['PackageType'] = request.package_type
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_map):
+            body['ResourceGroupMap'] = request.resource_group_map
+        if not UtilClient.is_unset(request.workspace_map):
+            body['WorkspaceMap'] = request.workspace_map
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateImportMigration',
@@ -795,8 +967,25 @@ class Client(OpenApiClient):
 
     def create_manual_dag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.dag_parameters):
+            body['DagParameters'] = request.dag_parameters
+        if not UtilClient.is_unset(request.exclude_node_ids):
+            body['ExcludeNodeIds'] = request.exclude_node_ids
+        if not UtilClient.is_unset(request.flow_name):
+            body['FlowName'] = request.flow_name
+        if not UtilClient.is_unset(request.include_node_ids):
+            body['IncludeNodeIds'] = request.include_node_ids
+        if not UtilClient.is_unset(request.node_parameters):
+            body['NodeParameters'] = request.node_parameters
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateManualDag',
@@ -820,8 +1009,15 @@ class Client(OpenApiClient):
 
     def create_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.parent_id):
+            body['ParentId'] = request.parent_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateMetaCategory',
@@ -846,17 +1042,24 @@ class Client(OpenApiClient):
     def create_permission_apply_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ApplyObject'] = request.apply_object
-        query['ApplyReason'] = request.apply_reason
-        query['ApplyUserIds'] = request.apply_user_ids
-        query['Deadline'] = request.deadline
-        query['EngineType'] = request.engine_type
-        query['MaxComputeProjectName'] = request.max_compute_project_name
-        query['OrderType'] = request.order_type
-        query['WorkspaceId'] = request.workspace_id
+        if not UtilClient.is_unset(request.apply_object):
+            query['ApplyObject'] = request.apply_object
+        if not UtilClient.is_unset(request.apply_reason):
+            query['ApplyReason'] = request.apply_reason
+        if not UtilClient.is_unset(request.apply_user_ids):
+            query['ApplyUserIds'] = request.apply_user_ids
+        if not UtilClient.is_unset(request.deadline):
+            query['Deadline'] = request.deadline
+        if not UtilClient.is_unset(request.engine_type):
+            query['EngineType'] = request.engine_type
+        if not UtilClient.is_unset(request.max_compute_project_name):
+            query['MaxComputeProjectName'] = request.max_compute_project_name
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreatePermissionApplyOrder',
@@ -866,7 +1069,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -881,13 +1084,16 @@ class Client(OpenApiClient):
     def create_project_member_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['RoleCode'] = request.role_code
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_code):
+            query['RoleCode'] = request.role_code
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateProjectMember',
@@ -897,7 +1103,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -911,8 +1117,19 @@ class Client(OpenApiClient):
 
     def create_quality_entity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.entity_level):
+            body['EntityLevel'] = request.entity_level
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.match_expression):
+            body['MatchExpression'] = request.match_expression
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.table_name):
+            body['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateQualityEntity',
@@ -936,8 +1153,17 @@ class Client(OpenApiClient):
 
     def create_quality_follower_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alarm_mode):
+            body['AlarmMode'] = request.alarm_mode
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.follower):
+            body['Follower'] = request.follower
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateQualityFollower',
@@ -961,8 +1187,25 @@ class Client(OpenApiClient):
 
     def create_quality_relative_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.match_expression):
+            body['MatchExpression'] = request.match_expression
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.table_name):
+            body['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.target_node_project_id):
+            body['TargetNodeProjectId'] = request.target_node_project_id
+        if not UtilClient.is_unset(request.target_node_project_name):
+            body['TargetNodeProjectName'] = request.target_node_project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateQualityRelativeNode',
@@ -986,8 +1229,45 @@ class Client(OpenApiClient):
 
     def create_quality_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.block_type):
+            body['BlockType'] = request.block_type
+        if not UtilClient.is_unset(request.checker):
+            body['Checker'] = request.checker
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.critical_threshold):
+            body['CriticalThreshold'] = request.critical_threshold
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.expect_value):
+            body['ExpectValue'] = request.expect_value
+        if not UtilClient.is_unset(request.method_name):
+            body['MethodName'] = request.method_name
+        if not UtilClient.is_unset(request.operator):
+            body['Operator'] = request.operator
+        if not UtilClient.is_unset(request.predict_type):
+            body['PredictType'] = request.predict_type
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.property):
+            body['Property'] = request.property
+        if not UtilClient.is_unset(request.property_type):
+            body['PropertyType'] = request.property_type
+        if not UtilClient.is_unset(request.rule_name):
+            body['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.rule_type):
+            body['RuleType'] = request.rule_type
+        if not UtilClient.is_unset(request.template_id):
+            body['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.trend):
+            body['Trend'] = request.trend
+        if not UtilClient.is_unset(request.warning_threshold):
+            body['WarningThreshold'] = request.warning_threshold
+        if not UtilClient.is_unset(request.where_condition):
+            body['WhereCondition'] = request.where_condition
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateQualityRule',
@@ -1011,8 +1291,39 @@ class Client(OpenApiClient):
 
     def create_remind_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alert_interval):
+            body['AlertInterval'] = request.alert_interval
+        if not UtilClient.is_unset(request.alert_methods):
+            body['AlertMethods'] = request.alert_methods
+        if not UtilClient.is_unset(request.alert_targets):
+            body['AlertTargets'] = request.alert_targets
+        if not UtilClient.is_unset(request.alert_unit):
+            body['AlertUnit'] = request.alert_unit
+        if not UtilClient.is_unset(request.baseline_ids):
+            body['BaselineIds'] = request.baseline_ids
+        if not UtilClient.is_unset(request.biz_process_ids):
+            body['BizProcessIds'] = request.biz_process_ids
+        if not UtilClient.is_unset(request.detail):
+            body['Detail'] = request.detail
+        if not UtilClient.is_unset(request.dnd_end):
+            body['DndEnd'] = request.dnd_end
+        if not UtilClient.is_unset(request.max_alert_times):
+            body['MaxAlertTimes'] = request.max_alert_times
+        if not UtilClient.is_unset(request.node_ids):
+            body['NodeIds'] = request.node_ids
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.remind_name):
+            body['RemindName'] = request.remind_name
+        if not UtilClient.is_unset(request.remind_type):
+            body['RemindType'] = request.remind_type
+        if not UtilClient.is_unset(request.remind_unit):
+            body['RemindUnit'] = request.remind_unit
+        if not UtilClient.is_unset(request.robot_urls):
+            body['RobotUrls'] = request.robot_urls
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateRemind',
@@ -1037,24 +1348,48 @@ class Client(OpenApiClient):
     def create_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppGuid'] = request.app_guid
-        query['CategoryId'] = request.category_id
-        query['ClientToken'] = request.client_token
-        query['Comment'] = request.comment
-        query['ExternalTableType'] = request.external_table_type
-        query['HasPart'] = request.has_part
-        query['IsView'] = request.is_view
-        query['LifeCycle'] = request.life_cycle
-        query['Location'] = request.location
-        query['LogicalLevelId'] = request.logical_level_id
-        query['OwnerId'] = request.owner_id
-        query['PhysicsLevelId'] = request.physics_level_id
-        query['ProjectId'] = request.project_id
-        query['TableName'] = request.table_name
-        query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.app_guid):
+            query['AppGuid'] = request.app_guid
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.external_table_type):
+            query['ExternalTableType'] = request.external_table_type
+        if not UtilClient.is_unset(request.has_part):
+            query['HasPart'] = request.has_part
+        if not UtilClient.is_unset(request.is_view):
+            query['IsView'] = request.is_view
+        if not UtilClient.is_unset(request.life_cycle):
+            query['LifeCycle'] = request.life_cycle
+        if not UtilClient.is_unset(request.location):
+            query['Location'] = request.location
+        if not UtilClient.is_unset(request.logical_level_id):
+            query['LogicalLevelId'] = request.logical_level_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.physics_level_id):
+            query['PhysicsLevelId'] = request.physics_level_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
+        body = {}
+        if not UtilClient.is_unset(request.columns):
+            body['Columns'] = request.columns
+        if not UtilClient.is_unset(request.endpoint):
+            body['Endpoint'] = request.endpoint
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.themes):
+            body['Themes'] = request.themes
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateTable',
@@ -1079,13 +1414,16 @@ class Client(OpenApiClient):
     def create_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['LevelType'] = request.level_type
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.level_type):
+            query['LevelType'] = request.level_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateTableLevel',
@@ -1095,7 +1433,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1110,13 +1448,16 @@ class Client(OpenApiClient):
     def create_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Level'] = request.level
-        query['Name'] = request.name
-        query['ParentId'] = request.parent_id
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.level):
+            query['Level'] = request.level
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.parent_id):
+            query['ParentId'] = request.parent_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateTableTheme',
@@ -1126,7 +1467,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1140,8 +1481,33 @@ class Client(OpenApiClient):
 
     def create_udf_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.class_name):
+            body['ClassName'] = request.class_name
+        if not UtilClient.is_unset(request.cmd_description):
+            body['CmdDescription'] = request.cmd_description
+        if not UtilClient.is_unset(request.example):
+            body['Example'] = request.example
+        if not UtilClient.is_unset(request.file_folder_path):
+            body['FileFolderPath'] = request.file_folder_path
+        if not UtilClient.is_unset(request.file_name):
+            body['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.function_type):
+            body['FunctionType'] = request.function_type
+        if not UtilClient.is_unset(request.parameter_description):
+            body['ParameterDescription'] = request.parameter_description
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.resources):
+            body['Resources'] = request.resources
+        if not UtilClient.is_unset(request.return_value):
+            body['ReturnValue'] = request.return_value
+        if not UtilClient.is_unset(request.udf_description):
+            body['UdfDescription'] = request.udf_description
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateUdfFile',
@@ -1163,35 +1529,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_udf_file_with_options(request, runtime)
 
-    def create_view_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='CreateView',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.CreateViewResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_view(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_view_with_options(request, runtime)
-
     def delete_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_id):
+            body['BusinessId'] = request.business_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteBusiness',
@@ -1216,10 +1564,10 @@ class Client(OpenApiClient):
     def delete_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConnectionId'] = request.connection_id
+        if not UtilClient.is_unset(request.connection_id):
+            query['ConnectionId'] = request.connection_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteConnection',
@@ -1229,7 +1577,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1244,12 +1592,14 @@ class Client(OpenApiClient):
     def delete_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDISyncTask',
@@ -1259,7 +1609,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1273,8 +1623,15 @@ class Client(OpenApiClient):
 
     def delete_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteDataServiceApi',
@@ -1298,8 +1655,17 @@ class Client(OpenApiClient):
 
     def delete_data_service_api_authority_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.authorized_project_id):
+            body['AuthorizedProjectId'] = request.authorized_project_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteDataServiceApiAuthority',
@@ -1324,10 +1690,10 @@ class Client(OpenApiClient):
     def delete_data_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDataSource',
@@ -1337,7 +1703,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1351,8 +1717,15 @@ class Client(OpenApiClient):
 
     def delete_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteFile',
@@ -1376,8 +1749,15 @@ class Client(OpenApiClient):
 
     def delete_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteFolder',
@@ -1402,11 +1782,12 @@ class Client(OpenApiClient):
     def delete_from_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CategoryId'] = request.category_id
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteFromMetaCategory',
@@ -1416,7 +1797,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1442,7 +1823,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1457,11 +1838,12 @@ class Client(OpenApiClient):
     def delete_project_member_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteProjectMember',
@@ -1471,7 +1853,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1485,8 +1867,15 @@ class Client(OpenApiClient):
 
     def delete_quality_entity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteQualityEntity',
@@ -1510,8 +1899,13 @@ class Client(OpenApiClient):
 
     def delete_quality_follower_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.follower_id):
+            body['FollowerId'] = request.follower_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteQualityFollower',
@@ -1535,8 +1929,25 @@ class Client(OpenApiClient):
 
     def delete_quality_relative_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.match_expression):
+            body['MatchExpression'] = request.match_expression
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.table_name):
+            body['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.target_node_project_id):
+            body['TargetNodeProjectId'] = request.target_node_project_id
+        if not UtilClient.is_unset(request.target_node_project_name):
+            body['TargetNodeProjectName'] = request.target_node_project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteQualityRelativeNode',
@@ -1560,8 +1971,13 @@ class Client(OpenApiClient):
 
     def delete_quality_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteQualityRule',
@@ -1585,8 +2001,11 @@ class Client(OpenApiClient):
 
     def delete_remind_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.remind_id):
+            body['RemindId'] = request.remind_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteRemind',
@@ -1611,13 +2030,16 @@ class Client(OpenApiClient):
     def delete_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppGuid'] = request.app_guid
-        query['EnvType'] = request.env_type
-        query['ProjectId'] = request.project_id
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.app_guid):
+            query['AppGuid'] = request.app_guid
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteTable',
@@ -1627,7 +2049,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1642,11 +2064,12 @@ class Client(OpenApiClient):
     def delete_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['LevelId'] = request.level_id
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.level_id):
+            query['LevelId'] = request.level_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteTableLevel',
@@ -1656,7 +2079,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1671,11 +2094,12 @@ class Client(OpenApiClient):
     def delete_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['ThemeId'] = request.theme_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.theme_id):
+            query['ThemeId'] = request.theme_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteTableTheme',
@@ -1685,7 +2109,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1697,44 +2121,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_table_theme_with_options(request, runtime)
 
-    def delete_view_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['AppGuid'] = request.app_guid
-        query['ViewName'] = request.view_name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='DeleteView',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.DeleteViewResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_view(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_view_with_options(request, runtime)
-
     def deploy_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeployDISyncTask',
@@ -1744,7 +2141,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1758,8 +2155,19 @@ class Client(OpenApiClient):
 
     def deploy_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeployFile',
@@ -1809,8 +2217,19 @@ class Client(OpenApiClient):
 
     def establish_relation_table_to_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_id):
+            body['BusinessId'] = request.business_id
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.table_guid):
+            body['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='EstablishRelationTableToBusiness',
@@ -1832,62 +2251,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.establish_relation_table_to_business_with_options(request, runtime)
 
-    def export_connections_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ExportConnections',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ExportConnectionsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def export_connections(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.export_connections_with_options(request, runtime)
-
-    def export_disync_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['ProjectId'] = request.project_id
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='ExportDISyncTasks',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ExportDISyncTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def export_disync_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.export_disync_tasks_with_options(request, runtime)
-
     def export_data_sources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1902,7 +2265,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1917,13 +2280,16 @@ class Client(OpenApiClient):
     def generate_disync_task_config_for_creating_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_param):
+            query['TaskParam'] = request.task_param
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GenerateDISyncTaskConfigForCreating',
@@ -1933,7 +2299,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1948,14 +2314,18 @@ class Client(OpenApiClient):
     def generate_disync_task_config_for_updating_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectId'] = request.project_id
-        query['TaskId'] = request.task_id
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_param):
+            query['TaskParam'] = request.task_param
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GenerateDISyncTaskConfigForUpdating',
@@ -1965,7 +2335,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -1979,8 +2349,11 @@ class Client(OpenApiClient):
 
     def get_baseline_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetBaselineConfig',
@@ -2004,8 +2377,15 @@ class Client(OpenApiClient):
 
     def get_baseline_key_path_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.in_group_id):
+            body['InGroupId'] = request.in_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetBaselineKeyPath',
@@ -2029,8 +2409,15 @@ class Client(OpenApiClient):
 
     def get_baseline_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.in_group_id):
+            body['InGroupId'] = request.in_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetBaselineStatus',
@@ -2054,8 +2441,15 @@ class Client(OpenApiClient):
 
     def get_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_id):
+            body['BusinessId'] = request.business_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetBusiness',
@@ -2077,38 +2471,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_business_with_options(request, runtime)
 
-    def get_connection_meta_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['EnvType'] = request.env_type
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='GetConnectionMeta',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.GetConnectionMetaResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_connection_meta(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_connection_meta_with_options(request, runtime)
-
     def get_ddljob_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -2123,7 +2485,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2138,12 +2500,14 @@ class Client(OpenApiClient):
     def get_disync_instance_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDISyncInstanceInfo',
@@ -2153,7 +2517,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2168,12 +2532,14 @@ class Client(OpenApiClient):
     def get_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDISyncTask',
@@ -2183,7 +2549,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2209,7 +2575,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2223,8 +2589,13 @@ class Client(OpenApiClient):
 
     def get_dag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.dag_id):
+            body['DagId'] = request.dag_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDag',
@@ -2248,8 +2619,15 @@ class Client(OpenApiClient):
 
     def get_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataServiceApi',
@@ -2273,8 +2651,15 @@ class Client(OpenApiClient):
 
     def get_data_service_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.application_id):
+            body['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataServiceApplication',
@@ -2298,8 +2683,15 @@ class Client(OpenApiClient):
 
     def get_data_service_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataServiceFolder',
@@ -2323,8 +2715,15 @@ class Client(OpenApiClient):
 
     def get_data_service_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataServiceGroup',
@@ -2348,8 +2747,15 @@ class Client(OpenApiClient):
 
     def get_data_service_published_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDataServicePublishedApi',
@@ -2374,14 +2780,18 @@ class Client(OpenApiClient):
     def get_data_source_meta_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['EnvType'] = request.env_type
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.datasource_name):
+            query['DatasourceName'] = request.datasource_name
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetDataSourceMeta',
@@ -2391,7 +2801,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2405,8 +2815,15 @@ class Client(OpenApiClient):
 
     def get_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.deployment_id):
+            body['DeploymentId'] = request.deployment_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetDeployment',
@@ -2430,8 +2847,17 @@ class Client(OpenApiClient):
 
     def get_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetFile',
@@ -2455,8 +2881,13 @@ class Client(OpenApiClient):
 
     def get_file_type_statistic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetFileTypeStatistic',
@@ -2480,8 +2911,17 @@ class Client(OpenApiClient):
 
     def get_file_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.file_version):
+            body['FileVersion'] = request.file_version
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetFileVersion',
@@ -2505,8 +2945,17 @@ class Client(OpenApiClient):
 
     def get_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.folder_path):
+            body['FolderPath'] = request.folder_path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetFolder',
@@ -2530,8 +2979,13 @@ class Client(OpenApiClient):
 
     def get_ideevent_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.message_id):
+            body['MessageId'] = request.message_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetIDEEventDetail',
@@ -2555,8 +3009,13 @@ class Client(OpenApiClient):
 
     def get_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstance',
@@ -2580,8 +3039,13 @@ class Client(OpenApiClient):
 
     def get_instance_consume_time_rank_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceConsumeTimeRank',
@@ -2605,8 +3069,15 @@ class Client(OpenApiClient):
 
     def get_instance_count_trend_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.begin_date):
+            body['BeginDate'] = request.begin_date
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceCountTrend',
@@ -2630,8 +3101,11 @@ class Client(OpenApiClient):
 
     def get_instance_error_rank_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceErrorRank',
@@ -2655,8 +3129,13 @@ class Client(OpenApiClient):
 
     def get_instance_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceLog',
@@ -2680,8 +3159,15 @@ class Client(OpenApiClient):
 
     def get_instance_status_count_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceStatusCount',
@@ -2705,8 +3191,19 @@ class Client(OpenApiClient):
 
     def get_instance_status_statistic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.dag_type):
+            body['DagType'] = request.dag_type
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.scheduler_type):
+            body['SchedulerType'] = request.scheduler_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetInstanceStatusStatistic',
@@ -2730,8 +3227,15 @@ class Client(OpenApiClient):
 
     def get_manual_dag_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.dag_id):
+            body['DagId'] = request.dag_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetManualDagInstances',
@@ -2756,12 +3260,14 @@ class Client(OpenApiClient):
     def get_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['ParentCategoryId'] = request.parent_category_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_category_id):
+            query['ParentCategoryId'] = request.parent_category_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaCategory',
@@ -2771,7 +3277,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2786,18 +3292,26 @@ class Client(OpenApiClient):
     def get_meta_column_lineage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['ColumnGuid'] = request.column_guid
-        query['ColumnName'] = request.column_name
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['Direction'] = request.direction
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.column_guid):
+            query['ColumnGuid'] = request.column_guid
+        if not UtilClient.is_unset(request.column_name):
+            query['ColumnName'] = request.column_name
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaColumnLineage',
@@ -2807,7 +3321,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2833,7 +3347,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2848,15 +3362,20 @@ class Client(OpenApiClient):
     def get_meta_dbtable_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppGuid'] = request.app_guid
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.app_guid):
+            query['AppGuid'] = request.app_guid
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaDBTableList',
@@ -2866,7 +3385,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2892,7 +3411,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2906,8 +3425,23 @@ class Client(OpenApiClient):
 
     def get_meta_table_change_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.change_type):
+            body['ChangeType'] = request.change_type
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.object_type):
+            body['ObjectType'] = request.object_type
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.table_guid):
+            body['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetMetaTableChangeLog',
@@ -2943,7 +3477,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2969,7 +3503,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -2984,11 +3518,12 @@ class Client(OpenApiClient):
     def get_meta_table_intro_wiki_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TableGuid'] = request.table_guid
-        query['WikiVersion'] = request.wiki_version
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.wiki_version):
+            query['WikiVersion'] = request.wiki_version
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaTableIntroWiki',
@@ -2998,7 +3533,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3013,17 +3548,24 @@ class Client(OpenApiClient):
     def get_meta_table_lineage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['Direction'] = request.direction
-        query['NextPrimaryKey'] = request.next_primary_key
-        query['PageSize'] = request.page_size
-        query['TableGuid'] = request.table_guid
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.next_primary_key):
+            query['NextPrimaryKey'] = request.next_primary_key
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaTableLineage',
@@ -3033,7 +3575,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3059,7 +3601,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3074,14 +3616,18 @@ class Client(OpenApiClient):
     def get_meta_table_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndDate'] = request.end_date
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['StartDate'] = request.start_date
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaTableOutput',
@@ -3091,7 +3637,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3106,16 +3652,22 @@ class Client(OpenApiClient):
     def get_meta_table_partition_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['DatabaseName'] = request.database_name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['TableGuid'] = request.table_guid
-        query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetMetaTablePartition',
@@ -3125,7 +3677,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3151,7 +3703,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3165,8 +3717,13 @@ class Client(OpenApiClient):
 
     def get_migration_process_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.migration_id):
+            body['MigrationId'] = request.migration_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetMigrationProcess',
@@ -3190,8 +3747,13 @@ class Client(OpenApiClient):
 
     def get_migration_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.migration_id):
+            body['MigrationId'] = request.migration_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetMigrationSummary',
@@ -3215,8 +3777,13 @@ class Client(OpenApiClient):
 
     def get_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNode',
@@ -3240,8 +3807,13 @@ class Client(OpenApiClient):
 
     def get_node_children_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNodeChildren',
@@ -3265,8 +3837,13 @@ class Client(OpenApiClient):
 
     def get_node_code_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNodeCode',
@@ -3290,8 +3867,11 @@ class Client(OpenApiClient):
 
     def get_node_on_baseline_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNodeOnBaseline',
@@ -3315,8 +3895,13 @@ class Client(OpenApiClient):
 
     def get_node_parents_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNodeParents',
@@ -3340,8 +3925,21 @@ class Client(OpenApiClient):
 
     def get_node_type_list_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.keyword):
+            body['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.locale):
+            body['Locale'] = request.locale
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetNodeTypeListInfo',
@@ -3377,7 +3975,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3403,7 +4001,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3418,10 +4016,10 @@ class Client(OpenApiClient):
     def get_permission_apply_order_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FlowId'] = request.flow_id
+        if not UtilClient.is_unset(request.flow_id):
+            query['FlowId'] = request.flow_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetPermissionApplyOrderDetail',
@@ -3431,7 +4029,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3446,10 +4044,10 @@ class Client(OpenApiClient):
     def get_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProject',
@@ -3459,7 +4057,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3474,10 +4072,10 @@ class Client(OpenApiClient):
     def get_project_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProjectDetail',
@@ -3487,7 +4085,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3501,8 +4099,17 @@ class Client(OpenApiClient):
 
     def get_quality_entity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.match_expression):
+            body['MatchExpression'] = request.match_expression
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.table_name):
+            body['TableName'] = request.table_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetQualityEntity',
@@ -3526,8 +4133,13 @@ class Client(OpenApiClient):
 
     def get_quality_follower_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetQualityFollower',
@@ -3551,8 +4163,13 @@ class Client(OpenApiClient):
 
     def get_quality_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetQualityRule',
@@ -3576,8 +4193,11 @@ class Client(OpenApiClient):
 
     def get_remind_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.remind_id):
+            body['RemindId'] = request.remind_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetRemind',
@@ -3613,7 +4233,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3627,8 +4247,11 @@ class Client(OpenApiClient):
 
     def get_success_instance_trend_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetSuccessInstanceTrend',
@@ -3652,8 +4275,11 @@ class Client(OpenApiClient):
 
     def get_topic_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.topic_id):
+            body['TopicId'] = request.topic_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetTopic',
@@ -3677,8 +4303,11 @@ class Client(OpenApiClient):
 
     def get_topic_influence_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.topic_id):
+            body['TopicId'] = request.topic_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='GetTopicInfluence',
@@ -3700,73 +4329,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_topic_influence_with_options(request, runtime)
 
-    def import_connections_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['Connections'] = request.connections
-        query['ProjectId'] = request.project_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='ImportConnections',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ImportConnectionsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def import_connections(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.import_connections_with_options(request, runtime)
-
-    def import_disync_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['ProjectId'] = request.project_id
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='ImportDISyncTasks',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ImportDISyncTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def import_disync_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.import_disync_tasks_with_options(request, runtime)
-
     def import_data_sources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DataSources'] = request.data_sources
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.data_sources):
+            query['DataSources'] = request.data_sources
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ImportDataSources',
@@ -3776,7 +4347,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3790,8 +4361,25 @@ class Client(OpenApiClient):
 
     def list_alert_messages_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alert_methods):
+            body['AlertMethods'] = request.alert_methods
+        if not UtilClient.is_unset(request.alert_rule_types):
+            body['AlertRuleTypes'] = request.alert_rule_types
+        if not UtilClient.is_unset(request.alert_user):
+            body['AlertUser'] = request.alert_user
+        if not UtilClient.is_unset(request.begin_time):
+            body['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remind_id):
+            body['RemindId'] = request.remind_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListAlertMessages',
@@ -3815,8 +4403,25 @@ class Client(OpenApiClient):
 
     def list_baseline_configs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_types):
+            body['BaselineTypes'] = request.baseline_types
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.search_text):
+            body['SearchText'] = request.search_text
+        if not UtilClient.is_unset(request.useflag):
+            body['Useflag'] = request.useflag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListBaselineConfigs',
@@ -3840,8 +4445,29 @@ class Client(OpenApiClient):
 
     def list_baseline_statuses_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_types):
+            body['BaselineTypes'] = request.baseline_types
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.finish_status):
+            body['FinishStatus'] = request.finish_status
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.search_text):
+            body['SearchText'] = request.search_text
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        if not UtilClient.is_unset(request.topic_id):
+            body['TopicId'] = request.topic_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListBaselineStatuses',
@@ -3865,8 +4491,19 @@ class Client(OpenApiClient):
 
     def list_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.keyword):
+            body['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListBusiness',
@@ -3891,15 +4528,20 @@ class Client(OpenApiClient):
     def list_calc_engines_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CalcEngineType'] = request.calc_engine_type
-        query['EnvType'] = request.env_type
-        query['Name'] = request.name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.calc_engine_type):
+            query['CalcEngineType'] = request.calc_engine_type
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListCalcEngines',
@@ -3909,7 +4551,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3935,7 +4577,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3950,12 +4592,14 @@ class Client(OpenApiClient):
     def list_diproject_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DestinationType'] = request.destination_type
-        query['ProjectId'] = request.project_id
-        query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.destination_type):
+            query['DestinationType'] = request.destination_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListDIProjectConfig',
@@ -3965,7 +4609,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -3977,41 +4621,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_diproject_config_with_options(request, runtime)
 
-    def list_disync_tasks_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='ListDISyncTasks',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.ListDISyncTasksResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_disync_tasks(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_disync_tasks_with_options(request, runtime)
-
     def list_dags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.op_seq):
+            body['OpSeq'] = request.op_seq
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDags',
@@ -4036,11 +4654,20 @@ class Client(OpenApiClient):
     def list_data_service_api_authorities_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        body = {}
+        if not UtilClient.is_unset(request.api_name_keyword):
+            body['ApiNameKeyword'] = request.api_name_keyword
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceApiAuthorities',
@@ -4064,8 +4691,23 @@ class Client(OpenApiClient):
 
     def list_data_service_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_name_keyword):
+            body['ApiNameKeyword'] = request.api_name_keyword
+        if not UtilClient.is_unset(request.api_path_keyword):
+            body['ApiPathKeyword'] = request.api_path_keyword
+        if not UtilClient.is_unset(request.creator_id):
+            body['CreatorId'] = request.creator_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceApis',
@@ -4089,8 +4731,17 @@ class Client(OpenApiClient):
 
     def list_data_service_applications_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id_list):
+            body['ProjectIdList'] = request.project_id_list
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceApplications',
@@ -4115,11 +4766,20 @@ class Client(OpenApiClient):
     def list_data_service_authorized_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        body = {}
+        if not UtilClient.is_unset(request.api_name_keyword):
+            body['ApiNameKeyword'] = request.api_name_keyword
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceAuthorizedApis',
@@ -4143,8 +4803,21 @@ class Client(OpenApiClient):
 
     def list_data_service_folders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_name_keyword):
+            body['FolderNameKeyword'] = request.folder_name_keyword
+        if not UtilClient.is_unset(request.group_id):
+            body['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceFolders',
@@ -4168,8 +4841,19 @@ class Client(OpenApiClient):
 
     def list_data_service_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.group_name_keyword):
+            body['GroupNameKeyword'] = request.group_name_keyword
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServiceGroups',
@@ -4193,8 +4877,23 @@ class Client(OpenApiClient):
 
     def list_data_service_published_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_name_keyword):
+            body['ApiNameKeyword'] = request.api_name_keyword
+        if not UtilClient.is_unset(request.api_path_keyword):
+            body['ApiPathKeyword'] = request.api_path_keyword
+        if not UtilClient.is_unset(request.creator_id):
+            body['CreatorId'] = request.creator_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDataServicePublishedApis',
@@ -4230,7 +4929,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4244,8 +4943,29 @@ class Client(OpenApiClient):
 
     def list_deployments_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.creator):
+            body['Creator'] = request.creator
+        if not UtilClient.is_unset(request.end_create_time):
+            body['EndCreateTime'] = request.end_create_time
+        if not UtilClient.is_unset(request.end_execute_time):
+            body['EndExecuteTime'] = request.end_execute_time
+        if not UtilClient.is_unset(request.executor):
+            body['Executor'] = request.executor
+        if not UtilClient.is_unset(request.keyword):
+            body['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListDeployments',
@@ -4269,8 +4989,21 @@ class Client(OpenApiClient):
 
     def list_file_type_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.keyword):
+            body['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.locale):
+            body['Locale'] = request.locale
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListFileType',
@@ -4294,8 +5027,19 @@ class Client(OpenApiClient):
 
     def list_file_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListFileVersions',
@@ -4319,8 +5063,29 @@ class Client(OpenApiClient):
 
     def list_files_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_folder_path):
+            body['FileFolderPath'] = request.file_folder_path
+        if not UtilClient.is_unset(request.file_types):
+            body['FileTypes'] = request.file_types
+        if not UtilClient.is_unset(request.keyword):
+            body['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.use_type):
+            body['UseType'] = request.use_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListFiles',
@@ -4344,8 +5109,19 @@ class Client(OpenApiClient):
 
     def list_folders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.parent_folder_path):
+            body['ParentFolderPath'] = request.parent_folder_path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListFolders',
@@ -4369,8 +5145,15 @@ class Client(OpenApiClient):
 
     def list_instance_amount_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.begin_date):
+            body['BeginDate'] = request.begin_date
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListInstanceAmount',
@@ -4394,8 +5177,35 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.begin_bizdate):
+            body['BeginBizdate'] = request.begin_bizdate
+        if not UtilClient.is_unset(request.biz_name):
+            body['BizName'] = request.biz_name
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.dag_id):
+            body['DagId'] = request.dag_id
+        if not UtilClient.is_unset(request.end_bizdate):
+            body['EndBizdate'] = request.end_bizdate
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.node_name):
+            body['NodeName'] = request.node_name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.program_type):
+            body['ProgramType'] = request.program_type
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListInstances',
@@ -4419,8 +5229,15 @@ class Client(OpenApiClient):
 
     def list_manual_dag_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.dag_id):
+            body['DagId'] = request.dag_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListManualDagInstances',
@@ -4456,7 +5273,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4470,8 +5287,15 @@ class Client(OpenApiClient):
 
     def list_node_iowith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.io_type):
+            body['IoType'] = request.io_type
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListNodeIO',
@@ -4495,8 +5319,15 @@ class Client(OpenApiClient):
 
     def list_node_input_or_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.io_type):
+            body['IoType'] = request.io_type
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListNodeInputOrOutput',
@@ -4520,8 +5351,25 @@ class Client(OpenApiClient):
 
     def list_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_name):
+            body['BizName'] = request.biz_name
+        if not UtilClient.is_unset(request.node_name):
+            body['NodeName'] = request.node_name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.program_type):
+            body['ProgramType'] = request.program_type
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListNodes',
@@ -4545,8 +5393,11 @@ class Client(OpenApiClient):
 
     def list_nodes_by_baseline_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            body['BaselineId'] = request.baseline_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListNodesByBaseline',
@@ -4570,8 +5421,13 @@ class Client(OpenApiClient):
 
     def list_nodes_by_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.outputs):
+            body['Outputs'] = request.outputs
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListNodesByOutput',
@@ -4596,20 +5452,30 @@ class Client(OpenApiClient):
     def list_permission_apply_orders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['EngineType'] = request.engine_type
-        query['FlowStatus'] = request.flow_status
-        query['MaxComputeProjectName'] = request.max_compute_project_name
-        query['OrderType'] = request.order_type
-        query['PageNum'] = request.page_num
-        query['PageSize'] = request.page_size
-        query['QueryType'] = request.query_type
-        query['StartTime'] = request.start_time
-        query['TableName'] = request.table_name
-        query['WorkspaceId'] = request.workspace_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.engine_type):
+            query['EngineType'] = request.engine_type
+        if not UtilClient.is_unset(request.flow_status):
+            query['FlowStatus'] = request.flow_status
+        if not UtilClient.is_unset(request.max_compute_project_name):
+            query['MaxComputeProjectName'] = request.max_compute_project_name
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_type):
+            query['QueryType'] = request.query_type
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListPermissionApplyOrders',
@@ -4619,7 +5485,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4633,8 +5499,13 @@ class Client(OpenApiClient):
 
     def list_program_type_count_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListProgramTypeCount',
@@ -4659,10 +5530,10 @@ class Client(OpenApiClient):
     def list_project_ids_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListProjectIds',
@@ -4672,7 +5543,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4687,12 +5558,14 @@ class Client(OpenApiClient):
     def list_project_members_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListProjectMembers',
@@ -4702,7 +5575,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4717,10 +5590,10 @@ class Client(OpenApiClient):
     def list_project_roles_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListProjectRoles',
@@ -4730,7 +5603,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4745,11 +5618,12 @@ class Client(OpenApiClient):
     def list_projects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListProjects',
@@ -4759,7 +5633,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4773,8 +5647,21 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_entity_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListQualityResultsByEntity',
@@ -4798,8 +5685,21 @@ class Client(OpenApiClient):
 
     def list_quality_results_by_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.end_date):
+            body['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.rule_id):
+            body['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.start_date):
+            body['StartDate'] = request.start_date
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListQualityResultsByRule',
@@ -4823,8 +5723,17 @@ class Client(OpenApiClient):
 
     def list_quality_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListQualityRules',
@@ -4849,15 +5758,20 @@ class Client(OpenApiClient):
     def list_ref_disync_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['RefType'] = request.ref_type
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.datasource_name):
+            query['DatasourceName'] = request.datasource_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.ref_type):
+            query['RefType'] = request.ref_type
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListRefDISyncTasks',
@@ -4867,7 +5781,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4881,8 +5795,23 @@ class Client(OpenApiClient):
 
     def list_reminds_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alert_target):
+            body['AlertTarget'] = request.alert_target
+        if not UtilClient.is_unset(request.founder):
+            body['Founder'] = request.founder
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.remind_types):
+            body['RemindTypes'] = request.remind_types
+        if not UtilClient.is_unset(request.search_text):
+            body['SearchText'] = request.search_text
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListReminds',
@@ -4907,12 +5836,14 @@ class Client(OpenApiClient):
     def list_resource_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BizExtKey'] = request.biz_ext_key
-        query['Keyword'] = request.keyword
-        query['ResourceGroupType'] = request.resource_group_type
+        if not UtilClient.is_unset(request.biz_ext_key):
+            query['BizExtKey'] = request.biz_ext_key
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.resource_group_type):
+            query['ResourceGroupType'] = request.resource_group_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListResourceGroups',
@@ -4922,7 +5853,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4936,8 +5867,11 @@ class Client(OpenApiClient):
 
     def list_success_instance_amount_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListSuccessInstanceAmount',
@@ -4973,7 +5907,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -4999,7 +5933,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5013,8 +5947,27 @@ class Client(OpenApiClient):
 
     def list_topics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.begin_time):
+            body['BeginTime'] = request.begin_time
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.topic_statuses):
+            body['TopicStatuses'] = request.topic_statuses
+        if not UtilClient.is_unset(request.topic_types):
+            body['TopicTypes'] = request.topic_types
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ListTopics',
@@ -5038,8 +5991,15 @@ class Client(OpenApiClient):
 
     def publish_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PublishDataServiceApi',
@@ -5064,12 +6024,14 @@ class Client(OpenApiClient):
     def query_disync_task_config_process_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AsyncProcessId'] = request.async_process_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.async_process_id):
+            query['AsyncProcessId'] = request.async_process_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='QueryDISyncTaskConfigProcessResult',
@@ -5079,7 +6041,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5093,8 +6055,13 @@ class Client(OpenApiClient):
 
     def query_public_model_engine_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.text):
+            body['Text'] = request.text
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='QueryPublicModelEngine',
@@ -5119,12 +6086,14 @@ class Client(OpenApiClient):
     def remove_project_member_from_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
-        query['RoleCode'] = request.role_code
-        query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_code):
+            query['RoleCode'] = request.role_code
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RemoveProjectMemberFromRole',
@@ -5134,7 +6103,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5148,8 +6117,13 @@ class Client(OpenApiClient):
 
     def restart_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RestartInstance',
@@ -5173,8 +6147,13 @@ class Client(OpenApiClient):
 
     def resume_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ResumeInstance',
@@ -5199,15 +6178,20 @@ class Client(OpenApiClient):
     def revoke_column_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Columns'] = request.columns
-        query['MaxComputeProjectName'] = request.max_compute_project_name
-        query['RevokeUserId'] = request.revoke_user_id
-        query['RevokeUserName'] = request.revoke_user_name
-        query['TableName'] = request.table_name
-        query['WorkspaceId'] = request.workspace_id
+        if not UtilClient.is_unset(request.columns):
+            query['Columns'] = request.columns
+        if not UtilClient.is_unset(request.max_compute_project_name):
+            query['MaxComputeProjectName'] = request.max_compute_project_name
+        if not UtilClient.is_unset(request.revoke_user_id):
+            query['RevokeUserId'] = request.revoke_user_id
+        if not UtilClient.is_unset(request.revoke_user_name):
+            query['RevokeUserName'] = request.revoke_user_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RevokeColumnPermission',
@@ -5217,7 +6201,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5232,15 +6216,20 @@ class Client(OpenApiClient):
     def revoke_table_permission_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Actions'] = request.actions
-        query['MaxComputeProjectName'] = request.max_compute_project_name
-        query['RevokeUserId'] = request.revoke_user_id
-        query['RevokeUserName'] = request.revoke_user_name
-        query['TableName'] = request.table_name
-        query['WorkspaceId'] = request.workspace_id
+        if not UtilClient.is_unset(request.actions):
+            query['Actions'] = request.actions
+        if not UtilClient.is_unset(request.max_compute_project_name):
+            query['MaxComputeProjectName'] = request.max_compute_project_name
+        if not UtilClient.is_unset(request.revoke_user_id):
+            query['RevokeUserId'] = request.revoke_user_id
+        if not UtilClient.is_unset(request.revoke_user_name):
+            query['RevokeUserName'] = request.revoke_user_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='RevokeTablePermission',
@@ -5250,7 +6239,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5264,8 +6253,31 @@ class Client(OpenApiClient):
 
     def run_cycle_dag_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_begin_time):
+            body['BizBeginTime'] = request.biz_begin_time
+        if not UtilClient.is_unset(request.biz_end_time):
+            body['BizEndTime'] = request.biz_end_time
+        if not UtilClient.is_unset(request.end_biz_date):
+            body['EndBizDate'] = request.end_biz_date
+        if not UtilClient.is_unset(request.exclude_node_ids):
+            body['ExcludeNodeIds'] = request.exclude_node_ids
+        if not UtilClient.is_unset(request.include_node_ids):
+            body['IncludeNodeIds'] = request.include_node_ids
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.node_params):
+            body['NodeParams'] = request.node_params
+        if not UtilClient.is_unset(request.parallelism):
+            body['Parallelism'] = request.parallelism
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.root_node_id):
+            body['RootNodeId'] = request.root_node_id
+        if not UtilClient.is_unset(request.start_biz_date):
+            body['StartBizDate'] = request.start_biz_date
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RunCycleDagNodes',
@@ -5289,8 +6301,27 @@ class Client(OpenApiClient):
 
     def run_manual_dag_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.dag_parameters):
+            body['DagParameters'] = request.dag_parameters
+        if not UtilClient.is_unset(request.exclude_node_ids):
+            body['ExcludeNodeIds'] = request.exclude_node_ids
+        if not UtilClient.is_unset(request.flow_name):
+            body['FlowName'] = request.flow_name
+        if not UtilClient.is_unset(request.include_node_ids):
+            body['IncludeNodeIds'] = request.include_node_ids
+        if not UtilClient.is_unset(request.node_parameters):
+            body['NodeParameters'] = request.node_parameters
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RunManualDagNodes',
@@ -5314,8 +6345,19 @@ class Client(OpenApiClient):
 
     def run_smoke_test_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.node_params):
+            body['NodeParams'] = request.node_params
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RunSmokeTest',
@@ -5339,8 +6381,17 @@ class Client(OpenApiClient):
 
     def run_trigger_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.app_id):
+            body['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.cycle_time):
+            body['CycleTime'] = request.cycle_time
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='RunTriggerNode',
@@ -5376,7 +6427,7 @@ class Client(OpenApiClient):
             method='GET',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5391,16 +6442,22 @@ class Client(OpenApiClient):
     def search_meta_tables_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppGuid'] = request.app_guid
-        query['ClusterId'] = request.cluster_id
-        query['DataSourceType'] = request.data_source_type
-        query['EntityType'] = request.entity_type
-        query['Keyword'] = request.keyword
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.app_guid):
+            query['AppGuid'] = request.app_guid
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_source_type):
+            query['DataSourceType'] = request.data_source_type
+        if not UtilClient.is_unset(request.entity_type):
+            query['EntityType'] = request.entity_type
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SearchMetaTables',
@@ -5410,7 +6467,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5424,8 +6481,13 @@ class Client(OpenApiClient):
 
     def search_nodes_by_output_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.outputs):
+            body['Outputs'] = request.outputs
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SearchNodesByOutput',
@@ -5447,49 +6509,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.search_nodes_by_output_with_options(request, runtime)
 
-    def set_connection_share_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['EnvType'] = request.env_type
-        query['ProjectId'] = request.project_id
-        query['ProjectPermissions'] = request.project_permissions
-        query['UserPermissions'] = request.user_permissions
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
-        )
-        params = open_api_models.Params(
-            action='SetConnectionShare',
-            version='2020-05-18',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            dataworks_public_20200518_models.SetConnectionShareResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def set_connection_share(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.set_connection_share_with_options(request, runtime)
-
     def set_data_source_share_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['EnvType'] = request.env_type
-        query['ProjectId'] = request.project_id
-        query['ProjectPermissions'] = request.project_permissions
-        query['UserPermissions'] = request.user_permissions
+        if not UtilClient.is_unset(request.datasource_name):
+            query['DatasourceName'] = request.datasource_name
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_permissions):
+            query['ProjectPermissions'] = request.project_permissions
+        if not UtilClient.is_unset(request.user_permissions):
+            query['UserPermissions'] = request.user_permissions
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='SetDataSourceShare',
@@ -5499,7 +6533,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5513,8 +6547,13 @@ class Client(OpenApiClient):
 
     def set_success_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SetSuccessInstance',
@@ -5539,13 +6578,16 @@ class Client(OpenApiClient):
     def start_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['StartParam'] = request.start_param
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.start_param):
+            query['StartParam'] = request.start_param
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StartDISyncInstance',
@@ -5555,7 +6597,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5569,8 +6611,13 @@ class Client(OpenApiClient):
 
     def start_migration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.migration_id):
+            body['MigrationId'] = request.migration_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='StartMigration',
@@ -5595,12 +6642,14 @@ class Client(OpenApiClient):
     def stop_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopDISyncInstance',
@@ -5610,7 +6659,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5624,8 +6673,13 @@ class Client(OpenApiClient):
 
     def stop_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='StopInstance',
@@ -5649,8 +6703,17 @@ class Client(OpenApiClient):
 
     def submit_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SubmitFile',
@@ -5674,8 +6737,13 @@ class Client(OpenApiClient):
 
     def suspend_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SuspendInstance',
@@ -5700,12 +6768,14 @@ class Client(OpenApiClient):
     def terminate_disync_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='TerminateDISyncInstance',
@@ -5715,7 +6785,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5730,13 +6800,16 @@ class Client(OpenApiClient):
     def test_network_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DatasourceName'] = request.datasource_name
-        query['EnvType'] = request.env_type
-        query['ProjectId'] = request.project_id
-        query['ResourceGroup'] = request.resource_group
+        if not UtilClient.is_unset(request.datasource_name):
+            query['DatasourceName'] = request.datasource_name
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group):
+            query['ResourceGroup'] = request.resource_group
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='TestNetworkConnection',
@@ -5746,7 +6819,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5760,8 +6833,11 @@ class Client(OpenApiClient):
 
     def top_ten_elapsed_time_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='TopTenElapsedTimeInstance',
@@ -5785,8 +6861,11 @@ class Client(OpenApiClient):
 
     def top_ten_error_times_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='TopTenErrorTimesInstance',
@@ -5810,8 +6889,21 @@ class Client(OpenApiClient):
 
     def update_business_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.business_id):
+            body['BusinessId'] = request.business_id
+        if not UtilClient.is_unset(request.business_name):
+            body['BusinessName'] = request.business_name
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateBusiness',
@@ -5836,14 +6928,18 @@ class Client(OpenApiClient):
     def update_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ConnectionId'] = request.connection_id
-        query['Content'] = request.content
-        query['Description'] = request.description
-        query['EnvType'] = request.env_type
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.connection_id):
+            query['ConnectionId'] = request.connection_id
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateConnection',
@@ -5853,7 +6949,7 @@ class Client(OpenApiClient):
             method='PUT',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5868,13 +6964,16 @@ class Client(OpenApiClient):
     def update_diproject_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DestinationType'] = request.destination_type
-        query['ProjectConfig'] = request.project_config
-        query['ProjectId'] = request.project_id
-        query['SourceType'] = request.source_type
+        if not UtilClient.is_unset(request.destination_type):
+            query['DestinationType'] = request.destination_type
+        if not UtilClient.is_unset(request.project_config):
+            query['ProjectConfig'] = request.project_config
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.source_type):
+            query['SourceType'] = request.source_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateDIProjectConfig',
@@ -5884,7 +6983,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5899,14 +6998,18 @@ class Client(OpenApiClient):
     def update_disync_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FileId'] = request.file_id
-        query['ProjectId'] = request.project_id
-        query['TaskContent'] = request.task_content
-        query['TaskParam'] = request.task_param
-        query['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.file_id):
+            query['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_content):
+            query['TaskContent'] = request.task_content
+        if not UtilClient.is_unset(request.task_param):
+            query['TaskParam'] = request.task_param
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateDISyncTask',
@@ -5916,7 +7019,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5930,8 +7033,35 @@ class Client(OpenApiClient):
 
     def update_data_service_api_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_description):
+            body['ApiDescription'] = request.api_description
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.api_path):
+            body['ApiPath'] = request.api_path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.protocols):
+            body['Protocols'] = request.protocols
+        if not UtilClient.is_unset(request.registration_details):
+            body['RegistrationDetails'] = request.registration_details
+        if not UtilClient.is_unset(request.request_method):
+            body['RequestMethod'] = request.request_method
+        if not UtilClient.is_unset(request.response_content_type):
+            body['ResponseContentType'] = request.response_content_type
+        if not UtilClient.is_unset(request.script_details):
+            body['ScriptDetails'] = request.script_details
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.timeout):
+            body['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.visible_range):
+            body['VisibleRange'] = request.visible_range
+        if not UtilClient.is_unset(request.wizard_details):
+            body['WizardDetails'] = request.wizard_details
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateDataServiceApi',
@@ -5956,14 +7086,18 @@ class Client(OpenApiClient):
     def update_data_source_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Content'] = request.content
-        query['DataSourceId'] = request.data_source_id
-        query['Description'] = request.description
-        query['EnvType'] = request.env_type
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.content):
+            query['Content'] = request.content
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateDataSource',
@@ -5973,7 +7107,7 @@ class Client(OpenApiClient):
             method='PUT',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -5987,8 +7121,63 @@ class Client(OpenApiClient):
 
     def update_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.advanced_settings):
+            body['AdvancedSettings'] = request.advanced_settings
+        if not UtilClient.is_unset(request.auto_parsing):
+            body['AutoParsing'] = request.auto_parsing
+        if not UtilClient.is_unset(request.auto_rerun_interval_millis):
+            body['AutoRerunIntervalMillis'] = request.auto_rerun_interval_millis
+        if not UtilClient.is_unset(request.auto_rerun_times):
+            body['AutoRerunTimes'] = request.auto_rerun_times
+        if not UtilClient.is_unset(request.connection_name):
+            body['ConnectionName'] = request.connection_name
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
+        if not UtilClient.is_unset(request.cron_express):
+            body['CronExpress'] = request.cron_express
+        if not UtilClient.is_unset(request.cycle_type):
+            body['CycleType'] = request.cycle_type
+        if not UtilClient.is_unset(request.dependent_node_id_list):
+            body['DependentNodeIdList'] = request.dependent_node_id_list
+        if not UtilClient.is_unset(request.dependent_type):
+            body['DependentType'] = request.dependent_type
+        if not UtilClient.is_unset(request.end_effect_date):
+            body['EndEffectDate'] = request.end_effect_date
+        if not UtilClient.is_unset(request.file_description):
+            body['FileDescription'] = request.file_description
+        if not UtilClient.is_unset(request.file_folder_path):
+            body['FileFolderPath'] = request.file_folder_path
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.file_name):
+            body['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.input_list):
+            body['InputList'] = request.input_list
+        if not UtilClient.is_unset(request.output_list):
+            body['OutputList'] = request.output_list
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.para_value):
+            body['ParaValue'] = request.para_value
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.rerun_mode):
+            body['RerunMode'] = request.rerun_mode
+        if not UtilClient.is_unset(request.resource_group_identifier):
+            body['ResourceGroupIdentifier'] = request.resource_group_identifier
+        if not UtilClient.is_unset(request.scheduler_type):
+            body['SchedulerType'] = request.scheduler_type
+        if not UtilClient.is_unset(request.start_effect_date):
+            body['StartEffectDate'] = request.start_effect_date
+        if not UtilClient.is_unset(request.start_immediately):
+            body['StartImmediately'] = request.start_immediately
+        if not UtilClient.is_unset(request.stop):
+            body['Stop'] = request.stop
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateFile',
@@ -6012,8 +7201,17 @@ class Client(OpenApiClient):
 
     def update_folder_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.folder_id):
+            body['FolderId'] = request.folder_id
+        if not UtilClient.is_unset(request.folder_name):
+            body['FolderName'] = request.folder_name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateFolder',
@@ -6037,8 +7235,17 @@ class Client(OpenApiClient):
 
     def update_ideevent_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.check_result):
+            body['CheckResult'] = request.check_result
+        if not UtilClient.is_unset(request.check_result_tip):
+            body['CheckResultTip'] = request.check_result_tip
+        if not UtilClient.is_unset(request.extension_code):
+            body['ExtensionCode'] = request.extension_code
+        if not UtilClient.is_unset(request.message_id):
+            body['MessageId'] = request.message_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateIDEEventResult',
@@ -6062,8 +7269,15 @@ class Client(OpenApiClient):
 
     def update_meta_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.category_id):
+            body['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateMetaCategory',
@@ -6088,17 +7302,30 @@ class Client(OpenApiClient):
     def update_meta_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Caption'] = request.caption
-        query['CategoryId'] = request.category_id
-        query['EnvType'] = request.env_type
-        query['NewOwnerId'] = request.new_owner_id
-        query['ProjectId'] = request.project_id
-        query['TableGuid'] = request.table_guid
-        query['TableName'] = request.table_name
-        query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.caption):
+            query['Caption'] = request.caption
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.new_owner_id):
+            query['NewOwnerId'] = request.new_owner_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
+        body = {}
+        if not UtilClient.is_unset(request.added_labels):
+            body['AddedLabels'] = request.added_labels
+        if not UtilClient.is_unset(request.removed_labels):
+            body['RemovedLabels'] = request.removed_labels
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateMetaTable',
@@ -6123,10 +7350,14 @@ class Client(OpenApiClient):
     def update_meta_table_intro_wiki_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['Content'] = request.content
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateMetaTableIntroWiki',
@@ -6150,8 +7381,15 @@ class Client(OpenApiClient):
 
     def update_node_owner_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateNodeOwner',
@@ -6175,8 +7413,15 @@ class Client(OpenApiClient):
 
     def update_node_run_mode_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.node_id):
+            body['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.scheduler_type):
+            body['SchedulerType'] = request.scheduler_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateNodeRunMode',
@@ -6200,8 +7445,17 @@ class Client(OpenApiClient):
 
     def update_quality_follower_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alarm_mode):
+            body['AlarmMode'] = request.alarm_mode
+        if not UtilClient.is_unset(request.follower):
+            body['Follower'] = request.follower
+        if not UtilClient.is_unset(request.follower_id):
+            body['FollowerId'] = request.follower_id
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateQualityFollower',
@@ -6225,8 +7479,47 @@ class Client(OpenApiClient):
 
     def update_quality_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.block_type):
+            body['BlockType'] = request.block_type
+        if not UtilClient.is_unset(request.checker):
+            body['Checker'] = request.checker
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.critical_threshold):
+            body['CriticalThreshold'] = request.critical_threshold
+        if not UtilClient.is_unset(request.entity_id):
+            body['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.expect_value):
+            body['ExpectValue'] = request.expect_value
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.method_name):
+            body['MethodName'] = request.method_name
+        if not UtilClient.is_unset(request.operator):
+            body['Operator'] = request.operator
+        if not UtilClient.is_unset(request.predict_type):
+            body['PredictType'] = request.predict_type
+        if not UtilClient.is_unset(request.project_name):
+            body['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.property):
+            body['Property'] = request.property
+        if not UtilClient.is_unset(request.property_type):
+            body['PropertyType'] = request.property_type
+        if not UtilClient.is_unset(request.rule_name):
+            body['RuleName'] = request.rule_name
+        if not UtilClient.is_unset(request.rule_type):
+            body['RuleType'] = request.rule_type
+        if not UtilClient.is_unset(request.template_id):
+            body['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.trend):
+            body['Trend'] = request.trend
+        if not UtilClient.is_unset(request.warning_threshold):
+            body['WarningThreshold'] = request.warning_threshold
+        if not UtilClient.is_unset(request.where_condition):
+            body['WhereCondition'] = request.where_condition
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateQualityRule',
@@ -6250,8 +7543,43 @@ class Client(OpenApiClient):
 
     def update_remind_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.alert_interval):
+            body['AlertInterval'] = request.alert_interval
+        if not UtilClient.is_unset(request.alert_methods):
+            body['AlertMethods'] = request.alert_methods
+        if not UtilClient.is_unset(request.alert_targets):
+            body['AlertTargets'] = request.alert_targets
+        if not UtilClient.is_unset(request.alert_unit):
+            body['AlertUnit'] = request.alert_unit
+        if not UtilClient.is_unset(request.baseline_ids):
+            body['BaselineIds'] = request.baseline_ids
+        if not UtilClient.is_unset(request.biz_process_ids):
+            body['BizProcessIds'] = request.biz_process_ids
+        if not UtilClient.is_unset(request.detail):
+            body['Detail'] = request.detail
+        if not UtilClient.is_unset(request.dnd_end):
+            body['DndEnd'] = request.dnd_end
+        if not UtilClient.is_unset(request.max_alert_times):
+            body['MaxAlertTimes'] = request.max_alert_times
+        if not UtilClient.is_unset(request.node_ids):
+            body['NodeIds'] = request.node_ids
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.remind_id):
+            body['RemindId'] = request.remind_id
+        if not UtilClient.is_unset(request.remind_name):
+            body['RemindName'] = request.remind_name
+        if not UtilClient.is_unset(request.remind_type):
+            body['RemindType'] = request.remind_type
+        if not UtilClient.is_unset(request.remind_unit):
+            body['RemindUnit'] = request.remind_unit
+        if not UtilClient.is_unset(request.robot_urls):
+            body['RobotUrls'] = request.robot_urls
+        if not UtilClient.is_unset(request.use_flag):
+            body['UseFlag'] = request.use_flag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateRemind',
@@ -6276,24 +7604,48 @@ class Client(OpenApiClient):
     def update_table_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AppGuid'] = request.app_guid
-        query['CategoryId'] = request.category_id
-        query['Comment'] = request.comment
-        query['CreateIfNotExists'] = request.create_if_not_exists
-        query['ExternalTableType'] = request.external_table_type
-        query['HasPart'] = request.has_part
-        query['IsView'] = request.is_view
-        query['LifeCycle'] = request.life_cycle
-        query['Location'] = request.location
-        query['LogicalLevelId'] = request.logical_level_id
-        query['OwnerId'] = request.owner_id
-        query['PhysicsLevelId'] = request.physics_level_id
-        query['ProjectId'] = request.project_id
-        query['TableName'] = request.table_name
-        query['Visibility'] = request.visibility
+        if not UtilClient.is_unset(request.app_guid):
+            query['AppGuid'] = request.app_guid
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.create_if_not_exists):
+            query['CreateIfNotExists'] = request.create_if_not_exists
+        if not UtilClient.is_unset(request.external_table_type):
+            query['ExternalTableType'] = request.external_table_type
+        if not UtilClient.is_unset(request.has_part):
+            query['HasPart'] = request.has_part
+        if not UtilClient.is_unset(request.is_view):
+            query['IsView'] = request.is_view
+        if not UtilClient.is_unset(request.life_cycle):
+            query['LifeCycle'] = request.life_cycle
+        if not UtilClient.is_unset(request.location):
+            query['Location'] = request.location
+        if not UtilClient.is_unset(request.logical_level_id):
+            query['LogicalLevelId'] = request.logical_level_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.physics_level_id):
+            query['PhysicsLevelId'] = request.physics_level_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        if not UtilClient.is_unset(request.visibility):
+            query['Visibility'] = request.visibility
+        body = {}
+        if not UtilClient.is_unset(request.columns):
+            body['Columns'] = request.columns
+        if not UtilClient.is_unset(request.endpoint):
+            body['Endpoint'] = request.endpoint
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.themes):
+            body['Themes'] = request.themes
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateTable',
@@ -6318,10 +7670,14 @@ class Client(OpenApiClient):
     def update_table_add_column_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
+        body = {}
+        if not UtilClient.is_unset(request.column):
+            body['Column'] = request.column
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateTableAddColumn',
@@ -6346,14 +7702,18 @@ class Client(OpenApiClient):
     def update_table_level_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Description'] = request.description
-        query['LevelId'] = request.level_id
-        query['LevelType'] = request.level_type
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.level_id):
+            query['LevelId'] = request.level_id
+        if not UtilClient.is_unset(request.level_type):
+            query['LevelType'] = request.level_type
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateTableLevel',
@@ -6363,7 +7723,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -6378,14 +7738,18 @@ class Client(OpenApiClient):
     def update_table_model_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FirstLevelThemeId'] = request.first_level_theme_id
-        query['LevelId'] = request.level_id
-        query['LevelType'] = request.level_type
-        query['SecondLevelThemeId'] = request.second_level_theme_id
-        query['TableGuid'] = request.table_guid
+        if not UtilClient.is_unset(request.first_level_theme_id):
+            query['FirstLevelThemeId'] = request.first_level_theme_id
+        if not UtilClient.is_unset(request.level_id):
+            query['LevelId'] = request.level_id
+        if not UtilClient.is_unset(request.level_type):
+            query['LevelType'] = request.level_type
+        if not UtilClient.is_unset(request.second_level_theme_id):
+            query['SecondLevelThemeId'] = request.second_level_theme_id
+        if not UtilClient.is_unset(request.table_guid):
+            query['TableGuid'] = request.table_guid
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateTableModelInfo',
@@ -6395,7 +7759,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -6410,12 +7774,14 @@ class Client(OpenApiClient):
     def update_table_theme_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Name'] = request.name
-        query['ProjectId'] = request.project_id
-        query['ThemeId'] = request.theme_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.theme_id):
+            query['ThemeId'] = request.theme_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='UpdateTableTheme',
@@ -6425,7 +7791,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -6439,8 +7805,33 @@ class Client(OpenApiClient):
 
     def update_udf_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.class_name):
+            body['ClassName'] = request.class_name
+        if not UtilClient.is_unset(request.cmd_description):
+            body['CmdDescription'] = request.cmd_description
+        if not UtilClient.is_unset(request.example):
+            body['Example'] = request.example
+        if not UtilClient.is_unset(request.file_folder_path):
+            body['FileFolderPath'] = request.file_folder_path
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
+        if not UtilClient.is_unset(request.function_type):
+            body['FunctionType'] = request.function_type
+        if not UtilClient.is_unset(request.parameter_description):
+            body['ParameterDescription'] = request.parameter_description
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_identifier):
+            body['ProjectIdentifier'] = request.project_identifier
+        if not UtilClient.is_unset(request.resources):
+            body['Resources'] = request.resources
+        if not UtilClient.is_unset(request.return_value):
+            body['ReturnValue'] = request.return_value
+        if not UtilClient.is_unset(request.udf_description):
+            body['UdfDescription'] = request.udf_description
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateUdfFile',
