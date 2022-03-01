@@ -32,6 +32,9 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def create_group(self, request):
+        """
+        注册人群
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_group_with_options(request, headers, runtime)
@@ -45,8 +48,8 @@ class Client(OpenApiClient):
             body['Column'] = request.column
         if not UtilClient.is_unset(request.filter):
             body['Filter'] = request.filter
-        if not UtilClient.is_unset(request.inference_job):
-            body['InferenceJob'] = request.inference_job
+        if not UtilClient.is_unset(request.inference_job_id):
+            body['InferenceJobId'] = request.inference_job_id
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.project):
@@ -82,6 +85,9 @@ class Client(OpenApiClient):
         )
 
     def create_inference_job(self, request):
+        """
+        注册推理任务
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_inference_job_with_options(request, headers, runtime)
@@ -120,6 +126,9 @@ class Client(OpenApiClient):
         )
 
     def create_schedule(self, request):
+        """
+        注册触达计划
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_schedule_with_options(request, headers, runtime)
@@ -141,8 +150,12 @@ class Client(OpenApiClient):
             body['RepeatCycleUnit'] = request.repeat_cycle_unit
         if not UtilClient.is_unset(request.repeat_times):
             body['RepeatTimes'] = request.repeat_times
+        if not UtilClient.is_unset(request.sign_name):
+            body['SignName'] = request.sign_name
         if not UtilClient.is_unset(request.signature_id):
             body['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
         if not UtilClient.is_unset(request.template_id):
             body['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
@@ -166,6 +179,9 @@ class Client(OpenApiClient):
         )
 
     def create_signature(self, request):
+        """
+        注册签名。
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_signature_with_options(request, headers, runtime)
@@ -198,6 +214,9 @@ class Client(OpenApiClient):
         )
 
     def create_template(self, request):
+        """
+        注册模板
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_template_with_options(request, headers, runtime)
@@ -236,6 +255,9 @@ class Client(OpenApiClient):
         )
 
     def create_training_job(self, request):
+        """
+        注册训练任务
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_training_job_with_options(request, headers, runtime)
@@ -272,6 +294,9 @@ class Client(OpenApiClient):
         )
 
     def delete_group(self, id):
+        """
+        删除人群
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_group_with_options(id, headers, runtime)
@@ -298,6 +323,9 @@ class Client(OpenApiClient):
         )
 
     def delete_inference_job(self, id):
+        """
+        删除推理任务
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_inference_job_with_options(id, headers, runtime)
@@ -324,6 +352,9 @@ class Client(OpenApiClient):
         )
 
     def delete_schedule(self, id):
+        """
+        删除触达计划
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_schedule_with_options(id, headers, runtime)
@@ -350,6 +381,9 @@ class Client(OpenApiClient):
         )
 
     def delete_signature(self, id):
+        """
+        删除签名。
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_signature_with_options(id, headers, runtime)
@@ -376,6 +410,9 @@ class Client(OpenApiClient):
         )
 
     def delete_template(self, id):
+        """
+        删除模板
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_template_with_options(id, headers, runtime)
@@ -402,6 +439,9 @@ class Client(OpenApiClient):
         )
 
     def delete_training_job(self, id):
+        """
+        删除训练任务
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_training_job_with_options(id, headers, runtime)
@@ -427,7 +467,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def get_algorithm(self, id):
+        """
+        获取算法详情
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_algorithm_with_options(id, headers, runtime)
+
+    def get_algorithm_with_options(self, id, headers, runtime):
+        id = OpenApiUtilClient.get_encode_param(id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAlgorithm',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/algorithms/%s' % TeaConverter.to_unicode(id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.GetAlgorithmResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def get_group(self, id):
+        """
+        获取人群
+        默认返回所有人群信息
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_group_with_options(id, headers, runtime)
@@ -454,6 +527,10 @@ class Client(OpenApiClient):
         )
 
     def get_inference_job(self, id):
+        """
+        获取推理任务
+        默认返回所有推理任务信息
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_inference_job_with_options(id, headers, runtime)
@@ -480,6 +557,9 @@ class Client(OpenApiClient):
         )
 
     def get_schedule(self, id):
+        """
+        获取触达计划详情。
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_schedule_with_options(id, headers, runtime)
@@ -506,6 +586,9 @@ class Client(OpenApiClient):
         )
 
     def get_signature(self, id):
+        """
+        获取签名详情
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_signature_with_options(id, headers, runtime)
@@ -532,6 +615,11 @@ class Client(OpenApiClient):
         )
 
     def get_template(self, id):
+        """
+        获取模板
+        默认返回所有模板信息
+        ![模板列表](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/302991/1615264998427-d2943cfb-106a-421d-b4a4-f06307b4d9be.png)
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_template_with_options(id, headers, runtime)
@@ -558,6 +646,10 @@ class Client(OpenApiClient):
         )
 
     def get_training_job(self, id):
+        """
+        获取训练任务
+        默认返回所有训练任务信息
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_training_job_with_options(id, headers, runtime)
@@ -583,7 +675,49 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_algorithms(self, request):
+        """
+        获取算法列表
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_algorithms_with_options(request, headers, runtime)
+
+    def list_algorithms_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAlgorithms',
+            version='2022-01-12',
+            protocol='HTTPS',
+            pathname='/api/v2/algorithms',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_plugin_20220112_models.ListAlgorithmsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_groups(self, request):
+        """
+        获取人群列表
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_groups_with_options(request, headers, runtime)
@@ -624,6 +758,9 @@ class Client(OpenApiClient):
         )
 
     def list_inference_jobs(self, request):
+        """
+        获取推理任务列表
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_inference_jobs_with_options(request, headers, runtime)
@@ -662,6 +799,9 @@ class Client(OpenApiClient):
         )
 
     def list_message_metrics(self, request):
+        """
+        获取用户短信发送统计
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_message_metrics_with_options(request, headers, runtime)
@@ -698,6 +838,9 @@ class Client(OpenApiClient):
         )
 
     def list_messages(self, request):
+        """
+        查询短信发送详情
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_messages_with_options(request, headers, runtime)
@@ -746,6 +889,9 @@ class Client(OpenApiClient):
         )
 
     def list_schedules(self, request):
+        """
+        获取触达计划列表。
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_schedules_with_options(request, headers, runtime)
@@ -818,6 +964,10 @@ class Client(OpenApiClient):
         )
 
     def list_templates(self, request):
+        """
+        获取模板列表
+        默认返回所有模板信息
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_templates_with_options(request, headers, runtime)
@@ -858,6 +1008,9 @@ class Client(OpenApiClient):
         )
 
     def list_training_jobs(self, request):
+        """
+        获取训练任务列表
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_training_jobs_with_options(request, headers, runtime)
@@ -896,6 +1049,9 @@ class Client(OpenApiClient):
         )
 
     def send_message(self, request):
+        """
+        发送短信
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.send_message_with_options(request, headers, runtime)
