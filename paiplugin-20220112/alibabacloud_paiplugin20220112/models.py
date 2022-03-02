@@ -220,11 +220,11 @@ class CreateGroupResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateGroupResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -433,11 +433,11 @@ class CreateInferenceJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateInferenceJobResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -730,11 +730,11 @@ class CreateScheduleResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateScheduleResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -891,11 +891,11 @@ class CreateSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateSignatureResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -979,7 +979,6 @@ class CreateTemplateRequest(TeaModel):
         # 0：验证码。
         # 1：短信通知。
         # 2：推广短信。
-        # 3：国际/港澳台消息。
         self.type = type  # type: int
 
     def validate(self):
@@ -1046,7 +1045,6 @@ class CreateTemplateResponseBodyData(TeaModel):
         # 0：验证码。
         # 1：短信通知。
         # 2：推广短信。
-        # 3：国际/港澳台消息。
         self.type = type  # type: int
         # 更新时间 (UTC+8)。
         self.updated_time = updated_time  # type: str
@@ -1115,11 +1113,11 @@ class CreateTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateTemplateResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1310,11 +1308,11 @@ class CreateTrainingJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: CreateTrainingJobResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1388,11 +1386,11 @@ class DeleteGroupResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1464,11 +1462,11 @@ class DeleteInferenceJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1540,11 +1538,11 @@ class DeleteScheduleResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1616,11 +1614,11 @@ class DeleteSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1692,11 +1690,11 @@ class DeleteTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1768,11 +1766,11 @@ class DeleteTrainingJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: str
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1893,11 +1891,11 @@ class GetAlgorithmResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetAlgorithmResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2093,11 +2091,11 @@ class GetGroupResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetGroupResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2257,11 +2255,11 @@ class GetInferenceJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetInferenceJobResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2466,11 +2464,11 @@ class GetScheduleResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetScheduleResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2609,11 +2607,11 @@ class GetSignatureResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetSignatureResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2711,7 +2709,6 @@ class GetTemplateResponseBodyData(TeaModel):
         # 0：验证码。
         # 1：短信通知。
         # 2：推广短信。
-        # 3：国际/港澳台消息。
         self.type = type  # type: int
         # 更新时间 (UTC+8)。
         self.updated_time = updated_time  # type: str
@@ -2780,11 +2777,11 @@ class GetTemplateResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetTemplateResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2932,11 +2929,11 @@ class GetTrainingJobResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: GetTrainingJobResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3135,11 +3132,11 @@ class ListAlgorithmsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListAlgorithmsResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3441,11 +3438,11 @@ class ListGroupsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListGroupsResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3710,11 +3707,11 @@ class ListInferenceJobsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListInferenceJobsResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3785,15 +3782,28 @@ class ListInferenceJobsResponse(TeaModel):
 
 
 class ListMessageMetricsRequest(TeaModel):
-    def __init__(self, end_date=None, page_number=None, page_size=None, start_date=None):
+    def __init__(self, end_date=None, group_id=None, page_number=None, page_size=None, schedule_id=None,
+                 signature=None, signature_id=None, start_date=None, template_code=None, template_id=None):
         # 结束日期，格式20220102。
         self.end_date = end_date  # type: str
+        # 关联人群Id。
+        self.group_id = group_id  # type: str
         # 分页数，从1开始，默认为1。
         self.page_number = page_number  # type: int
         # 分页大小，默认为10。
         self.page_size = page_size  # type: int
+        # 关联发送计划Id。
+        self.schedule_id = schedule_id  # type: str
+        # 签名名称。
+        self.signature = signature  # type: str
+        # 签名Id，同时只能指定签名名称或签名Id其中之一。
+        self.signature_id = signature_id  # type: str
         # 开始日期，格式20220102。
         self.start_date = start_date  # type: str
+        # 模板号。
+        self.template_code = template_code  # type: str
+        # 模板Id，同时只能指定模板Code或模板Id其中之一。
+        self.template_id = template_id  # type: str
 
     def validate(self):
         pass
@@ -3806,24 +3816,48 @@ class ListMessageMetricsRequest(TeaModel):
         result = dict()
         if self.end_date is not None:
             result['EndDate'] = self.end_date
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.schedule_id is not None:
+            result['ScheduleId'] = self.schedule_id
+        if self.signature is not None:
+            result['Signature'] = self.signature
+        if self.signature_id is not None:
+            result['SignatureId'] = self.signature_id
         if self.start_date is not None:
             result['StartDate'] = self.start_date
+        if self.template_code is not None:
+            result['TemplateCode'] = self.template_code
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('EndDate') is not None:
             self.end_date = m.get('EndDate')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ScheduleId') is not None:
+            self.schedule_id = m.get('ScheduleId')
+        if m.get('Signature') is not None:
+            self.signature = m.get('Signature')
+        if m.get('SignatureId') is not None:
+            self.signature_id = m.get('SignatureId')
         if m.get('StartDate') is not None:
             self.start_date = m.get('StartDate')
+        if m.get('TemplateCode') is not None:
+            self.template_code = m.get('TemplateCode')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
         return self
 
 
@@ -3937,11 +3971,11 @@ class ListMessageMetricsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListMessageMetricsResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4013,7 +4047,8 @@ class ListMessageMetricsResponse(TeaModel):
 
 class ListMessagesRequest(TeaModel):
     def __init__(self, datetime=None, group_id=None, message_id=None, page_number=None, page_size=None,
-                 phone_number=None, request_id=None, schedule_id=None, signature=None, template_code=None):
+                 phone_number=None, request_id=None, schedule_id=None, signature=None, signature_id=None, status=None,
+                 template_code=None, template_id=None):
         # 发送日期，格式为20220101。
         self.datetime = datetime  # type: str
         # 关联人群Id。
@@ -4032,8 +4067,17 @@ class ListMessagesRequest(TeaModel):
         self.schedule_id = schedule_id  # type: str
         # 签名名称。
         self.signature = signature  # type: str
+        # 签名Id，同时只能指定签名名称或签名Id其中之一。
+        self.signature_id = signature_id  # type: str
+        # 短信发送状态。
+        # - 0 : 发送中。
+        # - 1 : 发送成功。
+        # - 2 : 发送失败。
+        self.status = status  # type: int
         # 模板号。
         self.template_code = template_code  # type: str
+        # 模板Id，同时只能指定模板Code或模板Id其中之一。
+        self.template_id = template_id  # type: str
 
     def validate(self):
         pass
@@ -4062,8 +4106,14 @@ class ListMessagesRequest(TeaModel):
             result['ScheduleId'] = self.schedule_id
         if self.signature is not None:
             result['Signature'] = self.signature
+        if self.signature_id is not None:
+            result['SignatureId'] = self.signature_id
+        if self.status is not None:
+            result['Status'] = self.status
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
         return result
 
     def from_map(self, m=None):
@@ -4086,8 +4136,14 @@ class ListMessagesRequest(TeaModel):
             self.schedule_id = m.get('ScheduleId')
         if m.get('Signature') is not None:
             self.signature = m.get('Signature')
+        if m.get('SignatureId') is not None:
+            self.signature_id = m.get('SignatureId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
         return self
 
 
@@ -4108,7 +4164,7 @@ class ListMessagesResponseBodyDataMessages(TeaModel):
         self.schedule_id = schedule_id  # type: str
         # 签名名称。
         self.signature = signature  # type: str
-        # 短信发送状态
+        # 短信发送状态。
         # - 0 : 发送中。
         # - 1 : 发送成功。
         # - 2 : 发送失败。
@@ -4229,11 +4285,11 @@ class ListMessagesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListMessagesResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4526,11 +4582,11 @@ class ListSchedulesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListSchedulesResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4750,11 +4806,11 @@ class ListSignaturesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListSignaturesResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4907,7 +4963,6 @@ class ListTemplatesResponseBodyDataTemplates(TeaModel):
         # 0：验证码。
         # 1：短信通知。
         # 2：推广短信。
-        # 3：国际/港澳台消息。
         self.type = type  # type: int
         # 更新时间 (UTC+8)。
         self.updated_time = updated_time  # type: str
@@ -5027,11 +5082,11 @@ class ListTemplatesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListTemplatesResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5284,11 +5339,11 @@ class ListTrainingJobsResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: ListTrainingJobsResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5361,23 +5416,23 @@ class ListTrainingJobsResponse(TeaModel):
 class SendMessageRequest(TeaModel):
     def __init__(self, group_id=None, out_ids=None, phone_numbers=None, schedule_id=None, sign_name=None,
                  signature_id=None, sms_up_extend_codes=None, template_code=None, template_id=None, template_params=None):
-        # 人群ID，用于关联人群。
+        # 人群Id，用于关联人群。
         self.group_id = group_id  # type: str
         # 外部拓展字段。
         self.out_ids = out_ids  # type: list[str]
         # 手机号，每个手机号对应一个模板变量、上行拓展码和外部拓展字段。
         self.phone_numbers = phone_numbers  # type: list[str]
-        # 发送计划ID，用于关联发送计划。
+        # 发送计划Id，用于关联发送计划。
         self.schedule_id = schedule_id  # type: str
         # 签名名称。
         self.sign_name = sign_name  # type: str
-        # 签名ID，同时只能指定签名名称或签名ID其中之一。
+        # 签名Id，同时只能指定签名名称或签名Id其中之一。
         self.signature_id = signature_id  # type: str
         # 短信上行拓展码。
         self.sms_up_extend_codes = sms_up_extend_codes  # type: list[str]
         # 模板Code。
         self.template_code = template_code  # type: str
-        # 模板ID，同时只能指定模板Code或模板ID其中之一。
+        # 模板Id，同时只能指定模板Code或模板Id其中之一。
         self.template_id = template_id  # type: str
         # 短信模板变量对应的实际值，JSON格式。支持传入多个参数，示例：{"name":"张三","number":"15038****76"}。
         self.template_params = template_params  # type: list[str]
@@ -5508,11 +5563,11 @@ class SendMessageResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, request_id=None):
         # 返回数据
         self.data = data  # type: SendMessageResponseBodyData
-        # 错误码
+        # 错误码。
         self.error_code = error_code  # type: int
-        # 错误信息
+        # 错误信息。
         self.error_message = error_message  # type: str
-        # 请求ID
+        # 请求ID。
         self.request_id = request_id  # type: str
 
     def validate(self):

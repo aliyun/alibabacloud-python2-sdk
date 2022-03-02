@@ -34,6 +34,7 @@ class Client(OpenApiClient):
     def create_group(self, request):
         """
         注册人群
+        @tags 人群
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -87,6 +88,7 @@ class Client(OpenApiClient):
     def create_inference_job(self, request):
         """
         注册推理任务
+        @tags 推理任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -128,6 +130,7 @@ class Client(OpenApiClient):
     def create_schedule(self, request):
         """
         注册触达计划
+        @tags 触达计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -181,6 +184,7 @@ class Client(OpenApiClient):
     def create_signature(self, request):
         """
         注册签名。
+        @tags 签名
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -216,6 +220,7 @@ class Client(OpenApiClient):
     def create_template(self, request):
         """
         注册模板
+        @tags 模板
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -257,6 +262,7 @@ class Client(OpenApiClient):
     def create_training_job(self, request):
         """
         注册训练任务
+        @tags 训练任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -296,6 +302,7 @@ class Client(OpenApiClient):
     def delete_group(self, id):
         """
         删除人群
+        @tags 人群
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -325,6 +332,7 @@ class Client(OpenApiClient):
     def delete_inference_job(self, id):
         """
         删除推理任务
+        @tags 推理任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -354,6 +362,7 @@ class Client(OpenApiClient):
     def delete_schedule(self, id):
         """
         删除触达计划
+        @tags 触达计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -383,6 +392,7 @@ class Client(OpenApiClient):
     def delete_signature(self, id):
         """
         删除签名。
+        @tags 签名
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -412,6 +422,7 @@ class Client(OpenApiClient):
     def delete_template(self, id):
         """
         删除模板
+        @tags 模板
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -441,6 +452,7 @@ class Client(OpenApiClient):
     def delete_training_job(self, id):
         """
         删除训练任务
+        @tags 训练任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -470,6 +482,7 @@ class Client(OpenApiClient):
     def get_algorithm(self, id):
         """
         获取算法详情
+        @tags 算法
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -500,6 +513,7 @@ class Client(OpenApiClient):
         """
         获取人群
         默认返回所有人群信息
+        @tags 人群
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -530,6 +544,7 @@ class Client(OpenApiClient):
         """
         获取推理任务
         默认返回所有推理任务信息
+        @tags 推理任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -559,6 +574,7 @@ class Client(OpenApiClient):
     def get_schedule(self, id):
         """
         获取触达计划详情。
+        @tags 触达计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -588,6 +604,7 @@ class Client(OpenApiClient):
     def get_signature(self, id):
         """
         获取签名详情
+        @tags 签名
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -619,6 +636,7 @@ class Client(OpenApiClient):
         获取模板
         默认返回所有模板信息
         ![模板列表](https://intranetproxy.alipay.com/skylark/lark/0/2021/png/302991/1615264998427-d2943cfb-106a-421d-b4a4-f06307b4d9be.png)
+        @tags 模板
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -649,6 +667,7 @@ class Client(OpenApiClient):
         """
         获取训练任务
         默认返回所有训练任务信息
+        @tags 训练任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -678,6 +697,7 @@ class Client(OpenApiClient):
     def list_algorithms(self, request):
         """
         获取算法列表
+        @tags 算法
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -717,6 +737,7 @@ class Client(OpenApiClient):
     def list_groups(self, request):
         """
         获取人群列表
+        @tags 人群
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -760,6 +781,7 @@ class Client(OpenApiClient):
     def list_inference_jobs(self, request):
         """
         获取推理任务列表
+        @tags 推理任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -801,6 +823,7 @@ class Client(OpenApiClient):
     def list_message_metrics(self, request):
         """
         获取用户短信发送统计
+        @tags 短信
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -811,12 +834,24 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.end_date):
             query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.schedule_id):
+            query['ScheduleId'] = request.schedule_id
+        if not UtilClient.is_unset(request.signature):
+            query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
         if not UtilClient.is_unset(request.start_date):
             query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.template_code):
+            query['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -840,6 +875,7 @@ class Client(OpenApiClient):
     def list_messages(self, request):
         """
         查询短信发送详情
+        @tags 短信
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -866,8 +902,14 @@ class Client(OpenApiClient):
             query['ScheduleId'] = request.schedule_id
         if not UtilClient.is_unset(request.signature):
             query['Signature'] = request.signature
+        if not UtilClient.is_unset(request.signature_id):
+            query['SignatureId'] = request.signature_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         if not UtilClient.is_unset(request.template_code):
             query['TemplateCode'] = request.template_code
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -891,6 +933,7 @@ class Client(OpenApiClient):
     def list_schedules(self, request):
         """
         获取触达计划列表。
+        @tags 触达计划
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -928,6 +971,10 @@ class Client(OpenApiClient):
         )
 
     def list_signatures(self, request):
+        """
+        获取签名列表
+        @tags 签名
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_signatures_with_options(request, headers, runtime)
@@ -967,6 +1014,7 @@ class Client(OpenApiClient):
         """
         获取模板列表
         默认返回所有模板信息
+        @tags 模板
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1010,6 +1058,7 @@ class Client(OpenApiClient):
     def list_training_jobs(self, request):
         """
         获取训练任务列表
+        @tags 训练任务
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1051,6 +1100,7 @@ class Client(OpenApiClient):
     def send_message(self, request):
         """
         发送短信
+        @tags 短信
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
