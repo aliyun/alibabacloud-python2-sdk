@@ -568,6 +568,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.complete_attended_transfer_with_options(request, runtime)
 
+    def create_call_tags_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_tag_name_list):
+            query['CallTagNameList'] = request.call_tag_name_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCallTags',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.CreateCallTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_call_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_call_tags_with_options(request, runtime)
+
     def create_campaign_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = ccc20200701_models.CreateCampaignShrinkRequest()
@@ -627,6 +657,36 @@ class Client(OpenApiClient):
     def create_campaign(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_campaign_with_options(request, runtime)
+
+    def create_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.custom_number_list):
+            query['CustomNumberList'] = request.custom_number_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.CreateCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_custom_call_tagging_with_options(request, runtime)
 
     def create_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -701,6 +761,8 @@ class Client(OpenApiClient):
     def create_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.display_id):
+            query['DisplayId'] = request.display_id
         if not UtilClient.is_unset(request.display_name):
             query['DisplayName'] = request.display_name
         if not UtilClient.is_unset(request.email):
@@ -742,6 +804,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_user_with_options(request, runtime)
 
+    def delete_call_tag_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCallTag',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.DeleteCallTagResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_call_tag(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_call_tag_with_options(request, runtime)
+
+    def delete_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.DeleteCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_custom_call_tagging_with_options(request, runtime)
+
     def delete_skill_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -773,6 +895,66 @@ class Client(OpenApiClient):
     def delete_skill_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_skill_group_with_options(request, runtime)
+
+    def export_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ExportCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def export_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_custom_call_tagging_with_options(request, runtime)
+
+    def export_do_not_call_numbers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportDoNotCallNumbers',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ExportDoNotCallNumbersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def export_do_not_call_numbers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_do_not_call_numbers_with_options(request, runtime)
 
     def get_call_detail_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -864,6 +1046,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_case_file_upload_url_with_options(request, runtime)
 
+    def get_do_not_call_file_upload_parameters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_name):
+            query['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDoNotCallFileUploadParameters',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetDoNotCallFileUploadParametersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_do_not_call_file_upload_parameters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_do_not_call_file_upload_parameters_with_options(request, runtime)
+
     def get_historical_caller_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -897,6 +1109,32 @@ class Client(OpenApiClient):
     def get_historical_caller_report(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_historical_caller_report_with_options(request, runtime)
+
+    def get_historical_campaign_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetHistoricalCampaignReport',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetHistoricalCampaignReportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_historical_campaign_report(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_historical_campaign_report_with_options(request, runtime)
 
     def get_historical_instance_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1110,6 +1348,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_number_location_with_options(request, runtime)
 
+    def get_realtime_campaign_stats_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRealtimeCampaignStats',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetRealtimeCampaignStatsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_realtime_campaign_stats(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_realtime_campaign_stats_with_options(request, runtime)
+
     def get_realtime_instance_states_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1265,6 +1529,70 @@ class Client(OpenApiClient):
     def hold_call(self, request):
         runtime = util_models.RuntimeOptions()
         return self.hold_call_with_options(request, runtime)
+
+    def import_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_path):
+            query['FilePath'] = request.file_path
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ImportCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def import_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.import_custom_call_tagging_with_options(request, runtime)
+
+    def import_do_not_call_numbers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_path):
+            query['FilePath'] = request.file_path
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportDoNotCallNumbers',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ImportDoNotCallNumbersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def import_do_not_call_numbers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.import_do_not_call_numbers_with_options(request, runtime)
 
     def initiate_attended_transfer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1450,6 +1778,70 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_agent_state_logs_with_options(request, runtime)
 
+    def list_agent_states_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_ids):
+            query['AgentIds'] = request.agent_ids
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        if not UtilClient.is_unset(request.state):
+            query['State'] = request.state
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAgentStates',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListAgentStatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_agent_states(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_agent_states_with_options(request, runtime)
+
+    def list_agent_summary_reports_since_midnight_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAgentSummaryReportsSinceMidnight',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListAgentSummaryReportsSinceMidnightResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_agent_summary_reports_since_midnight(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_agent_summary_reports_since_midnight_with_options(request, runtime)
+
     def list_attempts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1573,6 +1965,38 @@ class Client(OpenApiClient):
     def list_call_detail_records(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_call_detail_records_with_options(request, runtime)
+
+    def list_call_tags_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCallTags',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListCallTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_call_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_call_tags_with_options(request, runtime)
 
     def list_campaign_trending_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1748,6 +2172,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_contact_flows_with_options(request, runtime)
 
+    def list_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_tag_name_list):
+            query['CallTagNameList'] = request.call_tag_name_list
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_custom_call_tagging_with_options(request, runtime)
+
     def list_devices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1777,6 +2237,42 @@ class Client(OpenApiClient):
     def list_devices(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_devices_with_options(request, runtime)
+
+    def list_do_not_call_numbers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
+        if not UtilClient.is_unset(request.search_pattern):
+            query['SearchPattern'] = request.search_pattern
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDoNotCallNumbers',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListDoNotCallNumbersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_do_not_call_numbers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_do_not_call_numbers_with_options(request, runtime)
 
     def list_historical_agent_report_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2478,6 +2974,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_sip_traces_with_options(request, runtime)
 
+    def list_skill_group_states_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSkillGroupStates',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListSkillGroupStatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_skill_group_states(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_skill_group_states_with_options(request, runtime)
+
+    def list_skill_group_summary_reports_since_midnight_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSkillGroupSummaryReportsSinceMidnight',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListSkillGroupSummaryReportsSinceMidnightResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_skill_group_summary_reports_since_midnight(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_skill_group_summary_reports_since_midnight_with_options(request, runtime)
+
     def list_skill_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2698,6 +3246,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.make_call_with_options(request, runtime)
 
+    def modify_custom_call_tagging_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.call_tag_name_list):
+            query['CallTagNameList'] = request.call_tag_name_list
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number):
+            query['Number'] = request.number
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCustomCallTagging',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ModifyCustomCallTaggingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_custom_call_tagging(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_custom_call_tagging_with_options(request, runtime)
+
     def modify_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2831,6 +3413,8 @@ class Client(OpenApiClient):
     def modify_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.display_id):
+            query['DisplayId'] = request.display_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.mobile):
@@ -3201,6 +3785,36 @@ class Client(OpenApiClient):
     def release_call(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_call_with_options(request, runtime)
+
+    def remove_do_not_call_numbers_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.number_list):
+            query['NumberList'] = request.number_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveDoNotCallNumbers',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.RemoveDoNotCallNumbersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_do_not_call_numbers(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_do_not_call_numbers_with_options(request, runtime)
 
     def remove_personal_numbers_from_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3995,6 +4609,36 @@ class Client(OpenApiClient):
     def unmute_call(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unmute_call_with_options(request, runtime)
+
+    def unregister_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnregisterDevice',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.UnregisterDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unregister_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.unregister_device_with_options(request, runtime)
 
     def update_config_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
