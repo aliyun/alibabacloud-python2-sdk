@@ -215,42 +215,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_sub_scene_with_options(request, runtime)
 
-    def check_resource_with_options(self, request, runtime):
+    def check_user_property_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.bid):
-            query['Bid'] = request.bid
-        if not UtilClient.is_unset(request.country):
-            query['Country'] = request.country
-        if not UtilClient.is_unset(request.gmt_wakeup):
-            query['GmtWakeup'] = request.gmt_wakeup
-        if not UtilClient.is_unset(request.hid):
-            query['Hid'] = request.hid
-        if not UtilClient.is_unset(request.interrupt):
-            query['Interrupt'] = request.interrupt
-        if not UtilClient.is_unset(request.invoker):
-            query['Invoker'] = request.invoker
-        if not UtilClient.is_unset(request.level):
-            query['Level'] = request.level
-        if not UtilClient.is_unset(request.message):
-            query['Message'] = request.message
-        if not UtilClient.is_unset(request.pk):
-            query['Pk'] = request.pk
-        if not UtilClient.is_unset(request.prompt):
-            query['Prompt'] = request.prompt
-        if not UtilClient.is_unset(request.success):
-            query['Success'] = request.success
-        if not UtilClient.is_unset(request.task_extra_data):
-            query['TaskExtraData'] = request.task_extra_data
-        if not UtilClient.is_unset(request.task_identifier):
-            query['TaskIdentifier'] = request.task_identifier
-        if not UtilClient.is_unset(request.url):
-            query['Url'] = request.url
+        if not UtilClient.is_unset(request.uid):
+            query['Uid'] = request.uid
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='CheckResource',
+            action='CheckUserProperty',
             version='2020-01-01',
             protocol='HTTPS',
             pathname='/',
@@ -261,137 +235,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            tdsr_20200101_models.CheckResourceResponse(),
+            tdsr_20200101_models.CheckUserPropertyResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def check_resource(self, request):
+    def check_user_property(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.check_resource_with_options(request, runtime)
-
-    def create_project_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.builder_user_id_list):
-            query['BuilderUserIdList'] = request.builder_user_id_list
-        if not UtilClient.is_unset(request.business_id):
-            query['BusinessId'] = request.business_id
-        if not UtilClient.is_unset(request.business_user_id_list):
-            query['BusinessUserIdList'] = request.business_user_id_list
-        if not UtilClient.is_unset(request.gather_user_id_list):
-            query['GatherUserIdList'] = request.gather_user_id_list
-        if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateProject',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.CreateProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_project(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_project_with_options(request, runtime)
-
-    def create_scene_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.name):
-            query['Name'] = request.name
-        if not UtilClient.is_unset(request.project_id):
-            query['ProjectId'] = request.project_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateScene',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.CreateSceneResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_scene(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_scene_with_options(request, runtime)
-
-    def delete_file_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.param_file):
-            query['ParamFile'] = request.param_file
-        if not UtilClient.is_unset(request.sub_scene_uuid):
-            query['SubSceneUuid'] = request.sub_scene_uuid
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteFile',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.DeleteFileResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_file(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_file_with_options(request, runtime)
-
-    def delete_project_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.project_id):
-            query['ProjectId'] = request.project_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteProject',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.DeleteProjectResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_project(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_project_with_options(request, runtime)
+        return self.check_user_property_with_options(request, runtime)
 
     def detail_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -777,36 +627,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_oss_policy_with_options(request, runtime)
 
-    def get_policy_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.sub_scene_uuid):
-            query['SubSceneUuid'] = request.sub_scene_uuid
-        if not UtilClient.is_unset(request.type):
-            query['Type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetPolicy',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.GetPolicyResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_policy(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_policy_with_options(request, runtime)
-
     def get_rectify_image_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1170,36 +990,6 @@ class Client(OpenApiClient):
     def list_scene(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_scene_with_options(request, runtime)
-
-    def list_scenes_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.is_publish_query):
-            query['IsPublishQuery'] = request.is_publish_query
-        if not UtilClient.is_unset(request.project_id):
-            query['ProjectId'] = request.project_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListScenes',
-            version='2020-01-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            tdsr_20200101_models.ListScenesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_scenes(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_scenes_with_options(request, runtime)
 
     def list_sub_scene_with_options(self, request, runtime):
         UtilClient.validate_model(request)
