@@ -85,68 +85,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.activate_license_with_options(request, runtime)
 
-    def bind_image_package_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.ecs_instance_id):
-            query['EcsInstanceId'] = request.ecs_instance_id
-        if not UtilClient.is_unset(request.image_package_instance_id):
-            query['ImagePackageInstanceId'] = request.image_package_instance_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='BindImagePackage',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.BindImagePackageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def bind_image_package(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.bind_image_package_with_options(request, runtime)
-
-    def create_commodity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.application_id):
-            query['ApplicationId'] = request.application_id
-        body = {}
-        if not UtilClient.is_unset(request.content):
-            body['Content'] = request.content
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='CreateCommodity',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.CreateCommodityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_commodity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_commodity_with_options(request, runtime)
-
     def create_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -184,124 +122,6 @@ class Client(OpenApiClient):
     def create_order(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_order_with_options(request, runtime)
-
-    def create_rate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.content):
-            query['Content'] = request.content
-        if not UtilClient.is_unset(request.customer_labels):
-            query['CustomerLabels'] = request.customer_labels
-        if not UtilClient.is_unset(request.order_id):
-            query['OrderId'] = request.order_id
-        if not UtilClient.is_unset(request.package_version):
-            query['PackageVersion'] = request.package_version
-        if not UtilClient.is_unset(request.request_id):
-            query['RequestId'] = request.request_id
-        if not UtilClient.is_unset(request.score):
-            query['Score'] = request.score
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateRate',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.CreateRateResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_rate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_rate_with_options(request, runtime)
-
-    def delete_commodity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.commodity_id):
-            query['CommodityId'] = request.commodity_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DeleteCommodity',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.DeleteCommodityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_commodity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_commodity_with_options(request, runtime)
-
-    def describe_commodities_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeCommodities',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.DescribeCommoditiesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_commodities(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_commodities_with_options(request, runtime)
-
-    def describe_commodity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeCommodity',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.DescribeCommodityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_commodity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_commodity_with_options(request, runtime)
 
     def describe_current_node_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -693,34 +513,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_project_operate_logs_with_options(request, runtime)
 
-    def describe_rate_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.order_id):
-            query['OrderId'] = request.order_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeRate',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.DescribeRateResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_rate(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_rate_with_options(request, runtime)
-
     def finish_current_project_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -754,36 +546,6 @@ class Client(OpenApiClient):
     def finish_current_project_node(self, request):
         runtime = util_models.RuntimeOptions()
         return self.finish_current_project_node_with_options(request, runtime)
-
-    def notify_contract_event_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.event_message):
-            query['EventMessage'] = request.event_message
-        if not UtilClient.is_unset(request.event_type):
-            query['EventType'] = request.event_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='NotifyContractEvent',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.NotifyContractEventResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def notify_contract_event(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.notify_contract_event_with_options(request, runtime)
 
     def pause_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -844,56 +606,6 @@ class Client(OpenApiClient):
     def push_metering_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.push_metering_data_with_options(request, runtime)
-
-    def query_market_categories_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
-        params = open_api_models.Params(
-            action='QueryMarketCategories',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.QueryMarketCategoriesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_market_categories(self):
-        runtime = util_models.RuntimeOptions()
-        return self.query_market_categories_with_options(runtime)
-
-    def query_market_images_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.param):
-            query['Param'] = request.param
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='QueryMarketImages',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.QueryMarketImagesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def query_market_images(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_market_images_with_options(request, runtime)
 
     def resume_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -958,65 +670,3 @@ class Client(OpenApiClient):
     def rollback_current_project_node(self, request):
         runtime = util_models.RuntimeOptions()
         return self.rollback_current_project_node_with_options(request, runtime)
-
-    def update_commodity_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.commodity_id):
-            query['CommodityId'] = request.commodity_id
-        if not UtilClient.is_unset(request.content):
-            query['Content'] = request.content
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpdateCommodity',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.UpdateCommodityResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def update_commodity(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.update_commodity_with_options(request, runtime)
-
-    def upload_commodity_file_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.file_content_type):
-            query['FileContentType'] = request.file_content_type
-        if not UtilClient.is_unset(request.file_resource):
-            query['FileResource'] = request.file_resource
-        if not UtilClient.is_unset(request.file_resource_type):
-            query['FileResourceType'] = request.file_resource_type
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UploadCommodityFile',
-            version='2015-11-01',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            market_20151101_models.UploadCommodityFileResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def upload_commodity_file(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.upload_commodity_file_with_options(request, runtime)
