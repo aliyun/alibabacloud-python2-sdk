@@ -682,6 +682,8 @@ class Client(OpenApiClient):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.tactic_id):
+            query['TacticId'] = request.tactic_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3862,8 +3864,12 @@ class Client(OpenApiClient):
             query['UniqueInfo'] = request.unique_info
         if not UtilClient.is_unset(request.uuids):
             query['Uuids'] = request.uuids
+        body = {}
+        if not UtilClient.is_unset(request.tactic_id):
+            body['TacticId'] = request.tactic_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DescribeSuspEvents',
@@ -5138,6 +5144,36 @@ class Client(OpenApiClient):
     def modify_operate_vul(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_operate_vul_with_options(request, runtime)
+
+    def modify_property_schedule_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.schedule_time):
+            query['ScheduleTime'] = request.schedule_time
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyPropertyScheduleConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyPropertyScheduleConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_property_schedule_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_property_schedule_config_with_options(request, runtime)
 
     def modify_push_all_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)

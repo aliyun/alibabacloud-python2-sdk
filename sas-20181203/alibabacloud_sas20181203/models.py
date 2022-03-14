@@ -2234,7 +2234,7 @@ class DescribeAlarmEventDetailResponse(TeaModel):
 class DescribeAlarmEventListRequest(TeaModel):
     def __init__(self, alarm_event_name=None, alarm_event_type=None, current_page=None, dealed=None, from_=None,
                  group_id=None, lang=None, levels=None, operate_error_code_list=None, page_size=None, remark=None,
-                 source_ip=None):
+                 source_ip=None, tactic_id=None):
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_type = alarm_event_type  # type: str
         self.current_page = current_page  # type: int
@@ -2247,6 +2247,7 @@ class DescribeAlarmEventListRequest(TeaModel):
         self.page_size = page_size  # type: str
         self.remark = remark  # type: str
         self.source_ip = source_ip  # type: str
+        self.tactic_id = tactic_id  # type: str
 
     def validate(self):
         pass
@@ -2281,6 +2282,8 @@ class DescribeAlarmEventListRequest(TeaModel):
             result['Remark'] = self.remark
         if self.source_ip is not None:
             result['SourceIp'] = self.source_ip
+        if self.tactic_id is not None:
+            result['TacticId'] = self.tactic_id
         return result
 
     def from_map(self, m=None):
@@ -2309,6 +2312,8 @@ class DescribeAlarmEventListRequest(TeaModel):
             self.remark = m.get('Remark')
         if m.get('SourceIp') is not None:
             self.source_ip = m.get('SourceIp')
+        if m.get('TacticId') is not None:
+            self.tactic_id = m.get('TacticId')
         return self
 
 
@@ -2351,12 +2356,42 @@ class DescribeAlarmEventListResponseBodyPageInfo(TeaModel):
         return self
 
 
+class DescribeAlarmEventListResponseBodySuspEventsTacticItems(TeaModel):
+    def __init__(self, tactic_display_name=None, tactic_id=None):
+        self.tactic_display_name = tactic_display_name  # type: str
+        self.tactic_id = tactic_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAlarmEventListResponseBodySuspEventsTacticItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tactic_display_name is not None:
+            result['TacticDisplayName'] = self.tactic_display_name
+        if self.tactic_id is not None:
+            result['TacticId'] = self.tactic_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TacticDisplayName') is not None:
+            self.tactic_display_name = m.get('TacticDisplayName')
+        if m.get('TacticId') is not None:
+            self.tactic_id = m.get('TacticId')
+        return self
+
+
 class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
     def __init__(self, alarm_event_name=None, alarm_event_name_original=None, alarm_event_type=None,
                  alarm_unique_info=None, can_be_deal_on_line=None, can_cancel_fault=None, data_source=None, dealed=None,
                  description=None, end_time=None, gmt_modified=None, has_trace_info=None, instance_id=None, instance_name=None,
                  internet_ip=None, intranet_ip=None, level=None, operate_error_code=None, operate_time=None, sale_version=None,
-                 security_event_ids=None, solution=None, stages=None, start_time=None, suspicious_event_count=None, uuid=None):
+                 security_event_ids=None, solution=None, stages=None, start_time=None, suspicious_event_count=None, tactic_items=None,
+                 uuid=None):
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_name_original = alarm_event_name_original  # type: str
         self.alarm_event_type = alarm_event_type  # type: str
@@ -2382,10 +2417,15 @@ class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
         self.stages = stages  # type: str
         self.start_time = start_time  # type: long
         self.suspicious_event_count = suspicious_event_count  # type: int
+        # 攻击阶段展示名
+        self.tactic_items = tactic_items  # type: list[DescribeAlarmEventListResponseBodySuspEventsTacticItems]
         self.uuid = uuid  # type: str
 
     def validate(self):
-        pass
+        if self.tactic_items:
+            for k in self.tactic_items:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeAlarmEventListResponseBodySuspEvents, self).to_map()
@@ -2443,6 +2483,10 @@ class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
             result['StartTime'] = self.start_time
         if self.suspicious_event_count is not None:
             result['SuspiciousEventCount'] = self.suspicious_event_count
+        result['TacticItems'] = []
+        if self.tactic_items is not None:
+            for k in self.tactic_items:
+                result['TacticItems'].append(k.to_map() if k else None)
         if self.uuid is not None:
             result['Uuid'] = self.uuid
         return result
@@ -2499,6 +2543,11 @@ class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
             self.start_time = m.get('StartTime')
         if m.get('SuspiciousEventCount') is not None:
             self.suspicious_event_count = m.get('SuspiciousEventCount')
+        self.tactic_items = []
+        if m.get('TacticItems') is not None:
+            for k in m.get('TacticItems'):
+                temp_model = DescribeAlarmEventListResponseBodySuspEventsTacticItems()
+                self.tactic_items.append(temp_model.from_map(k))
         if m.get('Uuid') is not None:
             self.uuid = m.get('Uuid')
         return self
@@ -20239,7 +20288,8 @@ class DescribeSuspEventsRequest(TeaModel):
     def __init__(self, alarm_unique_info=None, cluster_id=None, container_field_name=None,
                  container_field_value=None, current_page=None, dealed=None, event_names=None, from_=None, group_id=None, lang=None,
                  levels=None, name=None, operate_error_code_list=None, page_size=None, parent_event_types=None,
-                 remark=None, source=None, source_ip=None, status=None, target_type=None, unique_info=None, uuids=None):
+                 remark=None, source=None, source_ip=None, status=None, tactic_id=None, target_type=None, unique_info=None,
+                 uuids=None):
         self.alarm_unique_info = alarm_unique_info  # type: str
         self.cluster_id = cluster_id  # type: str
         self.container_field_name = container_field_name  # type: str
@@ -20259,6 +20309,7 @@ class DescribeSuspEventsRequest(TeaModel):
         self.source = source  # type: str
         self.source_ip = source_ip  # type: str
         self.status = status  # type: str
+        self.tactic_id = tactic_id  # type: str
         self.target_type = target_type  # type: str
         self.unique_info = unique_info  # type: str
         self.uuids = uuids  # type: str
@@ -20310,6 +20361,8 @@ class DescribeSuspEventsRequest(TeaModel):
             result['SourceIp'] = self.source_ip
         if self.status is not None:
             result['Status'] = self.status
+        if self.tactic_id is not None:
+            result['TacticId'] = self.tactic_id
         if self.target_type is not None:
             result['TargetType'] = self.target_type
         if self.unique_info is not None:
@@ -20358,6 +20411,8 @@ class DescribeSuspEventsRequest(TeaModel):
             self.source_ip = m.get('SourceIp')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('TacticId') is not None:
+            self.tactic_id = m.get('TacticId')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
         if m.get('UniqueInfo') is not None:
@@ -20440,6 +20495,35 @@ class DescribeSuspEventsResponseBodySuspEventsEventNotes(TeaModel):
         return self
 
 
+class DescribeSuspEventsResponseBodySuspEventsTacticItems(TeaModel):
+    def __init__(self, tactic_display_name=None, tactic_id=None):
+        self.tactic_display_name = tactic_display_name  # type: str
+        self.tactic_id = tactic_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSuspEventsResponseBodySuspEventsTacticItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tactic_display_name is not None:
+            result['TacticDisplayName'] = self.tactic_display_name
+        if self.tactic_id is not None:
+            result['TacticId'] = self.tactic_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TacticDisplayName') is not None:
+            self.tactic_display_name = m.get('TacticDisplayName')
+        if m.get('TacticId') is not None:
+            self.tactic_id = m.get('TacticId')
+        return self
+
+
 class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
     def __init__(self, advanced=None, alarm_event_name=None, alarm_event_name_display=None, alarm_event_type=None,
                  alarm_event_type_display=None, alarm_unique_info=None, app_name=None, auto_breaking=None, can_be_deal_on_line=None,
@@ -20449,7 +20533,7 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
                  k_8s_cluster_id=None, k_8s_cluster_name=None, k_8s_namespace=None, k_8s_node_id=None, k_8s_node_name=None,
                  k_8s_pod_name=None, last_time=None, last_time_stamp=None, level=None, mark_mis_rules=None, name=None,
                  occurrence_time=None, occurrence_time_stamp=None, operate_error_code=None, operate_msg=None, operate_time=None,
-                 sale_version=None, security_event_ids=None, stages=None, unique_info=None, uuid=None):
+                 sale_version=None, security_event_ids=None, stages=None, tactic_items=None, unique_info=None, uuid=None):
         self.advanced = advanced  # type: bool
         self.alarm_event_name = alarm_event_name  # type: str
         self.alarm_event_name_display = alarm_event_name_display  # type: str
@@ -20495,6 +20579,8 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
         self.sale_version = sale_version  # type: str
         self.security_event_ids = security_event_ids  # type: str
         self.stages = stages  # type: str
+        # 攻击阶段展示名
+        self.tactic_items = tactic_items  # type: list[DescribeSuspEventsResponseBodySuspEventsTacticItems]
         self.unique_info = unique_info  # type: str
         self.uuid = uuid  # type: str
 
@@ -20505,6 +20591,10 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
                     k.validate()
         if self.event_notes:
             for k in self.event_notes:
+                if k:
+                    k.validate()
+        if self.tactic_items:
+            for k in self.tactic_items:
                 if k:
                     k.validate()
 
@@ -20608,6 +20698,10 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
             result['SecurityEventIds'] = self.security_event_ids
         if self.stages is not None:
             result['Stages'] = self.stages
+        result['TacticItems'] = []
+        if self.tactic_items is not None:
+            for k in self.tactic_items:
+                result['TacticItems'].append(k.to_map() if k else None)
         if self.unique_info is not None:
             result['UniqueInfo'] = self.unique_info
         if self.uuid is not None:
@@ -20712,6 +20806,11 @@ class DescribeSuspEventsResponseBodySuspEvents(TeaModel):
             self.security_event_ids = m.get('SecurityEventIds')
         if m.get('Stages') is not None:
             self.stages = m.get('Stages')
+        self.tactic_items = []
+        if m.get('TacticItems') is not None:
+            for k in m.get('TacticItems'):
+                temp_model = DescribeSuspEventsResponseBodySuspEventsTacticItems()
+                self.tactic_items.append(temp_model.from_map(k))
         if m.get('UniqueInfo') is not None:
             self.unique_info = m.get('UniqueInfo')
         if m.get('Uuid') is not None:
@@ -26023,6 +26122,97 @@ class ModifyOperateVulResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ModifyOperateVulResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyPropertyScheduleConfigRequest(TeaModel):
+    def __init__(self, schedule_time=None, type=None):
+        self.schedule_time = schedule_time  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPropertyScheduleConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.schedule_time is not None:
+            result['ScheduleTime'] = self.schedule_time
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ScheduleTime') is not None:
+            self.schedule_time = m.get('ScheduleTime')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ModifyPropertyScheduleConfigResponseBody(TeaModel):
+    def __init__(self, modify_result=None, request_id=None):
+        self.modify_result = modify_result  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPropertyScheduleConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.modify_result is not None:
+            result['ModifyResult'] = self.modify_result
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModifyResult') is not None:
+            self.modify_result = m.get('ModifyResult')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyPropertyScheduleConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyPropertyScheduleConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyPropertyScheduleConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyPropertyScheduleConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
