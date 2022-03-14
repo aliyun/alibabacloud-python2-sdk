@@ -19,7 +19,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
-        self._endpoint_rule = 'central'
+        self._endpoint_rule = ''
         self.check_config(config)
         self._endpoint = self.get_endpoint('quickbi-public', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
 
@@ -1951,6 +1951,38 @@ class Client(OpenApiClient):
     def query_workspace_user_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_workspace_user_list_with_options(request, runtime)
+
+    def result_callback_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_id):
+            query['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.handle_reason):
+            query['HandleReason'] = request.handle_reason
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResultCallback',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quickbi_public_20220101_models.ResultCallbackResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def result_callback(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.result_callback_with_options(request, runtime)
 
     def save_favorites_with_options(self, request, runtime):
         UtilClient.validate_model(request)
