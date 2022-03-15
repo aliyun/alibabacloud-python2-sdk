@@ -3099,7 +3099,7 @@ class DeployPolicyInstanceRequest(TeaModel):
     def __init__(self, action=None, namespaces=None, parameters=None):
         # 规则治理动作
         self.action = action  # type: str
-        # 策略实例实施范围（限定命名空间）。默认 [] 代表集群所有命名空间。
+        # 限制策略实施的命名空间，为空时表示所有命名空间
         self.namespaces = namespaces  # type: list[str]
         # 当前规则实例的配置参数
         self.parameters = parameters  # type: dict[str, any]
@@ -11955,13 +11955,13 @@ class ModifyClusterTagsResponse(TeaModel):
 
 
 class ModifyPolicyInstanceRequest(TeaModel):
-    def __init__(self, action=None, instance_name=None, namespace=None, parameters=None):
+    def __init__(self, action=None, instance_name=None, namespaces=None, parameters=None):
         # 规则治理动作
         self.action = action  # type: str
         # 策略规则实例id
         self.instance_name = instance_name  # type: str
-        # 策略实例实施范围
-        self.namespace = namespace  # type: str
+        # 限制策略实施的命名空间，为空时表示所有命名空间
+        self.namespaces = namespaces  # type: list[str]
         # 当前规则实例的配置参数
         self.parameters = parameters  # type: dict[str, any]
 
@@ -11978,8 +11978,8 @@ class ModifyPolicyInstanceRequest(TeaModel):
             result['action'] = self.action
         if self.instance_name is not None:
             result['instance_name'] = self.instance_name
-        if self.namespace is not None:
-            result['namespace'] = self.namespace
+        if self.namespaces is not None:
+            result['namespaces'] = self.namespaces
         if self.parameters is not None:
             result['parameters'] = self.parameters
         return result
@@ -11990,8 +11990,8 @@ class ModifyPolicyInstanceRequest(TeaModel):
             self.action = m.get('action')
         if m.get('instance_name') is not None:
             self.instance_name = m.get('instance_name')
-        if m.get('namespace') is not None:
-            self.namespace = m.get('namespace')
+        if m.get('namespaces') is not None:
+            self.namespaces = m.get('namespaces')
         if m.get('parameters') is not None:
             self.parameters = m.get('parameters')
         return self
