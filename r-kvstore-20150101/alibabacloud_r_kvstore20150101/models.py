@@ -2102,7 +2102,7 @@ class DeleteInstanceResponse(TeaModel):
 
 class DeleteShardingNodeRequest(TeaModel):
     def __init__(self, instance_id=None, node_id=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_token=None):
+                 resource_owner_account=None, resource_owner_id=None, security_token=None, shard_count=None):
         self.instance_id = instance_id  # type: str
         self.node_id = node_id  # type: str
         self.owner_account = owner_account  # type: str
@@ -2110,6 +2110,7 @@ class DeleteShardingNodeRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.shard_count = shard_count  # type: str
 
     def validate(self):
         pass
@@ -2134,6 +2135,8 @@ class DeleteShardingNodeRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.shard_count is not None:
+            result['ShardCount'] = self.shard_count
         return result
 
     def from_map(self, m=None):
@@ -2152,6 +2155,8 @@ class DeleteShardingNodeRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('ShardCount') is not None:
+            self.shard_count = m.get('ShardCount')
         return self
 
 
@@ -2471,31 +2476,45 @@ class DescribeAccountsResponse(TeaModel):
         return self
 
 
-class DescribeActiveOperationTaskRequest(TeaModel):
-    def __init__(self, is_history=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
-                 region=None, resource_owner_account=None, resource_owner_id=None, security_token=None, task_type=None):
-        self.is_history = is_history  # type: int
+class DescribeActiveOperationTasksRequest(TeaModel):
+    def __init__(self, allow_cancel=None, allow_change=None, change_level=None, db_type=None, ins_name=None,
+                 owner_account=None, owner_id=None, page_number=None, page_size=None, product_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None, status=None, task_type=None):
+        self.allow_cancel = allow_cancel  # type: int
+        self.allow_change = allow_change  # type: int
+        self.change_level = change_level  # type: str
+        self.db_type = db_type  # type: str
+        self.ins_name = ins_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
-        self.region = region  # type: str
+        self.product_id = product_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.status = status  # type: int
         self.task_type = task_type  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(DescribeActiveOperationTaskRequest, self).to_map()
+        _map = super(DescribeActiveOperationTasksRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.is_history is not None:
-            result['IsHistory'] = self.is_history
+        if self.allow_cancel is not None:
+            result['AllowCancel'] = self.allow_cancel
+        if self.allow_change is not None:
+            result['AllowChange'] = self.allow_change
+        if self.change_level is not None:
+            result['ChangeLevel'] = self.change_level
+        if self.db_type is not None:
+            result['DbType'] = self.db_type
+        if self.ins_name is not None:
+            result['InsName'] = self.ins_name
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -2504,22 +2523,32 @@ class DescribeActiveOperationTaskRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.region is not None:
-            result['Region'] = self.region
+        if self.product_id is not None:
+            result['ProductId'] = self.product_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.status is not None:
+            result['Status'] = self.status
         if self.task_type is not None:
             result['TaskType'] = self.task_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('IsHistory') is not None:
-            self.is_history = m.get('IsHistory')
+        if m.get('AllowCancel') is not None:
+            self.allow_cancel = m.get('AllowCancel')
+        if m.get('AllowChange') is not None:
+            self.allow_change = m.get('AllowChange')
+        if m.get('ChangeLevel') is not None:
+            self.change_level = m.get('ChangeLevel')
+        if m.get('DbType') is not None:
+            self.db_type = m.get('DbType')
+        if m.get('InsName') is not None:
+            self.ins_name = m.get('InsName')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -2528,52 +2557,91 @@ class DescribeActiveOperationTaskRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
+        if m.get('ProductId') is not None:
+            self.product_id = m.get('ProductId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
         return self
 
 
-class DescribeActiveOperationTaskResponseBodyItems(TeaModel):
-    def __init__(self, created_time=None, db_type=None, deadline=None, id=None, ins_name=None, modified_time=None,
-                 prepare_interval=None, region=None, start_time=None, status=None, switch_time=None, task_type=None):
+class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
+    def __init__(self, allow_cancel=None, allow_change=None, change_level=None, change_level_en=None,
+                 change_level_zh=None, created_time=None, current_avz=None, db_type=None, db_version=None, deadline=None, id=None,
+                 impact_en=None, impact_zh=None, ins_comment=None, ins_name=None, modified_time=None, prepare_interval=None,
+                 region=None, result_info=None, start_time=None, status=None, sub_ins_names=None, switch_time=None,
+                 task_type=None, task_type_en=None, task_type_zh=None):
+        self.allow_cancel = allow_cancel  # type: str
+        self.allow_change = allow_change  # type: str
+        self.change_level = change_level  # type: str
+        self.change_level_en = change_level_en  # type: str
+        self.change_level_zh = change_level_zh  # type: str
         self.created_time = created_time  # type: str
+        self.current_avz = current_avz  # type: str
         self.db_type = db_type  # type: str
+        self.db_version = db_version  # type: str
         self.deadline = deadline  # type: str
         self.id = id  # type: int
+        self.impact_en = impact_en  # type: str
+        self.impact_zh = impact_zh  # type: str
+        self.ins_comment = ins_comment  # type: str
         self.ins_name = ins_name  # type: str
         self.modified_time = modified_time  # type: str
         self.prepare_interval = prepare_interval  # type: str
         self.region = region  # type: str
+        self.result_info = result_info  # type: str
         self.start_time = start_time  # type: str
         self.status = status  # type: int
+        self.sub_ins_names = sub_ins_names  # type: list[str]
         self.switch_time = switch_time  # type: str
         self.task_type = task_type  # type: str
+        self.task_type_en = task_type_en  # type: str
+        self.task_type_zh = task_type_zh  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(DescribeActiveOperationTaskResponseBodyItems, self).to_map()
+        _map = super(DescribeActiveOperationTasksResponseBodyItems, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
+        if self.allow_cancel is not None:
+            result['AllowCancel'] = self.allow_cancel
+        if self.allow_change is not None:
+            result['AllowChange'] = self.allow_change
+        if self.change_level is not None:
+            result['ChangeLevel'] = self.change_level
+        if self.change_level_en is not None:
+            result['ChangeLevelEn'] = self.change_level_en
+        if self.change_level_zh is not None:
+            result['ChangeLevelZh'] = self.change_level_zh
         if self.created_time is not None:
             result['CreatedTime'] = self.created_time
+        if self.current_avz is not None:
+            result['CurrentAVZ'] = self.current_avz
         if self.db_type is not None:
             result['DbType'] = self.db_type
+        if self.db_version is not None:
+            result['DbVersion'] = self.db_version
         if self.deadline is not None:
             result['Deadline'] = self.deadline
         if self.id is not None:
             result['Id'] = self.id
+        if self.impact_en is not None:
+            result['ImpactEn'] = self.impact_en
+        if self.impact_zh is not None:
+            result['ImpactZh'] = self.impact_zh
+        if self.ins_comment is not None:
+            result['InsComment'] = self.ins_comment
         if self.ins_name is not None:
             result['InsName'] = self.ins_name
         if self.modified_time is not None:
@@ -2582,26 +2650,54 @@ class DescribeActiveOperationTaskResponseBodyItems(TeaModel):
             result['PrepareInterval'] = self.prepare_interval
         if self.region is not None:
             result['Region'] = self.region
+        if self.result_info is not None:
+            result['ResultInfo'] = self.result_info
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.status is not None:
             result['Status'] = self.status
+        if self.sub_ins_names is not None:
+            result['SubInsNames'] = self.sub_ins_names
         if self.switch_time is not None:
             result['SwitchTime'] = self.switch_time
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.task_type_en is not None:
+            result['TaskTypeEn'] = self.task_type_en
+        if self.task_type_zh is not None:
+            result['TaskTypeZh'] = self.task_type_zh
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AllowCancel') is not None:
+            self.allow_cancel = m.get('AllowCancel')
+        if m.get('AllowChange') is not None:
+            self.allow_change = m.get('AllowChange')
+        if m.get('ChangeLevel') is not None:
+            self.change_level = m.get('ChangeLevel')
+        if m.get('ChangeLevelEn') is not None:
+            self.change_level_en = m.get('ChangeLevelEn')
+        if m.get('ChangeLevelZh') is not None:
+            self.change_level_zh = m.get('ChangeLevelZh')
         if m.get('CreatedTime') is not None:
             self.created_time = m.get('CreatedTime')
+        if m.get('CurrentAVZ') is not None:
+            self.current_avz = m.get('CurrentAVZ')
         if m.get('DbType') is not None:
             self.db_type = m.get('DbType')
+        if m.get('DbVersion') is not None:
+            self.db_version = m.get('DbVersion')
         if m.get('Deadline') is not None:
             self.deadline = m.get('Deadline')
         if m.get('Id') is not None:
             self.id = m.get('Id')
+        if m.get('ImpactEn') is not None:
+            self.impact_en = m.get('ImpactEn')
+        if m.get('ImpactZh') is not None:
+            self.impact_zh = m.get('ImpactZh')
+        if m.get('InsComment') is not None:
+            self.ins_comment = m.get('InsComment')
         if m.get('InsName') is not None:
             self.ins_name = m.get('InsName')
         if m.get('ModifiedTime') is not None:
@@ -2610,20 +2706,28 @@ class DescribeActiveOperationTaskResponseBodyItems(TeaModel):
             self.prepare_interval = m.get('PrepareInterval')
         if m.get('Region') is not None:
             self.region = m.get('Region')
+        if m.get('ResultInfo') is not None:
+            self.result_info = m.get('ResultInfo')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('SubInsNames') is not None:
+            self.sub_ins_names = m.get('SubInsNames')
         if m.get('SwitchTime') is not None:
             self.switch_time = m.get('SwitchTime')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('TaskTypeEn') is not None:
+            self.task_type_en = m.get('TaskTypeEn')
+        if m.get('TaskTypeZh') is not None:
+            self.task_type_zh = m.get('TaskTypeZh')
         return self
 
 
-class DescribeActiveOperationTaskResponseBody(TeaModel):
+class DescribeActiveOperationTasksResponseBody(TeaModel):
     def __init__(self, items=None, page_number=None, page_size=None, request_id=None, total_record_count=None):
-        self.items = items  # type: list[DescribeActiveOperationTaskResponseBodyItems]
+        self.items = items  # type: list[DescribeActiveOperationTasksResponseBodyItems]
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
@@ -2636,7 +2740,7 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
                     k.validate()
 
     def to_map(self):
-        _map = super(DescribeActiveOperationTaskResponseBody, self).to_map()
+        _map = super(DescribeActiveOperationTasksResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -2660,7 +2764,7 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
         self.items = []
         if m.get('Items') is not None:
             for k in m.get('Items'):
-                temp_model = DescribeActiveOperationTaskResponseBodyItems()
+                temp_model = DescribeActiveOperationTasksResponseBodyItems()
                 self.items.append(temp_model.from_map(k))
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
@@ -2673,10 +2777,10 @@ class DescribeActiveOperationTaskResponseBody(TeaModel):
         return self
 
 
-class DescribeActiveOperationTaskResponse(TeaModel):
+class DescribeActiveOperationTasksResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: DescribeActiveOperationTaskResponseBody
+        self.body = body  # type: DescribeActiveOperationTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -2685,7 +2789,7 @@ class DescribeActiveOperationTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(DescribeActiveOperationTaskResponse, self).to_map()
+        _map = super(DescribeActiveOperationTasksResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -2701,7 +2805,7 @@ class DescribeActiveOperationTaskResponse(TeaModel):
         if m.get('headers') is not None:
             self.headers = m.get('headers')
         if m.get('body') is not None:
-            temp_model = DescribeActiveOperationTaskResponseBody()
+            temp_model = DescribeActiveOperationTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -4895,11 +4999,13 @@ class DescribeCacheAnalysisReportListResponse(TeaModel):
 
 
 class DescribeClusterMemberInfoRequest(TeaModel):
-    def __init__(self, instance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None):
+    def __init__(self, instance_id=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -4919,6 +5025,10 @@ class DescribeClusterMemberInfoRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -4935,6 +5045,10 @@ class DescribeClusterMemberInfoRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -6668,14 +6782,14 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttributeTags(TeaM
 
 class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel):
     def __init__(self, architecture_type=None, audit_log_retention=None, availability_value=None,
-                 backup_log_start_time=None, bandwidth=None, capacity=None, charge_type=None, config=None, connection_domain=None,
-                 connections=None, create_time=None, end_time=None, engine=None, engine_version=None, global_instance_id=None,
-                 has_renew_change_order=None, instance_class=None, instance_id=None, instance_name=None, instance_release_protection=None,
-                 instance_status=None, instance_type=None, is_rds=None, maintain_end_time=None, maintain_start_time=None,
-                 network_type=None, node_type=None, package_type=None, port=None, private_ip=None, qps=None, region_id=None,
-                 replica_id=None, replication_mode=None, resource_group_id=None, secondary_zone_id=None, security_iplist=None,
-                 shard_count=None, tags=None, v_switch_id=None, vpc_auth_mode=None, vpc_cloud_instance_id=None, vpc_id=None,
-                 zone_id=None, zone_type=None):
+                 backup_log_start_time=None, bandwidth=None, capacity=None, charge_type=None, cloud_type=None, config=None,
+                 connection_domain=None, connections=None, create_time=None, end_time=None, engine=None, engine_version=None,
+                 global_instance_id=None, has_renew_change_order=None, instance_class=None, instance_id=None, instance_name=None,
+                 instance_release_protection=None, instance_status=None, instance_type=None, is_rds=None, maintain_end_time=None,
+                 maintain_start_time=None, network_type=None, node_type=None, package_type=None, port=None, private_ip=None, qps=None,
+                 region_id=None, replica_id=None, replication_mode=None, resource_group_id=None, secondary_zone_id=None,
+                 security_iplist=None, shard_count=None, tags=None, v_switch_id=None, vpc_auth_mode=None,
+                 vpc_cloud_instance_id=None, vpc_id=None, zone_id=None, zone_type=None):
         self.architecture_type = architecture_type  # type: str
         self.audit_log_retention = audit_log_retention  # type: str
         self.availability_value = availability_value  # type: str
@@ -6683,6 +6797,7 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
         self.bandwidth = bandwidth  # type: long
         self.capacity = capacity  # type: long
         self.charge_type = charge_type  # type: str
+        self.cloud_type = cloud_type  # type: str
         self.config = config  # type: str
         self.connection_domain = connection_domain  # type: str
         self.connections = connections  # type: long
@@ -6746,6 +6861,8 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
             result['Capacity'] = self.capacity
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.cloud_type is not None:
+            result['CloudType'] = self.cloud_type
         if self.config is not None:
             result['Config'] = self.config
         if self.connection_domain is not None:
@@ -6840,6 +6957,8 @@ class DescribeInstanceAttributeResponseBodyInstancesDBInstanceAttribute(TeaModel
             self.capacity = m.get('Capacity')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('CloudType') is not None:
+            self.cloud_type = m.get('CloudType')
         if m.get('Config') is not None:
             self.config = m.get('Config')
         if m.get('ConnectionDomain') is not None:
@@ -7836,17 +7955,18 @@ class DescribeInstancesResponseBodyInstancesKVStoreInstanceTags(TeaModel):
 
 
 class DescribeInstancesResponseBodyInstancesKVStoreInstance(TeaModel):
-    def __init__(self, architecture_type=None, bandwidth=None, capacity=None, charge_type=None, config=None,
-                 connection_domain=None, connection_mode=None, connections=None, create_time=None, destroy_time=None, end_time=None,
-                 engine_version=None, global_instance_id=None, has_renew_change_order=None, instance_class=None, instance_id=None,
-                 instance_name=None, instance_status=None, instance_type=None, is_rds=None, network_type=None, node_type=None,
-                 package_type=None, port=None, private_ip=None, qps=None, region_id=None, replacate_id=None,
-                 resource_group_id=None, search_key=None, secondary_zone_id=None, shard_count=None, tags=None, user_name=None,
-                 v_switch_id=None, vpc_id=None, zone_id=None):
+    def __init__(self, architecture_type=None, bandwidth=None, capacity=None, charge_type=None, cloud_type=None,
+                 config=None, connection_domain=None, connection_mode=None, connections=None, create_time=None,
+                 destroy_time=None, end_time=None, engine_version=None, global_instance_id=None, has_renew_change_order=None,
+                 instance_class=None, instance_id=None, instance_name=None, instance_status=None, instance_type=None, is_rds=None,
+                 network_type=None, node_type=None, package_type=None, port=None, private_ip=None, qps=None, region_id=None,
+                 replacate_id=None, resource_group_id=None, search_key=None, secondary_zone_id=None, shard_count=None, tags=None,
+                 user_name=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.architecture_type = architecture_type  # type: str
         self.bandwidth = bandwidth  # type: long
         self.capacity = capacity  # type: long
         self.charge_type = charge_type  # type: str
+        self.cloud_type = cloud_type  # type: str
         self.config = config  # type: str
         self.connection_domain = connection_domain  # type: str
         self.connection_mode = connection_mode  # type: str
@@ -7899,6 +8019,8 @@ class DescribeInstancesResponseBodyInstancesKVStoreInstance(TeaModel):
             result['Capacity'] = self.capacity
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.cloud_type is not None:
+            result['CloudType'] = self.cloud_type
         if self.config is not None:
             result['Config'] = self.config
         if self.connection_domain is not None:
@@ -7977,6 +8099,8 @@ class DescribeInstancesResponseBodyInstancesKVStoreInstance(TeaModel):
             self.capacity = m.get('Capacity')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('CloudType') is not None:
+            self.cloud_type = m.get('CloudType')
         if m.get('Config') is not None:
             self.config = m.get('Config')
         if m.get('ConnectionDomain') is not None:
@@ -13201,10 +13325,11 @@ class ModifyAccountPasswordResponse(TeaModel):
         return self
 
 
-class ModifyActiveOperationTaskRequest(TeaModel):
-    def __init__(self, ids=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None, switch_time=None):
+class ModifyActiveOperationTasksRequest(TeaModel):
+    def __init__(self, ids=None, immediate_start=None, owner_account=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None, switch_time=None):
         self.ids = ids  # type: str
+        self.immediate_start = immediate_start  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -13216,13 +13341,15 @@ class ModifyActiveOperationTaskRequest(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(ModifyActiveOperationTaskRequest, self).to_map()
+        _map = super(ModifyActiveOperationTasksRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.ids is not None:
             result['Ids'] = self.ids
+        if self.immediate_start is not None:
+            result['ImmediateStart'] = self.immediate_start
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -13241,6 +13368,8 @@ class ModifyActiveOperationTaskRequest(TeaModel):
         m = m or dict()
         if m.get('Ids') is not None:
             self.ids = m.get('Ids')
+        if m.get('ImmediateStart') is not None:
+            self.immediate_start = m.get('ImmediateStart')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -13256,7 +13385,7 @@ class ModifyActiveOperationTaskRequest(TeaModel):
         return self
 
 
-class ModifyActiveOperationTaskResponseBody(TeaModel):
+class ModifyActiveOperationTasksResponseBody(TeaModel):
     def __init__(self, ids=None, request_id=None):
         self.ids = ids  # type: str
         self.request_id = request_id  # type: str
@@ -13265,7 +13394,7 @@ class ModifyActiveOperationTaskResponseBody(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(ModifyActiveOperationTaskResponseBody, self).to_map()
+        _map = super(ModifyActiveOperationTasksResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -13285,10 +13414,10 @@ class ModifyActiveOperationTaskResponseBody(TeaModel):
         return self
 
 
-class ModifyActiveOperationTaskResponse(TeaModel):
+class ModifyActiveOperationTasksResponse(TeaModel):
     def __init__(self, headers=None, body=None):
         self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ModifyActiveOperationTaskResponseBody
+        self.body = body  # type: ModifyActiveOperationTasksResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -13297,7 +13426,7 @@ class ModifyActiveOperationTaskResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(ModifyActiveOperationTaskResponse, self).to_map()
+        _map = super(ModifyActiveOperationTasksResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -13313,7 +13442,7 @@ class ModifyActiveOperationTaskResponse(TeaModel):
         if m.get('headers') is not None:
             self.headers = m.get('headers')
         if m.get('body') is not None:
-            temp_model = ModifyActiveOperationTaskResponseBody()
+            temp_model = ModifyActiveOperationTasksResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -16206,12 +16335,13 @@ class RenewAdditionalBandwidthResponse(TeaModel):
 
 
 class RenewInstanceRequest(TeaModel):
-    def __init__(self, auto_pay=None, business_info=None, capacity=None, coupon_no=None, from_app=None,
-                 instance_class=None, instance_id=None, owner_account=None, owner_id=None, period=None,
+    def __init__(self, auto_pay=None, business_info=None, capacity=None, client_token=None, coupon_no=None,
+                 from_app=None, instance_class=None, instance_id=None, owner_account=None, owner_id=None, period=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
         self.auto_pay = auto_pay  # type: bool
         self.business_info = business_info  # type: str
         self.capacity = capacity  # type: str
+        self.client_token = client_token  # type: str
         self.coupon_no = coupon_no  # type: str
         self.from_app = from_app  # type: str
         self.instance_class = instance_class  # type: str
@@ -16238,6 +16368,8 @@ class RenewInstanceRequest(TeaModel):
             result['BusinessInfo'] = self.business_info
         if self.capacity is not None:
             result['Capacity'] = self.capacity
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
         if self.coupon_no is not None:
             result['CouponNo'] = self.coupon_no
         if self.from_app is not None:
@@ -16268,6 +16400,8 @@ class RenewInstanceRequest(TeaModel):
             self.business_info = m.get('BusinessInfo')
         if m.get('Capacity') is not None:
             self.capacity = m.get('Capacity')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
         if m.get('CouponNo') is not None:
             self.coupon_no = m.get('CouponNo')
         if m.get('FromApp') is not None:
@@ -17373,10 +17507,13 @@ class TagResourcesResponse(TeaModel):
 
 
 class TransformInstanceChargeTypeRequest(TeaModel):
-    def __init__(self, auto_pay=None, charge_type=None, instance_id=None, owner_account=None, owner_id=None,
-                 period=None, resource_owner_account=None, resource_owner_id=None, security_token=None):
+    def __init__(self, auto_pay=None, business_info=None, charge_type=None, coupon_no=None, instance_id=None,
+                 owner_account=None, owner_id=None, period=None, resource_owner_account=None, resource_owner_id=None,
+                 security_token=None):
         self.auto_pay = auto_pay  # type: bool
+        self.business_info = business_info  # type: str
         self.charge_type = charge_type  # type: str
+        self.coupon_no = coupon_no  # type: str
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -17396,8 +17533,12 @@ class TransformInstanceChargeTypeRequest(TeaModel):
         result = dict()
         if self.auto_pay is not None:
             result['AutoPay'] = self.auto_pay
+        if self.business_info is not None:
+            result['BusinessInfo'] = self.business_info
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
+        if self.coupon_no is not None:
+            result['CouponNo'] = self.coupon_no
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.owner_account is not None:
@@ -17418,8 +17559,12 @@ class TransformInstanceChargeTypeRequest(TeaModel):
         m = m or dict()
         if m.get('AutoPay') is not None:
             self.auto_pay = m.get('AutoPay')
+        if m.get('BusinessInfo') is not None:
+            self.business_info = m.get('BusinessInfo')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
+        if m.get('CouponNo') is not None:
+            self.coupon_no = m.get('CouponNo')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('OwnerAccount') is not None:
