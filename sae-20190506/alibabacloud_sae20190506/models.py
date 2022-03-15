@@ -870,8 +870,9 @@ class CreateApplicationRequest(TeaModel):
     def __init__(self, acr_assume_role_arn=None, acr_instance_id=None, app_description=None, app_name=None,
                  associate_eip=None, auto_config=None, command=None, command_args=None, config_map_mount_desc=None, cpu=None,
                  custom_host_alias=None, deploy=None, edas_container_version=None, envs=None, image_url=None, jar_start_args=None,
-                 jar_start_options=None, jdk=None, liveness=None, memory=None, mount_desc=None, mount_host=None, namespace_id=None,
-                 nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
+                 jar_start_options=None, jdk=None, kafka_endpoint=None, kafka_instance_id=None, kafka_logfile_config=None,
+                 liveness=None, memory=None, mount_desc=None, mount_host=None, namespace_id=None, nas_id=None,
+                 open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
                  package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
                  php_config_location=None, post_start=None, pre_stop=None, readiness=None, replicas=None, security_group_id=None,
                  sls_configs=None, termination_grace_period_seconds=None, timezone=None, tomcat_config=None, v_switch_id=None,
@@ -896,12 +897,16 @@ class CreateApplicationRequest(TeaModel):
         self.jar_start_args = jar_start_args  # type: str
         self.jar_start_options = jar_start_options  # type: str
         self.jdk = jdk  # type: str
+        self.kafka_endpoint = kafka_endpoint  # type: str
+        self.kafka_instance_id = kafka_instance_id  # type: str
+        self.kafka_logfile_config = kafka_logfile_config  # type: str
         self.liveness = liveness  # type: str
         self.memory = memory  # type: int
         self.mount_desc = mount_desc  # type: str
         self.mount_host = mount_host  # type: str
         self.namespace_id = namespace_id  # type: str
         self.nas_id = nas_id  # type: str
+        self.open_collect_to_kafka = open_collect_to_kafka  # type: bool
         # OSS使用的AKID
         self.oss_ak_id = oss_ak_id  # type: str
         # OSS AKID对应的secret
@@ -973,6 +978,12 @@ class CreateApplicationRequest(TeaModel):
             result['JarStartOptions'] = self.jar_start_options
         if self.jdk is not None:
             result['Jdk'] = self.jdk
+        if self.kafka_endpoint is not None:
+            result['KafkaEndpoint'] = self.kafka_endpoint
+        if self.kafka_instance_id is not None:
+            result['KafkaInstanceId'] = self.kafka_instance_id
+        if self.kafka_logfile_config is not None:
+            result['KafkaLogfileConfig'] = self.kafka_logfile_config
         if self.liveness is not None:
             result['Liveness'] = self.liveness
         if self.memory is not None:
@@ -985,6 +996,8 @@ class CreateApplicationRequest(TeaModel):
             result['NamespaceId'] = self.namespace_id
         if self.nas_id is not None:
             result['NasId'] = self.nas_id
+        if self.open_collect_to_kafka is not None:
+            result['OpenCollectToKafka'] = self.open_collect_to_kafka
         if self.oss_ak_id is not None:
             result['OssAkId'] = self.oss_ak_id
         if self.oss_ak_secret is not None:
@@ -1069,6 +1082,12 @@ class CreateApplicationRequest(TeaModel):
             self.jar_start_options = m.get('JarStartOptions')
         if m.get('Jdk') is not None:
             self.jdk = m.get('Jdk')
+        if m.get('KafkaEndpoint') is not None:
+            self.kafka_endpoint = m.get('KafkaEndpoint')
+        if m.get('KafkaInstanceId') is not None:
+            self.kafka_instance_id = m.get('KafkaInstanceId')
+        if m.get('KafkaLogfileConfig') is not None:
+            self.kafka_logfile_config = m.get('KafkaLogfileConfig')
         if m.get('Liveness') is not None:
             self.liveness = m.get('Liveness')
         if m.get('Memory') is not None:
@@ -1081,6 +1100,8 @@ class CreateApplicationRequest(TeaModel):
             self.namespace_id = m.get('NamespaceId')
         if m.get('NasId') is not None:
             self.nas_id = m.get('NasId')
+        if m.get('OpenCollectToKafka') is not None:
+            self.open_collect_to_kafka = m.get('OpenCollectToKafka')
         if m.get('OssAkId') is not None:
             self.oss_ak_id = m.get('OssAkId')
         if m.get('OssAkSecret') is not None:
@@ -2997,8 +3018,9 @@ class DeployApplicationRequest(TeaModel):
                  auto_enable_application_scaling_rule=None, batch_wait_time=None, change_order_desc=None, command=None, command_args=None,
                  config_map_mount_desc=None, custom_host_alias=None, edas_container_version=None, enable_ahas=None,
                  enable_grey_tag_route=None, envs=None, image_url=None, jar_start_args=None, jar_start_options=None, jdk=None,
-                 liveness=None, min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None,
-                 nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_url=None,
+                 kafka_endpoint=None, kafka_instance_id=None, kafka_logfile_config=None, liveness=None,
+                 min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None, nas_id=None,
+                 open_collect_to_kafka=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_url=None,
                  package_version=None, php_arms_config_location=None, php_config=None, php_config_location=None, post_start=None,
                  pre_stop=None, readiness=None, sls_configs=None, termination_grace_period_seconds=None, timezone=None,
                  tomcat_config=None, update_strategy=None, war_start_options=None, web_container=None):
@@ -3024,12 +3046,16 @@ class DeployApplicationRequest(TeaModel):
         self.jar_start_args = jar_start_args  # type: str
         self.jar_start_options = jar_start_options  # type: str
         self.jdk = jdk  # type: str
+        self.kafka_endpoint = kafka_endpoint  # type: str
+        self.kafka_instance_id = kafka_instance_id  # type: str
+        self.kafka_logfile_config = kafka_logfile_config  # type: str
         self.liveness = liveness  # type: str
         self.min_ready_instance_ratio = min_ready_instance_ratio  # type: int
         self.min_ready_instances = min_ready_instances  # type: int
         self.mount_desc = mount_desc  # type: str
         self.mount_host = mount_host  # type: str
         self.nas_id = nas_id  # type: str
+        self.open_collect_to_kafka = open_collect_to_kafka  # type: bool
         # OSS使用的AKID
         self.oss_ak_id = oss_ak_id  # type: str
         # OSS AKID对应的secret
@@ -3099,6 +3125,12 @@ class DeployApplicationRequest(TeaModel):
             result['JarStartOptions'] = self.jar_start_options
         if self.jdk is not None:
             result['Jdk'] = self.jdk
+        if self.kafka_endpoint is not None:
+            result['KafkaEndpoint'] = self.kafka_endpoint
+        if self.kafka_instance_id is not None:
+            result['KafkaInstanceId'] = self.kafka_instance_id
+        if self.kafka_logfile_config is not None:
+            result['KafkaLogfileConfig'] = self.kafka_logfile_config
         if self.liveness is not None:
             result['Liveness'] = self.liveness
         if self.min_ready_instance_ratio is not None:
@@ -3111,6 +3143,8 @@ class DeployApplicationRequest(TeaModel):
             result['MountHost'] = self.mount_host
         if self.nas_id is not None:
             result['NasId'] = self.nas_id
+        if self.open_collect_to_kafka is not None:
+            result['OpenCollectToKafka'] = self.open_collect_to_kafka
         if self.oss_ak_id is not None:
             result['OssAkId'] = self.oss_ak_id
         if self.oss_ak_secret is not None:
@@ -3189,6 +3223,12 @@ class DeployApplicationRequest(TeaModel):
             self.jar_start_options = m.get('JarStartOptions')
         if m.get('Jdk') is not None:
             self.jdk = m.get('Jdk')
+        if m.get('KafkaEndpoint') is not None:
+            self.kafka_endpoint = m.get('KafkaEndpoint')
+        if m.get('KafkaInstanceId') is not None:
+            self.kafka_instance_id = m.get('KafkaInstanceId')
+        if m.get('KafkaLogfileConfig') is not None:
+            self.kafka_logfile_config = m.get('KafkaLogfileConfig')
         if m.get('Liveness') is not None:
             self.liveness = m.get('Liveness')
         if m.get('MinReadyInstanceRatio') is not None:
@@ -3201,6 +3241,8 @@ class DeployApplicationRequest(TeaModel):
             self.mount_host = m.get('MountHost')
         if m.get('NasId') is not None:
             self.nas_id = m.get('NasId')
+        if m.get('OpenCollectToKafka') is not None:
+            self.open_collect_to_kafka = m.get('OpenCollectToKafka')
         if m.get('OssAkId') is not None:
             self.oss_ak_id = m.get('OssAkId')
         if m.get('OssAkSecret') is not None:
@@ -3858,10 +3900,10 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
     def __init__(self, acr_assume_role_arn=None, app_description=None, app_id=None, app_name=None,
                  associate_eip=None, batch_wait_time=None, command=None, command_args=None, config_map_mount_desc=None, cpu=None,
                  custom_host_alias=None, edas_container_version=None, enable_ahas=None, enable_grey_tag_route=None, envs=None,
-                 image_url=None, jar_start_args=None, jar_start_options=None, jdk=None, liveness=None, memory=None,
-                 min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None, mse_application_id=None,
-                 namespace_id=None, nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None, package_type=None,
-                 package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
+                 image_url=None, jar_start_args=None, jar_start_options=None, jdk=None, kafka_configs=None, liveness=None,
+                 memory=None, min_ready_instance_ratio=None, min_ready_instances=None, mount_desc=None, mount_host=None,
+                 mse_application_id=None, namespace_id=None, nas_id=None, oss_ak_id=None, oss_ak_secret=None, oss_mount_descs=None,
+                 package_type=None, package_url=None, package_version=None, php_arms_config_location=None, php_config=None,
                  php_config_location=None, post_start=None, pre_stop=None, readiness=None, region_id=None, replicas=None,
                  security_group_id=None, sls_configs=None, tags=None, termination_grace_period_seconds=None, timezone=None,
                  tomcat_config=None, update_strategy=None, v_switch_id=None, vpc_id=None, war_start_options=None,
@@ -3887,6 +3929,7 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
         self.jar_start_args = jar_start_args  # type: str
         self.jar_start_options = jar_start_options  # type: str
         self.jdk = jdk  # type: str
+        self.kafka_configs = kafka_configs  # type: str
         self.liveness = liveness  # type: str
         self.memory = memory  # type: int
         self.min_ready_instance_ratio = min_ready_instance_ratio  # type: int
@@ -3990,6 +4033,8 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
             result['JarStartOptions'] = self.jar_start_options
         if self.jdk is not None:
             result['Jdk'] = self.jdk
+        if self.kafka_configs is not None:
+            result['KafkaConfigs'] = self.kafka_configs
         if self.liveness is not None:
             result['Liveness'] = self.liveness
         if self.memory is not None:
@@ -4109,6 +4154,8 @@ class DescribeApplicationConfigResponseBodyData(TeaModel):
             self.jar_start_options = m.get('JarStartOptions')
         if m.get('Jdk') is not None:
             self.jdk = m.get('Jdk')
+        if m.get('KafkaConfigs') is not None:
+            self.kafka_configs = m.get('KafkaConfigs')
         if m.get('Liveness') is not None:
             self.liveness = m.get('Liveness')
         if m.get('Memory') is not None:
@@ -4714,11 +4761,12 @@ class DescribeApplicationInstancesRequest(TeaModel):
 
 
 class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
-    def __init__(self, create_time_stamp=None, eip=None, group_id=None, image_url=None, instance_container_ip=None,
-                 instance_container_restarts=None, instance_container_status=None, instance_health_status=None, instance_id=None,
-                 package_version=None, v_switch_id=None):
+    def __init__(self, create_time_stamp=None, eip=None, finish_time_stamp=None, group_id=None, image_url=None,
+                 instance_container_ip=None, instance_container_restarts=None, instance_container_status=None,
+                 instance_health_status=None, instance_id=None, package_version=None, v_switch_id=None):
         self.create_time_stamp = create_time_stamp  # type: long
         self.eip = eip  # type: str
+        self.finish_time_stamp = finish_time_stamp  # type: long
         self.group_id = group_id  # type: str
         self.image_url = image_url  # type: str
         self.instance_container_ip = instance_container_ip  # type: str
@@ -4742,6 +4790,8 @@ class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
             result['CreateTimeStamp'] = self.create_time_stamp
         if self.eip is not None:
             result['Eip'] = self.eip
+        if self.finish_time_stamp is not None:
+            result['FinishTimeStamp'] = self.finish_time_stamp
         if self.group_id is not None:
             result['GroupId'] = self.group_id
         if self.image_url is not None:
@@ -4768,6 +4818,8 @@ class DescribeApplicationInstancesResponseBodyDataInstances(TeaModel):
             self.create_time_stamp = m.get('CreateTimeStamp')
         if m.get('Eip') is not None:
             self.eip = m.get('Eip')
+        if m.get('FinishTimeStamp') is not None:
+            self.finish_time_stamp = m.get('FinishTimeStamp')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
         if m.get('ImageUrl') is not None:
@@ -6608,10 +6660,11 @@ class DescribeChangeOrderResponseBodyDataPipelines(TeaModel):
 
 
 class DescribeChangeOrderResponseBodyData(TeaModel):
-    def __init__(self, app_name=None, approval_id=None, auto=None, batch_count=None, batch_type=None,
+    def __init__(self, app_id=None, app_name=None, approval_id=None, auto=None, batch_count=None, batch_type=None,
                  batch_wait_time=None, change_order_id=None, co_type=None, co_type_code=None, create_time=None,
                  current_pipeline_id=None, description=None, error_message=None, pipelines=None, status=None, sub_status=None,
                  support_rollback=None):
+        self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
         self.approval_id = approval_id  # type: str
         self.auto = auto  # type: bool
@@ -6642,6 +6695,8 @@ class DescribeChangeOrderResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
         if self.app_name is not None:
             result['AppName'] = self.app_name
         if self.approval_id is not None:
@@ -6682,6 +6737,8 @@ class DescribeChangeOrderResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
         if m.get('ApprovalId') is not None:
@@ -7813,8 +7870,9 @@ class DescribeGreyTagRouteResponseBodyDataScRules(TeaModel):
 
 
 class DescribeGreyTagRouteResponseBodyData(TeaModel):
-    def __init__(self, create_time=None, description=None, dubbo_rules=None, grey_tag_route_id=None, name=None,
-                 sc_rules=None, update_time=None):
+    def __init__(self, app_id=None, create_time=None, description=None, dubbo_rules=None, grey_tag_route_id=None,
+                 name=None, sc_rules=None, update_time=None):
+        self.app_id = app_id  # type: str
         self.create_time = create_time  # type: long
         self.description = description  # type: str
         self.dubbo_rules = dubbo_rules  # type: list[DescribeGreyTagRouteResponseBodyDataDubboRules]
@@ -7839,6 +7897,8 @@ class DescribeGreyTagRouteResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
         if self.create_time is not None:
             result['CreateTime'] = self.create_time
         if self.description is not None:
@@ -7861,6 +7921,8 @@ class DescribeGreyTagRouteResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
         if m.get('CreateTime') is not None:
             self.create_time = m.get('CreateTime')
         if m.get('Description') is not None:
@@ -10350,12 +10412,10 @@ class ListAppServicesPageRequest(TeaModel):
 
 
 class ListAppServicesPageResponseBodyDataResult(TeaModel):
-    def __init__(self, cluster_name=None, edas_app_id=None, edas_app_name=None, gmt_modify_time=None, group=None,
-                 instance_num=None, service_name=None, version=None):
-        self.cluster_name = cluster_name  # type: str
+    def __init__(self, edas_app_id=None, edas_app_name=None, group=None, instance_num=None, service_name=None,
+                 version=None):
         self.edas_app_id = edas_app_id  # type: str
         self.edas_app_name = edas_app_name  # type: str
-        self.gmt_modify_time = gmt_modify_time  # type: str
         self.group = group  # type: str
         self.instance_num = instance_num  # type: long
         self.service_name = service_name  # type: str
@@ -10370,14 +10430,10 @@ class ListAppServicesPageResponseBodyDataResult(TeaModel):
             return _map
 
         result = dict()
-        if self.cluster_name is not None:
-            result['ClusterName'] = self.cluster_name
         if self.edas_app_id is not None:
             result['EdasAppId'] = self.edas_app_id
         if self.edas_app_name is not None:
             result['EdasAppName'] = self.edas_app_name
-        if self.gmt_modify_time is not None:
-            result['GmtModifyTime'] = self.gmt_modify_time
         if self.group is not None:
             result['Group'] = self.group
         if self.instance_num is not None:
@@ -10390,14 +10446,10 @@ class ListAppServicesPageResponseBodyDataResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ClusterName') is not None:
-            self.cluster_name = m.get('ClusterName')
         if m.get('EdasAppId') is not None:
             self.edas_app_id = m.get('EdasAppId')
         if m.get('EdasAppName') is not None:
             self.edas_app_name = m.get('EdasAppName')
-        if m.get('GmtModifyTime') is not None:
-            self.gmt_modify_time = m.get('GmtModifyTime')
         if m.get('Group') is not None:
             self.group = m.get('Group')
         if m.get('InstanceNum') is not None:
