@@ -940,7 +940,7 @@ class SearchCondition(TeaModel):
                  primary_key_idx=None, project_id=None, reads_count_max_filter=None, reads_count_min_filter=None,
                  relevance_score_max_filter=None, relevance_score_min_filter=None, reposts_count_max_filter=None,
                  reposts_count_min_filter=None, reprint_from_filter=None, sort_by=None, sort_by_direction=None, spam_filter=None,
-                 suspicion_spam_filter=None, title_excluding_words_idx=None, title_including_words_idx=None,
+                 suspicion_spam_filter=None, title_excluding_words_idx=None, title_including_words_idx=None, topic_idx=None,
                  used_index_mode_switch=None):
         # 广告取值true or false
         self.advertisement_filter = advertisement_filter  # type: bool
@@ -1084,6 +1084,8 @@ class SearchCondition(TeaModel):
         self.title_excluding_words_idx = title_excluding_words_idx  # type: str
         # 标题包含的关键词
         self.title_including_words_idx = title_including_words_idx  # type: str
+        # 检索的话题
+        self.topic_idx = topic_idx  # type: str
         # 指定索引模式,KEYWORD|CREATE_TIME
         self.used_index_mode_switch = used_index_mode_switch  # type: str
 
@@ -1238,6 +1240,8 @@ class SearchCondition(TeaModel):
             result['titleExcludingWordsIdx'] = self.title_excluding_words_idx
         if self.title_including_words_idx is not None:
             result['titleIncludingWordsIdx'] = self.title_including_words_idx
+        if self.topic_idx is not None:
+            result['topicIdx'] = self.topic_idx
         if self.used_index_mode_switch is not None:
             result['usedIndexModeSwitch'] = self.used_index_mode_switch
         return result
@@ -1386,6 +1390,8 @@ class SearchCondition(TeaModel):
             self.title_excluding_words_idx = m.get('titleExcludingWordsIdx')
         if m.get('titleIncludingWordsIdx') is not None:
             self.title_including_words_idx = m.get('titleIncludingWordsIdx')
+        if m.get('topicIdx') is not None:
+            self.topic_idx = m.get('topicIdx')
         if m.get('usedIndexModeSwitch') is not None:
             self.used_index_mode_switch = m.get('usedIndexModeSwitch')
         return self
