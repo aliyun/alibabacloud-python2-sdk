@@ -867,17 +867,137 @@ class ListUserCertificateOrderRequest(TeaModel):
         return self
 
 
+class ListUserCertificateOrderResponseBodyCertificateOrderList(TeaModel):
+    def __init__(self, algorithm=None, aliyun_order_id=None, buy_date=None, cert_end_time=None,
+                 cert_start_time=None, cert_type=None, domain=None, domain_count=None, domain_type=None, instance_id=None,
+                 order_id=None, partner_order_id=None, product_code=None, product_name=None, root_brand=None,
+                 source_type=None, status=None, trustee_status=None, wild_domain_count=None):
+        self.algorithm = algorithm  # type: str
+        self.aliyun_order_id = aliyun_order_id  # type: long
+        self.buy_date = buy_date  # type: long
+        self.cert_end_time = cert_end_time  # type: long
+        self.cert_start_time = cert_start_time  # type: long
+        self.cert_type = cert_type  # type: str
+        self.domain = domain  # type: str
+        self.domain_count = domain_count  # type: long
+        self.domain_type = domain_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.order_id = order_id  # type: long
+        self.partner_order_id = partner_order_id  # type: str
+        self.product_code = product_code  # type: str
+        self.product_name = product_name  # type: str
+        self.root_brand = root_brand  # type: str
+        self.source_type = source_type  # type: str
+        self.status = status  # type: str
+        self.trustee_status = trustee_status  # type: str
+        self.wild_domain_count = wild_domain_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserCertificateOrderResponseBodyCertificateOrderList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.algorithm is not None:
+            result['Algorithm'] = self.algorithm
+        if self.aliyun_order_id is not None:
+            result['AliyunOrderId'] = self.aliyun_order_id
+        if self.buy_date is not None:
+            result['BuyDate'] = self.buy_date
+        if self.cert_end_time is not None:
+            result['CertEndTime'] = self.cert_end_time
+        if self.cert_start_time is not None:
+            result['CertStartTime'] = self.cert_start_time
+        if self.cert_type is not None:
+            result['CertType'] = self.cert_type
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.domain_count is not None:
+            result['DomainCount'] = self.domain_count
+        if self.domain_type is not None:
+            result['DomainType'] = self.domain_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.order_id is not None:
+            result['OrderId'] = self.order_id
+        if self.partner_order_id is not None:
+            result['PartnerOrderId'] = self.partner_order_id
+        if self.product_code is not None:
+            result['ProductCode'] = self.product_code
+        if self.product_name is not None:
+            result['ProductName'] = self.product_name
+        if self.root_brand is not None:
+            result['RootBrand'] = self.root_brand
+        if self.source_type is not None:
+            result['SourceType'] = self.source_type
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.trustee_status is not None:
+            result['TrusteeStatus'] = self.trustee_status
+        if self.wild_domain_count is not None:
+            result['WildDomainCount'] = self.wild_domain_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Algorithm') is not None:
+            self.algorithm = m.get('Algorithm')
+        if m.get('AliyunOrderId') is not None:
+            self.aliyun_order_id = m.get('AliyunOrderId')
+        if m.get('BuyDate') is not None:
+            self.buy_date = m.get('BuyDate')
+        if m.get('CertEndTime') is not None:
+            self.cert_end_time = m.get('CertEndTime')
+        if m.get('CertStartTime') is not None:
+            self.cert_start_time = m.get('CertStartTime')
+        if m.get('CertType') is not None:
+            self.cert_type = m.get('CertType')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('DomainCount') is not None:
+            self.domain_count = m.get('DomainCount')
+        if m.get('DomainType') is not None:
+            self.domain_type = m.get('DomainType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('OrderId') is not None:
+            self.order_id = m.get('OrderId')
+        if m.get('PartnerOrderId') is not None:
+            self.partner_order_id = m.get('PartnerOrderId')
+        if m.get('ProductCode') is not None:
+            self.product_code = m.get('ProductCode')
+        if m.get('ProductName') is not None:
+            self.product_name = m.get('ProductName')
+        if m.get('RootBrand') is not None:
+            self.root_brand = m.get('RootBrand')
+        if m.get('SourceType') is not None:
+            self.source_type = m.get('SourceType')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TrusteeStatus') is not None:
+            self.trustee_status = m.get('TrusteeStatus')
+        if m.get('WildDomainCount') is not None:
+            self.wild_domain_count = m.get('WildDomainCount')
+        return self
+
+
 class ListUserCertificateOrderResponseBody(TeaModel):
     def __init__(self, certificate_order_list=None, current_page=None, request_id=None, show_size=None,
                  total_count=None):
-        self.certificate_order_list = certificate_order_list  # type: str
+        self.certificate_order_list = certificate_order_list  # type: list[ListUserCertificateOrderResponseBodyCertificateOrderList]
         self.current_page = current_page  # type: long
         self.request_id = request_id  # type: str
         self.show_size = show_size  # type: long
         self.total_count = total_count  # type: long
 
     def validate(self):
-        pass
+        if self.certificate_order_list:
+            for k in self.certificate_order_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListUserCertificateOrderResponseBody, self).to_map()
@@ -885,8 +1005,10 @@ class ListUserCertificateOrderResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['CertificateOrderList'] = []
         if self.certificate_order_list is not None:
-            result['CertificateOrderList'] = self.certificate_order_list
+            for k in self.certificate_order_list:
+                result['CertificateOrderList'].append(k.to_map() if k else None)
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.request_id is not None:
@@ -899,8 +1021,11 @@ class ListUserCertificateOrderResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.certificate_order_list = []
         if m.get('CertificateOrderList') is not None:
-            self.certificate_order_list = m.get('CertificateOrderList')
+            for k in m.get('CertificateOrderList'):
+                temp_model = ListUserCertificateOrderResponseBodyCertificateOrderList()
+                self.certificate_order_list.append(temp_model.from_map(k))
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('RequestId') is not None:
