@@ -20521,6 +20521,107 @@ class DescribeZonesResponse(TeaModel):
         return self
 
 
+class DetachPluginRequest(TeaModel):
+    def __init__(self, api_id=None, group_id=None, plugin_id=None, security_token=None, stage_name=None):
+        self.api_id = api_id  # type: str
+        self.group_id = group_id  # type: str
+        self.plugin_id = plugin_id  # type: str
+        self.security_token = security_token  # type: str
+        self.stage_name = stage_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetachPluginRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.plugin_id is not None:
+            result['PluginId'] = self.plugin_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('PluginId') is not None:
+            self.plugin_id = m.get('PluginId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
+        return self
+
+
+class DetachPluginResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetachPluginResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DetachPluginResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DetachPluginResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DetachPluginResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DetachPluginResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DryRunSwaggerRequest(TeaModel):
     def __init__(self, data=None, data_format=None, global_condition=None, group_id=None, overwrite=None,
                  security_token=None):

@@ -3434,6 +3434,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_zones_with_options(request, runtime)
 
+    def detach_plugin_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.plugin_id):
+            query['PluginId'] = request.plugin_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachPlugin',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DetachPluginResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detach_plugin(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detach_plugin_with_options(request, runtime)
+
     def dry_run_swagger_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = cloud_api20160714_models.DryRunSwaggerShrinkRequest()
