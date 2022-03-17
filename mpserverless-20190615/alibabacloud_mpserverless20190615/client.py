@@ -193,7 +193,8 @@ class Client(OpenApiClient):
     def check_mp_serverless_role_exists_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['RoleName'] = request.role_name
+        if not UtilClient.is_unset(request.role_name):
+            query['RoleName'] = request.role_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1310,6 +1311,8 @@ class Client(OpenApiClient):
     def list_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.file_id):
+            body['FileId'] = request.file_id
         if not UtilClient.is_unset(request.keyword):
             body['Keyword'] = request.keyword
         if not UtilClient.is_unset(request.page_num):
