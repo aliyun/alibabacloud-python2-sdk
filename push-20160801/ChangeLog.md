@@ -1,3 +1,6 @@
+2022-03-18 Version: 1.0.2
+- Supported SendChannels, AndroidMessageHuaweiUrgency, AndroidMessageHuaweiCategory for Push and MassPush.
+
 2021-08-31 Version: 1.0.1
 - Supported AndroidBigPictureUrl, AndroidInboxBody, AndroidImageUrl, AndroidOppoImageId, AndroidXiaomiImageUrl, iOSNotificationThreadId for Push and MassPush.
 

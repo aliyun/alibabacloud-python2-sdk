@@ -10,6 +10,7 @@ from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_push20160801 import models as push_20160801_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
 
 class Client(OpenApiClient):
@@ -87,12 +88,30 @@ class Client(OpenApiClient):
 
     def bind_alias_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias_name):
+            query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindAlias',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.BindAliasResponse(),
-            self.do_rpcrequest('BindAlias', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def bind_alias(self, request):
@@ -101,12 +120,30 @@ class Client(OpenApiClient):
 
     def bind_phone_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindPhone',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.BindPhoneResponse(),
-            self.do_rpcrequest('BindPhone', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def bind_phone(self, request):
@@ -115,12 +152,32 @@ class Client(OpenApiClient):
 
     def bind_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.client_key):
+            query['ClientKey'] = request.client_key
+        if not UtilClient.is_unset(request.key_type):
+            query['KeyType'] = request.key_type
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindTag',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.BindTagResponse(),
-            self.do_rpcrequest('BindTag', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def bind_tag(self, request):
@@ -129,12 +186,28 @@ class Client(OpenApiClient):
 
     def cancel_push_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelPush',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.CancelPushResponse(),
-            self.do_rpcrequest('CancelPush', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def cancel_push(self, request):
@@ -143,12 +216,26 @@ class Client(OpenApiClient):
 
     def check_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckCertificate',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.CheckCertificateResponse(),
-            self.do_rpcrequest('CheckCertificate', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_certificate(self, request):
@@ -157,12 +244,28 @@ class Client(OpenApiClient):
 
     def check_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckDevice',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.CheckDeviceResponse(),
-            self.do_rpcrequest('CheckDevice', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_device(self, request):
@@ -171,12 +274,28 @@ class Client(OpenApiClient):
 
     def check_devices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_ids):
+            query['DeviceIds'] = request.device_ids
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckDevices',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.CheckDevicesResponse(),
-            self.do_rpcrequest('CheckDevices', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_devices(self, request):
@@ -185,12 +304,28 @@ class Client(OpenApiClient):
 
     def complete_continuously_push_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CompleteContinuouslyPush',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.CompleteContinuouslyPushResponse(),
-            self.do_rpcrequest('CompleteContinuouslyPush', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def complete_continuously_push(self, request):
@@ -199,12 +334,32 @@ class Client(OpenApiClient):
 
     def continuously_push_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ContinuouslyPush',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.ContinuouslyPushResponse(),
-            self.do_rpcrequest('ContinuouslyPush', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def continuously_push(self, request):
@@ -213,9 +368,20 @@ class Client(OpenApiClient):
 
     def list_summary_apps_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListSummaryApps',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
         return TeaCore.from_map(
             push_20160801_models.ListSummaryAppsResponse(),
-            self.do_rpcrequest('ListSummaryApps', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_summary_apps(self):
@@ -224,12 +390,26 @@ class Client(OpenApiClient):
 
     def list_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTags',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.ListTagsResponse(),
-            self.do_rpcrequest('ListTags', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_tags(self, request):
@@ -238,12 +418,30 @@ class Client(OpenApiClient):
 
     def mass_push_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        body = {}
+        if not UtilClient.is_unset(request.push_task):
+            body['PushTask'] = request.push_task
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MassPush',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.MassPushResponse(),
-            self.do_rpcrequest('MassPush', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def mass_push(self, request):
@@ -252,12 +450,146 @@ class Client(OpenApiClient):
 
     def push_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.android_activity):
+            query['AndroidActivity'] = request.android_activity
+        if not UtilClient.is_unset(request.android_big_body):
+            query['AndroidBigBody'] = request.android_big_body
+        if not UtilClient.is_unset(request.android_big_picture_url):
+            query['AndroidBigPictureUrl'] = request.android_big_picture_url
+        if not UtilClient.is_unset(request.android_big_title):
+            query['AndroidBigTitle'] = request.android_big_title
+        if not UtilClient.is_unset(request.android_ext_parameters):
+            query['AndroidExtParameters'] = request.android_ext_parameters
+        if not UtilClient.is_unset(request.android_image_url):
+            query['AndroidImageUrl'] = request.android_image_url
+        if not UtilClient.is_unset(request.android_inbox_body):
+            query['AndroidInboxBody'] = request.android_inbox_body
+        if not UtilClient.is_unset(request.android_message_huawei_category):
+            query['AndroidMessageHuaweiCategory'] = request.android_message_huawei_category
+        if not UtilClient.is_unset(request.android_message_huawei_urgency):
+            query['AndroidMessageHuaweiUrgency'] = request.android_message_huawei_urgency
+        if not UtilClient.is_unset(request.android_music):
+            query['AndroidMusic'] = request.android_music
+        if not UtilClient.is_unset(request.android_notification_bar_priority):
+            query['AndroidNotificationBarPriority'] = request.android_notification_bar_priority
+        if not UtilClient.is_unset(request.android_notification_bar_type):
+            query['AndroidNotificationBarType'] = request.android_notification_bar_type
+        if not UtilClient.is_unset(request.android_notification_channel):
+            query['AndroidNotificationChannel'] = request.android_notification_channel
+        if not UtilClient.is_unset(request.android_notification_huawei_channel):
+            query['AndroidNotificationHuaweiChannel'] = request.android_notification_huawei_channel
+        if not UtilClient.is_unset(request.android_notification_notify_id):
+            query['AndroidNotificationNotifyId'] = request.android_notification_notify_id
+        if not UtilClient.is_unset(request.android_notification_vivo_channel):
+            query['AndroidNotificationVivoChannel'] = request.android_notification_vivo_channel
+        if not UtilClient.is_unset(request.android_notification_xiaomi_channel):
+            query['AndroidNotificationXiaomiChannel'] = request.android_notification_xiaomi_channel
+        if not UtilClient.is_unset(request.android_notify_type):
+            query['AndroidNotifyType'] = request.android_notify_type
+        if not UtilClient.is_unset(request.android_open_type):
+            query['AndroidOpenType'] = request.android_open_type
+        if not UtilClient.is_unset(request.android_open_url):
+            query['AndroidOpenUrl'] = request.android_open_url
+        if not UtilClient.is_unset(request.android_popup_activity):
+            query['AndroidPopupActivity'] = request.android_popup_activity
+        if not UtilClient.is_unset(request.android_popup_body):
+            query['AndroidPopupBody'] = request.android_popup_body
+        if not UtilClient.is_unset(request.android_popup_title):
+            query['AndroidPopupTitle'] = request.android_popup_title
+        if not UtilClient.is_unset(request.android_remind):
+            query['AndroidRemind'] = request.android_remind
+        if not UtilClient.is_unset(request.android_render_style):
+            query['AndroidRenderStyle'] = request.android_render_style
+        if not UtilClient.is_unset(request.android_xiao_mi_activity):
+            query['AndroidXiaoMiActivity'] = request.android_xiao_mi_activity
+        if not UtilClient.is_unset(request.android_xiao_mi_notify_body):
+            query['AndroidXiaoMiNotifyBody'] = request.android_xiao_mi_notify_body
+        if not UtilClient.is_unset(request.android_xiao_mi_notify_title):
+            query['AndroidXiaoMiNotifyTitle'] = request.android_xiao_mi_notify_title
+        if not UtilClient.is_unset(request.android_xiaomi_big_picture_url):
+            query['AndroidXiaomiBigPictureUrl'] = request.android_xiaomi_big_picture_url
+        if not UtilClient.is_unset(request.android_xiaomi_image_url):
+            query['AndroidXiaomiImageUrl'] = request.android_xiaomi_image_url
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.body):
+            query['Body'] = request.body
+        if not UtilClient.is_unset(request.device_type):
+            query['DeviceType'] = request.device_type
+        if not UtilClient.is_unset(request.expire_time):
+            query['ExpireTime'] = request.expire_time
+        if not UtilClient.is_unset(request.job_key):
+            query['JobKey'] = request.job_key
+        if not UtilClient.is_unset(request.push_time):
+            query['PushTime'] = request.push_time
+        if not UtilClient.is_unset(request.push_type):
+            query['PushType'] = request.push_type
+        if not UtilClient.is_unset(request.send_channels):
+            query['SendChannels'] = request.send_channels
+        if not UtilClient.is_unset(request.send_speed):
+            query['SendSpeed'] = request.send_speed
+        if not UtilClient.is_unset(request.sms_delay_secs):
+            query['SmsDelaySecs'] = request.sms_delay_secs
+        if not UtilClient.is_unset(request.sms_params):
+            query['SmsParams'] = request.sms_params
+        if not UtilClient.is_unset(request.sms_send_policy):
+            query['SmsSendPolicy'] = request.sms_send_policy
+        if not UtilClient.is_unset(request.sms_sign_name):
+            query['SmsSignName'] = request.sms_sign_name
+        if not UtilClient.is_unset(request.sms_template_name):
+            query['SmsTemplateName'] = request.sms_template_name
+        if not UtilClient.is_unset(request.store_offline):
+            query['StoreOffline'] = request.store_offline
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
+        if not UtilClient.is_unset(request.i_osapns_env):
+            query['iOSApnsEnv'] = request.i_osapns_env
+        if not UtilClient.is_unset(request.i_osbadge):
+            query['iOSBadge'] = request.i_osbadge
+        if not UtilClient.is_unset(request.i_osbadge_auto_increment):
+            query['iOSBadgeAutoIncrement'] = request.i_osbadge_auto_increment
+        if not UtilClient.is_unset(request.i_osext_parameters):
+            query['iOSExtParameters'] = request.i_osext_parameters
+        if not UtilClient.is_unset(request.i_osmusic):
+            query['iOSMusic'] = request.i_osmusic
+        if not UtilClient.is_unset(request.i_osmutable_content):
+            query['iOSMutableContent'] = request.i_osmutable_content
+        if not UtilClient.is_unset(request.i_osnotification_category):
+            query['iOSNotificationCategory'] = request.i_osnotification_category
+        if not UtilClient.is_unset(request.i_osnotification_collapse_id):
+            query['iOSNotificationCollapseId'] = request.i_osnotification_collapse_id
+        if not UtilClient.is_unset(request.i_osnotification_thread_id):
+            query['iOSNotificationThreadId'] = request.i_osnotification_thread_id
+        if not UtilClient.is_unset(request.i_osremind):
+            query['iOSRemind'] = request.i_osremind
+        if not UtilClient.is_unset(request.i_osremind_body):
+            query['iOSRemindBody'] = request.i_osremind_body
+        if not UtilClient.is_unset(request.i_ossilent_notification):
+            query['iOSSilentNotification'] = request.i_ossilent_notification
+        if not UtilClient.is_unset(request.i_ossubtitle):
+            query['iOSSubtitle'] = request.i_ossubtitle
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Push',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.PushResponse(),
-            self.do_rpcrequest('Push', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def push(self, request):
@@ -266,12 +598,36 @@ class Client(OpenApiClient):
 
     def push_message_to_android_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.body):
+            query['Body'] = request.body
+        if not UtilClient.is_unset(request.job_key):
+            query['JobKey'] = request.job_key
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PushMessageToAndroid',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.PushMessageToAndroidResponse(),
-            self.do_rpcrequest('PushMessageToAndroid', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def push_message_to_android(self, request):
@@ -280,12 +636,36 @@ class Client(OpenApiClient):
 
     def push_message_toi_oswith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.body):
+            query['Body'] = request.body
+        if not UtilClient.is_unset(request.job_key):
+            query['JobKey'] = request.job_key
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PushMessageToiOS',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.PushMessageToiOSResponse(),
-            self.do_rpcrequest('PushMessageToiOS', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def push_message_toi_os(self, request):
@@ -294,12 +674,38 @@ class Client(OpenApiClient):
 
     def push_notice_to_android_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.body):
+            query['Body'] = request.body
+        if not UtilClient.is_unset(request.ext_parameters):
+            query['ExtParameters'] = request.ext_parameters
+        if not UtilClient.is_unset(request.job_key):
+            query['JobKey'] = request.job_key
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PushNoticeToAndroid',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.PushNoticeToAndroidResponse(),
-            self.do_rpcrequest('PushNoticeToAndroid', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def push_notice_to_android(self, request):
@@ -308,12 +714,40 @@ class Client(OpenApiClient):
 
     def push_notice_toi_oswith_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.apns_env):
+            query['ApnsEnv'] = request.apns_env
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.body):
+            query['Body'] = request.body
+        if not UtilClient.is_unset(request.ext_parameters):
+            query['ExtParameters'] = request.ext_parameters
+        if not UtilClient.is_unset(request.job_key):
+            query['JobKey'] = request.job_key
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PushNoticeToiOS',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.PushNoticeToiOSResponse(),
-            self.do_rpcrequest('PushNoticeToiOS', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def push_notice_toi_os(self, request):
@@ -322,12 +756,28 @@ class Client(OpenApiClient):
 
     def query_aliases_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryAliases',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryAliasesResponse(),
-            self.do_rpcrequest('QueryAliases', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_aliases(self, request):
@@ -336,12 +786,30 @@ class Client(OpenApiClient):
 
     def query_device_count_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.target_value):
+            query['TargetValue'] = request.target_value
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceCount',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryDeviceCountResponse(),
-            self.do_rpcrequest('QueryDeviceCount', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_device_count(self, request):
@@ -350,26 +818,94 @@ class Client(OpenApiClient):
 
     def query_device_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceInfo',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryDeviceInfoResponse(),
-            self.do_rpcrequest('QueryDeviceInfo', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_device_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_device_info_with_options(request, runtime)
 
+    def query_device_stat_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_type):
+            query['DeviceType'] = request.device_type
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.query_type):
+            query['QueryType'] = request.query_type
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceStat',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            push_20160801_models.QueryDeviceStatResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_device_stat(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_stat_with_options(request, runtime)
+
     def query_devices_by_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account):
+            query['Account'] = request.account
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDevicesByAccount',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryDevicesByAccountResponse(),
-            self.do_rpcrequest('QueryDevicesByAccount', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_devices_by_account(self, request):
@@ -378,40 +914,74 @@ class Client(OpenApiClient):
 
     def query_devices_by_alias_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias):
+            query['Alias'] = request.alias
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryDevicesByAlias',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryDevicesByAliasResponse(),
-            self.do_rpcrequest('QueryDevicesByAlias', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_devices_by_alias(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_devices_by_alias_with_options(request, runtime)
 
-    def query_device_stat_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            push_20160801_models.QueryDeviceStatResponse(),
-            self.do_rpcrequest('QueryDeviceStat', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def query_device_stat(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.query_device_stat_with_options(request, runtime)
-
     def query_push_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.page):
+            query['Page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.push_type):
+            query['PushType'] = request.push_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPushRecords',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryPushRecordsResponse(),
-            self.do_rpcrequest('QueryPushRecords', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_push_records(self, request):
@@ -420,12 +990,32 @@ class Client(OpenApiClient):
 
     def query_push_stat_by_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.granularity):
+            query['Granularity'] = request.granularity
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPushStatByApp',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryPushStatByAppResponse(),
-            self.do_rpcrequest('QueryPushStatByApp', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_push_stat_by_app(self, request):
@@ -434,12 +1024,28 @@ class Client(OpenApiClient):
 
     def query_push_stat_by_msg_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPushStatByMsg',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryPushStatByMsgResponse(),
-            self.do_rpcrequest('QueryPushStatByMsg', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_push_stat_by_msg(self, request):
@@ -448,12 +1054,30 @@ class Client(OpenApiClient):
 
     def query_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.client_key):
+            query['ClientKey'] = request.client_key
+        if not UtilClient.is_unset(request.key_type):
+            query['KeyType'] = request.key_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryTags',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryTagsResponse(),
-            self.do_rpcrequest('QueryTags', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_tags(self, request):
@@ -462,12 +1086,32 @@ class Client(OpenApiClient):
 
     def query_unique_device_stat_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.granularity):
+            query['Granularity'] = request.granularity
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryUniqueDeviceStat',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.QueryUniqueDeviceStatResponse(),
-            self.do_rpcrequest('QueryUniqueDeviceStat', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def query_unique_device_stat(self, request):
@@ -476,12 +1120,28 @@ class Client(OpenApiClient):
 
     def remove_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveTag',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.RemoveTagResponse(),
-            self.do_rpcrequest('RemoveTag', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_tag(self, request):
@@ -490,12 +1150,32 @@ class Client(OpenApiClient):
 
     def unbind_alias_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias_name):
+            query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.unbind_all):
+            query['UnbindAll'] = request.unbind_all
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindAlias',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.UnbindAliasResponse(),
-            self.do_rpcrequest('UnbindAlias', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def unbind_alias(self, request):
@@ -504,12 +1184,28 @@ class Client(OpenApiClient):
 
     def unbind_phone_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindPhone',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.UnbindPhoneResponse(),
-            self.do_rpcrequest('UnbindPhone', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def unbind_phone(self, request):
@@ -518,12 +1214,32 @@ class Client(OpenApiClient):
 
     def unbind_tag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_key):
+            query['AppKey'] = request.app_key
+        if not UtilClient.is_unset(request.client_key):
+            query['ClientKey'] = request.client_key
+        if not UtilClient.is_unset(request.key_type):
+            query['KeyType'] = request.key_type
+        if not UtilClient.is_unset(request.tag_name):
+            query['TagName'] = request.tag_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindTag',
+            version='2016-08-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             push_20160801_models.UnbindTagResponse(),
-            self.do_rpcrequest('UnbindTag', '2016-08-01', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def unbind_tag(self, request):
