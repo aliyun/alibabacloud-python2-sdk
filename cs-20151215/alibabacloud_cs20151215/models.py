@@ -4023,15 +4023,13 @@ class DescribeClusterDetailResponse(TeaModel):
 
 
 class DescribeClusterLogsResponseBody(TeaModel):
-    def __init__(self, id=None, cluster_id=None, cluster_log=None, log_level=None, created=None, updated=None):
+    def __init__(self, id=None, cluster_id=None, cluster_log=None, created=None, updated=None):
         # 日志ID。
         self.id = id  # type: long
         # 集群ID。
         self.cluster_id = cluster_id  # type: str
         # 日志内容。
         self.cluster_log = cluster_log  # type: str
-        # 日志等级。
-        self.log_level = log_level  # type: str
         # 日志创建时间。
         self.created = created  # type: str
         # 日志更新时间。
@@ -4052,8 +4050,6 @@ class DescribeClusterLogsResponseBody(TeaModel):
             result['cluster_id'] = self.cluster_id
         if self.cluster_log is not None:
             result['cluster_log'] = self.cluster_log
-        if self.log_level is not None:
-            result['log_level'] = self.log_level
         if self.created is not None:
             result['created'] = self.created
         if self.updated is not None:
@@ -4068,8 +4064,6 @@ class DescribeClusterLogsResponseBody(TeaModel):
             self.cluster_id = m.get('cluster_id')
         if m.get('cluster_log') is not None:
             self.cluster_log = m.get('cluster_log')
-        if m.get('log_level') is not None:
-            self.log_level = m.get('log_level')
         if m.get('created') is not None:
             self.created = m.get('created')
         if m.get('updated') is not None:
@@ -6788,7 +6782,7 @@ class DescribeClustersResponse(TeaModel):
 
 class DescribeClustersV1Request(TeaModel):
     def __init__(self, cluster_spec=None, cluster_type=None, name=None, page_number=None, page_size=None,
-                 profile=None):
+                 profile=None, region_id=None):
         # 集群规格。
         self.cluster_spec = cluster_spec  # type: str
         # 集群类型。
@@ -6801,6 +6795,8 @@ class DescribeClustersV1Request(TeaModel):
         self.page_size = page_size  # type: long
         # 集群标识。
         self.profile = profile  # type: str
+        # 地域。
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -6823,6 +6819,8 @@ class DescribeClustersV1Request(TeaModel):
             result['page_size'] = self.page_size
         if self.profile is not None:
             result['profile'] = self.profile
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -6839,6 +6837,8 @@ class DescribeClustersV1Request(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('profile') is not None:
             self.profile = m.get('profile')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
         return self
 
 
