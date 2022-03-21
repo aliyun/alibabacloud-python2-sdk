@@ -30960,7 +30960,8 @@ class ListManualDagInstancesResponse(TeaModel):
 
 
 class ListMetaDBRequest(TeaModel):
-    def __init__(self, data_source_type=None, page_num=None, page_size=None, project_id=None):
+    def __init__(self, cluster_id=None, data_source_type=None, page_num=None, page_size=None, project_id=None):
+        self.cluster_id = cluster_id  # type: str
         self.data_source_type = data_source_type  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
@@ -30975,6 +30976,8 @@ class ListMetaDBRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
         if self.data_source_type is not None:
             result['DataSourceType'] = self.data_source_type
         if self.page_num is not None:
@@ -30987,6 +30990,8 @@ class ListMetaDBRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
         if m.get('DataSourceType') is not None:
             self.data_source_type = m.get('DataSourceType')
         if m.get('PageNum') is not None:
@@ -41659,9 +41664,9 @@ class UpdateQualityFollowerResponse(TeaModel):
 
 class UpdateQualityRuleRequest(TeaModel):
     def __init__(self, block_type=None, checker=None, comment=None, critical_threshold=None, entity_id=None,
-                 expect_value=None, id=None, method_name=None, operator=None, predict_type=None, project_name=None, property=None,
-                 property_type=None, rule_name=None, rule_type=None, template_id=None, trend=None, warning_threshold=None,
-                 where_condition=None):
+                 expect_value=None, id=None, method_name=None, open_switch=None, operator=None, predict_type=None,
+                 project_name=None, property=None, property_type=None, rule_name=None, rule_type=None, template_id=None,
+                 trend=None, warning_threshold=None, where_condition=None):
         self.block_type = block_type  # type: int
         self.checker = checker  # type: int
         self.comment = comment  # type: str
@@ -41670,6 +41675,7 @@ class UpdateQualityRuleRequest(TeaModel):
         self.expect_value = expect_value  # type: str
         self.id = id  # type: long
         self.method_name = method_name  # type: str
+        self.open_switch = open_switch  # type: bool
         self.operator = operator  # type: str
         self.predict_type = predict_type  # type: int
         self.project_name = project_name  # type: str
@@ -41707,6 +41713,8 @@ class UpdateQualityRuleRequest(TeaModel):
             result['Id'] = self.id
         if self.method_name is not None:
             result['MethodName'] = self.method_name
+        if self.open_switch is not None:
+            result['OpenSwitch'] = self.open_switch
         if self.operator is not None:
             result['Operator'] = self.operator
         if self.predict_type is not None:
@@ -41749,6 +41757,8 @@ class UpdateQualityRuleRequest(TeaModel):
             self.id = m.get('Id')
         if m.get('MethodName') is not None:
             self.method_name = m.get('MethodName')
+        if m.get('OpenSwitch') is not None:
+            self.open_switch = m.get('OpenSwitch')
         if m.get('Operator') is not None:
             self.operator = m.get('Operator')
         if m.get('PredictType') is not None:
