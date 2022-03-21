@@ -2469,36 +2469,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_statistics_with_options(request, runtime)
 
-    def describe_ip_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.field):
-            query['Field'] = request.field
-        if not UtilClient.is_unset(request.ip):
-            query['Ip'] = request.ip
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeIpInfo',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeIpInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_ip_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_ip_info_with_options(request, runtime)
-
     def describe_logstore_storage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4034,36 +4004,6 @@ class Client(OpenApiClient):
     def describe_version_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_version_config_with_options(request, runtime)
-
-    def describe_vol_dingding_message_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeVolDingdingMessage',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeVolDingdingMessageResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_vol_dingding_message(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_vol_dingding_message_with_options(request, runtime)
 
     def describe_vpc_honey_pot_criteria_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
