@@ -144,44 +144,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def query_image_copyright(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.query_image_copyright_with_options(request, headers, runtime)
-
-    def query_image_copyright_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.create_time_end):
-            body['CreateTimeEnd'] = request.create_time_end
-        if not UtilClient.is_unset(request.create_time_start):
-            body['CreateTimeStart'] = request.create_time_start
-        if not UtilClient.is_unset(request.job_id):
-            body['JobId'] = request.job_id
-        if not UtilClient.is_unset(request.page_number):
-            body['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            body['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        params = open_api_models.Params(
-            action='QueryImageCopyright',
-            version='2021-07-28',
-            protocol='HTTPS',
-            pathname='/queryImageCopyright',
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            mts_20210728_models.QueryImageCopyrightResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def query_trace_ab(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -418,6 +380,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.call_back):
             body['CallBack'] = request.call_back
+        if not UtilClient.is_unset(request.cipher_base_64ed):
+            body['CipherBase64ed'] = request.cipher_base_64ed
         if not UtilClient.is_unset(request.input):
             body['Input'] = request.input
         if not UtilClient.is_unset(request.level):
