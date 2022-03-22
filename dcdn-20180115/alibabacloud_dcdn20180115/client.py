@@ -1460,6 +1460,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_bps_data_with_options(request, runtime)
 
+    def describe_dcdn_domain_bps_data_by_layer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.layer):
+            query['Layer'] = request.layer
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainBpsDataByLayer',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainBpsDataByLayerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_bps_data_by_layer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_bps_data_by_layer_with_options(request, runtime)
+
     def describe_dcdn_domain_by_certificate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1733,6 +1775,48 @@ class Client(OpenApiClient):
     def describe_dcdn_domain_http_code_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_http_code_data_with_options(request, runtime)
+
+    def describe_dcdn_domain_http_code_data_by_layer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.layer):
+            query['Layer'] = request.layer
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainHttpCodeDataByLayer',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainHttpCodeDataByLayerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_http_code_data_by_layer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_http_code_data_by_layer_with_options(request, runtime)
 
     def describe_dcdn_domain_ipa_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2103,6 +2187,48 @@ class Client(OpenApiClient):
     def describe_dcdn_domain_qps_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_domain_qps_data_with_options(request, runtime)
+
+    def describe_dcdn_domain_qps_data_by_layer_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            query['Interval'] = request.interval
+        if not UtilClient.is_unset(request.isp_name_en):
+            query['IspNameEn'] = request.isp_name_en
+        if not UtilClient.is_unset(request.layer):
+            query['Layer'] = request.layer
+        if not UtilClient.is_unset(request.location_name_en):
+            query['LocationNameEn'] = request.location_name_en
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnDomainQpsDataByLayer',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnDomainQpsDataByLayerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_domain_qps_data_by_layer(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_domain_qps_data_by_layer_with_options(request, runtime)
 
     def describe_dcdn_domain_real_time_bps_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4475,6 +4601,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.area):
             query['Area'] = request.area
+        if not UtilClient.is_unset(request.l_2preload):
+            query['L2Preload'] = request.l_2preload
         if not UtilClient.is_unset(request.object_path):
             query['ObjectPath'] = request.object_path
         if not UtilClient.is_unset(request.owner_id):

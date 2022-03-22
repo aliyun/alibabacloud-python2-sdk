@@ -1,3 +1,6 @@
+2022-03-22 Version: 1.0.4
+- Update PreloadDcdnObjectCaches.
+
 2022-01-06 Version: 1.0.3
 - Update ErrorCode.
 
