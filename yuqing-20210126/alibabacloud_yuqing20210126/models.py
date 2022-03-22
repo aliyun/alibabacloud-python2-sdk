@@ -2399,6 +2399,118 @@ class CloseProductResponse(TeaModel):
         return self
 
 
+class ConsoleProxyRequest(TeaModel):
+    def __init__(self, app_code=None, interface=None, param_json=None, request_id=None, team_hash_id=None):
+        # 应用码
+        self.app_code = app_code  # type: str
+        # 请求接口名
+        self.interface = interface  # type: str
+        # 实际对象的参数json字符串
+        self.param_json = param_json  # type: str
+        # 请求id
+        self.request_id = request_id  # type: str
+        # 舆情团队HashId
+        self.team_hash_id = team_hash_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConsoleProxyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_code is not None:
+            result['appCode'] = self.app_code
+        if self.interface is not None:
+            result['interface'] = self.interface
+        if self.param_json is not None:
+            result['paramJson'] = self.param_json
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.team_hash_id is not None:
+            result['teamHashId'] = self.team_hash_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appCode') is not None:
+            self.app_code = m.get('appCode')
+        if m.get('interface') is not None:
+            self.interface = m.get('interface')
+        if m.get('paramJson') is not None:
+            self.param_json = m.get('paramJson')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('teamHashId') is not None:
+            self.team_hash_id = m.get('teamHashId')
+        return self
+
+
+class ConsoleProxyResponseBody(TeaModel):
+    def __init__(self, request_id=None, result_json=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result_json = result_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConsoleProxyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result_json is not None:
+            result['resultJson'] = self.result_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('resultJson') is not None:
+            self.result_json = m.get('resultJson')
+        return self
+
+
+class ConsoleProxyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ConsoleProxyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ConsoleProxyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ConsoleProxyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateProjectRequest(TeaModel):
     def __init__(self, create_user_id=None, create_user_name=None, project=None, request_id=None, team_hash_id=None):
         # 创建者uid
