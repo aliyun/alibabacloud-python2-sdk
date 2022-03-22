@@ -2386,7 +2386,7 @@ class ListSnapshotRequest(TeaModel):
 class ListSnapshotResponseBodySnapshots(TeaModel):
     def __init__(self, category=None, creation_time=None, description=None, last_modified_time=None, progress=None,
                  remain_time=None, retention_days=None, snapshot_id=None, snapshot_name=None, snapshot_type=None,
-                 source_fs_id=None, source_fs_size=None, status=None):
+                 source_fs_id=None, source_fs_size=None, source_fs_stripe_width=None, status=None):
         self.category = category  # type: str
         self.creation_time = creation_time  # type: str
         self.description = description  # type: str
@@ -2399,6 +2399,7 @@ class ListSnapshotResponseBodySnapshots(TeaModel):
         self.snapshot_type = snapshot_type  # type: str
         self.source_fs_id = source_fs_id  # type: str
         self.source_fs_size = source_fs_size  # type: int
+        self.source_fs_stripe_width = source_fs_stripe_width  # type: int
         self.status = status  # type: str
 
     def validate(self):
@@ -2434,6 +2435,8 @@ class ListSnapshotResponseBodySnapshots(TeaModel):
             result['SourceFsId'] = self.source_fs_id
         if self.source_fs_size is not None:
             result['SourceFsSize'] = self.source_fs_size
+        if self.source_fs_stripe_width is not None:
+            result['SourceFsStripeWidth'] = self.source_fs_stripe_width
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -2464,6 +2467,8 @@ class ListSnapshotResponseBodySnapshots(TeaModel):
             self.source_fs_id = m.get('SourceFsId')
         if m.get('SourceFsSize') is not None:
             self.source_fs_size = m.get('SourceFsSize')
+        if m.get('SourceFsStripeWidth') is not None:
+            self.source_fs_stripe_width = m.get('SourceFsStripeWidth')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
