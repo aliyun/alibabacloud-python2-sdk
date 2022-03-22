@@ -1347,9 +1347,11 @@ class CreateAppResponse(TeaModel):
 
 
 class CreateBackendRequest(TeaModel):
-    def __init__(self, backend_name=None, backend_type=None, description=None, security_token=None):
+    def __init__(self, backend_name=None, backend_type=None, create_event_bridge_service_linked_role=None,
+                 description=None, security_token=None):
         self.backend_name = backend_name  # type: str
         self.backend_type = backend_type  # type: str
+        self.create_event_bridge_service_linked_role = create_event_bridge_service_linked_role  # type: bool
         self.description = description  # type: str
         self.security_token = security_token  # type: str
 
@@ -1366,6 +1368,8 @@ class CreateBackendRequest(TeaModel):
             result['BackendName'] = self.backend_name
         if self.backend_type is not None:
             result['BackendType'] = self.backend_type
+        if self.create_event_bridge_service_linked_role is not None:
+            result['CreateEventBridgeServiceLinkedRole'] = self.create_event_bridge_service_linked_role
         if self.description is not None:
             result['Description'] = self.description
         if self.security_token is not None:
@@ -1378,6 +1382,8 @@ class CreateBackendRequest(TeaModel):
             self.backend_name = m.get('BackendName')
         if m.get('BackendType') is not None:
             self.backend_type = m.get('BackendType')
+        if m.get('CreateEventBridgeServiceLinkedRole') is not None:
+            self.create_event_bridge_service_linked_role = m.get('CreateEventBridgeServiceLinkedRole')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('SecurityToken') is not None:
@@ -5372,6 +5378,45 @@ class DescribeApiResponseBodyResultDescriptions(TeaModel):
         return self
 
 
+class DescribeApiResponseBodyServiceConfigEventBridgeConfig(TeaModel):
+    def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        self.event_bridge_region_id = event_bridge_region_id  # type: str
+        self.event_bus = event_bus  # type: str
+        self.event_source = event_source  # type: str
+        self.role_arn = role_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApiResponseBodyServiceConfigEventBridgeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_bridge_region_id is not None:
+            result['EventBridgeRegionId'] = self.event_bridge_region_id
+        if self.event_bus is not None:
+            result['EventBus'] = self.event_bus
+        if self.event_source is not None:
+            result['EventSource'] = self.event_source
+        if self.role_arn is not None:
+            result['RoleArn'] = self.role_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventBridgeRegionId') is not None:
+            self.event_bridge_region_id = m.get('EventBridgeRegionId')
+        if m.get('EventBus') is not None:
+            self.event_bus = m.get('EventBus')
+        if m.get('EventSource') is not None:
+            self.event_source = m.get('EventSource')
+        if m.get('RoleArn') is not None:
+            self.role_arn = m.get('RoleArn')
+        return self
+
+
 class DescribeApiResponseBodyServiceConfigFunctionComputeConfig(TeaModel):
     def __init__(self, content_type_catagory=None, content_type_value=None, fc_base_url=None, fc_type=None,
                  function_name=None, method=None, only_business_path=None, path=None, qualifier=None, region_id=None,
@@ -5599,12 +5644,13 @@ class DescribeApiResponseBodyServiceConfigVpcConfig(TeaModel):
 
 class DescribeApiResponseBodyServiceConfig(TeaModel):
     def __init__(self, aone_app_name=None, content_type_catagory=None, content_type_value=None,
-                 function_compute_config=None, mock=None, mock_headers=None, mock_result=None, mock_status_code=None, oss_config=None,
-                 service_address=None, service_http_method=None, service_path=None, service_protocol=None, service_timeout=None,
-                 service_vpc_enable=None, vpc_config=None):
+                 event_bridge_config=None, function_compute_config=None, mock=None, mock_headers=None, mock_result=None,
+                 mock_status_code=None, oss_config=None, service_address=None, service_http_method=None, service_path=None,
+                 service_protocol=None, service_timeout=None, service_vpc_enable=None, vpc_config=None):
         self.aone_app_name = aone_app_name  # type: str
         self.content_type_catagory = content_type_catagory  # type: str
         self.content_type_value = content_type_value  # type: str
+        self.event_bridge_config = event_bridge_config  # type: DescribeApiResponseBodyServiceConfigEventBridgeConfig
         self.function_compute_config = function_compute_config  # type: DescribeApiResponseBodyServiceConfigFunctionComputeConfig
         self.mock = mock  # type: str
         self.mock_headers = mock_headers  # type: DescribeApiResponseBodyServiceConfigMockHeaders
@@ -5620,6 +5666,8 @@ class DescribeApiResponseBodyServiceConfig(TeaModel):
         self.vpc_config = vpc_config  # type: DescribeApiResponseBodyServiceConfigVpcConfig
 
     def validate(self):
+        if self.event_bridge_config:
+            self.event_bridge_config.validate()
         if self.function_compute_config:
             self.function_compute_config.validate()
         if self.mock_headers:
@@ -5641,6 +5689,8 @@ class DescribeApiResponseBodyServiceConfig(TeaModel):
             result['ContentTypeCatagory'] = self.content_type_catagory
         if self.content_type_value is not None:
             result['ContentTypeValue'] = self.content_type_value
+        if self.event_bridge_config is not None:
+            result['EventBridgeConfig'] = self.event_bridge_config.to_map()
         if self.function_compute_config is not None:
             result['FunctionComputeConfig'] = self.function_compute_config.to_map()
         if self.mock is not None:
@@ -5677,6 +5727,9 @@ class DescribeApiResponseBodyServiceConfig(TeaModel):
             self.content_type_catagory = m.get('ContentTypeCatagory')
         if m.get('ContentTypeValue') is not None:
             self.content_type_value = m.get('ContentTypeValue')
+        if m.get('EventBridgeConfig') is not None:
+            temp_model = DescribeApiResponseBodyServiceConfigEventBridgeConfig()
+            self.event_bridge_config = temp_model.from_map(m['EventBridgeConfig'])
         if m.get('FunctionComputeConfig') is not None:
             temp_model = DescribeApiResponseBodyServiceConfigFunctionComputeConfig()
             self.function_compute_config = temp_model.from_map(m['FunctionComputeConfig'])
@@ -8522,6 +8575,45 @@ class DescribeApiHistoryResponseBodyResultDescriptions(TeaModel):
         return self
 
 
+class DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig(TeaModel):
+    def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        self.event_bridge_region_id = event_bridge_region_id  # type: str
+        self.event_bus = event_bus  # type: str
+        self.event_source = event_source  # type: str
+        self.role_arn = role_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_bridge_region_id is not None:
+            result['EventBridgeRegionId'] = self.event_bridge_region_id
+        if self.event_bus is not None:
+            result['EventBus'] = self.event_bus
+        if self.event_source is not None:
+            result['EventSource'] = self.event_source
+        if self.role_arn is not None:
+            result['RoleArn'] = self.role_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventBridgeRegionId') is not None:
+            self.event_bridge_region_id = m.get('EventBridgeRegionId')
+        if m.get('EventBus') is not None:
+            self.event_bus = m.get('EventBus')
+        if m.get('EventSource') is not None:
+            self.event_source = m.get('EventSource')
+        if m.get('RoleArn') is not None:
+            self.role_arn = m.get('RoleArn')
+        return self
+
+
 class DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig(TeaModel):
     def __init__(self, content_type_catagory=None, content_type_value=None, fc_base_url=None, fc_type=None,
                  function_name=None, method=None, only_business_path=None, path=None, qualifier=None, region_id=None,
@@ -8748,12 +8840,13 @@ class DescribeApiHistoryResponseBodyServiceConfigVpcConfig(TeaModel):
 
 
 class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
-    def __init__(self, content_type_catagory=None, content_type_value=None, function_compute_config=None,
-                 mock=None, mock_headers=None, mock_result=None, mock_status_code=None, oss_config=None,
+    def __init__(self, content_type_catagory=None, content_type_value=None, event_bridge_config=None,
+                 function_compute_config=None, mock=None, mock_headers=None, mock_result=None, mock_status_code=None, oss_config=None,
                  service_address=None, service_http_method=None, service_path=None, service_protocol=None, service_timeout=None,
                  service_vpc_enable=None, vpc_config=None, vpc_id=None):
         self.content_type_catagory = content_type_catagory  # type: str
         self.content_type_value = content_type_value  # type: str
+        self.event_bridge_config = event_bridge_config  # type: DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig
         self.function_compute_config = function_compute_config  # type: DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig
         self.mock = mock  # type: str
         self.mock_headers = mock_headers  # type: DescribeApiHistoryResponseBodyServiceConfigMockHeaders
@@ -8770,6 +8863,8 @@ class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
+        if self.event_bridge_config:
+            self.event_bridge_config.validate()
         if self.function_compute_config:
             self.function_compute_config.validate()
         if self.mock_headers:
@@ -8789,6 +8884,8 @@ class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
             result['ContentTypeCatagory'] = self.content_type_catagory
         if self.content_type_value is not None:
             result['ContentTypeValue'] = self.content_type_value
+        if self.event_bridge_config is not None:
+            result['EventBridgeConfig'] = self.event_bridge_config.to_map()
         if self.function_compute_config is not None:
             result['FunctionComputeConfig'] = self.function_compute_config.to_map()
         if self.mock is not None:
@@ -8825,6 +8922,9 @@ class DescribeApiHistoryResponseBodyServiceConfig(TeaModel):
             self.content_type_catagory = m.get('ContentTypeCatagory')
         if m.get('ContentTypeValue') is not None:
             self.content_type_value = m.get('ContentTypeValue')
+        if m.get('EventBridgeConfig') is not None:
+            temp_model = DescribeApiHistoryResponseBodyServiceConfigEventBridgeConfig()
+            self.event_bridge_config = temp_model.from_map(m['EventBridgeConfig'])
         if m.get('FunctionComputeConfig') is not None:
             temp_model = DescribeApiHistoryResponseBodyServiceConfigFunctionComputeConfig()
             self.function_compute_config = temp_model.from_map(m['FunctionComputeConfig'])
@@ -13415,6 +13515,45 @@ class DescribeBackendInfoRequest(TeaModel):
         return self
 
 
+class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig(TeaModel):
+    def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
+        self.event_bridge_region_id = event_bridge_region_id  # type: str
+        self.event_bus = event_bus  # type: str
+        self.event_source = event_source  # type: str
+        self.role_arn = role_arn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_bridge_region_id is not None:
+            result['EventBridgeRegionId'] = self.event_bridge_region_id
+        if self.event_bus is not None:
+            result['EventBus'] = self.event_bus
+        if self.event_source is not None:
+            result['EventSource'] = self.event_source
+        if self.role_arn is not None:
+            result['RoleArn'] = self.role_arn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventBridgeRegionId') is not None:
+            self.event_bridge_region_id = m.get('EventBridgeRegionId')
+        if m.get('EventBus') is not None:
+            self.event_bus = m.get('EventBus')
+        if m.get('EventSource') is not None:
+            self.event_source = m.get('EventSource')
+        if m.get('RoleArn') is not None:
+            self.role_arn = m.get('RoleArn')
+        return self
+
+
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig(TeaModel):
     def __init__(self, fc_base_url=None, fc_region_id=None, fc_type=None, function_name=None,
                  only_business_path=None, qualifier=None, role_arn=None, service_name=None):
@@ -13554,8 +13693,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcCon
 
 
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaModel):
-    def __init__(self, function_compute_config=None, oss_config=None, service_address=None, type=None,
-                 vpc_config=None):
+    def __init__(self, event_bridge_config=None, function_compute_config=None, oss_config=None,
+                 service_address=None, type=None, vpc_config=None):
+        self.event_bridge_config = event_bridge_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig
         self.function_compute_config = function_compute_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig
         self.oss_config = oss_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigOssConfig
         self.service_address = service_address  # type: str
@@ -13563,6 +13703,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
         self.vpc_config = vpc_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcConfig
 
     def validate(self):
+        if self.event_bridge_config:
+            self.event_bridge_config.validate()
         if self.function_compute_config:
             self.function_compute_config.validate()
         if self.oss_config:
@@ -13576,6 +13718,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
             return _map
 
         result = dict()
+        if self.event_bridge_config is not None:
+            result['EventBridgeConfig'] = self.event_bridge_config.to_map()
         if self.function_compute_config is not None:
             result['FunctionComputeConfig'] = self.function_compute_config.to_map()
         if self.oss_config is not None:
@@ -13590,6 +13734,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EventBridgeConfig') is not None:
+            temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig()
+            self.event_bridge_config = temp_model.from_map(m['EventBridgeConfig'])
         if m.get('FunctionComputeConfig') is not None:
             temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig()
             self.function_compute_config = temp_model.from_map(m['FunctionComputeConfig'])
