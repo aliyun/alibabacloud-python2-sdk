@@ -102,3 +102,284 @@ class ProductInstance(TeaModel):
         return self
 
 
+class CloseProductRequest(TeaModel):
+    def __init__(self, product_instance=None):
+        self.product_instance = product_instance  # type: ProductInstance
+
+    def validate(self):
+        if self.product_instance:
+            self.product_instance.validate()
+
+    def to_map(self):
+        _map = super(CloseProductRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_instance is not None:
+            result['productInstance'] = self.product_instance.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('productInstance') is not None:
+            temp_model = ProductInstance()
+            self.product_instance = temp_model.from_map(m['productInstance'])
+        return self
+
+
+class CloseProductResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: long
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CloseProductResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['data'] = self.data
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('data') is not None:
+            self.data = m.get('data')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class CloseProductResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CloseProductResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CloseProductResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CloseProductResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ConsoleProxyRequest(TeaModel):
+    def __init__(self, app_code=None, interface_name=None, param_json=None):
+        self.app_code = app_code  # type: str
+        self.interface_name = interface_name  # type: str
+        self.param_json = param_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConsoleProxyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_code is not None:
+            result['appCode'] = self.app_code
+        if self.interface_name is not None:
+            result['interfaceName'] = self.interface_name
+        if self.param_json is not None:
+            result['paramJson'] = self.param_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appCode') is not None:
+            self.app_code = m.get('appCode')
+        if m.get('interfaceName') is not None:
+            self.interface_name = m.get('interfaceName')
+        if m.get('paramJson') is not None:
+            self.param_json = m.get('paramJson')
+        return self
+
+
+class ConsoleProxyResponseBody(TeaModel):
+    def __init__(self, request_id=None, result_json=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.result_json = result_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConsoleProxyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result_json is not None:
+            result['resultJson'] = self.result_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('resultJson') is not None:
+            self.result_json = m.get('resultJson')
+        return self
+
+
+class ConsoleProxyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ConsoleProxyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ConsoleProxyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ConsoleProxyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class OpenProductRequest(TeaModel):
+    def __init__(self, client_token=None, product_instance=None):
+        # 幂等参数
+        self.client_token = client_token  # type: str
+        self.product_instance = product_instance  # type: ProductInstance
+
+    def validate(self):
+        if self.product_instance:
+            self.product_instance.validate()
+
+    def to_map(self):
+        _map = super(OpenProductRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.product_instance is not None:
+            result['productInstance'] = self.product_instance.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('productInstance') is not None:
+            temp_model = ProductInstance()
+            self.product_instance = temp_model.from_map(m['productInstance'])
+        return self
+
+
+class OpenProductResponseBody(TeaModel):
+    def __init__(self, id=None, request_id=None):
+        self.id = id  # type: long
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(OpenProductResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        return self
+
+
+class OpenProductResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: OpenProductResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(OpenProductResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = OpenProductResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
