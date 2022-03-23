@@ -2110,7 +2110,7 @@ class DeleteShardingNodeRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
-        self.shard_count = shard_count  # type: str
+        self.shard_count = shard_count  # type: int
 
     def validate(self):
         pass
