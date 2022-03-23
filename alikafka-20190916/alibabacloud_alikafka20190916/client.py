@@ -613,6 +613,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sasl_users_with_options(request, runtime)
 
+    def get_all_instance_id_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAllInstanceIdList',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.GetAllInstanceIdListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_all_instance_id_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_all_instance_id_list_with_options(request, runtime)
+
     def get_allowed_ip_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -646,6 +674,8 @@ class Client(OpenApiClient):
     def get_consumer_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.consumer_id):
+            query['ConsumerId'] = request.consumer_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.region_id):
@@ -738,36 +768,6 @@ class Client(OpenApiClient):
     def get_instance_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_list_with_options(request, runtime)
-
-    def get_meta_product_list_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.list_normal):
-            query['ListNormal'] = request.list_normal
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetMetaProductList',
-            version='2019-09-16',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            alikafka_20190916_models.GetMetaProductListResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_meta_product_list(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_meta_product_list_with_options(request, runtime)
 
     def get_topic_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)

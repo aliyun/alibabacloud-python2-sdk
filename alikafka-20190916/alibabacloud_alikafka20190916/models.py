@@ -2032,6 +2032,107 @@ class DescribeSaslUsersResponse(TeaModel):
         return self
 
 
+class GetAllInstanceIdListRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAllInstanceIdListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetAllInstanceIdListResponseBody(TeaModel):
+    def __init__(self, code=None, instance_ids=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.instance_ids = instance_ids  # type: dict[str, any]
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAllInstanceIdListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAllInstanceIdListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetAllInstanceIdListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAllInstanceIdListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetAllInstanceIdListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetAllowedIpListRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
         self.instance_id = instance_id  # type: str
@@ -2250,7 +2351,8 @@ class GetAllowedIpListResponse(TeaModel):
 
 
 class GetConsumerListRequest(TeaModel):
-    def __init__(self, instance_id=None, region_id=None):
+    def __init__(self, consumer_id=None, instance_id=None, region_id=None):
+        self.consumer_id = consumer_id  # type: str
         self.instance_id = instance_id  # type: str
         self.region_id = region_id  # type: str
 
@@ -2263,6 +2365,8 @@ class GetConsumerListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.consumer_id is not None:
+            result['ConsumerId'] = self.consumer_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region_id is not None:
@@ -2271,6 +2375,8 @@ class GetConsumerListRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConsumerId') is not None:
+            self.consumer_id = m.get('ConsumerId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('RegionId') is not None:
@@ -3220,327 +3326,6 @@ class GetInstanceListResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetInstanceListResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetMetaProductListRequest(TeaModel):
-    def __init__(self, list_normal=None, region_id=None):
-        self.list_normal = list_normal  # type: str
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMetaProductListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.list_normal is not None:
-            result['ListNormal'] = self.list_normal
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ListNormal') is not None:
-            self.list_normal = m.get('ListNormal')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class GetMetaProductListResponseBodyMetaDataProductsNormalSpecVO(TeaModel):
-    def __init__(self, deploy_type=None, disk_size=None, disk_type=None, io_max=None, region_id=None, spec_type=None,
-                 topic_quota=None):
-        self.deploy_type = deploy_type  # type: str
-        self.disk_size = disk_size  # type: str
-        self.disk_type = disk_type  # type: str
-        self.io_max = io_max  # type: long
-        self.region_id = region_id  # type: str
-        self.spec_type = spec_type  # type: str
-        self.topic_quota = topic_quota  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBodyMetaDataProductsNormalSpecVO, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.deploy_type is not None:
-            result['DeployType'] = self.deploy_type
-        if self.disk_size is not None:
-            result['DiskSize'] = self.disk_size
-        if self.disk_type is not None:
-            result['DiskType'] = self.disk_type
-        if self.io_max is not None:
-            result['IoMax'] = self.io_max
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.spec_type is not None:
-            result['SpecType'] = self.spec_type
-        if self.topic_quota is not None:
-            result['TopicQuota'] = self.topic_quota
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeployType') is not None:
-            self.deploy_type = m.get('DeployType')
-        if m.get('DiskSize') is not None:
-            self.disk_size = m.get('DiskSize')
-        if m.get('DiskType') is not None:
-            self.disk_type = m.get('DiskType')
-        if m.get('IoMax') is not None:
-            self.io_max = m.get('IoMax')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('SpecType') is not None:
-            self.spec_type = m.get('SpecType')
-        if m.get('TopicQuota') is not None:
-            self.topic_quota = m.get('TopicQuota')
-        return self
-
-
-class GetMetaProductListResponseBodyMetaDataProductsNormal(TeaModel):
-    def __init__(self, spec_vo=None):
-        self.spec_vo = spec_vo  # type: list[GetMetaProductListResponseBodyMetaDataProductsNormalSpecVO]
-
-    def validate(self):
-        if self.spec_vo:
-            for k in self.spec_vo:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBodyMetaDataProductsNormal, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['SpecVO'] = []
-        if self.spec_vo is not None:
-            for k in self.spec_vo:
-                result['SpecVO'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.spec_vo = []
-        if m.get('SpecVO') is not None:
-            for k in m.get('SpecVO'):
-                temp_model = GetMetaProductListResponseBodyMetaDataProductsNormalSpecVO()
-                self.spec_vo.append(temp_model.from_map(k))
-        return self
-
-
-class GetMetaProductListResponseBodyMetaDataProductsProfessionalSpecVO(TeaModel):
-    def __init__(self, deploy_type=None, disk_size=None, disk_type=None, io_max=None, region_id=None, spec_type=None,
-                 topic_quota=None):
-        self.deploy_type = deploy_type  # type: str
-        self.disk_size = disk_size  # type: str
-        self.disk_type = disk_type  # type: str
-        self.io_max = io_max  # type: int
-        self.region_id = region_id  # type: str
-        self.spec_type = spec_type  # type: str
-        self.topic_quota = topic_quota  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBodyMetaDataProductsProfessionalSpecVO, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.deploy_type is not None:
-            result['DeployType'] = self.deploy_type
-        if self.disk_size is not None:
-            result['DiskSize'] = self.disk_size
-        if self.disk_type is not None:
-            result['DiskType'] = self.disk_type
-        if self.io_max is not None:
-            result['IoMax'] = self.io_max
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.spec_type is not None:
-            result['SpecType'] = self.spec_type
-        if self.topic_quota is not None:
-            result['TopicQuota'] = self.topic_quota
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DeployType') is not None:
-            self.deploy_type = m.get('DeployType')
-        if m.get('DiskSize') is not None:
-            self.disk_size = m.get('DiskSize')
-        if m.get('DiskType') is not None:
-            self.disk_type = m.get('DiskType')
-        if m.get('IoMax') is not None:
-            self.io_max = m.get('IoMax')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('SpecType') is not None:
-            self.spec_type = m.get('SpecType')
-        if m.get('TopicQuota') is not None:
-            self.topic_quota = m.get('TopicQuota')
-        return self
-
-
-class GetMetaProductListResponseBodyMetaDataProductsProfessional(TeaModel):
-    def __init__(self, spec_vo=None):
-        self.spec_vo = spec_vo  # type: list[GetMetaProductListResponseBodyMetaDataProductsProfessionalSpecVO]
-
-    def validate(self):
-        if self.spec_vo:
-            for k in self.spec_vo:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBodyMetaDataProductsProfessional, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['SpecVO'] = []
-        if self.spec_vo is not None:
-            for k in self.spec_vo:
-                result['SpecVO'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.spec_vo = []
-        if m.get('SpecVO') is not None:
-            for k in m.get('SpecVO'):
-                temp_model = GetMetaProductListResponseBodyMetaDataProductsProfessionalSpecVO()
-                self.spec_vo.append(temp_model.from_map(k))
-        return self
-
-
-class GetMetaProductListResponseBodyMetaData(TeaModel):
-    def __init__(self, names=None, products_normal=None, products_professional=None):
-        self.names = names  # type: dict[str, any]
-        self.products_normal = products_normal  # type: GetMetaProductListResponseBodyMetaDataProductsNormal
-        self.products_professional = products_professional  # type: GetMetaProductListResponseBodyMetaDataProductsProfessional
-
-    def validate(self):
-        if self.products_normal:
-            self.products_normal.validate()
-        if self.products_professional:
-            self.products_professional.validate()
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBodyMetaData, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.names is not None:
-            result['Names'] = self.names
-        if self.products_normal is not None:
-            result['ProductsNormal'] = self.products_normal.to_map()
-        if self.products_professional is not None:
-            result['ProductsProfessional'] = self.products_professional.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Names') is not None:
-            self.names = m.get('Names')
-        if m.get('ProductsNormal') is not None:
-            temp_model = GetMetaProductListResponseBodyMetaDataProductsNormal()
-            self.products_normal = temp_model.from_map(m['ProductsNormal'])
-        if m.get('ProductsProfessional') is not None:
-            temp_model = GetMetaProductListResponseBodyMetaDataProductsProfessional()
-            self.products_professional = temp_model.from_map(m['ProductsProfessional'])
-        return self
-
-
-class GetMetaProductListResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, meta_data=None, request_id=None, success=None):
-        self.code = code  # type: int
-        self.message = message  # type: str
-        self.meta_data = meta_data  # type: GetMetaProductListResponseBodyMetaData
-        self.request_id = request_id  # type: str
-        self.success = success  # type: bool
-
-    def validate(self):
-        if self.meta_data:
-            self.meta_data.validate()
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.meta_data is not None:
-            result['MetaData'] = self.meta_data.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('MetaData') is not None:
-            temp_model = GetMetaProductListResponseBodyMetaData()
-            self.meta_data = temp_model.from_map(m['MetaData'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
-        return self
-
-
-class GetMetaProductListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetMetaProductListResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetMetaProductListResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetMetaProductListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
