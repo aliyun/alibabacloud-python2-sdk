@@ -419,7 +419,7 @@ class DeletePtsSceneBaseLineResponse(TeaModel):
 
 class DeletePtsScenesRequest(TeaModel):
     def __init__(self, scene_ids=None):
-        self.scene_ids = scene_ids  # type: dict[str, any]
+        self.scene_ids = scene_ids  # type: list[str]
 
     def validate(self):
         pass
