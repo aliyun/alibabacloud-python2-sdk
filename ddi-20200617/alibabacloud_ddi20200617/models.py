@@ -3597,6 +3597,117 @@ class DescribeFlowResponse(TeaModel):
         return self
 
 
+class DescribeFlowCategoryTreeRequest(TeaModel):
+    def __init__(self, category_id=None, keyword=None, mode=None, project_id=None, region_id=None, type=None):
+        self.category_id = category_id  # type: str
+        self.keyword = keyword  # type: str
+        self.mode = mode  # type: str
+        self.project_id = project_id  # type: str
+        self.region_id = region_id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFlowCategoryTreeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category_id is not None:
+            result['CategoryId'] = self.category_id
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CategoryId') is not None:
+            self.category_id = m.get('CategoryId')
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeFlowCategoryTreeResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFlowCategoryTreeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeFlowCategoryTreeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeFlowCategoryTreeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeFlowCategoryTreeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeFlowCategoryTreeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeFlowJobRequest(TeaModel):
     def __init__(self, id=None, project_id=None, region_id=None):
         # 作业ID。您可以调用ListFlowJob查看作业ID。
@@ -4946,6 +5057,375 @@ class ListFlowResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ListFlowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListFlowJobHistoryRequest(TeaModel):
+    def __init__(self, id=None, instance_id=None, job_type=None, page_number=None, page_size=None, project_id=None,
+                 region_id=None, status_list=None, time_range=None):
+        # 作业ID。您可以调用ListFlowJob查看作业ID。
+        self.id = id  # type: str
+        # 作业实例ID。您可以调用DescribeFlowJob查看作业实例ID。
+        self.instance_id = instance_id  # type: str
+        # 作业的类型，可能的取值有：SPARK，SPARK_STREAMING，ZEPPELIN
+        self.job_type = job_type  # type: str
+        # 当前页码。
+        self.page_number = page_number  # type: int
+        # 分页查询时每页行数。
+        self.page_size = page_size  # type: int
+        # 项目ID。您可以调用ListFlowProject查看项目的ID。
+        self.project_id = project_id  # type: str
+        # 地域ID。您可以调用DescribeRegions查看最新的阿里云地域列表。
+        self.region_id = region_id  # type: str
+        # 状态列表。取值如下：SUBMITTED, RUNNING, SUCCESS, FAILED, KILL_FAILED, KILL_SUCCESS
+        self.status_list = status_list  # type: list[str]
+        # 查询的时间范围参数，参数列表：type: range，from: 开始时间（long型时间戳），to: 结束时间（long型时间戳）
+        self.time_range = time_range  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFlowJobHistoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status_list is not None:
+            result['StatusList'] = self.status_list
+        if self.time_range is not None:
+            result['TimeRange'] = self.time_range
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StatusList') is not None:
+            self.status_list = m.get('StatusList')
+        if m.get('TimeRange') is not None:
+            self.time_range = m.get('TimeRange')
+        return self
+
+
+class ListFlowJobHistoryResponseBodyNodeInstancesNodeInstance(TeaModel):
+    def __init__(self, cluster_id=None, end_time=None, env_conf=None, external_id=None, external_info=None,
+                 external_status=None, fail_act=None, gmt_create=None, gmt_modified=None, host_name=None, id=None, job_id=None,
+                 job_name=None, job_params=None, job_type=None, max_retry=None, node_name=None, param_conf=None,
+                 project_id=None, retries=None, retry_interval=None, run_conf=None, start_time=None, status=None, type=None,
+                 pending=None):
+        # 集群ID。
+        self.cluster_id = cluster_id  # type: str
+        # 运行结束时间。
+        self.end_time = end_time  # type: long
+        # 环境变量设置。
+        self.env_conf = env_conf  # type: str
+        # 启动器的application的ID。
+        self.external_id = external_id  # type: str
+        # 外部信息。例如，运行作业的错误诊断信息。
+        self.external_info = external_info  # type: str
+        # 实例对应的Container的状态：SUBMITTED, RUNNING, SUCCESS, FAIL, KILL_FAIL, KILL_SUCCESS
+        self.external_status = external_status  # type: str
+        # 失败策略，可能的取值：CONTINUE（提过本次作业），STOP（停止作业）
+        self.fail_act = fail_act  # type: str
+        # 创建时间。
+        self.gmt_create = gmt_create  # type: long
+        # 创建时间。
+        self.gmt_modified = gmt_modified  # type: long
+        # 保留参数。
+        self.host_name = host_name  # type: str
+        # 作业实例ID。
+        self.id = id  # type: str
+        # 作业ID。
+        self.job_id = job_id  # type: str
+        # 作业名称。
+        self.job_name = job_name  # type: str
+        # 作业内容。
+        self.job_params = job_params  # type: str
+        # 作业类型。
+        self.job_type = job_type  # type: str
+        # 最大重试次数。
+        self.max_retry = max_retry  # type: int
+        # 保留参数。
+        self.node_name = node_name  # type: str
+        # 参数设置。
+        self.param_conf = param_conf  # type: str
+        # 项目ID。
+        self.project_id = project_id  # type: str
+        # 重试次数。
+        self.retries = retries  # type: int
+        # 重试间隔 0-300（秒）。
+        self.retry_interval = retry_interval  # type: long
+        # 运行配置，取值如下：priority（优先级），userName（任务的Linux提交用户），memory（内存，单位为MB），cores（核数）
+        self.run_conf = run_conf  # type: str
+        # 运行开始时间。
+        self.start_time = start_time  # type: long
+        # 实例的执行状态：PREP：准备启动，SUBMITTING：提交中，RUNNING：运行中DONE：已完成，OK：执行成功，FAILED：执行失败，KILLED：已终止，KILL_FAILED：终止失败，START_RETRY：开始重试
+        self.status = status  # type: str
+        # 节点类型：JOB：作业，CLUSTER：集群，START：开始，END：结束
+        self.type = type  # type: str
+        # 是否结束。
+        self.pending = pending  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFlowJobHistoryResponseBodyNodeInstancesNodeInstance, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.env_conf is not None:
+            result['EnvConf'] = self.env_conf
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.external_info is not None:
+            result['ExternalInfo'] = self.external_info
+        if self.external_status is not None:
+            result['ExternalStatus'] = self.external_status
+        if self.fail_act is not None:
+            result['FailAct'] = self.fail_act
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.host_name is not None:
+            result['HostName'] = self.host_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.job_params is not None:
+            result['JobParams'] = self.job_params
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.max_retry is not None:
+            result['MaxRetry'] = self.max_retry
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.param_conf is not None:
+            result['ParamConf'] = self.param_conf
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.retries is not None:
+            result['Retries'] = self.retries
+        if self.retry_interval is not None:
+            result['RetryInterval'] = self.retry_interval
+        if self.run_conf is not None:
+            result['RunConf'] = self.run_conf
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.pending is not None:
+            result['pending'] = self.pending
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('EnvConf') is not None:
+            self.env_conf = m.get('EnvConf')
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('ExternalInfo') is not None:
+            self.external_info = m.get('ExternalInfo')
+        if m.get('ExternalStatus') is not None:
+            self.external_status = m.get('ExternalStatus')
+        if m.get('FailAct') is not None:
+            self.fail_act = m.get('FailAct')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('HostName') is not None:
+            self.host_name = m.get('HostName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('JobParams') is not None:
+            self.job_params = m.get('JobParams')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('MaxRetry') is not None:
+            self.max_retry = m.get('MaxRetry')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('ParamConf') is not None:
+            self.param_conf = m.get('ParamConf')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('Retries') is not None:
+            self.retries = m.get('Retries')
+        if m.get('RetryInterval') is not None:
+            self.retry_interval = m.get('RetryInterval')
+        if m.get('RunConf') is not None:
+            self.run_conf = m.get('RunConf')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('pending') is not None:
+            self.pending = m.get('pending')
+        return self
+
+
+class ListFlowJobHistoryResponseBodyNodeInstances(TeaModel):
+    def __init__(self, node_instance=None):
+        self.node_instance = node_instance  # type: list[ListFlowJobHistoryResponseBodyNodeInstancesNodeInstance]
+
+    def validate(self):
+        if self.node_instance:
+            for k in self.node_instance:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListFlowJobHistoryResponseBodyNodeInstances, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['NodeInstance'] = []
+        if self.node_instance is not None:
+            for k in self.node_instance:
+                result['NodeInstance'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.node_instance = []
+        if m.get('NodeInstance') is not None:
+            for k in m.get('NodeInstance'):
+                temp_model = ListFlowJobHistoryResponseBodyNodeInstancesNodeInstance()
+                self.node_instance.append(temp_model.from_map(k))
+        return self
+
+
+class ListFlowJobHistoryResponseBody(TeaModel):
+    def __init__(self, node_instances=None, page_number=None, page_size=None, request_id=None, total=None):
+        # 作业实例列表。
+        self.node_instances = node_instances  # type: ListFlowJobHistoryResponseBodyNodeInstances
+        # 当前页码。
+        self.page_number = page_number  # type: int
+        # 分页查询时设置的每页行数。
+        self.page_size = page_size  # type: int
+        # 请求ID。
+        self.request_id = request_id  # type: str
+        # 记录总数。
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.node_instances:
+            self.node_instances.validate()
+
+    def to_map(self):
+        _map = super(ListFlowJobHistoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.node_instances is not None:
+            result['NodeInstances'] = self.node_instances.to_map()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NodeInstances') is not None:
+            temp_model = ListFlowJobHistoryResponseBodyNodeInstances()
+            self.node_instances = temp_model.from_map(m['NodeInstances'])
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListFlowJobHistoryResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListFlowJobHistoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListFlowJobHistoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListFlowJobHistoryResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

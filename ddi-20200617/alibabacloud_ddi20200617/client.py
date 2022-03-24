@@ -628,6 +628,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_flow_with_options(request, runtime)
 
+    def describe_flow_category_tree_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category_id):
+            query['CategoryId'] = request.category_id
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeFlowCategoryTree',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.DescribeFlowCategoryTreeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_flow_category_tree(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_flow_category_tree_with_options(request, runtime)
+
     def describe_flow_job_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -823,6 +861,50 @@ class Client(OpenApiClient):
     def list_flow(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_flow_with_options(request, runtime)
+
+    def list_flow_job_history_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.job_type):
+            query['JobType'] = request.job_type
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.time_range):
+            query['TimeRange'] = request.time_range
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFlowJobHistory',
+            version='2020-06-17',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ddi_20200617_models.ListFlowJobHistoryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_flow_job_history(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_flow_job_history_with_options(request, runtime)
 
     def list_flow_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
