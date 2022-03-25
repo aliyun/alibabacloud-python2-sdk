@@ -8675,9 +8675,10 @@ class DescribeGroupedContainerInstancesRequest(TeaModel):
 
 class DescribeGroupedContainerInstancesResponseBodyGroupedContainerInstanceList(TeaModel):
     def __init__(self, alarm_count=None, app_name=None, cluster_id=None, cluster_name=None, cluster_type=None,
-                 create_time=None, custer_state=None, host_ip=None, instance_count=None, instance_id=None, namespace=None,
-                 pod=None, pod_ip=None, region_id=None, risk_instance_count=None, risk_level=None, risk_status=None,
-                 vul_count=None):
+                 create_time=None, custer_state=None, hc_count=None, host_ip=None, image=None, image_digest=None,
+                 image_repo_name=None, image_repo_namespace=None, image_repo_tag=None, image_uuid=None, instance_count=None,
+                 instance_id=None, namespace=None, pod=None, pod_ip=None, region_id=None, risk_instance_count=None,
+                 risk_level=None, risk_status=None, vul_count=None):
         self.alarm_count = alarm_count  # type: int
         self.app_name = app_name  # type: str
         self.cluster_id = cluster_id  # type: str
@@ -8685,7 +8686,14 @@ class DescribeGroupedContainerInstancesResponseBodyGroupedContainerInstanceList(
         self.cluster_type = cluster_type  # type: str
         self.create_time = create_time  # type: long
         self.custer_state = custer_state  # type: str
+        self.hc_count = hc_count  # type: int
         self.host_ip = host_ip  # type: str
+        self.image = image  # type: str
+        self.image_digest = image_digest  # type: str
+        self.image_repo_name = image_repo_name  # type: str
+        self.image_repo_namespace = image_repo_namespace  # type: str
+        self.image_repo_tag = image_repo_tag  # type: str
+        self.image_uuid = image_uuid  # type: str
         self.instance_count = instance_count  # type: int
         self.instance_id = instance_id  # type: str
         self.namespace = namespace  # type: str
@@ -8720,8 +8728,22 @@ class DescribeGroupedContainerInstancesResponseBodyGroupedContainerInstanceList(
             result['CreateTime'] = self.create_time
         if self.custer_state is not None:
             result['CusterState'] = self.custer_state
+        if self.hc_count is not None:
+            result['HcCount'] = self.hc_count
         if self.host_ip is not None:
             result['HostIp'] = self.host_ip
+        if self.image is not None:
+            result['Image'] = self.image
+        if self.image_digest is not None:
+            result['ImageDigest'] = self.image_digest
+        if self.image_repo_name is not None:
+            result['ImageRepoName'] = self.image_repo_name
+        if self.image_repo_namespace is not None:
+            result['ImageRepoNamespace'] = self.image_repo_namespace
+        if self.image_repo_tag is not None:
+            result['ImageRepoTag'] = self.image_repo_tag
+        if self.image_uuid is not None:
+            result['ImageUuid'] = self.image_uuid
         if self.instance_count is not None:
             result['InstanceCount'] = self.instance_count
         if self.instance_id is not None:
@@ -8760,8 +8782,22 @@ class DescribeGroupedContainerInstancesResponseBodyGroupedContainerInstanceList(
             self.create_time = m.get('CreateTime')
         if m.get('CusterState') is not None:
             self.custer_state = m.get('CusterState')
+        if m.get('HcCount') is not None:
+            self.hc_count = m.get('HcCount')
         if m.get('HostIp') is not None:
             self.host_ip = m.get('HostIp')
+        if m.get('Image') is not None:
+            self.image = m.get('Image')
+        if m.get('ImageDigest') is not None:
+            self.image_digest = m.get('ImageDigest')
+        if m.get('ImageRepoName') is not None:
+            self.image_repo_name = m.get('ImageRepoName')
+        if m.get('ImageRepoNamespace') is not None:
+            self.image_repo_namespace = m.get('ImageRepoNamespace')
+        if m.get('ImageRepoTag') is not None:
+            self.image_repo_tag = m.get('ImageRepoTag')
+        if m.get('ImageUuid') is not None:
+            self.image_uuid = m.get('ImageUuid')
         if m.get('InstanceCount') is not None:
             self.instance_count = m.get('InstanceCount')
         if m.get('InstanceId') is not None:
