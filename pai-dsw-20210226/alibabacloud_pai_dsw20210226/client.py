@@ -31,31 +31,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_image(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_image_with_options(request, headers, runtime)
-
-    def create_image_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        body = {}
-        if not UtilClient.is_unset(request.description):
-            body['Description'] = request.description
-        if not UtilClient.is_unset(request.instance_id):
-            body['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.name):
-            body['Name'] = request.name
-        if not UtilClient.is_unset(request.repository):
-            body['Repository'] = request.repository
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.CreateImageResponse(),
-            self.do_roarequest('CreateImage', '2021-02-26', 'HTTPS', 'POST', 'AK', '/api/v1/images', 'json', req, runtime)
-        )
-
     def create_instance(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -90,9 +65,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.CreateInstanceResponse(),
-            self.do_roarequest('CreateInstance', '2021-02-26', 'HTTPS', 'POST', 'AK', '/api/v1/instances/', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_instance_shutdown_timer(self, instance_id, request):
@@ -112,9 +98,53 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateInstanceShutdownTimer',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.CreateInstanceShutdownTimerResponse(),
-            self.do_roarequest('CreateInstanceShutdownTimer', '2021-02-26', 'HTTPS', 'POST', 'AK', '/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def create_instance_shutdown_timer_v2(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_shutdown_timer_v2with_options(instance_id, request, headers, runtime)
+
+    def create_instance_shutdown_timer_v2with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        body = {}
+        if not UtilClient.is_unset(request.due_time):
+            body['DueTime'] = request.due_time
+        if not UtilClient.is_unset(request.remaining_time_in_ms):
+            body['RemainingTimeInMs'] = request.remaining_time_in_ms
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateInstanceShutdownTimerV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/shutdowntimer' % TeaConverter.to_unicode(instance_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.CreateInstanceShutdownTimerV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def create_instance_snapshot(self, instance_id, request):
@@ -136,9 +166,101 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='CreateInstanceSnapshot',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.CreateInstanceSnapshotResponse(),
-            self.do_roarequest('CreateInstanceSnapshot', '2021-02-26', 'HTTPS', 'POST', 'AK', '/api/v1/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def create_instance_snapshot_v2(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_snapshot_v2with_options(instance_id, request, headers, runtime)
+
+    def create_instance_snapshot_v2with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        body = {}
+        if not UtilClient.is_unset(request.image_url):
+            body['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.snapshot_description):
+            body['SnapshotDescription'] = request.snapshot_description
+        if not UtilClient.is_unset(request.snapshot_name):
+            body['SnapshotName'] = request.snapshot_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateInstanceSnapshotV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.CreateInstanceSnapshotV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_instance_v2(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_instance_v2with_options(request, headers, runtime)
+
+    def create_instance_v2with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accessibility):
+            body['Accessibility'] = request.accessibility
+        if not UtilClient.is_unset(request.datasets):
+            body['Datasets'] = request.datasets
+        if not UtilClient.is_unset(request.ecs_spec):
+            body['EcsSpec'] = request.ecs_spec
+        if not UtilClient.is_unset(request.environment_variables):
+            body['EnvironmentVariables'] = request.environment_variables
+        if not UtilClient.is_unset(request.image_id):
+            body['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.image_url):
+            body['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.instance_name):
+            body['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.user_vpc):
+            body['UserVpc'] = request.user_vpc
+        if not UtilClient.is_unset(request.workspace_id):
+            body['WorkspaceId'] = request.workspace_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.CreateInstanceV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def delete_instance(self, instance_id):
@@ -151,9 +273,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.DeleteInstanceResponse(),
-            self.do_roarequest('DeleteInstance', '2021-02-26', 'HTTPS', 'DELETE', 'AK', '/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_instance_shutdown_timer(self, instance_id):
@@ -166,9 +299,46 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteInstanceShutdownTimer',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.DeleteInstanceShutdownTimerResponse(),
-            self.do_roarequest('DeleteInstanceShutdownTimer', '2021-02-26', 'HTTPS', 'DELETE', 'AK', '/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_instance_shutdown_timer_v2(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_instance_shutdown_timer_v2with_options(instance_id, headers, runtime)
+
+    def delete_instance_shutdown_timer_v2with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteInstanceShutdownTimerV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/shutdowntimer' % TeaConverter.to_unicode(instance_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.DeleteInstanceShutdownTimerV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def delete_instance_snapshot(self, instance_id, instance_snapshot_id):
@@ -182,9 +352,123 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='DeleteInstanceSnapshot',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.DeleteInstanceSnapshotResponse(),
-            self.do_roarequest('DeleteInstanceSnapshot', '2021-02-26', 'HTTPS', 'DELETE', 'AK', '/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_instance_snapshot_v2(self, instance_id, snapshot_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_instance_snapshot_v2with_options(instance_id, snapshot_id, headers, runtime)
+
+    def delete_instance_snapshot_v2with_options(self, instance_id, snapshot_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        snapshot_id = OpenApiUtilClient.get_encode_param(snapshot_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteInstanceSnapshotV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(snapshot_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.DeleteInstanceSnapshotV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_instance_v2(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_instance_v2with_options(instance_id, headers, runtime)
+
+    def delete_instance_v2with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.DeleteInstanceV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def foobar(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.foobar_with_options(headers, runtime)
+
+    def foobar_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='Foobar',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/foobar',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.FoobarResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def foobar_1(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.foobar_1with_options(headers, runtime)
+
+    def foobar_1with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='Foobar1',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/foobar1',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='any'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.Foobar1Response(),
+            self.call_api(params, req, runtime)
         )
 
     def get_authorization(self):
@@ -196,9 +480,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetAuthorization',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/authorization',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetAuthorizationResponse(),
-            self.do_roarequest('GetAuthorization', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/authorization', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_dashboard_statistics(self, request):
@@ -215,9 +510,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='GetDashboardStatistics',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/statistics/dashboard',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetDashboardStatisticsResponse(),
-            self.do_roarequest('GetDashboardStatistics', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/statistics/dashboard', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance(self, instance_id):
@@ -230,24 +536,20 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetInstanceResponse(),
-            self.do_roarequest('GetInstance', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
-        )
-
-    def get_instance_image(self, instance_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_instance_image_with_options(instance_id, headers, runtime)
-
-    def get_instance_image_with_options(self, instance_id, headers, runtime):
-        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.GetInstanceImageResponse(),
-            self.do_roarequest('GetInstanceImage', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s/image' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_shutdown_timer(self, instance_id):
@@ -260,9 +562,46 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetInstanceShutdownTimer',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetInstanceShutdownTimerResponse(),
-            self.do_roarequest('GetInstanceShutdownTimer', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s/shutdownTimer' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def get_instance_shutdown_timer_v2(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_instance_shutdown_timer_v2with_options(instance_id, headers, runtime)
+
+    def get_instance_shutdown_timer_v2with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetInstanceShutdownTimerV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/shutdowntimer' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.GetInstanceShutdownTimerV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def get_instance_snapshot(self, instance_id, instance_snapshot_id):
@@ -276,39 +615,73 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetInstanceSnapshot',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetInstanceSnapshotResponse(),
-            self.do_roarequest('GetInstanceSnapshot', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
-    def get_instance_type(self, instance_type_id):
+    def get_instance_snapshot_v2(self, instance_id, snapshot_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_instance_type_with_options(instance_type_id, headers, runtime)
+        return self.get_instance_snapshot_v2with_options(instance_id, snapshot_id, headers, runtime)
 
-    def get_instance_type_with_options(self, instance_type_id, headers, runtime):
-        instance_type_id = OpenApiUtilClient.get_encode_param(instance_type_id)
+    def get_instance_snapshot_v2with_options(self, instance_id, snapshot_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        snapshot_id = OpenApiUtilClient.get_encode_param(snapshot_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetInstanceSnapshotV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(snapshot_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            pai_dsw_20210226_models.GetInstanceTypeResponse(),
-            self.do_roarequest('GetInstanceType', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instanceTypes/%s' % TeaConverter.to_unicode(instance_type_id), 'json', req, runtime)
+            pai_dsw_20210226_models.GetInstanceSnapshotV2Response(),
+            self.call_api(params, req, runtime)
         )
 
-    def get_instance_url(self, instance_id):
+    def get_instance_v2(self, instance_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_instance_url_with_options(instance_id, headers, runtime)
+        return self.get_instance_v2with_options(instance_id, headers, runtime)
 
-    def get_instance_url_with_options(self, instance_id, headers, runtime):
+    def get_instance_v2with_options(self, instance_id, headers, runtime):
         instance_id = OpenApiUtilClient.get_encode_param(instance_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='GetInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            pai_dsw_20210226_models.GetInstanceUrlResponse(),
-            self.do_roarequest('GetInstanceUrl', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s/url' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            pai_dsw_20210226_models.GetInstanceV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def get_instances_statistics(self, request):
@@ -325,103 +698,45 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='GetInstancesStatistics',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/statistics/instances',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.GetInstancesStatisticsResponse(),
-            self.do_roarequest('GetInstancesStatistics', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/statistics/instances', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
-    def get_user_config(self):
+    def get_user_config_v2(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_user_config_with_options(headers, runtime)
+        return self.get_user_config_v2with_options(headers, runtime)
 
-    def get_user_config_with_options(self, headers, runtime):
+    def get_user_config_v2with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.GetUserConfigResponse(),
-            self.do_roarequest('GetUserConfig', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/config', 'json', req, runtime)
-        )
-
-    def get_user_resource_authorization_status(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_user_resource_authorization_status_with_options(headers, runtime)
-
-    def get_user_resource_authorization_status_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
+        params = open_api_models.Params(
+            action='GetUserConfigV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/userconfig',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
         )
         return TeaCore.from_map(
-            pai_dsw_20210226_models.GetUserResourceAuthorizationStatusResponse(),
-            self.do_roarequest('GetUserResourceAuthorizationStatus', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/resourceAuthorizationStatus', 'json', req, runtime)
-        )
-
-    def get_user_resource_status(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_user_resource_status_with_options(headers, runtime)
-
-    def get_user_resource_status_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.GetUserResourceStatusResponse(),
-            self.do_roarequest('GetUserResourceStatus', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/resourceStatus', 'json', req, runtime)
-        )
-
-    def get_user_special_version_gpu_resource_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_user_special_version_gpu_resource_info_with_options(request, headers, runtime)
-
-    def get_user_special_version_gpu_resource_info_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.pay_type):
-            query['PayType'] = request.pay_type
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.GetUserSpecialVersionGpuResourceInfoResponse(),
-            self.do_roarequest('GetUserSpecialVersionGpuResourceInfo', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/specialVersionGpuResourceInfo', 'json', req, runtime)
-        )
-
-    def list_configs(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_configs_with_options(headers, runtime)
-
-    def list_configs_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListConfigsResponse(),
-            self.do_roarequest('ListConfigs', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/configs', 'json', req, runtime)
-        )
-
-    def list_datasets(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_datasets_with_options(request, headers, runtime)
-
-    def list_datasets_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.workspace_id):
-            query['WorkspaceId'] = request.workspace_id
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListDatasetsResponse(),
-            self.do_roarequest('ListDatasets', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/datasets', 'json', req, runtime)
+            pai_dsw_20210226_models.GetUserConfigV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def list_ecs_specs(self, request):
@@ -438,9 +753,58 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListEcsSpecs',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/ecsSpecs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.ListEcsSpecsResponse(),
-            self.do_roarequest('ListEcsSpecs', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/ecsSpecs', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def list_ecs_specs_v2(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_ecs_specs_v2with_options(request, headers, runtime)
+
+    def list_ecs_specs_v2with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_type):
+            query['AcceleratorType'] = request.accelerator_type
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListEcsSpecsV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/ecsspecs',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.ListEcsSpecsV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def list_images(self, request):
@@ -465,9 +829,57 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListImages',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/images',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.ListImagesResponse(),
-            self.do_roarequest('ListImages', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/images', 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def list_instance_snapshot_v2(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_instance_snapshot_v2with_options(instance_id, request, headers, runtime)
+
+    def list_instance_snapshot_v2with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        query = {}
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListInstanceSnapshotV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.ListInstanceSnapshotV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def list_instance_snapshots(self, instance_id):
@@ -480,28 +892,50 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='ListInstanceSnapshots',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.ListInstanceSnapshotsResponse(),
-            self.do_roarequest('ListInstanceSnapshots', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances/%s/snapshots' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
-    def list_instance_types(self, request):
+    def list_instance_statistics_v2(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_instance_types_with_options(request, headers, runtime)
+        return self.list_instance_statistics_v2with_options(request, headers, runtime)
 
-    def list_instance_types_with_options(self, request, headers, runtime):
+    def list_instance_statistics_v2with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.accelerator_type):
-            query['AcceleratorType'] = request.accelerator_type
+        if not UtilClient.is_unset(request.workspace_ids):
+            query['WorkspaceIds'] = request.workspace_ids
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListInstanceStatisticsV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instancestatistics',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            pai_dsw_20210226_models.ListInstanceTypesResponse(),
-            self.do_roarequest('ListInstanceTypes', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instanceTypes', 'json', req, runtime)
+            pai_dsw_20210226_models.ListInstanceStatisticsV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def list_instances(self, request):
@@ -532,9 +966,20 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListInstances',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.ListInstancesResponse(),
-            self.do_roarequest('ListInstances', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/instances', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_instances_status(self, request):
@@ -551,143 +996,62 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListInstancesStatus',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/statuses/instances',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.ListInstancesStatusResponse(),
-            self.do_roarequest('ListInstancesStatus', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/statuses/instances', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
-    def list_namespaces(self):
+    def list_instances_v2(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_namespaces_with_options(headers, runtime)
+        return self.list_instances_v2with_options(request, headers, runtime)
 
-    def list_namespaces_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListNamespacesResponse(),
-            self.do_roarequest('ListNamespaces', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/imageRegistry/namespaces', 'json', req, runtime)
-        )
-
-    def list_nases(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_nases_with_options(headers, runtime)
-
-    def list_nases_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListNasesResponse(),
-            self.do_roarequest('ListNases', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/nases', 'json', req, runtime)
-        )
-
-    def list_network_security_groups(self, vpc_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_network_security_groups_with_options(vpc_id, headers, runtime)
-
-    def list_network_security_groups_with_options(self, vpc_id, headers, runtime):
-        vpc_id = OpenApiUtilClient.get_encode_param(vpc_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListNetworkSecurityGroupsResponse(),
-            self.do_roarequest('ListNetworkSecurityGroups', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/network/vpcs/%s/securityGroups' % TeaConverter.to_unicode(vpc_id), 'json', req, runtime)
-        )
-
-    def list_network_vswitches(self, vpc_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_network_vswitches_with_options(vpc_id, headers, runtime)
-
-    def list_network_vswitches_with_options(self, vpc_id, headers, runtime):
-        vpc_id = OpenApiUtilClient.get_encode_param(vpc_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListNetworkVSwitchesResponse(),
-            self.do_roarequest('ListNetworkVSwitches', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/network/vpcs/%s/vSwitches' % TeaConverter.to_unicode(vpc_id), 'json', req, runtime)
-        )
-
-    def list_network_vpcs(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_network_vpcs_with_options(headers, runtime)
-
-    def list_network_vpcs_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListNetworkVpcsResponse(),
-            self.do_roarequest('ListNetworkVpcs', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/network/vpcs', 'json', req, runtime)
-        )
-
-    def list_regions(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_regions_with_options(headers, runtime)
-
-    def list_regions_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListRegionsResponse(),
-            self.do_roarequest('ListRegions', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/configs/regions', 'json', req, runtime)
-        )
-
-    def list_repositories(self, namespace):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_repositories_with_options(namespace, headers, runtime)
-
-    def list_repositories_with_options(self, namespace, headers, runtime):
-        namespace = OpenApiUtilClient.get_encode_param(namespace)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListRepositoriesResponse(),
-            self.do_roarequest('ListRepositories', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/imageRegistry/namespaces/%s/repositories' % TeaConverter.to_unicode(namespace), 'json', req, runtime)
-        )
-
-    def list_user_clusters(self):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_user_clusters_with_options(headers, runtime)
-
-    def list_user_clusters_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        return TeaCore.from_map(
-            pai_dsw_20210226_models.ListUserClustersResponse(),
-            self.do_roarequest('ListUserClusters', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/clusters', 'json', req, runtime)
-        )
-
-    def list_user_work_nodes(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_user_work_nodes_with_options(request, headers, runtime)
-
-    def list_user_work_nodes_with_options(self, request, headers, runtime):
+    def list_instances_v2with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.cluster_id):
-            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort_by):
+            query['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='ListInstancesV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
-            pai_dsw_20210226_models.ListUserWorkNodesResponse(),
-            self.do_roarequest('ListUserWorkNodes', '2021-02-26', 'HTTPS', 'GET', 'AK', '/api/v1/users/workerNodes', 'json', req, runtime)
+            pai_dsw_20210226_models.ListInstancesV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def start_instance(self, instance_id):
@@ -700,9 +1064,46 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
+        params = open_api_models.Params(
+            action='StartInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/start' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.StartInstanceResponse(),
-            self.do_roarequest('StartInstance', '2021-02-26', 'HTTPS', 'PUT', 'AK', '/api/v1/instances/%s/start' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def start_instance_v2(self, instance_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_instance_v2with_options(instance_id, headers, runtime)
+
+    def start_instance_v2with_options(self, instance_id, headers, runtime):
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/start' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.StartInstanceV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def stop_instance(self, instance_id, request):
@@ -720,9 +1121,51 @@ class Client(OpenApiClient):
             headers=headers,
             query=OpenApiUtilClient.query(query)
         )
+        params = open_api_models.Params(
+            action='StopInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/stop' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.StopInstanceResponse(),
-            self.do_roarequest('StopInstance', '2021-02-26', 'HTTPS', 'PUT', 'AK', '/api/v1/instances/%s/stop' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_instance_v2(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_instance_v2with_options(instance_id, request, headers, runtime)
+
+    def stop_instance_v2with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        body = {}
+        if not UtilClient.is_unset(request.save_image):
+            body['SaveImage'] = request.save_image
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s/stop' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.StopInstanceV2Response(),
+            self.call_api(params, req, runtime)
         )
 
     def update_instance(self, instance_id, request):
@@ -740,9 +1183,20 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateInstance',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.UpdateInstanceResponse(),
-            self.do_roarequest('UpdateInstance', '2021-02-26', 'HTTPS', 'PUT', 'AK', '/api/v1/instances/%s' % TeaConverter.to_unicode(instance_id), 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_instance_snapshot(self, instance_id, instance_snapshot_id, request):
@@ -761,7 +1215,133 @@ class Client(OpenApiClient):
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
         )
+        params = open_api_models.Params(
+            action='UpdateInstanceSnapshot',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
         return TeaCore.from_map(
             pai_dsw_20210226_models.UpdateInstanceSnapshotResponse(),
-            self.do_roarequest('UpdateInstanceSnapshot', '2021-02-26', 'HTTPS', 'PUT', 'AK', '/api/v1/instances/%s/snapshots/%s' % (TeaConverter.to_unicode(instance_id), TeaConverter.to_unicode(instance_snapshot_id)), 'json', req, runtime)
+            self.call_api(params, req, runtime)
+        )
+
+    def update_instance_v2(self, instance_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_instance_v2with_options(instance_id, request, headers, runtime)
+
+    def update_instance_v2with_options(self, instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        instance_id = OpenApiUtilClient.get_encode_param(instance_id)
+        body = {}
+        if not UtilClient.is_unset(request.accelerator_type):
+            body['AcceleratorType'] = request.accelerator_type
+        if not UtilClient.is_unset(request.accessibility):
+            body['Accessibility'] = request.accessibility
+        if not UtilClient.is_unset(request.accumulated_running_time_in_ms):
+            body['AccumulatedRunningTimeInMs'] = request.accumulated_running_time_in_ms
+        if not UtilClient.is_unset(request.datasets):
+            body['Datasets'] = request.datasets
+        if not UtilClient.is_unset(request.ecs_spec):
+            body['EcsSpec'] = request.ecs_spec
+        if not UtilClient.is_unset(request.environment_variables):
+            body['EnvironmentVariables'] = request.environment_variables
+        if not UtilClient.is_unset(request.gmt_create_time):
+            body['GmtCreateTime'] = request.gmt_create_time
+        if not UtilClient.is_unset(request.gmt_modified_time):
+            body['GmtModifiedTime'] = request.gmt_modified_time
+        if not UtilClient.is_unset(request.image_id):
+            body['ImageId'] = request.image_id
+        if not UtilClient.is_unset(request.image_name):
+            body['ImageName'] = request.image_name
+        if not UtilClient.is_unset(request.image_url):
+            body['ImageUrl'] = request.image_url
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_name):
+            body['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_shutdown_timer):
+            body['InstanceShutdownTimer'] = request.instance_shutdown_timer
+        if not UtilClient.is_unset(request.instance_url):
+            body['InstanceUrl'] = request.instance_url
+        if not UtilClient.is_unset(request.jupyterlab_url):
+            body['JupyterlabUrl'] = request.jupyterlab_url
+        if not UtilClient.is_unset(request.latest_snapshot):
+            body['LatestSnapshot'] = request.latest_snapshot
+        if not UtilClient.is_unset(request.payment_type):
+            body['PaymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.reason_code):
+            body['ReasonCode'] = request.reason_code
+        if not UtilClient.is_unset(request.reason_message):
+            body['ReasonMessage'] = request.reason_message
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        if not UtilClient.is_unset(request.terminal_url):
+            body['TerminalUrl'] = request.terminal_url
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.user_vpc):
+            body['UserVpc'] = request.user_vpc
+        if not UtilClient.is_unset(request.web_ideurl):
+            body['WebIDEUrl'] = request.web_ideurl
+        if not UtilClient.is_unset(request.workspace_id):
+            body['WorkspaceId'] = request.workspace_id
+        if not UtilClient.is_unset(request.workspace_name):
+            body['WorkspaceName'] = request.workspace_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateInstanceV2',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v2/instances/%s' % TeaConverter.to_unicode(instance_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.UpdateInstanceV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_v3instance_by_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_v3instance_by_user_with_options(request, headers, runtime)
+
+    def update_v3instance_by_user_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateV3InstanceByUser',
+            version='2021-02-26',
+            protocol='HTTPS',
+            pathname='/api/v1/instances/migrate/user',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20210226_models.UpdateV3InstanceByUserResponse(),
+            self.call_api(params, req, runtime)
         )
