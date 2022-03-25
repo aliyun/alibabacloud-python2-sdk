@@ -6486,6 +6486,1005 @@ class SaveOpenJMeterSceneResponse(TeaModel):
         return self
 
 
+class SavePtsSceneRequestSceneAdvanceSettingDomainBindingList(TeaModel):
+    def __init__(self, domain=None, ips=None):
+        # 域名
+        self.domain = domain  # type: str
+        # 对应的IP
+        self.ips = ips  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneAdvanceSettingDomainBindingList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.ips is not None:
+            result['Ips'] = self.ips
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Ips') is not None:
+            self.ips = m.get('Ips')
+        return self
+
+
+class SavePtsSceneRequestSceneAdvanceSetting(TeaModel):
+    def __init__(self, connection_timeout_in_second=None, domain_binding_list=None, log_rate=None,
+                 success_code=None):
+        # 超时时间，单位秒
+        self.connection_timeout_in_second = connection_timeout_in_second  # type: int
+        # 域名绑定IP关系
+        self.domain_binding_list = domain_binding_list  # type: list[SavePtsSceneRequestSceneAdvanceSettingDomainBindingList]
+        # 日志采样率，[1,50]，且是10的倍数
+        self.log_rate = log_rate  # type: int
+        # 新增成功状态码，多个用英文逗号隔开
+        self.success_code = success_code  # type: str
+
+    def validate(self):
+        if self.domain_binding_list:
+            for k in self.domain_binding_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneAdvanceSetting, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.connection_timeout_in_second is not None:
+            result['ConnectionTimeoutInSecond'] = self.connection_timeout_in_second
+        result['DomainBindingList'] = []
+        if self.domain_binding_list is not None:
+            for k in self.domain_binding_list:
+                result['DomainBindingList'].append(k.to_map() if k else None)
+        if self.log_rate is not None:
+            result['LogRate'] = self.log_rate
+        if self.success_code is not None:
+            result['SuccessCode'] = self.success_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConnectionTimeoutInSecond') is not None:
+            self.connection_timeout_in_second = m.get('ConnectionTimeoutInSecond')
+        self.domain_binding_list = []
+        if m.get('DomainBindingList') is not None:
+            for k in m.get('DomainBindingList'):
+                temp_model = SavePtsSceneRequestSceneAdvanceSettingDomainBindingList()
+                self.domain_binding_list.append(temp_model.from_map(k))
+        if m.get('LogRate') is not None:
+            self.log_rate = m.get('LogRate')
+        if m.get('SuccessCode') is not None:
+            self.success_code = m.get('SuccessCode')
+        return self
+
+
+class SavePtsSceneRequestSceneFileParameterList(TeaModel):
+    def __init__(self, file_name=None, file_oss_address=None):
+        # 文件名
+        self.file_name = file_name  # type: str
+        # 文件的oss地址，必须是公网可访问的
+        self.file_oss_address = file_oss_address  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneFileParameterList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_oss_address is not None:
+            result['FileOssAddress'] = self.file_oss_address
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileOssAddress') is not None:
+            self.file_oss_address = m.get('FileOssAddress')
+        return self
+
+
+class SavePtsSceneRequestSceneGlobalParameterList(TeaModel):
+    def __init__(self, param_name=None, param_value=None):
+        # 参数名
+        self.param_name = param_name  # type: str
+        # 全局参数值，不可参数化
+        self.param_value = param_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneGlobalParameterList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.param_name is not None:
+            result['ParamName'] = self.param_name
+        if self.param_value is not None:
+            result['ParamValue'] = self.param_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ParamName') is not None:
+            self.param_name = m.get('ParamName')
+        if m.get('ParamValue') is not None:
+            self.param_value = m.get('ParamValue')
+        return self
+
+
+class SavePtsSceneRequestSceneLoadConfigApiLoadConfigList(TeaModel):
+    def __init__(self, api_id=None, rps_begin=None, rps_limit=None):
+        # apiId
+        self.api_id = api_id  # type: str
+        # 起始RPS值
+        self.rps_begin = rps_begin  # type: int
+        # 最大RPS值
+        self.rps_limit = rps_limit  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneLoadConfigApiLoadConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.rps_begin is not None:
+            result['RpsBegin'] = self.rps_begin
+        if self.rps_limit is not None:
+            result['RpsLimit'] = self.rps_limit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('RpsBegin') is not None:
+            self.rps_begin = m.get('RpsBegin')
+        if m.get('RpsLimit') is not None:
+            self.rps_limit = m.get('RpsLimit')
+        return self
+
+
+class SavePtsSceneRequestSceneLoadConfigConfiguration(TeaModel):
+    def __init__(self, all_concurrency_begin=None, all_concurrency_limit=None, all_rps_begin=None,
+                 all_rps_limit=None):
+        # 所有链路的起始并发总值，均分给每个链路，在并发模式下使用，若不设置该值，则relationLoadConfig必须填写
+        self.all_concurrency_begin = all_concurrency_begin  # type: int
+        # 所有链路的最大并发总值，均分给每个链路，在并发模式下使用，若不设置该值，则relationLoadConfig必须填写
+        self.all_concurrency_limit = all_concurrency_limit  # type: int
+        # 所有API的起始RPS总值，均分给每个API，在RPS模式下使用，若不设置该值，则apiLoadConfig必须填写
+        self.all_rps_begin = all_rps_begin  # type: int
+        # 所有API的最大RPS总值，均分给每个API，在RPS模式下使用，若不设置该值，则apiLoadConfig必须填写
+        self.all_rps_limit = all_rps_limit  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneLoadConfigConfiguration, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all_concurrency_begin is not None:
+            result['AllConcurrencyBegin'] = self.all_concurrency_begin
+        if self.all_concurrency_limit is not None:
+            result['AllConcurrencyLimit'] = self.all_concurrency_limit
+        if self.all_rps_begin is not None:
+            result['AllRpsBegin'] = self.all_rps_begin
+        if self.all_rps_limit is not None:
+            result['AllRpsLimit'] = self.all_rps_limit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllConcurrencyBegin') is not None:
+            self.all_concurrency_begin = m.get('AllConcurrencyBegin')
+        if m.get('AllConcurrencyLimit') is not None:
+            self.all_concurrency_limit = m.get('AllConcurrencyLimit')
+        if m.get('AllRpsBegin') is not None:
+            self.all_rps_begin = m.get('AllRpsBegin')
+        if m.get('AllRpsLimit') is not None:
+            self.all_rps_limit = m.get('AllRpsLimit')
+        return self
+
+
+class SavePtsSceneRequestSceneLoadConfigRelationLoadConfigList(TeaModel):
+    def __init__(self, concurrency_begin=None, concurrency_limit=None, relation_id=None):
+        # concurrencyBegin
+        self.concurrency_begin = concurrency_begin  # type: int
+        # 最大并发
+        self.concurrency_limit = concurrency_limit  # type: int
+        # 链路id
+        self.relation_id = relation_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneLoadConfigRelationLoadConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.concurrency_begin is not None:
+            result['ConcurrencyBegin'] = self.concurrency_begin
+        if self.concurrency_limit is not None:
+            result['ConcurrencyLimit'] = self.concurrency_limit
+        if self.relation_id is not None:
+            result['RelationId'] = self.relation_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConcurrencyBegin') is not None:
+            self.concurrency_begin = m.get('ConcurrencyBegin')
+        if m.get('ConcurrencyLimit') is not None:
+            self.concurrency_limit = m.get('ConcurrencyLimit')
+        if m.get('RelationId') is not None:
+            self.relation_id = m.get('RelationId')
+        return self
+
+
+class SavePtsSceneRequestSceneLoadConfigVpcLoadConfig(TeaModel):
+    def __init__(self, region_id=None, security_group_id=None, v_switch_id=None, vpc_id=None):
+        # regionId
+        self.region_id = region_id  # type: str
+        # 安全组的Id
+        self.security_group_id = security_group_id  # type: str
+        # 交换机的Id
+        self.v_switch_id = v_switch_id  # type: str
+        # vpcId
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneLoadConfigVpcLoadConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.security_group_id is not None:
+            result['SecurityGroupId'] = self.security_group_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SecurityGroupId') is not None:
+            self.security_group_id = m.get('SecurityGroupId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
+        return self
+
+
+class SavePtsSceneRequestSceneLoadConfig(TeaModel):
+    def __init__(self, agent_count=None, api_load_config_list=None, auto_step=None, configuration=None,
+                 increment=None, keep_time=None, max_running_time=None, relation_load_config_list=None, test_mode=None,
+                 vpc_load_config=None):
+        # 指定机器数，并发必须大于250(RPS大于2000)才能使用，最大扩展机器数不能超过 最大并发/250(最大RPS/2000)
+        self.agent_count = agent_count  # type: int
+        # API的起始、最大RPS值设置，在RPS模式下使用
+        self.api_load_config_list = api_load_config_list  # type: list[SavePtsSceneRequestSceneLoadConfigApiLoadConfigList]
+        # 是否自动递增，只有在并发模式下有效，即 testMode=concurrency_mode 时
+        self.auto_step = auto_step  # type: bool
+        # 场景施压量级配置信息
+        self.configuration = configuration  # type: SavePtsSceneRequestSceneLoadConfigConfiguration
+        # 递增百分比，取值范围[10,100]，且是整十倍；只有在并发模式且是自动递增模式下有效，即 testMode=concurrency_mode 且 autoStep=true 时
+        self.increment = increment  # type: int
+        # 单量级持续时长，单位分钟，一定是小于施压时长 maxRunningTime
+        self.keep_time = keep_time  # type: int
+        # 施压时长，单位分钟，[1-1440]
+        self.max_running_time = max_running_time  # type: int
+        # 链路的起始、最大并发值设置，在并发模式下使用
+        self.relation_load_config_list = relation_load_config_list  # type: list[SavePtsSceneRequestSceneLoadConfigRelationLoadConfigList]
+        # 施压模式，并发模式(concurrency_mode) 和RPS模式(tps_mode)
+        self.test_mode = test_mode  # type: str
+        # VPC配置
+        self.vpc_load_config = vpc_load_config  # type: SavePtsSceneRequestSceneLoadConfigVpcLoadConfig
+
+    def validate(self):
+        if self.api_load_config_list:
+            for k in self.api_load_config_list:
+                if k:
+                    k.validate()
+        if self.configuration:
+            self.configuration.validate()
+        if self.relation_load_config_list:
+            for k in self.relation_load_config_list:
+                if k:
+                    k.validate()
+        if self.vpc_load_config:
+            self.vpc_load_config.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneLoadConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_count is not None:
+            result['AgentCount'] = self.agent_count
+        result['ApiLoadConfigList'] = []
+        if self.api_load_config_list is not None:
+            for k in self.api_load_config_list:
+                result['ApiLoadConfigList'].append(k.to_map() if k else None)
+        if self.auto_step is not None:
+            result['AutoStep'] = self.auto_step
+        if self.configuration is not None:
+            result['Configuration'] = self.configuration.to_map()
+        if self.increment is not None:
+            result['Increment'] = self.increment
+        if self.keep_time is not None:
+            result['KeepTime'] = self.keep_time
+        if self.max_running_time is not None:
+            result['MaxRunningTime'] = self.max_running_time
+        result['RelationLoadConfigList'] = []
+        if self.relation_load_config_list is not None:
+            for k in self.relation_load_config_list:
+                result['RelationLoadConfigList'].append(k.to_map() if k else None)
+        if self.test_mode is not None:
+            result['TestMode'] = self.test_mode
+        if self.vpc_load_config is not None:
+            result['VpcLoadConfig'] = self.vpc_load_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentCount') is not None:
+            self.agent_count = m.get('AgentCount')
+        self.api_load_config_list = []
+        if m.get('ApiLoadConfigList') is not None:
+            for k in m.get('ApiLoadConfigList'):
+                temp_model = SavePtsSceneRequestSceneLoadConfigApiLoadConfigList()
+                self.api_load_config_list.append(temp_model.from_map(k))
+        if m.get('AutoStep') is not None:
+            self.auto_step = m.get('AutoStep')
+        if m.get('Configuration') is not None:
+            temp_model = SavePtsSceneRequestSceneLoadConfigConfiguration()
+            self.configuration = temp_model.from_map(m['Configuration'])
+        if m.get('Increment') is not None:
+            self.increment = m.get('Increment')
+        if m.get('KeepTime') is not None:
+            self.keep_time = m.get('KeepTime')
+        if m.get('MaxRunningTime') is not None:
+            self.max_running_time = m.get('MaxRunningTime')
+        self.relation_load_config_list = []
+        if m.get('RelationLoadConfigList') is not None:
+            for k in m.get('RelationLoadConfigList'):
+                temp_model = SavePtsSceneRequestSceneLoadConfigRelationLoadConfigList()
+                self.relation_load_config_list.append(temp_model.from_map(k))
+        if m.get('TestMode') is not None:
+            self.test_mode = m.get('TestMode')
+        if m.get('VpcLoadConfig') is not None:
+            temp_model = SavePtsSceneRequestSceneLoadConfigVpcLoadConfig()
+            self.vpc_load_config = temp_model.from_map(m['VpcLoadConfig'])
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListApiListBody(TeaModel):
+    def __init__(self, body_value=None, content_type=None):
+        # body 的实际内容 形式 {"key1":"value2","key2":"value2"}
+        self.body_value = body_value  # type: str
+        # body 类型，默认 application/x-www-form-urlencoded
+        self.content_type = content_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListApiListBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body_value is not None:
+            result['BodyValue'] = self.body_value
+        if self.content_type is not None:
+            result['ContentType'] = self.content_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BodyValue') is not None:
+            self.body_value = m.get('BodyValue')
+        if m.get('ContentType') is not None:
+            self.content_type = m.get('ContentType')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListApiListCheckPointList(TeaModel):
+    def __init__(self, check_point=None, check_type=None, expect_value=None, operator=None):
+        # 检查对象 type=HEADER 时，表示header中的字段，type=EXPORTED_PARAM ，表示出参名
+        self.check_point = check_point  # type: str
+        # 检查点类型 响应body(BODY_TEXT)，响应header(HEADER)， 响应状态码(STATUS_CODE) ，出参（EXPORTED_PARAM）
+        self.check_type = check_type  # type: str
+        # 检查内容，即期望值
+        self.expect_value = expect_value  # type: str
+        # 检查条件 CheckPointOperator 中
+        self.operator = operator  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListApiListCheckPointList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_point is not None:
+            result['CheckPoint'] = self.check_point
+        if self.check_type is not None:
+            result['CheckType'] = self.check_type
+        if self.expect_value is not None:
+            result['ExpectValue'] = self.expect_value
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckPoint') is not None:
+            self.check_point = m.get('CheckPoint')
+        if m.get('CheckType') is not None:
+            self.check_type = m.get('CheckType')
+        if m.get('ExpectValue') is not None:
+            self.expect_value = m.get('ExpectValue')
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListApiListExportList(TeaModel):
+    def __init__(self, count=None, export_name=None, export_type=None, export_value=None):
+        # 第几个匹配项，可以是数字 或 random（ BODY_TEXT情况下才需要count）
+        self.count = count  # type: str
+        # 出参名
+        self.export_name = export_name  # type: str
+        # 出参来源 请求体(BODY_TEXT)，请求体(BODY_JSON)，请求头(HEADER)，响应状态码(STATUS_CODE)
+        self.export_type = export_type  # type: str
+        # 出参的解析表达式
+        self.export_value = export_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListApiListExportList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.export_name is not None:
+            result['ExportName'] = self.export_name
+        if self.export_type is not None:
+            result['ExportType'] = self.export_type
+        if self.export_value is not None:
+            result['ExportValue'] = self.export_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('ExportName') is not None:
+            self.export_name = m.get('ExportName')
+        if m.get('ExportType') is not None:
+            self.export_type = m.get('ExportType')
+        if m.get('ExportValue') is not None:
+            self.export_value = m.get('ExportValue')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListApiListHeaderList(TeaModel):
+    def __init__(self, header_name=None, header_value=None):
+        # header参数名
+        self.header_name = header_name  # type: str
+        # 参数对应的值
+        self.header_value = header_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListApiListHeaderList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.header_name is not None:
+            result['HeaderName'] = self.header_name
+        if self.header_value is not None:
+            result['HeaderValue'] = self.header_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HeaderName') is not None:
+            self.header_name = m.get('HeaderName')
+        if m.get('HeaderValue') is not None:
+            self.header_value = m.get('HeaderValue')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListApiList(TeaModel):
+    def __init__(self, api_id=None, api_name=None, body=None, check_point_list=None, export_list=None,
+                 header_list=None, method=None, redirect_count_limit=None, timeout_in_second=None, url=None):
+        # API的id
+        self.api_id = api_id  # type: str
+        # API名
+        self.api_name = api_name  # type: str
+        # 请求body
+        self.body = body  # type: SavePtsSceneRequestSceneRelationListApiListBody
+        # 检查点
+        self.check_point_list = check_point_list  # type: list[SavePtsSceneRequestSceneRelationListApiListCheckPointList]
+        # 出参
+        self.export_list = export_list  # type: list[SavePtsSceneRequestSceneRelationListApiListExportList]
+        # headerList
+        self.header_list = header_list  # type: list[SavePtsSceneRequestSceneRelationListApiListHeaderList]
+        # 请求方法
+        self.method = method  # type: str
+        # 重定向次数，只能是0（允许重定向）或者10（不允许重定向）
+        self.redirect_count_limit = redirect_count_limit  # type: int
+        # API超时时间，单位秒，默认5s，范围[1-60]
+        self.timeout_in_second = timeout_in_second  # type: int
+        # 压测URL
+        self.url = url  # type: str
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+        if self.check_point_list:
+            for k in self.check_point_list:
+                if k:
+                    k.validate()
+        if self.export_list:
+            for k in self.export_list:
+                if k:
+                    k.validate()
+        if self.header_list:
+            for k in self.header_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListApiList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.api_name is not None:
+            result['ApiName'] = self.api_name
+        if self.body is not None:
+            result['Body'] = self.body.to_map()
+        result['CheckPointList'] = []
+        if self.check_point_list is not None:
+            for k in self.check_point_list:
+                result['CheckPointList'].append(k.to_map() if k else None)
+        result['ExportList'] = []
+        if self.export_list is not None:
+            for k in self.export_list:
+                result['ExportList'].append(k.to_map() if k else None)
+        result['HeaderList'] = []
+        if self.header_list is not None:
+            for k in self.header_list:
+                result['HeaderList'].append(k.to_map() if k else None)
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.redirect_count_limit is not None:
+            result['RedirectCountLimit'] = self.redirect_count_limit
+        if self.timeout_in_second is not None:
+            result['TimeoutInSecond'] = self.timeout_in_second
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('ApiName') is not None:
+            self.api_name = m.get('ApiName')
+        if m.get('Body') is not None:
+            temp_model = SavePtsSceneRequestSceneRelationListApiListBody()
+            self.body = temp_model.from_map(m['Body'])
+        self.check_point_list = []
+        if m.get('CheckPointList') is not None:
+            for k in m.get('CheckPointList'):
+                temp_model = SavePtsSceneRequestSceneRelationListApiListCheckPointList()
+                self.check_point_list.append(temp_model.from_map(k))
+        self.export_list = []
+        if m.get('ExportList') is not None:
+            for k in m.get('ExportList'):
+                temp_model = SavePtsSceneRequestSceneRelationListApiListExportList()
+                self.export_list.append(temp_model.from_map(k))
+        self.header_list = []
+        if m.get('HeaderList') is not None:
+            for k in m.get('HeaderList'):
+                temp_model = SavePtsSceneRequestSceneRelationListApiListHeaderList()
+                self.header_list.append(temp_model.from_map(k))
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('RedirectCountLimit') is not None:
+            self.redirect_count_limit = m.get('RedirectCountLimit')
+        if m.get('TimeoutInSecond') is not None:
+            self.timeout_in_second = m.get('TimeoutInSecond')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationListFileParameterExplainList(TeaModel):
+    def __init__(self, base_file=None, cycle_once=None, file_name=None, file_param_name=None):
+        # 是否作为基准文件
+        self.base_file = base_file  # type: bool
+        # 文件是否轮询一次
+        self.cycle_once = cycle_once  # type: bool
+        # 文件名
+        self.file_name = file_name  # type: str
+        # 文件使用的参数列名
+        self.file_param_name = file_param_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationListFileParameterExplainList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.base_file is not None:
+            result['BaseFile'] = self.base_file
+        if self.cycle_once is not None:
+            result['CycleOnce'] = self.cycle_once
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_param_name is not None:
+            result['FileParamName'] = self.file_param_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BaseFile') is not None:
+            self.base_file = m.get('BaseFile')
+        if m.get('CycleOnce') is not None:
+            self.cycle_once = m.get('CycleOnce')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileParamName') is not None:
+            self.file_param_name = m.get('FileParamName')
+        return self
+
+
+class SavePtsSceneRequestSceneRelationList(TeaModel):
+    def __init__(self, api_list=None, file_parameter_explain_list=None, relation_id=None, relation_name=None):
+        # 链路下的API信息
+        self.api_list = api_list  # type: list[SavePtsSceneRequestSceneRelationListApiList]
+        # 链路中的文件参数配置信息
+        self.file_parameter_explain_list = file_parameter_explain_list  # type: list[SavePtsSceneRequestSceneRelationListFileParameterExplainList]
+        # 链路id
+        self.relation_id = relation_id  # type: str
+        # 链路名
+        self.relation_name = relation_name  # type: str
+
+    def validate(self):
+        if self.api_list:
+            for k in self.api_list:
+                if k:
+                    k.validate()
+        if self.file_parameter_explain_list:
+            for k in self.file_parameter_explain_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestSceneRelationList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApiList'] = []
+        if self.api_list is not None:
+            for k in self.api_list:
+                result['ApiList'].append(k.to_map() if k else None)
+        result['FileParameterExplainList'] = []
+        if self.file_parameter_explain_list is not None:
+            for k in self.file_parameter_explain_list:
+                result['FileParameterExplainList'].append(k.to_map() if k else None)
+        if self.relation_id is not None:
+            result['RelationId'] = self.relation_id
+        if self.relation_name is not None:
+            result['RelationName'] = self.relation_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.api_list = []
+        if m.get('ApiList') is not None:
+            for k in m.get('ApiList'):
+                temp_model = SavePtsSceneRequestSceneRelationListApiList()
+                self.api_list.append(temp_model.from_map(k))
+        self.file_parameter_explain_list = []
+        if m.get('FileParameterExplainList') is not None:
+            for k in m.get('FileParameterExplainList'):
+                temp_model = SavePtsSceneRequestSceneRelationListFileParameterExplainList()
+                self.file_parameter_explain_list.append(temp_model.from_map(k))
+        if m.get('RelationId') is not None:
+            self.relation_id = m.get('RelationId')
+        if m.get('RelationName') is not None:
+            self.relation_name = m.get('RelationName')
+        return self
+
+
+class SavePtsSceneRequestScene(TeaModel):
+    def __init__(self, advance_setting=None, file_parameter_list=None, global_parameter_list=None,
+                 load_config=None, relation_list=None, scene_id=None, scene_name=None):
+        # 高级设置
+        self.advance_setting = advance_setting  # type: SavePtsSceneRequestSceneAdvanceSetting
+        # 文件参数
+        self.file_parameter_list = file_parameter_list  # type: list[SavePtsSceneRequestSceneFileParameterList]
+        # 全局自定义参数
+        self.global_parameter_list = global_parameter_list  # type: list[SavePtsSceneRequestSceneGlobalParameterList]
+        # 施压配置
+        self.load_config = load_config  # type: SavePtsSceneRequestSceneLoadConfig
+        # 链路配置
+        self.relation_list = relation_list  # type: list[SavePtsSceneRequestSceneRelationList]
+        # 场景ID，不传为新建，传递为修改
+        self.scene_id = scene_id  # type: str
+        # 场景名
+        self.scene_name = scene_name  # type: str
+
+    def validate(self):
+        if self.advance_setting:
+            self.advance_setting.validate()
+        if self.file_parameter_list:
+            for k in self.file_parameter_list:
+                if k:
+                    k.validate()
+        if self.global_parameter_list:
+            for k in self.global_parameter_list:
+                if k:
+                    k.validate()
+        if self.load_config:
+            self.load_config.validate()
+        if self.relation_list:
+            for k in self.relation_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequestScene, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.advance_setting is not None:
+            result['AdvanceSetting'] = self.advance_setting.to_map()
+        result['FileParameterList'] = []
+        if self.file_parameter_list is not None:
+            for k in self.file_parameter_list:
+                result['FileParameterList'].append(k.to_map() if k else None)
+        result['GlobalParameterList'] = []
+        if self.global_parameter_list is not None:
+            for k in self.global_parameter_list:
+                result['GlobalParameterList'].append(k.to_map() if k else None)
+        if self.load_config is not None:
+            result['LoadConfig'] = self.load_config.to_map()
+        result['RelationList'] = []
+        if self.relation_list is not None:
+            for k in self.relation_list:
+                result['RelationList'].append(k.to_map() if k else None)
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        if self.scene_name is not None:
+            result['SceneName'] = self.scene_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdvanceSetting') is not None:
+            temp_model = SavePtsSceneRequestSceneAdvanceSetting()
+            self.advance_setting = temp_model.from_map(m['AdvanceSetting'])
+        self.file_parameter_list = []
+        if m.get('FileParameterList') is not None:
+            for k in m.get('FileParameterList'):
+                temp_model = SavePtsSceneRequestSceneFileParameterList()
+                self.file_parameter_list.append(temp_model.from_map(k))
+        self.global_parameter_list = []
+        if m.get('GlobalParameterList') is not None:
+            for k in m.get('GlobalParameterList'):
+                temp_model = SavePtsSceneRequestSceneGlobalParameterList()
+                self.global_parameter_list.append(temp_model.from_map(k))
+        if m.get('LoadConfig') is not None:
+            temp_model = SavePtsSceneRequestSceneLoadConfig()
+            self.load_config = temp_model.from_map(m['LoadConfig'])
+        self.relation_list = []
+        if m.get('RelationList') is not None:
+            for k in m.get('RelationList'):
+                temp_model = SavePtsSceneRequestSceneRelationList()
+                self.relation_list.append(temp_model.from_map(k))
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        if m.get('SceneName') is not None:
+            self.scene_name = m.get('SceneName')
+        return self
+
+
+class SavePtsSceneRequest(TeaModel):
+    def __init__(self, scene=None):
+        # 场景详细信息
+        self.scene = scene  # type: SavePtsSceneRequestScene
+
+    def validate(self):
+        if self.scene:
+            self.scene.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene is not None:
+            result['Scene'] = self.scene.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Scene') is not None:
+            temp_model = SavePtsSceneRequestScene()
+            self.scene = temp_model.from_map(m['Scene'])
+        return self
+
+
+class SavePtsSceneShrinkRequest(TeaModel):
+    def __init__(self, scene_shrink=None):
+        # 场景详细信息
+        self.scene_shrink = scene_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scene_shrink is not None:
+            result['Scene'] = self.scene_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Scene') is not None:
+            self.scene_shrink = m.get('Scene')
+        return self
+
+
+class SavePtsSceneResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, scene_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        # 场景ID
+        self.scene_id = scene_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SavePtsSceneResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SavePtsSceneResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SavePtsSceneResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SavePtsSceneResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SavePtsSceneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class StartDebugPtsSceneRequest(TeaModel):
     def __init__(self, scene_id=None):
         self.scene_id = scene_id  # type: str
