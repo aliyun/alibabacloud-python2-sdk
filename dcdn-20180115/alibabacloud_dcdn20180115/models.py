@@ -18478,6 +18478,97 @@ class DescribeDcdnUserBillTypeResponse(TeaModel):
         return self
 
 
+class DescribeDcdnUserCertificateExpireCountRequest(TeaModel):
+    def __init__(self, owner_id=None):
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserCertificateExpireCountRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnUserCertificateExpireCountResponseBody(TeaModel):
+    def __init__(self, expire_within_30days_count=None, expired_count=None, request_id=None):
+        self.expire_within_30days_count = expire_within_30days_count  # type: int
+        self.expired_count = expired_count  # type: int
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserCertificateExpireCountResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expire_within_30days_count is not None:
+            result['ExpireWithin30DaysCount'] = self.expire_within_30days_count
+        if self.expired_count is not None:
+            result['ExpiredCount'] = self.expired_count
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExpireWithin30DaysCount') is not None:
+            self.expire_within_30days_count = m.get('ExpireWithin30DaysCount')
+        if m.get('ExpiredCount') is not None:
+            self.expired_count = m.get('ExpiredCount')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnUserCertificateExpireCountResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnUserCertificateExpireCountResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserCertificateExpireCountResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnUserCertificateExpireCountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnUserDomainsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
