@@ -3747,7 +3747,14 @@ class StartMPUTaskRequestBackgrounds(TeaModel):
 
 
 class StartMPUTaskRequestClockWidgets(TeaModel):
-    def __init__(self, font_color=None, font_size=None, font_type=None, x=None, y=None, zorder=None):
+    def __init__(self, alpha=None, border_color=None, border_width=None, box=None, box_border_width=None,
+                 box_color=None, font_color=None, font_size=None, font_type=None, x=None, y=None, zorder=None):
+        self.alpha = alpha  # type: float
+        self.border_color = border_color  # type: long
+        self.border_width = border_width  # type: int
+        self.box = box  # type: bool
+        self.box_border_width = box_border_width  # type: int
+        self.box_color = box_color  # type: long
         self.font_color = font_color  # type: int
         self.font_size = font_size  # type: int
         self.font_type = font_type  # type: int
@@ -3764,6 +3771,18 @@ class StartMPUTaskRequestClockWidgets(TeaModel):
             return _map
 
         result = dict()
+        if self.alpha is not None:
+            result['Alpha'] = self.alpha
+        if self.border_color is not None:
+            result['BorderColor'] = self.border_color
+        if self.border_width is not None:
+            result['BorderWidth'] = self.border_width
+        if self.box is not None:
+            result['Box'] = self.box
+        if self.box_border_width is not None:
+            result['BoxBorderWidth'] = self.box_border_width
+        if self.box_color is not None:
+            result['BoxColor'] = self.box_color
         if self.font_color is not None:
             result['FontColor'] = self.font_color
         if self.font_size is not None:
@@ -3780,6 +3799,18 @@ class StartMPUTaskRequestClockWidgets(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Alpha') is not None:
+            self.alpha = m.get('Alpha')
+        if m.get('BorderColor') is not None:
+            self.border_color = m.get('BorderColor')
+        if m.get('BorderWidth') is not None:
+            self.border_width = m.get('BorderWidth')
+        if m.get('Box') is not None:
+            self.box = m.get('Box')
+        if m.get('BoxBorderWidth') is not None:
+            self.box_border_width = m.get('BoxBorderWidth')
+        if m.get('BoxColor') is not None:
+            self.box_color = m.get('BoxColor')
         if m.get('FontColor') is not None:
             self.font_color = m.get('FontColor')
         if m.get('FontSize') is not None:
@@ -3874,7 +3905,14 @@ class StartMPUTaskRequestUserPanesImages(TeaModel):
 
 
 class StartMPUTaskRequestUserPanesTexts(TeaModel):
-    def __init__(self, font_color=None, font_size=None, font_type=None, text=None, x=None, y=None, zorder=None):
+    def __init__(self, alpha=None, border_color=None, border_width=None, box=None, box_border_width=None,
+                 box_color=None, font_color=None, font_size=None, font_type=None, text=None, x=None, y=None, zorder=None):
+        self.alpha = alpha  # type: float
+        self.border_color = border_color  # type: long
+        self.border_width = border_width  # type: int
+        self.box = box  # type: bool
+        self.box_border_width = box_border_width  # type: int
+        self.box_color = box_color  # type: long
         self.font_color = font_color  # type: int
         self.font_size = font_size  # type: int
         self.font_type = font_type  # type: int
@@ -3892,6 +3930,18 @@ class StartMPUTaskRequestUserPanesTexts(TeaModel):
             return _map
 
         result = dict()
+        if self.alpha is not None:
+            result['Alpha'] = self.alpha
+        if self.border_color is not None:
+            result['BorderColor'] = self.border_color
+        if self.border_width is not None:
+            result['BorderWidth'] = self.border_width
+        if self.box is not None:
+            result['Box'] = self.box
+        if self.box_border_width is not None:
+            result['BoxBorderWidth'] = self.box_border_width
+        if self.box_color is not None:
+            result['BoxColor'] = self.box_color
         if self.font_color is not None:
             result['FontColor'] = self.font_color
         if self.font_size is not None:
@@ -3910,6 +3960,18 @@ class StartMPUTaskRequestUserPanesTexts(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Alpha') is not None:
+            self.alpha = m.get('Alpha')
+        if m.get('BorderColor') is not None:
+            self.border_color = m.get('BorderColor')
+        if m.get('BorderWidth') is not None:
+            self.border_width = m.get('BorderWidth')
+        if m.get('Box') is not None:
+            self.box = m.get('Box')
+        if m.get('BoxBorderWidth') is not None:
+            self.box_border_width = m.get('BoxBorderWidth')
+        if m.get('BoxColor') is not None:
+            self.box_color = m.get('BoxColor')
         if m.get('FontColor') is not None:
             self.font_color = m.get('FontColor')
         if m.get('FontSize') is not None:
@@ -5037,7 +5099,14 @@ class UpdateMPUTaskRequestBackgrounds(TeaModel):
 
 
 class UpdateMPUTaskRequestClockWidgets(TeaModel):
-    def __init__(self, font_color=None, font_size=None, font_type=None, x=None, y=None, zorder=None):
+    def __init__(self, alpha=None, border_color=None, border_width=None, box=None, box_border_width=None,
+                 box_color=None, font_color=None, font_size=None, font_type=None, x=None, y=None, zorder=None):
+        self.alpha = alpha  # type: float
+        self.border_color = border_color  # type: long
+        self.border_width = border_width  # type: int
+        self.box = box  # type: bool
+        self.box_border_width = box_border_width  # type: int
+        self.box_color = box_color  # type: long
         self.font_color = font_color  # type: int
         self.font_size = font_size  # type: int
         self.font_type = font_type  # type: int
@@ -5054,6 +5123,18 @@ class UpdateMPUTaskRequestClockWidgets(TeaModel):
             return _map
 
         result = dict()
+        if self.alpha is not None:
+            result['Alpha'] = self.alpha
+        if self.border_color is not None:
+            result['BorderColor'] = self.border_color
+        if self.border_width is not None:
+            result['BorderWidth'] = self.border_width
+        if self.box is not None:
+            result['Box'] = self.box
+        if self.box_border_width is not None:
+            result['BoxBorderWidth'] = self.box_border_width
+        if self.box_color is not None:
+            result['BoxColor'] = self.box_color
         if self.font_color is not None:
             result['FontColor'] = self.font_color
         if self.font_size is not None:
@@ -5070,6 +5151,18 @@ class UpdateMPUTaskRequestClockWidgets(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Alpha') is not None:
+            self.alpha = m.get('Alpha')
+        if m.get('BorderColor') is not None:
+            self.border_color = m.get('BorderColor')
+        if m.get('BorderWidth') is not None:
+            self.border_width = m.get('BorderWidth')
+        if m.get('Box') is not None:
+            self.box = m.get('Box')
+        if m.get('BoxBorderWidth') is not None:
+            self.box_border_width = m.get('BoxBorderWidth')
+        if m.get('BoxColor') is not None:
+            self.box_color = m.get('BoxColor')
         if m.get('FontColor') is not None:
             self.font_color = m.get('FontColor')
         if m.get('FontSize') is not None:
@@ -5140,7 +5233,14 @@ class UpdateMPUTaskRequestUserPanesImages(TeaModel):
 
 
 class UpdateMPUTaskRequestUserPanesTexts(TeaModel):
-    def __init__(self, font_color=None, font_size=None, font_type=None, text=None, x=None, y=None, zorder=None):
+    def __init__(self, alpha=None, border_color=None, border_width=None, box=None, box_border_width=None,
+                 box_color=None, font_color=None, font_size=None, font_type=None, text=None, x=None, y=None, zorder=None):
+        self.alpha = alpha  # type: float
+        self.border_color = border_color  # type: long
+        self.border_width = border_width  # type: int
+        self.box = box  # type: bool
+        self.box_border_width = box_border_width  # type: int
+        self.box_color = box_color  # type: long
         self.font_color = font_color  # type: int
         self.font_size = font_size  # type: int
         self.font_type = font_type  # type: int
@@ -5158,6 +5258,18 @@ class UpdateMPUTaskRequestUserPanesTexts(TeaModel):
             return _map
 
         result = dict()
+        if self.alpha is not None:
+            result['Alpha'] = self.alpha
+        if self.border_color is not None:
+            result['BorderColor'] = self.border_color
+        if self.border_width is not None:
+            result['BorderWidth'] = self.border_width
+        if self.box is not None:
+            result['Box'] = self.box
+        if self.box_border_width is not None:
+            result['BoxBorderWidth'] = self.box_border_width
+        if self.box_color is not None:
+            result['BoxColor'] = self.box_color
         if self.font_color is not None:
             result['FontColor'] = self.font_color
         if self.font_size is not None:
@@ -5176,6 +5288,18 @@ class UpdateMPUTaskRequestUserPanesTexts(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Alpha') is not None:
+            self.alpha = m.get('Alpha')
+        if m.get('BorderColor') is not None:
+            self.border_color = m.get('BorderColor')
+        if m.get('BorderWidth') is not None:
+            self.border_width = m.get('BorderWidth')
+        if m.get('Box') is not None:
+            self.box = m.get('Box')
+        if m.get('BoxBorderWidth') is not None:
+            self.box_border_width = m.get('BoxBorderWidth')
+        if m.get('BoxColor') is not None:
+            self.box_color = m.get('BoxColor')
         if m.get('FontColor') is not None:
             self.font_color = m.get('FontColor')
         if m.get('FontSize') is not None:
