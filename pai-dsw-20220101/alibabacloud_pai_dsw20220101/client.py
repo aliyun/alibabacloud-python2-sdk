@@ -328,6 +328,67 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
+    def list_demo_categories(self):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_demo_categories_with_options(headers, runtime)
+
+    def list_demo_categories_with_options(self, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListDemoCategories',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/api/v2/democategories',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20220101_models.ListDemoCategoriesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_demos(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_demos_with_options(request, headers, runtime)
+
+    def list_demos_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.demo_name):
+            query['DemoName'] = request.demo_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDemos',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/api/v2/demos',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dsw_20220101_models.ListDemosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def list_ecs_specs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
