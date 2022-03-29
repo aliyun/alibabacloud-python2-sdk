@@ -4027,6 +4027,282 @@ class DescribeFlowJobResponse(TeaModel):
         return self
 
 
+class DescribeFlowNodeInstanceRequest(TeaModel):
+    def __init__(self, id=None, project_id=None, region_id=None):
+        self.id = id  # type: str
+        self.project_id = project_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFlowNodeInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeFlowNodeInstanceResponseBody(TeaModel):
+    def __init__(self, adhoc=None, cluster_id=None, cluster_name=None, duration=None, end_time=None, env_conf=None,
+                 external_child_ids=None, external_id=None, external_info=None, external_status=None, external_sub_id=None,
+                 fail_act=None, flow_id=None, flow_instance_id=None, gmt_create=None, gmt_modified=None, host_name=None,
+                 id=None, job_id=None, job_name=None, job_params=None, job_type=None, max_retry=None, mode=None,
+                 monitor_conf=None, node_name=None, param_conf=None, pending=None, project_id=None, request_id=None, retries=None,
+                 retry_interval=None, retry_policy=None, run_conf=None, start_time=None, status=None, type=None):
+        self.adhoc = adhoc  # type: bool
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.duration = duration  # type: long
+        self.end_time = end_time  # type: long
+        self.env_conf = env_conf  # type: str
+        self.external_child_ids = external_child_ids  # type: str
+        self.external_id = external_id  # type: str
+        self.external_info = external_info  # type: str
+        self.external_status = external_status  # type: str
+        self.external_sub_id = external_sub_id  # type: str
+        self.fail_act = fail_act  # type: str
+        self.flow_id = flow_id  # type: str
+        self.flow_instance_id = flow_instance_id  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.gmt_modified = gmt_modified  # type: long
+        self.host_name = host_name  # type: str
+        self.id = id  # type: str
+        self.job_id = job_id  # type: str
+        self.job_name = job_name  # type: str
+        self.job_params = job_params  # type: str
+        self.job_type = job_type  # type: str
+        self.max_retry = max_retry  # type: str
+        self.mode = mode  # type: str
+        self.monitor_conf = monitor_conf  # type: str
+        self.node_name = node_name  # type: str
+        self.param_conf = param_conf  # type: str
+        self.pending = pending  # type: bool
+        self.project_id = project_id  # type: str
+        self.request_id = request_id  # type: str
+        self.retries = retries  # type: int
+        self.retry_interval = retry_interval  # type: str
+        self.retry_policy = retry_policy  # type: str
+        self.run_conf = run_conf  # type: str
+        self.start_time = start_time  # type: long
+        self.status = status  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFlowNodeInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adhoc is not None:
+            result['Adhoc'] = self.adhoc
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.env_conf is not None:
+            result['EnvConf'] = self.env_conf
+        if self.external_child_ids is not None:
+            result['ExternalChildIds'] = self.external_child_ids
+        if self.external_id is not None:
+            result['ExternalId'] = self.external_id
+        if self.external_info is not None:
+            result['ExternalInfo'] = self.external_info
+        if self.external_status is not None:
+            result['ExternalStatus'] = self.external_status
+        if self.external_sub_id is not None:
+            result['ExternalSubId'] = self.external_sub_id
+        if self.fail_act is not None:
+            result['FailAct'] = self.fail_act
+        if self.flow_id is not None:
+            result['FlowId'] = self.flow_id
+        if self.flow_instance_id is not None:
+            result['FlowInstanceId'] = self.flow_instance_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.host_name is not None:
+            result['HostName'] = self.host_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.job_params is not None:
+            result['JobParams'] = self.job_params
+        if self.job_type is not None:
+            result['JobType'] = self.job_type
+        if self.max_retry is not None:
+            result['MaxRetry'] = self.max_retry
+        if self.mode is not None:
+            result['Mode'] = self.mode
+        if self.monitor_conf is not None:
+            result['MonitorConf'] = self.monitor_conf
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
+        if self.param_conf is not None:
+            result['ParamConf'] = self.param_conf
+        if self.pending is not None:
+            result['Pending'] = self.pending
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.retries is not None:
+            result['Retries'] = self.retries
+        if self.retry_interval is not None:
+            result['RetryInterval'] = self.retry_interval
+        if self.retry_policy is not None:
+            result['RetryPolicy'] = self.retry_policy
+        if self.run_conf is not None:
+            result['RunConf'] = self.run_conf
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Adhoc') is not None:
+            self.adhoc = m.get('Adhoc')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('EnvConf') is not None:
+            self.env_conf = m.get('EnvConf')
+        if m.get('ExternalChildIds') is not None:
+            self.external_child_ids = m.get('ExternalChildIds')
+        if m.get('ExternalId') is not None:
+            self.external_id = m.get('ExternalId')
+        if m.get('ExternalInfo') is not None:
+            self.external_info = m.get('ExternalInfo')
+        if m.get('ExternalStatus') is not None:
+            self.external_status = m.get('ExternalStatus')
+        if m.get('ExternalSubId') is not None:
+            self.external_sub_id = m.get('ExternalSubId')
+        if m.get('FailAct') is not None:
+            self.fail_act = m.get('FailAct')
+        if m.get('FlowId') is not None:
+            self.flow_id = m.get('FlowId')
+        if m.get('FlowInstanceId') is not None:
+            self.flow_instance_id = m.get('FlowInstanceId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('HostName') is not None:
+            self.host_name = m.get('HostName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('JobParams') is not None:
+            self.job_params = m.get('JobParams')
+        if m.get('JobType') is not None:
+            self.job_type = m.get('JobType')
+        if m.get('MaxRetry') is not None:
+            self.max_retry = m.get('MaxRetry')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
+        if m.get('MonitorConf') is not None:
+            self.monitor_conf = m.get('MonitorConf')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
+        if m.get('ParamConf') is not None:
+            self.param_conf = m.get('ParamConf')
+        if m.get('Pending') is not None:
+            self.pending = m.get('Pending')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Retries') is not None:
+            self.retries = m.get('Retries')
+        if m.get('RetryInterval') is not None:
+            self.retry_interval = m.get('RetryInterval')
+        if m.get('RetryPolicy') is not None:
+            self.retry_policy = m.get('RetryPolicy')
+        if m.get('RunConf') is not None:
+            self.run_conf = m.get('RunConf')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeFlowNodeInstanceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeFlowNodeInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeFlowNodeInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeFlowNodeInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeFlowProjectRequest(TeaModel):
     def __init__(self, project_id=None, region_id=None):
         self.project_id = project_id  # type: str
