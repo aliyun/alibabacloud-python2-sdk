@@ -1644,7 +1644,9 @@ class AppendEntityMemberResponse(TeaModel):
 
 
 class AssociateRequest(TeaModel):
-    def __init__(self, instance_id=None, perspective=None, recommend_num=None, session_id=None, utterance=None):
+    def __init__(self, agent_key=None, instance_id=None, perspective=None, recommend_num=None, session_id=None,
+                 utterance=None):
+        self.agent_key = agent_key  # type: str
         self.instance_id = instance_id  # type: str
         self.perspective = perspective  # type: list[str]
         self.recommend_num = recommend_num  # type: int
@@ -1660,6 +1662,8 @@ class AssociateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.perspective is not None:
@@ -1674,6 +1678,8 @@ class AssociateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('Perspective') is not None:
@@ -1792,8 +1798,9 @@ class AssociateResponse(TeaModel):
 
 
 class ChatRequest(TeaModel):
-    def __init__(self, instance_id=None, intent_name=None, knowledge_id=None, perspective=None, sender_id=None,
-                 sender_nick=None, session_id=None, tag=None, utterance=None, vendor_param=None):
+    def __init__(self, agent_key=None, instance_id=None, intent_name=None, knowledge_id=None, perspective=None,
+                 sender_id=None, sender_nick=None, session_id=None, tag=None, utterance=None, vendor_param=None):
+        self.agent_key = agent_key  # type: str
         self.instance_id = instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.knowledge_id = knowledge_id  # type: str
@@ -1814,6 +1821,8 @@ class ChatRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.intent_name is not None:
@@ -1838,6 +1847,8 @@ class ChatRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('IntentName') is not None:
@@ -8975,10 +8986,13 @@ class QueryEntitiesResponse(TeaModel):
 
 
 class QueryIntentsRequest(TeaModel):
-    def __init__(self, agent_key=None, dialog_id=None, intent_name=None, page_number=None, page_size=None):
+    def __init__(self, agent_key=None, dialog_id=None, instance_id=None, intent_name=None, page_number=None,
+                 page_size=None):
         # 业务空间key,不设置则访问默认业务空间，key值在主账号业务管理页面获取
         self.agent_key = agent_key  # type: str
         self.dialog_id = dialog_id  # type: long
+        # 机器人实例 ID
+        self.instance_id = instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -8996,6 +9010,8 @@ class QueryIntentsRequest(TeaModel):
             result['AgentKey'] = self.agent_key
         if self.dialog_id is not None:
             result['DialogId'] = self.dialog_id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
         if self.intent_name is not None:
             result['IntentName'] = self.intent_name
         if self.page_number is not None:
@@ -9010,6 +9026,8 @@ class QueryIntentsRequest(TeaModel):
             self.agent_key = m.get('AgentKey')
         if m.get('DialogId') is not None:
             self.dialog_id = m.get('DialogId')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
         if m.get('IntentName') is not None:
             self.intent_name = m.get('IntentName')
         if m.get('PageNumber') is not None:
