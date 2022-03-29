@@ -1466,7 +1466,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=request.body,
-            stream=request.body
+            stream=tmp_req.body
         )
         params = open_api_models.Params(
             action='RecognizeMultiLanguage',
