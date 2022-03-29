@@ -329,6 +329,8 @@ class Client(OpenApiClient):
             body['instanceName'] = request.instance_name
         if not UtilClient.is_unset(request.model_type):
             body['modelType'] = request.model_type
+        if not UtilClient.is_unset(request.usage_parameters):
+            body['usageParameters'] = request.usage_parameters
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -706,6 +708,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             open_search_20171225_models.DeleteFunctionInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_function_task(self, app_group_identity, function_name, instance_name, generation):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
+
+    def delete_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
+        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+        function_name = OpenApiUtilClient.get_encode_param(function_name)
+        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
+        generation = OpenApiUtilClient.get_encode_param(generation)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteFunctionTask',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name), TeaConverter.to_unicode(generation)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.DeleteFunctionTaskResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -1547,6 +1578,35 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             open_search_20171225_models.GetFunctionInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_function_task(self, app_group_identity, function_name, instance_name, generation):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
+
+    def get_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
+        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+        function_name = OpenApiUtilClient.get_encode_param(function_name)
+        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
+        generation = OpenApiUtilClient.get_encode_param(generation)
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetFunctionTask',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name), TeaConverter.to_unicode(generation)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.GetFunctionTaskResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2495,15 +2555,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_proceedings(self, app_group_identity):
+    def list_proceedings(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_proceedings_with_options(app_group_identity, headers, runtime)
+        return self.list_proceedings_with_options(app_group_identity, request, headers, runtime)
 
-    def list_proceedings_with_options(self, app_group_identity, headers, runtime):
+    def list_proceedings_with_options(self, app_group_identity, request, headers, runtime):
+        UtilClient.validate_model(request)
         app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+        query = {}
+        if not UtilClient.is_unset(request.filter_finished):
+            query['filterFinished'] = request.filter_finished
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ListProceedings',
@@ -4021,6 +4086,8 @@ class Client(OpenApiClient):
             body['cron'] = request.cron
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
+        if not UtilClient.is_unset(request.usage_parameters):
+            body['usageParameters'] = request.usage_parameters
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)

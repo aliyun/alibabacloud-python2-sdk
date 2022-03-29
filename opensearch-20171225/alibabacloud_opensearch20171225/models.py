@@ -1181,9 +1181,40 @@ class CreateFunctionInstanceRequestCreateParameters(TeaModel):
         return self
 
 
+class CreateFunctionInstanceRequestUsageParameters(TeaModel):
+    def __init__(self, name=None, value=None):
+        # 参数名称
+        self.name = name  # type: str
+        # 参数值
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFunctionInstanceRequestUsageParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class CreateFunctionInstanceRequest(TeaModel):
     def __init__(self, create_parameters=None, cron=None, description=None, function_type=None, instance_name=None,
-                 model_type=None):
+                 model_type=None, usage_parameters=None):
         # 创建参数
         self.create_parameters = create_parameters  # type: list[CreateFunctionInstanceRequestCreateParameters]
         # 周期训练
@@ -1196,10 +1227,16 @@ class CreateFunctionInstanceRequest(TeaModel):
         self.instance_name = instance_name  # type: str
         # 模型类型
         self.model_type = model_type  # type: str
+        # 使用参数
+        self.usage_parameters = usage_parameters  # type: list[CreateFunctionInstanceRequestUsageParameters]
 
     def validate(self):
         if self.create_parameters:
             for k in self.create_parameters:
+                if k:
+                    k.validate()
+        if self.usage_parameters:
+            for k in self.usage_parameters:
                 if k:
                     k.validate()
 
@@ -1223,6 +1260,10 @@ class CreateFunctionInstanceRequest(TeaModel):
             result['instanceName'] = self.instance_name
         if self.model_type is not None:
             result['modelType'] = self.model_type
+        result['usageParameters'] = []
+        if self.usage_parameters is not None:
+            for k in self.usage_parameters:
+                result['usageParameters'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -1242,6 +1283,11 @@ class CreateFunctionInstanceRequest(TeaModel):
             self.instance_name = m.get('instanceName')
         if m.get('modelType') is not None:
             self.model_type = m.get('modelType')
+        self.usage_parameters = []
+        if m.get('usageParameters') is not None:
+            for k in m.get('usageParameters'):
+                temp_model = CreateFunctionInstanceRequestUsageParameters()
+                self.usage_parameters.append(temp_model.from_map(k))
         return self
 
 
@@ -2309,6 +2355,88 @@ class DeleteFunctionInstanceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteFunctionInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteFunctionTaskResponseBody(TeaModel):
+    def __init__(self, code=None, http_code=None, latency=None, message=None, request_id=None, status=None):
+        self.code = code  # type: str
+        self.http_code = http_code  # type: long
+        self.latency = latency  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteFunctionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.latency is not None:
+            result['Latency'] = self.latency
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Latency') is not None:
+            self.latency = m.get('Latency')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class DeleteFunctionTaskResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteFunctionTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteFunctionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteFunctionTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5834,10 +5962,39 @@ class GetFunctionInstanceResponseBodyResultTask(TeaModel):
         return self
 
 
+class GetFunctionInstanceResponseBodyResultUsageParameters(TeaModel):
+    def __init__(self, name=None, value=None):
+        self.name = name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionInstanceResponseBodyResultUsageParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class GetFunctionInstanceResponseBodyResult(TeaModel):
     def __init__(self, belongs=None, create_parameters=None, create_time=None, cron=None, description=None,
                  extend_info=None, function_name=None, function_type=None, instance_name=None, model_type=None, source=None,
-                 status=None, task=None, version_id=None):
+                 status=None, task=None, usage_parameters=None, version_id=None):
         self.belongs = belongs  # type: GetFunctionInstanceResponseBodyResultBelongs
         self.create_parameters = create_parameters  # type: list[GetFunctionInstanceResponseBodyResultCreateParameters]
         self.create_time = create_time  # type: long
@@ -5851,6 +6008,7 @@ class GetFunctionInstanceResponseBodyResult(TeaModel):
         self.source = source  # type: str
         self.status = status  # type: str
         self.task = task  # type: GetFunctionInstanceResponseBodyResultTask
+        self.usage_parameters = usage_parameters  # type: list[GetFunctionInstanceResponseBodyResultUsageParameters]
         self.version_id = version_id  # type: long
 
     def validate(self):
@@ -5862,6 +6020,10 @@ class GetFunctionInstanceResponseBodyResult(TeaModel):
                     k.validate()
         if self.task:
             self.task.validate()
+        if self.usage_parameters:
+            for k in self.usage_parameters:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetFunctionInstanceResponseBodyResult, self).to_map()
@@ -5897,6 +6059,10 @@ class GetFunctionInstanceResponseBodyResult(TeaModel):
             result['Status'] = self.status
         if self.task is not None:
             result['Task'] = self.task.to_map()
+        result['UsageParameters'] = []
+        if self.usage_parameters is not None:
+            for k in self.usage_parameters:
+                result['UsageParameters'].append(k.to_map() if k else None)
         if self.version_id is not None:
             result['VersionId'] = self.version_id
         return result
@@ -5934,6 +6100,11 @@ class GetFunctionInstanceResponseBodyResult(TeaModel):
         if m.get('Task') is not None:
             temp_model = GetFunctionInstanceResponseBodyResultTask()
             self.task = temp_model.from_map(m['Task'])
+        self.usage_parameters = []
+        if m.get('UsageParameters') is not None:
+            for k in m.get('UsageParameters'):
+                temp_model = GetFunctionInstanceResponseBodyResultUsageParameters()
+                self.usage_parameters.append(temp_model.from_map(k))
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
         return self
@@ -6025,6 +6196,156 @@ class GetFunctionInstanceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = GetFunctionInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetFunctionTaskResponseBodyResult(TeaModel):
+    def __init__(self, end_time=None, extend_info=None, function_name=None, generation=None, progress=None,
+                 run_id=None, start_time=None, status=None):
+        self.end_time = end_time  # type: long
+        self.extend_info = extend_info  # type: str
+        self.function_name = function_name  # type: str
+        self.generation = generation  # type: str
+        self.progress = progress  # type: long
+        self.run_id = run_id  # type: str
+        self.start_time = start_time  # type: long
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFunctionTaskResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.extend_info is not None:
+            result['ExtendInfo'] = self.extend_info
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.generation is not None:
+            result['Generation'] = self.generation
+        if self.progress is not None:
+            result['Progress'] = self.progress
+        if self.run_id is not None:
+            result['RunId'] = self.run_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('ExtendInfo') is not None:
+            self.extend_info = m.get('ExtendInfo')
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('Generation') is not None:
+            self.generation = m.get('Generation')
+        if m.get('Progress') is not None:
+            self.progress = m.get('Progress')
+        if m.get('RunId') is not None:
+            self.run_id = m.get('RunId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetFunctionTaskResponseBody(TeaModel):
+    def __init__(self, code=None, http_code=None, latency=None, message=None, request_id=None, result=None,
+                 status=None):
+        self.code = code  # type: str
+        self.http_code = http_code  # type: long
+        self.latency = latency  # type: long
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: GetFunctionTaskResponseBodyResult
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetFunctionTaskResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_code is not None:
+            result['HttpCode'] = self.http_code
+        if self.latency is not None:
+            result['Latency'] = self.latency
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpCode') is not None:
+            self.http_code = m.get('HttpCode')
+        if m.get('Latency') is not None:
+            self.latency = m.get('Latency')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = GetFunctionTaskResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetFunctionTaskResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: GetFunctionTaskResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetFunctionTaskResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = GetFunctionTaskResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9003,10 +9324,39 @@ class ListFunctionInstancesResponseBodyResultCreateParameters(TeaModel):
         return self
 
 
+class ListFunctionInstancesResponseBodyResultUsageParameters(TeaModel):
+    def __init__(self, name=None, value=None):
+        self.name = name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListFunctionInstancesResponseBodyResultUsageParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class ListFunctionInstancesResponseBodyResult(TeaModel):
     def __init__(self, belongs=None, create_parameters=None, create_time=None, cron=None, description=None,
                  extend_info=None, function_name=None, function_type=None, instance_name=None, model_type=None, source=None,
-                 status=None, version_id=None):
+                 status=None, usage_parameters=None, version_id=None):
         self.belongs = belongs  # type: ListFunctionInstancesResponseBodyResultBelongs
         self.create_parameters = create_parameters  # type: list[ListFunctionInstancesResponseBodyResultCreateParameters]
         self.create_time = create_time  # type: long
@@ -9019,6 +9369,7 @@ class ListFunctionInstancesResponseBodyResult(TeaModel):
         self.model_type = model_type  # type: str
         self.source = source  # type: str
         self.status = status  # type: str
+        self.usage_parameters = usage_parameters  # type: list[ListFunctionInstancesResponseBodyResultUsageParameters]
         self.version_id = version_id  # type: long
 
     def validate(self):
@@ -9026,6 +9377,10 @@ class ListFunctionInstancesResponseBodyResult(TeaModel):
             self.belongs.validate()
         if self.create_parameters:
             for k in self.create_parameters:
+                if k:
+                    k.validate()
+        if self.usage_parameters:
+            for k in self.usage_parameters:
                 if k:
                     k.validate()
 
@@ -9061,6 +9416,10 @@ class ListFunctionInstancesResponseBodyResult(TeaModel):
             result['Source'] = self.source
         if self.status is not None:
             result['Status'] = self.status
+        result['UsageParameters'] = []
+        if self.usage_parameters is not None:
+            for k in self.usage_parameters:
+                result['UsageParameters'].append(k.to_map() if k else None)
         if self.version_id is not None:
             result['VersionId'] = self.version_id
         return result
@@ -9095,6 +9454,11 @@ class ListFunctionInstancesResponseBodyResult(TeaModel):
             self.source = m.get('Source')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        self.usage_parameters = []
+        if m.get('UsageParameters') is not None:
+            for k in m.get('UsageParameters'):
+                temp_model = ListFunctionInstancesResponseBodyResultUsageParameters()
+                self.usage_parameters.append(temp_model.from_map(k))
         if m.get('VersionId') is not None:
             self.version_id = m.get('VersionId')
         return self
@@ -9246,11 +9610,12 @@ class ListFunctionTasksRequest(TeaModel):
 
 
 class ListFunctionTasksResponseBodyResult(TeaModel):
-    def __init__(self, end_time=None, extend_info=None, function_name=None, progress=None, run_id=None,
-                 start_time=None, status=None):
+    def __init__(self, end_time=None, extend_info=None, function_name=None, generation=None, progress=None,
+                 run_id=None, start_time=None, status=None):
         self.end_time = end_time  # type: long
         self.extend_info = extend_info  # type: str
         self.function_name = function_name  # type: str
+        self.generation = generation  # type: str
         self.progress = progress  # type: long
         self.run_id = run_id  # type: str
         self.start_time = start_time  # type: long
@@ -9271,6 +9636,8 @@ class ListFunctionTasksResponseBodyResult(TeaModel):
             result['ExtendInfo'] = self.extend_info
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
+        if self.generation is not None:
+            result['Generation'] = self.generation
         if self.progress is not None:
             result['Progress'] = self.progress
         if self.run_id is not None:
@@ -9289,6 +9656,8 @@ class ListFunctionTasksResponseBodyResult(TeaModel):
             self.extend_info = m.get('ExtendInfo')
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
+        if m.get('Generation') is not None:
+            self.generation = m.get('Generation')
         if m.get('Progress') is not None:
             self.progress = m.get('Progress')
         if m.get('RunId') is not None:
@@ -10057,6 +10426,30 @@ class ListModelsResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListModelsResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListProceedingsRequest(TeaModel):
+    def __init__(self, filter_finished=None):
+        self.filter_finished = filter_finished  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListProceedingsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.filter_finished is not None:
+            result['filterFinished'] = self.filter_finished
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('filterFinished') is not None:
+            self.filter_finished = m.get('filterFinished')
         return self
 
 
@@ -15483,18 +15876,53 @@ class UpdateFunctionInstanceRequestCreateParameters(TeaModel):
         return self
 
 
+class UpdateFunctionInstanceRequestUsageParameters(TeaModel):
+    def __init__(self, name=None, value=None):
+        self.name = name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateFunctionInstanceRequestUsageParameters, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
 class UpdateFunctionInstanceRequest(TeaModel):
-    def __init__(self, create_parameters=None, cron=None, description=None):
+    def __init__(self, create_parameters=None, cron=None, description=None, usage_parameters=None):
         # 创建参数
         self.create_parameters = create_parameters  # type: list[UpdateFunctionInstanceRequestCreateParameters]
         # 周期训练
         self.cron = cron  # type: str
         # 实例描述
         self.description = description  # type: str
+        # 使用参数
+        self.usage_parameters = usage_parameters  # type: list[UpdateFunctionInstanceRequestUsageParameters]
 
     def validate(self):
         if self.create_parameters:
             for k in self.create_parameters:
+                if k:
+                    k.validate()
+        if self.usage_parameters:
+            for k in self.usage_parameters:
                 if k:
                     k.validate()
 
@@ -15512,6 +15940,10 @@ class UpdateFunctionInstanceRequest(TeaModel):
             result['cron'] = self.cron
         if self.description is not None:
             result['description'] = self.description
+        result['usageParameters'] = []
+        if self.usage_parameters is not None:
+            for k in self.usage_parameters:
+                result['usageParameters'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -15525,6 +15957,11 @@ class UpdateFunctionInstanceRequest(TeaModel):
             self.cron = m.get('cron')
         if m.get('description') is not None:
             self.description = m.get('description')
+        self.usage_parameters = []
+        if m.get('usageParameters') is not None:
+            for k in m.get('usageParameters'):
+                temp_model = UpdateFunctionInstanceRequestUsageParameters()
+                self.usage_parameters.append(temp_model.from_map(k))
         return self
 
 
