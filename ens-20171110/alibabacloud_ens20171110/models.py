@@ -3,6 +3,92 @@
 from Tea.model import TeaModel
 
 
+class BucketInfo(TeaModel):
+    def __init__(self, bucket_acl=None, bucket_name=None, comment=None, create_time=None, data_redundancy_type=None,
+                 dispatcher_type=None, endpoint=None, ens_region_id=None, modify_time=None, resource_type=None, storage_class=None):
+        # Bucket读写权限类型： public-read-write：公共读写 public-read：公共读 private：私有（默认值）
+        self.bucket_acl = bucket_acl  # type: str
+        # Bucket名称。 3~50 个字符，只允许小写字母、数字、短横线（-），且不能以短横线开头或结尾。
+        self.bucket_name = bucket_name  # type: str
+        # 备注。 1-128个字符或汉字，UTF-8编码。
+        self.comment = comment  # type: str
+        # Bucket创建时间。 （格式：yyyy-mm-ddThh:mm:ss.timezone, 例如 2011-12-01T12:27:13.000Z）
+        self.create_time = create_time  # type: str
+        # 指定Bucket的数据容灾类型。 取值范围： LRS（默认值）。本地冗余LRS ZRS 同城冗余ZRS采用多可用区（AZ）机制。
+        self.data_redundancy_type = data_redundancy_type  # type: str
+        # Bucket的调度类型： node：节点(同城) area：区域(多城市) global：全局(全国)
+        self.dispatcher_type = dispatcher_type  # type: str
+        # 访问域名，边缘存储取值： eos.aliyuncs.com
+        self.endpoint = endpoint  # type: str
+        # 节点区域id，如果为空表示全局
+        self.ens_region_id = ens_region_id  # type: str
+        # Bucket修改时间。 （格式：yyyy-mm-ddThh:mm:ss.timezone, 例如 2011-12-01T12:27:13.000Z）
+        self.modify_time = modify_time  # type: str
+        # 指定Bucket的资源类型。 取值范围： general：通用 national-network：国网
+        self.resource_type = resource_type  # type: str
+        # Bucket存储类型，支持Standard
+        self.storage_class = storage_class  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BucketInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bucket_acl is not None:
+            result['BucketAcl'] = self.bucket_acl
+        if self.bucket_name is not None:
+            result['BucketName'] = self.bucket_name
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
+        if self.data_redundancy_type is not None:
+            result['DataRedundancyType'] = self.data_redundancy_type
+        if self.dispatcher_type is not None:
+            result['DispatcherType'] = self.dispatcher_type
+        if self.endpoint is not None:
+            result['Endpoint'] = self.endpoint
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.modify_time is not None:
+            result['ModifyTime'] = self.modify_time
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.storage_class is not None:
+            result['StorageClass'] = self.storage_class
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BucketAcl') is not None:
+            self.bucket_acl = m.get('BucketAcl')
+        if m.get('BucketName') is not None:
+            self.bucket_name = m.get('BucketName')
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
+        if m.get('DataRedundancyType') is not None:
+            self.data_redundancy_type = m.get('DataRedundancyType')
+        if m.get('DispatcherType') is not None:
+            self.dispatcher_type = m.get('DispatcherType')
+        if m.get('Endpoint') is not None:
+            self.endpoint = m.get('Endpoint')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('ModifyTime') is not None:
+            self.modify_time = m.get('ModifyTime')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('StorageClass') is not None:
+            self.storage_class = m.get('StorageClass')
+        return self
+
+
 class DataDisk(TeaModel):
     def __init__(self, size=None):
         # 数据盘
@@ -1733,274 +1819,6 @@ class CheckQuotaResponse(TeaModel):
         return self
 
 
-class ConfigureSecurityGroupPermissionsRequestAuthorizePermissions(TeaModel):
-    def __init__(self, description=None, dest_cidr_ip=None, direction=None, ip_protocol=None, policy=None,
-                 port_range=None, priority=None, source_cidr_ip=None, source_port_range=None):
-        self.description = description  # type: str
-        self.dest_cidr_ip = dest_cidr_ip  # type: str
-        self.direction = direction  # type: str
-        self.ip_protocol = ip_protocol  # type: str
-        self.policy = policy  # type: str
-        self.port_range = port_range  # type: str
-        self.priority = priority  # type: int
-        self.source_cidr_ip = source_cidr_ip  # type: str
-        self.source_port_range = source_port_range  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsRequestAuthorizePermissions, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.dest_cidr_ip is not None:
-            result['DestCidrIp'] = self.dest_cidr_ip
-        if self.direction is not None:
-            result['Direction'] = self.direction
-        if self.ip_protocol is not None:
-            result['IpProtocol'] = self.ip_protocol
-        if self.policy is not None:
-            result['Policy'] = self.policy
-        if self.port_range is not None:
-            result['PortRange'] = self.port_range
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.source_cidr_ip is not None:
-            result['SourceCidrIp'] = self.source_cidr_ip
-        if self.source_port_range is not None:
-            result['SourcePortRange'] = self.source_port_range
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('DestCidrIp') is not None:
-            self.dest_cidr_ip = m.get('DestCidrIp')
-        if m.get('Direction') is not None:
-            self.direction = m.get('Direction')
-        if m.get('IpProtocol') is not None:
-            self.ip_protocol = m.get('IpProtocol')
-        if m.get('Policy') is not None:
-            self.policy = m.get('Policy')
-        if m.get('PortRange') is not None:
-            self.port_range = m.get('PortRange')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('SourceCidrIp') is not None:
-            self.source_cidr_ip = m.get('SourceCidrIp')
-        if m.get('SourcePortRange') is not None:
-            self.source_port_range = m.get('SourcePortRange')
-        return self
-
-
-class ConfigureSecurityGroupPermissionsRequestRevokePermissions(TeaModel):
-    def __init__(self, dest_cidr_ip=None, direction=None, ip_protocol=None, policy=None, port_range=None,
-                 priority=None, source_cidr_ip=None, source_port_range=None):
-        self.dest_cidr_ip = dest_cidr_ip  # type: str
-        self.direction = direction  # type: str
-        self.ip_protocol = ip_protocol  # type: str
-        self.policy = policy  # type: str
-        self.port_range = port_range  # type: str
-        self.priority = priority  # type: int
-        self.source_cidr_ip = source_cidr_ip  # type: str
-        self.source_port_range = source_port_range  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsRequestRevokePermissions, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.dest_cidr_ip is not None:
-            result['DestCidrIp'] = self.dest_cidr_ip
-        if self.direction is not None:
-            result['Direction'] = self.direction
-        if self.ip_protocol is not None:
-            result['IpProtocol'] = self.ip_protocol
-        if self.policy is not None:
-            result['Policy'] = self.policy
-        if self.port_range is not None:
-            result['PortRange'] = self.port_range
-        if self.priority is not None:
-            result['Priority'] = self.priority
-        if self.source_cidr_ip is not None:
-            result['SourceCidrIp'] = self.source_cidr_ip
-        if self.source_port_range is not None:
-            result['SourcePortRange'] = self.source_port_range
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('DestCidrIp') is not None:
-            self.dest_cidr_ip = m.get('DestCidrIp')
-        if m.get('Direction') is not None:
-            self.direction = m.get('Direction')
-        if m.get('IpProtocol') is not None:
-            self.ip_protocol = m.get('IpProtocol')
-        if m.get('Policy') is not None:
-            self.policy = m.get('Policy')
-        if m.get('PortRange') is not None:
-            self.port_range = m.get('PortRange')
-        if m.get('Priority') is not None:
-            self.priority = m.get('Priority')
-        if m.get('SourceCidrIp') is not None:
-            self.source_cidr_ip = m.get('SourceCidrIp')
-        if m.get('SourcePortRange') is not None:
-            self.source_port_range = m.get('SourcePortRange')
-        return self
-
-
-class ConfigureSecurityGroupPermissionsRequest(TeaModel):
-    def __init__(self, authorize_permissions=None, revoke_permissions=None, security_group_id=None):
-        self.authorize_permissions = authorize_permissions  # type: list[ConfigureSecurityGroupPermissionsRequestAuthorizePermissions]
-        self.revoke_permissions = revoke_permissions  # type: list[ConfigureSecurityGroupPermissionsRequestRevokePermissions]
-        self.security_group_id = security_group_id  # type: str
-
-    def validate(self):
-        if self.authorize_permissions:
-            for k in self.authorize_permissions:
-                if k:
-                    k.validate()
-        if self.revoke_permissions:
-            for k in self.revoke_permissions:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['AuthorizePermissions'] = []
-        if self.authorize_permissions is not None:
-            for k in self.authorize_permissions:
-                result['AuthorizePermissions'].append(k.to_map() if k else None)
-        result['RevokePermissions'] = []
-        if self.revoke_permissions is not None:
-            for k in self.revoke_permissions:
-                result['RevokePermissions'].append(k.to_map() if k else None)
-        if self.security_group_id is not None:
-            result['SecurityGroupId'] = self.security_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.authorize_permissions = []
-        if m.get('AuthorizePermissions') is not None:
-            for k in m.get('AuthorizePermissions'):
-                temp_model = ConfigureSecurityGroupPermissionsRequestAuthorizePermissions()
-                self.authorize_permissions.append(temp_model.from_map(k))
-        self.revoke_permissions = []
-        if m.get('RevokePermissions') is not None:
-            for k in m.get('RevokePermissions'):
-                temp_model = ConfigureSecurityGroupPermissionsRequestRevokePermissions()
-                self.revoke_permissions.append(temp_model.from_map(k))
-        if m.get('SecurityGroupId') is not None:
-            self.security_group_id = m.get('SecurityGroupId')
-        return self
-
-
-class ConfigureSecurityGroupPermissionsShrinkRequest(TeaModel):
-    def __init__(self, authorize_permissions_shrink=None, revoke_permissions_shrink=None, security_group_id=None):
-        self.authorize_permissions_shrink = authorize_permissions_shrink  # type: str
-        self.revoke_permissions_shrink = revoke_permissions_shrink  # type: str
-        self.security_group_id = security_group_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.authorize_permissions_shrink is not None:
-            result['AuthorizePermissions'] = self.authorize_permissions_shrink
-        if self.revoke_permissions_shrink is not None:
-            result['RevokePermissions'] = self.revoke_permissions_shrink
-        if self.security_group_id is not None:
-            result['SecurityGroupId'] = self.security_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AuthorizePermissions') is not None:
-            self.authorize_permissions_shrink = m.get('AuthorizePermissions')
-        if m.get('RevokePermissions') is not None:
-            self.revoke_permissions_shrink = m.get('RevokePermissions')
-        if m.get('SecurityGroupId') is not None:
-            self.security_group_id = m.get('SecurityGroupId')
-        return self
-
-
-class ConfigureSecurityGroupPermissionsResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        # Id of the request
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ConfigureSecurityGroupPermissionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ConfigureSecurityGroupPermissionsResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ConfigureSecurityGroupPermissionsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ConfigureSecurityGroupPermissionsResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateApplicationRequest(TeaModel):
     def __init__(self, template=None, timeout=None):
         self.template = template  # type: str
@@ -2205,201 +2023,6 @@ class CreateDiskResponse(TeaModel):
         return self
 
 
-class CreateDiskBuyOrderRequest(TeaModel):
-    def __init__(self, order_details=None):
-        # 创建订单的订单详情
-        self.order_details = order_details  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateDiskBuyOrderRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.order_details is not None:
-            result['OrderDetails'] = self.order_details
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OrderDetails') is not None:
-            self.order_details = m.get('OrderDetails')
-        return self
-
-
-class CreateDiskBuyOrderResponseBody(TeaModel):
-    def __init__(self, order_id=None, request_id=None):
-        # 订单id
-        self.order_id = order_id  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateDiskBuyOrderResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.order_id is not None:
-            result['OrderId'] = self.order_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OrderId') is not None:
-            self.order_id = m.get('OrderId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class CreateDiskBuyOrderResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateDiskBuyOrderResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateDiskBuyOrderResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateDiskBuyOrderResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class CreateEPInstanceRequest(TeaModel):
-    def __init__(self, epninstance_name=None, epninstance_type=None, internet_charge_type=None,
-                 internet_max_bandwidth_out=None, networking_model=None):
-        self.epninstance_name = epninstance_name  # type: str
-        self.epninstance_type = epninstance_type  # type: str
-        self.internet_charge_type = internet_charge_type  # type: str
-        self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: int
-        self.networking_model = networking_model  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateEPInstanceRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.epninstance_name is not None:
-            result['EPNInstanceName'] = self.epninstance_name
-        if self.epninstance_type is not None:
-            result['EPNInstanceType'] = self.epninstance_type
-        if self.internet_charge_type is not None:
-            result['InternetChargeType'] = self.internet_charge_type
-        if self.internet_max_bandwidth_out is not None:
-            result['InternetMaxBandwidthOut'] = self.internet_max_bandwidth_out
-        if self.networking_model is not None:
-            result['NetworkingModel'] = self.networking_model
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('EPNInstanceName') is not None:
-            self.epninstance_name = m.get('EPNInstanceName')
-        if m.get('EPNInstanceType') is not None:
-            self.epninstance_type = m.get('EPNInstanceType')
-        if m.get('InternetChargeType') is not None:
-            self.internet_charge_type = m.get('InternetChargeType')
-        if m.get('InternetMaxBandwidthOut') is not None:
-            self.internet_max_bandwidth_out = m.get('InternetMaxBandwidthOut')
-        if m.get('NetworkingModel') is not None:
-            self.networking_model = m.get('NetworkingModel')
-        return self
-
-
-class CreateEPInstanceResponseBody(TeaModel):
-    def __init__(self, epninstance_id=None, request_id=None):
-        self.epninstance_id = epninstance_id  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateEPInstanceResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.epninstance_id is not None:
-            result['EPNInstanceId'] = self.epninstance_id
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('EPNInstanceId') is not None:
-            self.epninstance_id = m.get('EPNInstanceId')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class CreateEPInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateEPInstanceResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateEPInstanceResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateEPInstanceResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CreateEipInstanceRequest(TeaModel):
     def __init__(self, bandwidth=None, ens_region_id=None, instance_charge_type=None, internet_charge_type=None,
                  isp=None, name=None):
@@ -2516,93 +2139,6 @@ class CreateEipInstanceResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateEipInstanceResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class CreateElbBuyOrderRequest(TeaModel):
-    def __init__(self, order_details=None):
-        self.order_details = order_details  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateElbBuyOrderRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.order_details is not None:
-            result['OrderDetails'] = self.order_details
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('OrderDetails') is not None:
-            self.order_details = m.get('OrderDetails')
-        return self
-
-
-class CreateElbBuyOrderResponseBody(TeaModel):
-    def __init__(self, load_balancer_ids=None, request_id=None):
-        self.load_balancer_ids = load_balancer_ids  # type: list[str]
-        # Id of the request
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateElbBuyOrderResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.load_balancer_ids is not None:
-            result['LoadBalancerIds'] = self.load_balancer_ids
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('LoadBalancerIds') is not None:
-            self.load_balancer_ids = m.get('LoadBalancerIds')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class CreateElbBuyOrderResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CreateElbBuyOrderResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CreateElbBuyOrderResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CreateElbBuyOrderResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8904,13 +8440,15 @@ class DescribeElbAvailableResourceInfoResponse(TeaModel):
 
 class DescribeEnsEipAddressesRequest(TeaModel):
     def __init__(self, allocation_id=None, associated_instance_id=None, associated_instance_type=None,
-                 eip_address=None, page_number=None, page_size=None):
+                 eip_address=None, ens_region_id=None, page_number=None, page_size=None):
         # 要查询的EIP实例的ID。  最多支持输入50个EIP实例ID，实例ID之间用逗号（,）分隔。
         self.allocation_id = allocation_id  # type: str
         self.associated_instance_id = associated_instance_id  # type: str
         self.associated_instance_type = associated_instance_type  # type: str
         # 要查询的EIP的IP地址。  最多支持输入50个EIP的IP地址，IP地址之间用逗号（,）分隔。
         self.eip_address = eip_address  # type: str
+        # ENS节点ID
+        self.ens_region_id = ens_region_id  # type: str
         # 列表的页码，默认值为1。
         self.page_number = page_number  # type: int
         # 分页查询时每页的行数，最大值为100，默认值为10。
@@ -8933,6 +8471,8 @@ class DescribeEnsEipAddressesRequest(TeaModel):
             result['AssociatedInstanceType'] = self.associated_instance_type
         if self.eip_address is not None:
             result['EipAddress'] = self.eip_address
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -8949,6 +8489,8 @@ class DescribeEnsEipAddressesRequest(TeaModel):
             self.associated_instance_type = m.get('AssociatedInstanceType')
         if m.get('EipAddress') is not None:
             self.eip_address = m.get('EipAddress')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -13102,7 +12644,7 @@ class DescribeInstancesRequest(TeaModel):
     def __init__(self, ens_region_id=None, ens_region_ids=None, ens_service_id=None, image_id=None,
                  instance_id=None, instance_ids=None, instance_name=None, instance_resource_type=None, network_id=None,
                  order_by_params=None, page_number=None, page_size=None, search_key=None, security_group_id=None, status=None,
-                 v_switch_id=None, version=None):
+                 v_switch_id=None):
         self.ens_region_id = ens_region_id  # type: str
         self.ens_region_ids = ens_region_ids  # type: str
         self.ens_service_id = ens_service_id  # type: str
@@ -13119,7 +12661,6 @@ class DescribeInstancesRequest(TeaModel):
         self.security_group_id = security_group_id  # type: str
         self.status = status  # type: str
         self.v_switch_id = v_switch_id  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -13162,8 +12703,6 @@ class DescribeInstancesRequest(TeaModel):
             result['Status'] = self.status
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -13200,8 +12739,6 @@ class DescribeInstancesRequest(TeaModel):
             self.status = m.get('Status')
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
@@ -15970,7 +15507,8 @@ class DescribeNetworkAttributeResponseBodyVSwitchIds(TeaModel):
 
 class DescribeNetworkAttributeResponseBody(TeaModel):
     def __init__(self, cidr_block=None, cloud_resources=None, created_time=None, description=None,
-                 ens_region_id=None, network_id=None, network_name=None, request_id=None, status=None, v_switch_ids=None):
+                 ens_region_id=None, network_id=None, network_name=None, request_id=None, router_table_id=None, status=None,
+                 v_switch_ids=None):
         self.cidr_block = cidr_block  # type: str
         self.cloud_resources = cloud_resources  # type: DescribeNetworkAttributeResponseBodyCloudResources
         self.created_time = created_time  # type: str
@@ -15980,6 +15518,7 @@ class DescribeNetworkAttributeResponseBody(TeaModel):
         self.network_name = network_name  # type: str
         # Id of the request
         self.request_id = request_id  # type: str
+        self.router_table_id = router_table_id  # type: str
         self.status = status  # type: str
         self.v_switch_ids = v_switch_ids  # type: DescribeNetworkAttributeResponseBodyVSwitchIds
 
@@ -16011,6 +15550,8 @@ class DescribeNetworkAttributeResponseBody(TeaModel):
             result['NetworkName'] = self.network_name
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.router_table_id is not None:
+            result['RouterTableId'] = self.router_table_id
         if self.status is not None:
             result['Status'] = self.status
         if self.v_switch_ids is not None:
@@ -16036,6 +15577,8 @@ class DescribeNetworkAttributeResponseBody(TeaModel):
             self.network_name = m.get('NetworkName')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('RouterTableId') is not None:
+            self.router_table_id = m.get('RouterTableId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('VSwitchIds') is not None:
@@ -16374,13 +15917,14 @@ class DescribeNetworksResponseBodyNetworksNetworkVSwitchIds(TeaModel):
 
 class DescribeNetworksResponseBodyNetworksNetwork(TeaModel):
     def __init__(self, cidr_block=None, created_time=None, description=None, ens_region_id=None, network_id=None,
-                 network_name=None, status=None, v_switch_ids=None):
+                 network_name=None, router_table_id=None, status=None, v_switch_ids=None):
         self.cidr_block = cidr_block  # type: str
         self.created_time = created_time  # type: str
         self.description = description  # type: str
         self.ens_region_id = ens_region_id  # type: str
         self.network_id = network_id  # type: str
         self.network_name = network_name  # type: str
+        self.router_table_id = router_table_id  # type: str
         self.status = status  # type: str
         self.v_switch_ids = v_switch_ids  # type: DescribeNetworksResponseBodyNetworksNetworkVSwitchIds
 
@@ -16406,6 +15950,8 @@ class DescribeNetworksResponseBodyNetworksNetwork(TeaModel):
             result['NetworkId'] = self.network_id
         if self.network_name is not None:
             result['NetworkName'] = self.network_name
+        if self.router_table_id is not None:
+            result['RouterTableId'] = self.router_table_id
         if self.status is not None:
             result['Status'] = self.status
         if self.v_switch_ids is not None:
@@ -16426,6 +15972,8 @@ class DescribeNetworksResponseBodyNetworksNetwork(TeaModel):
             self.network_id = m.get('NetworkId')
         if m.get('NetworkName') is not None:
             self.network_name = m.get('NetworkName')
+        if m.get('RouterTableId') is not None:
+            self.router_table_id = m.get('RouterTableId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('VSwitchIds') is not None:
@@ -16686,6 +16234,7 @@ class DescribePrePaidInstanceStockResponse(TeaModel):
 
 class DescribePriceRequestDataDisk(TeaModel):
     def __init__(self, size=None):
+        # 数据盘大小，单位GB。如果此字段不为空，则以此段为准。
         self.size = size  # type: int
 
     def validate(self):
@@ -16710,6 +16259,7 @@ class DescribePriceRequestDataDisk(TeaModel):
 
 class DescribePriceRequestSystemDisk(TeaModel):
     def __init__(self, size=None):
+        # 系统盘大小，单位：GB
         self.size = size  # type: int
 
     def validate(self):
@@ -16732,17 +16282,57 @@ class DescribePriceRequestSystemDisk(TeaModel):
         return self
 
 
+class DescribePriceRequestDataDisks(TeaModel):
+    def __init__(self, category=None, size=None):
+        # 磁盘类型
+        self.category = category  # type: str
+        self.size = size  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceRequestDataDisks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
 class DescribePriceRequest(TeaModel):
-    def __init__(self, data_disk=None, system_disk=None, ens_region_id=None, instance_type=None,
-                 internet_charge_type=None, period=None, quantity=None, version=None):
+    def __init__(self, data_disk=None, system_disk=None, data_disks=None, ens_region_id=None, instance_type=None,
+                 internet_charge_type=None, period=None, period_unit=None, quantity=None):
         self.data_disk = data_disk  # type: list[DescribePriceRequestDataDisk]
         self.system_disk = system_disk  # type: DescribePriceRequestSystemDisk
+        # 如果DataDisk.1.Size为空且此字段不为空时的则以此字段为准
+        self.data_disks = data_disks  # type: list[DescribePriceRequestDataDisks]
+        # 节点ID。
         self.ens_region_id = ens_region_id  # type: str
+        # 实列规格。
         self.instance_type = instance_type  # type: str
+        # 带宽计费方式
         self.internet_charge_type = internet_charge_type  # type: str
+        # 购买资源的时长，如果不指定PeriodUnit，则默认按月购买。目前只支持按Days和Month。如果PeriodUnit=Day时，Period仅可以3。如果PeriodUnit=Monthc时，则Period可以为1-9,12。
         self.period = period  # type: int
+        # 查询云服务器ENS不同计费周期的价格。取值范围：
+        # Month（默认）：按月计费的价格单位。
+        # Day：按天计费的价格单位。
+        self.period_unit = period_unit  # type: str
+        # 数量。
         self.quantity = quantity  # type: int
-        self.version = version  # type: str
 
     def validate(self):
         if self.data_disk:
@@ -16751,6 +16341,10 @@ class DescribePriceRequest(TeaModel):
                     k.validate()
         if self.system_disk:
             self.system_disk.validate()
+        if self.data_disks:
+            for k in self.data_disks:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribePriceRequest, self).to_map()
@@ -16764,6 +16358,10 @@ class DescribePriceRequest(TeaModel):
                 result['DataDisk'].append(k.to_map() if k else None)
         if self.system_disk is not None:
             result['SystemDisk'] = self.system_disk.to_map()
+        result['DataDisks'] = []
+        if self.data_disks is not None:
+            for k in self.data_disks:
+                result['DataDisks'].append(k.to_map() if k else None)
         if self.ens_region_id is not None:
             result['EnsRegionId'] = self.ens_region_id
         if self.instance_type is not None:
@@ -16772,10 +16370,10 @@ class DescribePriceRequest(TeaModel):
             result['InternetChargeType'] = self.internet_charge_type
         if self.period is not None:
             result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
         if self.quantity is not None:
             result['Quantity'] = self.quantity
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -16788,6 +16386,11 @@ class DescribePriceRequest(TeaModel):
         if m.get('SystemDisk') is not None:
             temp_model = DescribePriceRequestSystemDisk()
             self.system_disk = temp_model.from_map(m['SystemDisk'])
+        self.data_disks = []
+        if m.get('DataDisks') is not None:
+            for k in m.get('DataDisks'):
+                temp_model = DescribePriceRequestDataDisks()
+                self.data_disks.append(temp_model.from_map(k))
         if m.get('EnsRegionId') is not None:
             self.ens_region_id = m.get('EnsRegionId')
         if m.get('InstanceType') is not None:
@@ -16796,10 +16399,145 @@ class DescribePriceRequest(TeaModel):
             self.internet_charge_type = m.get('InternetChargeType')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
         if m.get('Quantity') is not None:
             self.quantity = m.get('Quantity')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
+        return self
+
+
+class DescribePriceShrinkRequestDataDisk(TeaModel):
+    def __init__(self, size=None):
+        # 数据盘大小，单位GB。如果此字段不为空，则以此段为准。
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceShrinkRequestDataDisk, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
+class DescribePriceShrinkRequestSystemDisk(TeaModel):
+    def __init__(self, size=None):
+        # 系统盘大小，单位：GB
+        self.size = size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceShrinkRequestSystemDisk, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.size is not None:
+            result['Size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Size') is not None:
+            self.size = m.get('Size')
+        return self
+
+
+class DescribePriceShrinkRequest(TeaModel):
+    def __init__(self, data_disk=None, system_disk=None, data_disks_shrink=None, ens_region_id=None,
+                 instance_type=None, internet_charge_type=None, period=None, period_unit=None, quantity=None):
+        self.data_disk = data_disk  # type: list[DescribePriceShrinkRequestDataDisk]
+        self.system_disk = system_disk  # type: DescribePriceShrinkRequestSystemDisk
+        # 如果DataDisk.1.Size为空且此字段不为空时的则以此字段为准
+        self.data_disks_shrink = data_disks_shrink  # type: str
+        # 节点ID。
+        self.ens_region_id = ens_region_id  # type: str
+        # 实列规格。
+        self.instance_type = instance_type  # type: str
+        # 带宽计费方式
+        self.internet_charge_type = internet_charge_type  # type: str
+        # 购买资源的时长，如果不指定PeriodUnit，则默认按月购买。目前只支持按Days和Month。如果PeriodUnit=Day时，Period仅可以3。如果PeriodUnit=Monthc时，则Period可以为1-9,12。
+        self.period = period  # type: int
+        # 查询云服务器ENS不同计费周期的价格。取值范围：
+        # Month（默认）：按月计费的价格单位。
+        # Day：按天计费的价格单位。
+        self.period_unit = period_unit  # type: str
+        # 数量。
+        self.quantity = quantity  # type: int
+
+    def validate(self):
+        if self.data_disk:
+            for k in self.data_disk:
+                if k:
+                    k.validate()
+        if self.system_disk:
+            self.system_disk.validate()
+
+    def to_map(self):
+        _map = super(DescribePriceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DataDisk'] = []
+        if self.data_disk is not None:
+            for k in self.data_disk:
+                result['DataDisk'].append(k.to_map() if k else None)
+        if self.system_disk is not None:
+            result['SystemDisk'] = self.system_disk.to_map()
+        if self.data_disks_shrink is not None:
+            result['DataDisks'] = self.data_disks_shrink
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.internet_charge_type is not None:
+            result['InternetChargeType'] = self.internet_charge_type
+        if self.period is not None:
+            result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
+        if self.quantity is not None:
+            result['Quantity'] = self.quantity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data_disk = []
+        if m.get('DataDisk') is not None:
+            for k in m.get('DataDisk'):
+                temp_model = DescribePriceShrinkRequestDataDisk()
+                self.data_disk.append(temp_model.from_map(k))
+        if m.get('SystemDisk') is not None:
+            temp_model = DescribePriceShrinkRequestSystemDisk()
+            self.system_disk = temp_model.from_map(m['SystemDisk'])
+        if m.get('DataDisks') is not None:
+            self.data_disks_shrink = m.get('DataDisks')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('InternetChargeType') is not None:
+            self.internet_charge_type = m.get('InternetChargeType')
+        if m.get('Period') is not None:
+            self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
+        if m.get('Quantity') is not None:
+            self.quantity = m.get('Quantity')
         return self
 
 
@@ -18742,10 +18480,11 @@ class DistApplicationDataResponse(TeaModel):
 
 
 class ExportBillDetailDataRequest(TeaModel):
-    def __init__(self, end_date=None, start_date=None, version=None):
+    def __init__(self, end_date=None, start_date=None):
+        # 结束时间UTC格式
         self.end_date = end_date  # type: str
+        # 开始时间，UTC格式
         self.start_date = start_date  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -18760,8 +18499,6 @@ class ExportBillDetailDataRequest(TeaModel):
             result['EndDate'] = self.end_date
         if self.start_date is not None:
             result['StartDate'] = self.start_date
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -18770,14 +18507,14 @@ class ExportBillDetailDataRequest(TeaModel):
             self.end_date = m.get('EndDate')
         if m.get('StartDate') is not None:
             self.start_date = m.get('StartDate')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
 class ExportBillDetailDataResponseBody(TeaModel):
     def __init__(self, file_path=None, request_id=None):
+        # 文件下载地址
         self.file_path = file_path  # type: str
+        # 请求ID，公共字段
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18838,14 +18575,12 @@ class ExportBillDetailDataResponse(TeaModel):
 
 
 class ExportImageRequest(TeaModel):
-    def __init__(self, image_id=None, ossbucket=None, ossprefix=None, ossregion_id=None, role_name=None,
-                 version=None):
+    def __init__(self, image_id=None, ossbucket=None, ossprefix=None, ossregion_id=None, role_name=None):
         self.image_id = image_id  # type: str
         self.ossbucket = ossbucket  # type: str
         self.ossprefix = ossprefix  # type: str
         self.ossregion_id = ossregion_id  # type: str
         self.role_name = role_name  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -18866,8 +18601,6 @@ class ExportImageRequest(TeaModel):
             result['OSSRegionId'] = self.ossregion_id
         if self.role_name is not None:
             result['RoleName'] = self.role_name
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -18882,8 +18615,6 @@ class ExportImageRequest(TeaModel):
             self.ossregion_id = m.get('OSSRegionId')
         if m.get('RoleName') is not None:
             self.role_name = m.get('RoleName')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
@@ -18950,10 +18681,11 @@ class ExportImageResponse(TeaModel):
 
 
 class ExportMeasurementDataRequest(TeaModel):
-    def __init__(self, end_date=None, start_date=None, version=None):
+    def __init__(self, end_date=None, start_date=None):
+        # 结束时间，UTC格式
         self.end_date = end_date  # type: str
+        # 开始时间，UTC格式
         self.start_date = start_date  # type: str
-        self.version = version  # type: str
 
     def validate(self):
         pass
@@ -18968,8 +18700,6 @@ class ExportMeasurementDataRequest(TeaModel):
             result['EndDate'] = self.end_date
         if self.start_date is not None:
             result['StartDate'] = self.start_date
-        if self.version is not None:
-            result['Version'] = self.version
         return result
 
     def from_map(self, m=None):
@@ -18978,14 +18708,14 @@ class ExportMeasurementDataRequest(TeaModel):
             self.end_date = m.get('EndDate')
         if m.get('StartDate') is not None:
             self.start_date = m.get('StartDate')
-        if m.get('Version') is not None:
-            self.version = m.get('Version')
         return self
 
 
 class ExportMeasurementDataResponseBody(TeaModel):
     def __init__(self, file_path=None, request_id=None):
+        # 文件下载地址
         self.file_path = file_path  # type: str
+        # 请求ID，公共字段
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20940,6 +20670,95 @@ class ModifyNetworkAttributeResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ModifyNetworkAttributeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyPrepayInstanceSpecRequest(TeaModel):
+    def __init__(self, instance_id=None, instance_type=None):
+        # 变配实例id
+        self.instance_id = instance_id  # type: str
+        # 更新的配置
+        self.instance_type = instance_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPrepayInstanceSpecRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        return self
+
+
+class ModifyPrepayInstanceSpecResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyPrepayInstanceSpecResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyPrepayInstanceSpecResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyPrepayInstanceSpecResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyPrepayInstanceSpecResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyPrepayInstanceSpecResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -23414,9 +23233,9 @@ class RunInstancesRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, carrier=None, data_disk=None, ens_region_id=None,
                  host_name=None, image_id=None, instance_charge_type=None, instance_name=None, instance_type=None,
                  internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None, net_district_code=None,
-                 net_work_id=None, password=None, period=None, private_ip_address=None, schedule_area_level=None,
-                 scheduling_price_strategy=None, scheduling_strategy=None, security_id=None, system_disk=None, unique_suffix=None,
-                 user_data=None, v_switch_id=None):
+                 net_work_id=None, password=None, period=None, period_unit=None, private_ip_address=None,
+                 schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None, security_id=None,
+                 system_disk=None, unique_suffix=None, user_data=None, v_switch_id=None):
         # 数量
         self.amount = amount  # type: long
         # 是否自动续费，默认为false
@@ -23451,6 +23270,10 @@ class RunInstancesRequest(TeaModel):
         self.password = password  # type: str
         # 购买资源的时长，单位为：月
         self.period = period  # type: long
+        # 查询云服务器ENS不同计费周期的价格。取值范围：
+        # Month（默认）：按月计费的价格单位。
+        # Day：按天计费的价格单位。
+        self.period_unit = period_unit  # type: str
         # 私网ip
         self.private_ip_address = private_ip_address  # type: str
         # 调度层级
@@ -23520,6 +23343,8 @@ class RunInstancesRequest(TeaModel):
             result['Password'] = self.password
         if self.period is not None:
             result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
         if self.schedule_area_level is not None:
@@ -23579,6 +23404,8 @@ class RunInstancesRequest(TeaModel):
             self.password = m.get('Password')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
         if m.get('ScheduleAreaLevel') is not None:
@@ -23605,9 +23432,9 @@ class RunInstancesShrinkRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, carrier=None, data_disk_shrink=None, ens_region_id=None,
                  host_name=None, image_id=None, instance_charge_type=None, instance_name=None, instance_type=None,
                  internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None, net_district_code=None,
-                 net_work_id=None, password=None, period=None, private_ip_address=None, schedule_area_level=None,
-                 scheduling_price_strategy=None, scheduling_strategy=None, security_id=None, system_disk_shrink=None, unique_suffix=None,
-                 user_data=None, v_switch_id=None):
+                 net_work_id=None, password=None, period=None, period_unit=None, private_ip_address=None,
+                 schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None, security_id=None,
+                 system_disk_shrink=None, unique_suffix=None, user_data=None, v_switch_id=None):
         # 数量
         self.amount = amount  # type: long
         # 是否自动续费，默认为false
@@ -23642,6 +23469,10 @@ class RunInstancesShrinkRequest(TeaModel):
         self.password = password  # type: str
         # 购买资源的时长，单位为：月
         self.period = period  # type: long
+        # 查询云服务器ENS不同计费周期的价格。取值范围：
+        # Month（默认）：按月计费的价格单位。
+        # Day：按天计费的价格单位。
+        self.period_unit = period_unit  # type: str
         # 私网ip
         self.private_ip_address = private_ip_address  # type: str
         # 调度层级
@@ -23704,6 +23535,8 @@ class RunInstancesShrinkRequest(TeaModel):
             result['Password'] = self.password
         if self.period is not None:
             result['Period'] = self.period
+        if self.period_unit is not None:
+            result['PeriodUnit'] = self.period_unit
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
         if self.schedule_area_level is not None:
@@ -23760,6 +23593,8 @@ class RunInstancesShrinkRequest(TeaModel):
             self.password = m.get('Password')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('PeriodUnit') is not None:
+            self.period_unit = m.get('PeriodUnit')
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
         if m.get('ScheduleAreaLevel') is not None:

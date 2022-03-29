@@ -404,44 +404,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_quota_with_options(request, runtime)
 
-    def configure_security_group_permissions_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = ens_20171110_models.ConfigureSecurityGroupPermissionsShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.authorize_permissions):
-            request.authorize_permissions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.authorize_permissions, 'AuthorizePermissions', 'json')
-        if not UtilClient.is_unset(tmp_req.revoke_permissions):
-            request.revoke_permissions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.revoke_permissions, 'RevokePermissions', 'json')
-        query = {}
-        if not UtilClient.is_unset(request.authorize_permissions_shrink):
-            query['AuthorizePermissions'] = request.authorize_permissions_shrink
-        if not UtilClient.is_unset(request.revoke_permissions_shrink):
-            query['RevokePermissions'] = request.revoke_permissions_shrink
-        if not UtilClient.is_unset(request.security_group_id):
-            query['SecurityGroupId'] = request.security_group_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ConfigureSecurityGroupPermissions',
-            version='2017-11-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ens_20171110_models.ConfigureSecurityGroupPermissionsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def configure_security_group_permissions(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.configure_security_group_permissions_with_options(request, runtime)
-
     def create_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -506,70 +468,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_disk_with_options(request, runtime)
 
-    def create_disk_buy_order_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.order_details):
-            query['OrderDetails'] = request.order_details
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateDiskBuyOrder',
-            version='2017-11-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ens_20171110_models.CreateDiskBuyOrderResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_disk_buy_order(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_disk_buy_order_with_options(request, runtime)
-
-    def create_epinstance_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.epninstance_name):
-            query['EPNInstanceName'] = request.epninstance_name
-        if not UtilClient.is_unset(request.epninstance_type):
-            query['EPNInstanceType'] = request.epninstance_type
-        if not UtilClient.is_unset(request.internet_charge_type):
-            query['InternetChargeType'] = request.internet_charge_type
-        if not UtilClient.is_unset(request.internet_max_bandwidth_out):
-            query['InternetMaxBandwidthOut'] = request.internet_max_bandwidth_out
-        if not UtilClient.is_unset(request.networking_model):
-            query['NetworkingModel'] = request.networking_model
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateEPInstance',
-            version='2017-11-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ens_20171110_models.CreateEPInstanceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_epinstance(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_epinstance_with_options(request, runtime)
-
     def create_eip_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -607,34 +505,6 @@ class Client(OpenApiClient):
     def create_eip_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_eip_instance_with_options(request, runtime)
-
-    def create_elb_buy_order_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.order_details):
-            query['OrderDetails'] = request.order_details
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateElbBuyOrder',
-            version='2017-11-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ens_20171110_models.CreateElbBuyOrderResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_elb_buy_order(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_elb_buy_order_with_options(request, runtime)
 
     def create_ens_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2041,6 +1911,8 @@ class Client(OpenApiClient):
             query['AssociatedInstanceType'] = request.associated_instance_type
         if not UtilClient.is_unset(request.eip_address):
             query['EipAddress'] = request.eip_address
+        if not UtilClient.is_unset(request.ens_region_id):
+            query['EnsRegionId'] = request.ens_region_id
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -2817,8 +2689,6 @@ class Client(OpenApiClient):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.v_switch_id):
             query['VSwitchId'] = request.v_switch_id
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3246,9 +3116,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_pre_paid_instance_stock_with_options(request, runtime)
 
-    def describe_price_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def describe_price_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ens_20171110_models.DescribePriceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_disks):
+            request.data_disks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_disks, 'DataDisks', 'json')
         query = {}
+        if not UtilClient.is_unset(request.data_disks_shrink):
+            query['DataDisks'] = request.data_disks_shrink
         if not UtilClient.is_unset(request.ens_region_id):
             query['EnsRegionId'] = request.ens_region_id
         if not UtilClient.is_unset(request.instance_type):
@@ -3257,10 +3133,10 @@ class Client(OpenApiClient):
             query['InternetChargeType'] = request.internet_charge_type
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
         if not UtilClient.is_unset(request.quantity):
             query['Quantity'] = request.quantity
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         if not UtilClient.is_unset(request.data_disk):
             query['DataDisk'] = request.data_disk
         if not UtilClient.is_unset(request.system_disk):
@@ -3589,8 +3465,6 @@ class Client(OpenApiClient):
             query['EndDate'] = request.end_date
         if not UtilClient.is_unset(request.start_date):
             query['StartDate'] = request.start_date
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3627,8 +3501,6 @@ class Client(OpenApiClient):
             query['OSSRegionId'] = request.ossregion_id
         if not UtilClient.is_unset(request.role_name):
             query['RoleName'] = request.role_name
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3659,8 +3531,6 @@ class Client(OpenApiClient):
             query['EndDate'] = request.end_date
         if not UtilClient.is_unset(request.start_date):
             query['StartDate'] = request.start_date
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4235,6 +4105,36 @@ class Client(OpenApiClient):
     def modify_network_attribute(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_network_attribute_with_options(request, runtime)
+
+    def modify_prepay_instance_spec_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyPrepayInstanceSpec',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ModifyPrepayInstanceSpecResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_prepay_instance_spec(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_prepay_instance_spec_with_options(request, runtime)
 
     def modify_security_group_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4993,6 +4893,8 @@ class Client(OpenApiClient):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
         if not UtilClient.is_unset(request.schedule_area_level):
