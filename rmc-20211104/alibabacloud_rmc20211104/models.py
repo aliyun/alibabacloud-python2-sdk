@@ -4,11 +4,10 @@ from Tea.model import TeaModel
 
 
 class ListResourceRelationshipsRequest(TeaModel):
-    def __init__(self, max_results=None, next_token=None, scene=None, source_region_id=None,
-                 source_resource_id=None, source_resource_type=None, target_resource_type=None):
+    def __init__(self, max_results=None, next_token=None, source_region_id=None, source_resource_id=None,
+                 source_resource_type=None, target_resource_type=None):
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
-        self.scene = scene  # type: str
         self.source_region_id = source_region_id  # type: str
         self.source_resource_id = source_resource_id  # type: list[str]
         self.source_resource_type = source_resource_type  # type: str
@@ -27,8 +26,6 @@ class ListResourceRelationshipsRequest(TeaModel):
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
             result['NextToken'] = self.next_token
-        if self.scene is not None:
-            result['Scene'] = self.scene
         if self.source_region_id is not None:
             result['SourceRegionId'] = self.source_region_id
         if self.source_resource_id is not None:
@@ -45,8 +42,6 @@ class ListResourceRelationshipsRequest(TeaModel):
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
-        if m.get('Scene') is not None:
-            self.scene = m.get('Scene')
         if m.get('SourceRegionId') is not None:
             self.source_region_id = m.get('SourceRegionId')
         if m.get('SourceResourceId') is not None:
