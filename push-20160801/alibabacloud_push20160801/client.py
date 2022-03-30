@@ -501,6 +501,8 @@ class Client(OpenApiClient):
             query['AndroidRemind'] = request.android_remind
         if not UtilClient.is_unset(request.android_render_style):
             query['AndroidRenderStyle'] = request.android_render_style
+        if not UtilClient.is_unset(request.android_vivo_push_mode):
+            query['AndroidVivoPushMode'] = request.android_vivo_push_mode
         if not UtilClient.is_unset(request.android_xiao_mi_activity):
             query['AndroidXiaoMiActivity'] = request.android_xiao_mi_activity
         if not UtilClient.is_unset(request.android_xiao_mi_notify_body):
@@ -547,6 +549,8 @@ class Client(OpenApiClient):
             query['TargetValue'] = request.target_value
         if not UtilClient.is_unset(request.title):
             query['Title'] = request.title
+        if not UtilClient.is_unset(request.trim):
+            query['Trim'] = request.trim
         if not UtilClient.is_unset(request.i_osapns_env):
             query['iOSApnsEnv'] = request.i_osapns_env
         if not UtilClient.is_unset(request.i_osbadge):
@@ -555,6 +559,8 @@ class Client(OpenApiClient):
             query['iOSBadgeAutoIncrement'] = request.i_osbadge_auto_increment
         if not UtilClient.is_unset(request.i_osext_parameters):
             query['iOSExtParameters'] = request.i_osext_parameters
+        if not UtilClient.is_unset(request.i_osinterruption_level):
+            query['iOSInterruptionLevel'] = request.i_osinterruption_level
         if not UtilClient.is_unset(request.i_osmusic):
             query['iOSMusic'] = request.i_osmusic
         if not UtilClient.is_unset(request.i_osmutable_content):
@@ -565,6 +571,8 @@ class Client(OpenApiClient):
             query['iOSNotificationCollapseId'] = request.i_osnotification_collapse_id
         if not UtilClient.is_unset(request.i_osnotification_thread_id):
             query['iOSNotificationThreadId'] = request.i_osnotification_thread_id
+        if not UtilClient.is_unset(request.i_osrelevance_score):
+            query['iOSRelevanceScore'] = request.i_osrelevance_score
         if not UtilClient.is_unset(request.i_osremind):
             query['iOSRemind'] = request.i_osremind
         if not UtilClient.is_unset(request.i_osremind_body):
