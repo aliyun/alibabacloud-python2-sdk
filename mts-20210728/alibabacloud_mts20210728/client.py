@@ -460,6 +460,8 @@ class Client(OpenApiClient):
     def submit_tracemu_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.key_uri):
+            body['KeyUri'] = request.key_uri
         if not UtilClient.is_unset(request.media_id):
             body['MediaId'] = request.media_id
         if not UtilClient.is_unset(request.output):

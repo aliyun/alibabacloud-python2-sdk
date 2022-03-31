@@ -1713,7 +1713,9 @@ class SubmitTraceExtractResponse(TeaModel):
 
 
 class SubmitTracemuRequest(TeaModel):
-    def __init__(self, media_id=None, output=None, trace=None):
+    def __init__(self, key_uri=None, media_id=None, output=None, trace=None):
+        # 密钥服务器uri
+        self.key_uri = key_uri  # type: str
         # ab流处理后的媒体id
         self.media_id = media_id  # type: str
         # m3u8文件输出oss地址
@@ -1730,6 +1732,8 @@ class SubmitTracemuRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.key_uri is not None:
+            result['KeyUri'] = self.key_uri
         if self.media_id is not None:
             result['MediaId'] = self.media_id
         if self.output is not None:
@@ -1740,6 +1744,8 @@ class SubmitTracemuRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('KeyUri') is not None:
+            self.key_uri = m.get('KeyUri')
         if m.get('MediaId') is not None:
             self.media_id = m.get('MediaId')
         if m.get('Output') is not None:
