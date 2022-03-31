@@ -3749,6 +3749,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_ip_info_with_options(request, runtime)
 
+    def describe_ip_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeIpStatus',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeIpStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_ip_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_ip_status_with_options(request, runtime)
+
     def describe_l2vips_by_domain_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4578,32 +4604,6 @@ class Client(OpenApiClient):
     def modify_cdn_domain_schdm_by_property(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_cdn_domain_schdm_by_property_with_options(request, runtime)
-
-    def modify_domain_custom_log_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ModifyDomainCustomLogConfig',
-            version='2018-05-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cdn_20180510_models.ModifyDomainCustomLogConfigResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_domain_custom_log_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_domain_custom_log_config_with_options(request, runtime)
 
     def modify_realtime_log_delivery_with_options(self, request, runtime):
         UtilClient.validate_model(request)
