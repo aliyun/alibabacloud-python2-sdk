@@ -374,6 +374,97 @@ class BatchAddDcdnDomainResponse(TeaModel):
         return self
 
 
+class BatchCreateDcdnWafRulesRequest(TeaModel):
+    def __init__(self, owner_id=None, policy_id=None, rule_configs=None):
+        self.owner_id = owner_id  # type: long
+        self.policy_id = policy_id  # type: long
+        self.rule_configs = rule_configs  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateDcdnWafRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.rule_configs is not None:
+            result['RuleConfigs'] = self.rule_configs
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('RuleConfigs') is not None:
+            self.rule_configs = m.get('RuleConfigs')
+        return self
+
+
+class BatchCreateDcdnWafRulesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchCreateDcdnWafRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BatchCreateDcdnWafRulesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchCreateDcdnWafRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchCreateDcdnWafRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchCreateDcdnWafRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BatchDeleteDcdnDomainConfigsRequest(TeaModel):
     def __init__(self, domain_names=None, function_names=None, owner_account=None, owner_id=None,
                  security_token=None):
@@ -472,6 +563,92 @@ class BatchDeleteDcdnDomainConfigsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = BatchDeleteDcdnDomainConfigsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchDeleteDcdnWafRulesRequest(TeaModel):
+    def __init__(self, owner_id=None, rule_ids=None):
+        self.owner_id = owner_id  # type: long
+        self.rule_ids = rule_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnWafRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.rule_ids is not None:
+            result['RuleIds'] = self.rule_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RuleIds') is not None:
+            self.rule_ids = m.get('RuleIds')
+        return self
+
+
+class BatchDeleteDcdnWafRulesResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnWafRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BatchDeleteDcdnWafRulesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchDeleteDcdnWafRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchDeleteDcdnWafRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchDeleteDcdnWafRulesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -796,6 +973,97 @@ class BatchSetDcdnIpaDomainConfigsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = BatchSetDcdnIpaDomainConfigsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class BatchSetDcdnWafDomainConfigsRequest(TeaModel):
+    def __init__(self, defense_status=None, domain_names=None, owner_id=None):
+        self.defense_status = defense_status  # type: str
+        self.domain_names = domain_names  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchSetDcdnWafDomainConfigsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_status is not None:
+            result['DefenseStatus'] = self.defense_status
+        if self.domain_names is not None:
+            result['DomainNames'] = self.domain_names
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseStatus') is not None:
+            self.defense_status = m.get('DefenseStatus')
+        if m.get('DomainNames') is not None:
+            self.domain_names = m.get('DomainNames')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class BatchSetDcdnWafDomainConfigsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchSetDcdnWafDomainConfigsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class BatchSetDcdnWafDomainConfigsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: BatchSetDcdnWafDomainConfigsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchSetDcdnWafDomainConfigsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = BatchSetDcdnWafDomainConfigsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1725,6 +1993,112 @@ class CreateDcdnSubTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateDcdnSubTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateDcdnWafPolicyRequest(TeaModel):
+    def __init__(self, defense_scene=None, owner_id=None, policy_name=None, policy_status=None, policy_type=None):
+        self.defense_scene = defense_scene  # type: str
+        self.owner_id = owner_id  # type: long
+        self.policy_name = policy_name  # type: str
+        self.policy_status = policy_status  # type: str
+        self.policy_type = policy_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDcdnWafPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_status is not None:
+            result['PolicyStatus'] = self.policy_status
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyStatus') is not None:
+            self.policy_status = m.get('PolicyStatus')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
+        return self
+
+
+class CreateDcdnWafPolicyResponseBody(TeaModel):
+    def __init__(self, policy_id=None, request_id=None):
+        self.policy_id = policy_id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDcdnWafPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateDcdnWafPolicyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateDcdnWafPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateDcdnWafPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateDcdnWafPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2735,6 +3109,92 @@ class DeleteDcdnSubTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DeleteDcdnSubTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteDcdnWafPolicyRequest(TeaModel):
+    def __init__(self, owner_id=None, policy_id=None):
+        self.owner_id = owner_id  # type: long
+        self.policy_id = policy_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnWafPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        return self
+
+
+class DeleteDcdnWafPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnWafPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDcdnWafPolicyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DeleteDcdnWafPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDcdnWafPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DeleteDcdnWafPolicyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -20583,6 +21043,1864 @@ class DescribeDcdnWafDomainResponse(TeaModel):
         return self
 
 
+class DescribeDcdnWafDomainDetailRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnWafDomainDetailResponseBodyDomainDefenseScenes(TeaModel):
+    def __init__(self, defense_scene=None, policy_id=None):
+        self.defense_scene = defense_scene  # type: str
+        self.policy_id = policy_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainDetailResponseBodyDomainDefenseScenes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        return self
+
+
+class DescribeDcdnWafDomainDetailResponseBodyDomain(TeaModel):
+    def __init__(self, defense_scenes=None, domain_name=None):
+        self.defense_scenes = defense_scenes  # type: list[DescribeDcdnWafDomainDetailResponseBodyDomainDefenseScenes]
+        self.domain_name = domain_name  # type: str
+
+    def validate(self):
+        if self.defense_scenes:
+            for k in self.defense_scenes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainDetailResponseBodyDomain, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DefenseScenes'] = []
+        if self.defense_scenes is not None:
+            for k in self.defense_scenes:
+                result['DefenseScenes'].append(k.to_map() if k else None)
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.defense_scenes = []
+        if m.get('DefenseScenes') is not None:
+            for k in m.get('DefenseScenes'):
+                temp_model = DescribeDcdnWafDomainDetailResponseBodyDomainDefenseScenes()
+                self.defense_scenes.append(temp_model.from_map(k))
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        return self
+
+
+class DescribeDcdnWafDomainDetailResponseBody(TeaModel):
+    def __init__(self, domain=None, request_id=None):
+        self.domain = domain  # type: DescribeDcdnWafDomainDetailResponseBodyDomain
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.domain:
+            self.domain.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            temp_model = DescribeDcdnWafDomainDetailResponseBodyDomain()
+            self.domain = temp_model.from_map(m['Domain'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnWafDomainDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafDomainDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafDomainDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafDomainsRequest(TeaModel):
+    def __init__(self, owner_id=None, page_number=None, page_size=None, query_args=None):
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.query_args = query_args  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_args is not None:
+            result['QueryArgs'] = self.query_args
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryArgs') is not None:
+            self.query_args = m.get('QueryArgs')
+        return self
+
+
+class DescribeDcdnWafDomainsResponseBodyDomains(TeaModel):
+    def __init__(self, domain_name=None, policy_count=None):
+        self.domain_name = domain_name  # type: str
+        self.policy_count = policy_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainsResponseBodyDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.policy_count is not None:
+            result['PolicyCount'] = self.policy_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('PolicyCount') is not None:
+            self.policy_count = m.get('PolicyCount')
+        return self
+
+
+class DescribeDcdnWafDomainsResponseBody(TeaModel):
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: list[DescribeDcdnWafDomainsResponseBodyDomains]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = DescribeDcdnWafDomainsResponseBodyDomains()
+                self.domains.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnWafDomainsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafFilterInfoRequest(TeaModel):
+    def __init__(self, defense_scenes=None, language=None, owner_id=None):
+        self.defense_scenes = defense_scenes  # type: str
+        self.language = language  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scenes is not None:
+            result['DefenseScenes'] = self.defense_scenes
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScenes') is not None:
+            self.defense_scenes = m.get('DefenseScenes')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp(TeaModel):
+    def __init__(self, err_msg=None, pattern=None):
+        self.err_msg = err_msg  # type: str
+        self.pattern = pattern  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.err_msg is not None:
+            result['ErrMsg'] = self.err_msg
+        if self.pattern is not None:
+            result['Pattern'] = self.pattern
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrMsg') is not None:
+            self.err_msg = m.get('ErrMsg')
+        if m.get('Pattern') is not None:
+            self.pattern = m.get('Pattern')
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol(TeaModel):
+    def __init__(self, description=None, max_length=None, regexp=None, symbol=None, tip=None, type=None):
+        self.description = description  # type: str
+        self.max_length = max_length  # type: int
+        self.regexp = regexp  # type: DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp
+        self.symbol = symbol  # type: str
+        self.tip = tip  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.regexp:
+            self.regexp.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.max_length is not None:
+            result['MaxLength'] = self.max_length
+        if self.regexp is not None:
+            result['Regexp'] = self.regexp.to_map()
+        if self.symbol is not None:
+            result['Symbol'] = self.symbol
+        if self.tip is not None:
+            result['Tip'] = self.tip
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('MaxLength') is not None:
+            self.max_length = m.get('MaxLength')
+        if m.get('Regexp') is not None:
+            temp_model = DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbolRegexp()
+            self.regexp = temp_model.from_map(m['Regexp'])
+        if m.get('Symbol') is not None:
+            self.symbol = m.get('Symbol')
+        if m.get('Tip') is not None:
+            self.tip = m.get('Tip')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponseBodyContentFields(TeaModel):
+    def __init__(self, extend_field=None, logical_symbol=None, match_field=None):
+        self.extend_field = extend_field  # type: str
+        self.logical_symbol = logical_symbol  # type: list[DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol]
+        self.match_field = match_field  # type: str
+
+    def validate(self):
+        if self.logical_symbol:
+            for k in self.logical_symbol:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponseBodyContentFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extend_field is not None:
+            result['ExtendField'] = self.extend_field
+        result['LogicalSymbol'] = []
+        if self.logical_symbol is not None:
+            for k in self.logical_symbol:
+                result['LogicalSymbol'].append(k.to_map() if k else None)
+        if self.match_field is not None:
+            result['MatchField'] = self.match_field
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExtendField') is not None:
+            self.extend_field = m.get('ExtendField')
+        self.logical_symbol = []
+        if m.get('LogicalSymbol') is not None:
+            for k in m.get('LogicalSymbol'):
+                temp_model = DescribeDcdnWafFilterInfoResponseBodyContentFieldsLogicalSymbol()
+                self.logical_symbol.append(temp_model.from_map(k))
+        if m.get('MatchField') is not None:
+            self.match_field = m.get('MatchField')
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponseBodyContent(TeaModel):
+    def __init__(self, defense_scene=None, fields=None):
+        self.defense_scene = defense_scene  # type: str
+        self.fields = fields  # type: list[DescribeDcdnWafFilterInfoResponseBodyContentFields]
+
+    def validate(self):
+        if self.fields:
+            for k in self.fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponseBodyContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        result['Fields'] = []
+        if self.fields is not None:
+            for k in self.fields:
+                result['Fields'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        self.fields = []
+        if m.get('Fields') is not None:
+            for k in m.get('Fields'):
+                temp_model = DescribeDcdnWafFilterInfoResponseBodyContentFields()
+                self.fields.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: list[DescribeDcdnWafFilterInfoResponseBodyContent]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content:
+            for k in self.content:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Content'] = []
+        if self.content is not None:
+            for k in self.content:
+                result['Content'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.content = []
+        if m.get('Content') is not None:
+            for k in m.get('Content'):
+                temp_model = DescribeDcdnWafFilterInfoResponseBodyContent()
+                self.content.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnWafFilterInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafFilterInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafFilterInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafFilterInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafPoliciesRequest(TeaModel):
+    def __init__(self, owner_id=None, page_number=None, page_size=None, query_args=None):
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.query_args = query_args  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPoliciesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_args is not None:
+            result['QueryArgs'] = self.query_args
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryArgs') is not None:
+            self.query_args = m.get('QueryArgs')
+        return self
+
+
+class DescribeDcdnWafPoliciesResponseBodyPolicies(TeaModel):
+    def __init__(self, defense_scene=None, domain_count=None, gmt_modified=None, policy_id=None, policy_name=None,
+                 policy_status=None, policy_type=None, rule_count=None):
+        self.defense_scene = defense_scene  # type: str
+        self.domain_count = domain_count  # type: int
+        self.gmt_modified = gmt_modified  # type: str
+        self.policy_id = policy_id  # type: long
+        self.policy_name = policy_name  # type: str
+        self.policy_status = policy_status  # type: str
+        self.policy_type = policy_type  # type: str
+        self.rule_count = rule_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPoliciesResponseBodyPolicies, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.domain_count is not None:
+            result['DomainCount'] = self.domain_count
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_status is not None:
+            result['PolicyStatus'] = self.policy_status
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
+        if self.rule_count is not None:
+            result['RuleCount'] = self.rule_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('DomainCount') is not None:
+            self.domain_count = m.get('DomainCount')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyStatus') is not None:
+            self.policy_status = m.get('PolicyStatus')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
+        if m.get('RuleCount') is not None:
+            self.rule_count = m.get('RuleCount')
+        return self
+
+
+class DescribeDcdnWafPoliciesResponseBody(TeaModel):
+    def __init__(self, page_number=None, page_size=None, policies=None, request_id=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.policies = policies  # type: list[DescribeDcdnWafPoliciesResponseBodyPolicies]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.policies:
+            for k in self.policies:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPoliciesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        result['Policies'] = []
+        if self.policies is not None:
+            for k in self.policies:
+                result['Policies'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        self.policies = []
+        if m.get('Policies') is not None:
+            for k in m.get('Policies'):
+                temp_model = DescribeDcdnWafPoliciesResponseBodyPolicies()
+                self.policies.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnWafPoliciesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafPoliciesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPoliciesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafPoliciesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafPolicyRequest(TeaModel):
+    def __init__(self, owner_id=None, policy_id=None):
+        self.owner_id = owner_id  # type: long
+        self.policy_id = policy_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        return self
+
+
+class DescribeDcdnWafPolicyResponseBodyPolicy(TeaModel):
+    def __init__(self, defense_scene=None, domain_count=None, gmt_modified=None, policy_id=None, policy_name=None,
+                 policy_status=None, policy_type=None, rule_count=None):
+        self.defense_scene = defense_scene  # type: str
+        self.domain_count = domain_count  # type: int
+        self.gmt_modified = gmt_modified  # type: str
+        self.policy_id = policy_id  # type: long
+        self.policy_name = policy_name  # type: str
+        self.policy_status = policy_status  # type: str
+        self.policy_type = policy_type  # type: str
+        self.rule_count = rule_count  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyResponseBodyPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.domain_count is not None:
+            result['DomainCount'] = self.domain_count
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_status is not None:
+            result['PolicyStatus'] = self.policy_status
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
+        if self.rule_count is not None:
+            result['RuleCount'] = self.rule_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('DomainCount') is not None:
+            self.domain_count = m.get('DomainCount')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyStatus') is not None:
+            self.policy_status = m.get('PolicyStatus')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
+        if m.get('RuleCount') is not None:
+            self.rule_count = m.get('RuleCount')
+        return self
+
+
+class DescribeDcdnWafPolicyResponseBody(TeaModel):
+    def __init__(self, policy=None, request_id=None):
+        self.policy = policy  # type: DescribeDcdnWafPolicyResponseBodyPolicy
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.policy:
+            self.policy.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.policy is not None:
+            result['Policy'] = self.policy.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Policy') is not None:
+            temp_model = DescribeDcdnWafPolicyResponseBodyPolicy()
+            self.policy = temp_model.from_map(m['Policy'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnWafPolicyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafPolicyDomainsRequest(TeaModel):
+    def __init__(self, owner_id=None, page_number=None, page_size=None, policy_id=None):
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.policy_id = policy_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        return self
+
+
+class DescribeDcdnWafPolicyDomainsResponseBodyDomains(TeaModel):
+    def __init__(self, domain_name=None):
+        self.domain_name = domain_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyDomainsResponseBodyDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        return self
+
+
+class DescribeDcdnWafPolicyDomainsResponseBody(TeaModel):
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: list[DescribeDcdnWafPolicyDomainsResponseBodyDomains]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = DescribeDcdnWafPolicyDomainsResponseBodyDomains()
+                self.domains.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnWafPolicyDomainsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafPolicyDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafPolicyDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafPolicyValidDomainsRequest(TeaModel):
+    def __init__(self, defense_scene=None, domain_name_like=None, owner_id=None, page_number=None, page_size=None):
+        self.defense_scene = defense_scene  # type: str
+        self.domain_name_like = domain_name_like  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyValidDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.domain_name_like is not None:
+            result['DomainNameLike'] = self.domain_name_like
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('DomainNameLike') is not None:
+            self.domain_name_like = m.get('DomainNameLike')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class DescribeDcdnWafPolicyValidDomainsResponseBodyDomains(TeaModel):
+    def __init__(self, domain_name=None, policy_id=None, policy_name=None, policy_type=None):
+        self.domain_name = domain_name  # type: str
+        self.policy_id = policy_id  # type: long
+        self.policy_name = policy_name  # type: str
+        self.policy_type = policy_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyValidDomainsResponseBodyDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_type is not None:
+            result['PolicyType'] = self.policy_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyType') is not None:
+            self.policy_type = m.get('PolicyType')
+        return self
+
+
+class DescribeDcdnWafPolicyValidDomainsResponseBody(TeaModel):
+    def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        self.domains = domains  # type: list[DescribeDcdnWafPolicyValidDomainsResponseBodyDomains]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyValidDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = DescribeDcdnWafPolicyValidDomainsResponseBodyDomains()
+                self.domains.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnWafPolicyValidDomainsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafPolicyValidDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafPolicyValidDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafPolicyValidDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafRuleRequest(TeaModel):
+    def __init__(self, owner_id=None, rule_id=None):
+        self.owner_id = owner_id  # type: long
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DescribeDcdnWafRuleResponseBodyRule(TeaModel):
+    def __init__(self, defense_scene=None, gmt_modified=None, policy_id=None, rule_config=None, rule_id=None,
+                 rule_name=None, rule_status=None):
+        self.defense_scene = defense_scene  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.policy_id = policy_id  # type: long
+        self.rule_config = rule_config  # type: str
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+        self.rule_status = rule_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRuleResponseBodyRule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.rule_config is not None:
+            result['RuleConfig'] = self.rule_config
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.rule_status is not None:
+            result['RuleStatus'] = self.rule_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('RuleConfig') is not None:
+            self.rule_config = m.get('RuleConfig')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('RuleStatus') is not None:
+            self.rule_status = m.get('RuleStatus')
+        return self
+
+
+class DescribeDcdnWafRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None, rule=None):
+        self.request_id = request_id  # type: str
+        self.rule = rule  # type: DescribeDcdnWafRuleResponseBodyRule
+
+    def validate(self):
+        if self.rule:
+            self.rule.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.rule is not None:
+            result['Rule'] = self.rule.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Rule') is not None:
+            temp_model = DescribeDcdnWafRuleResponseBodyRule()
+            self.rule = temp_model.from_map(m['Rule'])
+        return self
+
+
+class DescribeDcdnWafRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafRuleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafRulesRequest(TeaModel):
+    def __init__(self, owner_id=None, page_number=None, page_size=None, query_args=None):
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.query_args = query_args  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRulesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_args is not None:
+            result['QueryArgs'] = self.query_args
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryArgs') is not None:
+            self.query_args = m.get('QueryArgs')
+        return self
+
+
+class DescribeDcdnWafRulesResponseBodyRules(TeaModel):
+    def __init__(self, defense_scene=None, gmt_modified=None, policy_id=None, rule_config=None, rule_id=None,
+                 rule_name=None, rule_status=None):
+        self.defense_scene = defense_scene  # type: str
+        self.gmt_modified = gmt_modified  # type: str
+        self.policy_id = policy_id  # type: long
+        self.rule_config = rule_config  # type: str
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+        self.rule_status = rule_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRulesResponseBodyRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.rule_config is not None:
+            result['RuleConfig'] = self.rule_config
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.rule_status is not None:
+            result['RuleStatus'] = self.rule_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('RuleConfig') is not None:
+            self.rule_config = m.get('RuleConfig')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('RuleStatus') is not None:
+            self.rule_status = m.get('RuleStatus')
+        return self
+
+
+class DescribeDcdnWafRulesResponseBody(TeaModel):
+    def __init__(self, page_number=None, page_size=None, request_id=None, rules=None, total_count=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.rules = rules  # type: list[DescribeDcdnWafRulesResponseBodyRules]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRulesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = DescribeDcdnWafRulesResponseBodyRules()
+                self.rules.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeDcdnWafRulesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafRulesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafRulesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafRulesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafScenesRequest(TeaModel):
+    def __init__(self, defense_scenes=None, owner_id=None):
+        self.defense_scenes = defense_scenes  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafScenesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scenes is not None:
+            result['DefenseScenes'] = self.defense_scenes
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScenes') is not None:
+            self.defense_scenes = m.get('DefenseScenes')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnWafScenesResponseBodyDefenseScenes(TeaModel):
+    def __init__(self, defense_scene=None, policy_count=None, rule_count=None):
+        self.defense_scene = defense_scene  # type: str
+        self.policy_count = policy_count  # type: int
+        self.rule_count = rule_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafScenesResponseBodyDefenseScenes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        if self.policy_count is not None:
+            result['PolicyCount'] = self.policy_count
+        if self.rule_count is not None:
+            result['RuleCount'] = self.rule_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        if m.get('PolicyCount') is not None:
+            self.policy_count = m.get('PolicyCount')
+        if m.get('RuleCount') is not None:
+            self.rule_count = m.get('RuleCount')
+        return self
+
+
+class DescribeDcdnWafScenesResponseBody(TeaModel):
+    def __init__(self, defense_scenes=None, request_id=None):
+        self.defense_scenes = defense_scenes  # type: list[DescribeDcdnWafScenesResponseBodyDefenseScenes]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.defense_scenes:
+            for k in self.defense_scenes:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafScenesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DefenseScenes'] = []
+        if self.defense_scenes is not None:
+            for k in self.defense_scenes:
+                result['DefenseScenes'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.defense_scenes = []
+        if m.get('DefenseScenes') is not None:
+            for k in m.get('DefenseScenes'):
+                temp_model = DescribeDcdnWafScenesResponseBodyDefenseScenes()
+                self.defense_scenes.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnWafScenesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafScenesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafScenesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafScenesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDcdnWafSpecInfoRequest(TeaModel):
+    def __init__(self, owner_id=None):
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafSpecInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs(TeaModel):
+    def __init__(self, config=None, expr=None, value=None):
+        self.config = config  # type: str
+        self.expr = expr  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.expr is not None:
+            result['Expr'] = self.expr
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('Expr') is not None:
+            self.expr = m.get('Expr')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDcdnWafSpecInfoResponseBodySpecInfos(TeaModel):
+    def __init__(self, configs=None, defense_scene=None):
+        self.configs = configs  # type: list[DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs]
+        self.defense_scene = defense_scene  # type: str
+
+    def validate(self):
+        if self.configs:
+            for k in self.configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafSpecInfoResponseBodySpecInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Configs'] = []
+        if self.configs is not None:
+            for k in self.configs:
+                result['Configs'].append(k.to_map() if k else None)
+        if self.defense_scene is not None:
+            result['DefenseScene'] = self.defense_scene
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.configs = []
+        if m.get('Configs') is not None:
+            for k in m.get('Configs'):
+                temp_model = DescribeDcdnWafSpecInfoResponseBodySpecInfosConfigs()
+                self.configs.append(temp_model.from_map(k))
+        if m.get('DefenseScene') is not None:
+            self.defense_scene = m.get('DefenseScene')
+        return self
+
+
+class DescribeDcdnWafSpecInfoResponseBody(TeaModel):
+    def __init__(self, edition=None, request_id=None, spec_infos=None):
+        self.edition = edition  # type: str
+        self.request_id = request_id  # type: str
+        self.spec_infos = spec_infos  # type: list[DescribeDcdnWafSpecInfoResponseBodySpecInfos]
+
+    def validate(self):
+        if self.spec_infos:
+            for k in self.spec_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafSpecInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.edition is not None:
+            result['Edition'] = self.edition
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SpecInfos'] = []
+        if self.spec_infos is not None:
+            for k in self.spec_infos:
+                result['SpecInfos'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Edition') is not None:
+            self.edition = m.get('Edition')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.spec_infos = []
+        if m.get('SpecInfos') is not None:
+            for k in m.get('SpecInfos'):
+                temp_model = DescribeDcdnWafSpecInfoResponseBodySpecInfos()
+                self.spec_infos.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDcdnWafSpecInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnWafSpecInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnWafSpecInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnWafSpecInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnsecServiceRequest(TeaModel):
     def __init__(self, owner_id=None, security_token=None):
         self.owner_id = owner_id  # type: long
@@ -22095,6 +24413,299 @@ class ModifyDCdnDomainSchdmByPropertyResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ModifyDCdnDomainSchdmByPropertyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDcdnWafPolicyRequest(TeaModel):
+    def __init__(self, owner_id=None, policy_id=None, policy_name=None, policy_status=None):
+        self.owner_id = owner_id  # type: long
+        self.policy_id = policy_id  # type: long
+        self.policy_name = policy_name  # type: str
+        self.policy_status = policy_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.policy_name is not None:
+            result['PolicyName'] = self.policy_name
+        if self.policy_status is not None:
+            result['PolicyStatus'] = self.policy_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('PolicyName') is not None:
+            self.policy_name = m.get('PolicyName')
+        if m.get('PolicyStatus') is not None:
+            self.policy_status = m.get('PolicyStatus')
+        return self
+
+
+class ModifyDcdnWafPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDcdnWafPolicyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyDcdnWafPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyDcdnWafPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDcdnWafPolicyDomainsRequest(TeaModel):
+    def __init__(self, bind_domains=None, owner_id=None, policy_id=None, unbind_domains=None):
+        self.bind_domains = bind_domains  # type: str
+        self.owner_id = owner_id  # type: long
+        self.policy_id = policy_id  # type: long
+        self.unbind_domains = unbind_domains  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bind_domains is not None:
+            result['BindDomains'] = self.bind_domains
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.policy_id is not None:
+            result['PolicyId'] = self.policy_id
+        if self.unbind_domains is not None:
+            result['UnbindDomains'] = self.unbind_domains
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BindDomains') is not None:
+            self.bind_domains = m.get('BindDomains')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PolicyId') is not None:
+            self.policy_id = m.get('PolicyId')
+        if m.get('UnbindDomains') is not None:
+            self.unbind_domains = m.get('UnbindDomains')
+        return self
+
+
+class ModifyDcdnWafPolicyDomainsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDcdnWafPolicyDomainsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyDcdnWafPolicyDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafPolicyDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyDcdnWafPolicyDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyDcdnWafRuleRequest(TeaModel):
+    def __init__(self, owner_id=None, rule_config=None, rule_id=None, rule_name=None, rule_status=None):
+        self.owner_id = owner_id  # type: long
+        self.rule_config = rule_config  # type: str
+        self.rule_id = rule_id  # type: long
+        self.rule_name = rule_name  # type: str
+        self.rule_status = rule_status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafRuleRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.rule_config is not None:
+            result['RuleConfig'] = self.rule_config
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        if self.rule_name is not None:
+            result['RuleName'] = self.rule_name
+        if self.rule_status is not None:
+            result['RuleStatus'] = self.rule_status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RuleConfig') is not None:
+            self.rule_config = m.get('RuleConfig')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        if m.get('RuleName') is not None:
+            self.rule_name = m.get('RuleName')
+        if m.get('RuleStatus') is not None:
+            self.rule_status = m.get('RuleStatus')
+        return self
+
+
+class ModifyDcdnWafRuleResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafRuleResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyDcdnWafRuleResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyDcdnWafRuleResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyDcdnWafRuleResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyDcdnWafRuleResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
