@@ -18569,6 +18569,139 @@ class DescribeDcdnUserCertificateExpireCountResponse(TeaModel):
         return self
 
 
+class DescribeDcdnUserConfigsRequest(TeaModel):
+    def __init__(self, function_name=None, owner_id=None):
+        self.function_name = function_name  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserConfigsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeDcdnUserConfigsResponseBodyConfigs(TeaModel):
+    def __init__(self, arg_name=None, arg_value=None, function_name=None):
+        self.arg_name = arg_name  # type: str
+        self.arg_value = arg_value  # type: str
+        self.function_name = function_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserConfigsResponseBodyConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arg_name is not None:
+            result['ArgName'] = self.arg_name
+        if self.arg_value is not None:
+            result['ArgValue'] = self.arg_value
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ArgName') is not None:
+            self.arg_name = m.get('ArgName')
+        if m.get('ArgValue') is not None:
+            self.arg_value = m.get('ArgValue')
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        return self
+
+
+class DescribeDcdnUserConfigsResponseBody(TeaModel):
+    def __init__(self, configs=None, request_id=None):
+        self.configs = configs  # type: list[DescribeDcdnUserConfigsResponseBodyConfigs]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.configs:
+            for k in self.configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserConfigsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Configs'] = []
+        if self.configs is not None:
+            for k in self.configs:
+                result['Configs'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.configs = []
+        if m.get('Configs') is not None:
+            for k in m.get('Configs'):
+                temp_model = DescribeDcdnUserConfigsResponseBodyConfigs()
+                self.configs.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeDcdnUserConfigsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDcdnUserConfigsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDcdnUserConfigsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDcdnUserConfigsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeDcdnUserDomainsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
