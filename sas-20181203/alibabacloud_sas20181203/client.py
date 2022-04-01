@@ -1383,34 +1383,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_criteria_with_options(request, runtime)
 
-    def describe_dialog_messages_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeDialogMessages',
-            version='2018-12-03',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            sas_20181203_models.DescribeDialogMessagesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_dialog_messages(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dialog_messages_with_options(request, runtime)
-
     def describe_ding_talk_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2468,6 +2440,40 @@ class Client(OpenApiClient):
     def describe_instance_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_statistics_with_options(request, runtime)
+
+    def describe_login_base_configs_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLoginBaseConfigs',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeLoginBaseConfigsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_login_base_configs(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_login_base_configs_with_options(request, runtime)
 
     def describe_logstore_storage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
