@@ -76,14 +76,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -127,14 +121,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -211,10 +199,6 @@ class Client(OpenApiClient):
             real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -257,14 +241,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -316,14 +294,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -375,14 +347,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -421,14 +387,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -466,14 +426,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -507,14 +461,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -551,14 +499,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -597,14 +539,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -646,14 +582,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -689,14 +619,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -732,14 +656,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -774,14 +692,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -819,14 +731,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -861,14 +767,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -908,14 +808,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -949,14 +843,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -991,14 +879,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1032,14 +914,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1078,14 +954,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1125,14 +995,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1172,14 +1036,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1219,14 +1077,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1262,14 +1114,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1291,47 +1137,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_layer_version_by_arn(self, arn):
-        runtime = util_models.RuntimeOptions()
-        headers = fc__open_20210406_models.GetLayerVersionByArnHeaders()
-        return self.get_layer_version_by_arn_with_options(arn, headers, runtime)
-
-    def get_layer_version_by_arn_with_options(self, arn, headers, runtime):
-        arn = OpenApiUtilClient.get_encode_param(arn)
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_fc_account_id):
-            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
-        if not UtilClient.is_unset(headers.x_fc_date):
-            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
-        if not UtilClient.is_unset(headers.x_fc_trace_id):
-            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers
-        )
-        params = open_api_models.Params(
-            action='GetLayerVersionByArn',
-            version='2021-04-06',
-            protocol='HTTPS',
-            pathname='/2021-04-06/layerarn/%s' % TeaConverter.to_unicode(arn),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            fc__open_20210406_models.GetLayerVersionByArnResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def get_provision_config(self, service_name, function_name, request):
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.GetProvisionConfigHeaders()
@@ -1349,14 +1154,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1394,14 +1193,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1440,14 +1233,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1532,14 +1319,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1578,8 +1359,6 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
         if not UtilClient.is_unset(headers.x_fc_invocation_type):
@@ -1633,14 +1412,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1684,14 +1457,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1731,14 +1498,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1834,14 +1595,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1864,47 +1619,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_instances(self, service_name, function_name, request):
-        runtime = util_models.RuntimeOptions()
-        headers = fc__open_20210406_models.ListInstancesHeaders()
-        return self.list_instances_with_options(service_name, function_name, request, headers, runtime)
-
-    def list_instances_with_options(self, service_name, function_name, request, headers, runtime):
-        UtilClient.validate_model(request)
-        service_name = OpenApiUtilClient.get_encode_param(service_name)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        query = {}
-        if not UtilClient.is_unset(request.limit):
-            query['limit'] = request.limit
-        if not UtilClient.is_unset(request.next_token):
-            query['nextToken'] = request.next_token
-        if not UtilClient.is_unset(request.qualifier):
-            query['qualifier'] = request.qualifier
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_fc_account_id):
-            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListInstances',
-            version='2021-04-06',
-            protocol='HTTPS',
-            pathname='/2021-04-06/services/%s/functions/%s/instances' % (TeaConverter.to_unicode(service_name), TeaConverter.to_unicode(function_name)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            fc__open_20210406_models.ListInstancesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def list_layer_versions(self, layer_name, request):
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.ListLayerVersionsHeaders()
@@ -1923,14 +1637,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -1974,14 +1682,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2025,14 +1727,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2076,14 +1772,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2123,14 +1813,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2175,14 +1859,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2226,14 +1904,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2253,6 +1925,47 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListServicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_stateful_async_invocation_functions(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = fc__open_20210406_models.ListStatefulAsyncInvocationFunctionsHeaders()
+        return self.list_stateful_async_invocation_functions_with_options(request, headers, runtime)
+
+    def list_stateful_async_invocation_functions_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.limit):
+            query['limit'] = request.limit
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_fc_account_id):
+            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
+        if not UtilClient.is_unset(headers.x_fc_date):
+            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
+        if not UtilClient.is_unset(headers.x_fc_trace_id):
+            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListStatefulAsyncInvocationFunctions',
+            version='2021-04-06',
+            protocol='HTTPS',
+            pathname='/2021-04-06/stateful-async-invocation-functions',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc__open_20210406_models.ListStatefulAsyncInvocationFunctionsResponse(),
             self.call_api(params, req, runtime)
         )
 
@@ -2336,14 +2049,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2389,14 +2096,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2431,14 +2132,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2460,91 +2155,6 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def permanent_delete_layer_version(self, user_id, layer_name, version):
-        runtime = util_models.RuntimeOptions()
-        headers = fc__open_20210406_models.PermanentDeleteLayerVersionHeaders()
-        return self.permanent_delete_layer_version_with_options(user_id, layer_name, version, headers, runtime)
-
-    def permanent_delete_layer_version_with_options(self, user_id, layer_name, version, headers, runtime):
-        user_id = OpenApiUtilClient.get_encode_param(user_id)
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
-        version = OpenApiUtilClient.get_encode_param(version)
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_fc_account_id):
-            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
-        if not UtilClient.is_unset(headers.x_fc_date):
-            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
-        if not UtilClient.is_unset(headers.x_fc_trace_id):
-            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers
-        )
-        params = open_api_models.Params(
-            action='PermanentDeleteLayerVersion',
-            version='2021-04-06',
-            protocol='HTTPS',
-            pathname='/2021-04-06/adminlayers/%s/%s/versions/%s' % (TeaConverter.to_unicode(user_id), TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            fc__open_20210406_models.PermanentDeleteLayerVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def publish_layer_as_public(self, layer_name, version):
-        runtime = util_models.RuntimeOptions()
-        headers = fc__open_20210406_models.PublishLayerAsPublicHeaders()
-        return self.publish_layer_as_public_with_options(layer_name, version, headers, runtime)
-
-    def publish_layer_as_public_with_options(self, layer_name, version, headers, runtime):
-        layer_name = OpenApiUtilClient.get_encode_param(layer_name)
-        version = OpenApiUtilClient.get_encode_param(version)
-        real_headers = {}
-        if not UtilClient.is_unset(headers.common_headers):
-            real_headers = headers.common_headers
-        if not UtilClient.is_unset(headers.x_fc_account_id):
-            real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
-        if not UtilClient.is_unset(headers.x_fc_date):
-            real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
-        if not UtilClient.is_unset(headers.x_fc_trace_id):
-            real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
-        req = open_api_models.OpenApiRequest(
-            headers=real_headers
-        )
-        params = open_api_models.Params(
-            action='PublishLayerAsPublic',
-            version='2021-04-06',
-            protocol='HTTPS',
-            pathname='/2021-04-06/layers/%s/versions/%s' % (TeaConverter.to_unicode(layer_name), TeaConverter.to_unicode(version)),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            fc__open_20210406_models.PublishLayerAsPublicResponse(),
-            self.call_api(params, req, runtime)
-        )
-
     def publish_service_version(self, service_name, request):
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.PublishServiceVersionHeaders()
@@ -2563,14 +2173,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2619,14 +2223,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2672,14 +2270,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2727,14 +2319,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2778,14 +2364,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2827,14 +2407,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2874,14 +2448,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2923,14 +2491,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -2976,14 +2538,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -3026,14 +2582,8 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -3111,10 +2661,6 @@ class Client(OpenApiClient):
             real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -3167,14 +2713,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
@@ -3223,14 +2763,8 @@ class Client(OpenApiClient):
             real_headers['If-Match'] = UtilClient.to_jsonstring(headers.if_match)
         if not UtilClient.is_unset(headers.x_fc_account_id):
             real_headers['X-Fc-Account-Id'] = UtilClient.to_jsonstring(headers.x_fc_account_id)
-        if not UtilClient.is_unset(headers.x_fc_code_checksum):
-            real_headers['X-Fc-Code-Checksum'] = UtilClient.to_jsonstring(headers.x_fc_code_checksum)
         if not UtilClient.is_unset(headers.x_fc_date):
             real_headers['X-Fc-Date'] = UtilClient.to_jsonstring(headers.x_fc_date)
-        if not UtilClient.is_unset(headers.x_fc_invocation_type):
-            real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
-        if not UtilClient.is_unset(headers.x_fc_log_type):
-            real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
             real_headers['X-Fc-Trace-Id'] = UtilClient.to_jsonstring(headers.x_fc_trace_id)
         req = open_api_models.OpenApiRequest(
