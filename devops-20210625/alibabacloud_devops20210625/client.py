@@ -31,6 +31,45 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_repository_member(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.add_repository_member_with_options(repository_id, request, headers, runtime)
+
+    def add_repository_member_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        repository_id = OpenApiUtilClient.get_encode_param(repository_id)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['AccessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.access_level):
+            body['accessLevel'] = request.access_level
+        if not UtilClient.is_unset(request.aliyun_pks):
+            body['aliyunPks'] = request.aliyun_pks
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddRepositoryMember',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/repository/%s/members' % TeaConverter.to_unicode(repository_id),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.AddRepositoryMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
     def add_webhook(self, repository_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -263,8 +302,6 @@ class Client(OpenApiClient):
             body['importDemoProject'] = request.import_demo_project
         if not UtilClient.is_unset(request.import_repo_type):
             body['importRepoType'] = request.import_repo_type
-        if not UtilClient.is_unset(request.import_svn_repo_config):
-            body['importSvnRepoConfig'] = request.import_svn_repo_config
         if not UtilClient.is_unset(request.import_token):
             body['importToken'] = request.import_token
         if not UtilClient.is_unset(request.import_token_encrypted):
