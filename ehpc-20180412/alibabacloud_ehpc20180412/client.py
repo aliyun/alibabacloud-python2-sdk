@@ -784,6 +784,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_container_app_with_options(request, runtime)
 
+    def describe_deploy_process_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDeployProcess',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.DescribeDeployProcessResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_deploy_process(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_deploy_process_with_options(request, runtime)
+
     def describe_gwscluster_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1283,6 +1309,58 @@ class Client(OpenApiClient):
     def get_if_ecs_type_support_ht_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_if_ecs_type_support_ht_config_with_options(request, runtime)
+
+    def get_post_scripts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPostScripts',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.GetPostScriptsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_post_scripts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_post_scripts_with_options(request, runtime)
+
+    def get_queue_conf_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetQueueConf',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.GetQueueConfResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_queue_conf(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_queue_conf_with_options(request, runtime)
 
     def get_scheduler_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1877,6 +1955,32 @@ class Client(OpenApiClient):
     def list_jobs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_jobs_with_options(request, runtime)
+
+    def list_jobs_with_filters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListJobsWithFilters',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.ListJobsWithFiltersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_jobs_with_filters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_jobs_with_filters_with_options(request, runtime)
 
     def list_nodes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2611,6 +2715,32 @@ class Client(OpenApiClient):
     def set_gwsinstance_user(self, request):
         runtime = util_models.RuntimeOptions()
         return self.set_gwsinstance_user_with_options(request, runtime)
+
+    def set_post_scripts_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetPostScripts',
+            version='2018-04-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ehpc20180412_models.SetPostScriptsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_post_scripts(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_post_scripts_with_options(request, runtime)
 
     def set_queue_with_options(self, request, runtime):
         UtilClient.validate_model(request)
