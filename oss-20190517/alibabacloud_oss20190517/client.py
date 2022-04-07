@@ -48,7 +48,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.AbortBucketWormResponse(),
@@ -82,7 +82,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.AbortMultipartUploadResponse(),
@@ -139,7 +139,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='binary',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.AppendObjectResponse(),
@@ -172,7 +172,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.CompleteBucketWormResponse(),
@@ -256,16 +256,16 @@ class Client(OpenApiClient):
             real_headers['x-oss-metadata-directive'] = UtilClient.to_jsonstring(headers.metadata_directive)
         if not UtilClient.is_unset(headers.acl):
             real_headers['x-oss-object-acl'] = UtilClient.to_jsonstring(headers.acl)
-        if not UtilClient.is_unset(headers.sse):
-            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.sse)
+        if not UtilClient.is_unset(headers.server_side_encryption):
+            real_headers['x-oss-server-side-encryption'] = UtilClient.to_jsonstring(headers.server_side_encryption)
         if not UtilClient.is_unset(headers.sse_key_id):
             real_headers['x-oss-server-side-encryption-key-id'] = UtilClient.to_jsonstring(headers.sse_key_id)
         if not UtilClient.is_unset(headers.storage_class):
             real_headers['x-oss-storage-class'] = UtilClient.to_jsonstring(headers.storage_class)
         if not UtilClient.is_unset(headers.tagging):
             real_headers['x-oss-tagging'] = UtilClient.to_jsonstring(headers.tagging)
-        if not UtilClient.is_unset(headers.x_oss_tagging_directive):
-            real_headers['x-oss-tagging-directive'] = UtilClient.to_jsonstring(headers.x_oss_tagging_directive)
+        if not UtilClient.is_unset(headers.tagging_directive):
+            real_headers['x-oss-tagging-directive'] = UtilClient.to_jsonstring(headers.tagging_directive)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers
@@ -278,11 +278,42 @@ class Client(OpenApiClient):
             method='PUT',
             auth_type='AK',
             style='ROA',
-            req_body_type='binary',
+            req_body_type='xml',
             body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.CopyObjectResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_select_object_meta(self, bucket, key, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_select_object_meta_with_options(bucket, key, request, headers, runtime)
+
+    def create_select_object_meta_with_options(self, bucket, key, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['bucket'] = bucket
+        key = OpenApiUtilClient.get_encode_param(key)
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.select_meta_request))
+        )
+        params = open_api_models.Params(
+            action='CreateSelectObjectMeta',
+            version='2019-05-17',
+            protocol='HTTPS',
+            pathname='/%s' % TeaConverter.to_unicode(key),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='xml',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            oss_20190517_models.CreateSelectObjectMetaResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -307,7 +338,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketResponse(),
@@ -335,7 +366,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketCorsResponse(),
@@ -363,7 +394,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketEncryptionResponse(),
@@ -396,7 +427,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketInventoryResponse(),
@@ -424,7 +455,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketLifecycleResponse(),
@@ -452,7 +483,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketLoggingResponse(),
@@ -480,7 +511,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketPolicyResponse(),
@@ -496,13 +527,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.body):
-            body['body'] = request.body
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
         )
         params = open_api_models.Params(
             action='DeleteBucketReplication',
@@ -513,7 +541,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketReplicationResponse(),
@@ -541,7 +569,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketTagsResponse(),
@@ -569,7 +597,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteBucketWebsiteResponse(),
@@ -598,30 +626,30 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteLiveChannelResponse(),
             self.execute(params, req, runtime)
         )
 
-    def delete_multiple_objects(self, request):
+    def delete_multiple_objects(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_multiple_objects_with_options(request, headers, runtime)
+        return self.delete_multiple_objects_with_options(bucket, request, headers, runtime)
 
-    def delete_multiple_objects_with_options(self, request, headers, runtime):
+    def delete_multiple_objects_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
+        host_map = {}
+        host_map['bucket'] = bucket
         query = {}
         if not UtilClient.is_unset(request.encoding_type):
             query['encoding-type'] = request.encoding_type
-        body = {}
-        if not UtilClient.is_unset(request.delete):
-            body['delete'] = request.delete
         req = open_api_models.OpenApiRequest(
+            host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.delete))
         )
         params = open_api_models.Params(
             action='DeleteMultipleObjects',
@@ -665,7 +693,7 @@ class Client(OpenApiClient):
             method='DELETE',
             auth_type='AK',
             style='ROA',
-            req_body_type='binary',
+            req_body_type='xml',
             body_type='none'
         )
         return TeaCore.from_map(
@@ -700,7 +728,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.DeleteObjectTaggingResponse(),
@@ -767,51 +795,10 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
-        )
-        return TeaCore.from_map(
-            oss_20190517_models.ExtendBucketWormResponse(),
-            self.execute(params, req, runtime)
-        )
-
-    def get_bucket(self, bucket, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_bucket_with_options(bucket, request, headers, runtime)
-
-    def get_bucket_with_options(self, bucket, request, headers, runtime):
-        UtilClient.validate_model(request)
-        host_map = {}
-        host_map['bucket'] = bucket
-        query = {}
-        if not UtilClient.is_unset(request.delimiter):
-            query['delimiter'] = request.delimiter
-        if not UtilClient.is_unset(request.encoding_type):
-            query['encoding-type'] = request.encoding_type
-        if not UtilClient.is_unset(request.marker):
-            query['marker'] = request.marker
-        if not UtilClient.is_unset(request.max_keys):
-            query['max-keys'] = request.max_keys
-        if not UtilClient.is_unset(request.prefix):
-            query['prefix'] = request.prefix
-        req = open_api_models.OpenApiRequest(
-            host_map=host_map,
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetBucket',
-            version='2019-05-17',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='xml',
             body_type='xml'
         )
         return TeaCore.from_map(
-            oss_20190517_models.GetBucketResponse(),
+            oss_20190517_models.ExtendBucketWormResponse(),
             self.execute(params, req, runtime)
         )
 
@@ -1563,7 +1550,7 @@ class Client(OpenApiClient):
             method='HEAD',
             auth_type='AK',
             style='ROA',
-            req_body_type='binary',
+            req_body_type='xml',
             body_type='none'
         )
         return TeaCore.from_map(
@@ -1605,40 +1592,6 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_service(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_service_with_options(request, headers, runtime)
-
-    def get_service_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.marker):
-            query['marker'] = request.marker
-        if not UtilClient.is_unset(request.max_keys):
-            query['max-keys'] = request.max_keys
-        if not UtilClient.is_unset(request.prefix):
-            query['prefix'] = request.prefix
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetService',
-            version='2019-05-17',
-            protocol='HTTPS',
-            pathname='/',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='xml',
-            body_type='xml'
-        )
-        return TeaCore.from_map(
-            oss_20190517_models.GetServiceResponse(),
-            self.execute(params, req, runtime)
-        )
-
     def get_symlink(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
@@ -1666,7 +1619,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.GetSymlinkResponse(),
@@ -1763,13 +1716,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.initiate_worm_configuration):
-            body['InitiateWormConfiguration'] = request.initiate_worm_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.initiate_worm_configuration))
         )
         params = open_api_models.Params(
             action='InitiateBucketWorm',
@@ -1780,7 +1730,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.InitiateBucketWormResponse(),
@@ -2195,7 +2145,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.OptionObjectResponse(),
@@ -2223,7 +2173,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='none',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PostObjectResponse(),
@@ -2260,7 +2210,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PostVodPlaylistResponse(),
@@ -2276,9 +2226,6 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.create_bucket_configuration):
-            body['CreateBucketConfiguration'] = request.create_bucket_configuration
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -2287,7 +2234,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.create_bucket_configuration))
         )
         params = open_api_models.Params(
             action='PutBucket',
@@ -2298,7 +2245,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketResponse(),
@@ -2331,7 +2278,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketAclResponse(),
@@ -2347,13 +2294,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.c_orsconfiguration):
-            body['CORSConfiguration'] = request.c_orsconfiguration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.c_orsconfiguration))
         )
         params = open_api_models.Params(
             action='PutBucketCors',
@@ -2364,7 +2308,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketCorsResponse(),
@@ -2380,13 +2324,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.server_side_encryption_rule):
-            body['ServerSideEncryptionRule'] = request.server_side_encryption_rule
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.server_side_encryption_rule))
         )
         params = open_api_models.Params(
             action='PutBucketEncryption',
@@ -2397,7 +2338,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketEncryptionResponse(),
@@ -2416,14 +2357,11 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.inventory_id):
             query['inventoryId'] = request.inventory_id
-        body = {}
-        if not UtilClient.is_unset(request.inventory_configuration):
-            body['InventoryConfiguration'] = request.inventory_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.inventory_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketInventory',
@@ -2434,7 +2372,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketInventoryResponse(),
@@ -2450,13 +2388,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.lifecycle_configuration):
-            body['LifecycleConfiguration'] = request.lifecycle_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.lifecycle_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketLifecycle',
@@ -2467,7 +2402,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketLifecycleResponse(),
@@ -2483,13 +2418,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.bucket_logging_status):
-            body['BucketLoggingStatus'] = request.bucket_logging_status
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.bucket_logging_status))
         )
         params = open_api_models.Params(
             action='PutBucketLogging',
@@ -2500,7 +2432,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketLoggingResponse(),
@@ -2530,7 +2462,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketPolicyResponse(),
@@ -2546,13 +2478,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.referer_configuration):
-            body['RefererConfiguration'] = request.referer_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.referer_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketReferer',
@@ -2563,7 +2492,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketRefererResponse(),
@@ -2579,13 +2508,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.replication_configuration):
-            body['ReplicationConfiguration'] = request.replication_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.replication_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketReplication',
@@ -2596,7 +2522,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketReplicationResponse(),
@@ -2612,13 +2538,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.request_payment_configuration):
-            body['RequestPaymentConfiguration'] = request.request_payment_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.request_payment_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketRequestPayment',
@@ -2629,7 +2552,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketRequestPaymentResponse(),
@@ -2645,13 +2568,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.tagging):
-            body['Tagging'] = request.tagging
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.tagging))
         )
         params = open_api_models.Params(
             action='PutBucketTags',
@@ -2662,7 +2582,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketTagsResponse(),
@@ -2678,13 +2598,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.transfer_acceleration_configuration):
-            body['TransferAccelerationConfiguration'] = request.transfer_acceleration_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.transfer_acceleration_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketTransferAcceleration',
@@ -2695,7 +2612,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketTransferAccelerationResponse(),
@@ -2711,13 +2628,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.versioning_configuration):
-            body['VersioningConfiguration'] = request.versioning_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.versioning_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketVersioning',
@@ -2728,7 +2642,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketVersioningResponse(),
@@ -2744,13 +2658,10 @@ class Client(OpenApiClient):
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
-        body = {}
-        if not UtilClient.is_unset(request.website_configuration):
-            body['WebsiteConfiguration'] = request.website_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.website_configuration))
         )
         params = open_api_models.Params(
             action='PutBucketWebsite',
@@ -2761,7 +2672,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutBucketWebsiteResponse(),
@@ -2778,13 +2689,10 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['bucket'] = bucket
         channel = OpenApiUtilClient.get_encode_param(channel)
-        body = {}
-        if not UtilClient.is_unset(request.live_channel_configuration):
-            body['LiveChannelConfiguration'] = request.live_channel_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.live_channel_configuration))
         )
         params = open_api_models.Params(
             action='PutLiveChannel',
@@ -2829,7 +2737,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutLiveChannelStatusResponse(),
@@ -2919,7 +2827,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutObjectAclResponse(),
@@ -2939,14 +2847,11 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.version_id):
             query['versionId'] = request.version_id
-        body = {}
-        if not UtilClient.is_unset(request.tagging):
-            body['Tagging'] = request.tagging
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.tagging))
         )
         params = open_api_models.Params(
             action='PutObjectTagging',
@@ -2957,7 +2862,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutObjectTaggingResponse(),
@@ -2997,7 +2902,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.PutSymlinkResponse(),
@@ -3017,14 +2922,11 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.version_id):
             query['versionId'] = request.version_id
-        body = {}
-        if not UtilClient.is_unset(request.body):
-            body['body'] = request.body
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.restore_request))
         )
         params = open_api_models.Params(
             action='RestoreObject',
@@ -3035,7 +2937,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.RestoreObjectResponse(),
@@ -3052,13 +2954,10 @@ class Client(OpenApiClient):
         host_map = {}
         host_map['bucket'] = bucket
         key = OpenApiUtilClient.get_encode_param(key)
-        body = {}
-        if not UtilClient.is_unset(request.select_request):
-            body['SelectRequest'] = request.select_request
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.select_request))
         )
         params = open_api_models.Params(
             action='SelectObject',
@@ -3107,7 +3006,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='binary',
-            body_type='none'
+            body_type='xml'
         )
         return TeaCore.from_map(
             oss_20190517_models.UploadPartResponse(),
