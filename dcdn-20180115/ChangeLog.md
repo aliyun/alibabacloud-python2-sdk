@@ -1,3 +1,6 @@
+2022-04-07 Version: 1.0.8
+- Add DescribeDcdnWafService.
+
 2022-03-31 Version: 1.0.7
 - Add waf api.
 

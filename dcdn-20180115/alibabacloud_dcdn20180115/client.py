@@ -4706,6 +4706,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_waf_scenes_with_options(request, runtime)
 
+    def describe_dcdn_waf_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnWafService',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnWafServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_waf_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_waf_service_with_options(request, runtime)
+
     def describe_dcdn_waf_spec_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
