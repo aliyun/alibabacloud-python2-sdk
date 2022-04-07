@@ -5,8 +5,8 @@ from Tea.model import TeaModel
 
 class Instance(TeaModel):
     def __init__(self, host_ip=None, host_name=None, inner_ip=None, instance_name=None, instance_port=None,
-                 last_state=None, ready_processes=None, reason=None, restart_count=None, start_at=None, status=None,
-                 total_processes=None):
+                 last_state=None, namespace=None, ready_processes=None, reason=None, restart_count=None, start_at=None,
+                 status=None, total_processes=None):
         # 实例所在的宿主机IP
         self.host_ip = host_ip  # type: str
         # 实例所在的宿主机名字
@@ -19,6 +19,8 @@ class Instance(TeaModel):
         self.instance_port = instance_port  # type: int
         # 实例上一次退出的状态
         self.last_state = last_state  # type: list[dict[str, any]]
+        # 实例的命名空间
+        self.namespace = namespace  # type: str
         # 实例已经启动完成的进程数
         self.ready_processes = ready_processes  # type: int
         # 实例当前状态的标识
@@ -53,6 +55,8 @@ class Instance(TeaModel):
             result['InstancePort'] = self.instance_port
         if self.last_state is not None:
             result['LastState'] = self.last_state
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
         if self.ready_processes is not None:
             result['ReadyProcesses'] = self.ready_processes
         if self.reason is not None:
@@ -81,6 +85,8 @@ class Instance(TeaModel):
             self.instance_port = m.get('InstancePort')
         if m.get('LastState') is not None:
             self.last_state = m.get('LastState')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
         if m.get('ReadyProcesses') is not None:
             self.ready_processes = m.get('ReadyProcesses')
         if m.get('Reason') is not None:
@@ -656,7 +662,7 @@ class CreateResourceResponseBody(TeaModel):
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.resource_id is not None:
-            result['ResourceID'] = self.resource_id
+            result['ResourceId'] = self.resource_id
         if self.resource_name is not None:
             result['ResourceName'] = self.resource_name
         return result
@@ -669,8 +675,8 @@ class CreateResourceResponseBody(TeaModel):
             self.owner_uid = m.get('OwnerUid')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('ResourceID') is not None:
-            self.resource_id = m.get('ResourceID')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
         if m.get('ResourceName') is not None:
             self.resource_name = m.get('ResourceName')
         return self
@@ -2016,6 +2022,103 @@ class DeleteServiceMirrorResponse(TeaModel):
         return self
 
 
+class DescribeRegionsResponseBodyRegions(TeaModel):
+    def __init__(self, region_id=None):
+        # 地域Id
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRegionsResponseBodyRegions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeRegionsResponseBody(TeaModel):
+    def __init__(self, regions=None, request_id=None):
+        # 可用地域列表
+        self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.regions:
+            for k in self.regions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Regions'] = []
+        if self.regions is not None:
+            for k in self.regions:
+                result['Regions'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.regions = []
+        if m.get('Regions') is not None:
+            for k in m.get('Regions'):
+                temp_model = DescribeRegionsResponseBodyRegions()
+                self.regions.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeRegionsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeRegionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeRegionsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeResourceResponseBody(TeaModel):
     def __init__(self, cluster_id=None, cpu_count=None, create_time=None, extra_data=None, gpu_count=None,
                  instance_count=None, message=None, owner_uid=None, post_paid_instance_count=None, pre_paid_instance_count=None,
@@ -2350,7 +2453,9 @@ class DescribeServiceResponse(TeaModel):
 
 
 class DescribeServiceAutoScalerResponseBody(TeaModel):
-    def __init__(self, max_replica=None, min_replica=None, request_id=None, service_name=None, strategies=None):
+    def __init__(self, current_values=None, max_replica=None, min_replica=None, request_id=None, service_name=None,
+                 strategies=None):
+        self.current_values = current_values  # type: dict[str, any]
         # 服务最大实例数
         self.max_replica = max_replica  # type: int
         # 服务最小实例数
@@ -2371,6 +2476,8 @@ class DescribeServiceAutoScalerResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.current_values is not None:
+            result['CurrentValues'] = self.current_values
         if self.max_replica is not None:
             result['MaxReplica'] = self.max_replica
         if self.min_replica is not None:
@@ -2385,6 +2492,8 @@ class DescribeServiceAutoScalerResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CurrentValues') is not None:
+            self.current_values = m.get('CurrentValues')
         if m.get('MaxReplica') is not None:
             self.max_replica = m.get('MaxReplica')
         if m.get('MinReplica') is not None:
@@ -2432,7 +2541,9 @@ class DescribeServiceAutoScalerResponse(TeaModel):
 
 
 class DescribeServiceCronScalerResponseBodyScaleJobs(TeaModel):
-    def __init__(self, last_probe_time=None, message=None, name=None, schedule=None, state=None, target_size=None):
+    def __init__(self, create_time=None, last_probe_time=None, message=None, name=None, schedule=None, state=None,
+                 target_size=None):
+        self.create_time = create_time  # type: str
         self.last_probe_time = last_probe_time  # type: str
         self.message = message  # type: str
         self.name = name  # type: str
@@ -2449,6 +2560,8 @@ class DescribeServiceCronScalerResponseBodyScaleJobs(TeaModel):
             return _map
 
         result = dict()
+        if self.create_time is not None:
+            result['CreateTime'] = self.create_time
         if self.last_probe_time is not None:
             result['LastProbeTime'] = self.last_probe_time
         if self.message is not None:
@@ -2465,6 +2578,8 @@ class DescribeServiceCronScalerResponseBodyScaleJobs(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CreateTime') is not None:
+            self.create_time = m.get('CreateTime')
         if m.get('LastProbeTime') is not None:
             self.last_probe_time = m.get('LastProbeTime')
         if m.get('Message') is not None:
