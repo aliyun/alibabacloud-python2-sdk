@@ -725,16 +725,21 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_cluster_nodepool(self, cluster_id, nodepool_id):
+    def delete_cluster_nodepool(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_cluster_nodepool_with_options(cluster_id, nodepool_id, headers, runtime)
+        return self.delete_cluster_nodepool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
-    def delete_cluster_nodepool_with_options(self, cluster_id, nodepool_id, headers, runtime):
+    def delete_cluster_nodepool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         cluster_id = OpenApiUtilClient.get_encode_param(cluster_id)
         nodepool_id = OpenApiUtilClient.get_encode_param(nodepool_id)
+        body = {}
+        if not UtilClient.is_unset(request.force):
+            body['force'] = request.force
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='DeleteClusterNodepool',
