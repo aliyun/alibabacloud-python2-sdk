@@ -12905,8 +12905,9 @@ class DescribePropertyCountResponse(TeaModel):
 
 
 class DescribePropertyCronDetailRequest(TeaModel):
-    def __init__(self, current_page=None, page_size=None, remark=None, source=None, user=None, uuid=None):
+    def __init__(self, current_page=None, extend=None, page_size=None, remark=None, source=None, user=None, uuid=None):
         self.current_page = current_page  # type: int
+        self.extend = extend  # type: str
         self.page_size = page_size  # type: int
         self.remark = remark  # type: str
         self.source = source  # type: str
@@ -12924,6 +12925,8 @@ class DescribePropertyCronDetailRequest(TeaModel):
         result = dict()
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.extend is not None:
+            result['Extend'] = self.extend
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.remark is not None:
@@ -12940,6 +12943,8 @@ class DescribePropertyCronDetailRequest(TeaModel):
         m = m or dict()
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('Remark') is not None:
@@ -13156,10 +13161,11 @@ class DescribePropertyCronDetailResponse(TeaModel):
 
 
 class DescribePropertyPortDetailRequest(TeaModel):
-    def __init__(self, bind_ip=None, current_page=None, page_size=None, port=None, proc_name=None, remark=None,
-                 uuid=None):
+    def __init__(self, bind_ip=None, current_page=None, extend=None, page_size=None, port=None, proc_name=None,
+                 remark=None, uuid=None):
         self.bind_ip = bind_ip  # type: str
         self.current_page = current_page  # type: int
+        self.extend = extend  # type: str
         self.page_size = page_size  # type: int
         self.port = port  # type: str
         self.proc_name = proc_name  # type: str
@@ -13179,6 +13185,8 @@ class DescribePropertyPortDetailRequest(TeaModel):
             result['BindIp'] = self.bind_ip
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.extend is not None:
+            result['Extend'] = self.extend
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.port is not None:
@@ -13197,6 +13205,8 @@ class DescribePropertyPortDetailRequest(TeaModel):
             self.bind_ip = m.get('BindIp')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('Port') is not None:
@@ -13603,10 +13613,11 @@ class DescribePropertyPortItemResponse(TeaModel):
 
 
 class DescribePropertyProcDetailRequest(TeaModel):
-    def __init__(self, cmdline=None, current_page=None, name=None, page_size=None, proc_time_end=None,
+    def __init__(self, cmdline=None, current_page=None, extend=None, name=None, page_size=None, proc_time_end=None,
                  proc_time_start=None, remark=None, user=None, uuid=None):
         self.cmdline = cmdline  # type: str
         self.current_page = current_page  # type: int
+        self.extend = extend  # type: str
         self.name = name  # type: str
         self.page_size = page_size  # type: int
         self.proc_time_end = proc_time_end  # type: long
@@ -13628,6 +13639,8 @@ class DescribePropertyProcDetailRequest(TeaModel):
             result['Cmdline'] = self.cmdline
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.extend is not None:
+            result['Extend'] = self.extend
         if self.name is not None:
             result['Name'] = self.name
         if self.page_size is not None:
@@ -13650,6 +13663,8 @@ class DescribePropertyProcDetailRequest(TeaModel):
             self.cmdline = m.get('Cmdline')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('PageSize') is not None:
@@ -14488,9 +14503,10 @@ class DescribePropertyScaDetailResponse(TeaModel):
 
 
 class DescribePropertySoftwareDetailRequest(TeaModel):
-    def __init__(self, current_page=None, install_time_end=None, install_time_start=None, name=None, page_size=None,
-                 path=None, remark=None, software_version=None, uuid=None):
+    def __init__(self, current_page=None, extend=None, install_time_end=None, install_time_start=None, name=None,
+                 page_size=None, path=None, remark=None, software_version=None, uuid=None):
         self.current_page = current_page  # type: int
+        self.extend = extend  # type: str
         self.install_time_end = install_time_end  # type: long
         self.install_time_start = install_time_start  # type: long
         self.name = name  # type: str
@@ -14511,6 +14527,8 @@ class DescribePropertySoftwareDetailRequest(TeaModel):
         result = dict()
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.extend is not None:
+            result['Extend'] = self.extend
         if self.install_time_end is not None:
             result['InstallTimeEnd'] = self.install_time_end
         if self.install_time_start is not None:
@@ -14533,6 +14551,8 @@ class DescribePropertySoftwareDetailRequest(TeaModel):
         m = m or dict()
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
         if m.get('InstallTimeEnd') is not None:
             self.install_time_end = m.get('InstallTimeEnd')
         if m.get('InstallTimeStart') is not None:
@@ -15074,9 +15094,10 @@ class DescribePropertyUsageNewestResponse(TeaModel):
 
 
 class DescribePropertyUserDetailRequest(TeaModel):
-    def __init__(self, current_page=None, is_root=None, last_login_time_end=None, last_login_time_start=None,
-                 page_size=None, remark=None, user=None, uuid=None):
+    def __init__(self, current_page=None, extend=None, is_root=None, last_login_time_end=None,
+                 last_login_time_start=None, page_size=None, remark=None, user=None, uuid=None):
         self.current_page = current_page  # type: int
+        self.extend = extend  # type: str
         self.is_root = is_root  # type: str
         self.last_login_time_end = last_login_time_end  # type: long
         self.last_login_time_start = last_login_time_start  # type: long
@@ -15096,6 +15117,8 @@ class DescribePropertyUserDetailRequest(TeaModel):
         result = dict()
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.extend is not None:
+            result['Extend'] = self.extend
         if self.is_root is not None:
             result['IsRoot'] = self.is_root
         if self.last_login_time_end is not None:
@@ -15116,6 +15139,8 @@ class DescribePropertyUserDetailRequest(TeaModel):
         m = m or dict()
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('Extend') is not None:
+            self.extend = m.get('Extend')
         if m.get('IsRoot') is not None:
             self.is_root = m.get('IsRoot')
         if m.get('LastLoginTimeEnd') is not None:
@@ -22293,7 +22318,7 @@ class DescribeVulListResponseBodyVulRecordsExtendContentJsonRpmEntityList(TeaMod
         self.full_version = full_version  # type: str
         self.image_name = image_name  # type: str
         self.match_detail = match_detail  # type: str
-        self.match_list = match_list  # type: str
+        self.match_list = match_list  # type: list[str]
         self.name = name  # type: str
         self.path = path  # type: str
         self.pid = pid  # type: str
@@ -23715,6 +23740,169 @@ class ExportVulResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ExportVulResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ExportWarningRequest(TeaModel):
+    def __init__(self, dealed=None, export_type=None, is_cleartext_pwd=None, is_summary_export=None, lang=None,
+                 risk_ids=None, risk_levels=None, risk_name=None, source_ip=None, status_list=None, strategy_id=None,
+                 sub_type_names=None, type_name=None, type_names=None, uuids=None):
+        self.dealed = dealed  # type: str
+        self.export_type = export_type  # type: str
+        self.is_cleartext_pwd = is_cleartext_pwd  # type: int
+        self.is_summary_export = is_summary_export  # type: int
+        self.lang = lang  # type: str
+        self.risk_ids = risk_ids  # type: str
+        self.risk_levels = risk_levels  # type: str
+        self.risk_name = risk_name  # type: str
+        self.source_ip = source_ip  # type: str
+        self.status_list = status_list  # type: str
+        self.strategy_id = strategy_id  # type: long
+        self.sub_type_names = sub_type_names  # type: str
+        self.type_name = type_name  # type: str
+        self.type_names = type_names  # type: str
+        self.uuids = uuids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportWarningRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dealed is not None:
+            result['Dealed'] = self.dealed
+        if self.export_type is not None:
+            result['ExportType'] = self.export_type
+        if self.is_cleartext_pwd is not None:
+            result['IsCleartextPwd'] = self.is_cleartext_pwd
+        if self.is_summary_export is not None:
+            result['IsSummaryExport'] = self.is_summary_export
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.risk_ids is not None:
+            result['RiskIds'] = self.risk_ids
+        if self.risk_levels is not None:
+            result['RiskLevels'] = self.risk_levels
+        if self.risk_name is not None:
+            result['RiskName'] = self.risk_name
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.status_list is not None:
+            result['StatusList'] = self.status_list
+        if self.strategy_id is not None:
+            result['StrategyId'] = self.strategy_id
+        if self.sub_type_names is not None:
+            result['SubTypeNames'] = self.sub_type_names
+        if self.type_name is not None:
+            result['TypeName'] = self.type_name
+        if self.type_names is not None:
+            result['TypeNames'] = self.type_names
+        if self.uuids is not None:
+            result['Uuids'] = self.uuids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Dealed') is not None:
+            self.dealed = m.get('Dealed')
+        if m.get('ExportType') is not None:
+            self.export_type = m.get('ExportType')
+        if m.get('IsCleartextPwd') is not None:
+            self.is_cleartext_pwd = m.get('IsCleartextPwd')
+        if m.get('IsSummaryExport') is not None:
+            self.is_summary_export = m.get('IsSummaryExport')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('RiskIds') is not None:
+            self.risk_ids = m.get('RiskIds')
+        if m.get('RiskLevels') is not None:
+            self.risk_levels = m.get('RiskLevels')
+        if m.get('RiskName') is not None:
+            self.risk_name = m.get('RiskName')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('StatusList') is not None:
+            self.status_list = m.get('StatusList')
+        if m.get('StrategyId') is not None:
+            self.strategy_id = m.get('StrategyId')
+        if m.get('SubTypeNames') is not None:
+            self.sub_type_names = m.get('SubTypeNames')
+        if m.get('TypeName') is not None:
+            self.type_name = m.get('TypeName')
+        if m.get('TypeNames') is not None:
+            self.type_names = m.get('TypeNames')
+        if m.get('Uuids') is not None:
+            self.uuids = m.get('Uuids')
+        return self
+
+
+class ExportWarningResponseBody(TeaModel):
+    def __init__(self, file_name=None, id=None, request_id=None):
+        self.file_name = file_name  # type: str
+        self.id = id  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExportWarningResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ExportWarningResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ExportWarningResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExportWarningResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ExportWarningResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

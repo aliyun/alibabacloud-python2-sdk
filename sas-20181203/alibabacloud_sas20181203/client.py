@@ -2590,6 +2590,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.extend):
+            query['Extend'] = request.extend
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.remark):
@@ -2630,6 +2632,8 @@ class Client(OpenApiClient):
             query['BindIp'] = request.bind_ip
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.extend):
+            query['Extend'] = request.extend
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.port):
@@ -2704,6 +2708,8 @@ class Client(OpenApiClient):
             query['Cmdline'] = request.cmdline
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.extend):
+            query['Extend'] = request.extend
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.page_size):
@@ -2846,6 +2852,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.extend):
+            query['Extend'] = request.extend
         if not UtilClient.is_unset(request.install_time_end):
             query['InstallTimeEnd'] = request.install_time_end
         if not UtilClient.is_unset(request.install_time_start):
@@ -2952,6 +2960,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.extend):
+            query['Extend'] = request.extend
         if not UtilClient.is_unset(request.is_root):
             query['IsRoot'] = request.is_root
         if not UtilClient.is_unset(request.last_login_time_end):
@@ -4424,6 +4434,62 @@ class Client(OpenApiClient):
     def export_vul(self, request):
         runtime = util_models.RuntimeOptions()
         return self.export_vul_with_options(request, runtime)
+
+    def export_warning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dealed):
+            query['Dealed'] = request.dealed
+        if not UtilClient.is_unset(request.export_type):
+            query['ExportType'] = request.export_type
+        if not UtilClient.is_unset(request.is_cleartext_pwd):
+            query['IsCleartextPwd'] = request.is_cleartext_pwd
+        if not UtilClient.is_unset(request.is_summary_export):
+            query['IsSummaryExport'] = request.is_summary_export
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.risk_ids):
+            query['RiskIds'] = request.risk_ids
+        if not UtilClient.is_unset(request.risk_levels):
+            query['RiskLevels'] = request.risk_levels
+        if not UtilClient.is_unset(request.risk_name):
+            query['RiskName'] = request.risk_name
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.strategy_id):
+            query['StrategyId'] = request.strategy_id
+        if not UtilClient.is_unset(request.sub_type_names):
+            query['SubTypeNames'] = request.sub_type_names
+        if not UtilClient.is_unset(request.type_name):
+            query['TypeName'] = request.type_name
+        if not UtilClient.is_unset(request.type_names):
+            query['TypeNames'] = request.type_names
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ExportWarning',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ExportWarningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def export_warning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.export_warning_with_options(request, runtime)
 
     def fix_check_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
