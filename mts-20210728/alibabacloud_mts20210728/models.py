@@ -61,7 +61,7 @@ class QueryCopyrightRequest(TeaModel):
 
 class QueryCopyrightResponseBodyData(TeaModel):
     def __init__(self, callback=None, gmt_create=None, gmt_modified=None, input=None, job_id=None, level=None,
-                 message=None, message_id=None, output=None, status=None, user_data=None, user_id=None):
+                 message=None, message_id=None, output=None, result=None, status=None, user_data=None, user_id=None):
         # 回调url
         self.callback = callback  # type: str
         # 创建时间
@@ -80,6 +80,8 @@ class QueryCopyrightResponseBodyData(TeaModel):
         self.message_id = message_id  # type: long
         # 水印视频输出
         self.output = output  # type: str
+        # 任务结果
+        self.result = result  # type: str
         # 状态
         self.status = status  # type: str
         # 用户数据
@@ -114,6 +116,8 @@ class QueryCopyrightResponseBodyData(TeaModel):
             result['MessageId'] = self.message_id
         if self.output is not None:
             result['Output'] = self.output
+        if self.result is not None:
+            result['Result'] = self.result
         if self.status is not None:
             result['Status'] = self.status
         if self.user_data is not None:
@@ -142,6 +146,8 @@ class QueryCopyrightResponseBodyData(TeaModel):
             self.message_id = m.get('MessageId')
         if m.get('Output') is not None:
             self.output = m.get('Output')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('UserData') is not None:
@@ -386,7 +392,7 @@ class QueryTraceAbRequest(TeaModel):
 
 class QueryTraceAbResponseBodyData(TeaModel):
     def __init__(self, callback=None, gmt_create=None, gmt_modified=None, input=None, job_id=None, level=None,
-                 media_id=None, output=None, status=None, user_data=None, user_id=None):
+                 media_id=None, output=None, result=None, status=None, user_data=None, user_id=None):
         # 任务结果回调
         self.callback = callback  # type: str
         # 创建时间
@@ -403,6 +409,8 @@ class QueryTraceAbResponseBodyData(TeaModel):
         self.media_id = media_id  # type: str
         # 输出地址
         self.output = output  # type: str
+        # 任务结果
+        self.result = result  # type: str
         # 任务状态
         self.status = status  # type: str
         # 用户数据
@@ -435,6 +443,8 @@ class QueryTraceAbResponseBodyData(TeaModel):
             result['MediaId'] = self.media_id
         if self.output is not None:
             result['Output'] = self.output
+        if self.result is not None:
+            result['Result'] = self.result
         if self.status is not None:
             result['Status'] = self.status
         if self.user_data is not None:
@@ -461,6 +471,8 @@ class QueryTraceAbResponseBodyData(TeaModel):
             self.media_id = m.get('MediaId')
         if m.get('Output') is not None:
             self.output = m.get('Output')
+        if m.get('Result') is not None:
+            self.result = m.get('Result')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('UserData') is not None:
