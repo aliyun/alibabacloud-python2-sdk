@@ -30,25 +30,115 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddDiskReplicaPair',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.AddDiskReplicaPairResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_disk_replica_pair_with_options(request, runtime)
+
+    def create_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.destination_region_id):
+            query['DestinationRegionId'] = request.destination_region_id
+        if not UtilClient.is_unset(request.destination_zone_id):
+            query['DestinationZoneId'] = request.destination_zone_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.rpo):
+            query['RPO'] = request.rpo
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_zone_id):
+            query['SourceZoneId'] = request.source_zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.CreateDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_disk_replica_group_with_options(request, runtime)
+
     def create_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Bandwidth'] = request.bandwidth
-        query['ChargeType'] = request.charge_type
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['DestinationDiskId'] = request.destination_disk_id
-        query['DestinationRegionId'] = request.destination_region_id
-        query['DestinationZoneId'] = request.destination_zone_id
-        query['DiskId'] = request.disk_id
-        query['PairName'] = request.pair_name
-        query['Period'] = request.period
-        query['PeriodUnit'] = request.period_unit
-        query['SourceRegionId'] = request.source_region_id
-        query['SourceZoneId'] = request.source_zone_id
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.destination_disk_id):
+            query['DestinationDiskId'] = request.destination_disk_id
+        if not UtilClient.is_unset(request.destination_region_id):
+            query['DestinationRegionId'] = request.destination_region_id
+        if not UtilClient.is_unset(request.destination_zone_id):
+            query['DestinationZoneId'] = request.destination_zone_id
+        if not UtilClient.is_unset(request.disk_id):
+            query['DiskId'] = request.disk_id
+        if not UtilClient.is_unset(request.pair_name):
+            query['PairName'] = request.pair_name
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
+        if not UtilClient.is_unset(request.rpo):
+            query['RPO'] = request.rpo
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.source_zone_id):
+            query['SourceZoneId'] = request.source_zone_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='CreateDiskReplicaPair',
@@ -58,7 +148,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -70,15 +160,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_disk_replica_pair_with_options(request, runtime)
 
+    def delete_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.DeleteDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_disk_replica_group_with_options(request, runtime)
+
     def delete_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteDiskReplicaPair',
@@ -88,7 +212,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -100,16 +224,89 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_disk_replica_pair_with_options(request, runtime)
 
+    def describe_disk_replica_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_ids):
+            query['GroupIds'] = request.group_ids
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.site):
+            query['Site'] = request.site
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiskReplicaGroups',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.DescribeDiskReplicaGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_disk_replica_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_disk_replica_groups_with_options(request, runtime)
+
+    def describe_disk_replica_pair_progress_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiskReplicaPairProgress',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.DescribeDiskReplicaPairProgressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_disk_replica_pair_progress(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_disk_replica_pair_progress_with_options(request, runtime)
+
     def describe_disk_replica_pairs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
-        query['PairIds'] = request.pair_ids
-        query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.pair_ids):
+            query['PairIds'] = request.pair_ids
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        if not UtilClient.is_unset(request.site):
+            query['Site'] = request.site
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeDiskReplicaPairs',
@@ -119,7 +316,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -134,11 +331,14 @@ class Client(OpenApiClient):
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AcceptLanguage'] = request.accept_language
-        query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeRegions',
@@ -148,7 +348,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -160,15 +360,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
 
+    def failover_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='FailoverDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.FailoverDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def failover_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.failover_disk_replica_group_with_options(request, runtime)
+
     def failover_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='FailoverDiskReplicaPair',
@@ -178,7 +412,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -190,17 +424,63 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.failover_disk_replica_pair_with_options(request, runtime)
 
+    def modify_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.rpo):
+            query['RPO'] = request.rpo
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.ModifyDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_disk_replica_group_with_options(request, runtime)
+
     def modify_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['Description'] = request.description
-        query['PairName'] = request.pair_name
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.bandwidth):
+            query['Bandwidth'] = request.bandwidth
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.pair_name):
+            query['PairName'] = request.pair_name
+        if not UtilClient.is_unset(request.rpo):
+            query['RPO'] = request.rpo
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ModifyDiskReplicaPair',
@@ -210,7 +490,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -222,15 +502,87 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_disk_replica_pair_with_options(request, runtime)
 
+    def remove_disk_replica_pair_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveDiskReplicaPair',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.RemoveDiskReplicaPairResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_disk_replica_pair(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_disk_replica_pair_with_options(request, runtime)
+
+    def reprotect_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        if not UtilClient.is_unset(request.source_region_id):
+            query['SourceRegionId'] = request.source_region_id
+        if not UtilClient.is_unset(request.source_zone_id):
+            query['SourceZoneId'] = request.source_zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReprotectDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.ReprotectDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reprotect_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reprotect_disk_replica_group_with_options(request, runtime)
+
     def reprotect_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='ReprotectDiskReplicaPair',
@@ -240,7 +592,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -252,15 +604,53 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.reprotect_disk_replica_pair_with_options(request, runtime)
 
+    def start_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.one_shot):
+            query['OneShot'] = request.one_shot
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.StartDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_disk_replica_group_with_options(request, runtime)
+
     def start_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.one_shot):
+            query['OneShot'] = request.one_shot
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StartDiskReplicaPair',
@@ -270,7 +660,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
@@ -282,15 +672,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_disk_replica_pair_with_options(request, runtime)
 
+    def stop_disk_replica_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_group_id):
+            query['ReplicaGroupId'] = request.replica_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDiskReplicaGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.StopDiskReplicaGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_disk_replica_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_disk_replica_group_with_options(request, runtime)
+
     def stop_disk_replica_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['RegionId'] = request.region_id
-        query['ReplicaPairId'] = request.replica_pair_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.replica_pair_id):
+            query['ReplicaPairId'] = request.replica_pair_id
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='StopDiskReplicaPair',
@@ -300,7 +724,7 @@ class Client(OpenApiClient):
             method='POST',
             auth_type='AK',
             style='RPC',
-            req_body_type='json',
+            req_body_type='formData',
             body_type='json'
         )
         return TeaCore.from_map(
