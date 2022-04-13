@@ -5,8 +5,10 @@ from __future__ import unicode_literals
 from Tea.converter import TeaConverter
 from Tea.core import TeaCore
 
+from alibabacloud_gateway_spi.client import Client as SPIClient
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
+from alibabacloud_gateway_fc.client import Client as GatewayClientClient
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
 from alibabacloud_fc_open20210406 import models as fc__open_20210406_models
@@ -18,8 +20,12 @@ class Client(OpenApiClient):
     """
     *\
     """
+    _client = None  # type: SPIClient
+
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._client = GatewayClientClient()
+        self._spi = self._client
         self._endpoint_rule = 'regional'
         self._endpoint_map = {
             'ap-northeast-1': 'account-id.ap-northeast-1.fc.aliyuncs.com',
@@ -97,7 +103,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateAliasResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_custom_domain(self, request):
@@ -116,6 +122,8 @@ class Client(OpenApiClient):
             body['protocol'] = request.protocol
         if not UtilClient.is_unset(request.route_config):
             body['routeConfig'] = request.route_config
+        if not UtilClient.is_unset(request.tls_config):
+            body['tlsConfig'] = request.tls_config
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -142,7 +150,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateCustomDomainResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_function(self, service_name, request):
@@ -218,7 +226,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateFunctionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_layer_version(self, layer_name, request):
@@ -262,7 +270,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateLayerVersionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_service(self, request):
@@ -315,7 +323,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateServiceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_trigger(self, service_name, function_name, request):
@@ -368,7 +376,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateTriggerResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def create_vpc_binding(self, service_name, request):
@@ -408,7 +416,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.CreateVpcBindingResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_alias(self, service_name, alias_name):
@@ -446,7 +454,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteAliasResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_custom_domain(self, domain_name):
@@ -481,7 +489,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteCustomDomainResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_function(self, service_name, function_name):
@@ -519,7 +527,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_function_async_invoke_config(self, service_name, function_name, request):
@@ -560,7 +568,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionAsyncInvokeConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_function_on_demand_config(self, service_name, function_name, request):
@@ -603,7 +611,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteFunctionOnDemandConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_layer_version(self, layer_name, version):
@@ -639,7 +647,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteLayerVersionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_service(self, service_name):
@@ -676,7 +684,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteServiceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_service_version(self, service_name, version_id):
@@ -712,7 +720,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteServiceVersionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_trigger(self, service_name, function_name, trigger_name):
@@ -751,7 +759,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteTriggerResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def delete_vpc_binding(self, service_name, vpc_id):
@@ -787,7 +795,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeleteVpcBindingResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def deregister_event_source(self, service_name, function_name, source_arn, request):
@@ -829,7 +837,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.DeregisterEventSourceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_account_settings(self):
@@ -863,7 +871,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetAccountSettingsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_alias(self, service_name, alias_name):
@@ -899,7 +907,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetAliasResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_custom_domain(self, domain_name):
@@ -934,7 +942,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetCustomDomainResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_function(self, service_name, function_name, request):
@@ -975,7 +983,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_function_async_invoke_config(self, service_name, function_name, request):
@@ -1016,7 +1024,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionAsyncInvokeConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_function_code(self, service_name, function_name, request):
@@ -1057,7 +1065,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionCodeResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_function_on_demand_config(self, service_name, function_name, request):
@@ -1098,7 +1106,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetFunctionOnDemandConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_layer_version(self, layer_name, version):
@@ -1134,7 +1142,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetLayerVersionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_provision_config(self, service_name, function_name, request):
@@ -1175,7 +1183,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetProvisionConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_resource_tags(self, request):
@@ -1214,7 +1222,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetResourceTagsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_service(self, service_name, request):
@@ -1254,7 +1262,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetServiceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
@@ -1302,7 +1310,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetStatefulAsyncInvocationResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def get_trigger(self, service_name, function_name, trigger_name):
@@ -1339,7 +1347,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.GetTriggerResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def invoke_function(self, service_name, function_name, request):
@@ -1387,7 +1395,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.InvokeFunctionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_aliases(self, service_name, request):
@@ -1433,7 +1441,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListAliasesResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_custom_domains(self, request):
@@ -1478,7 +1486,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListCustomDomainsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_event_sources(self, service_name, function_name, request):
@@ -1519,7 +1527,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListEventSourcesResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_function_async_invoke_configs(self, service_name, function_name, request):
@@ -1568,7 +1576,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListFunctionAsyncInvokeConfigsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_functions(self, service_name, request):
@@ -1616,7 +1624,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListFunctionsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_layer_versions(self, layer_name, request):
@@ -1658,7 +1666,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListLayerVersionsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_layers(self, request):
@@ -1703,7 +1711,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListLayersResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_on_demand_configs(self, request):
@@ -1748,7 +1756,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListOnDemandConfigsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_provision_configs(self, request):
@@ -1793,7 +1801,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListProvisionConfigsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_reserved_capacities(self, request):
@@ -1834,7 +1842,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListReservedCapacitiesResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_service_versions(self, service_name, request):
@@ -1880,7 +1888,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListServiceVersionsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_services(self, request):
@@ -1925,7 +1933,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListServicesResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_stateful_async_invocation_functions(self, request):
@@ -1966,7 +1974,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListStatefulAsyncInvocationFunctionsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_stateful_async_invocations(self, service_name, function_name, request):
@@ -2029,7 +2037,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListStatefulAsyncInvocationsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_tagged_resources(self, request):
@@ -2070,7 +2078,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListTaggedResourcesResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_triggers(self, service_name, function_name, request):
@@ -2117,7 +2125,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListTriggersResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def list_vpc_bindings(self, service_name):
@@ -2152,7 +2160,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.ListVpcBindingsResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def publish_service_version(self, service_name, request):
@@ -2194,7 +2202,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PublishServiceVersionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def put_function_async_invoke_config(self, service_name, function_name, request):
@@ -2245,7 +2253,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PutFunctionAsyncInvokeConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def put_function_on_demand_config(self, service_name, function_name, request):
@@ -2292,7 +2300,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PutFunctionOnDemandConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def put_provision_config(self, service_name, function_name, request):
@@ -2343,7 +2351,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.PutProvisionConfigResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def register_event_source(self, service_name, function_name, request):
@@ -2388,7 +2396,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.RegisterEventSourceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def stop_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
@@ -2430,7 +2438,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.StopStatefulAsyncInvocationResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def tag_resource(self, request):
@@ -2471,7 +2479,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.TagResourceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def untag_resource(self, request):
@@ -2514,7 +2522,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UntagResourceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def update_alias(self, service_name, alias_name, request):
@@ -2561,7 +2569,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateAliasResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def update_custom_domain(self, domain_name, request):
@@ -2579,6 +2587,8 @@ class Client(OpenApiClient):
             body['protocol'] = request.protocol
         if not UtilClient.is_unset(request.route_config):
             body['routeConfig'] = request.route_config
+        if not UtilClient.is_unset(request.tls_config):
+            body['tlsConfig'] = request.tls_config
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -2605,7 +2615,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateCustomDomainResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def update_function(self, service_name, function_name, request):
@@ -2682,7 +2692,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateFunctionResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def update_service(self, service_name, request):
@@ -2736,7 +2746,7 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateServiceResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
 
     def update_trigger(self, service_name, function_name, trigger_name, request):
@@ -2786,5 +2796,10 @@ class Client(OpenApiClient):
         )
         return TeaCore.from_map(
             fc__open_20210406_models.UpdateTriggerResponse(),
-            self.call_api(params, req, runtime)
+            self.execute(params, req, runtime)
         )
+
+    def sign_request(self, request):
+        cred = self._credential
+        gateway = GatewayClientClient()
+        return gateway.sign_request(request, cred)
