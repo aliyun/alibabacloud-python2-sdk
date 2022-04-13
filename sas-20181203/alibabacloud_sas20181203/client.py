@@ -574,6 +574,8 @@ class Client(OpenApiClient):
     def describe_affected_malicious_file_images_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.image_digest):
@@ -1148,6 +1150,12 @@ class Client(OpenApiClient):
     def describe_check_warning_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.container_field_name):
+            query['ContainerFieldName'] = request.container_field_name
+        if not UtilClient.is_unset(request.container_field_value):
+            query['ContainerFieldValue'] = request.container_field_value
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.lang):
@@ -1164,6 +1172,8 @@ class Client(OpenApiClient):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.strategy_id):
             query['StrategyId'] = request.strategy_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
         if not UtilClient.is_unset(request.type_name):
             query['TypeName'] = request.type_name
         if not UtilClient.is_unset(request.uuids):
@@ -1846,6 +1856,8 @@ class Client(OpenApiClient):
     def describe_grouped_malicious_files_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.fuzzy_malicious_name):
@@ -2026,6 +2038,8 @@ class Client(OpenApiClient):
     def describe_image_baseline_check_summary_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.criteria):
             query['Criteria'] = request.criteria
         if not UtilClient.is_unset(request.criteria_type):
@@ -2102,6 +2116,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alias_name):
             query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.cve_id):
@@ -2168,6 +2184,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.baseline_name_key):
             query['BaselineNameKey'] = request.baseline_name_key
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.criteria):
             query['Criteria'] = request.criteria
         if not UtilClient.is_unset(request.criteria_type):
@@ -2258,6 +2276,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alias_name):
             query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.dealed):
