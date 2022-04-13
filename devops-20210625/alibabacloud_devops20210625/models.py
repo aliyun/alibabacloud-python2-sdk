@@ -2087,8 +2087,8 @@ class CreateWorkitemRequestFieldValueList(TeaModel):
 
 class CreateWorkitemRequest(TeaModel):
     def __init__(self, assigned_to=None, category=None, description=None, description_format=None,
-                 field_value_list=None, participant=None, space=None, space_identifier=None, space_type=None, sprint=None,
-                 subject=None, tracker=None, verifier=None, workitem_type=None):
+                 field_value_list=None, parent=None, participant=None, space=None, space_identifier=None, space_type=None,
+                 sprint=None, subject=None, tracker=None, verifier=None, workitem_type=None):
         # 工作项负责人的id，或者企业中的用户名
         self.assigned_to = assigned_to  # type: str
         # 工作项的类型id，比如：Bug、Task对应id
@@ -2099,6 +2099,8 @@ class CreateWorkitemRequest(TeaModel):
         self.description_format = description_format  # type: str
         # 自定义字段
         self.field_value_list = field_value_list  # type: list[CreateWorkitemRequestFieldValueList]
+        # 所属父工作项的唯一标识
+        self.parent = parent  # type: str
         # 参与人id列表，或者企业名称列表
         self.participant = participant  # type: list[str]
         # 项目id
@@ -2142,6 +2144,8 @@ class CreateWorkitemRequest(TeaModel):
         if self.field_value_list is not None:
             for k in self.field_value_list:
                 result['fieldValueList'].append(k.to_map() if k else None)
+        if self.parent is not None:
+            result['parent'] = self.parent
         if self.participant is not None:
             result['participant'] = self.participant
         if self.space is not None:
@@ -2177,6 +2181,8 @@ class CreateWorkitemRequest(TeaModel):
             for k in m.get('fieldValueList'):
                 temp_model = CreateWorkitemRequestFieldValueList()
                 self.field_value_list.append(temp_model.from_map(k))
+        if m.get('parent') is not None:
+            self.parent = m.get('parent')
         if m.get('participant') is not None:
             self.participant = m.get('participant')
         if m.get('space') is not None:
@@ -12988,9 +12994,12 @@ class ListWorkItemWorkFlowStatusResponse(TeaModel):
 
 
 class ListWorkitemsRequest(TeaModel):
-    def __init__(self, category=None, max_results=None, next_token=None, space_identifier=None, space_type=None):
+    def __init__(self, category=None, conditions=None, max_results=None, next_token=None, space_identifier=None,
+                 space_type=None):
         # 工作项类型，需求为Req，缺陷为Bug，任务为Task，风险为Risk
         self.category = category  # type: str
+        # 过滤条件
+        self.conditions = conditions  # type: str
         # 每页最大返回数量，0-200，默认值20
         self.max_results = max_results  # type: str
         # 分页中的起始序列
@@ -13011,6 +13020,8 @@ class ListWorkitemsRequest(TeaModel):
         result = dict()
         if self.category is not None:
             result['category'] = self.category
+        if self.conditions is not None:
+            result['conditions'] = self.conditions
         if self.max_results is not None:
             result['maxResults'] = self.max_results
         if self.next_token is not None:
@@ -13025,6 +13036,8 @@ class ListWorkitemsRequest(TeaModel):
         m = m or dict()
         if m.get('category') is not None:
             self.category = m.get('category')
+        if m.get('conditions') is not None:
+            self.conditions = m.get('conditions')
         if m.get('maxResults') is not None:
             self.max_results = m.get('maxResults')
         if m.get('nextToken') is not None:

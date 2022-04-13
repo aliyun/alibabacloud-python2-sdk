@@ -499,6 +499,8 @@ class Client(OpenApiClient):
             body['descriptionFormat'] = request.description_format
         if not UtilClient.is_unset(request.field_value_list):
             body['fieldValueList'] = request.field_value_list
+        if not UtilClient.is_unset(request.parent):
+            body['parent'] = request.parent
         if not UtilClient.is_unset(request.participant):
             body['participant'] = request.participant
         if not UtilClient.is_unset(request.space):
@@ -2179,6 +2181,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
+        if not UtilClient.is_unset(request.conditions):
+            query['conditions'] = request.conditions
         if not UtilClient.is_unset(request.max_results):
             query['maxResults'] = request.max_results
         if not UtilClient.is_unset(request.next_token):
