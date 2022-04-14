@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_hbase20190101_py2.
 
-Created on 16/03/2022
+Created on 14/04/2022
 
 @author: Alibaba Cloud SDK
 """
