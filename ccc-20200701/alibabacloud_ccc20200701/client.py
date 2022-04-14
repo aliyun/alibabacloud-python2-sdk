@@ -1402,6 +1402,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_realtime_instance_states_with_options(request, runtime)
 
+    def get_skill_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.skill_group_id):
+            query['SkillGroupId'] = request.skill_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSkillGroup',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.GetSkillGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_skill_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_skill_group_with_options(request, runtime)
+
     def get_turn_credentials_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1913,10 +1943,14 @@ class Client(OpenApiClient):
             query['CallingNumber'] = request.calling_number
         if not UtilClient.is_unset(request.contact_disposition):
             query['ContactDisposition'] = request.contact_disposition
+        if not UtilClient.is_unset(request.contact_disposition_list):
+            query['ContactDispositionList'] = request.contact_disposition_list
         if not UtilClient.is_unset(request.contact_id):
             query['ContactId'] = request.contact_id
         if not UtilClient.is_unset(request.contact_type):
             query['ContactType'] = request.contact_type
+        if not UtilClient.is_unset(request.contact_type_list):
+            query['ContactTypeList'] = request.contact_type_list
         if not UtilClient.is_unset(request.criteria):
             query['Criteria'] = request.criteria
         if not UtilClient.is_unset(request.early_media_state_list):
@@ -2553,6 +2587,66 @@ class Client(OpenApiClient):
     def list_ivr_tracking_details(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_ivr_tracking_details_with_options(request, runtime)
+
+    def list_mono_recordings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMonoRecordings',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListMonoRecordingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_mono_recordings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_mono_recordings_with_options(request, runtime)
+
+    def list_multi_channel_recordings_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.contact_id):
+            query['ContactId'] = request.contact_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMultiChannelRecordings',
+            version='2020-07-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ccc20200701_models.ListMultiChannelRecordingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_multi_channel_recordings(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_multi_channel_recordings_with_options(request, runtime)
 
     def list_outbound_numbers_of_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3883,6 +3977,8 @@ class Client(OpenApiClient):
     def remove_phone_numbers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.number_list):
