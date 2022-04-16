@@ -20336,7 +20336,7 @@ class DescribeVpcAccessesRequest(TeaModel):
 
 class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaModel):
     def __init__(self, created_time=None, description=None, instance_id=None, name=None, port=None, region_id=None,
-                 vpc_access_id=None, vpc_id=None):
+                 vpc_access_id=None, vpc_id=None, vpc_target_host_name=None):
         # VPC授权的创建时间
         self.created_time = created_time  # type: str
         # VPC授权的描述
@@ -20353,6 +20353,7 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaMo
         self.vpc_access_id = vpc_access_id  # type: str
         # VPC的ID
         self.vpc_id = vpc_id  # type: str
+        self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
         pass
@@ -20379,6 +20380,8 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaMo
             result['VpcAccessId'] = self.vpc_access_id
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
+        if self.vpc_target_host_name is not None:
+            result['VpcTargetHostName'] = self.vpc_target_host_name
         return result
 
     def from_map(self, m=None):
@@ -20399,6 +20402,8 @@ class DescribeVpcAccessesResponseBodyVpcAccessAttributesVpcAccessAttribute(TeaMo
             self.vpc_access_id = m.get('VpcAccessId')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
+        if m.get('VpcTargetHostName') is not None:
+            self.vpc_target_host_name = m.get('VpcTargetHostName')
         return self
 
 
@@ -25941,13 +25946,15 @@ class SetTrafficControlApisResponse(TeaModel):
 
 
 class SetVpcAccessRequest(TeaModel):
-    def __init__(self, description=None, instance_id=None, name=None, port=None, security_token=None, vpc_id=None):
+    def __init__(self, description=None, instance_id=None, name=None, port=None, security_token=None, vpc_id=None,
+                 vpc_target_host_name=None):
         self.description = description  # type: str
         self.instance_id = instance_id  # type: str
         self.name = name  # type: str
         self.port = port  # type: int
         self.security_token = security_token  # type: str
         self.vpc_id = vpc_id  # type: str
+        self.vpc_target_host_name = vpc_target_host_name  # type: str
 
     def validate(self):
         pass
@@ -25970,6 +25977,8 @@ class SetVpcAccessRequest(TeaModel):
             result['SecurityToken'] = self.security_token
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
+        if self.vpc_target_host_name is not None:
+            result['VpcTargetHostName'] = self.vpc_target_host_name
         return result
 
     def from_map(self, m=None):
@@ -25986,6 +25995,8 @@ class SetVpcAccessRequest(TeaModel):
             self.security_token = m.get('SecurityToken')
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
+        if m.get('VpcTargetHostName') is not None:
+            self.vpc_target_host_name = m.get('VpcTargetHostName')
         return self
 
 
