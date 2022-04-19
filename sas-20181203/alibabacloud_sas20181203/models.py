@@ -4,9 +4,8 @@ from Tea.model import TeaModel
 
 
 class AddVpcHoneyPotRequest(TeaModel):
-    def __init__(self, vpc_id=None, vpc_switch_id=None):
+    def __init__(self, vpc_id=None):
         self.vpc_id = vpc_id  # type: str
-        self.vpc_switch_id = vpc_switch_id  # type: str
 
     def validate(self):
         pass
@@ -19,16 +18,12 @@ class AddVpcHoneyPotRequest(TeaModel):
         result = dict()
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
-        if self.vpc_switch_id is not None:
-            result['VpcSwitchId'] = self.vpc_switch_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
-        if m.get('VpcSwitchId') is not None:
-            self.vpc_switch_id = m.get('VpcSwitchId')
         return self
 
 
@@ -755,6 +750,157 @@ class CreateSimilarSecurityEventsQueryTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CreateSimilarSecurityEventsQueryTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateVulAutoRepairConfigRequestVulAutoRepairConfigList(TeaModel):
+    def __init__(self, alias_name=None, name=None):
+        # 漏洞别名
+        self.alias_name = alias_name  # type: str
+        # 漏洞名称
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVulAutoRepairConfigRequestVulAutoRepairConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class CreateVulAutoRepairConfigRequest(TeaModel):
+    def __init__(self, reason=None, type=None, vul_auto_repair_config_list=None):
+        self.reason = reason  # type: str
+        # 漏洞类型
+        self.type = type  # type: str
+        self.vul_auto_repair_config_list = vul_auto_repair_config_list  # type: list[CreateVulAutoRepairConfigRequestVulAutoRepairConfigList]
+
+    def validate(self):
+        if self.vul_auto_repair_config_list:
+            for k in self.vul_auto_repair_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateVulAutoRepairConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.type is not None:
+            result['Type'] = self.type
+        result['VulAutoRepairConfigList'] = []
+        if self.vul_auto_repair_config_list is not None:
+            for k in self.vul_auto_repair_config_list:
+                result['VulAutoRepairConfigList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        self.vul_auto_repair_config_list = []
+        if m.get('VulAutoRepairConfigList') is not None:
+            for k in m.get('VulAutoRepairConfigList'):
+                temp_model = CreateVulAutoRepairConfigRequestVulAutoRepairConfigList()
+                self.vul_auto_repair_config_list.append(temp_model.from_map(k))
+        return self
+
+
+class CreateVulAutoRepairConfigResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVulAutoRepairConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateVulAutoRepairConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CreateVulAutoRepairConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateVulAutoRepairConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CreateVulAutoRepairConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -17833,12 +17979,14 @@ class DescribeSecurityEventOperationsRequest(TeaModel):
 
 class DescribeSecurityEventOperationsResponseBodySecurityEventOperationsResponseMarkField(TeaModel):
     def __init__(self, filed_alias_name=None, filed_name=None, mark_mis_type=None, mark_mis_value=None,
-                 supported_mis_type=None):
+                 supported_mis_type=None, uuid=None):
         self.filed_alias_name = filed_alias_name  # type: str
         self.filed_name = filed_name  # type: str
         self.mark_mis_type = mark_mis_type  # type: str
         self.mark_mis_value = mark_mis_value  # type: str
         self.supported_mis_type = supported_mis_type  # type: list[str]
+        # 资产uuid
+        self.uuid = uuid  # type: str
 
     def validate(self):
         pass
@@ -17859,6 +18007,8 @@ class DescribeSecurityEventOperationsResponseBodySecurityEventOperationsResponse
             result['MarkMisValue'] = self.mark_mis_value
         if self.supported_mis_type is not None:
             result['SupportedMisType'] = self.supported_mis_type
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
         return result
 
     def from_map(self, m=None):
@@ -17873,6 +18023,8 @@ class DescribeSecurityEventOperationsResponseBodySecurityEventOperationsResponse
             self.mark_mis_value = m.get('MarkMisValue')
         if m.get('SupportedMisType') is not None:
             self.supported_mis_type = m.get('SupportedMisType')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
         return self
 
 
@@ -28309,6 +28461,304 @@ class QueryGroupIdByGroupNameResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = QueryGroupIdByGroupNameResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryGroupedSecurityEventMarkMissListRequest(TeaModel):
+    def __init__(self, current_page=None, event_name=None, from_=None, lang=None, max_id=None, page_size=None,
+                 remark=None, source_ip=None):
+        self.current_page = current_page  # type: int
+        # 告警事件名称（子类型）
+        self.event_name = event_name  # type: str
+        self.from_ = from_  # type: str
+        self.lang = lang  # type: str
+        self.max_id = max_id  # type: long
+        self.page_size = page_size  # type: int
+        # 资产名
+        self.remark = remark  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryGroupedSecurityEventMarkMissListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.from_ is not None:
+            result['From'] = self.from_
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.max_id is not None:
+            result['MaxId'] = self.max_id
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('From') is not None:
+            self.from_ = m.get('From')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('MaxId') is not None:
+            self.max_id = m.get('MaxId')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class QueryGroupedSecurityEventMarkMissListResponseBodyList(TeaModel):
+    def __init__(self, ali_uid=None, event_name=None, event_name_original=None, event_type=None,
+                 event_type_original=None, field=None, field_value=None, filed_alias_name=None, gmt_create=None, gmt_modified=None,
+                 operate=None, uuids=None):
+        # 用户统一编号
+        self.ali_uid = ali_uid  # type: long
+        # 告警事件名称（子类型）
+        self.event_name = event_name  # type: str
+        # 告警事件名称（子类型）
+        self.event_name_original = event_name_original  # type: str
+        # 告警事件名称（父类型）
+        self.event_type = event_type  # type: str
+        # 告警事件名称（父类型）
+        self.event_type_original = event_type_original  # type: str
+        # 加白字段
+        self.field = field  # type: str
+        # 加白值
+        self.field_value = field_value  # type: str
+        # 加白字段别名
+        self.filed_alias_name = filed_alias_name  # type: str
+        # 创建时间
+        self.gmt_create = gmt_create  # type: long
+        # 修改时间
+        self.gmt_modified = gmt_modified  # type: long
+        # 操作符
+        self.operate = operate  # type: str
+        # 资产ids，逗号分割
+        self.uuids = uuids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryGroupedSecurityEventMarkMissListResponseBodyList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.event_name_original is not None:
+            result['EventNameOriginal'] = self.event_name_original
+        if self.event_type is not None:
+            result['EventType'] = self.event_type
+        if self.event_type_original is not None:
+            result['EventTypeOriginal'] = self.event_type_original
+        if self.field is not None:
+            result['Field'] = self.field
+        if self.field_value is not None:
+            result['FieldValue'] = self.field_value
+        if self.filed_alias_name is not None:
+            result['FiledAliasName'] = self.filed_alias_name
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['GmtModified'] = self.gmt_modified
+        if self.operate is not None:
+            result['Operate'] = self.operate
+        if self.uuids is not None:
+            result['Uuids'] = self.uuids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('EventNameOriginal') is not None:
+            self.event_name_original = m.get('EventNameOriginal')
+        if m.get('EventType') is not None:
+            self.event_type = m.get('EventType')
+        if m.get('EventTypeOriginal') is not None:
+            self.event_type_original = m.get('EventTypeOriginal')
+        if m.get('Field') is not None:
+            self.field = m.get('Field')
+        if m.get('FieldValue') is not None:
+            self.field_value = m.get('FieldValue')
+        if m.get('FiledAliasName') is not None:
+            self.filed_alias_name = m.get('FiledAliasName')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtModified') is not None:
+            self.gmt_modified = m.get('GmtModified')
+        if m.get('Operate') is not None:
+            self.operate = m.get('Operate')
+        if m.get('Uuids') is not None:
+            self.uuids = m.get('Uuids')
+        return self
+
+
+class QueryGroupedSecurityEventMarkMissListResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryGroupedSecurityEventMarkMissListResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class QueryGroupedSecurityEventMarkMissListResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, list=None, message=None, page_info=None, request_id=None,
+                 success=None, time_cost=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.list = list  # type: list[QueryGroupedSecurityEventMarkMissListResponseBodyList]
+        self.message = message  # type: str
+        self.page_info = page_info  # type: QueryGroupedSecurityEventMarkMissListResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.time_cost = time_cost  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(QueryGroupedSecurityEventMarkMissListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.time_cost is not None:
+            result['TimeCost'] = self.time_cost
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = QueryGroupedSecurityEventMarkMissListResponseBodyList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageInfo') is not None:
+            temp_model = QueryGroupedSecurityEventMarkMissListResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TimeCost') is not None:
+            self.time_cost = m.get('TimeCost')
+        return self
+
+
+class QueryGroupedSecurityEventMarkMissListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryGroupedSecurityEventMarkMissListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryGroupedSecurityEventMarkMissListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryGroupedSecurityEventMarkMissListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
