@@ -1270,15 +1270,19 @@ class CreateAclResponse(TeaModel):
 
 
 class CreateApplicationMonitorRequest(TeaModel):
-    def __init__(self, accelerator_id=None, address=None, client_token=None, detect_threshold=None,
-                 listener_id=None, options_json=None, region_id=None, task_name=None):
+    def __init__(self, accelerator_id=None, address=None, client_token=None, detect_enable=None,
+                 detect_threshold=None, detect_times=None, listener_id=None, options_json=None, region_id=None, silence_time=None,
+                 task_name=None):
         self.accelerator_id = accelerator_id  # type: str
         self.address = address  # type: str
         self.client_token = client_token  # type: str
+        self.detect_enable = detect_enable  # type: bool
         self.detect_threshold = detect_threshold  # type: int
+        self.detect_times = detect_times  # type: int
         self.listener_id = listener_id  # type: str
         self.options_json = options_json  # type: str
         self.region_id = region_id  # type: str
+        self.silence_time = silence_time  # type: int
         self.task_name = task_name  # type: str
 
     def validate(self):
@@ -1296,14 +1300,20 @@ class CreateApplicationMonitorRequest(TeaModel):
             result['Address'] = self.address
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.detect_enable is not None:
+            result['DetectEnable'] = self.detect_enable
         if self.detect_threshold is not None:
             result['DetectThreshold'] = self.detect_threshold
+        if self.detect_times is not None:
+            result['DetectTimes'] = self.detect_times
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.options_json is not None:
             result['OptionsJson'] = self.options_json
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.silence_time is not None:
+            result['SilenceTime'] = self.silence_time
         if self.task_name is not None:
             result['TaskName'] = self.task_name
         return result
@@ -1316,14 +1326,20 @@ class CreateApplicationMonitorRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DetectEnable') is not None:
+            self.detect_enable = m.get('DetectEnable')
         if m.get('DetectThreshold') is not None:
             self.detect_threshold = m.get('DetectThreshold')
+        if m.get('DetectTimes') is not None:
+            self.detect_times = m.get('DetectTimes')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('OptionsJson') is not None:
             self.options_json = m.get('OptionsJson')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SilenceTime') is not None:
+            self.silence_time = m.get('SilenceTime')
         if m.get('TaskName') is not None:
             self.task_name = m.get('TaskName')
         return self
@@ -5247,16 +5263,20 @@ class DescribeApplicationMonitorResponseBodyIspCityList(TeaModel):
 
 
 class DescribeApplicationMonitorResponseBody(TeaModel):
-    def __init__(self, accelerator_id=None, address=None, detect_threshold=None, isp_city_list=None,
-                 listener_id=None, options_json=None, region_id=None, request_id=None, task_id=None, task_name=None):
+    def __init__(self, accelerator_id=None, address=None, detect_enable=None, detect_threshold=None,
+                 detect_times=None, isp_city_list=None, listener_id=None, options_json=None, region_id=None, request_id=None,
+                 silence_time=None, task_id=None, task_name=None):
         self.accelerator_id = accelerator_id  # type: str
         self.address = address  # type: str
-        self.detect_threshold = detect_threshold  # type: str
+        self.detect_enable = detect_enable  # type: bool
+        self.detect_threshold = detect_threshold  # type: int
+        self.detect_times = detect_times  # type: int
         self.isp_city_list = isp_city_list  # type: list[DescribeApplicationMonitorResponseBodyIspCityList]
         self.listener_id = listener_id  # type: str
         self.options_json = options_json  # type: str
         self.region_id = region_id  # type: str
         self.request_id = request_id  # type: str
+        self.silence_time = silence_time  # type: int
         self.task_id = task_id  # type: str
         self.task_name = task_name  # type: str
 
@@ -5276,8 +5296,12 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             result['AcceleratorId'] = self.accelerator_id
         if self.address is not None:
             result['Address'] = self.address
+        if self.detect_enable is not None:
+            result['DetectEnable'] = self.detect_enable
         if self.detect_threshold is not None:
             result['DetectThreshold'] = self.detect_threshold
+        if self.detect_times is not None:
+            result['DetectTimes'] = self.detect_times
         result['IspCityList'] = []
         if self.isp_city_list is not None:
             for k in self.isp_city_list:
@@ -5290,6 +5314,8 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             result['RegionId'] = self.region_id
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.silence_time is not None:
+            result['SilenceTime'] = self.silence_time
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_name is not None:
@@ -5302,8 +5328,12 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             self.accelerator_id = m.get('AcceleratorId')
         if m.get('Address') is not None:
             self.address = m.get('Address')
+        if m.get('DetectEnable') is not None:
+            self.detect_enable = m.get('DetectEnable')
         if m.get('DetectThreshold') is not None:
             self.detect_threshold = m.get('DetectThreshold')
+        if m.get('DetectTimes') is not None:
+            self.detect_times = m.get('DetectTimes')
         self.isp_city_list = []
         if m.get('IspCityList') is not None:
             for k in m.get('IspCityList'):
@@ -5317,6 +5347,8 @@ class DescribeApplicationMonitorResponseBody(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('SilenceTime') is not None:
+            self.silence_time = m.get('SilenceTime')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskName') is not None:
@@ -8916,13 +8948,17 @@ class ListApplicationMonitorRequest(TeaModel):
 
 
 class ListApplicationMonitorResponseBodyApplicationMonitors(TeaModel):
-    def __init__(self, accelerator_id=None, address=None, detect_threshold=None, listener_id=None,
-                 options_json=None, state=None, task_id=None, task_name=None):
+    def __init__(self, accelerator_id=None, address=None, detect_enable=None, detect_threshold=None,
+                 detect_times=None, listener_id=None, options_json=None, silence_time=None, state=None, task_id=None,
+                 task_name=None):
         self.accelerator_id = accelerator_id  # type: str
         self.address = address  # type: str
+        self.detect_enable = detect_enable  # type: bool
         self.detect_threshold = detect_threshold  # type: int
+        self.detect_times = detect_times  # type: int
         self.listener_id = listener_id  # type: str
         self.options_json = options_json  # type: str
+        self.silence_time = silence_time  # type: int
         self.state = state  # type: str
         self.task_id = task_id  # type: str
         self.task_name = task_name  # type: str
@@ -8940,12 +8976,18 @@ class ListApplicationMonitorResponseBodyApplicationMonitors(TeaModel):
             result['AcceleratorId'] = self.accelerator_id
         if self.address is not None:
             result['Address'] = self.address
+        if self.detect_enable is not None:
+            result['DetectEnable'] = self.detect_enable
         if self.detect_threshold is not None:
             result['DetectThreshold'] = self.detect_threshold
+        if self.detect_times is not None:
+            result['DetectTimes'] = self.detect_times
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.options_json is not None:
             result['OptionsJson'] = self.options_json
+        if self.silence_time is not None:
+            result['SilenceTime'] = self.silence_time
         if self.state is not None:
             result['State'] = self.state
         if self.task_id is not None:
@@ -8960,12 +9002,18 @@ class ListApplicationMonitorResponseBodyApplicationMonitors(TeaModel):
             self.accelerator_id = m.get('AcceleratorId')
         if m.get('Address') is not None:
             self.address = m.get('Address')
+        if m.get('DetectEnable') is not None:
+            self.detect_enable = m.get('DetectEnable')
         if m.get('DetectThreshold') is not None:
             self.detect_threshold = m.get('DetectThreshold')
+        if m.get('DetectTimes') is not None:
+            self.detect_times = m.get('DetectTimes')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('OptionsJson') is not None:
             self.options_json = m.get('OptionsJson')
+        if m.get('SilenceTime') is not None:
+            self.silence_time = m.get('SilenceTime')
         if m.get('State') is not None:
             self.state = m.get('State')
         if m.get('TaskId') is not None:
@@ -9112,14 +9160,17 @@ class ListApplicationMonitorDetectResultRequest(TeaModel):
 
 
 class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResultList(TeaModel):
-    def __init__(self, accelerator_id=None, detail=None, diag_status=None, listener_id=None, port=None,
-                 protocol=None, task_id=None):
+    def __init__(self, accelerator_id=None, content=None, detail=None, detect_time=None, diag_status=None,
+                 listener_id=None, port=None, protocol=None, status_code=None, task_id=None):
         self.accelerator_id = accelerator_id  # type: str
+        self.content = content  # type: str
         self.detail = detail  # type: str
+        self.detect_time = detect_time  # type: str
         self.diag_status = diag_status  # type: str
         self.listener_id = listener_id  # type: str
         self.port = port  # type: str
         self.protocol = protocol  # type: str
+        self.status_code = status_code  # type: str
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -9133,8 +9184,12 @@ class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResu
         result = dict()
         if self.accelerator_id is not None:
             result['AcceleratorId'] = self.accelerator_id
+        if self.content is not None:
+            result['Content'] = self.content
         if self.detail is not None:
             result['Detail'] = self.detail
+        if self.detect_time is not None:
+            result['DetectTime'] = self.detect_time
         if self.diag_status is not None:
             result['DiagStatus'] = self.diag_status
         if self.listener_id is not None:
@@ -9143,6 +9198,8 @@ class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResu
             result['Port'] = self.port
         if self.protocol is not None:
             result['Protocol'] = self.protocol
+        if self.status_code is not None:
+            result['StatusCode'] = self.status_code
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
@@ -9151,8 +9208,12 @@ class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResu
         m = m or dict()
         if m.get('AcceleratorId') is not None:
             self.accelerator_id = m.get('AcceleratorId')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
         if m.get('Detail') is not None:
             self.detail = m.get('Detail')
+        if m.get('DetectTime') is not None:
+            self.detect_time = m.get('DetectTime')
         if m.get('DiagStatus') is not None:
             self.diag_status = m.get('DiagStatus')
         if m.get('ListenerId') is not None:
@@ -9161,6 +9222,8 @@ class ListApplicationMonitorDetectResultResponseBodyApplicationMonitorDetectResu
             self.port = m.get('Port')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
+        if m.get('StatusCode') is not None:
+            self.status_code = m.get('StatusCode')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
@@ -12865,14 +12928,18 @@ class UpdateAclAttributeResponse(TeaModel):
 
 
 class UpdateApplicationMonitorRequest(TeaModel):
-    def __init__(self, address=None, client_token=None, detect_threshold=None, listener_id=None, options_json=None,
-                 region_id=None, task_id=None, task_name=None):
+    def __init__(self, address=None, client_token=None, detect_enable=None, detect_threshold=None,
+                 detect_times=None, listener_id=None, options_json=None, region_id=None, silence_time=None, task_id=None,
+                 task_name=None):
         self.address = address  # type: str
         self.client_token = client_token  # type: str
+        self.detect_enable = detect_enable  # type: bool
         self.detect_threshold = detect_threshold  # type: int
+        self.detect_times = detect_times  # type: int
         self.listener_id = listener_id  # type: str
         self.options_json = options_json  # type: str
         self.region_id = region_id  # type: str
+        self.silence_time = silence_time  # type: int
         self.task_id = task_id  # type: str
         self.task_name = task_name  # type: str
 
@@ -12889,14 +12956,20 @@ class UpdateApplicationMonitorRequest(TeaModel):
             result['Address'] = self.address
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.detect_enable is not None:
+            result['DetectEnable'] = self.detect_enable
         if self.detect_threshold is not None:
             result['DetectThreshold'] = self.detect_threshold
+        if self.detect_times is not None:
+            result['DetectTimes'] = self.detect_times
         if self.listener_id is not None:
             result['ListenerId'] = self.listener_id
         if self.options_json is not None:
             result['OptionsJson'] = self.options_json
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.silence_time is not None:
+            result['SilenceTime'] = self.silence_time
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.task_name is not None:
@@ -12909,14 +12982,20 @@ class UpdateApplicationMonitorRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('DetectEnable') is not None:
+            self.detect_enable = m.get('DetectEnable')
         if m.get('DetectThreshold') is not None:
             self.detect_threshold = m.get('DetectThreshold')
+        if m.get('DetectTimes') is not None:
+            self.detect_times = m.get('DetectTimes')
         if m.get('ListenerId') is not None:
             self.listener_id = m.get('ListenerId')
         if m.get('OptionsJson') is not None:
             self.options_json = m.get('OptionsJson')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SilenceTime') is not None:
+            self.silence_time = m.get('SilenceTime')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TaskName') is not None:
