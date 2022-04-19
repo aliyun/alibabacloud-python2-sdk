@@ -2170,20 +2170,21 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttributeTags(TeaMod
 
 
 class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
-    def __init__(self, availability_value=None, connection_mode=None, connection_string=None, cpu_cores=None,
-                 cpu_cores_per_node=None, creation_time=None, dbinstance_category=None, dbinstance_class=None,
-                 dbinstance_class_type=None, dbinstance_cpu_cores=None, dbinstance_description=None, dbinstance_disk_mbps=None,
-                 dbinstance_group_count=None, dbinstance_id=None, dbinstance_memory=None, dbinstance_mode=None, dbinstance_net_type=None,
-                 dbinstance_status=None, dbinstance_storage=None, encryption_key=None, encryption_type=None, engine=None,
-                 engine_version=None, expire_time=None, host_type=None, instance_network_type=None, lock_mode=None,
-                 lock_reason=None, maintain_end_time=None, maintain_start_time=None, master_node_num=None,
-                 max_connections=None, memory_per_node=None, memory_size=None, memory_unit=None, minor_version=None, pay_type=None,
-                 port=None, read_delay_time=None, region_id=None, security_iplist=None, seg_node_num=None,
-                 segment_counts=None, storage_per_node=None, storage_size=None, storage_type=None, storage_unit=None,
-                 support_restore=None, tags=None, v_switch_id=None, vpc_id=None, zone_id=None):
+    def __init__(self, availability_value=None, connection_mode=None, connection_string=None, core_version=None,
+                 cpu_cores=None, cpu_cores_per_node=None, creation_time=None, dbinstance_category=None,
+                 dbinstance_class=None, dbinstance_class_type=None, dbinstance_cpu_cores=None, dbinstance_description=None,
+                 dbinstance_disk_mbps=None, dbinstance_group_count=None, dbinstance_id=None, dbinstance_memory=None,
+                 dbinstance_mode=None, dbinstance_net_type=None, dbinstance_status=None, dbinstance_storage=None,
+                 encryption_key=None, encryption_type=None, engine=None, engine_version=None, expire_time=None, host_type=None,
+                 instance_network_type=None, lock_mode=None, lock_reason=None, maintain_end_time=None, maintain_start_time=None,
+                 master_node_num=None, max_connections=None, memory_per_node=None, memory_size=None, memory_unit=None,
+                 minor_version=None, pay_type=None, port=None, read_delay_time=None, region_id=None, security_iplist=None,
+                 seg_node_num=None, segment_counts=None, storage_per_node=None, storage_size=None, storage_type=None,
+                 storage_unit=None, support_restore=None, tags=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.availability_value = availability_value  # type: str
         self.connection_mode = connection_mode  # type: str
         self.connection_string = connection_string  # type: str
+        self.core_version = core_version  # type: str
         self.cpu_cores = cpu_cores  # type: int
         self.cpu_cores_per_node = cpu_cores_per_node  # type: int
         self.creation_time = creation_time  # type: str
@@ -2250,6 +2251,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['ConnectionMode'] = self.connection_mode
         if self.connection_string is not None:
             result['ConnectionString'] = self.connection_string
+        if self.core_version is not None:
+            result['CoreVersion'] = self.core_version
         if self.cpu_cores is not None:
             result['CpuCores'] = self.cpu_cores
         if self.cpu_cores_per_node is not None:
@@ -2358,6 +2361,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.connection_mode = m.get('ConnectionMode')
         if m.get('ConnectionString') is not None:
             self.connection_string = m.get('ConnectionString')
+        if m.get('CoreVersion') is not None:
+            self.core_version = m.get('CoreVersion')
         if m.get('CpuCores') is not None:
             self.cpu_cores = m.get('CpuCores')
         if m.get('CpuCoresPerNode') is not None:
@@ -4653,6 +4658,233 @@ class DescribeDataShareInstancesResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeDataShareInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeDataSharePerformanceRequest(TeaModel):
+    def __init__(self, end_time=None, key=None, region_id=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.key = key  # type: str
+        self.region_id = region_id  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDataSharePerformanceResponseBodyPerformanceKeysSeriesValues(TeaModel):
+    def __init__(self, point=None):
+        self.point = point  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceResponseBodyPerformanceKeysSeriesValues, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.point is not None:
+            result['Point'] = self.point
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Point') is not None:
+            self.point = m.get('Point')
+        return self
+
+
+class DescribeDataSharePerformanceResponseBodyPerformanceKeysSeries(TeaModel):
+    def __init__(self, name=None, values=None):
+        self.name = name  # type: str
+        self.values = values  # type: list[DescribeDataSharePerformanceResponseBodyPerformanceKeysSeriesValues]
+
+    def validate(self):
+        if self.values:
+            for k in self.values:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceResponseBodyPerformanceKeysSeries, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        result['Values'] = []
+        if self.values is not None:
+            for k in self.values:
+                result['Values'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        self.values = []
+        if m.get('Values') is not None:
+            for k in m.get('Values'):
+                temp_model = DescribeDataSharePerformanceResponseBodyPerformanceKeysSeriesValues()
+                self.values.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDataSharePerformanceResponseBodyPerformanceKeys(TeaModel):
+    def __init__(self, name=None, series=None, unit=None):
+        self.name = name  # type: str
+        self.series = series  # type: list[DescribeDataSharePerformanceResponseBodyPerformanceKeysSeries]
+        self.unit = unit  # type: str
+
+    def validate(self):
+        if self.series:
+            for k in self.series:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceResponseBodyPerformanceKeys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        result['Series'] = []
+        if self.series is not None:
+            for k in self.series:
+                result['Series'].append(k.to_map() if k else None)
+        if self.unit is not None:
+            result['Unit'] = self.unit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        self.series = []
+        if m.get('Series') is not None:
+            for k in m.get('Series'):
+                temp_model = DescribeDataSharePerformanceResponseBodyPerformanceKeysSeries()
+                self.series.append(temp_model.from_map(k))
+        if m.get('Unit') is not None:
+            self.unit = m.get('Unit')
+        return self
+
+
+class DescribeDataSharePerformanceResponseBody(TeaModel):
+    def __init__(self, dbcluster_id=None, end_time=None, performance_keys=None, request_id=None, start_time=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.end_time = end_time  # type: str
+        self.performance_keys = performance_keys  # type: list[DescribeDataSharePerformanceResponseBodyPerformanceKeys]
+        self.request_id = request_id  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        if self.performance_keys:
+            for k in self.performance_keys:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        result['PerformanceKeys'] = []
+        if self.performance_keys is not None:
+            for k in self.performance_keys:
+                result['PerformanceKeys'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        self.performance_keys = []
+        if m.get('PerformanceKeys') is not None:
+            for k in m.get('PerformanceKeys'):
+                temp_model = DescribeDataSharePerformanceResponseBodyPerformanceKeys()
+                self.performance_keys.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeDataSharePerformanceResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeDataSharePerformanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeDataSharePerformanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeDataSharePerformanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -10986,14 +11218,20 @@ class UntagResourcesResponse(TeaModel):
 
 
 class UpgradeDBInstanceRequest(TeaModel):
-    def __init__(self, dbinstance_class=None, dbinstance_group_count=None, dbinstance_id=None, owner_id=None,
-                 pay_type=None, region_id=None):
+    def __init__(self, dbinstance_class=None, dbinstance_group_count=None, dbinstance_id=None, instance_spec=None,
+                 owner_id=None, pay_type=None, region_id=None, seg_node_num=None, storage_size=None, master_node_num=None,
+                 upgrade_type=None):
         self.dbinstance_class = dbinstance_class  # type: str
         self.dbinstance_group_count = dbinstance_group_count  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
+        self.instance_spec = instance_spec  # type: str
         self.owner_id = owner_id  # type: long
         self.pay_type = pay_type  # type: str
         self.region_id = region_id  # type: str
+        self.seg_node_num = seg_node_num  # type: str
+        self.storage_size = storage_size  # type: str
+        self.master_node_num = master_node_num  # type: str
+        self.upgrade_type = upgrade_type  # type: long
 
     def validate(self):
         pass
@@ -11010,12 +11248,22 @@ class UpgradeDBInstanceRequest(TeaModel):
             result['DBInstanceGroupCount'] = self.dbinstance_group_count
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.instance_spec is not None:
+            result['InstanceSpec'] = self.instance_spec
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.seg_node_num is not None:
+            result['SegNodeNum'] = self.seg_node_num
+        if self.storage_size is not None:
+            result['StorageSize'] = self.storage_size
+        if self.master_node_num is not None:
+            result['masterNodeNum'] = self.master_node_num
+        if self.upgrade_type is not None:
+            result['upgradeType'] = self.upgrade_type
         return result
 
     def from_map(self, m=None):
@@ -11026,12 +11274,22 @@ class UpgradeDBInstanceRequest(TeaModel):
             self.dbinstance_group_count = m.get('DBInstanceGroupCount')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('InstanceSpec') is not None:
+            self.instance_spec = m.get('InstanceSpec')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SegNodeNum') is not None:
+            self.seg_node_num = m.get('SegNodeNum')
+        if m.get('StorageSize') is not None:
+            self.storage_size = m.get('StorageSize')
+        if m.get('masterNodeNum') is not None:
+            self.master_node_num = m.get('masterNodeNum')
+        if m.get('upgradeType') is not None:
+            self.upgrade_type = m.get('upgradeType')
         return self
 
 
