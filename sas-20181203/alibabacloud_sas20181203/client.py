@@ -1970,6 +1970,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alias_name):
             query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.attach_types):
+            query['AttachTypes'] = request.attach_types
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.dealed):

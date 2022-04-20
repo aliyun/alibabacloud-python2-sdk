@@ -9617,9 +9617,10 @@ class DescribeGroupedTagsResponse(TeaModel):
 
 
 class DescribeGroupedVulRequest(TeaModel):
-    def __init__(self, alias_name=None, current_page=None, dealed=None, group_id=None, lang=None, necessity=None,
-                 page_size=None, search_tags=None, type=None, uuids=None):
+    def __init__(self, alias_name=None, attach_types=None, current_page=None, dealed=None, group_id=None, lang=None,
+                 necessity=None, page_size=None, search_tags=None, type=None, uuids=None):
         self.alias_name = alias_name  # type: str
+        self.attach_types = attach_types  # type: str
         self.current_page = current_page  # type: int
         self.dealed = dealed  # type: str
         self.group_id = group_id  # type: str
@@ -9641,6 +9642,8 @@ class DescribeGroupedVulRequest(TeaModel):
         result = dict()
         if self.alias_name is not None:
             result['AliasName'] = self.alias_name
+        if self.attach_types is not None:
+            result['AttachTypes'] = self.attach_types
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
         if self.dealed is not None:
@@ -9665,6 +9668,8 @@ class DescribeGroupedVulRequest(TeaModel):
         m = m or dict()
         if m.get('AliasName') is not None:
             self.alias_name = m.get('AliasName')
+        if m.get('AttachTypes') is not None:
+            self.attach_types = m.get('AttachTypes')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('Dealed') is not None:
