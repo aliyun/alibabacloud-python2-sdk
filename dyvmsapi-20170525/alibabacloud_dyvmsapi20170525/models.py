@@ -409,117 +409,6 @@ class BatchRobotSmartCallResponse(TeaModel):
         return self
 
 
-class CancelCallRequest(TeaModel):
-    def __init__(self, call_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.call_id = call_id  # type: str
-        self.owner_id = owner_id  # type: long
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CancelCallRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.call_id is not None:
-            result['CallId'] = self.call_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CallId') is not None:
-            self.call_id = m.get('CallId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        return self
-
-
-class CancelCallResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, status=None):
-        self.code = code  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-        self.status = status  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CancelCallResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        if self.status is not None:
-            result['Status'] = self.status
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        return self
-
-
-class CancelCallResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: CancelCallResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(CancelCallResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = CancelCallResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class CancelOrderRobotTaskRequest(TeaModel):
     def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None, task_id=None):
         self.owner_id = owner_id  # type: long
@@ -738,159 +627,6 @@ class CancelRobotTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = CancelRobotTaskResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ClickToDialRequest(TeaModel):
-    def __init__(self, asr_flag=None, asr_model_id=None, called_number=None, called_show_number=None,
-                 caller_number=None, caller_show_number=None, out_id=None, owner_id=None, record_flag=None,
-                 resource_owner_account=None, resource_owner_id=None, session_timeout=None):
-        self.asr_flag = asr_flag  # type: bool
-        self.asr_model_id = asr_model_id  # type: str
-        self.called_number = called_number  # type: str
-        self.called_show_number = called_show_number  # type: str
-        self.caller_number = caller_number  # type: str
-        self.caller_show_number = caller_show_number  # type: str
-        self.out_id = out_id  # type: str
-        self.owner_id = owner_id  # type: long
-        self.record_flag = record_flag  # type: bool
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.session_timeout = session_timeout  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ClickToDialRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.asr_flag is not None:
-            result['AsrFlag'] = self.asr_flag
-        if self.asr_model_id is not None:
-            result['AsrModelId'] = self.asr_model_id
-        if self.called_number is not None:
-            result['CalledNumber'] = self.called_number
-        if self.called_show_number is not None:
-            result['CalledShowNumber'] = self.called_show_number
-        if self.caller_number is not None:
-            result['CallerNumber'] = self.caller_number
-        if self.caller_show_number is not None:
-            result['CallerShowNumber'] = self.caller_show_number
-        if self.out_id is not None:
-            result['OutId'] = self.out_id
-        if self.owner_id is not None:
-            result['OwnerId'] = self.owner_id
-        if self.record_flag is not None:
-            result['RecordFlag'] = self.record_flag
-        if self.resource_owner_account is not None:
-            result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
-        if self.session_timeout is not None:
-            result['SessionTimeout'] = self.session_timeout
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AsrFlag') is not None:
-            self.asr_flag = m.get('AsrFlag')
-        if m.get('AsrModelId') is not None:
-            self.asr_model_id = m.get('AsrModelId')
-        if m.get('CalledNumber') is not None:
-            self.called_number = m.get('CalledNumber')
-        if m.get('CalledShowNumber') is not None:
-            self.called_show_number = m.get('CalledShowNumber')
-        if m.get('CallerNumber') is not None:
-            self.caller_number = m.get('CallerNumber')
-        if m.get('CallerShowNumber') is not None:
-            self.caller_show_number = m.get('CallerShowNumber')
-        if m.get('OutId') is not None:
-            self.out_id = m.get('OutId')
-        if m.get('OwnerId') is not None:
-            self.owner_id = m.get('OwnerId')
-        if m.get('RecordFlag') is not None:
-            self.record_flag = m.get('RecordFlag')
-        if m.get('ResourceOwnerAccount') is not None:
-            self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
-        if m.get('SessionTimeout') is not None:
-            self.session_timeout = m.get('SessionTimeout')
-        return self
-
-
-class ClickToDialResponseBody(TeaModel):
-    def __init__(self, call_id=None, code=None, message=None, request_id=None):
-        self.call_id = call_id  # type: str
-        self.code = code  # type: str
-        self.message = message  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ClickToDialResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.call_id is not None:
-            result['CallId'] = self.call_id
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.message is not None:
-            result['Message'] = self.message
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CallId') is not None:
-            self.call_id = m.get('CallId')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ClickToDialResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ClickToDialResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ClickToDialResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ClickToDialResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -5101,6 +4837,117 @@ class QueryVoiceFileAuditInfoResponse(TeaModel):
         return self
 
 
+class RecoverCallInConfigRequest(TeaModel):
+    def __init__(self, number=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.number = number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecoverCallInConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.number is not None:
+            result['Number'] = self.number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Number') is not None:
+            self.number = m.get('Number')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class RecoverCallInConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RecoverCallInConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RecoverCallInConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: RecoverCallInConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RecoverCallInConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = RecoverCallInConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RefreshMqttTokenRequest(TeaModel):
     def __init__(self, client_id=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
         self.client_id = client_id  # type: str
@@ -6325,6 +6172,117 @@ class StartRobotTaskResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = StartRobotTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopCallInConfigRequest(TeaModel):
+    def __init__(self, number=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.number = number  # type: str
+        self.owner_id = owner_id  # type: long
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopCallInConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.number is not None:
+            result['Number'] = self.number
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Number') is not None:
+            self.number = m.get('Number')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class StopCallInConfigResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopCallInConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StopCallInConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: StopCallInConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopCallInConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = StopCallInConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
