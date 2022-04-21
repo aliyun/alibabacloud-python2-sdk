@@ -117,6 +117,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_vpc_honey_pot_with_options(request, runtime)
 
+    def check_quara_file_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.quara_file_ids):
+            query['QuaraFileIds'] = request.quara_file_ids
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckQuaraFileId',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CheckQuaraFileIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_quara_file_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.check_quara_file_id_with_options(request, runtime)
+
     def check_security_event_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -738,6 +768,42 @@ class Client(OpenApiClient):
     def describe_alarm_event_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_alarm_event_list_with_options(request, runtime)
+
+    def describe_alarm_event_stack_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.event_name):
+            query['EventName'] = request.event_name
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.unique_info):
+            query['UniqueInfo'] = request.unique_info
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAlarmEventStackInfo',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeAlarmEventStackInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_alarm_event_stack_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_alarm_event_stack_info_with_options(request, runtime)
 
     def describe_all_entity_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -1804,6 +1870,38 @@ class Client(OpenApiClient):
     def describe_field_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_field_statistics_with_options(request, runtime)
+
+    def describe_front_vul_patch_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.info):
+            query['Info'] = request.info
+        if not UtilClient.is_unset(request.operate_type):
+            query['OperateType'] = request.operate_type
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeFrontVulPatchList',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeFrontVulPatchListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_front_vul_patch_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_front_vul_patch_list_with_options(request, runtime)
 
     def describe_grouped_container_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3311,6 +3409,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_risk_list_check_result_with_options(request, runtime)
 
+    def describe_risk_type_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRiskType',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeRiskTypeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_risk_type(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_risk_type_with_options(request, runtime)
+
     def describe_scan_task_progress_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3658,6 +3786,38 @@ class Client(OpenApiClient):
     def describe_strategy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_strategy_with_options(request, runtime)
+
+    def describe_strategy_detail_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeStrategyDetail',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeStrategyDetailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_strategy_detail(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_strategy_detail_with_options(request, runtime)
 
     def describe_strategy_exec_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4042,6 +4202,62 @@ class Client(OpenApiClient):
     def describe_user_layout_authorization(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_layout_authorization_with_options(request, runtime)
+
+    def describe_uuids_by_vul_names_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dealed):
+            query['Dealed'] = request.dealed
+        if not UtilClient.is_unset(request.field_name):
+            query['FieldName'] = request.field_name
+        if not UtilClient.is_unset(request.field_value):
+            query['FieldValue'] = request.field_value
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.level):
+            query['Level'] = request.level
+        if not UtilClient.is_unset(request.necessity):
+            query['Necessity'] = request.necessity
+        if not UtilClient.is_unset(request.remark):
+            query['Remark'] = request.remark
+        if not UtilClient.is_unset(request.search_tags):
+            query['SearchTags'] = request.search_tags
+        if not UtilClient.is_unset(request.status_list):
+            query['StatusList'] = request.status_list
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        if not UtilClient.is_unset(request.vpc_instance_ids):
+            query['VpcInstanceIds'] = request.vpc_instance_ids
+        if not UtilClient.is_unset(request.vul_names):
+            query['VulNames'] = request.vul_names
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUuidsByVulNames',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeUuidsByVulNamesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_uuids_by_vul_names(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_uuids_by_vul_names_with_options(request, runtime)
 
     def describe_version_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4845,6 +5061,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
 
+    def list_vul_auto_repair_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.alias_name):
+            query['AliasName'] = request.alias_name
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListVulAutoRepairConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListVulAutoRepairConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_vul_auto_repair_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_vul_auto_repair_config_with_options(request, runtime)
+
     def modify_anti_brute_force_rule_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5450,6 +5700,82 @@ class Client(OpenApiClient):
     def modify_start_vul_scan(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_start_vul_scan_with_options(request, runtime)
+
+    def modify_strategy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.custom_type):
+            query['CustomType'] = request.custom_type
+        if not UtilClient.is_unset(request.cycle_days):
+            query['CycleDays'] = request.cycle_days
+        if not UtilClient.is_unset(request.cycle_start_time):
+            query['CycleStartTime'] = request.cycle_start_time
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.risk_custom_params):
+            query['RiskCustomParams'] = request.risk_custom_params
+        if not UtilClient.is_unset(request.risk_sub_type_name):
+            query['RiskSubTypeName'] = request.risk_sub_type_name
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyStrategy',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyStrategyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_strategy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_strategy_with_options(request, runtime)
+
+    def modify_strategy_target_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.target):
+            query['Target'] = request.target
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyStrategyTarget',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyStrategyTargetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_strategy_target(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_strategy_target_with_options(request, runtime)
 
     def modify_tag_with_uuid_with_options(self, request, runtime):
         UtilClient.validate_model(request)

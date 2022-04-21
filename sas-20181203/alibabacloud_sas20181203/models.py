@@ -84,6 +84,97 @@ class AddVpcHoneyPotResponse(TeaModel):
         return self
 
 
+class CheckQuaraFileIdRequest(TeaModel):
+    def __init__(self, quara_file_ids=None, uuid=None):
+        self.quara_file_ids = quara_file_ids  # type: list[str]
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckQuaraFileIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.quara_file_ids is not None:
+            result['QuaraFileIds'] = self.quara_file_ids
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('QuaraFileIds') is not None:
+            self.quara_file_ids = m.get('QuaraFileIds')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class CheckQuaraFileIdResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckQuaraFileIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckQuaraFileIdResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CheckQuaraFileIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckQuaraFileIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CheckQuaraFileIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CheckSecurityEventIdRequest(TeaModel):
     def __init__(self, security_event_ids=None, uuid=None):
         self.security_event_ids = security_event_ids  # type: list[str]
@@ -2789,6 +2880,112 @@ class DescribeAlarmEventListResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeAlarmEventListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAlarmEventStackInfoRequest(TeaModel):
+    def __init__(self, event_name=None, lang=None, source_ip=None, unique_info=None, uuid=None):
+        self.event_name = event_name  # type: str
+        self.lang = lang  # type: str
+        self.source_ip = source_ip  # type: str
+        self.unique_info = unique_info  # type: str
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAlarmEventStackInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.event_name is not None:
+            result['EventName'] = self.event_name
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.unique_info is not None:
+            result['UniqueInfo'] = self.unique_info
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EventName') is not None:
+            self.event_name = m.get('EventName')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('UniqueInfo') is not None:
+            self.unique_info = m.get('UniqueInfo')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class DescribeAlarmEventStackInfoResponseBody(TeaModel):
+    def __init__(self, request_id=None, stack_info=None):
+        self.request_id = request_id  # type: str
+        self.stack_info = stack_info  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAlarmEventStackInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.stack_info is not None:
+            result['StackInfo'] = self.stack_info
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StackInfo') is not None:
+            self.stack_info = m.get('StackInfo')
+        return self
+
+
+class DescribeAlarmEventStackInfoResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeAlarmEventStackInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAlarmEventStackInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeAlarmEventStackInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8669,6 +8866,176 @@ class DescribeFieldStatisticsResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeFieldStatisticsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeFrontVulPatchListRequest(TeaModel):
+    def __init__(self, info=None, operate_type=None, type=None):
+        self.info = info  # type: str
+        self.operate_type = operate_type  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFrontVulPatchListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.info is not None:
+            result['Info'] = self.info
+        if self.operate_type is not None:
+            result['OperateType'] = self.operate_type
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Info') is not None:
+            self.info = m.get('Info')
+        if m.get('OperateType') is not None:
+            self.operate_type = m.get('OperateType')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeFrontVulPatchListResponseBodyFrontPatchListPatchList(TeaModel):
+    def __init__(self, alias_name=None, name=None):
+        self.alias_name = alias_name  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeFrontVulPatchListResponseBodyFrontPatchListPatchList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class DescribeFrontVulPatchListResponseBodyFrontPatchList(TeaModel):
+    def __init__(self, patch_list=None, uuid=None):
+        self.patch_list = patch_list  # type: list[DescribeFrontVulPatchListResponseBodyFrontPatchListPatchList]
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        if self.patch_list:
+            for k in self.patch_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeFrontVulPatchListResponseBodyFrontPatchList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PatchList'] = []
+        if self.patch_list is not None:
+            for k in self.patch_list:
+                result['PatchList'].append(k.to_map() if k else None)
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.patch_list = []
+        if m.get('PatchList') is not None:
+            for k in m.get('PatchList'):
+                temp_model = DescribeFrontVulPatchListResponseBodyFrontPatchListPatchList()
+                self.patch_list.append(temp_model.from_map(k))
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class DescribeFrontVulPatchListResponseBody(TeaModel):
+    def __init__(self, front_patch_list=None, request_id=None):
+        self.front_patch_list = front_patch_list  # type: list[DescribeFrontVulPatchListResponseBodyFrontPatchList]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.front_patch_list:
+            for k in self.front_patch_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeFrontVulPatchListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['FrontPatchList'] = []
+        if self.front_patch_list is not None:
+            for k in self.front_patch_list:
+                result['FrontPatchList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.front_patch_list = []
+        if m.get('FrontPatchList') is not None:
+            for k in m.get('FrontPatchList'):
+                temp_model = DescribeFrontVulPatchListResponseBodyFrontPatchList()
+                self.front_patch_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeFrontVulPatchListResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeFrontVulPatchListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeFrontVulPatchListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeFrontVulPatchListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -17223,6 +17590,343 @@ class DescribeRiskListCheckResultResponse(TeaModel):
         return self
 
 
+class DescribeRiskTypeRequest(TeaModel):
+    def __init__(self, lang=None, source_ip=None):
+        self.lang = lang  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRulesParamList(TeaModel):
+    def __init__(self, enum_value=None, max_value=None, min_value=None, param_default_value=None, param_desc=None,
+                 param_name=None, param_type=None):
+        self.enum_value = enum_value  # type: str
+        self.max_value = max_value  # type: int
+        self.min_value = min_value  # type: int
+        self.param_default_value = param_default_value  # type: str
+        self.param_desc = param_desc  # type: str
+        self.param_name = param_name  # type: str
+        self.param_type = param_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRulesParamList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enum_value is not None:
+            result['EnumValue'] = self.enum_value
+        if self.max_value is not None:
+            result['MaxValue'] = self.max_value
+        if self.min_value is not None:
+            result['MinValue'] = self.min_value
+        if self.param_default_value is not None:
+            result['ParamDefaultValue'] = self.param_default_value
+        if self.param_desc is not None:
+            result['ParamDesc'] = self.param_desc
+        if self.param_name is not None:
+            result['ParamName'] = self.param_name
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnumValue') is not None:
+            self.enum_value = m.get('EnumValue')
+        if m.get('MaxValue') is not None:
+            self.max_value = m.get('MaxValue')
+        if m.get('MinValue') is not None:
+            self.min_value = m.get('MinValue')
+        if m.get('ParamDefaultValue') is not None:
+            self.param_default_value = m.get('ParamDefaultValue')
+        if m.get('ParamDesc') is not None:
+            self.param_desc = m.get('ParamDesc')
+        if m.get('ParamName') is not None:
+            self.param_name = m.get('ParamName')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        return self
+
+
+class DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRules(TeaModel):
+    def __init__(self, default_value=None, optional=None, param_list=None, rule_desc=None, rule_id=None):
+        self.default_value = default_value  # type: int
+        self.optional = optional  # type: int
+        self.param_list = param_list  # type: list[DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRulesParamList]
+        self.rule_desc = rule_desc  # type: str
+        self.rule_id = rule_id  # type: str
+
+    def validate(self):
+        if self.param_list:
+            for k in self.param_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.optional is not None:
+            result['Optional'] = self.optional
+        result['ParamList'] = []
+        if self.param_list is not None:
+            for k in self.param_list:
+                result['ParamList'].append(k.to_map() if k else None)
+        if self.rule_desc is not None:
+            result['RuleDesc'] = self.rule_desc
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('Optional') is not None:
+            self.optional = m.get('Optional')
+        self.param_list = []
+        if m.get('ParamList') is not None:
+            for k in m.get('ParamList'):
+                temp_model = DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRulesParamList()
+                self.param_list.append(temp_model.from_map(k))
+        if m.get('RuleDesc') is not None:
+            self.rule_desc = m.get('RuleDesc')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetails(TeaModel):
+    def __init__(self, check_desc=None, check_id=None, check_item=None, rules=None):
+        self.check_desc = check_desc  # type: str
+        self.check_id = check_id  # type: long
+        self.check_item = check_item  # type: str
+        self.rules = rules  # type: list[DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRules]
+
+    def validate(self):
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_desc is not None:
+            result['CheckDesc'] = self.check_desc
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.check_item is not None:
+            result['CheckItem'] = self.check_item
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckDesc') is not None:
+            self.check_desc = m.get('CheckDesc')
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('CheckItem') is not None:
+            self.check_item = m.get('CheckItem')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetailsRules()
+                self.rules.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeRiskTypeResponseBodyRiskTypesSubTypes(TeaModel):
+    def __init__(self, alias=None, check_details=None, type_name=None):
+        self.alias = alias  # type: str
+        self.check_details = check_details  # type: list[DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetails]
+        self.type_name = type_name  # type: str
+
+    def validate(self):
+        if self.check_details:
+            for k in self.check_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBodyRiskTypesSubTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        result['CheckDetails'] = []
+        if self.check_details is not None:
+            for k in self.check_details:
+                result['CheckDetails'].append(k.to_map() if k else None)
+        if self.type_name is not None:
+            result['TypeName'] = self.type_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        self.check_details = []
+        if m.get('CheckDetails') is not None:
+            for k in m.get('CheckDetails'):
+                temp_model = DescribeRiskTypeResponseBodyRiskTypesSubTypesCheckDetails()
+                self.check_details.append(temp_model.from_map(k))
+        if m.get('TypeName') is not None:
+            self.type_name = m.get('TypeName')
+        return self
+
+
+class DescribeRiskTypeResponseBodyRiskTypes(TeaModel):
+    def __init__(self, alias=None, sub_types=None, type_name=None):
+        self.alias = alias  # type: str
+        self.sub_types = sub_types  # type: list[DescribeRiskTypeResponseBodyRiskTypesSubTypes]
+        self.type_name = type_name  # type: str
+
+    def validate(self):
+        if self.sub_types:
+            for k in self.sub_types:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBodyRiskTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        result['SubTypes'] = []
+        if self.sub_types is not None:
+            for k in self.sub_types:
+                result['SubTypes'].append(k.to_map() if k else None)
+        if self.type_name is not None:
+            result['TypeName'] = self.type_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        self.sub_types = []
+        if m.get('SubTypes') is not None:
+            for k in m.get('SubTypes'):
+                temp_model = DescribeRiskTypeResponseBodyRiskTypesSubTypes()
+                self.sub_types.append(temp_model.from_map(k))
+        if m.get('TypeName') is not None:
+            self.type_name = m.get('TypeName')
+        return self
+
+
+class DescribeRiskTypeResponseBody(TeaModel):
+    def __init__(self, request_id=None, risk_types=None):
+        self.request_id = request_id  # type: str
+        self.risk_types = risk_types  # type: list[DescribeRiskTypeResponseBodyRiskTypes]
+
+    def validate(self):
+        if self.risk_types:
+            for k in self.risk_types:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['RiskTypes'] = []
+        if self.risk_types is not None:
+            for k in self.risk_types:
+                result['RiskTypes'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.risk_types = []
+        if m.get('RiskTypes') is not None:
+            for k in m.get('RiskTypes'):
+                temp_model = DescribeRiskTypeResponseBodyRiskTypes()
+                self.risk_types.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeRiskTypeResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeRiskTypeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskTypeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeRiskTypeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeScanTaskProgressRequest(TeaModel):
     def __init__(self, task_id=None):
         self.task_id = task_id  # type: long
@@ -19257,6 +19961,415 @@ class DescribeStrategyResponse(TeaModel):
         return self
 
 
+class DescribeStrategyDetailRequest(TeaModel):
+    def __init__(self, id=None, lang=None, source_ip=None):
+        self.id = id  # type: str
+        self.lang = lang  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRulesParamList(TeaModel):
+    def __init__(self, enum_value=None, max_value=None, min_value=None, param_default_value=None, param_desc=None,
+                 param_name=None, param_type=None, value=None):
+        self.enum_value = enum_value  # type: str
+        self.max_value = max_value  # type: int
+        self.min_value = min_value  # type: int
+        self.param_default_value = param_default_value  # type: str
+        self.param_desc = param_desc  # type: str
+        self.param_name = param_name  # type: str
+        self.param_type = param_type  # type: int
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRulesParamList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enum_value is not None:
+            result['EnumValue'] = self.enum_value
+        if self.max_value is not None:
+            result['MaxValue'] = self.max_value
+        if self.min_value is not None:
+            result['MinValue'] = self.min_value
+        if self.param_default_value is not None:
+            result['ParamDefaultValue'] = self.param_default_value
+        if self.param_desc is not None:
+            result['ParamDesc'] = self.param_desc
+        if self.param_name is not None:
+            result['ParamName'] = self.param_name
+        if self.param_type is not None:
+            result['ParamType'] = self.param_type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnumValue') is not None:
+            self.enum_value = m.get('EnumValue')
+        if m.get('MaxValue') is not None:
+            self.max_value = m.get('MaxValue')
+        if m.get('MinValue') is not None:
+            self.min_value = m.get('MinValue')
+        if m.get('ParamDefaultValue') is not None:
+            self.param_default_value = m.get('ParamDefaultValue')
+        if m.get('ParamDesc') is not None:
+            self.param_desc = m.get('ParamDesc')
+        if m.get('ParamName') is not None:
+            self.param_name = m.get('ParamName')
+        if m.get('ParamType') is not None:
+            self.param_type = m.get('ParamType')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRules(TeaModel):
+    def __init__(self, default_value=None, optional=None, param_list=None, rule_desc=None, rule_id=None):
+        self.default_value = default_value  # type: int
+        self.optional = optional  # type: int
+        self.param_list = param_list  # type: list[DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRulesParamList]
+        self.rule_desc = rule_desc  # type: str
+        self.rule_id = rule_id  # type: str
+
+    def validate(self):
+        if self.param_list:
+            for k in self.param_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.optional is not None:
+            result['Optional'] = self.optional
+        result['ParamList'] = []
+        if self.param_list is not None:
+            for k in self.param_list:
+                result['ParamList'].append(k.to_map() if k else None)
+        if self.rule_desc is not None:
+            result['RuleDesc'] = self.rule_desc
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('Optional') is not None:
+            self.optional = m.get('Optional')
+        self.param_list = []
+        if m.get('ParamList') is not None:
+            for k in m.get('ParamList'):
+                temp_model = DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRulesParamList()
+                self.param_list.append(temp_model.from_map(k))
+        if m.get('RuleDesc') is not None:
+            self.rule_desc = m.get('RuleDesc')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetails(TeaModel):
+    def __init__(self, check_desc=None, check_id=None, check_item=None, rules=None):
+        self.check_desc = check_desc  # type: str
+        self.check_id = check_id  # type: long
+        self.check_item = check_item  # type: str
+        self.rules = rules  # type: list[DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRules]
+
+    def validate(self):
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_desc is not None:
+            result['CheckDesc'] = self.check_desc
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.check_item is not None:
+            result['CheckItem'] = self.check_item
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckDesc') is not None:
+            self.check_desc = m.get('CheckDesc')
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('CheckItem') is not None:
+            self.check_item = m.get('CheckItem')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetailsRules()
+                self.rules.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypes(TeaModel):
+    def __init__(self, alias=None, check_details=None, on=None, type_name=None):
+        self.alias = alias  # type: str
+        self.check_details = check_details  # type: list[DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetails]
+        self.on = on  # type: bool
+        self.type_name = type_name  # type: str
+
+    def validate(self):
+        if self.check_details:
+            for k in self.check_details:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        result['CheckDetails'] = []
+        if self.check_details is not None:
+            for k in self.check_details:
+                result['CheckDetails'].append(k.to_map() if k else None)
+        if self.on is not None:
+            result['On'] = self.on
+        if self.type_name is not None:
+            result['TypeName'] = self.type_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        self.check_details = []
+        if m.get('CheckDetails') is not None:
+            for k in m.get('CheckDetails'):
+                temp_model = DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypesCheckDetails()
+                self.check_details.append(temp_model.from_map(k))
+        if m.get('On') is not None:
+            self.on = m.get('On')
+        if m.get('TypeName') is not None:
+            self.type_name = m.get('TypeName')
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultList(TeaModel):
+    def __init__(self, alias=None, on=None, sub_types=None, type_name=None):
+        self.alias = alias  # type: str
+        self.on = on  # type: bool
+        self.sub_types = sub_types  # type: list[DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypes]
+        self.type_name = type_name  # type: str
+
+    def validate(self):
+        if self.sub_types:
+            for k in self.sub_types:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias is not None:
+            result['Alias'] = self.alias
+        if self.on is not None:
+            result['On'] = self.on
+        result['SubTypes'] = []
+        if self.sub_types is not None:
+            for k in self.sub_types:
+                result['SubTypes'].append(k.to_map() if k else None)
+        if self.type_name is not None:
+            result['TypeName'] = self.type_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Alias') is not None:
+            self.alias = m.get('Alias')
+        if m.get('On') is not None:
+            self.on = m.get('On')
+        self.sub_types = []
+        if m.get('SubTypes') is not None:
+            for k in m.get('SubTypes'):
+                temp_model = DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultListSubTypes()
+                self.sub_types.append(temp_model.from_map(k))
+        if m.get('TypeName') is not None:
+            self.type_name = m.get('TypeName')
+        return self
+
+
+class DescribeStrategyDetailResponseBodyStrategy(TeaModel):
+    def __init__(self, cycle_days=None, cycle_start_time=None, id=None, name=None,
+                 risk_type_white_list_query_result_list=None, type=None):
+        self.cycle_days = cycle_days  # type: int
+        self.cycle_start_time = cycle_start_time  # type: int
+        self.id = id  # type: int
+        self.name = name  # type: str
+        self.risk_type_white_list_query_result_list = risk_type_white_list_query_result_list  # type: list[DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultList]
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.risk_type_white_list_query_result_list:
+            for k in self.risk_type_white_list_query_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBodyStrategy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cycle_days is not None:
+            result['CycleDays'] = self.cycle_days
+        if self.cycle_start_time is not None:
+            result['CycleStartTime'] = self.cycle_start_time
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        result['RiskTypeWhiteListQueryResultList'] = []
+        if self.risk_type_white_list_query_result_list is not None:
+            for k in self.risk_type_white_list_query_result_list:
+                result['RiskTypeWhiteListQueryResultList'].append(k.to_map() if k else None)
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CycleDays') is not None:
+            self.cycle_days = m.get('CycleDays')
+        if m.get('CycleStartTime') is not None:
+            self.cycle_start_time = m.get('CycleStartTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        self.risk_type_white_list_query_result_list = []
+        if m.get('RiskTypeWhiteListQueryResultList') is not None:
+            for k in m.get('RiskTypeWhiteListQueryResultList'):
+                temp_model = DescribeStrategyDetailResponseBodyStrategyRiskTypeWhiteListQueryResultList()
+                self.risk_type_white_list_query_result_list.append(temp_model.from_map(k))
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeStrategyDetailResponseBody(TeaModel):
+    def __init__(self, request_id=None, strategy=None):
+        self.request_id = request_id  # type: str
+        self.strategy = strategy  # type: DescribeStrategyDetailResponseBodyStrategy
+
+    def validate(self):
+        if self.strategy:
+            self.strategy.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.strategy is not None:
+            result['Strategy'] = self.strategy.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Strategy') is not None:
+            temp_model = DescribeStrategyDetailResponseBodyStrategy()
+            self.strategy = temp_model.from_map(m['Strategy'])
+        return self
+
+
+class DescribeStrategyDetailResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeStrategyDetailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeStrategyDetailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeStrategyDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeStrategyExecDetailRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None, source_ip=None, strategy_id=None):
         self.current_page = current_page  # type: int
@@ -21270,6 +22383,222 @@ class DescribeUserLayoutAuthorizationResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = DescribeUserLayoutAuthorizationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeUuidsByVulNamesRequest(TeaModel):
+    def __init__(self, dealed=None, field_name=None, field_value=None, group_id=None, lang=None, level=None,
+                 necessity=None, remark=None, search_tags=None, status_list=None, tag=None, target_type=None, type=None,
+                 vpc_instance_ids=None, vul_names=None):
+        self.dealed = dealed  # type: str
+        self.field_name = field_name  # type: str
+        self.field_value = field_value  # type: str
+        self.group_id = group_id  # type: long
+        self.lang = lang  # type: str
+        self.level = level  # type: str
+        self.necessity = necessity  # type: str
+        self.remark = remark  # type: str
+        self.search_tags = search_tags  # type: str
+        self.status_list = status_list  # type: str
+        self.tag = tag  # type: str
+        self.target_type = target_type  # type: str
+        self.type = type  # type: str
+        self.vpc_instance_ids = vpc_instance_ids  # type: str
+        self.vul_names = vul_names  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUuidsByVulNamesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dealed is not None:
+            result['Dealed'] = self.dealed
+        if self.field_name is not None:
+            result['FieldName'] = self.field_name
+        if self.field_value is not None:
+            result['FieldValue'] = self.field_value
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.level is not None:
+            result['Level'] = self.level
+        if self.necessity is not None:
+            result['Necessity'] = self.necessity
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.search_tags is not None:
+            result['SearchTags'] = self.search_tags
+        if self.status_list is not None:
+            result['StatusList'] = self.status_list
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.target_type is not None:
+            result['TargetType'] = self.target_type
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.vpc_instance_ids is not None:
+            result['VpcInstanceIds'] = self.vpc_instance_ids
+        if self.vul_names is not None:
+            result['VulNames'] = self.vul_names
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Dealed') is not None:
+            self.dealed = m.get('Dealed')
+        if m.get('FieldName') is not None:
+            self.field_name = m.get('FieldName')
+        if m.get('FieldValue') is not None:
+            self.field_value = m.get('FieldValue')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Level') is not None:
+            self.level = m.get('Level')
+        if m.get('Necessity') is not None:
+            self.necessity = m.get('Necessity')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('SearchTags') is not None:
+            self.search_tags = m.get('SearchTags')
+        if m.get('StatusList') is not None:
+            self.status_list = m.get('StatusList')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('TargetType') is not None:
+            self.target_type = m.get('TargetType')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('VpcInstanceIds') is not None:
+            self.vpc_instance_ids = m.get('VpcInstanceIds')
+        if m.get('VulNames') is not None:
+            self.vul_names = m.get('VulNames')
+        return self
+
+
+class DescribeUuidsByVulNamesResponseBodyMachineInfoStatistics(TeaModel):
+    def __init__(self, machine_instance_id=None, machine_ip=None, machine_name=None, os=None, region_id=None,
+                 uuid=None):
+        self.machine_instance_id = machine_instance_id  # type: str
+        self.machine_ip = machine_ip  # type: str
+        self.machine_name = machine_name  # type: str
+        self.os = os  # type: str
+        self.region_id = region_id  # type: str
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUuidsByVulNamesResponseBodyMachineInfoStatistics, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.machine_instance_id is not None:
+            result['MachineInstanceId'] = self.machine_instance_id
+        if self.machine_ip is not None:
+            result['MachineIp'] = self.machine_ip
+        if self.machine_name is not None:
+            result['MachineName'] = self.machine_name
+        if self.os is not None:
+            result['Os'] = self.os
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.uuid is not None:
+            result['Uuid'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MachineInstanceId') is not None:
+            self.machine_instance_id = m.get('MachineInstanceId')
+        if m.get('MachineIp') is not None:
+            self.machine_ip = m.get('MachineIp')
+        if m.get('MachineName') is not None:
+            self.machine_name = m.get('MachineName')
+        if m.get('Os') is not None:
+            self.os = m.get('Os')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Uuid') is not None:
+            self.uuid = m.get('Uuid')
+        return self
+
+
+class DescribeUuidsByVulNamesResponseBody(TeaModel):
+    def __init__(self, machine_info_statistics=None, request_id=None):
+        self.machine_info_statistics = machine_info_statistics  # type: list[DescribeUuidsByVulNamesResponseBodyMachineInfoStatistics]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.machine_info_statistics:
+            for k in self.machine_info_statistics:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeUuidsByVulNamesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['MachineInfoStatistics'] = []
+        if self.machine_info_statistics is not None:
+            for k in self.machine_info_statistics:
+                result['MachineInfoStatistics'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.machine_info_statistics = []
+        if m.get('MachineInfoStatistics') is not None:
+            for k in m.get('MachineInfoStatistics'):
+                temp_model = DescribeUuidsByVulNamesResponseBodyMachineInfoStatistics()
+                self.machine_info_statistics.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeUuidsByVulNamesResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeUuidsByVulNamesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeUuidsByVulNamesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeUuidsByVulNamesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -25104,6 +26433,229 @@ class InstallCloudMonitorResponse(TeaModel):
         return self
 
 
+class ListVulAutoRepairConfigRequest(TeaModel):
+    def __init__(self, alias_name=None, current_page=None, page_size=None, type=None):
+        # 漏洞别名
+        self.alias_name = alias_name  # type: str
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        # 漏洞类型
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVulAutoRepairConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListVulAutoRepairConfigResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVulAutoRepairConfigResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListVulAutoRepairConfigResponseBodyVulAutoRepairConfigList(TeaModel):
+    def __init__(self, alias_name=None, id=None, name=None, reason=None, type=None):
+        self.alias_name = alias_name  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.reason = reason  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVulAutoRepairConfigResponseBodyVulAutoRepairConfigList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListVulAutoRepairConfigResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, page_info=None, request_id=None, success=None,
+                 vul_auto_repair_config_list=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.page_info = page_info  # type: ListVulAutoRepairConfigResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.vul_auto_repair_config_list = vul_auto_repair_config_list  # type: list[ListVulAutoRepairConfigResponseBodyVulAutoRepairConfigList]
+
+    def validate(self):
+        if self.page_info:
+            self.page_info.validate()
+        if self.vul_auto_repair_config_list:
+            for k in self.vul_auto_repair_config_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListVulAutoRepairConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        result['VulAutoRepairConfigList'] = []
+        if self.vul_auto_repair_config_list is not None:
+            for k in self.vul_auto_repair_config_list:
+                result['VulAutoRepairConfigList'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageInfo') is not None:
+            temp_model = ListVulAutoRepairConfigResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        self.vul_auto_repair_config_list = []
+        if m.get('VulAutoRepairConfigList') is not None:
+            for k in m.get('VulAutoRepairConfigList'):
+                temp_model = ListVulAutoRepairConfigResponseBodyVulAutoRepairConfigList()
+                self.vul_auto_repair_config_list.append(temp_model.from_map(k))
+        return self
+
+
+class ListVulAutoRepairConfigResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListVulAutoRepairConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListVulAutoRepairConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListVulAutoRepairConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ModifyAntiBruteForceRuleRequest(TeaModel):
     def __init__(self, default_rule=None, fail_count=None, forbidden_time=None, id=None, name=None,
                  resource_owner_id=None, source_ip=None, span=None, uuid_list=None):
@@ -26969,6 +28521,260 @@ class ModifyStartVulScanResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = ModifyStartVulScanResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyStrategyRequest(TeaModel):
+    def __init__(self, custom_type=None, cycle_days=None, cycle_start_time=None, id=None, name=None,
+                 risk_custom_params=None, risk_sub_type_name=None, source_ip=None):
+        self.custom_type = custom_type  # type: str
+        self.cycle_days = cycle_days  # type: str
+        self.cycle_start_time = cycle_start_time  # type: str
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.risk_custom_params = risk_custom_params  # type: str
+        self.risk_sub_type_name = risk_sub_type_name  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStrategyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.custom_type is not None:
+            result['CustomType'] = self.custom_type
+        if self.cycle_days is not None:
+            result['CycleDays'] = self.cycle_days
+        if self.cycle_start_time is not None:
+            result['CycleStartTime'] = self.cycle_start_time
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.risk_custom_params is not None:
+            result['RiskCustomParams'] = self.risk_custom_params
+        if self.risk_sub_type_name is not None:
+            result['RiskSubTypeName'] = self.risk_sub_type_name
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomType') is not None:
+            self.custom_type = m.get('CustomType')
+        if m.get('CycleDays') is not None:
+            self.cycle_days = m.get('CycleDays')
+        if m.get('CycleStartTime') is not None:
+            self.cycle_start_time = m.get('CycleStartTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('RiskCustomParams') is not None:
+            self.risk_custom_params = m.get('RiskCustomParams')
+        if m.get('RiskSubTypeName') is not None:
+            self.risk_sub_type_name = m.get('RiskSubTypeName')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class ModifyStrategyResponseBodyResult(TeaModel):
+    def __init__(self, strategy_id=None):
+        self.strategy_id = strategy_id  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStrategyResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.strategy_id is not None:
+            result['StrategyId'] = self.strategy_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StrategyId') is not None:
+            self.strategy_id = m.get('StrategyId')
+        return self
+
+
+class ModifyStrategyResponseBody(TeaModel):
+    def __init__(self, http_status_code=None, request_id=None, result=None, success=None):
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.result = result  # type: ModifyStrategyResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ModifyStrategyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ModifyStrategyResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ModifyStrategyResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyStrategyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyStrategyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyStrategyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyStrategyTargetRequest(TeaModel):
+    def __init__(self, config=None, source_ip=None, target=None, type=None):
+        self.config = config  # type: str
+        self.source_ip = source_ip  # type: str
+        self.target = target  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStrategyTargetRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['Config'] = self.config
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Config') is not None:
+            self.config = m.get('Config')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ModifyStrategyTargetResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyStrategyTargetResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyStrategyTargetResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ModifyStrategyTargetResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyStrategyTargetResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ModifyStrategyTargetResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
