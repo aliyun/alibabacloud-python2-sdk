@@ -5363,6 +5363,212 @@ class ListGroupDNSServiceRulesResponse(TeaModel):
         return self
 
 
+class ListIoTCloudConnectorAccessSessionLogsRequest(TeaModel):
+    def __init__(self, destinations=None, end_time=None, io_tcloud_connector_id=None, max_results=None,
+                 next_token=None, region_id=None, source_ips=None, start_time=None):
+        self.destinations = destinations  # type: list[str]
+        self.end_time = end_time  # type: long
+        self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.region_id = region_id  # type: str
+        self.source_ips = source_ips  # type: list[str]
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorAccessSessionLogsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.destinations is not None:
+            result['Destinations'] = self.destinations
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.io_tcloud_connector_id is not None:
+            result['IoTCloudConnectorId'] = self.io_tcloud_connector_id
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_ips is not None:
+            result['SourceIps'] = self.source_ips
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Destinations') is not None:
+            self.destinations = m.get('Destinations')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('IoTCloudConnectorId') is not None:
+            self.io_tcloud_connector_id = m.get('IoTCloudConnectorId')
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceIps') is not None:
+            self.source_ips = m.get('SourceIps')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class ListIoTCloudConnectorAccessSessionLogsResponseBodyAccessSessionLogs(TeaModel):
+    def __init__(self, client_to_service_flow=None, destination_ip=None, destination_port=None, destinations=None,
+                 service_to_client_flow=None, source_ip=None, time=None, type=None):
+        self.client_to_service_flow = client_to_service_flow  # type: str
+        self.destination_ip = destination_ip  # type: str
+        self.destination_port = destination_port  # type: str
+        self.destinations = destinations  # type: list[str]
+        self.service_to_client_flow = service_to_client_flow  # type: str
+        self.source_ip = source_ip  # type: str
+        self.time = time  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorAccessSessionLogsResponseBodyAccessSessionLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_to_service_flow is not None:
+            result['ClientToServiceFlow'] = self.client_to_service_flow
+        if self.destination_ip is not None:
+            result['DestinationIp'] = self.destination_ip
+        if self.destination_port is not None:
+            result['DestinationPort'] = self.destination_port
+        if self.destinations is not None:
+            result['Destinations'] = self.destinations
+        if self.service_to_client_flow is not None:
+            result['ServiceToClientFlow'] = self.service_to_client_flow
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        if self.time is not None:
+            result['Time'] = self.time
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToServiceFlow') is not None:
+            self.client_to_service_flow = m.get('ClientToServiceFlow')
+        if m.get('DestinationIp') is not None:
+            self.destination_ip = m.get('DestinationIp')
+        if m.get('DestinationPort') is not None:
+            self.destination_port = m.get('DestinationPort')
+        if m.get('Destinations') is not None:
+            self.destinations = m.get('Destinations')
+        if m.get('ServiceToClientFlow') is not None:
+            self.service_to_client_flow = m.get('ServiceToClientFlow')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        if m.get('Time') is not None:
+            self.time = m.get('Time')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListIoTCloudConnectorAccessSessionLogsResponseBody(TeaModel):
+    def __init__(self, access_session_logs=None, max_results=None, next_token=None, request_id=None,
+                 total_count=None):
+        self.access_session_logs = access_session_logs  # type: list[ListIoTCloudConnectorAccessSessionLogsResponseBodyAccessSessionLogs]
+        self.max_results = max_results  # type: int
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.access_session_logs:
+            for k in self.access_session_logs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorAccessSessionLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AccessSessionLogs'] = []
+        if self.access_session_logs is not None:
+            for k in self.access_session_logs:
+                result['AccessSessionLogs'].append(k.to_map() if k else None)
+        if self.max_results is not None:
+            result['MaxResults'] = self.max_results
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.access_session_logs = []
+        if m.get('AccessSessionLogs') is not None:
+            for k in m.get('AccessSessionLogs'):
+                temp_model = ListIoTCloudConnectorAccessSessionLogsResponseBodyAccessSessionLogs()
+                self.access_session_logs.append(temp_model.from_map(k))
+        if m.get('MaxResults') is not None:
+            self.max_results = m.get('MaxResults')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListIoTCloudConnectorAccessSessionLogsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ListIoTCloudConnectorAccessSessionLogsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListIoTCloudConnectorAccessSessionLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ListIoTCloudConnectorAccessSessionLogsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListIoTCloudConnectorAvailableZonesRequest(TeaModel):
     def __init__(self, io_tcloud_connector_id=None, region_id=None):
         self.io_tcloud_connector_id = io_tcloud_connector_id  # type: str
