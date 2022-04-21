@@ -5991,9 +5991,10 @@ class ListOpenPlatformConfigResponse(TeaModel):
 
 
 class ListSpaceRequest(TeaModel):
-    def __init__(self, page_num=None, page_size=None):
+    def __init__(self, page_num=None, page_size=None, space_ids=None):
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
+        self.space_ids = space_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -6008,6 +6009,8 @@ class ListSpaceRequest(TeaModel):
             result['PageNum'] = self.page_num
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.space_ids is not None:
+            result['SpaceIds'] = self.space_ids
         return result
 
     def from_map(self, m=None):
@@ -6016,13 +6019,50 @@ class ListSpaceRequest(TeaModel):
             self.page_num = m.get('PageNum')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('SpaceIds') is not None:
+            self.space_ids = m.get('SpaceIds')
+        return self
+
+
+class ListSpaceShrinkRequest(TeaModel):
+    def __init__(self, page_num=None, page_size=None, space_ids_shrink=None):
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.space_ids_shrink = space_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpaceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.space_ids_shrink is not None:
+            result['SpaceIds'] = self.space_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SpaceIds') is not None:
+            self.space_ids_shrink = m.get('SpaceIds')
         return self
 
 
 class ListSpaceResponseBodySpaces(TeaModel):
-    def __init__(self, desc=None, gmt_create=None, name=None, space_id=None, status=None):
+    def __init__(self, desc=None, gmt_create=None, gmt_last_access=None, name=None, space_id=None, status=None):
         self.desc = desc  # type: str
         self.gmt_create = gmt_create  # type: long
+        self.gmt_last_access = gmt_last_access  # type: long
         self.name = name  # type: str
         self.space_id = space_id  # type: str
         self.status = status  # type: str
@@ -6040,6 +6080,8 @@ class ListSpaceResponseBodySpaces(TeaModel):
             result['Desc'] = self.desc
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
+        if self.gmt_last_access is not None:
+            result['GmtLastAccess'] = self.gmt_last_access
         if self.name is not None:
             result['Name'] = self.name
         if self.space_id is not None:
@@ -6054,6 +6096,8 @@ class ListSpaceResponseBodySpaces(TeaModel):
             self.desc = m.get('Desc')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtLastAccess') is not None:
+            self.gmt_last_access = m.get('GmtLastAccess')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('SpaceId') is not None:

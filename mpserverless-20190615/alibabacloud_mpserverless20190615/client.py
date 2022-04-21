@@ -1486,13 +1486,19 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_open_platform_config_with_options(request, runtime)
 
-    def list_space_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def list_space_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mpserverless_20190615_models.ListSpaceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.space_ids):
+            request.space_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.space_ids, 'SpaceIds', 'simple')
         body = {}
         if not UtilClient.is_unset(request.page_num):
             body['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.space_ids_shrink):
+            body['SpaceIds'] = request.space_ids_shrink
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
