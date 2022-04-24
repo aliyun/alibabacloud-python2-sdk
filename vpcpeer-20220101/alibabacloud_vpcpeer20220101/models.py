@@ -4,17 +4,12 @@ from Tea.model import TeaModel
 
 
 class AcceptVpcPeerConnectionRequest(TeaModel):
-    def __init__(self, caller_bid_login_email=None, caller_uid_login_email=None, channel=None, client_token=None,
-                 dry_run=None, instance_id=None, owner_account=None, owner_id_login_email=None, request_content=None,
+    def __init__(self, channel=None, client_token=None, dry_run=None, instance_id=None, request_content=None,
                  resource_owner_account=None):
-        self.caller_bid_login_email = caller_bid_login_email  # type: str
-        self.caller_uid_login_email = caller_uid_login_email  # type: str
         self.channel = channel  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
         self.instance_id = instance_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id_login_email = owner_id_login_email  # type: str
         self.request_content = request_content  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
 
@@ -27,10 +22,6 @@ class AcceptVpcPeerConnectionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.caller_bid_login_email is not None:
-            result['CallerBidLoginEmail'] = self.caller_bid_login_email
-        if self.caller_uid_login_email is not None:
-            result['CallerUidLoginEmail'] = self.caller_uid_login_email
         if self.channel is not None:
             result['Channel'] = self.channel
         if self.client_token is not None:
@@ -39,10 +30,6 @@ class AcceptVpcPeerConnectionRequest(TeaModel):
             result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.owner_id_login_email is not None:
-            result['OwnerIdLoginEmail'] = self.owner_id_login_email
         if self.request_content is not None:
             result['RequestContent'] = self.request_content
         if self.resource_owner_account is not None:
@@ -51,10 +38,6 @@ class AcceptVpcPeerConnectionRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CallerBidLoginEmail') is not None:
-            self.caller_bid_login_email = m.get('CallerBidLoginEmail')
-        if m.get('CallerUidLoginEmail') is not None:
-            self.caller_uid_login_email = m.get('CallerUidLoginEmail')
         if m.get('Channel') is not None:
             self.channel = m.get('Channel')
         if m.get('ClientToken') is not None:
@@ -63,10 +46,6 @@ class AcceptVpcPeerConnectionRequest(TeaModel):
             self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('OwnerIdLoginEmail') is not None:
-            self.owner_id_login_email = m.get('OwnerIdLoginEmail')
         if m.get('RequestContent') is not None:
             self.request_content = m.get('RequestContent')
         if m.get('ResourceOwnerAccount') is not None:
@@ -75,16 +54,8 @@ class AcceptVpcPeerConnectionRequest(TeaModel):
 
 
 class AcceptVpcPeerConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
-                 message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: dict[str, any]
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -95,42 +66,14 @@ class AcceptVpcPeerConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -238,16 +181,9 @@ class CreateVpcPeerConnectionRequest(TeaModel):
 
 
 class CreateVpcPeerConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, dynamic_code=None, dynamic_message=None, http_status_code=None, instance_id=None,
-                 message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
+    def __init__(self, instance_id=None, request_id=None):
         self.instance_id = instance_id  # type: str
-        self.message = message  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -258,42 +194,18 @@ class CreateVpcPeerConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -331,10 +243,12 @@ class CreateVpcPeerConnectionResponse(TeaModel):
 
 
 class DeleteVpcPeerConnectionRequest(TeaModel):
-    def __init__(self, channel=None, client_token=None, dry_run=None, instance_id=None):
+    def __init__(self, channel=None, client_token=None, dry_run=None, force=None, instance_id=None):
         self.channel = channel  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
+        # 是否强删
+        self.force = force  # type: bool
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -352,6 +266,8 @@ class DeleteVpcPeerConnectionRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.dry_run is not None:
             result['DryRun'] = self.dry_run
+        if self.force is not None:
+            result['Force'] = self.force
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         return result
@@ -364,21 +280,16 @@ class DeleteVpcPeerConnectionRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('DryRun') is not None:
             self.dry_run = m.get('DryRun')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         return self
 
 
 class DeleteVpcPeerConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, dynamic_code=None, dynamic_message=None, http_status_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: str
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -389,38 +300,14 @@ class DeleteVpcPeerConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -458,17 +345,12 @@ class DeleteVpcPeerConnectionResponse(TeaModel):
 
 
 class GetVpcPeerConnectionAttributeRequest(TeaModel):
-    def __init__(self, caller_bid_login_email=None, caller_uid_login_email=None, channel=None, client_token=None,
-                 dry_run=None, instance_id=None, owner_account=None, owner_id_login_email=None, request_content=None,
+    def __init__(self, channel=None, client_token=None, dry_run=None, instance_id=None, request_content=None,
                  resource_owner_account=None):
-        self.caller_bid_login_email = caller_bid_login_email  # type: str
-        self.caller_uid_login_email = caller_uid_login_email  # type: str
         self.channel = channel  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
         self.instance_id = instance_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id_login_email = owner_id_login_email  # type: str
         self.request_content = request_content  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
 
@@ -481,10 +363,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.caller_bid_login_email is not None:
-            result['CallerBidLoginEmail'] = self.caller_bid_login_email
-        if self.caller_uid_login_email is not None:
-            result['CallerUidLoginEmail'] = self.caller_uid_login_email
         if self.channel is not None:
             result['Channel'] = self.channel
         if self.client_token is not None:
@@ -493,10 +371,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
             result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.owner_id_login_email is not None:
-            result['OwnerIdLoginEmail'] = self.owner_id_login_email
         if self.request_content is not None:
             result['RequestContent'] = self.request_content
         if self.resource_owner_account is not None:
@@ -505,10 +379,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CallerBidLoginEmail') is not None:
-            self.caller_bid_login_email = m.get('CallerBidLoginEmail')
-        if m.get('CallerUidLoginEmail') is not None:
-            self.caller_uid_login_email = m.get('CallerUidLoginEmail')
         if m.get('Channel') is not None:
             self.channel = m.get('Channel')
         if m.get('ClientToken') is not None:
@@ -517,10 +387,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
             self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('OwnerIdLoginEmail') is not None:
-            self.owner_id_login_email = m.get('OwnerIdLoginEmail')
         if m.get('RequestContent') is not None:
             self.request_content = m.get('RequestContent')
         if m.get('ResourceOwnerAccount') is not None:
@@ -598,31 +464,24 @@ class GetVpcPeerConnectionAttributeResponseBodyVpc(TeaModel):
 
 class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
     def __init__(self, accepting_owner_uid=None, accepting_region_id=None, accepting_vpc=None, bandwidth=None,
-                 biz_status=None, code=None, description=None, dynamic_code=None, dynamic_message=None, gmt_create=None,
-                 gmt_expired=None, gmt_modified=None, http_status_code=None, instance_id=None, message=None, name=None,
-                 owner_id=None, region_id=None, request_id=None, resource_group_id=None, status=None, success=None, vpc=None):
+                 biz_status=None, description=None, gmt_create=None, gmt_expired=None, gmt_modified=None, instance_id=None,
+                 name=None, owner_id=None, region_id=None, request_id=None, resource_group_id=None, status=None, vpc=None):
         self.accepting_owner_uid = accepting_owner_uid  # type: long
         self.accepting_region_id = accepting_region_id  # type: str
         self.accepting_vpc = accepting_vpc  # type: GetVpcPeerConnectionAttributeResponseBodyAcceptingVpc
         self.bandwidth = bandwidth  # type: int
         self.biz_status = biz_status  # type: str
-        self.code = code  # type: str
         self.description = description  # type: str
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_expired = gmt_expired  # type: str
         self.gmt_modified = gmt_modified  # type: str
-        self.http_status_code = http_status_code  # type: int
         self.instance_id = instance_id  # type: str
-        self.message = message  # type: str
         self.name = name  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
-        self.success = success  # type: bool
         self.vpc = vpc  # type: GetVpcPeerConnectionAttributeResponseBodyVpc
 
     def validate(self):
@@ -647,26 +506,16 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             result['Bandwidth'] = self.bandwidth
         if self.biz_status is not None:
             result['BizStatus'] = self.biz_status
-        if self.code is not None:
-            result['Code'] = self.code
         if self.description is not None:
             result['Description'] = self.description
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_expired is not None:
             result['GmtExpired'] = self.gmt_expired
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.message is not None:
-            result['Message'] = self.message
         if self.name is not None:
             result['Name'] = self.name
         if self.owner_id is not None:
@@ -679,8 +528,6 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
-        if self.success is not None:
-            result['Success'] = self.success
         if self.vpc is not None:
             result['Vpc'] = self.vpc.to_map()
         return result
@@ -698,26 +545,16 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             self.bandwidth = m.get('Bandwidth')
         if m.get('BizStatus') is not None:
             self.biz_status = m.get('BizStatus')
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtExpired') is not None:
             self.gmt_expired = m.get('GmtExpired')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('OwnerId') is not None:
@@ -730,8 +567,6 @@ class GetVpcPeerConnectionAttributeResponseBody(TeaModel):
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         if m.get('Vpc') is not None:
             temp_model = GetVpcPeerConnectionAttributeResponseBodyVpc()
             self.vpc = temp_model.from_map(m['Vpc'])
@@ -1078,17 +913,10 @@ class ListVpcPeerConnectionsResponseBodyVpcPeerConnects(TeaModel):
 
 
 class ListVpcPeerConnectionsResponseBody(TeaModel):
-    def __init__(self, code=None, dynamic_code=None, dynamic_message=None, http_status_code=None, max_results=None,
-                 message=None, next_token=None, request_id=None, success=None, total_count=None, vpc_peer_connects=None):
-        self.code = code  # type: str
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
+    def __init__(self, max_results=None, next_token=None, request_id=None, total_count=None, vpc_peer_connects=None):
         self.max_results = max_results  # type: int
-        self.message = message  # type: str
         self.next_token = next_token  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
         self.total_count = total_count  # type: int
         self.vpc_peer_connects = vpc_peer_connects  # type: list[ListVpcPeerConnectionsResponseBodyVpcPeerConnects]
 
@@ -1104,24 +932,12 @@ class ListVpcPeerConnectionsResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
         if self.max_results is not None:
             result['MaxResults'] = self.max_results
-        if self.message is not None:
-            result['Message'] = self.message
         if self.next_token is not None:
             result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         if self.total_count is not None:
             result['TotalCount'] = self.total_count
         result['VpcPeerConnects'] = []
@@ -1132,24 +948,12 @@ class ListVpcPeerConnectionsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
         if m.get('MaxResults') is not None:
             self.max_results = m.get('MaxResults')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         if m.get('TotalCount') is not None:
             self.total_count = m.get('TotalCount')
         self.vpc_peer_connects = []
@@ -1243,15 +1047,8 @@ class ModifyVpcPeerConnectionRequest(TeaModel):
 
 
 class ModifyVpcPeerConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, dynamic_code=None, dynamic_message=None, http_status_code=None, message=None,
-                 request_id=None, success=None):
-        self.code = code  # type: str
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -1262,38 +1059,14 @@ class ModifyVpcPeerConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
@@ -1331,18 +1104,11 @@ class ModifyVpcPeerConnectionResponse(TeaModel):
 
 
 class RejectVpcPeerConnectionRequest(TeaModel):
-    def __init__(self, caller_bid_login_email=None, caller_uid_login_email=None, channel=None, client_token=None,
-                 dry_run=None, instance_id=None, owner_account=None, owner_id_login_email=None, request_content=None,
-                 resource_owner_account=None):
-        self.caller_bid_login_email = caller_bid_login_email  # type: str
-        self.caller_uid_login_email = caller_uid_login_email  # type: str
+    def __init__(self, channel=None, client_token=None, dry_run=None, instance_id=None, resource_owner_account=None):
         self.channel = channel  # type: str
         self.client_token = client_token  # type: str
         self.dry_run = dry_run  # type: bool
         self.instance_id = instance_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id_login_email = owner_id_login_email  # type: str
-        self.request_content = request_content  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
 
     def validate(self):
@@ -1354,10 +1120,6 @@ class RejectVpcPeerConnectionRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.caller_bid_login_email is not None:
-            result['CallerBidLoginEmail'] = self.caller_bid_login_email
-        if self.caller_uid_login_email is not None:
-            result['CallerUidLoginEmail'] = self.caller_uid_login_email
         if self.channel is not None:
             result['Channel'] = self.channel
         if self.client_token is not None:
@@ -1366,22 +1128,12 @@ class RejectVpcPeerConnectionRequest(TeaModel):
             result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.owner_account is not None:
-            result['OwnerAccount'] = self.owner_account
-        if self.owner_id_login_email is not None:
-            result['OwnerIdLoginEmail'] = self.owner_id_login_email
-        if self.request_content is not None:
-            result['RequestContent'] = self.request_content
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CallerBidLoginEmail') is not None:
-            self.caller_bid_login_email = m.get('CallerBidLoginEmail')
-        if m.get('CallerUidLoginEmail') is not None:
-            self.caller_uid_login_email = m.get('CallerUidLoginEmail')
         if m.get('Channel') is not None:
             self.channel = m.get('Channel')
         if m.get('ClientToken') is not None:
@@ -1390,28 +1142,14 @@ class RejectVpcPeerConnectionRequest(TeaModel):
             self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('OwnerAccount') is not None:
-            self.owner_account = m.get('OwnerAccount')
-        if m.get('OwnerIdLoginEmail') is not None:
-            self.owner_id_login_email = m.get('OwnerIdLoginEmail')
-        if m.get('RequestContent') is not None:
-            self.request_content = m.get('RequestContent')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         return self
 
 
 class RejectVpcPeerConnectionResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, http_status_code=None,
-                 message=None, request_id=None, success=None):
-        self.code = code  # type: str
-        self.data = data  # type: dict[str, any]
-        self.dynamic_code = dynamic_code  # type: str
-        self.dynamic_message = dynamic_message  # type: str
-        self.http_status_code = http_status_code  # type: int
-        self.message = message  # type: str
+    def __init__(self, request_id=None):
         self.request_id = request_id  # type: str
-        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -1422,42 +1160,14 @@ class RejectVpcPeerConnectionResponseBody(TeaModel):
             return _map
 
         result = dict()
-        if self.code is not None:
-            result['Code'] = self.code
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.dynamic_code is not None:
-            result['DynamicCode'] = self.dynamic_code
-        if self.dynamic_message is not None:
-            result['DynamicMessage'] = self.dynamic_message
-        if self.http_status_code is not None:
-            result['HttpStatusCode'] = self.http_status_code
-        if self.message is not None:
-            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
-        if self.success is not None:
-            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Code') is not None:
-            self.code = m.get('Code')
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('DynamicCode') is not None:
-            self.dynamic_code = m.get('DynamicCode')
-        if m.get('DynamicMessage') is not None:
-            self.dynamic_message = m.get('DynamicMessage')
-        if m.get('HttpStatusCode') is not None:
-            self.http_status_code = m.get('HttpStatusCode')
-        if m.get('Message') is not None:
-            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
-        if m.get('Success') is not None:
-            self.success = m.get('Success')
         return self
 
 
