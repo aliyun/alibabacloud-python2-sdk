@@ -5773,7 +5773,9 @@ class GetLiveRoomUserStatisticsRequest(TeaModel):
 
 
 class GetLiveRoomUserStatisticsResponseBodyResultUserStatisticsList(TeaModel):
-    def __init__(self, user_id=None, watch_live_time=None):
+    def __init__(self, comment_count=None, like_count=None, user_id=None, watch_live_time=None):
+        self.comment_count = comment_count  # type: int
+        self.like_count = like_count  # type: int
         # 用户ID。
         self.user_id = user_id  # type: str
         # 观看时长，单位：毫秒。
@@ -5788,6 +5790,10 @@ class GetLiveRoomUserStatisticsResponseBodyResultUserStatisticsList(TeaModel):
             return _map
 
         result = dict()
+        if self.comment_count is not None:
+            result['CommentCount'] = self.comment_count
+        if self.like_count is not None:
+            result['LikeCount'] = self.like_count
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.watch_live_time is not None:
@@ -5796,6 +5802,10 @@ class GetLiveRoomUserStatisticsResponseBodyResultUserStatisticsList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CommentCount') is not None:
+            self.comment_count = m.get('CommentCount')
+        if m.get('LikeCount') is not None:
+            self.like_count = m.get('LikeCount')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('WatchLiveTime') is not None:
