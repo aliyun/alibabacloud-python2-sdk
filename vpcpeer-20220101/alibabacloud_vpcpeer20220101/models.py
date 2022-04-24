@@ -324,9 +324,7 @@ class DeleteVpcPeerConnectionResponse(TeaModel):
 
 
 class GetVpcPeerConnectionAttributeRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, instance_id=None, resource_owner_account=None):
-        self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
+    def __init__(self, instance_id=None, resource_owner_account=None):
         self.instance_id = instance_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
 
@@ -339,10 +337,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
-        if self.dry_run is not None:
-            result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.resource_owner_account is not None:
@@ -351,10 +345,6 @@ class GetVpcPeerConnectionAttributeRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
-        if m.get('DryRun') is not None:
-            self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -575,10 +565,7 @@ class GetVpcPeerConnectionAttributeResponse(TeaModel):
 
 
 class ListVpcPeerConnectionsRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, instance_id=None, max_results=None, name=None,
-                 next_token=None, region_id=None, vpc_id=None):
-        self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
+    def __init__(self, instance_id=None, max_results=None, name=None, next_token=None, region_id=None, vpc_id=None):
         self.instance_id = instance_id  # type: str
         self.max_results = max_results  # type: int
         self.name = name  # type: str
@@ -596,10 +583,6 @@ class ListVpcPeerConnectionsRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
-        if self.dry_run is not None:
-            result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.max_results is not None:
@@ -616,10 +599,6 @@ class ListVpcPeerConnectionsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
-        if m.get('DryRun') is not None:
-            self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('MaxResults') is not None:
@@ -636,10 +615,8 @@ class ListVpcPeerConnectionsRequest(TeaModel):
 
 
 class ListVpcPeerConnectionsShrinkRequest(TeaModel):
-    def __init__(self, client_token=None, dry_run=None, instance_id=None, max_results=None, name=None,
-                 next_token=None, region_id=None, vpc_id_shrink=None):
-        self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
+    def __init__(self, instance_id=None, max_results=None, name=None, next_token=None, region_id=None,
+                 vpc_id_shrink=None):
         self.instance_id = instance_id  # type: str
         self.max_results = max_results  # type: int
         self.name = name  # type: str
@@ -657,10 +634,6 @@ class ListVpcPeerConnectionsShrinkRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.client_token is not None:
-            result['ClientToken'] = self.client_token
-        if self.dry_run is not None:
-            result['DryRun'] = self.dry_run
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.max_results is not None:
@@ -677,10 +650,6 @@ class ListVpcPeerConnectionsShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('ClientToken') is not None:
-            self.client_token = m.get('ClientToken')
-        if m.get('DryRun') is not None:
-            self.dry_run = m.get('DryRun')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('MaxResults') is not None:

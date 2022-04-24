@@ -145,10 +145,6 @@ class Client(OpenApiClient):
     def get_vpc_peer_connection_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.client_token):
-            body['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.dry_run):
-            body['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -183,10 +179,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.vpc_id):
             request.vpc_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.vpc_id, 'VpcId', 'simple')
         body = {}
-        if not UtilClient.is_unset(request.client_token):
-            body['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.dry_run):
-            body['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.max_results):
