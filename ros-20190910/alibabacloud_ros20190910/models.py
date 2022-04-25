@@ -3892,6 +3892,83 @@ class GetFeatureDetailsRequest(TeaModel):
         return self
 
 
+class GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes(TeaModel):
+    def __init__(self, resource_type=None, source_resource_group_supported=None, source_resources_supported=None,
+                 source_supported=None, source_tag_supported=None):
+        self.resource_type = resource_type  # type: str
+        self.source_resource_group_supported = source_resource_group_supported  # type: bool
+        self.source_resources_supported = source_resources_supported  # type: bool
+        self.source_supported = source_supported  # type: bool
+        self.source_tag_supported = source_tag_supported  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.source_resource_group_supported is not None:
+            result['SourceResourceGroupSupported'] = self.source_resource_group_supported
+        if self.source_resources_supported is not None:
+            result['SourceResourcesSupported'] = self.source_resources_supported
+        if self.source_supported is not None:
+            result['SourceSupported'] = self.source_supported
+        if self.source_tag_supported is not None:
+            result['SourceTagSupported'] = self.source_tag_supported
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('SourceResourceGroupSupported') is not None:
+            self.source_resource_group_supported = m.get('SourceResourceGroupSupported')
+        if m.get('SourceResourcesSupported') is not None:
+            self.source_resources_supported = m.get('SourceResourcesSupported')
+        if m.get('SourceSupported') is not None:
+            self.source_supported = m.get('SourceSupported')
+        if m.get('SourceTagSupported') is not None:
+            self.source_tag_supported = m.get('SourceTagSupported')
+        return self
+
+
+class GetFeatureDetailsResponseBodyTemplateScratch(TeaModel):
+    def __init__(self, supported_resource_types=None):
+        self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes]
+
+    def validate(self):
+        if self.supported_resource_types:
+            for k in self.supported_resource_types:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetFeatureDetailsResponseBodyTemplateScratch, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SupportedResourceTypes'] = []
+        if self.supported_resource_types is not None:
+            for k in self.supported_resource_types:
+                result['SupportedResourceTypes'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.supported_resource_types = []
+        if m.get('SupportedResourceTypes') is not None:
+            for k in m.get('SupportedResourceTypes'):
+                temp_model = GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes()
+                self.supported_resource_types.append(temp_model.from_map(k))
+        return self
+
+
 class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
     def __init__(self, custom_tag=None, estimate_cost=None, resource_group=None, system_tag=None):
         self.custom_tag = custom_tag  # type: list[str]
@@ -4049,11 +4126,14 @@ class GetFeatureDetailsResponseBodyTerraform(TeaModel):
 
 
 class GetFeatureDetailsResponseBody(TeaModel):
-    def __init__(self, request_id=None, terraform=None):
+    def __init__(self, request_id=None, template_scratch=None, terraform=None):
         self.request_id = request_id  # type: str
+        self.template_scratch = template_scratch  # type: GetFeatureDetailsResponseBodyTemplateScratch
         self.terraform = terraform  # type: GetFeatureDetailsResponseBodyTerraform
 
     def validate(self):
+        if self.template_scratch:
+            self.template_scratch.validate()
         if self.terraform:
             self.terraform.validate()
 
@@ -4065,6 +4145,8 @@ class GetFeatureDetailsResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.template_scratch is not None:
+            result['TemplateScratch'] = self.template_scratch.to_map()
         if self.terraform is not None:
             result['Terraform'] = self.terraform.to_map()
         return result
@@ -4073,6 +4155,9 @@ class GetFeatureDetailsResponseBody(TeaModel):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TemplateScratch') is not None:
+            temp_model = GetFeatureDetailsResponseBodyTemplateScratch()
+            self.template_scratch = temp_model.from_map(m['TemplateScratch'])
         if m.get('Terraform') is not None:
             temp_model = GetFeatureDetailsResponseBodyTerraform()
             self.terraform = temp_model.from_map(m['Terraform'])
@@ -12445,10 +12530,10 @@ class UpdateStackRequestTags(TeaModel):
 
 class UpdateStackRequest(TeaModel):
     def __init__(self, client_token=None, disable_rollback=None, parallelism=None, parameters=None,
-                 ram_role_name=None, region_id=None, replacement_option=None, stack_id=None, stack_policy_body=None,
-                 stack_policy_during_update_body=None, stack_policy_during_update_url=None, stack_policy_url=None, tags=None, template_body=None,
-                 template_id=None, template_url=None, template_version=None, timeout_in_minutes=None,
-                 use_previous_parameters=None):
+                 ram_role_name=None, region_id=None, replacement_option=None, resource_group_id=None, stack_id=None,
+                 stack_policy_body=None, stack_policy_during_update_body=None, stack_policy_during_update_url=None,
+                 stack_policy_url=None, tags=None, template_body=None, template_id=None, template_url=None, template_version=None,
+                 timeout_in_minutes=None, use_previous_parameters=None):
         self.client_token = client_token  # type: str
         self.disable_rollback = disable_rollback  # type: bool
         self.parallelism = parallelism  # type: long
@@ -12456,6 +12541,7 @@ class UpdateStackRequest(TeaModel):
         self.ram_role_name = ram_role_name  # type: str
         self.region_id = region_id  # type: str
         self.replacement_option = replacement_option  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.stack_id = stack_id  # type: str
         self.stack_policy_body = stack_policy_body  # type: str
         self.stack_policy_during_update_body = stack_policy_during_update_body  # type: str
@@ -12501,6 +12587,8 @@ class UpdateStackRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.replacement_option is not None:
             result['ReplacementOption'] = self.replacement_option
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.stack_id is not None:
             result['StackId'] = self.stack_id
         if self.stack_policy_body is not None:
@@ -12548,6 +12636,8 @@ class UpdateStackRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ReplacementOption') is not None:
             self.replacement_option = m.get('ReplacementOption')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('StackId') is not None:
             self.stack_id = m.get('StackId')
         if m.get('StackPolicyBody') is not None:

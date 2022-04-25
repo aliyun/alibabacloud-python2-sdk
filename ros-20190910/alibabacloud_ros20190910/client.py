@@ -2459,6 +2459,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.replacement_option):
             query['ReplacementOption'] = request.replacement_option
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.stack_id):
             query['StackId'] = request.stack_id
         if not UtilClient.is_unset(request.stack_policy_body):
