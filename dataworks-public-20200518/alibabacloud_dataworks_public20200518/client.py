@@ -777,6 +777,10 @@ class Client(OpenApiClient):
             body['FileType'] = request.file_type
         if not UtilClient.is_unset(request.input_list):
             body['InputList'] = request.input_list
+        if not UtilClient.is_unset(request.input_parameters):
+            body['InputParameters'] = request.input_parameters
+        if not UtilClient.is_unset(request.output_parameters):
+            body['OutputParameters'] = request.output_parameters
         if not UtilClient.is_unset(request.owner):
             body['Owner'] = request.owner
         if not UtilClient.is_unset(request.para_value):
@@ -7154,8 +7158,12 @@ class Client(OpenApiClient):
             body['FileName'] = request.file_name
         if not UtilClient.is_unset(request.input_list):
             body['InputList'] = request.input_list
+        if not UtilClient.is_unset(request.input_parameters):
+            body['InputParameters'] = request.input_parameters
         if not UtilClient.is_unset(request.output_list):
             body['OutputList'] = request.output_list
+        if not UtilClient.is_unset(request.output_parameters):
+            body['OutputParameters'] = request.output_parameters
         if not UtilClient.is_unset(request.owner):
             body['Owner'] = request.owner
         if not UtilClient.is_unset(request.para_value):
