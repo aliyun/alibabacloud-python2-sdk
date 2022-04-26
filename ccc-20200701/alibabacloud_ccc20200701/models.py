@@ -9835,6 +9835,164 @@ class HoldCallResponse(TeaModel):
         return self
 
 
+class ImportAdminsRequest(TeaModel):
+    def __init__(self, instance_id=None, ram_id_list=None):
+        self.instance_id = instance_id  # type: str
+        self.ram_id_list = ram_id_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportAdminsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.ram_id_list is not None:
+            result['RamIdList'] = self.ram_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RamIdList') is not None:
+            self.ram_id_list = m.get('RamIdList')
+        return self
+
+
+class ImportAdminsResponseBodyData(TeaModel):
+    def __init__(self, extension=None, instance_id=None, ram_id=None, role_id=None, user_id=None):
+        self.extension = extension  # type: str
+        self.instance_id = instance_id  # type: str
+        self.ram_id = ram_id  # type: str
+        self.role_id = role_id  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImportAdminsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.ram_id is not None:
+            result['RamId'] = self.ram_id
+        if self.role_id is not None:
+            result['RoleId'] = self.role_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RamId') is not None:
+            self.ram_id = m.get('RamId')
+        if m.get('RoleId') is not None:
+            self.role_id = m.get('RoleId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ImportAdminsResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[ImportAdminsResponseBodyData]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ImportAdminsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ImportAdminsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ImportAdminsResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: ImportAdminsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ImportAdminsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = ImportAdminsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ImportCustomCallTaggingRequest(TeaModel):
     def __init__(self, file_path=None, instance_id=None):
         self.file_path = file_path  # type: str
@@ -10900,8 +11058,10 @@ class InterceptCallResponse(TeaModel):
 
 
 class LaunchAuthenticationRequest(TeaModel):
-    def __init__(self, contact_flow_id=None, device_id=None, instance_id=None, job_id=None, user_id=None):
+    def __init__(self, contact_flow_id=None, contact_flow_variables=None, device_id=None, instance_id=None,
+                 job_id=None, user_id=None):
         self.contact_flow_id = contact_flow_id  # type: str
+        self.contact_flow_variables = contact_flow_variables  # type: str
         self.device_id = device_id  # type: str
         self.instance_id = instance_id  # type: str
         self.job_id = job_id  # type: str
@@ -10918,6 +11078,8 @@ class LaunchAuthenticationRequest(TeaModel):
         result = dict()
         if self.contact_flow_id is not None:
             result['ContactFlowId'] = self.contact_flow_id
+        if self.contact_flow_variables is not None:
+            result['ContactFlowVariables'] = self.contact_flow_variables
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
         if self.instance_id is not None:
@@ -10932,6 +11094,8 @@ class LaunchAuthenticationRequest(TeaModel):
         m = m or dict()
         if m.get('ContactFlowId') is not None:
             self.contact_flow_id = m.get('ContactFlowId')
+        if m.get('ContactFlowVariables') is not None:
+            self.contact_flow_variables = m.get('ContactFlowVariables')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
         if m.get('InstanceId') is not None:
@@ -11291,11 +11455,15 @@ class LaunchAuthenticationResponse(TeaModel):
 
 
 class LaunchSurveyRequest(TeaModel):
-    def __init__(self, contact_flow_id=None, device_id=None, instance_id=None, job_id=None, user_id=None):
+    def __init__(self, contact_flow_id=None, contact_flow_variables=None, device_id=None, instance_id=None,
+                 job_id=None, sms_metadata_id=None, survey_channel=None, user_id=None):
         self.contact_flow_id = contact_flow_id  # type: str
+        self.contact_flow_variables = contact_flow_variables  # type: str
         self.device_id = device_id  # type: str
         self.instance_id = instance_id  # type: str
         self.job_id = job_id  # type: str
+        self.sms_metadata_id = sms_metadata_id  # type: str
+        self.survey_channel = survey_channel  # type: str
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -11309,12 +11477,18 @@ class LaunchSurveyRequest(TeaModel):
         result = dict()
         if self.contact_flow_id is not None:
             result['ContactFlowId'] = self.contact_flow_id
+        if self.contact_flow_variables is not None:
+            result['ContactFlowVariables'] = self.contact_flow_variables
         if self.device_id is not None:
             result['DeviceId'] = self.device_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.sms_metadata_id is not None:
+            result['SmsMetadataId'] = self.sms_metadata_id
+        if self.survey_channel is not None:
+            result['SurveyChannel'] = self.survey_channel
         if self.user_id is not None:
             result['UserId'] = self.user_id
         return result
@@ -11323,12 +11497,18 @@ class LaunchSurveyRequest(TeaModel):
         m = m or dict()
         if m.get('ContactFlowId') is not None:
             self.contact_flow_id = m.get('ContactFlowId')
+        if m.get('ContactFlowVariables') is not None:
+            self.contact_flow_variables = m.get('ContactFlowVariables')
         if m.get('DeviceId') is not None:
             self.device_id = m.get('DeviceId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('SmsMetadataId') is not None:
+            self.sms_metadata_id = m.get('SmsMetadataId')
+        if m.get('SurveyChannel') is not None:
+            self.survey_channel = m.get('SurveyChannel')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         return self
@@ -20471,8 +20651,9 @@ class ListMultiChannelRecordingsRequest(TeaModel):
 
 
 class ListMultiChannelRecordingsResponseBodyData(TeaModel):
-    def __init__(self, agent_id=None, agent_name=None, contact_id=None, duration=None, file_name=None, file_url=None,
-                 ram_id=None, skill_group_id=None, start_time=None):
+    def __init__(self, agent_channel_id=None, agent_id=None, agent_name=None, contact_id=None, duration=None,
+                 file_name=None, file_url=None, ram_id=None, skill_group_id=None, start_time=None):
+        self.agent_channel_id = agent_channel_id  # type: str
         self.agent_id = agent_id  # type: str
         self.agent_name = agent_name  # type: str
         self.contact_id = contact_id  # type: str
@@ -20492,6 +20673,8 @@ class ListMultiChannelRecordingsResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.agent_channel_id is not None:
+            result['AgentChannelId'] = self.agent_channel_id
         if self.agent_id is not None:
             result['AgentId'] = self.agent_id
         if self.agent_name is not None:
@@ -20514,6 +20697,8 @@ class ListMultiChannelRecordingsResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgentChannelId') is not None:
+            self.agent_channel_id = m.get('AgentChannelId')
         if m.get('AgentId') is not None:
             self.agent_id = m.get('AgentId')
         if m.get('AgentName') is not None:
@@ -29143,11 +29328,9 @@ class RemovePhoneNumbersRequest(TeaModel):
 
 
 class RemovePhoneNumbersResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, failure_list=None, http_status_code=None, message=None, params=None,
-                 request_id=None):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, params=None, request_id=None):
         self.code = code  # type: str
-        self.data = data  # type: str
-        self.failure_list = failure_list  # type: list[str]
+        self.data = data  # type: list[str]
         self.http_status_code = http_status_code  # type: int
         self.message = message  # type: str
         self.params = params  # type: list[str]
@@ -29166,8 +29349,6 @@ class RemovePhoneNumbersResponseBody(TeaModel):
             result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
-        if self.failure_list is not None:
-            result['FailureList'] = self.failure_list
         if self.http_status_code is not None:
             result['HttpStatusCode'] = self.http_status_code
         if self.message is not None:
@@ -29184,8 +29365,6 @@ class RemovePhoneNumbersResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
-        if m.get('FailureList') is not None:
-            self.failure_list = m.get('FailureList')
         if m.get('HttpStatusCode') is not None:
             self.http_status_code = m.get('HttpStatusCode')
         if m.get('Message') is not None:
