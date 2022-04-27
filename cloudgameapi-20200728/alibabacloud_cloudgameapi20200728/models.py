@@ -479,6 +479,113 @@ class BatchStopGameSessionsResponse(TeaModel):
         return self
 
 
+class CancelGameHangRequest(TeaModel):
+    def __init__(self, access_key=None, game_session=None):
+        self.access_key = access_key  # type: str
+        self.game_session = game_session  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelGameHangRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        return self
+
+
+class CancelGameHangResponseBody(TeaModel):
+    def __init__(self, code=None, game_session=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.game_session = game_session  # type: str
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelGameHangResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CancelGameHangResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: CancelGameHangResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelGameHangResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = CancelGameHangResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CloseOrderRequest(TeaModel):
     def __init__(self, account_domain=None, buyer_account_id=None, order_id=None):
         self.account_domain = account_domain  # type: str
@@ -4796,6 +4903,129 @@ class QueryGameResponse(TeaModel):
         return self
 
 
+class QueryGameHangRequest(TeaModel):
+    def __init__(self, access_key=None, game_session=None):
+        self.access_key = access_key  # type: str
+        self.game_session = game_session  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryGameHangRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        return self
+
+
+class QueryGameHangResponseBody(TeaModel):
+    def __init__(self, code=None, duration=None, game_session=None, hanging=None, message=None, request_id=None,
+                 start_hang_timestamp=None, success=None):
+        self.code = code  # type: str
+        self.duration = duration  # type: long
+        self.game_session = game_session  # type: str
+        self.hanging = hanging  # type: bool
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.start_hang_timestamp = start_hang_timestamp  # type: long
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryGameHangResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.hanging is not None:
+            result['Hanging'] = self.hanging
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_hang_timestamp is not None:
+            result['StartHangTimestamp'] = self.start_hang_timestamp
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('Hanging') is not None:
+            self.hanging = m.get('Hanging')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartHangTimestamp') is not None:
+            self.start_hang_timestamp = m.get('StartHangTimestamp')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryGameHangResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: QueryGameHangResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryGameHangResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = QueryGameHangResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryItemsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
         self.page_number = page_number  # type: int
@@ -5897,6 +6127,241 @@ class RemoveGameFromProjectResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = RemoveGameFromProjectResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetGameAliveRequest(TeaModel):
+    def __init__(self, access_key=None, game_session=None, keep_alive=None):
+        self.access_key = access_key  # type: str
+        self.game_session = game_session  # type: str
+        self.keep_alive = keep_alive  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetGameAliveRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.keep_alive is not None:
+            result['KeepAlive'] = self.keep_alive
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('KeepAlive') is not None:
+            self.keep_alive = m.get('KeepAlive')
+        return self
+
+
+class SetGameAliveResponseBody(TeaModel):
+    def __init__(self, code=None, game_session=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.game_session = game_session  # type: str
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetGameAliveResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetGameAliveResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetGameAliveResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetGameAliveResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetGameAliveResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetGameHangRequest(TeaModel):
+    def __init__(self, access_key=None, duration=None, game_session=None):
+        self.access_key = access_key  # type: str
+        self.duration = duration  # type: long
+        self.game_session = game_session  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetGameHangRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        return self
+
+
+class SetGameHangResponseBody(TeaModel):
+    def __init__(self, code=None, duration=None, game_session=None, message=None, request_id=None,
+                 start_hang_timestamp=None, success=None):
+        self.code = code  # type: str
+        self.duration = duration  # type: long
+        self.game_session = game_session  # type: str
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.start_hang_timestamp = start_hang_timestamp  # type: long
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetGameHangResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.game_session is not None:
+            result['GameSession'] = self.game_session
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start_hang_timestamp is not None:
+            result['StartHangTimestamp'] = self.start_hang_timestamp
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('GameSession') is not None:
+            self.game_session = m.get('GameSession')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('StartHangTimestamp') is not None:
+            self.start_hang_timestamp = m.get('StartHangTimestamp')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetGameHangResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: SetGameHangResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetGameHangResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = SetGameHangResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

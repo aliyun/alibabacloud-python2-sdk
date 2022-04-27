@@ -33,9 +33,12 @@ class Client(OpenApiClient):
     def adapt_game_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['FrameRate'] = request.frame_rate
-        query['Resolution'] = request.resolution
-        query['VersionId'] = request.version_id
+        if not UtilClient.is_unset(request.frame_rate):
+            query['FrameRate'] = request.frame_rate
+        if not UtilClient.is_unset(request.resolution):
+            query['Resolution'] = request.resolution
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -62,8 +65,10 @@ class Client(OpenApiClient):
     def add_game_to_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameId'] = request.game_id
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -118,12 +123,18 @@ class Client(OpenApiClient):
     def batch_stop_game_sessions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameId'] = request.game_id
-        query['ProjectId'] = request.project_id
-        query['Reason'] = request.reason
-        query['Tags'] = request.tags
-        query['Token'] = request.token
-        query['TrackInfo'] = request.track_info
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.reason):
+            query['Reason'] = request.reason
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
+        if not UtilClient.is_unset(request.track_info):
+            query['TrackInfo'] = request.track_info
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -147,12 +158,45 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.batch_stop_game_sessions_with_options(request, runtime)
 
+    def cancel_game_hang_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_key):
+            body['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_session):
+            body['GameSession'] = request.game_session
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CancelGameHang',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.CancelGameHangResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_game_hang(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_game_hang_with_options(request, runtime)
+
     def close_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['BuyerAccountId'] = request.buyer_account_id
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.buyer_account_id):
+            query['BuyerAccountId'] = request.buyer_account_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -179,9 +223,12 @@ class Client(OpenApiClient):
     def create_game_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['GameName'] = request.game_name
-        query['PlatformType'] = request.platform_type
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.game_name):
+            query['GameName'] = request.game_name
+        if not UtilClient.is_unset(request.platform_type):
+            query['PlatformType'] = request.platform_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -208,16 +255,26 @@ class Client(OpenApiClient):
     def create_game_deploy_workflow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DownloadType'] = request.download_type
-        query['FileType'] = request.file_type
-        query['FrameRate'] = request.frame_rate
-        query['GameId'] = request.game_id
-        query['GameVersion'] = request.game_version
-        query['Hash'] = request.hash
-        query['Instance'] = request.instance
-        query['ProjectId'] = request.project_id
-        query['Resolution'] = request.resolution
-        query['VersionName'] = request.version_name
+        if not UtilClient.is_unset(request.download_type):
+            query['DownloadType'] = request.download_type
+        if not UtilClient.is_unset(request.file_type):
+            query['FileType'] = request.file_type
+        if not UtilClient.is_unset(request.frame_rate):
+            query['FrameRate'] = request.frame_rate
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.game_version):
+            query['GameVersion'] = request.game_version
+        if not UtilClient.is_unset(request.hash):
+            query['Hash'] = request.hash
+        if not UtilClient.is_unset(request.instance):
+            query['Instance'] = request.instance
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resolution):
+            query['Resolution'] = request.resolution
+        if not UtilClient.is_unset(request.version_name):
+            query['VersionName'] = request.version_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -244,14 +301,22 @@ class Client(OpenApiClient):
     def create_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['Amount'] = request.amount
-        query['BuyerAccountId'] = request.buyer_account_id
-        query['IdempotentCode'] = request.idempotent_code
-        query['ItemId'] = request.item_id
-        query['OriginPrice'] = request.origin_price
-        query['SettlementPrice'] = request.settlement_price
-        query['SkuId'] = request.sku_id
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.amount):
+            query['Amount'] = request.amount
+        if not UtilClient.is_unset(request.buyer_account_id):
+            query['BuyerAccountId'] = request.buyer_account_id
+        if not UtilClient.is_unset(request.idempotent_code):
+            query['IdempotentCode'] = request.idempotent_code
+        if not UtilClient.is_unset(request.item_id):
+            query['ItemId'] = request.item_id
+        if not UtilClient.is_unset(request.origin_price):
+            query['OriginPrice'] = request.origin_price
+        if not UtilClient.is_unset(request.settlement_price):
+            query['SettlementPrice'] = request.settlement_price
+        if not UtilClient.is_unset(request.sku_id):
+            query['SkuId'] = request.sku_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -278,8 +343,10 @@ class Client(OpenApiClient):
     def create_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['ProjectName'] = request.project_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.project_name):
+            query['ProjectName'] = request.project_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -306,9 +373,12 @@ class Client(OpenApiClient):
     def create_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ClientToken'] = request.client_token
-        query['CurrentToken'] = request.current_token
-        query['Session'] = request.session
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.current_token):
+            query['CurrentToken'] = request.current_token
+        if not UtilClient.is_unset(request.session):
+            query['Session'] = request.session
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -335,7 +405,8 @@ class Client(OpenApiClient):
     def delete_game_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -362,7 +433,8 @@ class Client(OpenApiClient):
     def delete_game_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['VersionId'] = request.version_id
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -389,7 +461,8 @@ class Client(OpenApiClient):
     def delete_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -416,9 +489,12 @@ class Client(OpenApiClient):
     def delivery_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['BuyerAccountId'] = request.buyer_account_id
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.buyer_account_id):
+            query['BuyerAccountId'] = request.buyer_account_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -499,9 +575,12 @@ class Client(OpenApiClient):
     def get_game_ccu_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['GameId'] = request.game_id
-        query['RegionName'] = request.region_name
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.region_name):
+            query['RegionName'] = request.region_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -528,7 +607,8 @@ class Client(OpenApiClient):
     def get_game_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameSession'] = request.game_session
+        if not UtilClient.is_unset(request.game_session):
+            query['GameSession'] = request.game_session
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -555,9 +635,12 @@ class Client(OpenApiClient):
     def get_game_stock_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['GameId'] = request.game_id
-        query['UserLevel'] = request.user_level
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.user_level):
+            query['UserLevel'] = request.user_level
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -584,9 +667,12 @@ class Client(OpenApiClient):
     def get_game_trial_surplus_duration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountId'] = request.account_id
-        query['GameId'] = request.game_id
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -613,7 +699,8 @@ class Client(OpenApiClient):
     def get_game_version_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['VersionId'] = request.version_id
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -640,7 +727,8 @@ class Client(OpenApiClient):
     def get_game_version_progress_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -667,7 +755,8 @@ class Client(OpenApiClient):
     def get_item_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ItemId'] = request.item_id
+        if not UtilClient.is_unset(request.item_id):
+            query['ItemId'] = request.item_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -694,9 +783,12 @@ class Client(OpenApiClient):
     def get_out_account_bind_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['AccountId'] = request.account_id
-        query['OutAccountType'] = request.out_account_type
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.out_account_type):
+            query['OutAccountType'] = request.out_account_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -723,7 +815,8 @@ class Client(OpenApiClient):
     def get_session_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['Token'] = request.token
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -750,8 +843,10 @@ class Client(OpenApiClient):
     def get_stop_game_token_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccessKey'] = request.access_key
-        query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.access_key):
+            query['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -778,8 +873,10 @@ class Client(OpenApiClient):
     def kick_player_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameSession'] = request.game_session
-        query['KickedAccountId'] = request.kicked_account_id
+        if not UtilClient.is_unset(request.game_session):
+            query['GameSession'] = request.game_session
+        if not UtilClient.is_unset(request.kicked_account_id):
+            query['KickedAccountId'] = request.kicked_account_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -806,10 +903,14 @@ class Client(OpenApiClient):
     def list_bought_games_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['AccountId'] = request.account_id
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -836,7 +937,8 @@ class Client(OpenApiClient):
     def list_container_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameSessionIdList'] = request.game_session_id_list
+        if not UtilClient.is_unset(request.game_session_id_list):
+            query['GameSessionIdList'] = request.game_session_id_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -863,10 +965,14 @@ class Client(OpenApiClient):
     def list_deployable_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['VersionId'] = request.version_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -893,9 +999,12 @@ class Client(OpenApiClient):
     def list_game_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameId'] = request.game_id
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -922,8 +1031,10 @@ class Client(OpenApiClient):
     def list_games_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -950,11 +1061,16 @@ class Client(OpenApiClient):
     def list_history_container_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['EndTime'] = request.end_time
-        query['LastGameSessionId'] = request.last_game_session_id
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.last_game_session_id):
+            query['LastGameSessionId'] = request.last_game_session_id
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -981,8 +1097,10 @@ class Client(OpenApiClient):
     def list_projects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['MaxResults'] = request.max_results
-        query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1009,10 +1127,14 @@ class Client(OpenApiClient):
     def query_game_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1036,11 +1158,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_game_with_options(request, runtime)
 
+    def query_game_hang_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_key):
+            body['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_session):
+            body['GameSession'] = request.game_session
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryGameHang',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.QueryGameHangResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_game_hang(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_game_hang_with_options(request, runtime)
+
     def query_items_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNumber'] = request.page_number
-        query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1067,9 +1221,12 @@ class Client(OpenApiClient):
     def query_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['BuyerAccountId'] = request.buyer_account_id
-        query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.buyer_account_id):
+            query['BuyerAccountId'] = request.buyer_account_id
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1096,9 +1253,12 @@ class Client(OpenApiClient):
     def query_out_account_bind_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['AccountDomain'] = request.account_domain
-        query['AccountId'] = request.account_id
-        query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.account_domain):
+            query['AccountDomain'] = request.account_domain
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1125,10 +1285,14 @@ class Client(OpenApiClient):
     def query_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['ProjectId'] = request.project_id
-        query['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1155,9 +1319,12 @@ class Client(OpenApiClient):
     def query_tenant_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['PageNo'] = request.page_no
-        query['PageSize'] = request.page_size
-        query['Param'] = request.param
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.param):
+            query['Param'] = request.param
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1184,8 +1351,10 @@ class Client(OpenApiClient):
     def remove_game_from_project_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameId'] = request.game_id
-        query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1209,10 +1378,75 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.remove_game_from_project_with_options(request, runtime)
 
+    def set_game_alive_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_key):
+            body['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.game_session):
+            body['GameSession'] = request.game_session
+        if not UtilClient.is_unset(request.keep_alive):
+            body['KeepAlive'] = request.keep_alive
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetGameAlive',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.SetGameAliveResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_game_alive(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_game_alive_with_options(request, runtime)
+
+    def set_game_hang_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.access_key):
+            body['AccessKey'] = request.access_key
+        if not UtilClient.is_unset(request.duration):
+            body['Duration'] = request.duration
+        if not UtilClient.is_unset(request.game_session):
+            body['GameSession'] = request.game_session
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetGameHang',
+            version='2020-07-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_game_api20200728_models.SetGameHangResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_game_hang(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_game_hang_with_options(request, runtime)
+
     def skip_trial_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['GameSessionId'] = request.game_session_id
+        if not UtilClient.is_unset(request.game_session_id):
+            query['GameSessionId'] = request.game_session_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1277,11 +1511,16 @@ class Client(OpenApiClient):
     def submit_deployment_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['CloudGameInstanceIds'] = request.cloud_game_instance_ids
-        query['GameId'] = request.game_id
-        query['OperationType'] = request.operation_type
-        query['ProjectId'] = request.project_id
-        query['VersionId'] = request.version_id
+        if not UtilClient.is_unset(request.cloud_game_instance_ids):
+            query['CloudGameInstanceIds'] = request.cloud_game_instance_ids
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.operation_type):
+            query['OperationType'] = request.operation_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.version_id):
+            query['VersionId'] = request.version_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1308,25 +1547,44 @@ class Client(OpenApiClient):
     def submit_internal_purchase_charge_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['ActiveUserRetentionRateOneDay'] = request.active_user_retention_rate_one_day
-        query['ActiveUserRetentionRateSevenDay'] = request.active_user_retention_rate_seven_day
-        query['ActiveUserRetentionRateThirtyDay'] = request.active_user_retention_rate_thirty_day
-        query['Arpu'] = request.arpu
-        query['ChargeDate'] = request.charge_date
-        query['Dau'] = request.dau
-        query['GameId'] = request.game_id
-        query['Mau'] = request.mau
-        query['NewUserRetentionRateOneDay'] = request.new_user_retention_rate_one_day
-        query['NewUserRetentionRateSevenDay'] = request.new_user_retention_rate_seven_day
-        query['NewUserRetentionRateThirtyDay'] = request.new_user_retention_rate_thirty_day
-        query['PaymentConversionRate'] = request.payment_conversion_rate
-        query['PlayTimeAverageOneDay'] = request.play_time_average_one_day
-        query['PlayTimeAverageThirtyDay'] = request.play_time_average_thirty_day
-        query['PlayTimeNinetyPointsOneDay'] = request.play_time_ninety_points_one_day
-        query['PlayTimeNinetyPointsThirtyDay'] = request.play_time_ninety_points_thirty_day
-        query['PlayTimeRangeOneDay'] = request.play_time_range_one_day
-        query['PlayTimeRangeThirtyDay'] = request.play_time_range_thirty_day
-        query['UserActivationRate'] = request.user_activation_rate
+        if not UtilClient.is_unset(request.active_user_retention_rate_one_day):
+            query['ActiveUserRetentionRateOneDay'] = request.active_user_retention_rate_one_day
+        if not UtilClient.is_unset(request.active_user_retention_rate_seven_day):
+            query['ActiveUserRetentionRateSevenDay'] = request.active_user_retention_rate_seven_day
+        if not UtilClient.is_unset(request.active_user_retention_rate_thirty_day):
+            query['ActiveUserRetentionRateThirtyDay'] = request.active_user_retention_rate_thirty_day
+        if not UtilClient.is_unset(request.arpu):
+            query['Arpu'] = request.arpu
+        if not UtilClient.is_unset(request.charge_date):
+            query['ChargeDate'] = request.charge_date
+        if not UtilClient.is_unset(request.dau):
+            query['Dau'] = request.dau
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.mau):
+            query['Mau'] = request.mau
+        if not UtilClient.is_unset(request.new_user_retention_rate_one_day):
+            query['NewUserRetentionRateOneDay'] = request.new_user_retention_rate_one_day
+        if not UtilClient.is_unset(request.new_user_retention_rate_seven_day):
+            query['NewUserRetentionRateSevenDay'] = request.new_user_retention_rate_seven_day
+        if not UtilClient.is_unset(request.new_user_retention_rate_thirty_day):
+            query['NewUserRetentionRateThirtyDay'] = request.new_user_retention_rate_thirty_day
+        if not UtilClient.is_unset(request.payment_conversion_rate):
+            query['PaymentConversionRate'] = request.payment_conversion_rate
+        if not UtilClient.is_unset(request.play_time_average_one_day):
+            query['PlayTimeAverageOneDay'] = request.play_time_average_one_day
+        if not UtilClient.is_unset(request.play_time_average_thirty_day):
+            query['PlayTimeAverageThirtyDay'] = request.play_time_average_thirty_day
+        if not UtilClient.is_unset(request.play_time_ninety_points_one_day):
+            query['PlayTimeNinetyPointsOneDay'] = request.play_time_ninety_points_one_day
+        if not UtilClient.is_unset(request.play_time_ninety_points_thirty_day):
+            query['PlayTimeNinetyPointsThirtyDay'] = request.play_time_ninety_points_thirty_day
+        if not UtilClient.is_unset(request.play_time_range_one_day):
+            query['PlayTimeRangeOneDay'] = request.play_time_range_one_day
+        if not UtilClient.is_unset(request.play_time_range_thirty_day):
+            query['PlayTimeRangeThirtyDay'] = request.play_time_range_thirty_day
+        if not UtilClient.is_unset(request.user_activation_rate):
+            query['UserActivationRate'] = request.user_activation_rate
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1353,7 +1611,8 @@ class Client(OpenApiClient):
     def submit_internal_purchase_orders_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['OrderList'] = request.order_list
+        if not UtilClient.is_unset(request.order_list):
+            query['OrderList'] = request.order_list
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1380,11 +1639,16 @@ class Client(OpenApiClient):
     def submit_internal_purchase_ready_flag_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['BatchInfoList'] = request.batch_info_list
-        query['ChargeDate'] = request.charge_date
-        query['GameId'] = request.game_id
-        query['OrderTotalCount'] = request.order_total_count
-        query['Status'] = request.status
+        if not UtilClient.is_unset(request.batch_info_list):
+            query['BatchInfoList'] = request.batch_info_list
+        if not UtilClient.is_unset(request.charge_date):
+            query['ChargeDate'] = request.charge_date
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.order_total_count):
+            query['OrderTotalCount'] = request.order_total_count
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1411,12 +1675,18 @@ class Client(OpenApiClient):
     def upload_game_version_by_download_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        query['DownloadType'] = request.download_type
-        query['FileType'] = request.file_type
-        query['GameId'] = request.game_id
-        query['GameVersion'] = request.game_version
-        query['Hash'] = request.hash
-        query['VersionName'] = request.version_name
+        if not UtilClient.is_unset(request.download_type):
+            query['DownloadType'] = request.download_type
+        if not UtilClient.is_unset(request.file_type):
+            query['FileType'] = request.file_type
+        if not UtilClient.is_unset(request.game_id):
+            query['GameId'] = request.game_id
+        if not UtilClient.is_unset(request.game_version):
+            query['GameVersion'] = request.game_version
+        if not UtilClient.is_unset(request.hash):
+            query['Hash'] = request.hash
+        if not UtilClient.is_unset(request.version_name):
+            query['VersionName'] = request.version_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
