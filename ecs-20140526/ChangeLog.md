@@ -1,3 +1,6 @@
+2022-04-27 Version: 2.1.1
+- Support systemdisk encrypt and arns.
+
 2021-08-27 Version: 1.1.0
 - DescribeSecurityGroups support query by next token.
 
