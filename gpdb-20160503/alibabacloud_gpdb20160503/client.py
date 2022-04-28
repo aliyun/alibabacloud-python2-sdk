@@ -2392,6 +2392,8 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.instance_spec):
             query['InstanceSpec'] = request.instance_spec
+        if not UtilClient.is_unset(request.master_node_num):
+            query['MasterNodeNum'] = request.master_node_num
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.pay_type):
@@ -2402,10 +2404,8 @@ class Client(OpenApiClient):
             query['SegNodeNum'] = request.seg_node_num
         if not UtilClient.is_unset(request.storage_size):
             query['StorageSize'] = request.storage_size
-        if not UtilClient.is_unset(request.master_node_num):
-            query['masterNodeNum'] = request.master_node_num
         if not UtilClient.is_unset(request.upgrade_type):
-            query['upgradeType'] = request.upgrade_type
+            query['UpgradeType'] = request.upgrade_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
