@@ -1,3 +1,6 @@
+2022-04-28 Version: 0.0.5
+- Update RollbackStagingConfig.
+
 2022-03-31 Version: 0.0.4
 - Update user config api.
 

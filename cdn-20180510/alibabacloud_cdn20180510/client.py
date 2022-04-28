@@ -443,38 +443,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_cdn_certificate_signing_request_with_options(request, runtime)
 
-    def create_cdn_compute_domain_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.coverage):
-            query['Coverage'] = request.coverage
-        if not UtilClient.is_unset(request.domain_name):
-            query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='CreateCdnComputeDomain',
-            version='2018-05-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cdn_20180510_models.CreateCdnComputeDomainResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_cdn_compute_domain(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_cdn_compute_domain_with_options(request, runtime)
-
     def create_cdn_deliver_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1082,38 +1050,6 @@ class Client(OpenApiClient):
     def describe_cdn_certificate_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_cdn_certificate_list_with_options(request, runtime)
-
-    def describe_cdn_compute_user_domain_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.page_number):
-            query['PageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['PageSize'] = request.page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeCdnComputeUserDomain',
-            version='2018-05-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            cdn_20180510_models.DescribeCdnComputeUserDomainResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_cdn_compute_user_domain(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_cdn_compute_user_domain_with_options(request, runtime)
 
     def describe_cdn_deleted_domains_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4694,8 +4630,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.function_name):
-            query['FunctionName'] = request.function_name
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
@@ -4796,8 +4730,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
-        if not UtilClient.is_unset(request.function_name):
-            query['FunctionName'] = request.function_name
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         req = open_api_models.OpenApiRequest(
