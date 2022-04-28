@@ -1,3 +1,6 @@
+2022-04-28 Version: 1.0.9
+- Add DescribeDcdnWafDomains.
+
 2022-04-07 Version: 1.0.8
 - Add DescribeDcdnWafService.
 
