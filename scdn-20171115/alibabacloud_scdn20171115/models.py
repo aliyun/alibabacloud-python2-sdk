@@ -3043,10 +3043,11 @@ class DescribeScdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
 
 
 class DescribeScdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
-    def __init__(self, config_id=None, function_args=None, function_name=None, status=None):
+    def __init__(self, config_id=None, function_args=None, function_name=None, parent_id=None, status=None):
         self.config_id = config_id  # type: str
         self.function_args = function_args  # type: DescribeScdnDomainConfigsResponseBodyDomainConfigsDomainConfigFunctionArgs
         self.function_name = function_name  # type: str
+        self.parent_id = parent_id  # type: long
         self.status = status  # type: str
 
     def validate(self):
@@ -3065,6 +3066,8 @@ class DescribeScdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             result['FunctionArgs'] = self.function_args.to_map()
         if self.function_name is not None:
             result['FunctionName'] = self.function_name
+        if self.parent_id is not None:
+            result['ParentId'] = self.parent_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -3078,6 +3081,8 @@ class DescribeScdnDomainConfigsResponseBodyDomainConfigsDomainConfig(TeaModel):
             self.function_args = temp_model.from_map(m['FunctionArgs'])
         if m.get('FunctionName') is not None:
             self.function_name = m.get('FunctionName')
+        if m.get('ParentId') is not None:
+            self.parent_id = m.get('ParentId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -9551,6 +9556,97 @@ class DescribeScdnUserQuotaResponse(TeaModel):
         return self
 
 
+class DescribeScdnVerifyContentRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeScdnVerifyContentRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        return self
+
+
+class DescribeScdnVerifyContentResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeScdnVerifyContentResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeScdnVerifyContentResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: DescribeScdnVerifyContentResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeScdnVerifyContentResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = DescribeScdnVerifyContentResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class OpenScdnServiceRequest(TeaModel):
     def __init__(self, bandwidth=None, cc_protection=None, ddo_sbasic=None, domain_count=None,
                  elastic_protection=None, end_date=None, owner_id=None, protect_type=None, security_token=None, start_date=None):
@@ -10650,6 +10746,102 @@ class UpdateScdnDomainResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('body') is not None:
             temp_model = UpdateScdnDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class VerifyScdnDomainOwnerRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None, verify_type=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.verify_type = verify_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyScdnDomainOwnerRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.verify_type is not None:
+            result['VerifyType'] = self.verify_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('VerifyType') is not None:
+            self.verify_type = m.get('VerifyType')
+        return self
+
+
+class VerifyScdnDomainOwnerResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(VerifyScdnDomainOwnerResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class VerifyScdnDomainOwnerResponse(TeaModel):
+    def __init__(self, headers=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.body = body  # type: VerifyScdnDomainOwnerResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(VerifyScdnDomainOwnerResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('body') is not None:
+            temp_model = VerifyScdnDomainOwnerResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
