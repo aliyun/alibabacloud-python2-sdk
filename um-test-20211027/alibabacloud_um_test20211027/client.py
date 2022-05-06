@@ -55,3 +55,25 @@ class Client(OpenApiClient):
     def get_oss_upload_param(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_oss_upload_param_with_options(request, runtime)
+
+    def upload_notary_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='UploadNotary',
+            version='2021-10-27',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='Anonymous',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            um_test_20211027_models.UploadNotaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upload_notary(self):
+        runtime = util_models.RuntimeOptions()
+        return self.upload_notary_with_options(runtime)
